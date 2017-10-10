@@ -387,7 +387,7 @@ function doProjectSearch() {
  Unity configuration, and the other 20 for EF initialization on first database access &ndash; the second access takes milliseconds and is negligible in this case. The EF&rsquo;s 20 seconds goes down to 4 if I pre-generate the ESQL views as documented, but I
  see no obvious way to optimize Unity configuration. I thought the Unity startup time comes from its Reflection.Emit&nbsp; usage, but I found out that the dynamic build plan methods are compiled on first resolve &ndash; not on registration. Profiling revealed
  that the most expensive operation during the ~7000 .RegisterType calls is PolicyList.ClonePolicies(). It seems that access to this structure (through .Set and .Clear) is being guaranteed to be thread-safe all the time, even if type registration is supposed
- to be not, as detailed in several threads here (for example, this one: <a href="http://unity.codeplex.com/discussions/27496" rel="nofollow">
+ to be not, as detailed in several threads here (for example, this one: <a href="../27496" rel="nofollow">
 http://unity.codeplex.com/discussions/27496</a> ). If I replace the ClonePolicies() method body with &ldquo;return policies;&rdquo; the performance of type registration increases so that the configuration is done in 2 seconds, I observe no obvious side effects
  (Unity unit tests all pass), but since the PolicyList structure is used later on during Resolve operations, which are supposed to be thread safe, I&rsquo;d need to implement some kind of flag that sets the container back to &ldquo;thread-safe mode&rdquo; after
  configuration is done for the solution to be complete. My question is, since I don&rsquo;t know very much about Unity/ObjectBuilder gory internals, won&rsquo;t that break anything I am not aware of? Am I not missing a more obvious solution to the &ldquo;Unity
@@ -423,7 +423,7 @@ http://unity.codeplex.com/discussions/27496</a> ). If I replace the ClonePolicie
         
 <p><span style="color:black; font-size:10pt">Hi,</span></p>
 <p><span style="color:black; font-size:10pt">From your statement <em>&quot;but I found out that the dynamic build plan methods are compiled on first resolve &ndash; not on registration&quot;
-</em>do you mean it taking up more time on resolving? If yes, is there by any chance you were able to see this other thread (<a href="http://unity.codeplex.com/discussions/255250" rel="nofollow">http://unity.codeplex.com/discussions/255250</a>) and see if it somehow helps
+</em>do you mean it taking up more time on resolving? If yes, is there by any chance you were able to see this other thread (<a href="../255250" rel="nofollow">http://unity.codeplex.com/discussions/255250</a>) and see if it somehow helps
  on improving the performance. </span></p>
 <p><span style="color:black; font-size:10pt">As for the changes made in the Unity source code we couldn&rsquo;t tell what any possible drawbacks, the Entlib team may have more inputs on this.
 </span></p>
@@ -464,7 +464,7 @@ Avanade, Inc.<br>
 <strong>AvanadeSupport wrote:</strong><br>
 <p><span style="color:black; font-size:10pt">Hi,</span></p>
 <p><span style="color:black; font-size:10pt">From your statement <em>&quot;but I found out that the dynamic build plan methods are compiled on first resolve &ndash; not on registration&quot;
-</em>do you mean it taking up more time on resolving? If yes, is there by any chance you were able to see this other thread (<a href="http://unity.codeplex.com/discussions/255250" rel="nofollow">http://unity.codeplex.com/discussions/255250</a>) and see if it somehow helps
+</em>do you mean it taking up more time on resolving? If yes, is there by any chance you were able to see this other thread (<a href="../255250" rel="nofollow">http://unity.codeplex.com/discussions/255250</a>) and see if it somehow helps
  on improving the performance. </span></p>
 <p><span style="color:black; font-size:10pt">As for the changes made in the Unity source code we couldn&rsquo;t tell what any possible drawbacks, the Entlib team may have more inputs on this.
 </span></p>

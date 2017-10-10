@@ -1,0 +1,972 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Dependency Question with Resolve and other assemblies</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/28568?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/28568?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="xCD2Z0WHKAVLgNMeczMWxA1254a62jS9xIbtupz8uU2rMmS_uB6-rKI7QfyWTvoYhbesig_27PiJ64-pA5eAKcqrdzn__jldxHIReQp4MgWlDisYkl25xkXPiHU1KHy8bVuSvA2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken22434f342-6e39-4a44-a661-fd266e0ba425" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:29:00 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f28568" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="8c7a6444-ae4c-4458-a6dd-5560d6e1f319">
+                
+                    <script class="options" defer="defer" id="8c7a6444-ae4c-4458-a6dd-5560d6e1f319" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="0be966b9-4ce5-48a3-9ec0-a16ca27e7ed3">
+                
+                    <script class="options" defer="defer" id="0be966b9-4ce5-48a3-9ec0-a16ca27e7ed3" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Dependency Question with Resolve and other assemblies
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:28568]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="a9888cb7-278a-49cc-998a-10a433c65385">
+    <script class="options" defer="defer" id="a9888cb7-278a-49cc-998a-10a433c65385" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/28568","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="95265">
+    <td id="PostDetailsCell_95265" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post95265"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jwatson3d">jwatson3d</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/28/2008 4:38:26 PM" LocalTimeTicks="1212017906">May 28, 2008 at 4:38 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_95265" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;have&#32;a&#32;WinApp&#32;project&#32;that&#32;contains&#32;a&#32;MainForm&#32;and&#32;various&#32;user&#32;controls.&#32;There&#32;is&#32;a&#32;separate&#32;service&#32;provider&#32;library&#32;that&#32;is&#32;loaded&#32;dynamically&#32;via&#32;Unity&#32;configuration&#32;-&#32;a&#32;single&#32;named&#32;&#38;quot&#59;providerContainer&#38;quot&#59;&#32;is&#32;configured&#32;and&#32;loaded&#32;via&#58;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;static&#32;IUnityContainer&#32;providerContainer&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;static&#32;IUnityContainer&#32;ProviderContainer&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;get&#32;&#123;&#32;return&#32;providerContainer&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;providerContainer&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;.AddNewExtension&#38;lt&#59;SimpleEventBrokerExtension&#38;gt&#59;&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;UnityConfigurationSection&#32;section&#32;&#61;&#32;&#40;UnityConfigurationSection&#41;ConfigurationManager.GetSection&#40;&#38;quot&#59;unity&#38;quot&#59;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;section.Containers&#91;&#38;quot&#59;providerContainer&#38;quot&#59;&#93;.Configure&#40;providerContainer&#41;&#59;&#32;&#32;The&#32;user&#32;controls&#32;are&#32;loaded&#32;with&#32;code&#32;as&#32;follows&#58;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Views.PersonListView.PersonListViewControl&#32;personListViewControl&#32;&#61;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Program.ProviderContainer.Resolve&#38;lt&#59;Views.PersonListView.PersonListViewControl&#38;gt&#59;&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;group.ControlContainer.Controls.Add&#40;personListViewControl&#41;&#59;&#32;&#32;The&#32;Resolve&#40;&#41;&#32;method&#32;worked&#32;great&#32;as&#32;it&#32;would&#32;resolve&#32;the&#32;&#91;Dependency&#93;&#32;attribute&#32;in&#32;the&#32;user&#32;control&#32;and&#32;inject&#32;the&#32;appropriate&#32;provider.&#32;&#32;Now&#32;I&#39;ve&#32;refactored&#32;things&#32;a&#32;bit&#32;more&#32;to&#32;introduce&#32;an&#32;MVP&#32;pattern&#32;with&#32;a&#32;presenter&#32;class&#32;for&#32;each&#32;view&#32;&#40;user&#32;control&#41;.&#32;Since&#32;I&#32;plan&#32;on&#32;also&#32;providing&#32;a&#32;separate&#32;web&#32;UI,&#32;I&#32;placed&#32;the&#32;presenters&#32;into&#32;a&#32;separate&#32;assembly&#32;&#40;from&#32;the&#32;WinApp&#41;&#32;so&#32;it&#32;could&#32;be&#32;shared&#32;between&#32;the&#32;two&#32;UIs&#32;&#40;i.e.&#32;&#38;quot&#59;views&#38;quot&#59;&#41;.&#32;This&#32;presenter&#32;layer,&#32;in&#32;turn,&#32;now&#32;has&#32;the&#32;reference&#32;to&#32;the&#32;IServices&#32;since&#32;it&#32;will&#32;manage&#32;the&#32;data&#32;retrieval,&#32;validation,&#32;and&#32;updates.&#32;Thus,&#32;the&#32;view&#32;portion&#32;&#40;the&#32;user&#32;controls&#41;&#32;simply&#32;need&#32;a&#32;&#91;Dependency&#93;&#32;on&#32;the&#32;the&#32;presenter&#32;to&#32;handle&#32;getting&#32;data.&#32;&#32;The&#32;WinApp&#32;project&#32;&#40;containing&#32;the&#32;user&#32;controls&#41;&#32;now&#32;has&#32;a&#32;standard&#32;reference&#32;to&#32;the&#32;separate&#32;&#40;&#38;quot&#59;static&#38;quot&#59;,&#32;so&#32;to&#32;speak&#41;&#32;Presenter&#32;assembly.&#32;The&#32;presenters&#32;in&#32;turn&#32;have&#32;&#91;Dependency&#93;&#32;attributes&#32;on&#32;the&#32;IServices.&#32;When&#32;the&#32;above&#32;code&#32;is&#32;called&#32;to&#32;Resolve&#40;&#41;&#32;on&#32;the&#32;user&#32;control,&#32;I&#32;get&#32;an&#32;exception&#32;of&#32;not&#32;being&#32;able&#32;to&#32;find&#32;the&#32;Presenter...&#32;&#32;PersonListViewControl.listBoxControl_SelectedIndexChanged&#40;&#41;&#32;Resolution&#32;of&#32;the&#32;dependency&#32;failed,&#32;type&#32;&#61;&#32;&#38;quot&#59;PersonListViewControl&#38;quot&#59;,&#32;name&#32;&#61;&#32;&#38;quot&#59;&#38;quot&#59;.&#32;Exception&#32;message&#32;is&#58;&#32;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;WinApp.Views.PersonListView.PersonListViewControl,&#32;null&#93;&#41;&#32;failed&#58;&#32;The&#32;value&#32;for&#32;the&#32;property&#32;&#38;quot&#59;Presenter&#38;quot&#59;&#32;could&#32;not&#32;be&#32;resolved.&#32;&#40;Strategy&#32;type&#32;Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy,&#32;index&#32;3&#41;&#32;&#32;&#32;My&#32;question&#32;is,&#32;do&#32;I&#32;need&#32;to&#32;do&#32;something&#32;to&#32;Unity&#32;to&#32;get&#32;it&#32;to&#32;work&#32;with&#32;the&#32;separate&#32;Presenter&#32;assembly&#63;&#32;I&#32;expected&#32;that&#32;when&#32;I&#32;did&#32;a&#32;Resolve&#40;&#41;&#32;on&#32;the&#32;control&#32;it&#32;would&#32;&#38;quot&#59;flow&#38;quot&#59;&#32;down&#32;through&#32;the&#32;&#91;Dependency&#93;&#32;for&#32;the&#32;Presenter&#32;on&#32;the&#32;control&#32;to&#32;the&#32;&#91;Dependency&#93;&#32;for&#32;the&#32;IService&#32;on&#32;the&#32;presenter.&#32;&#32;Remember,&#32;before&#32;introducing&#32;the&#32;separate&#32;presenter&#32;assembly,&#32;everything&#32;in&#32;Unity&#32;was&#32;configured&#32;and&#32;working&#32;correctly.&#32;&#32;Thanks,&#32;John&#32;">
+        I have a WinApp project that contains a MainForm and various user controls. There is a separate service provider library that is loaded dynamically via Unity configuration - a single named &quot;providerContainer&quot; is configured and loaded via:<br>
+<br>
+<span style="font-size:12px; font-family:courier new">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static IUnityContainer providerContainer;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public static IUnityContainer ProviderContainer<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; get { return providerContainer; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; providerContainer = new UnityContainer()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AddNewExtension&lt;SimpleEventBrokerExtension&gt;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UnityConfigurationSection section = (UnityConfigurationSection)ConfigurationManager.GetSection(&quot;unity&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; section.Containers[&quot;providerContainer&quot;].Configure(providerContainer);</span><br>
+<br>
+The user controls are loaded with code as follows:<br>
+<br>
+<span style="font-family:courier new">&nbsp;&nbsp;&nbsp;&nbsp; Views.PersonListView.PersonListViewControl personListViewControl =
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Program.ProviderContainer.Resolve&lt;Views.PersonListView.PersonListViewControl&gt;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp; group.ControlContainer.Controls.Add(personListViewControl);<br>
+</span><br>
+The Resolve() method worked great as it would resolve the [Dependency] attribute in the user control and inject the appropriate provider.<br>
+<br>
+Now I've refactored things a bit more to introduce an MVP pattern with a presenter class for each view (user control). Since I plan on also providing a separate web UI, I placed the presenters into a separate assembly (from the WinApp) so it could be shared
+ between the two UIs (i.e. &quot;views&quot;). This presenter layer, in turn, now has the reference to the IServices since it will manage the data retrieval, validation, and updates. Thus, the view portion (the user controls) simply need a [Dependency] on the
+ the presenter to handle getting data.<br>
+<br>
+The WinApp project (containing the user controls) now has a standard reference to the separate (&quot;static&quot;, so to speak) Presenter assembly. The presenters in turn have [Dependency] attributes on the IServices. When the above code is called to Resolve()
+ on the user control, I get an exception of not being able to find the Presenter...<br>
+<br>
+<span style="font-family:courier new">PersonListViewControl.listBoxControl_SelectedIndexChanged() Resolution of the dependency failed, type = &quot;PersonListViewControl&quot;, name = &quot;&quot;. Exception message is: The current build operation (build key
+ Build Key[WinApp.Views.PersonListView.PersonListViewControl, null]) failed: The value for the property &quot;Presenter&quot; could not be resolved. (Strategy type Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy, index 3)
+</span><br>
+<br>
+My question is, do I need to do something to Unity to get it to work with the separate Presenter assembly? I expected that when I did a Resolve() on the control it would &quot;flow&quot; down through the [Dependency] for the Presenter on the control to the
+ [Dependency] for the IService on the presenter.<br>
+<br>
+Remember, before introducing the separate presenter assembly, everything in Unity was configured and working correctly.<br>
+<br>
+Thanks,<br>
+John<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_95265" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="95377">
+    <td id="PostDetailsCell_95377" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post95377"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/DavidHayden">DavidHayden</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/29/2008 2:19:31 AM" LocalTimeTicks="1212052771">May 29, 2008 at 2:19 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="5/29/2008 2:20:29 AM" LocalTimeTicks="1212052829">May 29, 2008 at 2:20 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_95377" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="John,&#32;&#32;You&#32;may&#32;want&#32;to&#32;check&#32;that&#32;your&#32;Presenter&#32;Class&#32;does&#32;not&#32;have&#32;a&#32;dependency&#32;that&#32;cannot&#32;be&#32;resolved&#32;by&#32;Unity&#32;which&#32;is&#32;why&#32;you&#32;are&#32;getting&#32;the&#32;error.&#32;&#32;I&#32;got&#32;the&#32;same&#32;error&#32;attempting&#32;to&#32;duplicate&#32;your&#32;situation&#32;when&#32;I&#32;added&#32;a&#32;dependency&#32;to&#32;the&#32;Presenter&#32;Class&#32;that&#32;could&#32;not&#32;be&#32;resolved&#32;with&#32;Unity.&#32;&#32;This&#32;code&#32;works&#58;&#32;&#32;&#32;class&#32;Program&#32;&#123;&#32;static&#32;void&#32;Main&#40;string&#91;&#93;&#32;args&#41;&#32;&#123;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;TestView&#32;view&#32;&#61;&#32;container.Resolve&#38;lt&#59;TestView&#38;gt&#59;&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;public&#32;class&#32;TestView&#32;&#123;&#32;&#91;Dependency&#93;&#32;public&#32;TestPresenter&#32;Presenter&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;&#125;&#32;&#32;public&#32;class&#32;TestPresenter&#32;&#123;&#32;&#125;&#32;&#32;but&#32;when&#32;I&#32;add&#32;a&#32;constructor&#32;dependency&#32;to&#32;the&#32;Presenter&#32;Class&#32;that&#32;Unity&#32;cannot&#32;resolve&#32;I&#32;get&#32;an&#32;error&#32;very&#32;similar&#32;to&#32;yours&#58;&#32;&#32;class&#32;Program&#32;&#123;&#32;static&#32;void&#32;Main&#40;string&#91;&#93;&#32;args&#41;&#32;&#123;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;TestView&#32;view&#32;&#61;&#32;container.Resolve&#38;lt&#59;TestView&#38;gt&#59;&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;public&#32;class&#32;TestView&#32;&#123;&#32;&#91;Dependency&#93;&#32;public&#32;TestPresenter&#32;Presenter&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;&#125;&#32;&#32;public&#32;class&#32;TestPresenter&#32;&#123;&#32;public&#32;TestPresenter&#40;IServiceProvider&#32;provider&#41;&#32;&#123;&#32;&#125;&#32;&#125;&#32;&#32;Not&#32;sure&#32;this&#32;is&#32;the&#32;reason&#32;for&#32;your&#32;error,&#32;but&#32;Unity&#32;exceptions&#32;can&#32;often&#32;be&#32;ambiguous&#32;and&#32;make&#32;you&#32;look&#32;in&#32;the&#32;wrong&#32;place&#32;for&#32;the&#32;problem.&#32;&#32;Regards,&#32;&#32;Dave&#32;&#32;http&#58;&#47;&#47;www.davidhayden.com&#47;&#32;Microsoft&#32;MVP&#32;C&#35;&#32;">
+        John,<br>
+<br>
+You may want to check&nbsp;that your Presenter Class&nbsp;does not have&nbsp;a dependency that cannot be resolved by Unity&nbsp;which is why&nbsp;you are getting the error.<br>
+<br>
+I got the same error attempting to duplicate your situation when I added a dependency to the Presenter Class that could not be resolved with Unity.<br>
+<br>
+This code works:<br>
+<br>
+<p>&nbsp;&nbsp;&nbsp; class Program<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static void Main(string[] args)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IUnityContainer container = new UnityContainer();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TestView view = container.Resolve&lt;TestView&gt;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; public class TestView<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [Dependency]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public TestPresenter Presenter { get; set; }<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; public class TestPresenter<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+but when I add a constructor dependency to the Presenter Class that Unity cannot resolve I get an error very similar to yours:</p>
+<p>&nbsp;&nbsp;&nbsp; class Program<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static void Main(string[] args)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IUnityContainer container = new UnityContainer();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TestView view = container.Resolve&lt;TestView&gt;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; public class TestView<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [Dependency]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public TestPresenter Presenter { get; set; }<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; public class TestPresenter<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public TestPresenter(IServiceProvider provider)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+Not sure this is the reason for your error, but Unity exceptions can often be ambiguous and make you look in the wrong place for the problem.<br>
+<br>
+Regards,<br>
+<br>
+Dave<br>
+<br>
+<a href="http://www.davidhayden.com/" rel="nofollow">http://www.davidhayden.com/</a><br>
+Microsoft MVP C#</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_95377" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="95380">
+    <td id="PostDetailsCell_95380" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post95380"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jwatson3d">jwatson3d</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/29/2008 2:31:59 AM" LocalTimeTicks="1212053519">May 29, 2008 at 2:31 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_95380" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi&#32;David,&#32;&#32;Your&#32;suggestion&#32;lead&#32;me&#32;down&#32;a&#32;good&#32;path.&#32;Regarding&#32;the&#32;dependency...I&#32;tried&#32;to&#32;resolve&#32;it&#32;early&#32;to&#32;see&#32;if&#32;that&#32;would&#32;help.&#32;The&#32;Presenter&#32;only&#32;has&#32;a&#32;dependency&#32;on&#32;IServiceProvider.&#32;In&#32;Program.cs&#32;main&#91;&#93;&#32;right&#32;after&#32;I&#32;configured&#32;the&#32;container&#32;I&#32;forced&#32;it&#32;to&#32;resolve&#32;the&#32;IServiceProvider&#32;and&#32;everything&#32;worked.&#32;When&#32;the&#32;View&#32;is&#32;loaded,&#32;the&#32;dependency&#32;to&#32;the&#32;Presenter&#32;is&#32;resolved&#32;and&#32;in&#32;the&#32;Presenter&#32;the&#32;dependency&#32;to&#32;the&#32;IServiceProvider&#32;is&#32;also&#32;correctly&#32;resolved.&#32;I&#32;guess&#32;Unity&#32;has&#32;the&#32;IServiceProvider&#32;ready&#32;and&#32;can&#32;resolve&#32;it&#32;whereas&#32;before,&#32;it&#32;was&#32;looking&#32;for&#32;it&#32;when&#32;the&#32;first&#32;Presenter&#32;requested&#32;it&#32;&#40;via&#32;&#91;Dependency&#93;&#41;&#32;so&#32;it&#32;never&#32;could&#32;find&#47;resolve&#32;it.&#32;&#32;Can&#32;I&#32;&#38;quot&#59;take&#32;away&#38;quot&#59;&#32;from&#32;this&#32;that&#32;everything&#32;you&#32;put&#32;in&#32;the&#32;Container&#32;must&#32;be&#32;resolved&#47;forced&#63;&#32;&#32;John&#32;&#32;&#32;DavidHayden&#32;wrote&#58;&#32;John,&#32;&#32;You&#32;may&#32;want&#32;to&#32;check&#38;nbsp&#59;that&#32;your&#32;Presenter&#32;Class&#38;nbsp&#59;does&#32;not&#32;have&#38;nbsp&#59;a&#32;dependency&#32;that&#32;cannot&#32;be&#32;resolved&#32;by&#32;Unity&#38;nbsp&#59;which&#32;is&#32;why&#38;nbsp&#59;you&#32;are&#32;getting&#32;the&#32;error.&#32;&#32;I&#32;got&#32;the&#32;same&#32;error&#32;attempting&#32;to&#32;duplicate&#32;your&#32;situation&#32;when&#32;I&#32;added&#32;a&#32;dependency&#32;to&#32;the&#32;Presenter&#32;Class&#32;that&#32;could&#32;not&#32;be&#32;resolved&#32;with&#32;Unity.&#32;&#32;This&#32;code&#32;works&#58;&#32;&#32;&#123;&#123;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;class&#32;Program&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;static&#32;void&#32;Main&#40;string&#91;&#93;&#32;args&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;TestView&#32;view&#32;&#61;&#32;container.Resolve&#38;lt&#59;TestView&#38;gt&#59;&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;class&#32;TestView&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#91;Dependency&#93;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;TestPresenter&#32;Presenter&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;class&#32;TestPresenter&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#125;&#125;&#32;&#32;but&#32;when&#32;I&#32;add&#32;a&#32;constructor&#32;dependency&#32;to&#32;the&#32;Presenter&#32;Class&#32;that&#32;Unity&#32;cannot&#32;resolve&#32;I&#32;get&#32;an&#32;error&#32;very&#32;similar&#32;to&#32;yours&#58;&#32;&#32;&#123;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;class&#32;Program&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;static&#32;void&#32;Main&#40;string&#91;&#93;&#32;args&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;TestView&#32;view&#32;&#61;&#32;container.Resolve&#38;lt&#59;TestView&#38;gt&#59;&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;class&#32;TestView&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#91;Dependency&#93;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;TestPresenter&#32;Presenter&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;class&#32;TestPresenter&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;TestPresenter&#40;IServiceProvider&#32;provider&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#125;&#125;&#32;&#32;Not&#32;sure&#32;this&#32;is&#32;the&#32;reason&#32;for&#32;your&#32;error,&#32;but&#32;Unity&#32;exceptions&#32;can&#32;often&#32;be&#32;ambiguous&#32;and&#32;make&#32;you&#32;look&#32;in&#32;the&#32;wrong&#32;place&#32;for&#32;the&#32;problem.&#32;&#32;Regards,&#32;&#32;Dave&#32;&#32;&#91;url&#58;David&#32;Hayden&#124;http&#58;&#47;&#47;www.davidhayden.com&#47;&#93;&#32;Microsoft&#32;MVP&#32;C&#35;&#32;&#32;&#32;&#32;&#32;">
+        Hi David,<br>
+<br>
+Your suggestion lead me down a good path. Regarding the dependency...I tried to resolve it early to see if that would help. The Presenter only has a dependency on IServiceProvider. In Program.cs main[] right after I configured the container I forced it to resolve
+ the IServiceProvider and everything worked. When the View is loaded, the dependency to the Presenter is resolved and in the Presenter the dependency to the IServiceProvider is also correctly resolved. I guess Unity has the IServiceProvider ready and can resolve
+ it whereas before, it was looking for it when the first Presenter requested it (via [Dependency]) so it never could find/resolve it.<br>
+<br>
+Can I &quot;take away&quot; from this that everything you put in the Container must be resolved/forced?<br>
+<br>
+John<br>
+<br>
+<div style="border-style:dotted none; border-width:0.1em medium; margin:1em 0em 2.5em 3em; padding:0.2em; font-style:italic">
+<br>
+DavidHayden wrote:<br>
+John,<br>
+<br>
+You may want to check&nbsp;that your Presenter Class&nbsp;does not have&nbsp;a dependency that cannot be resolved by Unity&nbsp;which is why&nbsp;you are getting the error.<br>
+<br>
+I got the same error attempting to duplicate your situation when I added a dependency to the Presenter Class that could not be resolved with Unity.<br>
+<br>
+This code works:<br>
+<br>
+{{<br>
+<br>
+<p>&nbsp;&nbsp;&nbsp; class Program<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static void Main(string[] args)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IUnityContainer container = new UnityContainer();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TestView view = container.Resolve&lt;TestView&gt;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; public class TestView<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [Dependency]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public TestPresenter Presenter { get; set; }<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; public class TestPresenter<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}}<br>
+<br>
+but when I add a constructor dependency to the Presenter Class that Unity cannot resolve I get an error very similar to yours:<br>
+<br>
+{{</p>
+<p>&nbsp;&nbsp;&nbsp; class Program<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static void Main(string[] args)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IUnityContainer container = new UnityContainer();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TestView view = container.Resolve&lt;TestView&gt;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; public class TestView<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [Dependency]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public TestPresenter Presenter { get; set; }<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; public class TestPresenter<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public TestPresenter(IServiceProvider provider)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}}<br>
+<br>
+Not sure this is the reason for your error, but Unity exceptions can often be ambiguous and make you look in the wrong place for the problem.<br>
+<br>
+Regards,<br>
+<br>
+Dave<br>
+<br>
+[url:David Hayden|http://www.davidhayden.com/]<br>
+Microsoft MVP C#</p>
+<br>
+<br>
+</div>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_95380" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="95501">
+    <td id="PostDetailsCell_95501" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post95501"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/DavidHayden">DavidHayden</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/29/2008 3:21:11 PM" LocalTimeTicks="1212099671">May 29, 2008 at 3:21 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_95501" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="John,&#32;&#32;You&#32;shouldn&#39;t&#32;need&#32;to&#32;resolve&#32;your&#32;dependency&#32;early.&#32;You&#32;will,&#32;however,&#32;need&#32;to&#32;register&#32;your&#32;type&#32;mapping.&#32;If&#32;I&#32;take&#32;the&#32;non-working&#32;version&#32;of&#32;my&#32;code&#32;above&#32;and&#32;add&#32;a&#32;class&#32;that&#32;implements&#32;IServiceProvider&#32;and&#32;register&#32;the&#32;type&#32;mapping&#32;in&#32;Unity,&#32;all&#32;works&#32;fine.&#32;&#32;class&#32;Program&#32;&#123;&#32;static&#32;void&#32;Main&#40;string&#91;&#93;&#32;args&#41;&#32;&#123;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;IServiceProvider,&#32;MyProvider&#38;gt&#59;&#40;&#41;&#59;&#32;TestView&#32;view&#32;&#61;&#32;container.Resolve&#38;lt&#59;TestView&#38;gt&#59;&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;public&#32;class&#32;TestView&#32;&#123;&#32;&#91;Dependency&#93;&#32;public&#32;TestPresenter&#32;Presenter&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;&#125;&#32;&#32;public&#32;class&#32;TestPresenter&#32;&#123;&#32;public&#32;TestPresenter&#40;IServiceProvider&#32;provider&#41;&#32;&#123;&#32;&#125;&#32;&#125;&#32;&#32;public&#32;class&#32;MyProvider&#32;&#58;&#32;IServiceProvider&#32;&#123;&#32;public&#32;object&#32;GetService&#40;Type&#32;serviceType&#41;&#32;&#123;&#32;return&#32;null&#59;&#32;&#125;&#32;&#125;&#32;If&#32;you&#32;find&#32;yourself&#32;needing&#32;to&#32;resolve&#32;IServiceProvider&#32;beforehand,&#32;something&#32;isn&#39;t&#32;quite&#32;right.&#32;&#32;Regards,&#32;&#32;Dave&#32;&#32;http&#58;&#47;&#47;www.davidhayden.com&#47;&#32;Microsoft&#32;MVP&#32;C&#35;&#32;">
+        
+<p>John,<br>
+<br>
+You shouldn't need to resolve your dependency early. You will, however, need to register your type mapping.</p>
+<p>If I take the non-working version of my code above and add a class that implements IServiceProvider and register the type mapping in Unity, all works fine.</p>
+<p>&nbsp;&nbsp;&nbsp; class Program<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static void Main(string[] args)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IUnityContainer container = new UnityContainer();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; container.RegisterType&lt;IServiceProvider, MyProvider&gt;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TestView view = container.Resolve&lt;TestView&gt;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; public class TestView<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [Dependency]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public TestPresenter Presenter { get; set; }<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; public class TestPresenter<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public TestPresenter(IServiceProvider provider)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; public class MyProvider : IServiceProvider<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public object GetService(Type serviceType)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return null;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>If you find yourself needing to resolve IServiceProvider beforehand, something isn't quite right.<br>
+<br>
+Regards,<br>
+<br>
+Dave<br>
+<br>
+<a href="http://www.davidhayden.com/" rel="nofollow">http://www.davidhayden.com/</a><br>
+Microsoft MVP C#</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_95501" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="95679">
+    <td id="PostDetailsCell_95679" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post95679"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jwatson3d">jwatson3d</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/30/2008 1:25:44 AM" LocalTimeTicks="1212135944">May 30, 2008 at 1:25 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_95679" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Again,&#32;you&#39;re&#32;right.&#32;I&#32;removed&#32;those&#32;lines&#32;and&#32;it&#32;still&#32;works.&#32;It&#39;s&#32;probably&#32;as&#32;you&#32;said&#32;-&#32;if&#32;anything&#32;prevents&#32;a&#32;resolve&#32;and&#32;loading&#32;then&#32;it&#32;just&#32;seems&#32;to&#32;behave&#32;strangely.&#32;Thanks&#32;again&#32;for&#32;your&#32;help.&#32;&#32;John&#32;&#32;DavidHayden&#32;wrote&#58;&#32;John,&#32;&#32;You&#32;shouldn&#39;t&#32;need&#32;to&#32;resolve&#32;your&#32;dependency&#32;early.&#32;You&#32;will,&#32;however,&#32;need&#32;to&#32;register&#32;your&#32;type&#32;mapping.&#32;&#38;lt&#59;snip&#38;gt&#59;&#32;&#32;If&#32;you&#32;find&#32;yourself&#32;needing&#32;to&#32;resolve&#32;IServiceProvider&#32;beforehand,&#32;something&#32;isn&#39;t&#32;quite&#32;right.&#32;&#32;Regards,&#32;&#32;Dave&#32;&#32;http&#58;&#47;&#47;www.davidhayden.com&#47;&#32;Microsoft&#32;MVP&#32;C&#35;&#32;&#32;&#32;&#32;&#32;">
+        Again, you're right. I removed those lines and it still works. It's probably as you said - if anything prevents a resolve and loading then it just seems to behave strangely. Thanks again for your help.<br>
+<br>
+John<br>
+<div style="border-right:medium none; padding-right:0.2em; border-top:#aaa 0.1em dotted; padding-left:0.2em; padding-bottom:0.2em; margin:1em 0em 2.5em 3em; border-left:medium none; padding-top:0.2em; border-bottom:#aaa 0.1em dotted; font-style:italic">
+<br>
+DavidHayden wrote:<br>
+<p>John,<br>
+<br>
+You shouldn't need to resolve your dependency early. You will, however, need to register your type mapping.</p>
+<p>&lt;snip&gt;<br>
+<br>
+If you find yourself needing to resolve IServiceProvider beforehand, something isn't quite right.<br>
+<br>
+Regards,<br>
+<br>
+Dave<br>
+<br>
+<a href="http://www.davidhayden.com/" rel="nofollow">http://www.davidhayden.com/</a><br>
+Microsoft MVP C#</p>
+<br>
+<br>
+</div>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_95679" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f28568">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="7ea90833-3093-427d-bce9-5a17c30ea8e6">
+    <script class="options" defer="defer" id="7ea90833-3093-427d-bce9-5a17c30ea8e6" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_182d3253-5d6e-43d3-b85c-7f3c50ebfc36">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_4ecd51ac-cb39-479b-8b9e-c09ddc554868">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_182d3253-5d6e-43d3-b85c-7f3c50ebfc36" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_4ecd51ac-cb39-479b-8b9e-c09ddc554868" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/28568';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

@@ -1,0 +1,951 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - How to configuring a Exception Policy using Interception in config file </title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/274099?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/274099?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="PXCVB6UzbTFJCz3cBXsBeiH9HOCE0oIpCldOwv0nNPcQrFggm3oeCePZj6G7Cm6JbW2mlZPFRdoAPlyfxyKpz2pjgiMjDCQzB7U-mvXlN36NbagEBUCCIm3GPcappJvVuYo4jA2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken20f25a3ed-c5c9-4271-929f-e777a00cec15" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:26:23 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f274099" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="60d5c25f-2b38-49e4-b86b-7c0a98f84d23">
+                
+                    <script class="options" defer="defer" id="60d5c25f-2b38-49e4-b86b-7c0a98f84d23" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="3feb1811-0424-411f-b068-921d0fcffee4">
+                
+                    <script class="options" defer="defer" id="3feb1811-0424-411f-b068-921d0fcffee4" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                How to configuring a Exception Policy using Interception in config file 
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:274099]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="a1f9998f-b614-4dbc-b209-fe3717a2fa4f">
+    <script class="options" defer="defer" id="a1f9998f-b614-4dbc-b209-fe3717a2fa4f" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/274099","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="677630">
+    <td id="PostDetailsCell_677630" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post677630"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/alex_tuz">alex_tuz</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/28/2011 11:18:34 AM" LocalTimeTicks="1317233914">Sep 28, 2011 at 11:18 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_677630" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;My&#32;config&#32;file&#58;&#32;&#32;&#32;&#38;lt&#59;unity&#32;xmlns&#61;&#38;quot&#59;http&#58;&#47;&#47;schemas.microsoft.com&#47;practices&#47;2010&#47;unity&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;sectionExtension&#32;type&#61;&#38;quot&#59;Microsoft.Practices.Unity.InterceptionExtension.Configuration.InterceptionConfigurationExtension,&#32;Microsoft.Practices.Unity.Interception.Configuration&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;container&#38;gt&#59;&#32;&#38;lt&#59;extension&#32;type&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Unity.EnterpriseLibraryCoreExtension,&#32;Microsoft.Practices.EnterpriseLibrary.Common&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;extension&#32;type&#61;&#38;quot&#59;Interception&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;register&#32;name&#61;&#38;quot&#59;exPolicyImpl&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl,&#32;Microsoft.Practices.EnterpriseLibrary.ExceptionHandling&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;policyName&#38;quot&#59;&#32;value&#61;&#38;quot&#59;exceptionHandling&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#32;&#38;lt&#59;&#47;register&#38;gt&#59;&#32;&#38;lt&#59;register&#32;type&#61;&#38;quot&#59;ConsoleApplication1.IConsoleManager,&#32;ConsoleApplication1&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;ConsoleApplication1.ConsoleManager,&#32;ConsoleApplication1&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;interceptionBehavior&#32;type&#61;&#38;quot&#59;PolicyInjectionBehavior&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;interceptor&#32;type&#61;&#38;quot&#59;InterfaceInterceptor&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;register&#38;gt&#59;&#32;&#38;lt&#59;interception&#38;gt&#59;&#32;&#38;lt&#59;policy&#32;name&#61;&#38;quot&#59;MyPolicy&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;matchingRule&#32;name&#61;&#38;quot&#59;exceptionHandling&#38;quot&#59;&#32;type&#61;&#38;quot&#59;TypeMatchingRule&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;typeName&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;value&#32;value&#61;&#38;quot&#59;ConsoleApplication1.IConsoleManager&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#32;&#38;lt&#59;&#47;matchingRule&#38;gt&#59;&#32;&#38;lt&#59;callHandler&#32;name&#61;&#38;quot&#59;Exception&#32;Handling&#32;Call&#32;Handler&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PolicyInjection.ExceptionCallHandler,&#32;Microsoft.Practices.EnterpriseLibrary.ExceptionHandling&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;lifetime&#32;type&#61;&#38;quot&#59;singleton&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;exceptionPolicy&#38;quot&#59;&#32;dependencyName&#61;&#38;quot&#59;exPolicyImpl&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#32;&#38;lt&#59;&#47;callHandler&#38;gt&#59;&#32;&#38;lt&#59;&#47;policy&#38;gt&#59;&#32;&#38;lt&#59;&#47;interception&#38;gt&#59;&#32;&#38;lt&#59;&#47;container&#38;gt&#59;&#32;&#38;lt&#59;&#47;unity&#38;gt&#59;&#32;&#32;&#32;In&#32;code&#32;I&#32;try&#32;resolver&#32;IConsoleManager&#58;&#32;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.LoadConfiguration&#40;&#41;&#59;&#32;manager&#32;&#61;&#32;container.Resolve&#40;&#41;&#59;&#32;&#32;&#32;but&#32;get&#32;Exception&#58;&#32;Configuration&#32;is&#32;incorrect,&#32;the&#32;type&#32;Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl&#32;does&#32;not&#32;have&#32;a&#32;constructor&#32;that&#32;takes&#32;parameters&#32;named&#32;policyName.&#32;I&#32;specify&#32;that&#32;the&#32;&#38;quot&#59;exceptionPolicy&#38;quot&#59;&#32;depends&#32;from&#32;&#38;quot&#59;exPolicyImpl&#38;quot&#59;.&#32;Then&#32;I&#32;try&#32;resolve&#32;ExceptionPolicyImpl&#32;in&#32;code.&#32;&#32;&#38;lt&#59;unity&#32;xmlns&#61;&#38;quot&#59;http&#58;&#47;&#47;schemas.microsoft.com&#47;practices&#47;2010&#47;unity&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;sectionExtension&#32;type&#61;&#38;quot&#59;Microsoft.Practices.Unity.InterceptionExtension.Configuration.InterceptionConfigurationExtension,&#32;Microsoft.Practices.Unity.Interception.Configuration&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;container&#38;gt&#59;&#32;&#38;lt&#59;extension&#32;type&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Unity.EnterpriseLibraryCoreExtension,&#32;Microsoft.Practices.EnterpriseLibrary.Common&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;extension&#32;type&#61;&#38;quot&#59;Interception&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;register&#32;type&#61;&#38;quot&#59;ConsoleApplication1.IConsoleManager,&#32;ConsoleApplication1&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;ConsoleApplication1.ConsoleManager,&#32;ConsoleApplication1&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;interceptionBehavior&#32;type&#61;&#38;quot&#59;PolicyInjectionBehavior&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;interceptor&#32;type&#61;&#38;quot&#59;InterfaceInterceptor&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;register&#38;gt&#59;&#32;&#38;lt&#59;interception&#38;gt&#59;&#32;&#38;lt&#59;policy&#32;name&#61;&#38;quot&#59;MyPolicy&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;matchingRule&#32;name&#61;&#38;quot&#59;exceptionHandling&#38;quot&#59;&#32;type&#61;&#38;quot&#59;TypeMatchingRule&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;typeName&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;value&#32;value&#61;&#38;quot&#59;ConsoleApplication1.IConsoleManager&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#32;&#38;lt&#59;&#47;matchingRule&#38;gt&#59;&#32;&#38;lt&#59;callHandler&#32;name&#61;&#38;quot&#59;Exception&#32;Handling&#32;Call&#32;Handler&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PolicyInjection.ExceptionCallHandler,&#32;Microsoft.Practices.EnterpriseLibrary.ExceptionHandling&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;lifetime&#32;type&#61;&#38;quot&#59;singleton&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;exceptionPolicy&#38;quot&#59;&#32;dependencyName&#61;&#38;quot&#59;exPolicyImpl&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#32;&#38;lt&#59;&#47;callHandler&#38;gt&#59;&#32;&#38;lt&#59;&#47;policy&#38;gt&#59;&#32;&#38;lt&#59;&#47;interception&#38;gt&#59;&#32;&#38;lt&#59;&#47;container&#38;gt&#59;&#32;&#38;lt&#59;&#47;unity&#38;gt&#59;&#32;&#32;&#32;&#32;My&#32;code&#58;&#32;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.LoadConfiguration&#40;&#41;&#59;&#32;&#47;&#47;Revolve&#32;ExceptionPolicyImpl.&#32;No&#32;Exception.&#32;&#32;ExceptionPolicyImpl&#32;impl&#32;&#61;&#32;container.Resolve&#40;&#38;quot&#59;exceptionHandling&#38;quot&#59;&#41;&#59;&#32;&#47;&#47;Register&#32;instance&#32;in&#32;container&#32;&#32;container.RegisterInstance&#40;&#38;quot&#59;exPolicyImpl&#38;quot&#59;,&#32;impl,&#32;new&#32;ContainerControlledLifetimeManager&#40;&#41;&#41;&#59;&#32;&#47;&#47;&#32;but&#32;when&#32;try&#32;create&#32;ConsoleManager&#32;I&#32;get&#32;the&#32;Exception&#32;again...&#32;&#32;manager&#32;&#61;&#32;container.Resolve&#40;&#41;&#59;&#32;&#32;&#32;Configuration&#32;for&#32;Exception&#32;Block&#47;Logging&#32;Block&#32;exist&#32;and&#32;working&#32;fine.&#32;">
+        
+<p>My config file:</p>
+<div style="background-color:white; color:black">
+<pre> <span style="color:blue">&lt;</span><span style="color:#a31515">unity</span> <span style="color:red">xmlns</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">http://schemas.microsoft.com/practices/2010/unity</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>    
+    <span style="color:blue">&lt;</span><span style="color:#a31515">sectionExtension</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Microsoft.Practices.Unity.InterceptionExtension.Configuration.InterceptionConfigurationExtension, Microsoft.Practices.Unity.Interception.Configuration</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+    <span style="color:blue">&lt;</span><span style="color:#a31515">container</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">extension</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Unity.EnterpriseLibraryCoreExtension, Microsoft.Practices.EnterpriseLibrary.Common</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">extension</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Interception</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+
+      <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">exPolicyImpl</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl, Microsoft.Practices.EnterpriseLibrary.ExceptionHandling</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+          <span style="color:blue">&lt;</span><span style="color:#a31515">param</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">policyName</span><span style="color:black">&quot;</span> <span style="color:red">value</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">exceptionHandling</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>          
+        <span style="color:blue">&lt;/</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;/</span><span style="color:#a31515">register</span><span style="color:blue">&gt;</span>
+      
+      <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ConsoleApplication1.IConsoleManager, ConsoleApplication1</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ConsoleApplication1.ConsoleManager, ConsoleApplication1</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">interceptionBehavior</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">PolicyInjectionBehavior</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">interceptor</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">InterfaceInterceptor</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+      <span style="color:blue">&lt;/</span><span style="color:#a31515">register</span><span style="color:blue">&gt;</span>
+
+      <span style="color:blue">&lt;</span><span style="color:#a31515">interception</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">policy</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">MyPolicy</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+          <span style="color:blue">&lt;</span><span style="color:#a31515">matchingRule</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">exceptionHandling</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">TypeMatchingRule</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+            <span style="color:blue">&lt;</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+              <span style="color:blue">&lt;</span><span style="color:#a31515">param</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">typeName</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+                <span style="color:blue">&lt;</span><span style="color:#a31515">value</span> <span style="color:red">value</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ConsoleApplication1.IConsoleManager</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+              <span style="color:blue">&lt;/</span><span style="color:#a31515">param</span><span style="color:blue">&gt;</span>
+            <span style="color:blue">&lt;/</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+          <span style="color:blue">&lt;/</span><span style="color:#a31515">matchingRule</span><span style="color:blue">&gt;</span>
+          <span style="color:blue">&lt;</span><span style="color:#a31515">callHandler</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Exception Handling Call Handler</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PolicyInjection.ExceptionCallHandler, Microsoft.Practices.EnterpriseLibrary.ExceptionHandling</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+            <span style="color:blue">&lt;</span><span style="color:#a31515">lifetime</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">singleton</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+            <span style="color:blue">&lt;</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+              <span style="color:blue">&lt;</span><span style="color:#a31515">param</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">exceptionPolicy</span><span style="color:black">&quot;</span> <span style="color:red">dependencyName</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">exPolicyImpl</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+            <span style="color:blue">&lt;/</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+          <span style="color:blue">&lt;/</span><span style="color:#a31515">callHandler</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;/</span><span style="color:#a31515">policy</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;/</span><span style="color:#a31515">interception</span><span style="color:blue">&gt;</span>
+    <span style="color:blue">&lt;/</span><span style="color:#a31515">container</span><span style="color:blue">&gt;</span>
+  <span style="color:blue">&lt;/</span><span style="color:#a31515">unity</span><span style="color:blue">&gt;</span>
+</pre>
+</div>
+<p>In code I try resolver IConsoleManager:</p>
+<div style="background-color:white; color:black">
+<pre>IUnityContainer container = <span style="color:blue">new</span> UnityContainer(); 
+container.LoadConfiguration(); 
+manager = container.Resolve(); 
+</pre>
+</div>
+<p>but get Exception: Configuration is incorrect, the type Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl does not have a constructor that takes parameters named policyName.</p>
+<p>I specify that the &quot;exceptionPolicy&quot; depends from &quot;exPolicyImpl&quot;. Then I try resolve ExceptionPolicyImpl in code.</p>
+<div style="background-color:white; color:black">
+<pre><span style="color:blue">&lt;</span><span style="color:#a31515">unity</span> <span style="color:red">xmlns</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">http://schemas.microsoft.com/practices/2010/unity</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>    
+    <span style="color:blue">&lt;</span><span style="color:#a31515">sectionExtension</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Microsoft.Practices.Unity.InterceptionExtension.Configuration.InterceptionConfigurationExtension, Microsoft.Practices.Unity.Interception.Configuration</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+    <span style="color:blue">&lt;</span><span style="color:#a31515">container</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">extension</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Unity.EnterpriseLibraryCoreExtension, Microsoft.Practices.EnterpriseLibrary.Common</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">extension</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Interception</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>      
+      
+      <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ConsoleApplication1.IConsoleManager, ConsoleApplication1</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ConsoleApplication1.ConsoleManager, ConsoleApplication1</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">interceptionBehavior</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">PolicyInjectionBehavior</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">interceptor</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">InterfaceInterceptor</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+      <span style="color:blue">&lt;/</span><span style="color:#a31515">register</span><span style="color:blue">&gt;</span>
+
+      <span style="color:blue">&lt;</span><span style="color:#a31515">interception</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">policy</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">MyPolicy</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+          <span style="color:blue">&lt;</span><span style="color:#a31515">matchingRule</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">exceptionHandling</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">TypeMatchingRule</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+            <span style="color:blue">&lt;</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+              <span style="color:blue">&lt;</span><span style="color:#a31515">param</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">typeName</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+                <span style="color:blue">&lt;</span><span style="color:#a31515">value</span> <span style="color:red">value</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ConsoleApplication1.IConsoleManager</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+              <span style="color:blue">&lt;/</span><span style="color:#a31515">param</span><span style="color:blue">&gt;</span>
+            <span style="color:blue">&lt;/</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+          <span style="color:blue">&lt;/</span><span style="color:#a31515">matchingRule</span><span style="color:blue">&gt;</span>
+          <span style="color:blue">&lt;</span><span style="color:#a31515">callHandler</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Exception Handling Call Handler</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PolicyInjection.ExceptionCallHandler, Microsoft.Practices.EnterpriseLibrary.ExceptionHandling</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+            <span style="color:blue">&lt;</span><span style="color:#a31515">lifetime</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">singleton</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+            <span style="color:blue">&lt;</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+              <span style="color:blue">&lt;</span><span style="color:#a31515">param</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">exceptionPolicy</span><span style="color:black">&quot;</span> <span style="color:red">dependencyName</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">exPolicyImpl</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+            <span style="color:blue">&lt;/</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+          <span style="color:blue">&lt;/</span><span style="color:#a31515">callHandler</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;/</span><span style="color:#a31515">policy</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;/</span><span style="color:#a31515">interception</span><span style="color:blue">&gt;</span>
+    <span style="color:blue">&lt;/</span><span style="color:#a31515">container</span><span style="color:blue">&gt;</span>
+  <span style="color:blue">&lt;/</span><span style="color:#a31515">unity</span><span style="color:blue">&gt;</span>
+</pre>
+</div>
+<p><br>
+My code:</p>
+<div style="background-color:white; color:black">
+<pre>IUnityContainer container = <span style="color:blue">new</span> UnityContainer();
+container.LoadConfiguration(); 
+<span style="color:green">//Revolve ExceptionPolicyImpl. No Exception. </span>
+ExceptionPolicyImpl impl = container.Resolve(<span style="color:#a31515">&quot;exceptionHandling&quot;</span>); 
+<span style="color:green">//Register instance in container </span>
+container.RegisterInstance(<span style="color:#a31515">&quot;exPolicyImpl&quot;</span>, impl, <span style="color:blue">new</span> ContainerControlledLifetimeManager()); 
+<span style="color:green">// but when try create ConsoleManager I get the Exception again... </span>
+manager = container.Resolve();
+</pre>
+</div>
+<p>Configuration for Exception Block/Logging Block exist and working fine.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_677630" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="677974">
+    <td id="PostDetailsCell_677974" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post677974"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/29/2011 3:21:20 AM" LocalTimeTicks="1317291680">Sep 29, 2011 at 3:21 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="9/29/2011 3:28:03 AM" LocalTimeTicks="1317292083">Sep 29, 2011 at 3:28 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_677974" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi,&#32;The&#32;ExceptionPolicyImpl&#32;class&#32;doesn&#39;t&#32;have&#32;a&#32;constructor&#32;that&#32;accepts&#32;only&#32;a&#32;single&#32;parameter.&#32;If&#32;you&#32;will&#32;look&#32;into&#32;the&#32;source&#32;code&#58;&#32;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Initializes&#32;a&#32;new&#32;instance&#32;of&#32;the&#32;&#38;lt&#59;see&#32;cref&#61;&#34;ExceptionPolicyImpl&#34;&#47;&#38;gt&#59;&#32;class&#32;with&#32;the&#32;policy&#32;name&#32;and&#32;a&#32;set&#32;of&#32;policy&#32;entries.&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#34;policyName&#34;&#38;gt&#59;The&#32;policy&#32;name.&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#34;policyEntries&#34;&#38;gt&#59;A&#32;set&#32;of&#32;&#38;lt&#59;see&#32;cref&#61;&#34;ExceptionPolicyEntry&#34;&#47;&#38;gt&#59;&#32;objects.&#38;lt&#59;&#47;param&#38;gt&#59;&#32;public&#32;ExceptionPolicyImpl&#40;string&#32;policyName,&#32;IEnumerable&#38;lt&#59;ExceptionPolicyEntry&#38;gt&#59;&#32;policyEntries&#41;&#32;&#58;&#32;this&#40;policyName,&#32;policyEntries.ToDictionary&#40;e&#32;&#61;&#38;gt&#59;&#32;e.ExceptionType&#41;&#41;&#32;&#123;&#32;&#125;&#32;&#47;&#47;&#47;&#32;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Initializes&#32;a&#32;new&#32;instance&#32;of&#32;the&#32;&#38;lt&#59;see&#32;cref&#61;&#34;ExceptionPolicyImpl&#34;&#47;&#38;gt&#59;&#32;class&#32;with&#32;the&#32;policy&#32;name&#32;and&#32;a&#32;dictionary&#32;of&#32;policy&#32;entries.&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#34;policyName&#34;&#38;gt&#59;The&#32;policy&#32;name.&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#34;policyEntries&#34;&#38;gt&#59;A&#32;set&#32;of&#32;&#38;lt&#59;see&#32;cref&#61;&#34;ExceptionPolicyEntry&#34;&#47;&#38;gt&#59;&#32;objects.&#38;lt&#59;&#47;param&#38;gt&#59;&#32;public&#32;ExceptionPolicyImpl&#40;string&#32;policyName,&#32;IDictionary&#38;lt&#59;Type,&#32;ExceptionPolicyEntry&#38;gt&#59;&#32;policyEntries&#41;&#32;&#123;&#32;if&#32;&#40;policyEntries&#32;&#61;&#61;&#32;null&#41;&#32;throw&#32;new&#32;ArgumentNullException&#40;&#34;policyEntries&#34;&#41;&#59;&#32;if&#32;&#40;string.IsNullOrEmpty&#40;policyName&#41;&#41;&#32;throw&#32;new&#32;ArgumentException&#40;Resources.ExceptionStringNullOrEmpty,&#32;&#34;policyName&#34;&#41;&#59;&#32;this.policyEntries&#32;&#61;&#32;policyEntries&#59;&#32;this.PolicyName&#32;&#61;&#32;policyName&#59;&#32;InjectPolicyNameIntoEntries&#40;&#41;&#59;&#32;&#125;&#32;&#32;&#32;If&#32;you&#32;want&#32;to&#32;register&#32;the&#32;ExceptionPolicyImpl&#32;class,&#32;you&#32;also&#32;need&#32;to&#32;specify&#32;the&#32;policyEntries&#32;in&#32;your&#32;constructor&#32;injection.&#32;Hope&#32;this&#32;helps.&#32;&#38;nbsp&#59;&#32;Noel&#32;Angelo&#32;BolasocAvanade&#32;SoftwareAvanade,&#32;Inc.Contact&#38;nbsp&#59;Us">
+        
+<p>Hi,</p>
+<p>The ExceptionPolicyImpl class doesn't have a constructor that accepts only a single parameter. If you will look into the source code:</p>
+<div style="background-color:white; color:black">
+<pre><span style="color:gray">///</span> <span style="color:gray">&lt;summary&gt;</span>
+        <span style="color:gray">///</span><span style="color:green"> Initializes a new instance of the &lt;see cref=&quot;ExceptionPolicyImpl&quot;/&gt; class with the policy name and a set of policy entries.</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;/summary&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;param name=&quot;policyName&quot;&gt;</span><span style="color:green">The policy name.&lt;/param&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;param name=&quot;policyEntries&quot;&gt;</span><span style="color:green">A set of &lt;see cref=&quot;ExceptionPolicyEntry&quot;/&gt; objects.&lt;/param&gt;</span>
+        <span style="color:blue">public</span> ExceptionPolicyImpl(<strong><span style="color:blue">string</span> policyName, IEnumerable&lt;ExceptionPolicyEntry&gt; policyEntries</strong>)
+            : <span style="color:blue">this</span>(policyName, policyEntries.ToDictionary(e =&gt; e.ExceptionType))
+        {
+        }
+
+        <span style="color:gray">///</span><span style="color:green"> </span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;summary&gt;</span>
+        <span style="color:gray">///</span><span style="color:green"> Initializes a new instance of the &lt;see cref=&quot;ExceptionPolicyImpl&quot;/&gt; class with the policy name and a dictionary of policy entries.</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;/summary&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;param name=&quot;policyName&quot;&gt;</span><span style="color:green">The policy name.&lt;/param&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;param name=&quot;policyEntries&quot;&gt;</span><span style="color:green">A set of &lt;see cref=&quot;ExceptionPolicyEntry&quot;/&gt; objects.&lt;/param&gt;</span>
+        <span style="color:blue">public</span> ExceptionPolicyImpl(<strong><span style="color:blue">string</span> policyName, IDictionary&lt;Type, ExceptionPolicyEntry&gt; policyEntries</strong>)
+        {
+            <span style="color:blue">if</span> (policyEntries == <span style="color:blue">null</span>) <span style="color:blue">throw</span> <span style="color:blue">new</span> ArgumentNullException(<span style="color:#a31515">&quot;policyEntries&quot;</span>);
+            <span style="color:blue">if</span> (<span style="color:blue">string</span>.IsNullOrEmpty(policyName)) <span style="color:blue">throw</span> <span style="color:blue">new</span> ArgumentException(Resources.ExceptionStringNullOrEmpty, <span style="color:#a31515">&quot;policyName&quot;</span>);
+
+            <span style="color:blue">this</span>.policyEntries = policyEntries;
+            <span style="color:blue">this</span>.PolicyName = policyName;
+
+            InjectPolicyNameIntoEntries();
+        }
+</pre>
+</div>
+<p>If you want to register the ExceptionPolicyImpl class, you also need to specify the policyEntries in your constructor injection. Hope this helps.</p>
+<p><span><strong><em>&nbsp;</em></strong></span></p>
+<p><span><strong><em>Noel Angelo Bolasoc</em></strong><br>
+Avanade Software<br>
+Avanade, Inc.<br>
+</span><span><span><a href="https://www.codeplex.com/site/users/contact/AvanadeSupport?OriginalUrl=http://www.codeplex.com/site/users/view/AvanadeSupport" rel="nofollow"><span>Contact<span>&nbsp;Us</span></span></a></span></span></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_677974" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="678092">
+    <td id="PostDetailsCell_678092" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post678092"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/alex_tuz">alex_tuz</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/29/2011 10:26:09 AM" LocalTimeTicks="1317317169">Sep 29, 2011 at 10:26 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_678092" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi.&#32;Yes,&#32;you&#32;right.&#32;ExceptionPolicyImpl&#32;has&#32;constructor&#32;with&#32;two&#32;parameters.&#32;But&#32;I&#32;don&#39;t&#32;known&#32;how&#38;nbsp&#59;describe&#32;Dictionary&#32;in&#32;unity&#32;config...&#32;Also&#32;I&#32;look&#32;http&#58;&#47;&#47;msdn.microsoft.com&#47;en-us&#47;library&#47;ff660909&#40;v&#61;pandp.20&#41;.aspx&#38;nbsp&#59;This&#32;document&#32;contains&#32;errors,&#32;but&#32;it&#39;s&#32;not&#32;important...&#32;As&#32;I&#32;understood&#32;I&#32;should&#38;nbsp&#59;specify&#32;PolicyName&#32;from&#32;ExceptionHandling&#32;block&#32;for&#32;injection&#32;exception&#32;in&#32;my&#32;class.&#32;&#32;&#32;&#32;MSDN&#32;ExceptionPolicyImpl&#32;myPolicy&#32;&#61;&#32;myContainer.Resolve&#38;lt&#59;ExceptionPolicyImpl&#38;gt&#59;&#40;&#34;MyExceptionPolicy&#34;&#41;&#59;&#32;myContainer.Configure&#38;lt&#59;Interception&#38;gt&#59;&#40;&#41;&#32;.AddPolicy&#40;&#34;MyPolicy&#34;&#41;&#32;.AddMatchingRule&#38;lt&#59;TypeMatchingRule&#38;gt&#59;&#40;new&#32;InjectionConstructor&#40;&#34;My.Order.Object&#34;,&#32;true&#41;&#41;&#32;.AddCallHandler&#38;lt&#59;ExceptionCallHandler&#38;gt&#59;&#32;&#40;&#34;MyExceptionPolicy&#34;,&#32;new&#32;ContainerControlledLifetimeManager&#40;&#41;&#41;&#59;&#32;I&#32;do&#32;this.&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;container.LoadConfiguration&#40;&#41;&#59;&#32;ExceptionPolicyImpl&#32;impl&#32;&#61;&#32;container.Resolve&#38;lt&#59;ExceptionPolicyImpl&#38;gt&#59;&#40;&#34;exceptionHandling&#34;&#41;&#59;&#32;&#32;After&#32;this&#32;I&#32;get&#32;instance&#32;ExceptionPolicyImpl&#32;that&#32;containt&#32;ExceptionPolicyEntry.&#32;&#34;exceptionHandling&#34;&#32;-&#32;it&#39;s&#32;policy&#32;name&#32;from&#32;ExceptionHandling&#32;Block.&#32;Unity&#32;build&#32;ExceptionPolicyEntry&#32;by&#32;seting&#32;from&#32;config&#32;file.&#32;Then&#32;I&#32;register&#32;instance&#32;ExceptionPolicyImp&#32;with&#32;name&#32;&#34;exPolicyImpl&#34;&#32;in&#32;unity&#32;container.&#32;&#32;container.RegisterInstance&#40;&#34;exPolicyImpl&#34;,&#32;impl,&#32;new&#32;ContainerControlledLifetimeManager&#40;&#41;&#41;&#59;&#32;In&#32;setting&#32;for&#32;callHandler&#32;I&#32;specify&#32;that&#32;it&#32;dependency&#32;from&#32;&#34;exPolicyImpl&#34;.&#32;&#38;lt&#59;callHandler&#32;name&#61;&#34;Exception&#32;Handling&#32;Call&#32;Handler&#34;&#32;type&#61;&#34;Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PolicyInjection.ExceptionCallHandler,&#32;Microsoft.Practices.EnterpriseLibrary.ExceptionHandling&#34;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;lifetime&#32;type&#61;&#34;singleton&#34;&#32;&#47;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#34;exceptionPolicy&#34;&#32;dependencyName&#61;&#34;exPolicyImpl&#34;&#32;&#47;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;callHandler&#38;gt&#59;But&#32;when&#32;calling&#32;constructor&#32;for&#32;ExceptionCallHandler,&#32;unity&#32;try&#32;create&#32;new&#32;instance&#32;ExceptionPolicyImpl&#32;instead&#32;of&#32;using&#32;already&#32;existing&#32;&#40;exPolicyImpl&#41;...&#32;&#32;">
+        
+<p>Hi.</p>
+<p>Yes, you right. ExceptionPolicyImpl has constructor with two parameters. But I don't known how&nbsp;describe Dictionary in unity config...</p>
+<p>Also I look <a href="http://msdn.microsoft.com/en-us/library/ff660909(v=pandp.20).aspx" rel="nofollow">
+http://msdn.microsoft.com/en-us/library/ff660909(v=pandp.20).aspx</a>&nbsp;<span>This document</span>
+<span>contains errors,</span> <span>but</span> <span>it's not important...</span></p>
+<p><span>As I understood I should&nbsp;specify PolicyName from ExceptionHandling block for injection exception in my class.
+</span></p>
+<p><span></p>
+<div style="color:black; background-color:white">
+<pre>MSDN</pre>
+<pre>ExceptionPolicyImpl myPolicy 
+    = myContainer.Resolve&lt;ExceptionPolicyImpl&gt;(<span style="color:#a31515">&quot;MyExceptionPolicy&quot;</span>); 
+myContainer.Configure&lt;Interception&gt;()
+           .AddPolicy(<span style="color:#a31515">&quot;MyPolicy&quot;</span>)
+               .AddMatchingRule&lt;TypeMatchingRule&gt;(<span style="color:blue">new</span> InjectionConstructor(<span style="color:#a31515">&quot;My.Order.Object&quot;</span>,
+                        <span style="color:blue">true</span>))
+               .AddCallHandler&lt;ExceptionCallHandler&gt;
+                (<span style="color:#a31515">&quot;MyExceptionPolicy&quot;</span>, <span style="color:blue">new</span> ContainerControlledLifetimeManager());
+
+I do this.</pre>
+<pre>IUnityContainer container = <span style="color:blue">new</span> UnityContainer();<br>container.LoadConfiguration(); <br><br>ExceptionPolicyImpl impl = container.Resolve&lt;ExceptionPolicyImpl&gt;(<span style="color:#a31515">&quot;exceptionHandling&quot;</span>); </pre>
+<pre>After this I get instance ExceptionPolicyImpl that containt ExceptionPolicyEntry. &quot;exceptionHandling&quot; - it's policy name from ExceptionHandling Block. Unity build ExceptionPolicyEntry by seting from config file.</pre>
+<pre>Then I register instance ExceptionPolicyImp with name &quot;exPolicyImpl&quot; in unity container. </pre>
+<pre>container.RegisterInstance(<span style="color:#a31515">&quot;exPolicyImpl&quot;</span>, impl, <span style="color:blue">new</span> ContainerControlledLifetimeManager());</pre>
+<pre>In setting for callHandler I specify that it dependency from &quot;exPolicyImpl&quot;.</pre>
+<pre><span style="color:blue">&lt;</span><span style="color:#a31515">callHandler</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Exception Handling Call Handler</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PolicyInjection.ExceptionCallHandler, Microsoft.Practices.EnterpriseLibrary.ExceptionHandling</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">&lt;</span><span style="color:#a31515">lifetime</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">singleton</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">&lt;</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">&lt;</span><span style="color:#a31515">param</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">exceptionPolicy</span><span style="color:black">&quot;</span> <span style="color:red">dependencyName</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">exPolicyImpl</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">&lt;/</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">&lt;/</span><span style="color:#a31515">callHandler</span><span style="color:blue">&gt;</span><br><br>But when calling constructor for ExceptionCallHandler, unity try create new instance ExceptionPolicyImpl <span>instead of using</span> <span>already</span> <span>existing (exPolicyImpl)...</span></pre>
+</div>
+</span>
+<p></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_678092" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="678509">
+    <td id="PostDetailsCell_678509" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post678509"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/30/2011 6:25:16 AM" LocalTimeTicks="1317389116">Sep 30, 2011 at 6:25 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_678509" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi,&#32;I&#32;see.&#32;I&#32;was&#32;able&#32;to&#32;finally&#32;understand&#32;the&#32;scenario.&#32;In&#32;that&#32;case,&#32;you&#32;still&#32;need&#32;to&#32;specify&#32;in&#32;your&#32;config&#32;the&#32;exception&#32;policy&#32;to&#32;use&#32;&#40;enterprise&#32;library&#32;exception&#32;handling&#41;,&#32;basically,&#32;its&#32;more&#32;of&#32;a&#32;combined&#32;enterprise&#32;library&#32;and&#32;unity&#32;configuration.&#32;I&#32;hope&#32;this&#32;link&#32;will&#32;get&#32;you&#32;started.&#32;&#38;nbsp&#59;&#32;Noel&#32;Angelo&#32;BolasocAvanade&#32;SoftwareAvanade,&#32;Inc.Contact&#38;nbsp&#59;Us">
+        
+<p>Hi,</p>
+<p>I see. I was able to finally understand the scenario. In that case, you still need to specify in your config the exception policy to use (enterprise library exception handling), basically, its more of a combined enterprise library and unity configuration.
+ I hope this <a href="http://www.codeproject.com/KB/architecture/aopusingunity2.aspx" rel="nofollow">
+link</a> will get you started.</p>
+<p>&nbsp;</p>
+<p><span><strong><em>Noel Angelo Bolasoc</em></strong><br>
+Avanade Software<br>
+Avanade, Inc.<br>
+</span><span><span><a href="https://www.codeplex.com/site/users/contact/AvanadeSupport?OriginalUrl=http://www.codeplex.com/site/users/view/AvanadeSupport" rel="nofollow"><span>Contact<span>&nbsp;Us</span></span></a></span></span></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_678509" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="723865">
+    <td id="PostDetailsCell_723865" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post723865"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jhuang2104">jhuang2104</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/11/2012 7:03:03 PM" LocalTimeTicks="1326337383">Jan 11, 2012 at 7:03 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_723865" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi&#32;&#65279;Noel,&#32;Thanks&#32;for&#32;the&#32;posting.&#32;I&#32;tried&#32;to&#32;run&#32;the&#32;code,&#32;but&#32;it&#32;kept&#32;broken&#32;at&#32;&#65279;&#65279;&#65279;&#65279;&#34;throw&#32;new&#32;NotImplementedException&#34;.&#38;nbsp&#59;&#32;When&#32;I&#32;&#34;View&#32;Details&#34;,&#32;the&#32;stacktrace&#32;suggests&#32;exception&#32;at&#32;&#34;&#65279;&#65279;...&#38;lt&#59;Process_DelegateImplentation&#38;gt&#59;__1&#32;&#40;IMethodInvocation&#32;inputs,&#32;GetNextInterceptionBehaviorDelegate&#32;getNext&#41;&#34;.&#32;Continuing&#32;running&#32;the&#32;app,&#32;I&#32;see&#32;that&#32;the&#32;exceptionPolicy&#32;is&#32;still&#32;being&#32;executed&#32;as&#32;I&#32;can&#32;see&#32;the&#32;&#34;oops&#33;&#32;An&#32;Invalid&#32;operation&#32;occured&#33;&#34;&#32;msg&#32;If&#32;I&#32;replace&#32;InterfaceInterceptor&#32;with&#32;&#65279;TransparentProxyInterceptor,&#32;it&#32;works&#32;just&#32;fine&#32;without&#32;the&#32;code&#32;bring&#32;broken.&#32;I&#32;search&#32;over&#32;the&#32;internet&#32;and&#32;were&#32;unable&#32;to&#32;find&#32;a&#32;good&#32;explaination.&#32;COuld&#32;you&#32;help&#63;&#32;Thanks&#32;a&#32;lot&#32;Joanne">
+        
+<p>Hi &#65279;Noel,</p>
+<p>Thanks for the posting. I tried to run the code, but it kept broken at &#65279;&#65279;&#65279;&#65279;&quot;throw new NotImplementedException&quot;.&nbsp; When I &quot;View Details&quot;, the stacktrace suggests exception at &quot;&#65279;&#65279;...&lt;Process_DelegateImplentation&gt;__1 (IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate
+ getNext)&quot;. Continuing running the app, I see that the exceptionPolicy is still being executed as I can see the &quot;oops! An Invalid operation occured!&quot; msg</p>
+<p>If I replace InterfaceInterceptor with &#65279;TransparentProxyInterceptor, it works just fine without the code bring broken.</p>
+<p>I search over the internet and were unable to find a good explaination. COuld you help? Thanks a lot</p>
+<p>Joanne</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_723865" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="723870">
+    <td id="PostDetailsCell_723870" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post723870"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jhuang2104">jhuang2104</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/11/2012 7:09:53 PM" LocalTimeTicks="1326337793">Jan 11, 2012 at 7:09 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_723870" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Sorry&#32;I&#32;posted&#32;at&#32;the&#32;wrong&#32;thread.&#32;I&#32;meant&#32;to&#32;post&#32;it&#32;at&#32;http&#58;&#47;&#47;entlib.codeplex.com&#47;discussions&#47;284446&#38;nbsp&#59;&#58;&#40;&#38;nbsp&#59;&#38;nbsp&#59;&#32;--Joanne">
+        
+<p>Sorry I posted at the wrong thread. I meant to post it at <a href="http://entlib.codeplex.com/discussions/284446" rel="nofollow">
+http://entlib.codeplex.com/discussions/284446</a>&nbsp;:(&nbsp;&nbsp; --Joanne</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_723870" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f274099">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="8b566a10-97fe-4b2d-b786-823a971b0e73">
+    <script class="options" defer="defer" id="8b566a10-97fe-4b2d-b786-823a971b0e73" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_7cfc3386-16f5-4848-8e1d-f2d6075b7bbe">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_100fde5f-eae1-4f69-8f04-645ef435c666">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_7cfc3386-16f5-4848-8e1d-f2d6075b7bbe" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_100fde5f-eae1-4f69-8f04-645ef435c666" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/274099';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

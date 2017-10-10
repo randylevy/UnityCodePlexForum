@@ -1,0 +1,878 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Unit testing interceptors configuration</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/447741?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/447741?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="ux79ndArSyxcJEQHp0IK4iEpM3AXCKp-0Orz7L2kxG9CnaPIWLgxx-Q0eZPpSpKMEjzy55PqafMuN-K0qWqe_HnFzEcqXV-RoGKz6XN3-HopFVf9gJlXdnOlGvsDKFnMk1a-Cg2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken25ddd308e-2cde-4ee4-824f-e5d086b217ac" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:25:54 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f447741" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="27058443-cafd-4c30-ba63-cd2bc3130893">
+                
+                    <script class="options" defer="defer" id="27058443-cafd-4c30-ba63-cd2bc3130893" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="d9200008-70e9-4b20-bff5-455b1f62d511">
+                
+                    <script class="options" defer="defer" id="d9200008-70e9-4b20-bff5-455b1f62d511" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Unit testing interceptors configuration
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:447741]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="7bbbf087-34ae-41b3-b46b-c1acc451f49c">
+    <script class="options" defer="defer" id="7bbbf087-34ae-41b3-b46b-c1acc451f49c" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/447741","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="1059347">
+    <td id="PostDetailsCell_1059347" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1059347"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/habi2al">habi2al</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/20/2013 7:39:35 PM" LocalTimeTicks="1371782375">Jun 20, 2013 at 7:39 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1059347" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="Hi&#33;&#13;&#10;I&#39;m&#32;going&#32;to&#32;make&#32;unit&#32;test&#32;to&#32;check&#32;unity&#32;configuration&#32;xml&#32;for&#32;each&#32;type,&#32;that&#32;have&#32;some&#32;attribute,&#32;correctly&#32;configured.&#13;&#10;&#13;&#10;Is&#32;that&#32;possible&#32;to&#32;get&#32;from&#32;UnityContainer&#32;instance&#32;after&#32;LoadConfiguration&#32;call,&#32;for&#32;instance,&#32;what&#32;types&#32;are&#32;in&#32;interceptor&#32;section&#32;with&#32;InterfaceInterceptor&#32;type&#63;&#13;&#10;&#13;&#10;IUnityContainer&#32;container&#32;&#61;&#32;IoCHelper.GetIUnityContainer&#40;&#41;&#59;&#13;&#10;container.LoadConfiguration&#40;&#41;&#59;&#13;&#10;....&#13;&#10;&#13;&#10;Or&#32;only&#32;way&#32;is&#32;load&#32;app.config&#32;xml&#32;and&#32;parse&#32;it&#63;">
+        <div class="markDownOutput ">Hi! <br>
+I'm going to make unit test to check unity configuration xml for each type, that have some attribute, correctly configured.
+<br>
+<br>
+Is that possible to get from UnityContainer instance after LoadConfiguration call, for instance, what types are in interceptor section with InterfaceInterceptor type?
+<br>
+<br>
+IUnityContainer container = IoCHelper.GetIUnityContainer(); <br>
+container.LoadConfiguration(); <br>
+.... <br>
+<br>
+Or only way is load app.config xml and parse it?<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1059347" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1059366">
+    <td id="PostDetailsCell_1059366" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1059366"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/homelchenko">homelchenko</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/20/2013 8:43:15 PM" LocalTimeTicks="1371786195">Jun 20, 2013 at 8:43 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="6/20/2013 8:44:35 PM" LocalTimeTicks="1371786275">Jun 20, 2013 at 8:44 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1059366" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="habi2al,&#10;&#10;At&#32;least&#32;you&#32;can&#32;always&#32;use&#32;&#91;UnityContainer.Registrations&#32;property&#93;&#40;http&#58;&#47;&#47;msdn.microsoft.com&#47;en-us&#47;library&#47;microsoft.practices.unity.unitycontainer.registrations&#40;v&#61;pandp.31&#41;.aspx&#41;&#32;&#40;since&#32;Unity&#32;3.0&#41;&#32;to&#32;programmatically&#32;inspect&#32;loaded&#32;configuration.">
+        <div class="markDownOutput ">habi2al,<br>
+<br>
+At least you can always use <a href="http://msdn.microsoft.com/en-us/library/microsoft.practices.unity.unitycontainer.registrations(v=pandp.31).aspx"  rel="nofollow">
+UnityContainer.Registrations property</a> (since Unity 3.0) to programmatically inspect loaded configuration.<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1059366" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1059368">
+    <td id="PostDetailsCell_1059368" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1059368"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/habi2al">habi2al</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/20/2013 8:46:50 PM" LocalTimeTicks="1371786410">Jun 20, 2013 at 8:46 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1059368" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="can&#32;You&#32;type&#32;an&#32;example,&#32;please.&#13;&#10;Yeah,&#32;while&#32;debugging&#32;i&#39;d&#32;got&#32;this&#32;list,&#32;but&#32;what&#32;ContainerRegistration&#32;are&#32;for&#32;&#60;interceptor&#32;type&#61;&#34;InterfaceIntercaptor&#34;&#62;...&#60;&#47;intercaptor&#62;&#63;">
+        <div class="markDownOutput ">can You type an example, please. <br>
+Yeah, while debugging i'd got this list, but what ContainerRegistration are for &lt;interceptor type=&quot;InterfaceIntercaptor&quot;&gt;...&lt;/intercaptor&gt;?<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1059368" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1059379">
+    <td id="PostDetailsCell_1059379" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1059379"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/homelchenko">homelchenko</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/20/2013 9:14:41 PM" LocalTimeTicks="1371788081">Jun 20, 2013 at 9:14 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="6/20/2013 9:15:25 PM" LocalTimeTicks="1371788125">Jun 20, 2013 at 9:15 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1059379" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="Yep,&#32;my&#32;bad,&#32;you&#32;can&#39;t&#32;access&#32;Policy&#32;list&#32;via&#32;ContainerRegistration&#32;class.&#10;&#10;But&#32;you&#32;have&#32;another&#32;option&#32;to&#32;look&#32;at.&#32;If&#32;you&#32;write&#32;your&#32;own&#32;container&#32;extension,&#32;it&#32;seems&#32;that&#32;you&#32;can&#32;get&#32;access&#32;to&#32;the&#32;policy&#32;list&#32;via&#32;ExtensionContext.Policies&#32;property.&#32;Once&#32;you&#32;have&#32;that,&#32;you&#32;can&#32;use&#32;that&#32;object&#32;to&#32;obtain&#32;whatever&#32;policy&#32;you&#32;want&#32;let&#32;alone&#32;the&#32;interception&#32;policy.&#10;&#10;I&#32;can&#32;agree,&#32;it&#39;s&#32;not&#32;the&#32;most&#32;straightforward&#32;path,&#32;but&#32;still...&#10;&#10;Hope&#32;this&#32;will&#32;help">
+        <div class="markDownOutput ">Yep, my bad, you can't access Policy list via ContainerRegistration class.<br>
+<br>
+But you have another option to look at. If you write your own container extension, it seems that you can get access to the policy list via ExtensionContext.Policies property. Once you have that, you can use that object to obtain whatever policy you want let
+ alone the interception policy.<br>
+<br>
+I can agree, it's not the most straightforward path, but still...<br>
+<br>
+Hope this will help<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1059379" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1059464">
+    <td id="PostDetailsCell_1059464" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1059464"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/21/2013 4:59:48 AM" LocalTimeTicks="1371815988">Jun 21, 2013 at 4:59 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1059464" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="Yes,&#32;you&#32;can&#32;retrieve&#32;configuration&#32;information&#32;programmatically.&#32;&#32;For&#32;example&#58;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#32;c&#35;&#13;&#10;var&#32;config&#32;&#61;&#32;ConfigurationManager.GetSection&#40;&#34;unity&#34;&#41;&#32;as&#32;UnityConfigurationSection&#59;&#13;&#10;bool&#32;isInterceptionAttributeSetOnFirstRegistration&#32;&#61;&#32;&#13;&#10;&#32;&#32;&#32;&#32;config.Containers&#91;0&#93;.Registrations&#91;0&#93;.InjectionMembers&#91;0&#93;.GetType&#40;&#41;&#32;&#61;&#61;&#32;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;typeof&#40;Microsoft.Practices.Unity.InterceptionExtension.Configuration.InterceptorElement&#41;&#13;&#10;&#96;&#96;&#96;&#13;&#10;Your&#32;idea&#32;seems&#32;similar&#32;to&#32;what&#32;is&#32;done&#32;in&#32;some&#32;internal&#32;Unity&#32;test&#32;cases&#32;so&#32;looking&#32;at&#32;the&#32;source&#32;might&#32;be&#32;interesting&#32;to&#32;you.&#32;&#32;However,&#32;that&#32;just&#32;inspects&#32;the&#32;configuration&#32;and&#32;doesn&#39;t&#32;verify&#32;any&#32;code&#32;based&#32;attributes&#32;or&#32;perhaps&#32;verifying&#32;that&#32;some&#32;methods&#32;are&#32;intercepted&#32;while&#32;others&#32;are&#32;not.&#13;&#10;&#13;&#10;Another&#32;approach&#32;might&#32;be&#32;to&#32;mock&#32;the&#32;interceptor&#32;and&#32;check&#32;to&#32;see&#32;if&#32;it&#32;executed.&#32;&#32;I&#39;m&#32;not&#32;100&#37;&#32;sure&#32;how&#32;your&#32;code&#32;is&#32;designed&#32;but&#32;maybe&#32;something&#32;like&#32;this&#32;could&#32;be&#32;useful.&#13;&#10;&#13;&#10;Let&#39;s&#32;say&#32;there&#32;is&#32;a&#32;config&#32;like&#32;this&#58;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#32;xml&#13;&#10;&#32;&#32;&#32;&#32;&#60;container&#62;&#32;&#32;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;extension&#32;type&#61;&#34;Interception&#34;&#32;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;register&#32;type&#61;&#34;ICallHandler&#34;&#32;mapTo&#61;&#34;MyCallHandler&#34;&#32;name&#61;&#34;MyCallHandler&#34;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;lifetime&#32;type&#61;&#34;singleton&#34;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;register&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;register&#32;type&#61;&#34;ISubscriberRepository&#34;&#32;mapTo&#61;&#34;SubscriberRepository&#34;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;interceptor&#32;type&#61;&#34;InterfaceInterceptor&#34;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;policyInjection&#32;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;register&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#60;&#47;container&#62;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#13;&#10;So&#32;we&#32;have&#32;an&#32;interface&#32;mapped&#32;to&#32;an&#32;implementation&#32;and&#32;a&#32;call&#32;handler&#32;registered&#32;as&#32;a&#32;singleton.&#32;&#32;You&#32;could&#32;create&#32;and&#32;configure&#32;a&#32;mock&#32;call&#32;handler&#32;in&#32;the&#32;config&#32;or&#32;if&#32;you&#32;wanted&#32;to&#32;test&#32;&#40;in&#32;a&#32;sense&#32;verify&#41;&#32;the&#32;existing&#32;config&#32;you&#32;could&#32;programmatically&#32;override&#32;the&#32;config&#32;call&#32;handler&#32;with&#32;a&#32;mock.&#13;&#10;&#13;&#10;Then&#32;there&#32;is&#32;the&#32;repository&#32;code&#32;which&#32;contains&#32;a&#32;custom&#32;call&#32;handler&#32;attribute&#58;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#32;c&#35;&#13;&#10;&#32;&#32;&#32;&#32;public&#32;class&#32;SubscriberRepository&#32;&#58;&#32;ISubscriberRepository&#13;&#10;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#91;MyHandler&#93;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;public&#32;void&#32;Add&#40;string&#32;name&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;public&#32;class&#32;MyHandlerAttribute&#32;&#58;&#32;HandlerAttribute&#13;&#10;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;public&#32;override&#32;ICallHandler&#32;CreateHandler&#40;IUnityContainer&#32;container&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;container.Resolve&#60;ICallHandler&#62;&#40;typeof&#40;MyCallHandler&#41;.Name&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#13;&#10;The&#32;HandlerAttribute&#32;resolves&#32;the&#32;ICallHandler&#32;by&#32;name&#32;from&#32;the&#32;container.&#32;&#32;This&#32;can&#32;allow&#32;us&#32;to&#32;swap&#32;out&#32;the&#32;MyCallHandler&#32;implementation&#32;with&#32;a&#32;MockCallHandler&#58;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#32;c&#35;&#13;&#10;&#32;&#32;&#32;&#32;public&#32;class&#32;MockCallHandler&#32;&#58;&#32;ICallHandler&#13;&#10;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;Get&#32;Input&#32;parameter&#32;back&#32;for&#32;verification&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;public&#32;IMethodInvocation&#32;Input&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;get&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;private&#32;set&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;public&#32;IMethodReturn&#32;Invoke&#40;IMethodInvocation&#32;input,&#32;GetNextHandlerDelegate&#32;getNext&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;this.Input&#32;&#61;&#32;input&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;getNext&#40;&#41;&#40;input,&#32;getNext&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;public&#32;int&#32;Order&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#13;&#10;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;.LoadConfiguration&#40;&#41;&#59;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;&#47;&#47;&#32;Get&#32;registration&#32;from&#32;config&#13;&#10;&#32;&#32;&#32;&#32;var&#32;myCallHandlerRegistration&#32;&#61;&#32;container.Registrations&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.Where&#40;r&#32;&#61;&#62;&#32;r.RegisteredType&#32;&#61;&#61;&#32;typeof&#40;ICallHandler&#41;&#32;&#38;&#38;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;r.MappedToType&#32;&#61;&#61;&#32;typeof&#40;MyCallHandler&#41;&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.First&#40;&#41;&#59;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;&#47;&#47;&#32;Create&#32;new&#32;LifetimeManager&#32;for&#32;this&#32;registration&#32;since&#32;we&#32;can&#39;t&#32;reuse&#32;it&#13;&#10;&#32;&#32;&#32;&#32;ConstructorInfo&#32;constructor&#32;&#61;&#32;myCallHandlerRegistration.LifetimeManager.GetType&#40;&#41;.GetConstructor&#40;new&#32;Type&#91;0&#93;&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;LifetimeManager&#32;lifetimeManager&#32;&#61;&#32;&#40;LifetimeManager&#41;constructor.Invoke&#40;new&#32;object&#91;0&#93;&#41;&#59;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;&#47;&#47;&#32;&#34;overwrite&#34;&#32;existing&#32;registration&#32;with&#32;mock&#13;&#10;&#32;&#32;&#32;&#32;container.RegisterInstance&#60;ICallHandler&#62;&#40;myCallHandlerRegistration.Name,&#32;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;new&#32;MockCallHandler&#40;&#41;,&#32;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lifetimeManager&#41;&#59;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;ISubscriberRepository&#32;repository&#32;&#61;&#32;container.Resolve&#60;ISubscriberRepository&#62;&#40;&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;repository.Add&#40;&#34;value1&#34;&#41;&#59;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;&#47;&#47;&#32;verify&#32;interception&#32;ran&#13;&#10;&#32;&#32;&#32;&#32;Debug.Assert&#40;&#34;value1&#34;&#32;&#61;&#61;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#40;&#40;MockCallHandler&#41;container.Resolve&#60;ICallHandler&#62;&#40;myCallHandlerRegistration.Name&#41;&#41;.Input.Inputs&#91;0&#93;&#41;&#59;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#13;&#10;Also,&#32;as&#32;mentioned,&#32;container&#32;extensions&#32;let&#32;you&#32;do&#32;almost&#32;anything&#32;at&#32;the&#32;expense&#32;of&#32;complexity.&#13;&#10;&#13;&#10;&#126;&#126;&#13;&#10;Randy&#32;Levy&#13;&#10;&#91;entlib.support&#64;live.com&#93;&#40;mailto&#58;entlib.support&#64;live.com&#41;&#13;&#10;Enterprise&#32;Library&#32;support&#32;engineer&#13;&#10;&#91;Support&#32;How-to&#93;&#40;entlib.codeplex.com&#47;wikipage&#63;title&#61;Support&#37;20How-to&#41;&#32;">
+        <div class="markDownOutput ">Yes, you can retrieve configuration information programmatically. For example:<br>
+<div style="color:Black; background-color:White">
+<pre>
+<span style="color:Blue">var</span> config = ConfigurationManager.GetSection(<span style="color:#A31515">&quot;unity&quot;</span>) <span style="color:Blue">as</span> UnityConfigurationSection;
+<span style="color:Blue">bool</span> isInterceptionAttributeSetOnFirstRegistration = 
+    config.Containers[0].Registrations[0].InjectionMembers[0].GetType() == 
+        <span style="color:Blue">typeof</span>(Microsoft.Practices.Unity.InterceptionExtension.Configuration.InterceptorElement)
+</pre>
+</div>
+Your idea seems similar to what is done in some internal Unity test cases so looking at the source might be interesting to you. However, that just inspects the configuration and doesn't verify any code based attributes or perhaps verifying that some methods
+ are intercepted while others are not. <br>
+<br>
+Another approach might be to mock the interceptor and check to see if it executed. I'm not 100% sure how your code is designed but maybe something like this could be useful.
+<br>
+<br>
+Let's say there is a config like this:<br>
+<div style="color:Black; background-color:White">
+<pre>
+    <span style="color:Blue">&lt;</span><span style="color:#A31515">container</span><span style="color:Blue">&gt;</span>  
+      <span style="color:Blue">&lt;</span><span style="color:#A31515">extension</span> <span style="color:Red">type</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Interception</span><span style="color:Black">&quot;</span> <span style="color:Blue">/&gt;</span>
+      <span style="color:Blue">&lt;</span><span style="color:#A31515">register</span> <span style="color:Red">type</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">ICallHandler</span><span style="color:Black">&quot;</span> <span style="color:Red">mapTo</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">MyCallHandler</span><span style="color:Black">&quot;</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">MyCallHandler</span><span style="color:Black">&quot;</span><span style="color:Blue">&gt;</span>
+        <span style="color:Blue">&lt;</span><span style="color:#A31515">lifetime</span> <span style="color:Red">type</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">singleton</span><span style="color:Black">&quot;</span><span style="color:Blue">/&gt;</span>
+      <span style="color:Blue">&lt;/</span><span style="color:#A31515">register</span><span style="color:Blue">&gt;</span>
+      <span style="color:Blue">&lt;</span><span style="color:#A31515">register</span> <span style="color:Red">type</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">ISubscriberRepository</span><span style="color:Black">&quot;</span> <span style="color:Red">mapTo</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">SubscriberRepository</span><span style="color:Black">&quot;</span><span style="color:Blue">&gt;</span>
+        <span style="color:Blue">&lt;</span><span style="color:#A31515">interceptor</span> <span style="color:Red">type</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">InterfaceInterceptor</span><span style="color:Black">&quot;</span><span style="color:Blue">/&gt;</span>
+        <span style="color:Blue">&lt;</span><span style="color:#A31515">policyInjection</span> <span style="color:Blue">/&gt;</span>
+      <span style="color:Blue">&lt;/</span><span style="color:#A31515">register</span><span style="color:Blue">&gt;</span>
+    <span style="color:Blue">&lt;/</span><span style="color:#A31515">container</span><span style="color:Blue">&gt;</span>
+
+</pre>
+</div>
+So we have an interface mapped to an implementation and a call handler registered as a singleton. You could create and configure a mock call handler in the config or if you wanted to test (in a sense verify) the existing config you could programmatically override
+ the config call handler with a mock. <br>
+<br>
+Then there is the repository code which contains a custom call handler attribute:<br>
+<div style="color:Black; background-color:White">
+<pre>
+    <span style="color:Blue">public</span> <span style="color:Blue">class</span> SubscriberRepository : ISubscriberRepository
+    {
+        [MyHandler]
+        <span style="color:Blue">public</span> <span style="color:Blue">void</span> Add(<span style="color:Blue">string</span> name)
+        {
+        }
+    }
+
+    <span style="color:Blue">public</span> <span style="color:Blue">class</span> MyHandlerAttribute : HandlerAttribute
+    {
+        <span style="color:Blue">public</span> <span style="color:Blue">override</span> ICallHandler CreateHandler(IUnityContainer container)
+        {
+            <span style="color:Blue">return</span> container.Resolve&lt;ICallHandler&gt;(<span style="color:Blue">typeof</span>(MyCallHandler).Name);
+        }
+    }
+
+</pre>
+</div>
+The HandlerAttribute resolves the ICallHandler by name from the container. This can allow us to swap out the MyCallHandler implementation with a MockCallHandler:<br>
+<div style="color:Black; background-color:White">
+<pre>
+    <span style="color:Blue">public</span> <span style="color:Blue">class</span> MockCallHandler : ICallHandler
+    {
+        <span style="color:Green">// Get Input parameter back for verification</span>
+        <span style="color:Blue">public</span> IMethodInvocation Input
+        {
+            <span style="color:Blue">get</span>;
+            <span style="color:Blue">private</span> <span style="color:Blue">set</span>;
+        }
+
+        <span style="color:Blue">public</span> IMethodReturn Invoke(IMethodInvocation input, GetNextHandlerDelegate getNext)
+        {
+            <span style="color:Blue">this</span>.Input = input;
+            <span style="color:Blue">return</span> getNext()(input, getNext);
+        }
+
+        <span style="color:Blue">public</span> <span style="color:Blue">int</span> Order { <span style="color:Blue">get</span>; <span style="color:Blue">set</span>; }
+    }
+
+    IUnityContainer container = <span style="color:Blue">new</span> UnityContainer().LoadConfiguration();
+
+    <span style="color:Green">// Get registration from config</span>
+    <span style="color:Blue">var</span> myCallHandlerRegistration = container.Registrations
+        .Where(r =&gt; r.RegisteredType == <span style="color:Blue">typeof</span>(ICallHandler) &amp;&amp;
+                    r.MappedToType == <span style="color:Blue">typeof</span>(MyCallHandler))
+        .First();
+
+    <span style="color:Green">// Create new LifetimeManager for this registration since we can&#39;t reuse it</span>
+    ConstructorInfo constructor = myCallHandlerRegistration.LifetimeManager.GetType().GetConstructor(<span style="color:Blue">new</span> Type[0]);
+    LifetimeManager lifetimeManager = (LifetimeManager)constructor.Invoke(<span style="color:Blue">new</span> <span style="color:Blue">object</span>[0]);
+
+    <span style="color:Green">// &quot;overwrite&quot; existing registration with mock</span>
+    container.RegisterInstance&lt;ICallHandler&gt;(myCallHandlerRegistration.Name, 
+        <span style="color:Blue">new</span> MockCallHandler(), 
+        lifetimeManager);
+
+    ISubscriberRepository repository = container.Resolve&lt;ISubscriberRepository&gt;();
+    repository.Add(<span style="color:#A31515">&quot;value1&quot;</span>);
+
+    <span style="color:Green">// verify interception ran</span>
+    Debug.Assert(<span style="color:#A31515">&quot;value1&quot;</span> ==
+        ((MockCallHandler)container.Resolve&lt;ICallHandler&gt;(myCallHandlerRegistration.Name)).Input.Inputs[0]);
+
+</pre>
+</div>
+Also, as mentioned, container extensions let you do almost anything at the expense of complexity.
+<br>
+<br>
+~~ <br>
+Randy Levy <br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">&#x65;n&#x74;&#108;&#105;&#x62;&#46;&#115;&#x75;&#112;&#112;&#x6f;&#x72;&#x74;&#x40;&#x6c;&#x69;&#118;&#x65;&#x2e;c&#x6f;&#x6d;</a>
+<br>
+Enterprise Library support engineer <br>
+<a href="entlib.codeplex.com/wikipage?title=Support%20How-to"  rel="nofollow">Support How-to</a>
+<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1059464" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f447741">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="b7238560-1305-457b-b8fe-4335df12bb5f">
+    <script class="options" defer="defer" id="b7238560-1305-457b-b8fe-4335df12bb5f" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_bac94031-0072-4ccf-a864-85683e09f001">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_34f551fa-81eb-484b-92c0-22f5a96eaec9">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_bac94031-0072-4ccf-a864-85683e09f001" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_34f551fa-81eb-484b-92c0-22f5a96eaec9" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/447741';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

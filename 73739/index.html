@@ -1,0 +1,972 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Dependency injection with custom trace listener</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/73739?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/73739?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="FikwXbOT3Otv7WHycRxTpwHghH9LifSsbfSOWmqp5Xu0wK-priO5Fl1tgAmHBH0lSFLF_YRQYa92Tt8v8MV6i-LDnSXmySGpcptTNa04oLrE3wjEToKHDDXzzYMMyGnSyziUvw2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2dc7298ce-9b3e-46a8-b626-da9a6c163004" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:28:01 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f73739" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="3b1a62dd-a7a0-4204-b274-b9a4b92b5380">
+                
+                    <script class="options" defer="defer" id="3b1a62dd-a7a0-4204-b274-b9a4b92b5380" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="2ef377f8-2e5f-4bcb-8b58-63d696432cc6">
+                
+                    <script class="options" defer="defer" id="2ef377f8-2e5f-4bcb-8b58-63d696432cc6" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Dependency injection with custom trace listener
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:73739]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="f03f6468-cc02-441d-8ca0-b386671e7f0e">
+    <script class="options" defer="defer" id="f03f6468-cc02-441d-8ca0-b386671e7f0e" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/73739","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="252139">
+    <td id="PostDetailsCell_252139" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post252139"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/one">one</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/1/2009 3:28:06 PM" LocalTimeTicks="1257118086">Nov 1, 2009 at 3:28 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_252139" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;&#38;nbsp&#59;&#32;Hi&#32;folks,&#32;I&#39;m&#32;trying&#32;to&#32;implement&#32;a&#32;custom&#32;trace&#32;listener,&#32;which&#32;will&#32;use&#32;a&#32;Linq&#32;datacontext,&#32;but&#32;i&#39;ve&#32;run&#32;into&#32;a&#32;bit&#32;of&#32;a&#32;problem,&#32;likely&#32;stemming&#32;from&#32;my&#32;lack&#32;of&#32;knowledge&#32;on&#32;this&#32;subject&#32;&#61;&#93;Obviously&#32;i&#32;don&#39;t&#32;want&#32;to&#32;create&#32;a&#32;new&#32;datacontext&#32;for&#32;every&#32;logging&#32;action&#32;that&#32;occurs,&#32;so&#32;i&#32;have&#32;a&#32;constructor&#32;with&#32;an&#32;IDataContextProvider&#32;param,&#32;which&#32;Unity&#32;provides&#32;a&#32;concrete&#32;perwebrequest&#32;lifetime&#32;implementation&#32;of&#32;at&#32;runtime.&#32;But&#32;when&#32;i&#32;run&#32;the&#32;project&#32;i&#32;get&#32;the&#32;following&#32;error&#58;&#32;&#38;nbsp&#59;&#32;&#38;quot&#59;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter,&#32;null&#93;&#41;&#32;failed&#58;&#32;The&#32;type&#32;&#39;X.Infrastructure.XDBTraceListener&#39;&#32;specified&#32;for&#32;custom&#32;trace&#32;listener&#32;named&#32;&#39;Custom&#32;Trace&#32;Listener&#39;&#32;does&#32;not&#32;a&#32;default&#32;constructor,&#32;which&#32;is&#32;required&#32;when&#32;no&#32;InitData&#32;is&#32;specified&#32;in&#32;the&#32;configuration.&#32;&#40;Strategy&#32;type&#32;ConfiguredObjectStrategy,&#32;index&#32;2&#41;&#38;quot&#59;&#32;I&#32;know&#32;that&#32;you&#32;can&#32;provide&#32;an&#32;initializeData&#61;&#38;quot&#59;something&#38;quot&#59;&#32;attribute&#32;on&#32;the&#32;listener&#32;in&#32;the&#32;config&#32;file...&#32;but&#32;this&#32;is&#32;a&#32;string&#32;only&#32;right&#63;&#32;Whereas&#32;i&#32;want&#32;to&#32;inject&#32;the&#32;DataContextProvider.&#32;Note&#32;that&#32;everything&#32;works&#32;fine&#32;when&#32;i&#32;have&#32;IDataContextProvider&#32;specified&#32;as&#32;a&#32;constructor&#32;param&#32;in&#32;other&#32;classes,&#32;Unity&#32;provides&#32;the&#32;right&#32;concrete&#32;class,&#32;and&#32;i&#39;m&#32;off&#32;and&#32;running&#32;IOC&#32;styles.&#32;Any&#32;suggestions&#32;welcome&#32;and&#32;i&#39;ve&#32;included&#32;the&#32;pertinent&#32;code&#32;below.&#32;&#38;nbsp&#59;&#32;MVC&#32;projectGlobal.asax&#32;&#58;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;font&#32;size&#61;&#38;quot&#59;2&#38;quot&#59;&#32;color&#61;&#38;quot&#59;&#35;0000ff&#38;quot&#59;&#38;gt&#59;&#38;lt&#59;font&#32;size&#61;&#38;quot&#59;2&#38;quot&#59;&#32;color&#61;&#38;quot&#59;&#35;0000ff&#38;quot&#59;&#38;gt&#59;&#32;private&#32;&#38;lt&#59;&#47;font&#38;gt&#59;&#38;lt&#59;&#47;font&#38;gt&#59;&#38;lt&#59;font&#32;size&#61;&#38;quot&#59;2&#38;quot&#59;&#32;color&#61;&#38;quot&#59;&#35;0000ff&#38;quot&#59;&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;font&#38;gt&#59;&#32;&#32;static&#32;IUnityContainer&#32;_iocContainer&#59;protected&#38;nbsp&#59;void&#32;Application_Start&#40;&#41;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;RegisterRoutes&#40;RouteTable.Routes&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;InitializeIoC&#40;&#41;&#59;&#125;protected&#32;virtual&#32;void&#32;InitializeIoC&#40;&#41;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;if&#32;&#40;_iocContainer&#32;&#61;&#61;&#32;null&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;_iocContainer&#32;&#61;&#32;IoCContainerBuilder.Build&#40;&#38;quot&#59;App_Data&#47;Configuration&#47;Entlib.config&#38;quot&#59;,&#32;MyConfig.ActiveUnityContainer&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;ControllerBuilder.Current.SetControllerFactory&#40;typeof&#40;UnityControllerFactory&#41;&#41;&#59;&#32;&#47;&#47;&#32;controller&#32;factory&#32;provided&#32;via&#32;MvcContrib&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#125;&#32;then&#32;IOCContainerBuilder.cs&#32;&#58;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;font&#32;size&#61;&#38;quot&#59;2&#38;quot&#59;&#32;color&#61;&#38;quot&#59;&#35;0000ff&#38;quot&#59;&#38;gt&#59;&#38;lt&#59;font&#32;size&#61;&#38;quot&#59;2&#38;quot&#59;&#32;color&#61;&#38;quot&#59;&#35;0000ff&#38;quot&#59;&#38;gt&#59;&#32;public&#32;&#38;lt&#59;&#47;font&#38;gt&#59;&#38;lt&#59;&#47;font&#38;gt&#59;&#38;lt&#59;font&#32;size&#61;&#38;quot&#59;2&#38;quot&#59;&#32;color&#61;&#38;quot&#59;&#35;0000ff&#38;quot&#59;&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;font&#38;gt&#59;&#32;static&#32;class&#32;IoCContainerBuilder&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;static&#32;IUnityContainer&#32;Build&#40;string&#32;configPath,&#32;string&#32;unityContainerName&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;var&#32;map&#32;&#61;&#32;new&#32;ExeConfigurationFileMap&#123;&#32;ExeConfigFilename&#32;&#61;&#32;AppDomain.CurrentDomain.BaseDirectory&#32;&#43;&#32;configPath&#125;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;var&#32;config&#32;&#61;&#32;ConfigurationManager.OpenMappedExeConfiguration&#40;map,&#32;ConfigurationUserLevel.None&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;var&#32;section&#32;&#61;&#32;config.GetSection&#40;&#38;quot&#59;unity&#38;quot&#59;&#41;&#32;as&#32;UnityConfigurationSection&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;section.Containers&#91;unityContainerName&#93;.Configure&#40;container&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;container.RegisterType&#38;lt&#59;IConnectionStringProvider,&#32;ConnectionStringProvider&#38;gt&#59;&#40;new&#32;ContainerControlledLifetimeManager&#40;&#41;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;container.RegisterType&#38;lt&#59;IDataContextProvider,&#32;DataContextProvider&#38;gt&#59;&#40;new&#32;UnityPerWebRequestLifetimeManager&#40;&#41;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;return&#32;container&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#125;&#32;&#38;nbsp&#59;&#32;Entlib.config&#58;&#38;lt&#59;loggingConfiguration&#32;name&#61;&#38;quot&#59;Logging&#32;Application&#32;Block&#38;quot&#59;&#32;tracingEnabled&#61;&#38;quot&#59;true&#38;quot&#59;&#32;defaultCategory&#61;&#38;quot&#59;General&#38;quot&#59;&#32;logWarningsWhenNoCategoriesMatch&#61;&#38;quot&#59;true&#38;quot&#59;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;listeners&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;add&#32;listenerDataType&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.CustomTraceListenerData,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;4.1.0.0,&#32;Culture&#61;neutral,&#38;nbsp&#59;PublicKeyToken&#61;31bf3856ad364e35&#38;quot&#59;&#38;nbsp&#59;traceOutputOptions&#61;&#38;quot&#59;None&#38;quot&#59;&#32;filter&#61;&#38;quot&#59;All&#38;quot&#59;&#32;type&#61;&#38;quot&#59;X.Infrastructure.XDBTraceListener,&#32;SC2009.Infrastructure,&#32;Version&#61;1.0.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;null&#38;quot&#59;&#32;name&#61;&#38;quot&#59;Custom&#32;Trace&#32;Listener&#38;quot&#59;&#32;formatter&#61;&#38;quot&#59;Text&#32;Formatter&#38;quot&#59;&#38;nbsp&#59;&#47;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;listeners&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;formatters...&#32;categorys...&#32;specialsources...&#38;nbsp&#59;etc&#38;lt&#59;loggingConfiguration&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;font&#32;size&#61;&#38;quot&#59;2&#38;quot&#59;&#32;color&#61;&#38;quot&#59;&#35;0000ff&#38;quot&#59;&#38;gt&#59;&#38;lt&#59;font&#32;size&#61;&#38;quot&#59;2&#38;quot&#59;&#32;color&#61;&#38;quot&#59;&#35;0000ff&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;&#32;&#38;lt&#59;&#47;font&#38;gt&#59;&#38;lt&#59;&#47;font&#38;gt&#59;&#38;lt&#59;font&#32;size&#61;&#38;quot&#59;2&#38;quot&#59;&#32;color&#61;&#38;quot&#59;&#35;0000ff&#38;quot&#59;&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;font&#38;gt&#59;&#32;unity&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;typeAliases&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;typeAlias&#32;alias&#61;&#38;quot&#59;String&#38;quot&#59;&#32;type&#61;&#38;quot&#59;System.String,&#32;mscorlib&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;typeAlias&#32;alias&#61;&#38;quot&#59;IConnectionStringProvider&#38;quot&#59;&#32;type&#61;&#38;quot&#59;X.DataAccess.IConnectionStringProvider,&#32;X.DataAccess&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;typeAlias&#32;alias&#61;&#38;quot&#59;ConnectionStringProvider&#38;quot&#59;&#32;type&#61;&#38;quot&#59;X.DataAccess.ConnectionStringProvider,&#32;X.DataAccess&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;lt&#59;&#47;typeAliases&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;lt&#59;containers&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;container&#32;name&#61;&#38;quot&#59;live&#38;quot&#59;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;types&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;type&#32;type&#61;&#38;quot&#59;IConnectionStringProvider&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;ConnectionStringProvider&#38;quot&#59;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;typeConfig&#32;extensionType&#61;&#38;quot&#59;Microsoft.Practices.Unity.Configuration.TypeInjectionElement,&#32;Microsoft.Practices.Unity.Configuration&#38;quot&#59;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;connectionString&#38;quot&#59;&#32;parameterType&#61;&#38;quot&#59;String&#38;quot&#59;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;value&#32;value&#61;&#38;quot&#59;Data&#32;Source&#61;.&#92;SQLEXPRESS&#59;Initial&#32;Catalog&#61;X&#59;Integrated&#32;Security&#61;True&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;typeConfig&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;type&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;types&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;container&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;containers&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;unity&#38;gt&#59;&#32;the&#32;DataContext&#32;and&#32;ConnectionString&#32;providers&#32;are&#32;pretty&#32;simple&#32;and&#32;vanilla&#32;so&#32;i&#39;ll&#32;leave&#32;taht&#32;out...&#32;and&#32;get&#32;to&#32;the&#32;relevant&#32;bit...&#32;X.Infrastructure&#32;projectXDBTraceListener.cs&#32;&#58;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;font&#32;size&#61;&#38;quot&#59;2&#38;quot&#59;&#38;gt&#59;&#32;&#91;&#32;&#38;lt&#59;&#47;font&#38;gt&#59;&#32;ConfigurationElementType&#40;typeof&#40;CustomTraceListenerData&#41;&#41;&#93;public&#32;class&#32;XDBTraceListener&#32;&#58;&#32;CustomTraceListener&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#32;XDBTraceListener&#40;IDataContextProvider&#32;dataContextProvider&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;db&#32;&#61;&#32;dataContextProvider.DataContext&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;readonly&#32;XDataContext&#32;db&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;override&#32;void&#32;TraceData&#40;TraceEventCache&#32;eventCache,&#32;string&#32;source,&#32;TraceEventType&#32;eventType,&#32;int&#32;id,&#32;object&#32;data&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;if&#32;&#40;data&#32;is&#32;LogEntry&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;try&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;do&#32;stuff&#32;&#33;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;catch&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;more&#32;stuff&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;--&#32;other&#32;methods&#32;--&#125;&#32;&#38;nbsp&#59;">
+        
+<p><span style="color:#0000ff; font-size:x-small"></span></p>
+<p>&nbsp;</p>
+<p>Hi folks,</p>
+<p>I'm trying to implement a custom trace listener, which will use a Linq datacontext, but i've run into a bit of a problem, likely stemming from my lack of knowledge on this subject =]<br>
+Obviously i don't want to create a new datacontext for every logging action that occurs, so i have a constructor with an IDataContextProvider param, which Unity provides a concrete perwebrequest lifetime implementation of at runtime. But when i run the project
+ i get the following error:</p>
+<p>&nbsp;</p>
+<p>&quot;The current build operation (build key Build Key[Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter, null]) failed: The type 'X.Infrastructure.XDBTraceListener' specified for custom trace listener named 'Custom Trace Listener' does not a default
+ constructor, which is required when no InitData is specified in the configuration. (Strategy type ConfiguredObjectStrategy, index 2)&quot;</p>
+<p>I know that you can provide an initializeData=&quot;something&quot; attribute on the listener in the config file... but this is a string only right? Whereas i want to inject the DataContextProvider. Note that everything works fine when i have IDataContextProvider
+ specified as a constructor param in other classes, Unity provides the right concrete class, and i'm off and running IOC styles.</p>
+<p>Any suggestions welcome and i've included the pertinent code below.</p>
+<p>&nbsp;</p>
+<p><strong>MVC project<br>
+</strong>Global.asax :</p>
+<p>&nbsp;</p>
+<p><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&lt;font size=&quot;2&quot; color=&quot;#0000ff&quot;&gt;&lt;font size=&quot;2&quot; color=&quot;#0000ff&quot;&gt;
+</p>
+<p>private</p>
+&lt;/font&gt;&lt;/font&gt;</span>&lt;font size=&quot;2&quot; color=&quot;#0000ff&quot;&gt;
+<p>&nbsp;</p>
+&lt;/font&gt;</span>
+<p></p>
+<p><span style="color:#000000; font-size:x-small"></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">static</span></span><span style="color:#000000; font-size:x-small">
+</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">IUnityContainer</span></span><span style="font-size:x-small"><span style="color:#000000"> _iocContainer;<br>
+<br>
+</span></span>protected&nbsp;v<span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">oid</span></span><span style="font-size:x-small"> Application_Start()<br>
+{<br>
+</span><span style="font-size:x-small">&nbsp;&nbsp;&nbsp; RegisterRoutes(</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">RouteTable</span></span><span style="font-size:x-small">.Routes);</span><span style="font-size:x-small"><br>
+&nbsp;&nbsp;&nbsp; InitializeIoC();<br>
+}<br>
+</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small"><br>
+protected </span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">virtual</span></span><span style="font-size:x-small">
+</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">void</span></span><span style="font-size:x-small"> InitializeIoC()<br>
+{<br>
+&nbsp;&nbsp;&nbsp; </span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">if</span></span><span style="font-size:x-small"> (_iocContainer ==
+</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">null</span></span><span style="font-size:x-small">)<br>
+&nbsp;&nbsp;&nbsp; {<br>
+</span><span style="font-size:x-small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;_iocContainer =
+</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">IoCContainerBuilder</span></span><span style="font-size:x-small">.Build(</span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">&quot;App_Data/Configuration/Entlib.config&quot;</span></span><span style="font-size:x-small">,
+</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">MyConfig</span></span><span style="font-size:x-small">.ActiveUnityContainer);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">ControllerBuilder</span></span><span style="font-size:x-small">.Current.SetControllerFactory(</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">typeof</span></span><span style="font-size:x-small">(</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">UnityControllerFactory</span></span><span style="font-size:x-small">));
+ // controller factory provided via MvcContrib<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}</span></p>
+<p>then IOCContainerBuilder.cs :</p>
+<p>&nbsp;</p>
+<p><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&lt;font size=&quot;2&quot; color=&quot;#0000ff&quot;&gt;&lt;font size=&quot;2&quot; color=&quot;#0000ff&quot;&gt;
+</p>
+<p>public</p>
+&lt;/font&gt;&lt;/font&gt;</span>&lt;font size=&quot;2&quot; color=&quot;#0000ff&quot;&gt;
+<p>&nbsp;</p>
+&lt;/font&gt;</span>
+<p></p>
+<p><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">static</span></span><span style="font-size:x-small">
+</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">class</span></span><span style="font-size:x-small">
+</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">IoCContainerBuilder</span></span><span style="font-size:x-small">
+<br>
+{<br>
+&nbsp;&nbsp;&nbsp; </span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">public</span></span><span style="font-size:x-small">
+</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">static</span></span><span style="font-size:x-small">
+</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">IUnityContainer</span></span><span style="font-size:x-small"> Build(</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">string</span></span><span style="font-size:x-small">
+ configPath, </span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">string</span></span><span style="font-size:x-small"> unityContainerName)<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; va</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">r</span></span><span style="font-size:x-small"> map =
+</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">new</span></span><span style="font-size:x-small">
+</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">ExeConfigurationFileMap</span></span><span style="font-size:x-small">{ ExeConfigFilename =
+</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">AppDomain</span></span><span style="font-size:x-small">.CurrentDomain.BaseDirectory &#43; configPath};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">var</span></span><span style="font-size:x-small"> config =
+</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">ConfigurationManager</span></span><span style="font-size:x-small">.OpenMappedExeConfiguration(map,
+</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">ConfigurationUserLevel</span></span><span style="font-size:x-small">.None);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">var</span></span><span style="font-size:x-small"> section = config.GetSection(</span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">&quot;unity&quot;</span></span><span style="font-size:x-small">)
+</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">as</span></span><span style="font-size:x-small">
+</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">UnityConfigurationSection</span></span><span style="font-size:x-small">;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">IUnityContainer</span></span><span style="font-size:x-small"> container =
+</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">new</span></span><span style="font-size:x-small">
+</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">UnityContainer</span></span><span style="font-size:x-small">();<br>
+<span style="font-size:x-small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; section.Containers[unityContainerName].Configure(container);</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:x-small">container.RegisterType&lt;<span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">IConnectionStringProvider</span></span><span style="font-size:x-small">,
+</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">ConnectionStringProvider</span></span><span style="font-size:x-small">&gt;(</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">new</span></span><span style="font-size:x-small">
+</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">ContainerControlledLifetimeManager</span></span><span style="font-size:x-small">());</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; container.RegisterType&lt;<span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">IDataContextProvider</span></span><span style="font-size:x-small">,
+</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">DataContextProvider</span></span><span style="font-size:x-small">&gt;(</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">new</span></span><span style="font-size:x-small">
+</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">UnityPerWebRequestLifetimeManager</span></span><span style="font-size:x-small">());</span><br>
+</span><span style="font-size:x-small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">return</span></span><span style="font-size:x-small"> container;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}</span></p>
+<p>&nbsp;</p>
+<p><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">Entlib.config:<br>
+<br>
+&lt;</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">loggingConfiguration</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">name</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">Logging
+ Application Block</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">tracingEnabled</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">true</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">defaultCategory</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">General</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">logWarningsWhenNoCategoriesMatch</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">true</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">listeners</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">add</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">listenerDataType</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.CustomTraceListenerData,
+ Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral,&nbsp;PublicKeyToken=31bf3856ad364e35</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&nbsp;</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">traceOutputOptions</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">None</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">filter</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">All</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">type</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">X.Infrastructure.XDBTraceListener,
+ SC2009.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</span></span><span style="font-size:x-small">&quot;
+<span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">name</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">Custom
+ Trace Listener</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">formatter</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">Text
+ Formatter</span></span><span style="font-size:x-small">&quot;</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&nbsp;/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/<span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">listeners</span></span>&gt;<br>
+&nbsp;&nbsp;&nbsp; formatters... categorys... specialsources...</span></span>&nbsp;etc<br>
+<span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">&lt;loggingConfiguration</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;</span></span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&lt;font size=&quot;2&quot; color=&quot;#0000ff&quot;&gt;&lt;font size=&quot;2&quot; color=&quot;#0000ff&quot;&gt;
+</p>
+<p>&lt;</p>
+&lt;/font&gt;&lt;/font&gt;</span>&lt;font size=&quot;2&quot; color=&quot;#0000ff&quot;&gt;
+<p>&nbsp;</p>
+&lt;/font&gt;</span>
+<p></p>
+<p><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">unity</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">typeAliases</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">typeAlias</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">alias</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">String</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">type</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">System.String,
+ mscorlib</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small"> /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">typeAlias</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">alias</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">IConnectionStringProvider</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">type</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">X.DataAccess.IConnectionStringProvider,
+ X.DataAccess</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small"> /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">typeAlias</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">alias</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">ConnectionStringProvider</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">type</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">X.DataAccess.ConnectionStringProvider,
+ X.DataAccess</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small"> /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">typeAliases</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">containers</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">container</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">name</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">live</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">types</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">type</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">type</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">IConnectionStringProvider</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">mapTo</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">ConnectionStringProvider</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">typeConfig</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">extensionType</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">Microsoft.Practices.Unity.Configuration.TypeInjectionElement,
+ Microsoft.Practices.Unity.Configuration</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">constructor</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">param</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">name</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">connectionString</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">parameterType</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">String</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">value</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">value</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">Data
+ Source=.\SQLEXPRESS;Initial Catalog=X;Integrated Security=True</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small"> /&gt;<br>
+</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ &lt;/param</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">constructor</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">typeConfig</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">type</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">types</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">container</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">containers</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">unity</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;</span></span></p>
+<p><span style="color:#0000ff">the DataContext and ConnectionString providers are pretty simple and vanilla so i'll leave taht out... and get to the relevant bit...</span></p>
+<p><span style="color:#000000"><strong>X.Infrastructure project<br>
+</strong>XDBTraceListener.cs :</span></p>
+<p>&nbsp;</p>
+<p><span style="font-size:x-small">&lt;font size=&quot;2&quot;&gt; </p>
+<p>[</p>
+&lt;/font&gt;</span>
+<p></p>
+<p><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">ConfigurationElementType</span></span><span style="font-size:x-small">(</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">typeof</span></span><span style="font-size:x-small">(</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">CustomTraceListenerData</span></span><span style="font-size:x-small">))]<br>
+</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">public</span></span><span style="font-size:x-small">
+</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">class</span></span><span style="font-size:x-small">
+</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">XDBTraceListener</span></span><span style="font-size:x-small"> :
+</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">CustomTraceListener</span></span><span style="font-size:x-small">
+<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">public
+</span></span><span style="font-size:x-small">XDBTraceListener(</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">IDataContextProvider</span></span><span style="font-size:x-small"> dataContextProvider)<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">db = dataContextProvider.DataContext;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">readonly</span></span><span style="font-size:x-small"> X</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">DataContext</span></span><span style="font-size:x-small">
+ db;<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">public</span></span><span style="font-size:x-small">
+</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">override</span></span><span style="font-size:x-small">
+</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">void</span></span><span style="font-size:x-small"> TraceData(</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">TraceEventCache</span></span><span style="font-size:x-small">
+ eventCache, </span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">string</span></span><span style="font-size:x-small"> source,
+</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">TraceEventType</span></span><span style="font-size:x-small"> eventType,
+</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">int</span></span><span style="font-size:x-small"> id,
+</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">object</span></span><span style="font-size:x-small"> data)<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">if</span></span><span style="font-size:x-small"> (data
+</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">is</span></span><span style="font-size:x-small">
+</span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">LogEntry)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">try<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span style="font-size:x-small">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; do stuff !<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; catch<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; more stuff<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; -- other methods --<br>
+}</span></p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_252139" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="252180">
+    <td id="PostDetailsCell_252180" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post252180"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/rslaney">rslaney</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/1/2009 7:03:55 PM" LocalTimeTicks="1257131035">Nov 1, 2009 at 7:03 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_252180" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="my&#32;first&#32;thought&#32;is&#32;that&#32;the&#32;UnityControllerFactory&#32;&#40;&#32;assuming&#32;that&#32;is&#32;initiating&#32;the&#32;unity&#32;call&#32;&#41;&#32;is&#32;using&#32;the&#32;default&#32;container&#32;and&#32;not&#32;the&#32;&#38;quot&#59;live&#38;quot&#59;&#32;named&#32;container&#32;you&#32;have&#32;setup.&#38;nbsp&#59;&#32;Therefore&#32;the&#32;IDataContextProvider&#32;interface&#32;is&#32;not&#32;wired&#32;up&#32;and&#32;as&#32;the&#32;XDBTraceListener&#32;has&#32;no&#32;default&#32;ctor&#32;Unity&#32;cannot&#32;use&#32;the&#32;ctor&#32;provided.&#32;I&#32;rolled&#32;by&#32;own&#32;UnityControllerFactory&#32;for&#32;an&#32;MVC&#32;project&#32;and&#32;didn&#39;t&#32;use&#32;the&#32;UnityContrib&#32;version&#32;so&#32;I&#39;m&#32;not&#32;sure&#32;if&#32;you&#32;can&#32;use&#32;a&#32;named&#32;container&#32;&#63;&#32;Cheers...&#32;Robert">
+        
+<p>my first thought is that the UnityControllerFactory ( assuming that is initiating the unity call ) is using the default container and not the &quot;live&quot; named container you have setup.&nbsp; Therefore the IDataContextProvider interface is not wired
+ up and as the XDBTraceListener has no default ctor Unity cannot use the ctor provided.</p>
+<p>I rolled by own UnityControllerFactory for an MVC project and didn't use the UnityContrib version so I'm not sure if you can use a named container ?</p>
+<p>Cheers...</p>
+<p>Robert</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_252180" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="252400">
+    <td id="PostDetailsCell_252400" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post252400"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/one">one</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/2/2009 12:44:50 PM" LocalTimeTicks="1257194690">Nov 2, 2009 at 12:44 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_252400" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="There&#32;is&#32;no&#32;default&#32;container..&#32;there&#32;is&#32;only&#32;the&#32;&#39;live&#39;&#32;one.&#32;Besides&#32;if&#32;this&#32;was&#32;the&#32;case&#32;none&#32;of&#32;my&#32;IOCContainer&#32;managed&#32;classes&#32;would&#32;be&#32;being&#32;provided...&#32;but&#32;like&#32;i&#32;said&#32;i&#32;have&#32;other&#32;service&#32;classes&#32;which&#32;have&#32;various&#32;Interfaces&#32;in&#32;their&#32;constructors&#32;which&#32;all&#32;work&#32;perfectly.&#32;I&#32;have&#32;a&#32;bunch&#32;of&#32;&#38;quot&#59;ISomethingService&#38;quot&#59;&#32;classes&#32;which&#32;all&#32;depend&#32;on&#32;the&#32;IDataContextProvider&#32;to&#32;be&#32;DI&#32;into&#32;their&#32;constructors.&#32;All&#32;of&#32;these&#32;work&#32;fine..&#32;it&#39;s&#32;just&#32;the&#32;TraceListener&#32;which&#32;is&#32;being&#32;a&#32;pain.">
+        
+<p>There is no default container.. there is only the 'live' one. Besides if this was the case none of my IOCContainer managed classes would be being provided... but like i said i have other service classes which have various Interfaces in their constructors
+ which all work perfectly. I have a bunch of &quot;ISomethingService&quot; classes which all depend on the IDataContextProvider to be DI into their constructors. All of these work fine.. it's just the TraceListener which is being a pain.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_252400" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="252483">
+    <td id="PostDetailsCell_252483" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post252483"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/2/2009 4:49:31 PM" LocalTimeTicks="1257209371">Nov 2, 2009 at 4:49 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_252483" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#39;ll&#32;have&#32;to&#32;dig&#32;into&#32;the&#32;code,&#32;but&#32;my&#32;first&#32;guess&#32;would&#32;be&#32;that&#32;you&#39;re&#32;using&#32;the&#32;CustomerTraceListenerData&#32;to&#32;provide&#32;your&#32;configuration.&#32;The&#32;Entlib&#32;4.1&#32;unity&#32;integration&#32;is&#32;a&#32;little&#32;hacked&#32;together,&#32;and&#32;we&#32;actually&#32;rely&#32;on&#32;the&#32;config&#32;system&#32;to&#32;create&#32;the&#32;object.&#32;Thus&#32;you&#39;re&#32;getting&#32;the&#32;error.&#32;Can&#32;you&#32;try&#32;providing&#32;a&#32;specific&#32;configuration&#32;element&#32;for&#32;your&#32;custom&#32;trace&#32;listener&#63;&#32;&#38;nbsp&#59;">
+        
+<p>I'll have to dig into the code, but my first guess would be that you're using the CustomerTraceListenerData to provide your configuration. The Entlib 4.1 unity integration is a little hacked together, and we actually rely on the config system to create the
+ object. Thus you're getting the error. Can you try providing a specific configuration element for your custom trace listener?</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_252483" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="252753">
+    <td id="PostDetailsCell_252753" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post252753"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/one">one</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/3/2009 10:58:13 AM" LocalTimeTicks="1257274693">Nov 3, 2009 at 10:58 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_252753" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Just&#32;to&#32;clarify...&#32;are&#32;you&#32;saying&#32;that&#32;because&#32;i&#32;have&#58;&#32;&#38;lt&#59;listeners&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;add&#32;listenerDataType&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.CustomTraceListenerData,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;4.1.0.0,&#32;Culture&#61;neutral,&#38;nbsp&#59;PublicKeyToken&#61;31bf3856ad364e35&#38;quot&#59;&#32;...&#32;with&#32;the&#32;CustomTraceListenerData&#32;as&#32;the&#32;listenerDataType,&#32;that&#38;nbsp&#59;my&#38;nbsp&#59;Custom&#32;Trace&#32;Listener&#38;nbsp&#59;always&#32;looks&#32;to&#32;the&#32;Entlib.config&#32;file&#32;for&#32;it&#39;s&#32;IOC&#32;information&#32;rather&#32;than&#32;referring&#32;to&#32;the&#32;IOC&#32;Container&#32;created&#32;in&#32;Global.asax&#63;&#32;Also,&#32;could&#32;you&#32;please&#38;nbsp&#59;explain&#32;the&#38;nbsp&#59;&#38;quot&#59;Can&#32;you&#32;try&#32;providing&#32;a&#32;specific&#32;configuration&#32;element&#32;for&#32;your&#32;custom&#32;trace&#32;listener&#38;quot&#59;...&#32;i&#39;m&#32;not&#32;too&#32;good&#32;with&#32;config&#32;of&#32;IOC&#32;via&#32;XML&#32;docs&#32;&#61;&#93;&#32;Thanks&#32;for&#32;your&#32;time.">
+        
+<p>Just to clarify... are you saying that because i have:</p>
+<p>&lt;<span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">listeners</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span></span><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">add</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">
+</span></span><span style="color:#ff0000; font-size:x-small"><span style="color:#ff0000; font-size:x-small">listenerDataType</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">=</span></span><span style="font-size:x-small">&quot;</span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.CustomTraceListenerData,
+ Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral,&nbsp;PublicKeyToken=31bf3856ad364e35</span></span><span style="font-size:x-small">&quot;</span></p>
+<p><span style="font-size:x-small">... with the CustomTraceListenerData as the listenerDataType, that&nbsp;my&nbsp;Custom Trace Listener&nbsp;always looks to the Entlib.config file for it's IOC information rather than referring to the IOC Container created
+ in Global.asax?</span></p>
+<p><span style="font-size:x-small">Also, could you please&nbsp;explain the&nbsp;&quot;Can you try providing a specific configuration element for your custom trace listener&quot;... i'm not too good with config of IOC via XML docs =]</span></p>
+<p><span style="font-size:x-small">Thanks for your time.</span></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_252753" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f73739">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="0ea72236-9345-4945-af6a-11bbb736b080">
+    <script class="options" defer="defer" id="0ea72236-9345-4945-af6a-11bbb736b080" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_d340746e-aae2-4cf7-b759-c24066f6e506">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_be481f2d-3474-4deb-88bf-a05a9a9795d6">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_d340746e-aae2-4cf7-b759-c24066f6e506" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_be481f2d-3474-4deb-88bf-a05a9a9795d6" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/73739';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

@@ -1,0 +1,909 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Chain of Responsibility pattern using Unity</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/39903?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/39903?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="ln5lxcUL2lBucBECPybstPEqx3B567O__80cPp4pqU9jqvRuZQ7VXWbgtCvM9MZZXzA2vX3j3t2n-wgWoaYNMHs2A6yy653v7d7b6gJq4R2CFsmPiYBBcLDqO1QVFzUxuiilEA2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken27c6655ca-9cbe-48dd-b0af-69e455055468" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:28:37 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f39903" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="e56670b4-83d6-4141-abbd-93c7035ee8b8">
+                
+                    <script class="options" defer="defer" id="e56670b4-83d6-4141-abbd-93c7035ee8b8" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="ae58cd6c-b853-4aad-b589-592677b535ed">
+                
+                    <script class="options" defer="defer" id="ae58cd6c-b853-4aad-b589-592677b535ed" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Chain of Responsibility pattern using Unity
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:39903]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="f6bcc266-6351-417a-9fa1-a48aba2b004f">
+    <script class="options" defer="defer" id="f6bcc266-6351-417a-9fa1-a48aba2b004f" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/39903","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="132462">
+    <td id="PostDetailsCell_132462" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post132462"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/rslaney">rslaney</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/14/2008 1:31:38 AM" LocalTimeTicks="1226655098">Nov 14, 2008 at 1:31 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="11/14/2008 3:34:46 AM" LocalTimeTicks="1226662486">Nov 14, 2008 at 3:34 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_132462" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;was&#32;wondering&#32;if&#32;it&#32;is&#32;possible&#32;to&#32;get&#32;Unity&#32;to&#32;build&#32;a&#32;Chain&#32;of&#32;Responsibility&#32;object&#32;graph.&#32;It&#32;would&#32;be&#32;preferrable&#32;to&#32;specify&#32;the&#32;chain&#32;in&#32;config.&#32;&#32;ie&#32;&#32;Container.Resolve&#38;lt&#59;IHandler&#38;gt&#59;&#40;&#41;&#32;returns&#32;FirstHandler&#32;with&#32;Seccessor&#32;&#61;&#32;instance&#32;of&#32;SecondHandler&#32;and&#32;so&#32;on.&#32;&#32;public&#32;interface&#32;IHandler&#32;&#123;&#32;IHandler&#32;Successor&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;bool&#32;HandleRequest&#40;&#32;RequestObject&#32;request&#32;&#41;&#59;&#32;&#125;&#32;&#32;public&#32;class&#32;RequestObject&#32;&#123;&#32;&#125;&#32;&#32;public&#32;class&#32;FirstHandler&#32;&#58;&#32;IHandler&#32;&#123;&#32;public&#32;IHandler&#32;Successor&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;&#32;bool&#32;IHandler.HandleRequest&#40;&#32;RequestObject&#32;request&#32;&#41;&#32;&#123;&#32;if&#32;&#40;&#32;&#33;CanHandleRequest&#32;&#38;amp&#59;&#38;amp&#59;&#32;this.Successor&#32;&#33;&#61;&#32;null&#32;&#41;&#32;return&#32;this.Successor.HandleRequest&#40;&#32;request&#32;&#41;&#59;&#32;return&#32;true&#59;&#32;&#125;&#32;&#125;&#32;&#32;public&#32;class&#32;SecondHandler&#32;&#58;&#32;IHandler&#32;&#123;&#32;public&#32;IHandler&#32;Successor&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;&#32;bool&#32;IHandler.HandleRequest&#40;&#32;RequestObject&#32;request&#32;&#41;&#32;&#123;&#32;if&#32;&#40;&#32;&#33;CanHandleRequest&#32;&#38;amp&#59;&#38;amp&#59;&#32;this.Successor&#32;&#33;&#61;&#32;null&#32;&#41;&#32;return&#32;this.Successor.HandleRequest&#40;&#32;request&#32;&#41;&#59;&#32;return&#32;true&#59;&#32;&#125;&#32;&#125;&#32;&#32;public&#32;class&#32;ThirdHandler&#32;&#58;&#32;IHandler&#32;&#123;&#32;public&#32;IHandler&#32;Successor&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;&#32;bool&#32;IHandler.HandleRequest&#40;&#32;RequestObject&#32;request&#32;&#41;&#32;&#123;&#32;if&#32;&#40;&#32;&#33;CanHandleRequest&#32;&#38;amp&#59;&#38;amp&#59;&#32;this.Successor&#32;&#33;&#61;&#32;null&#32;&#41;&#32;return&#32;this.Successor.HandleRequest&#40;&#32;request&#32;&#41;&#59;&#32;return&#32;true&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;If&#32;you&#32;be&#32;even&#32;better&#32;it&#32;I&#32;could&#32;use&#32;a&#32;Generic&#32;interface&#32;instead,&#32;but&#32;I&#32;keep&#32;getting&#32;&#32;&#38;quot&#59;System.InvalidOperationException&#58;&#32;The&#32;current&#32;type,&#32;IHandler&#96;1&#91;IRequestObject&#93;&#32;,&#32;is&#32;an&#32;interface&#32;and&#32;cannot&#32;be&#32;constructed.&#32;Are&#32;you&#32;missing&#32;a&#32;type&#32;mapping&#63;&#38;quot&#59;&#32;&#32;ie&#32;public&#32;interface&#32;IHandler&#38;lt&#59;T&#38;gt&#59;&#32;&#123;&#32;IHandler&#38;lt&#59;T&#38;gt&#59;&#32;Successor&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;bool&#32;HandleRequest&#40;&#32;T&#32;request&#32;&#41;&#59;&#32;&#125;&#32;">
+        
+<p>I was wondering if it is possible to get Unity to build a Chain of Responsibility object graph.&nbsp; It would be&nbsp;preferrable&nbsp;to specify the chain in config.<br>
+<br>
+ie&nbsp;<br>
+Container.Resolve&lt;IHandler&gt;()&nbsp; returns FirstHandler with Seccessor = instance of SecondHandler&nbsp;and so on.<br>
+<br>
+&nbsp;public interface IHandler<br>
+&nbsp;{<br>
+&nbsp;&nbsp;IHandler Successor { get; set; }<br>
+&nbsp;&nbsp;bool HandleRequest( RequestObject request );<br>
+&nbsp;}</p>
+<p>&nbsp;public class RequestObject<br>
+&nbsp;{<br>
+&nbsp;}</p>
+<p>&nbsp;public class FirstHandler : IHandler<br>
+&nbsp;{<br>
+&nbsp;&nbsp;public IHandler Successor { get; set; }</p>
+<p>&nbsp;&nbsp;bool IHandler.HandleRequest( RequestObject request )<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;if ( !CanHandleRequest &amp;&amp; this.Successor != null )<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return this.Successor.HandleRequest( request );<br>
+&nbsp;&nbsp;&nbsp;return true;<br>
+&nbsp;&nbsp;}<br>
+&nbsp;}</p>
+<p>&nbsp;public class SecondHandler : IHandler<br>
+&nbsp;{<br>
+&nbsp;&nbsp;public IHandler Successor { get; set; }</p>
+<p>&nbsp;&nbsp;bool IHandler.HandleRequest( RequestObject request )<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;if ( !CanHandleRequest &amp;&amp; this.Successor != null )<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return this.Successor.HandleRequest( request );<br>
+&nbsp;&nbsp;&nbsp;return true;<br>
+&nbsp;&nbsp;}<br>
+&nbsp;}</p>
+<p>&nbsp;public class ThirdHandler : IHandler<br>
+&nbsp;{<br>
+&nbsp;&nbsp;public IHandler Successor { get; set; }</p>
+<p>&nbsp;&nbsp;bool IHandler.HandleRequest( RequestObject request )<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;if ( !CanHandleRequest &amp;&amp; this.Successor != null )<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return this.Successor.HandleRequest( request );<br>
+&nbsp;&nbsp;&nbsp;return true;<br>
+&nbsp;&nbsp;}<br>
+&nbsp;}<br>
+<br>
+<br>
+If you be even better it I could use a Generic interface instead, but I keep getting
+<br>
+&quot;System.InvalidOperationException:&nbsp;The&nbsp;current&nbsp;type,&nbsp;IHandler`1[IRequestObject] ,&nbsp;is&nbsp;an&nbsp;interface&nbsp;and&nbsp;cannot&nbsp;be&nbsp;constructed.&nbsp;Are&nbsp;you&nbsp;missing&nbsp;a&nbsp;type&nbsp;mapping?&quot;<br>
+<br>
+ie<br>
+public interface IHandler&lt;T&gt;<br>
+{<br>
+&nbsp;&nbsp;IHandler&lt;T&gt; Successor { get; set; }<br>
+&nbsp;&nbsp;bool HandleRequest( T request );<br>
+}</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_132462" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="132512">
+    <td id="PostDetailsCell_132512" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post132512"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/14/2008 7:45:37 AM" LocalTimeTicks="1226677537">Nov 14, 2008 at 7:45 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_132512" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Yes,&#32;it&#39;s&#32;absolutely&#32;supported,&#32;with&#32;generic&#32;interfaces.&#32;I&#39;ll&#32;give&#32;an&#32;example&#32;with&#32;the&#32;API&#32;and&#32;leave&#32;config&#32;as&#32;the&#32;dreaded&#32;&#38;quot&#59;exercise&#32;for&#32;the&#32;reader&#38;quot&#59;.&#32;&#32;Basically,&#32;you&#32;use&#32;a&#32;combination&#32;of&#32;type&#32;mapping&#32;and&#32;named&#32;registrations.&#32;I&#39;ll&#32;assume&#32;you&#32;have&#32;generic&#32;versions&#32;of&#32;FirstHandler,&#32;SecondHandler,&#32;etc.&#32;&#32;You&#32;start&#32;with&#32;your&#32;default&#32;handler&#58;&#32;&#32;container.RegisterType&#40;typeof&#40;IHandler&#38;lt&#59;&#38;gt&#59;&#41;,&#32;typeof&#40;FirstHandler&#38;lt&#59;&#38;gt&#59;&#41;,&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;new&#32;InjectionProperty&#40;&#38;quot&#59;Successor&#38;quot&#59;,&#32;new&#32;ResolvedParameter&#40;typeof&#40;IHandler&#38;lt&#59;&#38;gt&#59;&#41;,&#32;&#38;quot&#59;second&#38;quot&#59;&#41;&#59;&#32;&#32;What&#32;this&#32;is&#32;saying&#32;is&#58;&#32;when&#32;resolving&#32;the&#32;unnamed&#32;instance&#32;of&#32;IHandler&#38;lt&#59;whatever&#38;gt&#59;,&#32;fulfill&#32;it&#32;by&#32;instantating&#32;FirstHandler&#38;lt&#59;whatever&#38;gt&#59;.&#32;Also,&#32;when&#32;building&#32;up&#32;the&#32;object,&#32;set&#32;the&#32;Successor&#32;property&#32;by&#32;resolving&#32;through&#32;the&#32;container&#32;IHandler&#38;lt&#59;whatever&#38;gt&#59;,&#32;&#38;quot&#59;second&#38;quot&#59;.&#32;&#32;Next,&#32;you&#32;define&#32;the&#32;mapping&#32;for&#32;&#38;quot&#59;second&#38;quot&#59;&#58;&#32;&#32;container.RegisterType&#40;typeof&#40;IHandler&#38;lt&#59;&#38;gt&#59;&#41;,&#32;typeof&#40;SecondHandler&#38;lt&#59;&#38;gt&#59;&#41;,&#32;&#38;quot&#59;second&#38;quot&#59;,&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;new&#32;InjectionProperty&#40;&#38;quot&#59;Successor&#38;quot&#59;,&#32;new&#32;ResolvedParameter&#40;typeof&#40;IHandler&#38;lt&#59;&#38;gt&#59;&#41;,&#32;&#38;quot&#59;third&#38;quot&#59;&#41;&#59;&#32;&#32;Note&#32;the&#32;difference&#32;is&#32;that&#32;we&#32;supply&#32;a&#32;name&#32;for&#32;the&#32;registration&#32;this&#32;time&#58;&#32;&#38;quot&#59;second&#38;quot&#59;.&#32;&#32;Next&#32;we&#32;define&#32;the&#32;mapping&#32;for&#32;&#38;quot&#59;third&#38;quot&#59;&#58;&#32;&#32;container.RegisterType&#40;typeof&#40;IHandler&#38;lt&#59;&#38;gt&#59;&#41;,&#32;typeof&#40;ThirdHandler&#38;lt&#59;&#38;gt&#59;&#41;,&#32;&#38;quot&#59;third&#38;quot&#59;&#41;&#59;&#32;&#32;I&#32;didn&#39;t&#32;specify&#32;a&#32;value&#32;for&#32;the&#32;Successor&#32;property&#32;because&#32;you&#32;didn&#39;t&#32;give&#32;one&#32;in&#32;the&#32;original&#32;post,&#32;but&#32;I&#32;hope&#32;by&#32;now&#32;you&#32;can&#32;see&#32;where&#32;this&#32;is&#32;going.&#32;&#32;So&#32;now,&#32;when&#32;you&#32;do&#58;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;container.Resolve&#38;lt&#59;IHandler&#38;lt&#59;RequestObject&#38;gt&#59;&#38;gt&#59;&#40;&#41;&#32;&#32;It&#32;news&#32;up&#32;FirstHandler&#38;lt&#59;RequestObject&#38;gt&#59;&#40;&#41;,&#32;then,&#32;to&#32;set&#32;the&#32;Successor&#32;property&#32;it&#32;does&#58;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;container.Resolve&#38;lt&#59;IHandler&#38;lt&#59;RequestObject&#38;gt&#59;&#38;gt&#59;&#40;&#38;quot&#59;second&#38;quot&#59;&#41;&#32;&#32;which&#32;news&#32;up&#32;SecondHandler&#38;lt&#59;RequestObject&#38;gt&#59;&#40;&#41;,&#32;and&#32;to&#32;set&#32;THAT&#32;object&#39;s&#32;Successor&#32;property&#32;it&#32;does&#58;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;container.Resolve&#38;lt&#59;IHandler&#38;lt&#59;RequestObject&#38;gt&#59;&#38;gt&#59;&#40;&#38;quot&#59;third&#38;quot&#59;&#41;&#32;&#32;which&#32;result&#32;in&#32;an&#32;instance&#32;of&#32;ThirdHandler&#38;lt&#59;RequestObject&#38;gt&#59;.&#32;Which&#32;does&#32;exactly&#32;what&#32;you&#32;asked&#32;for.&#32;&#32;Note&#58;&#32;This&#32;only&#32;works&#32;correctly&#32;in&#32;Unity&#32;1.2.&#32;There&#32;were&#32;several&#32;bugs&#32;around&#32;generic&#32;support&#32;in&#32;1.1&#32;that&#32;we&#32;fixed&#32;in&#32;the&#32;latest&#32;release.&#32;&#32;-Chris&#32;&#32;">
+        Yes, it's absolutely supported, with generic interfaces. I'll give an example with the API and leave config as the dreaded &quot;exercise for the reader&quot;.<br>
+<br>
+Basically, you use a combination of type mapping and named registrations. I'll assume you have generic versions of FirstHandler, SecondHandler, etc.<br>
+<br>
+You start with your default handler:<br>
+<br>
+container.RegisterType(typeof(IHandler&lt;&gt;), typeof(FirstHandler&lt;&gt;),<br>
+&nbsp;&nbsp;&nbsp; new InjectionProperty(&quot;Successor&quot;, new ResolvedParameter(typeof(IHandler&lt;&gt;), &quot;second&quot;);<br>
+<br>
+What this is saying is: when resolving the unnamed instance of IHandler&lt;whatever&gt;, fulfill it by instantating FirstHandler&lt;whatever&gt;. Also, when building up the object, set the Successor property by resolving through the container IHandler&lt;whatever&gt;,
+ &quot;second&quot;.<br>
+<br>
+Next, you define the mapping for &quot;second&quot;:<br>
+<br>
+container.RegisterType(typeof(IHandler&lt;&gt;), typeof(SecondHandler&lt;&gt;), &quot;second&quot;,<br>
+&nbsp;&nbsp;&nbsp; new InjectionProperty(&quot;Successor&quot;, new ResolvedParameter(typeof(IHandler&lt;&gt;), &quot;third&quot;);<br>
+<br>
+Note the difference is that we supply a name for the registration this time: &quot;second&quot;.<br>
+<br>
+Next we define the mapping for &quot;third&quot;:<br>
+<br>
+container.RegisterType(typeof(IHandler&lt;&gt;), typeof(ThirdHandler&lt;&gt;), &quot;third&quot;);<br>
+<br>
+I didn't specify a value for the Successor property because you didn't give one in the original post, but I hope by now you can see where this is going.<br>
+<br>
+So now, when you do:<br>
+<br>
+&nbsp;&nbsp;&nbsp; container.Resolve&lt;IHandler&lt;RequestObject&gt;&gt;()<br>
+<br>
+It news up FirstHandler&lt;RequestObject&gt;(), then, to set the Successor property it does:<br>
+<br>
+&nbsp;&nbsp;&nbsp; container.Resolve&lt;IHandler&lt;RequestObject&gt;&gt;(&quot;second&quot;)<br>
+<br>
+which news up SecondHandler&lt;RequestObject&gt;(), and to set THAT object's Successor property it does:<br>
+<br>
+&nbsp;&nbsp;&nbsp; container.Resolve&lt;IHandler&lt;RequestObject&gt;&gt;(&quot;third&quot;)<br>
+<br>
+which result in an instance of ThirdHandler&lt;RequestObject&gt;. Which does exactly what you asked for.<br>
+<br>
+Note: This only works correctly in Unity 1.2. There were several bugs around generic support in 1.1 that we fixed in the latest release.<br>
+<br>
+-Chris<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_132512" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="132618">
+    <td id="PostDetailsCell_132618" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post132618"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/DavidHayden">DavidHayden</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/14/2008 2:37:33 PM" LocalTimeTicks="1226702253">Nov 14, 2008 at 2:37 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_132618" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="This&#32;idea&#32;of&#32;chaining&#32;is&#32;very&#32;similar&#32;to&#32;an&#32;example&#32;I&#32;did&#32;for&#32;Generic&#32;Decorator&#32;Chains&#32;which&#32;might&#32;help&#58;&#32;&#32;Generic&#32;Decorator&#32;Chains&#32;Example&#32;using&#32;Unity&#32;Dependency&#32;Injection&#32;Container&#32;&#32;Regards,&#32;&#32;Dave&#32;">
+        This idea of chaining is very similar to an example I did for Generic Decorator Chains which might help:<br>
+<br>
+<a href="http://www.pnpguidance.net/Post/GenericDecoratorChainsExampleUnityDependencyInjectionContainer.aspx" rel="nofollow">Generic Decorator Chains Example using Unity Dependency Injection Container</a><br>
+<br>
+Regards,<br>
+<br>
+Dave 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_132618" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="132875">
+    <td id="PostDetailsCell_132875" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post132875"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/rslaney">rslaney</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/16/2008 5:49:15 AM" LocalTimeTicks="1226843355">Nov 16, 2008 at 5:49 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_132875" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Thanks&#32;Chris.&#32;&#32;I&#32;got&#32;both&#32;the&#32;code&#32;and&#32;config&#32;versions&#32;done,&#32;but&#32;the&#32;config&#32;one&#32;took&#32;me&#32;a&#32;while.&#32;The&#32;documention&#32;is&#32;not&#32;exactly&#32;clear&#32;when&#32;it&#32;comes&#32;to&#32;explaining&#32;configuration&#32;elements.&#32;&#32;I&#32;would&#32;be&#32;really&#32;nice&#32;if&#32;there&#32;was&#32;a&#32;guide&#32;to&#32;config&#32;vs&#32;code&#32;and&#32;what&#32;code&#32;object&#32;relates&#32;to&#32;what&#32;config&#32;element&#32;&#40;&#32;ie&#32;ResolvedParameter&#32;class&#32;&#61;&#32;DependencyElement&#32;&#41;&#32;&#32;For&#32;interest,&#32;here&#32;are&#32;my&#32;code&#32;and&#32;config&#32;versions,&#32;verify&#32;by&#32;unit&#32;tests&#32;as&#32;equivalent.&#32;Does&#32;it&#32;look&#32;right&#32;to&#32;those&#32;who&#32;better&#32;understand&#32;he&#32;configuration&#32;side&#32;of&#32;things&#32;&#63;&#32;&#32;&#32;&#38;nbsp&#59;&#32;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#32;.RegisterType&#38;lt&#59;IHandler&#38;lt&#59;RequestObject&#38;gt&#59;,&#32;FirstHandler&#38;gt&#59;&#40;new&#32;InjectionProperty&#40;&#38;quot&#59;Successor&#38;quot&#59;,&#32;new&#32;ResolvedParameter&#38;lt&#59;IHandler&#38;lt&#59;RequestObject&#38;gt&#59;&#38;gt&#59;&#40;&#38;quot&#59;ChainHandler2&#38;quot&#59;&#41;&#41;&#41;&#32;.RegisterType&#38;lt&#59;IHandler&#38;lt&#59;RequestObject&#38;gt&#59;,&#32;SecondHandler&#38;gt&#59;&#40;&#38;quot&#59;ChainHandler2&#38;quot&#59;,&#32;new&#32;InjectionProperty&#40;&#38;quot&#59;Successor&#38;quot&#59;,&#32;new&#32;ResolvedParameter&#38;lt&#59;IHandler&#38;lt&#59;RequestObject&#38;gt&#59;&#38;gt&#59;&#40;&#38;quot&#59;ChainHandler3&#38;quot&#59;&#41;&#41;&#41;&#32;.RegisterType&#38;lt&#59;IHandler&#38;lt&#59;RequestObject&#38;gt&#59;,&#32;ThirdHandler&#38;gt&#59;&#40;&#38;quot&#59;ChainHandler3&#38;quot&#59;&#41;&#59;&#32;&#32;&#32;&#32;&#38;nbsp&#59;&#32;&#32;&#38;lt&#59;unity&#38;gt&#59;&#32;&#38;lt&#59;typeAliases&#38;gt&#59;&#32;&#38;lt&#59;typeAlias&#32;alias&#61;&#38;quot&#59;IHandler&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Unity.Test.IHandler&#96;1,&#32;Unity.Test&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;typeAlias&#32;alias&#61;&#38;quot&#59;FirstHandler&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Unity.Test.FirstHandler,&#32;Unity.Test&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;typeAlias&#32;alias&#61;&#38;quot&#59;SecondHandler&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Unity.Test.SecondHandler,&#32;Unity.Test&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;typeAlias&#32;alias&#61;&#38;quot&#59;ThirdHandler&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Unity.Test.ThirdHandler,&#32;Unity.Test&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;typeAliases&#38;gt&#59;&#32;&#32;&#38;lt&#59;containers&#38;gt&#59;&#32;&#38;lt&#59;container&#32;name&#61;&#38;quot&#59;ChainOfResponsibility&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;types&#38;gt&#59;&#32;&#38;lt&#59;type&#32;type&#61;&#38;quot&#59;IHandler&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;FirstHandler&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;typeConfig&#38;gt&#59;&#32;&#38;lt&#59;property&#32;name&#61;&#38;quot&#59;Successor&#38;quot&#59;&#32;propertyType&#61;&#38;quot&#59;SecondHandler&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;dependency&#32;name&#61;&#38;quot&#59;ChainHandler2&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;property&#38;gt&#59;&#32;&#38;lt&#59;&#47;typeConfig&#38;gt&#59;&#32;&#38;lt&#59;&#47;type&#38;gt&#59;&#32;&#38;lt&#59;type&#32;type&#61;&#38;quot&#59;IHandler&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;SecondHandler&#38;quot&#59;&#32;name&#61;&#38;quot&#59;ChainHandler2&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;typeConfig&#38;gt&#59;&#32;&#38;lt&#59;property&#32;name&#61;&#38;quot&#59;Successor&#38;quot&#59;&#32;propertyType&#61;&#38;quot&#59;ThirdHandler&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;dependency&#32;name&#61;&#38;quot&#59;ChainHandler3&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;property&#38;gt&#59;&#32;&#38;lt&#59;&#47;typeConfig&#38;gt&#59;&#32;&#38;lt&#59;&#47;type&#38;gt&#59;&#32;&#38;lt&#59;type&#32;type&#61;&#38;quot&#59;IHandler&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;ThirdHandler&#38;quot&#59;&#32;name&#61;&#38;quot&#59;ChainHandler3&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;types&#38;gt&#59;&#32;&#38;lt&#59;&#47;container&#38;gt&#59;&#32;&#38;lt&#59;&#47;containers&#38;gt&#59;&#32;&#38;lt&#59;&#47;unity&#38;gt&#59;&#32;&#32;&#32;">
+        Thanks Chris.<br>
+<br>
+I got both the code and config versions done, but the config one took me a while.&nbsp; The documention is not exactly clear when it comes to explaining configuration elements.<br>
+<br>
+I would be really nice if there was a guide to config vs code and what code object relates to what config element&nbsp;( ie ResolvedParameter class = DependencyElement )<br>
+<br>
+For interest, here are my code and config versions, verify by unit tests as equivalent.&nbsp; Does it look right to those who better understand he configuration side of things ?<br>
+<br>
+<span style="font-size:13px">
+<p>&nbsp;</p>
+</span>
+<p><span style="font-size:13px; color:#2b91af">IUnityContainer</span><span style="font-size:13px"> container =
+</span><span style="font-size:13px; color:#0000ff">new</span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#2b91af">UnityContainer</span><span style="font-size:13px">()<br>
+&nbsp; .RegisterType&lt;</span><span style="font-size:13px; color:#2b91af">IHandler</span><span style="font-size:13px">&lt;</span><span style="font-size:13px; color:#2b91af">RequestObject</span><span style="font-size:13px">&gt;,
+</span><span style="font-size:13px; color:#2b91af">FirstHandler</span><span style="font-size:13px">&gt;(</span><span style="font-size:13px; color:#0000ff">new</span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#2b91af">InjectionProperty</span><span style="font-size:13px">(</span><span style="font-size:13px; color:#a31515">&quot;Successor&quot;</span><span style="font-size:13px">,
+</span><span style="font-size:13px; color:#0000ff">new</span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#2b91af">ResolvedParameter</span><span style="font-size:13px">&lt;</span><span style="font-size:13px; color:#2b91af">IHandler</span><span style="font-size:13px">&lt;</span><span style="font-size:13px; color:#2b91af">RequestObject</span><span style="font-size:13px">&gt;&gt;(</span><span style="font-size:13px; color:#a31515">&quot;ChainHandler2&quot;</span><span style="font-size:13px">)))<br>
+&nbsp; .RegisterType&lt;</span><span style="font-size:13px; color:#2b91af">IHandler</span><span style="font-size:13px">&lt;</span><span style="font-size:13px; color:#2b91af">RequestObject</span><span style="font-size:13px">&gt;,
+</span><span style="font-size:13px; color:#2b91af">SecondHandler</span><span style="font-size:13px">&gt;(</span><span style="font-size:13px; color:#a31515">&quot;ChainHandler2&quot;</span><span style="font-size:13px">,
+</span><span style="font-size:13px; color:#0000ff">new</span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#2b91af">InjectionProperty</span><span style="font-size:13px">(</span><span style="font-size:13px; color:#a31515">&quot;Successor&quot;</span><span style="font-size:13px">,
+</span><span style="font-size:13px; color:#0000ff">new</span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#2b91af">ResolvedParameter</span><span style="font-size:13px">&lt;</span><span style="font-size:13px; color:#2b91af">IHandler</span><span style="font-size:13px">&lt;</span><span style="font-size:13px; color:#2b91af">RequestObject</span><span style="font-size:13px">&gt;&gt;(</span><span style="font-size:13px; color:#a31515">&quot;ChainHandler3&quot;</span><span style="font-size:13px">)))<br>
+&nbsp; .RegisterType&lt;</span><span style="font-size:13px; color:#2b91af">IHandler</span><span style="font-size:13px">&lt;</span><span style="font-size:13px; color:#2b91af">RequestObject</span><span style="font-size:13px">&gt;,
+</span><span style="font-size:13px; color:#2b91af">ThirdHandler</span><span style="font-size:13px">&gt;(</span><span style="font-size:13px; color:#a31515">&quot;ChainHandler3&quot;</span><span style="font-size:13px">);<span style="font-size:13px; color:#0000ff"><br>
+<br>
+<br>
+<br>
+</p>
+<p>&nbsp;</p>
+<p>&nbsp; &lt;unity&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;typeAliases&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;typeAlias alias=&quot;IHandler&quot; type=&quot;Unity.Test.IHandler`1, Unity.Test&quot; /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;typeAlias alias=&quot;FirstHandler&quot; type=&quot;Unity.Test.FirstHandler, Unity.Test&quot; /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;typeAlias alias=&quot;SecondHandler&quot; type=&quot;Unity.Test.SecondHandler, Unity.Test&quot; /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;typeAlias alias=&quot;ThirdHandler&quot; type=&quot;Unity.Test.ThirdHandler, Unity.Test&quot; /&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/typeAliases&gt;</p>
+<p>&nbsp;&nbsp;&nbsp; &lt;containers&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;container name=&quot;ChainOfResponsibility&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;types&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;type type=&quot;IHandler&quot; mapTo=&quot;FirstHandler&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;typeConfig&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;property name=&quot;Successor&quot; propertyType=&quot;SecondHandler&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;dependency name=&quot;ChainHandler2&quot; /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/property&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/typeConfig&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/type&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;type type=&quot;IHandler&quot; mapTo=&quot;SecondHandler&quot; name=&quot;ChainHandler2&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;typeConfig&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;property name=&quot;Successor&quot; propertyType=&quot;ThirdHandler&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;dependency name=&quot;ChainHandler3&quot; /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/property&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/typeConfig&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/type&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;type type=&quot;IHandler&quot; mapTo=&quot;ThirdHandler&quot; name=&quot;ChainHandler3&quot; /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/types&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/container&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/containers&gt;<br>
+&nbsp; &lt;/unity&gt;</p>
+<p></p>
+</span></span>
+<p></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_132875" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="144591">
+    <td id="PostDetailsCell_144591" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post144591"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jeffsaremi">jeffsaremi</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/6/2009 1:32:25 AM" LocalTimeTicks="1231234345">Jan 6, 2009 at 1:32 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="1/6/2009 2:11:19 AM" LocalTimeTicks="1231236679">Jan 6, 2009 at 2:11 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_144591" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;prefer&#32;this&#32;to&#32;the&#32;mechanism&#32;for&#32;Interception&#32;in&#32;Unity.&#32;">
+        I prefer this to the mechanism for Interception in Unity. 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_144591" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f39903">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="3b972fef-3e29-457e-a124-d4ef2c1a4123">
+    <script class="options" defer="defer" id="3b972fef-3e29-457e-a124-d4ef2c1a4123" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_f7612e9b-5b0a-4572-89f1-07556a833b4f">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_56a85081-9e8b-4de8-9bf7-99b927aa6125">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_f7612e9b-5b0a-4572-89f1-07556a833b4f" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_56a85081-9e8b-4de8-9bf7-99b927aa6125" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/39903';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

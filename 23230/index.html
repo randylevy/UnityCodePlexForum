@@ -1,0 +1,1059 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Unity Configuration using multiple config files</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/23230?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/23230?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="B7JbSO8je2wsf-uXMvvSuFH5GXx67fikLhys6s_-E4G8hGg7fQgVRV8DFBHAFFOIDIqLVV1zg8S_I6jMMyeGKl5hmFiz1a6SFSxZPZFqpkAQr9pSAIObooMV1ZRybly8_zXMXw2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2e32392fd-4f9e-4b64-8c39-2780bd6fdc27" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:27:11 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f23230" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="81bfa367-0d3a-4d3b-b99f-7ad43f438a08">
+                
+                    <script class="options" defer="defer" id="81bfa367-0d3a-4d3b-b99f-7ad43f438a08" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="c241a64c-169a-40ca-ad2c-b1c02d7ed5ca">
+                
+                    <script class="options" defer="defer" id="c241a64c-169a-40ca-ad2c-b1c02d7ed5ca" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Unity Configuration using multiple config files
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:23230]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="5e9d231d-9805-49b1-947c-d0f3263d5d92">
+    <script class="options" defer="defer" id="5e9d231d-9805-49b1-947c-d0f3263d5d92" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/23230","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="77744">
+    <td id="PostDetailsCell_77744" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post77744"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/kblooie">kblooie</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/3/2008 4:14:59 AM" LocalTimeTicks="1204546499">Mar 3, 2008 at 4:14 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_77744" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Is&#32;there&#32;a&#32;way&#32;to&#32;configure&#32;a&#32;container&#32;in&#32;multiple&#32;configuration&#32;files&#63;&#32;For&#32;instance,&#32;I&#32;want&#32;to&#32;register&#32;types&#32;for&#32;a&#32;container&#32;in&#32;a&#32;web.config&#32;file&#32;located&#32;at&#32;the&#32;root&#32;&#38;amp&#59;&#32;also&#32;register&#32;types&#32;for&#32;the&#32;same&#32;container&#32;in&#32;the&#32;web.config&#32;file&#32;of&#32;sub-folders.&#32;When&#32;I&#32;try&#32;to&#32;do&#32;this&#32;I&#32;get&#32;a&#32;ConfigurationError&#32;stating&#32;that&#32;the&#32;entry&#32;for&#32;the&#32;container&#32;has&#32;already&#32;been&#32;added.">
+        Is there a way to configure a container in multiple configuration files? For instance, I want to register types for a container in a web.config file located at the root &amp; also register types for the same container in the web.config file of sub-folders.
+ When I try to do this I get a ConfigurationError stating that the entry for the container has already been added.<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_77744" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="77747">
+    <td id="PostDetailsCell_77747" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post77747"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/kblooie">kblooie</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/3/2008 4:37:58 AM" LocalTimeTicks="1204547878">Mar 3, 2008 at 4:37 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_77747" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#32;was&#32;using&#32;David&#32;Hayden&#39;s&#32;example&#32;to&#32;configure&#32;my&#32;web&#32;app&#39;s&#32;container&#58;http&#58;&#47;&#47;www.pnpguidance.net&#47;Post&#47;UnityIoCDependencyInjectionASPNETModelViewPresenter.aspxIn&#32;his&#32;example,&#32;he&#32;configures&#32;his&#32;web&#32;app&#39;s&#32;unity&#32;container&#32;with&#32;the&#32;default&#32;UnityContainerElement.&#32;I&#32;got&#32;around&#32;my&#32;issue&#32;by&#32;using&#32;different&#32;container&#32;names&#32;in&#32;each&#32;configuration&#32;file&#32;&#38;amp&#59;&#32;iterating&#32;through&#32;the&#32;UnityContainerElements&#32;&#38;amp&#59;&#32;calling&#32;Configure&#32;using&#32;my&#32;web&#32;app&#39;s&#32;single&#32;UnityContainer.&#32;Does&#32;any-1&#32;see&#32;any&#32;issue&#32;with&#32;this&#63;&#32;Can&#32;any-1&#32;suggest&#32;a&#32;better&#32;way&#32;of&#32;achieving&#32;what&#32;I&#32;want&#32;to&#32;do&#63;I&#32;changed&#32;the&#32;InitializeContainer&#32;method&#32;to&#32;this&#58;&#32;private&#32;static&#32;void&#32;InitializeContainer&#40;&#41;&#32;&#123;&#32;if&#32;&#40;_container&#32;&#61;&#61;&#32;null&#41;&#32;_container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;UnityConfigurationSection&#32;section&#32;&#61;&#32;&#40;UnityConfigurationSection&#41;&#32;ConfigurationManager.GetSection&#40;&#34;unity&#34;&#41;&#59;&#32;foreach&#32;&#40;UnityContainerElement&#32;element&#32;in&#32;section.Containers&#41;&#32;&#123;&#32;element.Configure&#40;_container&#41;&#59;&#32;&#125;&#32;&#125;">
+        I was using David Hayden's example to configure my web app's container:<br>
+<a href="http://www.pnpguidance.net/Post/UnityIoCDependencyInjectionASPNETModelViewPresenter.aspx" rel="nofollow">http://www.pnpguidance.net/Post/UnityIoCDependencyInjectionASPNETModelViewPresenter.aspx<span style="font-family:Consolas,Courier New,Courier,Monospace"></span></a><br>
+<br>
+In his example, he configures his web app's unity container with the default UnityContainerElement. I got around my issue by using different container names in each configuration file &amp; iterating through the UnityContainerElements &amp; calling Configure
+ using my web app's single UnityContainer. Does any-1 see any issue with this? Can any-1 suggest a better way of achieving what I want to do?<br>
+<br>
+I changed the InitializeContainer method to this:<br>
+<br>
+private static void InitializeContainer()<br>
+{<br>
+if (_container == null)<br>
+_container = new UnityContainer();<br>
+<br>
+UnityConfigurationSection section = (UnityConfigurationSection)<br>
+ConfigurationManager.GetSection(&quot;unity&quot;);<br>
+<br>
+foreach (UnityContainerElement element in section.Containers)<br>
+{<br>
+element.Configure(_container);<br>
+}<br>
+}<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_77747" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="77748">
+    <td id="PostDetailsCell_77748" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post77748"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/3/2008 4:53:52 AM" LocalTimeTicks="1204548832">Mar 3, 2008 at 4:53 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_77748" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Something&#32;like&#32;that&#32;was&#32;what&#32;I&#32;was&#32;going&#32;to&#32;suggest.&#32;I&#32;don&#39;t&#32;see&#32;any&#32;issues&#59;&#32;it&#32;fits&#32;in&#32;with&#32;the&#32;design&#32;just&#32;fine.The&#32;only&#32;gotcha&#32;I&#32;can&#32;see&#32;is&#32;if&#32;you&#39;ve&#32;got&#32;different&#32;mappings&#32;for&#32;the&#32;same&#32;type&#47;name&#32;pairs&#32;in&#32;different&#32;files,&#32;the&#32;last&#32;one&#32;in&#32;wins.&#32;But&#32;that&#32;shouldn&#39;t&#32;be&#32;much&#32;of&#32;an&#32;issue&#32;in&#32;practice&#32;I&#32;would&#32;think.-Chris">
+        Something like that was what I was going to suggest. I don't see any issues; it fits in with the design just fine.<br>
+<br>
+The only gotcha I can see is if you've got different mappings for the same type/name pairs in different files, the last one in wins. But that shouldn't be much of an issue in practice I would think.<br>
+<br>
+-Chris<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_77748" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="77797">
+    <td id="PostDetailsCell_77797" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post77797"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/dpiessens">dpiessens</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/3/2008 12:47:55 PM" LocalTimeTicks="1204577275">Mar 3, 2008 at 12:47 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_77797" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;You&#32;could&#32;also&#32;create&#32;sub-containers&#32;for&#32;each&#32;folder&#32;configuration.&#32;That&#32;obviously&#32;implies&#32;your&#32;presenters&#32;have&#32;some&#32;knowledge&#32;of&#32;their&#32;context&#32;but&#32;it&#32;would&#32;eliminate&#32;duplicate&#32;type&#47;name&#32;combinations.&#32;It&#32;would&#32;also&#32;allow&#32;child&#32;sections&#32;to&#32;override&#32;elements&#32;if&#32;need&#32;be.-Dan">
+        You could also create sub-containers for each folder configuration. That obviously implies your presenters have some knowledge of their context but it would eliminate duplicate type/name combinations. It would also allow child sections to override elements
+ if need be.<br>
+<br>
+-Dan<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_77797" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="77910">
+    <td id="PostDetailsCell_77910" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post77910"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/kblooie">kblooie</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/3/2008 8:27:53 PM" LocalTimeTicks="1204604873">Mar 3, 2008 at 8:27 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_77910" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;That&#32;piece&#32;of&#32;code&#32;I&#32;modified&#32;didn&#39;t&#32;do&#32;the&#32;trick.&#32;It&#32;only&#32;grabs&#32;the&#32;config&#32;section&#32;for&#32;the&#32;directory&#32;of&#32;the&#32;first&#32;page&#32;you&#32;visit&#32;when&#32;the&#32;application&#32;starts&#32;&#38;amp&#59;&#32;it&#39;s&#32;parent&#32;directories.&#32;What&#32;I&#32;needed&#32;was&#32;code&#32;that&#32;grabbed&#32;the&#32;config&#32;sections&#32;for&#32;the&#32;root&#32;directory&#32;&#38;amp&#59;&#32;all&#32;its&#32;sub&#32;directories.&#32;I&#32;remembered&#32;seeing&#32;code&#32;like&#32;this&#32;in&#32;the&#32;WCSF&#32;contrib&#32;for&#32;parsing&#32;module&#32;configuration&#32;&#40;WebConfigModuleInfoStore&#41;&#58;http&#58;&#47;&#47;www.codeplex.com&#47;wcsfcontrib&#47;SourceControl&#47;ListDownloadableCommits.aspxHere&#39;s&#32;that&#32;code&#32;adapted&#32;&#40;&#34;copied,&#32;pasted&#32;&#38;amp&#59;&#32;renamed&#34;&#41;&#32;to&#32;configure&#32;using&#32;unity&#32;configuration&#58;private&#32;static&#32;void&#32;InitializeContainer&#40;&#41;&#32;&#123;&#32;if&#32;&#40;_container&#32;&#61;&#61;&#32;null&#41;&#32;_container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;IUnityConfigurator&#32;configurator&#32;&#61;&#32;new&#32;WebConfigUnityConfigurator&#40;&#41;&#59;&#32;configurator.Configure&#40;_container&#41;&#59;&#32;&#125;public&#32;interface&#32;IUnityConfigurator&#123;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Configures&#32;a&#32;unity&#32;container&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;void&#32;Configure&#40;IUnityContainer&#32;container&#41;&#59;&#125;&#47;&#47;Adapted&#32;from&#32;WCSF&#32;Contrib&#39;s&#32;WebConfigModuleInfoStorepublic&#32;class&#32;WebConfigUnityConfigurator&#32;&#58;&#32;IUnityConfigurator&#123;&#32;&#35;region&#32;Private&#32;Fields&#32;private&#32;readonly&#32;string&#32;_baseDirectory&#59;&#32;&#32;&#35;endregion&#32;&#35;region&#32;Constructors&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Initializes&#32;a&#32;new&#32;instance&#32;of&#32;&#38;lt&#59;see&#32;cref&#61;&#34;WebConfigUnityConfigurator&#34;&#47;&#38;gt&#59;.&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;public&#32;WebConfigUnityConfigurator&#40;&#41;&#32;&#58;&#32;this&#40;String.Empty&#41;&#32;&#123;&#32;&#125;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Initializes&#32;a&#32;new&#32;instance&#32;of&#32;&#38;lt&#59;see&#32;cref&#61;&#34;WebConfigUnityConfigurator&#34;&#47;&#38;gt&#59;.&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#34;baseDirectory&#34;&#38;gt&#59;The&#32;directory&#32;from&#32;which&#32;to&#32;start&#32;searching&#32;for&#32;the&#32;&#32;&#47;&#47;&#47;&#32;configuration&#32;files.&#38;lt&#59;&#47;param&#38;gt&#59;&#32;public&#32;WebConfigUnityConfigurator&#40;string&#32;baseDirectory&#41;&#32;&#123;&#32;_baseDirectory&#32;&#61;&#32;Path.Combine&#40;AppDomain.CurrentDomain.BaseDirectory,&#32;baseDirectory&#41;&#59;&#32;&#125;&#32;&#32;&#35;endregion&#32;&#35;region&#32;IUnityConfigurator&#32;Members&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Configures&#32;a&#32;unity&#32;container&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;public&#32;void&#32;Configure&#40;IUnityContainer&#32;container&#41;&#32;&#123;&#32;Configure&#40;container,&#32;_baseDirectory&#41;&#59;&#32;&#125;&#32;&#35;endregion&#32;&#35;region&#32;Private&#32;Methods&#32;private&#32;static&#32;void&#32;Configure&#40;IUnityContainer&#32;container,&#32;string&#32;rootDirectory&#41;&#32;&#123;&#32;foreach&#32;&#40;string&#32;fileName&#32;in&#32;Directory.GetFiles&#40;rootDirectory,&#32;&#34;Web.Config&#34;,&#32;SearchOption.TopDirectoryOnly&#41;&#41;&#32;&#123;&#32;Configuration&#32;configuration&#32;&#61;&#32;GetConfiguration&#40;Path.Combine&#40;rootDirectory,&#32;fileName&#41;&#41;&#59;&#32;UnityConfigurationSection&#32;localSection&#32;&#61;&#32;&#40;UnityConfigurationSection&#41;configuration.GetSection&#40;&#34;unity&#34;&#41;&#59;&#32;if&#32;&#40;localSection&#32;&#33;&#61;&#32;null&#41;&#32;&#123;&#32;foreach&#32;&#40;UnityContainerElement&#32;element&#32;in&#32;localSection.Containers&#41;&#32;&#123;&#32;element.Configure&#40;container&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#125;&#32;foreach&#32;&#40;string&#32;childDirectory&#32;in&#32;Directory.GetDirectories&#40;rootDirectory&#41;&#41;&#32;&#123;&#32;Configure&#40;container,&#32;childDirectory&#41;&#59;&#32;&#125;&#32;&#125;&#32;private&#32;static&#32;Configuration&#32;GetConfiguration&#40;string&#32;configFilePath&#41;&#32;&#123;&#32;System.Configuration.Configuration&#32;configuration&#59;&#32;System.Web.HttpContext&#32;context&#32;&#61;&#32;System.Web.HttpContext.Current&#59;&#32;if&#32;&#40;context&#32;&#61;&#61;&#32;null&#41;&#32;&#123;&#32;configuration&#32;&#61;&#32;GetConfigurationForCustomFile&#40;configFilePath&#41;&#59;&#32;&#125;&#32;else&#32;&#123;&#32;configuration&#32;&#61;&#32;WebConfigurationManager.OpenWebConfiguration&#40;context.Request.ApplicationPath&#32;&#43;&#32;&#34;&#47;&#34;&#32;&#43;&#32;configFilePath.Replace&#40;context.Request.PhysicalApplicationPath,&#32;&#34;&#34;&#41;&#41;&#59;&#32;&#125;&#32;return&#32;configuration&#59;&#32;&#125;&#32;private&#32;static&#32;Configuration&#32;GetConfigurationForCustomFile&#40;string&#32;fileName&#41;&#32;&#123;&#32;ExeConfigurationFileMap&#32;fileMap&#32;&#61;&#32;new&#32;ExeConfigurationFileMap&#40;&#41;&#59;&#32;fileMap.ExeConfigFilename&#32;&#61;&#32;fileName&#59;&#32;File.SetAttributes&#40;fileMap.ExeConfigFilename,&#32;FileAttributes.Normal&#41;&#59;&#32;return&#32;ConfigurationManager.OpenMappedExeConfiguration&#40;fileMap,&#32;ConfigurationUserLevel.None&#41;&#59;&#32;&#125;&#32;&#32;&#35;endregion&#125;">
+        That piece of code I modified didn't do the trick. It only grabs the config section for the directory of the first page you visit when the application starts &amp; it's parent directories. What I needed was code that grabbed the config sections for the
+ root directory &amp; all its sub directories. I remembered seeing code like this in the WCSF contrib for parsing module configuration (WebConfigModuleInfoStore):<br>
+<br>
+<a href="http://www.codeplex.com/wcsfcontrib/SourceControl/ListDownloadableCommits.aspx" rel="nofollow">http://www.codeplex.com/wcsfcontrib/SourceControl/ListDownloadableCommits.aspx<span style="font-family:Consolas,Courier New,Courier,Monospace"></span></a><br>
+<br>
+Here's that code adapted (&quot;copied, pasted &amp; renamed&quot;) to configure using unity configuration:<br>
+<br>
+private static void InitializeContainer()<br>
+{<br>
+if (_container == null)<br>
+_container = new UnityContainer();<br>
+<br>
+IUnityConfigurator configurator = new WebConfigUnityConfigurator();<br>
+configurator.Configure(_container);<br>
+}<br>
+<br>
+public interface IUnityConfigurator<br>
+{<br>
+/// &lt;summary&gt;<br>
+/// Configures a unity container<br>
+/// &lt;/summary&gt;<br>
+void Configure(IUnityContainer container);<br>
+}<br>
+<br>
+//Adapted from WCSF Contrib's WebConfigModuleInfoStore<br>
+public class WebConfigUnityConfigurator : IUnityConfigurator<br>
+{<br>
+#region Private Fields<br>
+<br>
+private readonly string _baseDirectory; <br>
+<br>
+#endregion<br>
+<br>
+#region Constructors<br>
+<br>
+/// &lt;summary&gt;<br>
+/// Initializes a new instance of &lt;see cref=&quot;WebConfigUnityConfigurator&quot;/&gt;.<br>
+/// &lt;/summary&gt;<br>
+public WebConfigUnityConfigurator()<br>
+: this(String.Empty)<br>
+{<br>
+}<br>
+<br>
+/// &lt;summary&gt;<br>
+/// Initializes a new instance of &lt;see cref=&quot;WebConfigUnityConfigurator&quot;/&gt;.<br>
+/// &lt;/summary&gt;<br>
+/// &lt;param name=&quot;baseDirectory&quot;&gt;The directory from which to start searching for the
+<br>
+/// configuration files.&lt;/param&gt;<br>
+public WebConfigUnityConfigurator(string baseDirectory)<br>
+{<br>
+_baseDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, baseDirectory);<br>
+} <br>
+<br>
+#endregion<br>
+<br>
+#region IUnityConfigurator Members<br>
+<br>
+/// &lt;summary&gt;<br>
+/// Configures a unity container<br>
+/// &lt;/summary&gt;<br>
+public void Configure(IUnityContainer container)<br>
+{<br>
+Configure(container, _baseDirectory);<br>
+}<br>
+<br>
+#endregion<br>
+<br>
+#region Private Methods<br>
+<br>
+private static void Configure(IUnityContainer container, string rootDirectory)<br>
+{<br>
+foreach (string fileName in Directory.GetFiles(rootDirectory, &quot;Web.Config&quot;, SearchOption.TopDirectoryOnly))<br>
+{<br>
+Configuration configuration = GetConfiguration(Path.Combine(rootDirectory, fileName));<br>
+<br>
+UnityConfigurationSection localSection = (UnityConfigurationSection)configuration.GetSection(&quot;unity&quot;);<br>
+<br>
+if (localSection != null)<br>
+{<br>
+foreach (UnityContainerElement element in localSection.Containers)<br>
+{<br>
+element.Configure(container);<br>
+}<br>
+}<br>
+}<br>
+foreach (string childDirectory in Directory.GetDirectories(rootDirectory))<br>
+{<br>
+Configure(container, childDirectory);<br>
+}<br>
+}<br>
+<br>
+private static Configuration GetConfiguration(string configFilePath)<br>
+{<br>
+System.Configuration.Configuration configuration;<br>
+System.Web.HttpContext context = System.Web.HttpContext.Current;<br>
+if (context == null)<br>
+{<br>
+configuration = GetConfigurationForCustomFile(configFilePath);<br>
+}<br>
+else<br>
+{<br>
+configuration = WebConfigurationManager.OpenWebConfiguration(context.Request.ApplicationPath &#43; &quot;/&quot; &#43; configFilePath.Replace(context.Request.PhysicalApplicationPath, &quot;&quot;));<br>
+}<br>
+return configuration;<br>
+}<br>
+<br>
+private static Configuration GetConfigurationForCustomFile(string fileName)<br>
+{<br>
+ExeConfigurationFileMap fileMap = new ExeConfigurationFileMap();<br>
+fileMap.ExeConfigFilename = fileName;<br>
+File.SetAttributes(fileMap.ExeConfigFilename, FileAttributes.Normal);<br>
+return ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None);<br>
+} <br>
+<br>
+#endregion<br>
+}<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_77910" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="445292">
+    <td id="PostDetailsCell_445292" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post445292"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jinyenjoe">jinyenjoe</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/20/2010 8:25:31 AM" LocalTimeTicks="1274369131">May 20, 2010 at 8:25 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_445292" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="i&#32;am&#32;trying&#32;to&#32;solve&#32;the&#32;exact&#32;problem.&#32;can&#32;someone&#32;post&#32;what&#32;their&#32;config&#32;file&#32;looks&#32;like&#32;now&#32;that&#32;the&#32;unity&#32;configuration&#32;is&#32;split&#32;into&#32;several&#32;files&#63;">
+        
+<p>i am trying to solve the exact problem. can someone post what their config file looks like now that the unity configuration is split into several files?</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_445292" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="449391">
+    <td id="PostDetailsCell_449391" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post449391"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jacobeo">jacobeo</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/30/2010 9:26:19 PM" LocalTimeTicks="1275279979">May 30, 2010 at 9:26 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_449391" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Me&#32;too&#33;&#33;&#32;Please&#32;post&#32;a&#32;complete&#32;sample&#32;for&#32;newbies">
+        
+<p>Me too!! Please post a <strong>complete sample</strong> for newbies</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_449391" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="459660">
+    <td id="PostDetailsCell_459660" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post459660"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/brainfruitcode">brainfruitcode</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/24/2010 7:55:03 PM" LocalTimeTicks="1277434503">Jun 24, 2010 at 7:55 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="6/24/2010 8:08:18 PM" LocalTimeTicks="1277435298">Jun 24, 2010 at 8:08 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_459660" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;was&#32;able&#32;to&#32;get&#32;this&#32;working.&#32;You&#32;have&#32;to&#32;divide&#32;your&#32;configurations&#32;by&#32;dependency&#32;on&#32;other&#32;configurations,&#32;and&#32;load&#32;them&#32;in&#32;the&#32;reverse&#32;order.&#32;For&#32;instance,&#32;if&#32;you&#32;had&#32;configuration&#32;files&#32;for&#32;city,&#32;county,&#32;state,&#32;you&#32;would&#32;load&#32;them&#32;in&#32;that&#32;same&#32;order,&#32;then&#32;tie&#32;together&#32;the&#32;objects&#32;with&#32;a&#32;root-level&#32;unity.config&#32;file.&#32;For&#32;this&#32;example,&#32;I&#39;m&#32;assuming&#32;that&#32;each&#32;configuration&#32;file&#32;contains&#58;&#32;&#123;code&#58;html&#125;&#32;&#38;lt&#59;configSections&#38;gt&#59;&#32;&#38;lt&#59;section&#32;name&#61;&#38;quot&#59;unity&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Microsoft.Practices.Unity.Configuration.UnityConfigurationSection,&#32;Microsoft.Practices.Unity.Configuration&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;configSections&#38;gt&#59;&#32;&#123;code&#58;html&#125;&#32;Here&#39;s&#32;the&#32;code&#32;to&#32;load&#32;it&#58;&#32;&#123;code&#58;c&#35;&#125;&#32;public&#32;static&#32;IUnityContainer&#32;Initialize&#32;&#40;&#41;&#32;&#123;&#32;var&#32;unitySections&#32;&#61;&#32;new&#32;List&#38;lt&#59;UnityConfigurationSection&#38;gt&#59;&#32;&#123;&#32;GetUnitySectionFrom&#40;&#38;quot&#59;Unity.City.config&#38;quot&#59;&#41;,&#32;GetUnitySectionFrom&#40;&#38;quot&#59;Unity.County.config&#38;quot&#59;&#41;,&#32;GetUnitySectionFrom&#40;&#38;quot&#59;Unity.State.config&#38;quot&#59;&#41;,&#32;GetUnitySectionFrom&#40;&#38;quot&#59;Unity.config&#38;quot&#59;&#41;&#32;&#125;&#59;&#32;return&#32;LoadConfigurations&#32;&#40;unitySections&#41;&#59;&#32;&#125;&#32;private&#32;static&#32;IUnityContainer&#32;LoadConfigurations&#32;&#40;List&#38;lt&#59;UnityConfigurationSection&#38;gt&#59;&#32;unitySections&#41;&#32;&#123;&#32;var&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#32;&#40;&#41;&#59;&#32;foreach&#32;&#40;var&#32;section&#32;in&#32;unitySections&#41;&#32;&#123;&#32;container.LoadConfiguration&#40;section&#41;&#59;&#32;&#125;&#32;return&#32;container&#59;&#32;&#125;&#32;private&#32;static&#32;UnityConfigurationSection&#32;GetUnitySectionFrom&#32;&#40;string&#32;fileName&#41;&#32;&#123;&#32;var&#32;configuration&#32;&#61;&#32;ConfigurationManager.OpenMappedExeConfiguration&#32;&#40;&#32;new&#32;ExeConfigurationFileMap&#32;&#123;&#32;ExeConfigFilename&#32;&#61;&#32;fileName&#32;&#125;,&#32;ConfigurationUserLevel.None&#41;&#59;&#32;return&#32;configuration.GetSection&#32;&#40;&#38;quot&#59;unity&#38;quot&#59;&#41;&#32;as&#32;UnityConfigurationSection&#59;&#32;&#125;&#32;&#123;code&#58;c&#35;&#125;&#32;">
+        I was able to get this working. You have to divide your configurations by dependency on other configurations, and load them in the reverse order. For instance, if you had configuration files for city, county, state, you would load them in that same order,
+ then tie together the objects with a root-level unity.config file. For this example, I'm assuming that each configuration file contains: {code:html} &lt;configSections&gt; &lt;section name=&quot;unity&quot; type=&quot;Microsoft.Practices.Unity.Configuration.UnityConfigurationSection,
+ Microsoft.Practices.Unity.Configuration&quot;/&gt; &lt;/configSections&gt; {code:html} Here's the code to load it: {code:c#} public static IUnityContainer Initialize () { var unitySections = new List&lt;UnityConfigurationSection&gt; { GetUnitySectionFrom(&quot;Unity.City.config&quot;),
+ GetUnitySectionFrom(&quot;Unity.County.config&quot;), GetUnitySectionFrom(&quot;Unity.State.config&quot;), GetUnitySectionFrom(&quot;Unity.config&quot;) }; return LoadConfigurations (unitySections); } private static IUnityContainer LoadConfigurations (List&lt;UnityConfigurationSection&gt;
+ unitySections) { var container = new UnityContainer (); foreach (var section in unitySections) { container.LoadConfiguration(section); } return container; } private static UnityConfigurationSection GetUnitySectionFrom (string fileName) { var configuration
+ = ConfigurationManager.OpenMappedExeConfiguration ( new ExeConfigurationFileMap { ExeConfigFilename = fileName }, ConfigurationUserLevel.None); return configuration.GetSection (&quot;unity&quot;) as UnityConfigurationSection; } {code:c#}
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_459660" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="503507">
+    <td id="PostDetailsCell_503507" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post503507"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/alhambraeidos">alhambraeidos</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/7/2010 9:25:47 AM" LocalTimeTicks="1286468747">Oct 7, 2010 at 9:25 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="10/7/2010 12:01:27 PM" LocalTimeTicks="1286478087">Oct 7, 2010 at 12:01 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_503507" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="the&#32;important&#32;questions&#32;for&#32;me&#58;&#32;can&#32;someone&#32;post&#32;what&#32;their&#32;config&#32;file&#32;looks&#32;like&#32;now&#32;that&#32;the&#32;unity&#32;configuration&#32;is&#32;split&#32;into&#32;several&#32;files&#63;&#32;Is&#32;there&#32;a&#32;way&#32;to&#32;configure&#32;a&#32;container&#32;in&#32;multiple&#32;configuration&#32;files&#63;&#38;nbsp&#59;&#32;For&#32;instance,&#32;I&#32;want&#32;to&#32;register&#32;types&#32;for&#32;a&#32;container&#32;in&#32;a&#32;web.config&#32;file&#32;located&#32;at&#32;the&#32;root&#32;and&#32;also&#32;register&#32;types&#32;for&#32;the&#32;same&#32;container&#32;&#40;and&#32;others&#32;containers&#41;&#32;in&#32;the&#32;web.config&#32;file&#32;of&#32;sub-folders.&#38;nbsp&#59;&#32;And&#32;also&#32;register&#32;other&#32;types&#32;for&#32;others&#32;containers&#32;in&#32;a&#32;company.config&#32;file&#32;in&#32;path&#32;C&#58;&#92;Company&#92;Framework&#92;Configs.&#38;nbsp&#59;&#32;When&#32;I&#32;try&#32;to&#32;do&#32;this&#32;I&#32;get&#32;a&#32;ConfigurationError&#32;stating&#32;that&#32;the&#32;entry&#32;for&#32;the&#32;container&#32;has&#32;already&#32;been&#32;added.&#32;&#38;nbsp&#59;&#32;Any&#32;complete&#32;sample&#32;with&#32;code&#32;and&#32;config&#32;files&#32;&#63;&#63;&#32;thanks&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;">
+        
+<p>the important questions for me:</p>
+<p>can someone post what their config file looks like now that the unity configuration is split into several files?</p>
+<p><br>
+Is there a way to configure a container in multiple configuration files?&nbsp;</p>
+<p>For instance, I want to register types for a container in a web.config file located at the root</p>
+<p>and also register types for the same container (and others containers) in the web.config file of sub-folders.&nbsp;</p>
+<p>And also register other types for others containers in a company.config file in path C:\Company\Framework\Configs.&nbsp;</p>
+<p><br>
+When I try to do this I get a ConfigurationError stating that the entry for the container has already been added.</p>
+<p>&nbsp;</p>
+<p>Any complete sample with code and config files ?? thanks</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_503507" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="503576">
+    <td id="PostDetailsCell_503576" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post503576"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jacobeo">jacobeo</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/7/2010 11:56:56 AM" LocalTimeTicks="1286477816">Oct 7, 2010 at 11:56 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_503576" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="You&#32;can&#32;check&#32;this&#32;out&#32;http&#58;&#47;&#47;brainfruitcode.com&#47;file.axd&#63;file&#61;UnityConfiguration.zip&#32;Jacobo&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;">
+        
+<p>You can check this out</p>
+<p><a title="http://brainfruitcode.com/file.axd?file=UnityConfiguration.zip" href="http://brainfruitcode.com/file.axd?file=UnityConfiguration.zip" rel="nofollow">http://brainfruitcode.com/file.axd?file=UnityConfiguration.zip</a></p>
+<p>Jacobo</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_503576" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f23230">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="a6658c03-b7de-4fb5-b291-72927b65747c">
+    <script class="options" defer="defer" id="a6658c03-b7de-4fb5-b291-72927b65747c" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_b4f92ffe-b2ef-4d29-a8bb-74d4595dfe87">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_82586792-2f28-459e-b4c0-05ae6355d5c0">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_b4f92ffe-b2ef-4d29-a8bb-74d4595dfe87" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_82586792-2f28-459e-b4c0-05ae6355d5c0" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/23230';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

@@ -1,0 +1,1436 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Configuring Unity From FileConfigurationSource</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/48825?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/48825?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="8cnZOETKuHgjozCs2gzC9iIMFsuh6vO2vPlv6IcNazVMgX5kmAR3G8g9lMjqnPCs_0q2LO-PxPoqUY4oxe7fHL0TiTtBixVMPvi2d1UaeNuuPR1FO55CTbr4M9fZI9DCbvTS9A2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken27ed4abff-117b-482b-92d8-a98a8c7e716e" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:28:19 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f48825" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="2379050d-3f44-45dd-a887-2616cfb2b93e">
+                
+                    <script class="options" defer="defer" id="2379050d-3f44-45dd-a887-2616cfb2b93e" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="911769b6-4117-4655-a937-3927595529e7">
+                
+                    <script class="options" defer="defer" id="911769b6-4117-4655-a937-3927595529e7" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Configuring Unity From FileConfigurationSource
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:48825]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="a809bd4d-b533-4b2f-8bc0-35cd203a6435">
+    <script class="options" defer="defer" id="a809bd4d-b533-4b2f-8bc0-35cd203a6435" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/48825","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="163028">
+    <td id="PostDetailsCell_163028" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post163028"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/KierenH">KierenH</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/28/2009 12:36:06 PM" LocalTimeTicks="1235853366">Feb 28, 2009 at 12:36 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_163028" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Using&#32;Enterprise&#32;library&#32;4.1.&#32;&#32;I&#32;have&#32;an&#32;app.config&#32;defined&#32;in&#32;AProject,&#32;with&#32;configuration&#32;for&#32;a&#32;unity&#32;container,&#32;the&#32;logging&#32;application&#32;block&#32;and&#32;exception&#32;policies.&#32;&#32;I&#32;have&#32;an&#32;MS&#32;test&#32;project,&#32;AProjectTest,&#32;which&#32;deploys&#32;AProject.app.config&#32;to&#32;a&#32;folder&#32;&#39;MYFOLDER&#39;&#32;during&#32;the&#32;test&#58;&#32;So&#32;it&#32;is&#32;deployed&#32;to&#58;&#32;C&#58;&#92;Dev&#92;Solution&#92;&#126;&#92;username_E29388&#32;2009-02-27&#32;10_49_56&#92;Out&#92;MYFOLDER&#92;AppConfig&#32;&#32;I&#32;then&#32;create&#32;a&#32;file&#32;configuration&#32;source&#58;&#32;IConfigurationSource&#32;configSource&#32;&#61;&#32;new&#32;FileConfigurationSource&#40;&#32;&#38;quot&#59;path&#38;quot&#59;&#32;&#41;&#59;&#32;UnityConfigurationSection&#32;unityConfigurationSection&#32;&#61;&#32;&#40;UnityConfigurationSection&#41;configurationSource.GetSection&#40;&#38;quot&#59;unity&#38;quot&#59;&#41;&#59;&#32;&#32;var&#32;unityContainer&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;unityConfigurationSection.Containers.Default.Configure&#40;unityContainer&#41;&#59;&#32;&#32;&#47;&#47;&#32;Then&#32;when&#32;I&#32;try&#32;and&#32;resolve&#32;a&#32;type&#32;configured&#32;in&#32;the&#32;config,&#32;it&#32;throws&#32;an&#32;exception&#58;&#32;&#32;var&#32;logWriter&#32;&#61;&#32;unityContainer.Resolve&#38;lt&#59;LogWriter&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;This&#32;works&#32;if&#32;I&#32;add&#32;app.config&#32;to&#32;the&#32;root&#32;in&#32;my&#32;AProjectTest,&#32;and&#32;read&#32;in&#32;that&#32;file&#32;using&#32;the&#32;same&#32;technique&#32;above.&#32;Of&#32;course,&#32;it&#32;gets&#32;renamed&#32;to&#32;MyTestProject.dll.config.&#32;&#32;Here&#32;is&#32;the&#32;stack&#32;trace&#58;&#32;Stack&#32;trace&#58;&#32;Failed&#32;CanConnectToFullAuthAndExecuteQuery1Test&#32;TarongEnergy.Trading.Services.DataBroker.Tests&#32;Class&#32;Initialization&#32;method&#32;TarongEnergy.Trading.Services.DataBroker.Data.Tests.MarketMessagesDataAdapterTest.ClassInitialize&#32;threw&#32;exception.&#32;Microsoft.Practices.Unity.ResolutionFailedException&#58;&#32;Microsoft.Practices.Unity.ResolutionFailedException&#58;&#32;Resolution&#32;of&#32;the&#32;dependency&#32;failed,&#32;type&#32;&#61;&#32;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter&#38;quot&#59;,&#32;name&#32;&#61;&#32;&#38;quot&#59;&#38;quot&#59;.&#32;Exception&#32;message&#32;is&#58;&#32;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter,&#32;null&#93;&#41;&#32;failed&#58;&#32;The&#32;parameter&#32;filters&#32;could&#32;not&#32;be&#32;resolved&#32;when&#32;attempting&#32;to&#32;call&#32;constructor&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter&#40;System.Collections.Generic.ICollection&#96;1&#91;&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;4.1.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#93;&#93;&#32;filters,&#32;System.Collections.Generic.IDictionary&#96;2&#91;&#91;System.String,&#32;mscorlib,&#32;Version&#61;2.0.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;b77a5c561934e089&#93;,&#91;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;4.1.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#93;&#93;&#32;traceSources,&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource&#32;allEventsTraceSource,&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource&#32;notProcessedTraceSource,&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource&#32;errorsTraceSource,&#32;System.String&#32;defaultCategory,&#32;System.Boolean&#32;tracingEnabled,&#32;System.Boolean&#32;logWarningsWhenNoCategoriesMatch,&#32;System.Boolean&#32;revertImpersonation&#41;.&#32;&#40;Strategy&#32;type&#32;BuildPlanStrategy,&#32;index&#32;3&#41;&#32;---&#38;gt&#59;&#32;Microsoft.Practices.ObjectBuilder2.BuildFailedException&#58;&#32;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter,&#32;null&#93;&#41;&#32;failed&#58;&#32;The&#32;parameter&#32;filters&#32;could&#32;not&#32;be&#32;resolved&#32;when&#32;attempting&#32;to&#32;call&#32;constructor&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter&#40;System.Collections.Generic.ICollection&#96;1&#91;&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;4.1.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#93;&#93;&#32;filters,&#32;System.Collections.Generic.IDictionary&#96;2&#91;&#91;System.String,&#32;mscorlib,&#32;Version&#61;2.0.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;b77a5c561934e089&#93;,&#91;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;4.1.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#93;&#93;&#32;traceSources,&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource&#32;allEventsTraceSource,&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource&#32;notProcessedTraceSource,&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource&#32;errorsTraceSource,&#32;System.String&#32;defaultCategory,&#32;System.Boolean&#32;tracingEnabled,&#32;System.Boolean&#32;logWarningsWhenNoCategoriesMatch,&#32;System.Boolean&#32;revertImpersonation&#41;.&#32;&#40;Strategy&#32;type&#32;BuildPlanStrategy,&#32;index&#32;3&#41;&#32;---&#38;gt&#59;&#32;System.InvalidOperationException&#58;&#32;The&#32;parameter&#32;filters&#32;could&#32;not&#32;be&#32;resolved&#32;when&#32;attempting&#32;to&#32;call&#32;constructor&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter&#40;System.Collections.Generic.ICollection&#96;1&#91;&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;4.1.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#93;&#93;&#32;filters,&#32;System.Collections.Generic.IDictionary&#96;2&#91;&#91;System.String,&#32;mscorlib,&#32;Version&#61;2.0.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;b77a5c561934e089&#93;,&#91;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;4.1.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#93;&#93;&#32;traceSources,&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource&#32;allEventsTraceSource,&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource&#32;notProcessedTraceSource,&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource&#32;errorsTraceSource,&#32;System.String&#32;defaultCategory,&#32;System.Boolean&#32;tracingEnabled,&#32;System.Boolean&#32;logWarningsWhenNoCategoriesMatch,&#32;System.Boolean&#32;revertImpersonation&#41;.&#32;---&#38;gt&#59;&#32;Microsoft.Practices.ObjectBuilder2.BuildFailedException&#58;&#32;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;System.Collections.Generic.ICollection&#96;1&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter&#93;,&#32;null&#93;&#41;&#32;failed&#58;&#32;The&#32;current&#32;type,&#32;System.Collections.Generic.ICollection&#96;1&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter&#93;,&#32;is&#32;an&#32;interface&#32;and&#32;cannot&#32;be&#32;constructed.&#32;Are&#32;you&#32;missing&#32;a&#32;type&#32;mapping&#63;&#32;&#40;Strategy&#32;type&#32;BuildPlanStrategy,&#32;index&#32;3&#41;&#32;---&#38;gt&#59;&#32;System.InvalidOperationException&#58;&#32;The&#32;current&#32;type,&#32;System.Collections.Generic.ICollection&#96;1&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter&#93;,&#32;is&#32;an&#32;interface&#32;and&#32;cannot&#32;be&#32;constructed.&#32;Are&#32;you&#32;missing&#32;a&#32;type&#32;mapping&#63;.&#32;&#32;">
+        <span style="font-size:9pt; font-family:'verdana','sans-serif'">Using Enterprise library 4.1.<br>
+<br>
+I have an app.config defined in AProject, with configuration for a unity container, the logging application block and exception policies.<br>
+<br>
+I have an MS&nbsp;test project, AProjectTest, which deploys AProject.app.config to a folder 'MYFOLDER' during the test:<br>
+So it is deployed to:<br>
+C:\Dev\Solution\~\username_E29388 2009-02-27 10_49_56\Out\MYFOLDER\AppConfig<br>
+<br>
+I then create a file configuration source:<br>
+IConfigurationSource configSource = new FileConfigurationSource( &quot;path&quot; );<br>
+UnityConfigurationSection unityConfigurationSection = (UnityConfigurationSection)configurationSource.GetSection(&quot;unity&quot;);<br>
+<br>
+var unityContainer = new UnityContainer();<br>
+unityConfigurationSection.Containers.Default.Configure(unityContainer);<br>
+<br>
+<strong>// Then when I try and resolve a type configured in the config, it throws an exception:
+<br>
+</strong>var logWriter = unityContainer.Resolve&lt;LogWriter&gt;();<br>
+<br>
+This works if I add app.config to the root in my AProjectTest, and read in that file using the same technique above. Of course, it gets renamed to MyTestProject.dll.config.<br>
+<br>
+Here is the stack trace:<br>
+Stack trace: Failed&nbsp;&nbsp; &nbsp;CanConnectToFullAuthAndExecuteQuery1Test&nbsp;&nbsp; &nbsp;TarongEnergy.Trading.Services.DataBroker.Tests&nbsp;&nbsp; &nbsp;Class Initialization method TarongEnergy.Trading.Services.DataBroker.Data.Tests.MarketMessagesDataAdapterTest.ClassInitialize threw exception.
+ Microsoft.Practices.Unity.ResolutionFailedException:&nbsp; Microsoft.Practices.Unity.ResolutionFailedException: Resolution of the dependency failed, type = &quot;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter&quot;, name = &quot;&quot;. Exception message
+ is: The current build operation (build key Build Key[Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter, null]) failed: The parameter filters could not be resolved when attempting to call constructor Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter(System.Collections.Generic.ICollection`1[[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter,
+ Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]] filters, System.Collections.Generic.IDictionary`2[[System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[Microsoft.Practices.EnterpriseLibrary.Logging.LogSource,
+ Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]] traceSources, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource allEventsTraceSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource
+ notProcessedTraceSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource errorsTraceSource, System.String defaultCategory, System.Boolean tracingEnabled, System.Boolean logWarningsWhenNoCategoriesMatch, System.Boolean revertImpersonation). (Strategy
+ type BuildPlanStrategy, index 3) ---&gt;&nbsp; Microsoft.Practices.ObjectBuilder2.BuildFailedException: The current build operation (build key Build Key[Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter, null]) failed: The parameter filters could not be resolved
+ when attempting to call constructor Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter(System.Collections.Generic.ICollection`1[[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter, Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0,
+ Culture=neutral, PublicKeyToken=31bf3856ad364e35]] filters, System.Collections.Generic.IDictionary`2[[System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, Microsoft.Practices.EnterpriseLibrary.Logging,
+ Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]] traceSources, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource allEventsTraceSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource notProcessedTraceSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource
+ errorsTraceSource, System.String defaultCategory, System.Boolean tracingEnabled, System.Boolean logWarningsWhenNoCategoriesMatch, System.Boolean revertImpersonation). (Strategy type BuildPlanStrategy, index 3) ---&gt;&nbsp; System.InvalidOperationException: The
+ parameter filters could not be resolved when attempting to call constructor Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter(System.Collections.Generic.ICollection`1[[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter, Microsoft.Practices.EnterpriseLibrary.Logging,
+ Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]] filters, System.Collections.Generic.IDictionary`2[[System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[Microsoft.Practices.EnterpriseLibrary.Logging.LogSource,
+ Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]] traceSources, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource allEventsTraceSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource
+ notProcessedTraceSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource errorsTraceSource, System.String defaultCategory, System.Boolean tracingEnabled, System.Boolean logWarningsWhenNoCategoriesMatch, System.Boolean revertImpersonation). ---&gt;&nbsp;
+ Microsoft.Practices.ObjectBuilder2.BuildFailedException: The current build operation (build key Build Key[System.Collections.Generic.ICollection`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter], null]) failed: The current type, System.Collections.Generic.ICollection`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter],
+ is an interface and cannot be constructed. Are you missing a type mapping? (Strategy type BuildPlanStrategy, index 3) ---&gt;&nbsp; System.InvalidOperationException: The current type, System.Collections.Generic.ICollection`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter],
+ is an interface and cannot be constructed. Are you missing a type mapping?.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_163028" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="163030">
+    <td id="PostDetailsCell_163030" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post163030"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/billkrat">billkrat</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/28/2009 1:11:36 PM" LocalTimeTicks="1235855496">Feb 28, 2009 at 1:11 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_163030" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi&#32;KierenH,&#32;&#32;I&#32;see&#32;you&#32;were&#32;referred&#32;here&#32;from&#32;the&#32;EnterpriseLibrary&#32;Discussion&#32;area&#32;&#40;reference&#32;http&#58;&#47;&#47;entlib.codeplex.com&#47;Thread&#47;View.aspx&#63;ThreadId&#61;48690&#41;.&#32;&#32;I&#32;believe&#32;the&#32;key&#32;to&#32;your&#32;problem&#32;lies&#32;in&#32;the&#32;last&#32;few&#32;lines&#32;of&#32;the&#32;error&#32;message&#58;&#32;&#32;The&#32;current&#32;type,&#32;System.Collections.Generic.ICollection&#96;1&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter&#93;,&#32;is&#32;an&#32;interface&#32;and&#32;cannot&#32;be&#32;constructed.&#32;Are&#32;you&#32;missing&#32;a&#32;type&#32;mapping&#63;&#32;&#32;I&#32;see&#32;this&#32;quite&#32;a&#32;bit&#32;particularly&#32;since&#32;I&#32;use&#32;configuration&#32;files&#32;to&#32;configure&#32;my&#32;Unity&#32;Container&#40;s&#41;.&#32;Usually&#32;the&#32;error&#32;is&#32;right&#32;on&#32;track&#32;and&#32;I&#32;did&#32;in&#32;fact&#32;fail&#32;to&#32;map&#32;a&#32;type&#32;to&#32;the&#32;specified&#32;interface.&#32;The&#32;above&#32;is&#32;telling&#32;us&#32;that&#32;Unity&#32;cannot&#32;resolve&#32;the&#32;&#38;quot&#59;ILogFilter&#38;quot&#59;.&#32;When&#32;you&#32;use&#32;the&#32;EnterpriseLibrary&#39;s&#32;&#38;quot&#59;FileConfigurationSource&#38;quot&#59;&#32;command&#32;Unity&#32;will&#32;attempt&#32;to&#32;resolve&#32;this&#32;interface&#32;and&#32;crash,&#32;when&#32;you&#32;are&#32;using&#32;the&#32;&#38;quot&#59;App.Config&#38;quot&#59;&#32;the&#32;EnterpriseLibrary&#32;is&#32;not&#32;in&#32;the&#32;loop&#32;&#40;ILogFilter&#32;is&#32;not&#32;being&#32;resovled&#41;&#32;and&#32;it&#32;works&#32;-&#32;as&#32;you&#32;suggested.&#32;&#32;I&#32;would&#32;first&#32;search&#32;the&#32;documentation&#32;for&#32;this&#32;to&#32;find&#32;out&#32;if&#32;you&#32;are&#32;required&#32;to&#32;configure&#32;an&#32;ILogFilter&#32;for&#32;the&#32;EnterpriseLibrary.&#32;Next,&#32;if&#32;your&#32;search&#32;fails&#32;I&#32;would&#32;rephrase&#32;your&#32;question&#32;in&#32;the&#32;EnterpriseLibrary&#32;discussion&#32;area&#32;to&#32;ask&#32;how&#32;you&#32;configure&#32;&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter&#93;&#32;so&#32;that&#32;Unity&#32;can&#32;resolve&#32;it.&#32;&#32;Bill&#32;">
+        Hi KierenH,<br>
+<br>
+I see you were referred here from the EnterpriseLibrary Discussion area (reference&nbsp;<a href="http://entlib.codeplex.com/Thread/View.aspx?ThreadId=48690" rel="nofollow">http://entlib.codeplex.com/Thread/View.aspx?ThreadId=48690</a>).<br>
+<br>
+I believe the key to your problem lies in the last few lines of the error message:<br>
+<br>
+The current type, System.Collections.Generic.ICollection`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter], is an interface and cannot be constructed.<strong> Are you missing a type mapping?<br>
+<br>
+</strong>I see this quite a bit particularly since I use configuration files to configure my Unity Container(s).&nbsp;&nbsp; Usually&nbsp;the error is&nbsp;right on track and I did in fact&nbsp;fail to map a type to the specified interface.&nbsp;&nbsp; The above is telling us that Unity cannot
+ resolve the &quot;ILogFilter&quot;.&nbsp;&nbsp; When you&nbsp;use the EnterpriseLibrary's &quot;<span style="font-family:verdana; font-size:13px">FileConfigurationSource&quot;
+</span>command Unity will attempt to resolve this interface and crash, when you are using the &quot;App.Config&quot; the EnterpriseLibrary is not in the loop (ILogFilter is not being resovled) and it works - as you suggested.<br>
+<br>
+I would first search the documentation for this to find out if you are required to configure an ILogFilter&nbsp;for the EnterpriseLibrary.&nbsp;&nbsp; Next, if your search fails I would rephrase your question in the EnterpriseLibrary discussion area to ask how you configure&nbsp;[Microsoft.Practices.<strong>EnterpriseLibrary</strong>.Logging.Filters.ILogFilter]
+ so that Unity can resolve it.<br>
+<br>
+Bill 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_163030" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="163109">
+    <td id="PostDetailsCell_163109" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post163109"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/KierenH">KierenH</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/28/2009 9:49:08 PM" LocalTimeTicks="1235886548">Feb 28, 2009 at 9:49 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_163109" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi&#32;Bill&#32;&#32;The&#32;logging&#32;application&#32;block&#32;and&#32;unity&#32;container&#32;is&#32;configured&#32;correctly&#32;-&#32;including&#32;the&#32;App.config&#32;from&#32;ProjectA&#32;in&#32;ProjectATest&#32;and&#32;calling&#58;&#32;&#32;IConfigurationSource&#32;configSource&#32;&#61;&#32;new&#32;SystemConfigurationSource&#40;&#41;&#59;&#32;UnityConfigurationSection&#32;unityConfigurationSection&#32;&#61;&#32;&#40;UnityConfigurationSection&#41;configurationSource.GetSection&#40;&#38;quot&#59;unity&#38;quot&#59;&#41;&#59;&#32;&#32;var&#32;unityContainer&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;unityConfigurationSection.Containers.Default.Configure&#40;unityContainer&#41;&#59;&#32;&#32;&#47;&#47;&#32;Passes&#32;var&#32;logWriter&#32;&#61;&#32;unityContainer.Resolve&#38;lt&#59;LogWriter&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;Is&#32;there&#32;anymore&#32;information&#32;I&#32;can&#32;provide,&#32;eg,&#32;the&#32;configuration&#32;file.&#32;&#32;&#32;Kieren&#32;">
+        Hi Bill<br>
+<br>
+The logging application block and unity container is configured correctly - including the App.config from ProjectA in ProjectATest and calling:<br>
+<br>
+<span style="font-size:9pt; font-family:'verdana','sans-serif'">IConfigurationSource configSource = new
+<strong>SystemConfigurationSource()</strong>;<br>
+UnityConfigurationSection unityConfigurationSection = (UnityConfigurationSection)configurationSource.GetSection(&quot;unity&quot;);<br>
+<br>
+var unityContainer = new UnityContainer();<br>
+unityConfigurationSection.Containers.Default.Configure(unityContainer);<br>
+<br>
+<strong>// Passes<br>
+</strong>var logWriter = unityContainer.Resolve&lt;LogWriter&gt;();<br>
+</span><br>
+Is there anymore information I can provide, eg, the configuration file. <br>
+<br>
+Kieren<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_163109" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="163112">
+    <td id="PostDetailsCell_163112" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post163112"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/billkrat">billkrat</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/28/2009 10:44:35 PM" LocalTimeTicks="1235889875">Feb 28, 2009 at 10:44 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_163112" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Yes,&#32;please&#32;provide&#32;the&#32;configuration&#32;file.&#32;Currently,&#32;in&#32;my&#32;http&#58;&#47;&#47;www.CodePlex.com&#47;SDMS&#32;application&#39;s&#32;MockBootStrapper&#32;I&#32;have&#32;a&#32;homegrown&#32;version&#32;of&#32;the&#32;FileConfigurationSource&#40;&#41;&#32;that&#32;I&#32;use&#32;to&#32;read&#32;in&#32;the&#32;Web.Config&#32;file&#32;&#40;of&#32;the&#32;primary&#32;application&#41;&#32;so&#32;that&#32;my&#32;entire&#32;solution,&#32;i.e.,&#32;ASP.NET,&#32;Silverlight,&#32;Desktop&#32;and&#32;WCF,&#32;all&#32;share&#32;the&#32;same&#32;configuration&#32;file.&#32;&#32;&#32;The&#32;EntLib&#32;4.1,&#32;and&#32;FileConfigurationSource&#40;&#41;,&#32;lends&#32;itself&#32;to&#32;my&#32;&#38;quot&#59;one&#32;configuration&#32;file&#32;for&#32;my&#32;entire&#32;enterprise&#32;solution&#38;quot&#59;&#32;goal.&#32;What&#32;I&#32;want&#32;to&#32;try&#32;is&#32;to&#32;have&#32;my&#32;WCF&#32;service&#32;&#40;Unity&#32;Behavior&#41;&#32;read&#32;in&#32;the&#32;primary&#32;Web&#32;Sites&#32;Web.Config&#32;for&#32;it&#39;s&#32;information&#32;-&#32;since&#32;I&#39;m&#32;programming&#32;in&#32;a&#32;Multi-targeting&#32;environment&#32;&#40;one&#32;code&#32;base&#32;for&#32;Desktop&#32;and&#32;Silverlight&#41;&#32;this&#32;could&#32;work&#32;very&#32;nicely.&#32;&#32;I&#39;m&#32;going&#32;to&#32;plug&#32;in&#32;the&#32;EntLib&#32;into&#32;SDMS&#32;and&#32;one&#32;of&#32;two&#32;things&#32;will&#32;happen&#32;when&#32;I&#32;use&#32;FileConfigurationSource&#40;&#41;&#32;to&#32;resolve&#32;LogWriter&#32;using&#32;your&#32;configuration&#32;-&#32;I&#39;ll&#32;either&#32;run&#32;into&#32;the&#32;problem&#32;you&#32;are&#32;having&#32;-&#32;or&#32;it&#32;will&#32;work.&#32;Either&#32;way&#32;I&#32;will&#32;be&#32;able&#32;to&#32;help&#32;you&#32;resolve&#32;your&#32;issue&#32;&#58;&#41;&#32;&#32;&#32;Bill&#32;">
+        Yes, please provide the configuration file.&nbsp; Currently, in my <a href="http://www.CodePlex.com/SDMS" rel="nofollow">
+http://www.CodePlex.com/SDMS</a> application's MockBootStrapper I have a homegrown version of the &nbsp;FileConfigurationSource() that I use to read in the Web.Config file (of the primary application) so that my entire solution, i.e.,&nbsp;ASP.NET, Silverlight, Desktop
+ and WCF, all share the same configuration file.&nbsp;&nbsp;<br>
+<br>
+The EntLib 4.1, and FileConfigurationSource(), lends itself to my &quot;one configuration file for my entire enterprise solution&quot; goal.&nbsp;&nbsp; &nbsp;What I want to try is to have my WCF service (Unity Behavior) read in the primary Web Sites Web.Config for it's information&nbsp;-
+ since I'm programming in a Multi-targeting environment (one code base for Desktop and Silverlight) this could work very nicely.<br>
+<br>
+I'm going to plug in the EntLib into SDMS and one of two things will happen when I use FileConfigurationSource() to resolve LogWriter using your configuration&nbsp;- I'll either run into the problem you are having - or it will work.&nbsp;&nbsp; Either way I will be able to
+ help you resolve your issue :)&nbsp;&nbsp;<br>
+<br>
+Bill 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_163112" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="163114">
+    <td id="PostDetailsCell_163114" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post163114"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/billkrat">billkrat</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/28/2009 11:19:46 PM" LocalTimeTicks="1235891986">Feb 28, 2009 at 11:19 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_163114" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi&#32;KierenH,&#32;&#32;Just&#32;curious&#32;-&#32;is&#32;there&#32;a&#32;reason&#32;you&#32;are&#32;attempting&#32;to&#32;resolve&#32;LogWriter&#63;&#32;I&#32;just&#32;finished&#32;reviewing&#32;the&#32;documentation&#32;for&#32;&#38;quot&#59;Logging&#32;QuickStart&#38;quot&#59;&#32;walkthroughs&#32;and&#32;it&#32;seems&#32;we&#39;re&#32;off&#32;the&#32;beaten&#32;path,&#32;i.e.,&#32;haven&#39;t&#32;seen&#32;anything&#32;that&#32;uses&#32;the&#32;LogWriter&#32;directly&#32;&#40;requiring&#32;us&#32;to&#32;configure&#32;it&#39;s&#32;parameters&#41;.&#32;&#32;Typically&#32;we&#32;only&#32;resolve&#32;classes&#32;when&#32;we&#32;want&#32;to&#32;take&#32;advantage&#32;of&#32;DI&#32;from&#32;within&#32;that&#32;class,&#32;generally&#32;we&#32;resolve&#32;interfaces.&#32;&#32;&#32;Would&#32;help&#32;for&#32;me&#32;to&#32;understand&#32;the&#32;context&#32;of&#32;your&#32;objectives.&#32;&#32;Bill&#32;">
+        Hi KierenH,<br>
+<br>
+Just curious - is there a reason you are attempting to resolve LogWriter?&nbsp; I just finished reviewing the documentation for &quot;Logging QuickStart&quot; walkthroughs and it seems we're off the beaten path, i.e., haven't seen anything that uses the LogWriter
+ directly (requiring us to configure it's parameters).<br>
+<br>
+Typically we&nbsp;only resolve classes when we want to take advantage of DI&nbsp;from within that class, generally we resolve interfaces.&nbsp;&nbsp;&nbsp;<br>
+<br>
+Would help for me to understand the context of your objectives.<br>
+<br>
+Bill<br>
+&nbsp;&nbsp; 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_163114" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="163129">
+    <td id="PostDetailsCell_163129" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post163129"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/billkrat">billkrat</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/1/2009 1:31:29 AM" LocalTimeTicks="1235899889">Mar 1, 2009 at 1:31 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_163129" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Something&#32;to&#32;try,&#32;the&#32;following&#32;is&#32;from&#32;the&#32;Documentation&#58;&#32;&#32;&#43;&#32;Developing&#32;Applications&#32;with&#32;Enterprise&#32;Library&#32;&#43;&#32;Adding&#32;Enterprise&#32;Library&#32;to&#32;Applications&#32;&#43;&#32;Creating&#32;Application&#32;Block&#32;Objects&#32;&#43;&#32;Creating&#32;Objects&#32;Using&#32;the&#32;Application&#32;Block&#32;&#32;By&#32;default,&#32;this&#32;extension&#32;will&#32;read&#32;its&#32;configuration&#32;from&#32;the&#32;application&#32;configuration&#32;file&#32;&#40;App.config&#32;or&#32;Web.config&#41;.&#32;If&#32;you&#32;want&#32;to&#32;provide&#32;a&#32;custom&#32;configuration&#32;source,&#32;you&#32;create&#32;this&#32;first&#32;and&#32;pass&#32;it&#32;to&#32;the&#32;EnterpriseLibraryCoreExtension&#32;as&#32;shown&#32;in&#32;the&#32;following&#32;code.&#32;&#32;&#32;&#32;&#32;C&#35;&#32;&#32;&#32;&#32;&#32;IUnityContainer&#32;uContainer&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;IConfigurationSource&#32;configSource&#32;&#61;&#32;new&#32;MyCustomConfigSource&#40;&#41;&#59;&#32;&#47;&#47;&#32;...&#32;populate&#32;configuration&#32;source&#32;as&#32;required&#32;here&#32;uContainer.AddExtension&#40;new&#32;EnterpriseLibraryCoreExtension&#40;configSource&#41;&#41;&#59;&#32;&#32;&#32;&#32;&#32;&#32;&#32;More&#32;stuff....&#32;&#32;You&#32;can&#32;then&#32;load&#32;the&#32;Enterprise&#32;Library&#32;core&#32;extension&#32;and&#32;the&#32;Logging&#32;Application&#32;Block&#32;extension&#32;into&#32;a&#32;Unity&#32;container,&#32;and&#32;then&#32;you&#32;can&#32;instantiate&#32;the&#32;custom&#32;class&#32;complete&#32;with&#32;the&#32;injected&#32;reference&#32;to&#32;the&#32;LogWriter&#32;class,&#32;as&#32;shown&#32;in&#32;the&#32;following&#32;code.&#32;C&#35;&#32;Copy&#32;Code&#32;&#32;IUnityContainer&#32;uContainer&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;uContainer.AddNewExtension&#38;lt&#59;EnterpriseLibraryCoreExtension&#38;gt&#59;&#40;&#41;&#59;&#32;uContainer.AddNewExtension&#38;lt&#59;LoggingBlockExtension&#38;gt&#59;&#40;&#41;&#59;&#32;MyNewObject&#32;myNewInstance&#32;&#61;&#32;uContainer.Resolve&#38;lt&#59;MyNewObject&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;&#32;">
+        
+<p><strong>Something to try, the following is from the Documentation:<br>
+</strong>&nbsp;&#43; Developing Applications with Enterprise Library<br>
+&nbsp;&nbsp;&nbsp; &#43; Adding Enterprise Library to Applications<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#43; Creating Application Block Objects<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#43; Creating Objects Using the Application&nbsp;Block&nbsp;</p>
+<p>By default, this extension will read its configuration from the application configuration file (App.config or Web.config). If you want to provide a custom configuration source, you create this first and pass it to the
+<b>EnterpriseLibraryCoreExtension</b> as shown in the following code.</p>
+<div><span>
+<table cellspacing="0" cellpadding="0" width="100%">
+<tbody>
+<tr>
+<th>C#</th>
+<th><span></span></th>
+</tr>
+<tr>
+<td colspan="2">
+<pre>IUnityContainer uContainer = new UnityContainer();
+IConfigurationSource configSource = new MyCustomConfigSource();
+// ... populate configuration source as required here
+uContainer.AddExtension(new EnterpriseLibraryCoreExtension(configSource));
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+</span></div>
+<p><strong>More stuff....</strong><br>
+<br>
+You can then load the Enterprise Library core extension and the Logging Application Block extension into a Unity container, and then you can instantiate the custom class complete with the injected reference to the LogWriter class, as shown in the following
+ code.</p>
+<p>C# Copy Code&nbsp; <br>
+IUnityContainer uContainer = new UnityContainer();<br>
+uContainer.AddNewExtension&lt;EnterpriseLibraryCoreExtension&gt;();<br>
+uContainer.AddNewExtension&lt;LoggingBlockExtension&gt;();<br>
+MyNewObject myNewInstance = uContainer.Resolve&lt;MyNewObject&gt;();</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_163129" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="163137">
+    <td id="PostDetailsCell_163137" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post163137"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/kierenH">kierenH</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/1/2009 3:17:46 AM" LocalTimeTicks="1235906266">Mar 1, 2009 at 3:17 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_163137" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi&#32;Bill&#32;&#32;Thanks&#32;for&#32;your&#32;help&#32;so&#32;far.&#32;I&#32;shouldn&#39;t&#32;have&#32;to&#32;setup&#32;the&#32;extensions&#32;in&#32;code&#32;because&#32;it&#32;comes&#32;from&#32;the&#32;config&#32;file&#58;&#32;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;unity&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;containers&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;container&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;extensions&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;add&#32;type&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Unity.EnterpriseLibraryCoreExtension,&#32;Microsoft.Practices.EnterpriseLibrary.Common&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;add&#32;type&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Unity.LoggingBlockExtension,&#32;Microsoft.Practices.EnterpriseLibrary.Logging&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;...&#32;&#38;lt&#59;&#47;unity&#38;gt&#59;&#32;&#32;The&#32;class&#32;I&#32;am&#32;testing&#32;would&#32;traditionally&#32;have&#32;a&#32;dependency&#32;on&#32;the&#32;static&#32;class&#32;Logger.&#32;The&#32;problem&#32;with&#32;this&#32;approach&#32;is&#32;that&#32;you&#32;can&#39;t&#32;specify&#32;logging&#32;configuration&#32;other&#32;than&#32;what&#32;is&#32;in&#32;the&#32;App.config.&#32;Making&#32;my&#32;class&#32;dependent&#32;on&#32;the&#32;instance&#32;based&#32;LogWriter&#32;provides&#32;more&#32;flexibility&#32;for&#32;configuring&#32;logging.&#32;&#32;&#32;public&#32;class&#32;MyClass&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;void&#32;DoSomething&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;if&#32;&#40;&#32;Logger.IsLOggingENabled&#40;&#41;&#32;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;...&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#91;Dependency&#93;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;LogWriter&#32;LogWriter&#32;&#123;&#32;Get&#59;&#32;set&#59;&#32;&#125;&#32;&#125;&#32;&#32;For&#32;the&#32;purpose&#32;of&#32;my&#32;test,&#32;I&#32;resolve&#32;the&#32;type&#32;&#38;quot&#59;MyClass&#38;quot&#59;&#32;from&#32;the&#32;UnityContainer...&#32;and&#32;it&#32;should&#32;build&#32;up&#32;the&#32;object&#32;tree,&#32;and&#32;resolve&#32;LogWriter&#32;according&#32;to&#32;the&#32;configuration&#32;it&#32;reads.&#32;&#32;Now,&#32;the&#32;reason&#32;I&#32;Manually&#32;resolve&#32;LogWriter&#58;&#32;var&#32;logWriter&#32;&#61;&#32;uContainer.Resolve&#38;lt&#59;LogWriter&#38;gt&#59;&#40;&#41;&#59;&#32;is&#32;because&#32;in&#32;my&#32;test,&#32;I&#32;want&#32;to&#32;override&#32;some&#32;of&#32;the&#32;configuration,&#32;eg&#58;&#32;logWriter.GetFilter&#38;lt&#59;LogEnabledFilter&#38;gt&#59;&#40;&#41;.IsEnabled&#32;&#61;&#32;false&#59;&#32;&#32;To&#32;try&#32;and&#32;help&#32;you&#32;visualize&#32;my&#32;scenario&#32;a&#32;little&#32;better,&#32;here&#32;is&#32;the&#32;structure&#32;of&#32;the&#32;projects&#32;&#40;Trying&#32;to&#32;resolve&#32;LogWriter&#32;in&#32;this&#32;scenario&#32;fails&#41;&#58;&#32;Root&#32;Folder&#32;.sln&#32;file&#32;-ProjectA&#32;--App.config&#32;&#32;-ProjectATest&#32;--My&#32;Folder&#32;---&#91;App.config&#32;from&#32;ProjectA&#32;included&#32;in&#32;the&#32;project&#32;as&#32;a&#32;link&#93;&#32;&#32;NOTE&#58;&#32;The&#32;config&#32;is&#32;read&#32;cleanly.&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;string&#32;appConfigPath&#32;&#61;&#32;Path.Combine&#40;testContext.TestDeploymentDir,&#32;&#38;quot&#59;my&#32;folder&#92;app.config&#38;quot&#59;&#41;&#41;&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;IConfigurationSource&#32;configurationSource&#32;&#61;&#32;new&#32;FileConfigurationSource&#40;appConfigPath&#41;&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#32;Will&#32;throw&#32;an&#32;exception&#32;if&#32;the&#32;configuration&#32;element&#32;does&#32;not&#32;exist&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;UnityConfigurationSection&#32;unityConfigurationSection&#32;&#61;&#32;&#40;UnityConfigurationSection&#41;configurationSource.GetSection&#40;&#38;quot&#59;unity&#38;quot&#59;&#41;&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#32;Create&#32;a&#32;new&#32;unity&#32;container&#32;and&#32;configure&#32;it&#32;from&#32;config&#32;source&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;var&#32;unityContainer&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;unityConfigurationSection.Containers.Default.Configure&#40;unityContainer&#41;&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#32;Turn&#32;off&#32;logging&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;var&#32;logWriter&#32;&#61;&#32;unityContainer.Resolve&#38;lt&#59;LogWriter&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;logWriter.GetFilter&#38;lt&#59;LogEnabledFilter&#38;gt&#59;&#40;&#41;.Enabled&#32;&#61;&#32;false&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;return&#32;unityContainer&#59;&#32;&#32;______________&#32;To&#32;get&#32;it&#32;to&#32;work,&#32;I&#32;have&#32;had&#32;to&#32;structure&#32;the&#32;projects&#32;like&#32;this&#58;&#32;Root&#32;Folder&#32;.sln&#32;file&#32;-ProjectA&#32;--App.config&#32;&#32;-ProjectATest&#32;--&#91;App.config&#32;from&#32;ProjectA&#32;included&#32;in&#32;the&#32;project&#32;as&#32;a&#32;link&#93;&#32;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;string&#32;appConfigPath&#32;&#61;&#32;Path.Combine&#40;testContext.TestDeploymentDir,&#32;String.Format&#40;&#38;quot&#59;&#123;0&#125;.dll.config&#38;quot&#59;,&#32;Assembly.GetExecutingAssembly&#40;&#41;.GetName&#40;&#41;.Name&#41;&#41;&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;IConfigurationSource&#32;configurationSource&#32;&#61;&#32;new&#32;FileConfigurationSource&#40;appConfigPath&#41;&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#32;Will&#32;throw&#32;an&#32;exception&#32;if&#32;the&#32;configuration&#32;element&#32;does&#32;not&#32;exist&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;UnityConfigurationSection&#32;unityConfigurationSection&#32;&#61;&#32;&#40;UnityConfigurationSection&#41;configurationSource.GetSection&#40;&#38;quot&#59;unity&#38;quot&#59;&#41;&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#32;Create&#32;a&#32;new&#32;unity&#32;container&#32;and&#32;configure&#32;it&#32;from&#32;config&#32;source&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;var&#32;unityContainer&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;unityConfigurationSection.Containers.Default.Configure&#40;unityContainer&#41;&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#32;Turn&#32;off&#32;logging&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;var&#32;logWriter&#32;&#61;&#32;unityContainer.Resolve&#38;lt&#59;LogWriter&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;logWriter.GetFilter&#38;lt&#59;LogEnabledFilter&#38;gt&#59;&#40;&#41;.Enabled&#32;&#61;&#32;false&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;return&#32;unityContainer&#59;&#32;&#32;---&#32;&#32;&#32;&#32;">
+        Hi Bill<br>
+<br>
+Thanks for your help so far. I shouldn't have to setup the extensions in code because it comes from the config file:<br>
+<br>
+&nbsp; &lt;unity&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;containers&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;container&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;extensions&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;add type=&quot;Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Unity.EnterpriseLibraryCoreExtension, Microsoft.Practices.EnterpriseLibrary.Common&quot; /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;add type=&quot;Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Unity.LoggingBlockExtension, Microsoft.Practices.EnterpriseLibrary.Logging&quot; /&gt;<br>
+...<br>
+&lt;/unity&gt;<br>
+<br>
+The class I am testing would traditionally have a dependency on the static class Logger. The problem with this approach is that you can't specify logging configuration other than what is in the App.config.<br>
+Making my class dependent on the instance based LogWriter provides more flexibility for configuring logging.
+<br>
+<br>
+public class MyClass<br>
+{<br>
+&nbsp;&nbsp;&nbsp; public void DoSomething()<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ( Logger.IsLOggingENabled() )<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ...<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; [Dependency]<br>
+&nbsp;&nbsp;&nbsp; public LogWriter LogWriter { Get; set; }<br>
+}<br>
+<br>
+For the purpose of my test, I resolve the type &quot;MyClass&quot; from the UnityContainer... and it should build up the object tree, and resolve LogWriter according to the configuration it reads.<br>
+<br>
+Now, the reason I Manually resolve LogWriter:<br>
+var logWriter = uContainer.Resolve&lt;LogWriter&gt;();<br>
+is because in my test, I want to override some of the configuration, eg:<br>
+logWriter.GetFilter&lt;LogEnabledFilter&gt;().IsEnabled = false;<br>
+<br>
+To try and help you visualize my scenario a little better, here is the structure of the projects (Trying to resolve LogWriter in this scenario fails):<br>
+Root Folder<br>
+.sln file<br>
+-ProjectA<br>
+--App.config<br>
+<br>
+-ProjectATest<br>
+--My Folder<br>
+---[App.config from ProjectA included in the project as a link]<br>
+<br>
+NOTE: The config is read cleanly.<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; string appConfigPath = Path.Combine(testContext.TestDeploymentDir, &quot;my folder\app.config&quot;));<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IConfigurationSource configurationSource = new FileConfigurationSource(appConfigPath);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Will throw an exception if the configuration element does not exist<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UnityConfigurationSection unityConfigurationSection = (UnityConfigurationSection)configurationSource.GetSection(&quot;unity&quot;);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Create a new unity container and configure it from config source<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var unityContainer = new UnityContainer();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unityConfigurationSection.Containers.Default.Configure(unityContainer);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Turn off logging<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var logWriter = unityContainer.Resolve&lt;LogWriter&gt;();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; logWriter.GetFilter&lt;LogEnabledFilter&gt;().Enabled = false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return unityContainer;<br>
+<br>
+______________<br>
+To get it to work, I have had to structure the projects like this:<br>
+Root Folder<br>
+.sln file<br>
+-ProjectA<br>
+--App.config<br>
+<br>
+-ProjectATest<br>
+--[App.config from ProjectA included in the project as a link]<br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; string appConfigPath = Path.Combine(testContext.TestDeploymentDir, String.Format(&quot;{0}.dll.config&quot;, Assembly.GetExecutingAssembly().GetName().Name));<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IConfigurationSource configurationSource = new FileConfigurationSource(appConfigPath);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Will throw an exception if the configuration element does not exist<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UnityConfigurationSection unityConfigurationSection = (UnityConfigurationSection)configurationSource.GetSection(&quot;unity&quot;);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Create a new unity container and configure it from config source<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var unityContainer = new UnityContainer();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unityConfigurationSection.Containers.Default.Configure(unityContainer);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Turn off logging<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var logWriter = unityContainer.Resolve&lt;LogWriter&gt;();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; logWriter.GetFilter&lt;LogEnabledFilter&gt;().Enabled = false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return unityContainer;<br>
+<br>
+--- <br>
+<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_163137" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="163197">
+    <td id="PostDetailsCell_163197" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post163197"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/billkrat">billkrat</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/1/2009 3:41:03 PM" LocalTimeTicks="1235950863">Mar 1, 2009 at 3:41 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_163197" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Makes&#32;sense&#32;now.&#32;Getting&#32;ready&#32;to&#32;leave&#32;for&#32;chuch&#32;and&#32;will&#32;be&#32;assisting&#32;the&#32;wife&#32;today&#32;at&#32;an&#32;event&#32;but&#32;am&#32;going&#32;to&#32;bring&#32;my&#32;laptop&#32;in&#32;case&#32;I&#32;get&#32;time&#32;to&#32;play.&#32;Sounds&#32;like&#32;you&#32;have&#32;your&#32;T&#39;s&#32;crossed&#32;and&#32;your&#32;I&#39;s&#32;dotted&#59;&#32;this&#32;will&#32;be&#32;an&#32;excellent&#32;learning&#32;exercise&#32;&#40;and&#32;a&#32;fun&#32;challenge&#41;.&#32;I&#39;ll&#32;let&#32;you&#32;know.&#32;">
+        Makes sense now.&nbsp; Getting ready to leave for chuch and will be assisting the wife today at an event but am going to bring my laptop in case I get time to play.&nbsp;&nbsp; Sounds like you have your T's crossed and your I's dotted;&nbsp;this will be an excellent learning
+ exercise (and a fun challenge).&nbsp;&nbsp;I'll let you know. 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_163197" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="163259">
+    <td id="PostDetailsCell_163259" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post163259"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Billkrat">Billkrat</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/1/2009 8:34:08 PM" LocalTimeTicks="1235968448">Mar 1, 2009 at 8:34 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_163259" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;got&#32;a&#32;weak&#32;internet&#32;connection&#32;and&#32;my&#32;laptop&#32;doesn&#39;t&#32;have&#32;VS2008&#32;&#40;dough&#33;&#41;&#32;but&#32;I&#39;m&#32;able&#32;to&#32;remote&#32;into&#32;my&#32;development&#32;server.&#32;Wondering&#32;how&#32;the&#32;Unit&#32;Test&#32;were&#32;able&#32;to&#32;accomplish&#32;the&#32;task&#32;at&#32;hand&#32;I&#32;found&#32;the&#32;following&#32;-&#32;have&#32;you&#32;tried&#32;this&#63;&#32;&#32;&#32;Logging.Tests.VSTS&#32;&#43;&#32;LogWriterFixture.cs&#32;&#32;&#32;&#91;TestMethod&#93;&#32;public&#32;void&#32;CanCreateLogWriterUsingFactory&#40;&#41;&#32;&#123;&#32;LogWriter&#32;writer&#32;&#61;&#32;EnterpriseLibraryFactory.BuildUp&#38;lt&#59;LogWriter&#38;gt&#59;&#40;&#41;&#59;&#32;Assert.IsNotNull&#40;writer&#41;&#59;&#32;&#125;&#32;">
+        I got a weak internet connection and my laptop doesn't have VS2008 (dough!) but I'm able to remote into my development server.&nbsp;&nbsp; Wondering how the Unit Test were able to accomplish the task at&nbsp;hand I found the following - have you tried this?&nbsp; &nbsp;<br>
+<br>
+Logging.Tests.VSTS<br>
+&#43; LogWriterFixture.cs<br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; [TestMethod]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void CanCreateLogWriterUsingFactory()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LogWriter writer = EnterpriseLibraryFactory.BuildUp&lt;LogWriter&gt;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Assert.IsNotNull(writer);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_163259" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="163397">
+    <td id="PostDetailsCell_163397" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post163397"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/kierenH">kierenH</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/2/2009 7:32:33 AM" LocalTimeTicks="1236007953">Mar 2, 2009 at 7:32 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_163397" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Do&#32;I&#32;have&#32;to&#32;setup&#32;anything&#32;to&#32;get&#32;the&#32;tests&#32;to&#32;work&#63;&#32;Right-clicking&#32;and&#32;running&#32;the&#32;test&#32;in&#32;context...&#32;the&#32;test&#32;failed.&#32;">
+        Do I have to setup anything to get the tests to work?<br>
+Right-clicking and running the test in context... the test failed.<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_163397" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="163475">
+    <td id="PostDetailsCell_163475" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post163475"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/billkrat">billkrat</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/2/2009 1:43:19 PM" LocalTimeTicks="1236030199">Mar 2, 2009 at 1:43 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_163475" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Time&#32;to&#32;move&#32;this&#32;discussion&#32;back&#32;to&#32;Enterprise&#32;Library&#32;KierenH&#33;&#32;&#32;If&#32;the&#32;Unit&#32;Test&#32;are&#32;failing&#32;then&#32;we&#32;are&#32;pretty&#32;much&#32;dead&#32;in&#32;the&#32;water&#32;&#40;can&#39;t&#32;solve&#32;a&#32;problem&#32;until&#32;the&#32;infrastructure&#32;is&#32;working&#32;properly&#41;...&#32;I&#32;trust&#32;when&#32;this&#32;unit&#32;test&#32;passes&#32;your&#32;problem&#32;will&#32;be&#32;resolved&#32;as&#32;you&#39;ll&#32;have&#32;your&#32;LogWriter&#32;instance.&#32;&#32;I&#32;originally&#32;thought&#32;the&#32;problem&#32;with&#32;running&#32;the&#32;test&#32;were&#32;because&#32;the&#32;system&#32;was&#32;being&#32;overwhelmed&#32;with&#32;the&#32;large&#32;number&#32;of&#32;test&#32;projects&#32;&#40;even&#32;though&#32;I&#32;have&#32;dual&#32;core,&#32;x64&#32;and&#32;3&#32;gig&#32;of&#32;RAM&#41;.&#32;So&#32;I&#32;unloaded&#32;all&#32;but&#32;the&#32;logging&#32;test&#32;projects&#32;and&#32;verified&#32;what&#32;you&#32;found&#32;-&#32;the&#32;unit&#32;test&#32;fails&#32;for&#32;a&#32;readonly&#32;error&#32;in&#32;the&#32;performance&#32;counter&#32;&#40;failed&#32;during&#32;the&#32;constructor&#41;.&#32;When&#32;I&#32;placed&#32;a&#32;break&#32;point&#32;and&#32;attempted&#32;again&#32;I&#32;got&#32;a&#32;dreaded&#32;manifest&#32;error.&#32;I&#32;also&#32;found&#32;many&#32;of&#32;the&#32;other&#32;test&#32;failing....&#32;not&#32;good....&#32;This&#32;is&#32;with&#32;Enterprise&#32;Library&#32;4.1&#32;right&#32;out&#32;of&#32;the&#32;box,&#32;compiled&#32;and&#32;attempting&#32;to&#32;run&#32;the&#32;unit&#32;test.&#32;&#32;Signing&#32;out&#32;on&#32;this&#32;one&#32;-&#32;to&#32;much&#32;on&#32;my&#32;plate&#32;to&#32;fight&#32;infrastructure&#32;issues.&#32;Please&#32;let&#32;me&#32;know&#32;when&#32;Unit&#32;Test&#32;are&#32;working&#32;&#40;I&#32;trust&#32;you&#39;ll&#32;be&#32;on&#32;them&#32;about&#32;this&#41;&#32;so&#32;I&#32;can&#32;try&#32;EntLib4.1&#32;again.&#32;&#32;Was&#32;fun&#32;&#58;&#41;&#32;Bill&#32;&#32;&#32;">
+        Time to move this discussion back to Enterprise Library KierenH!<br>
+<br>
+If the Unit Test are failing then we are pretty much dead in the water (can't solve a problem until the infrastructure is working properly)...&nbsp; I trust when this unit test passes your problem will be resolved as you'll have your LogWriter instance.<br>
+<br>
+I originally thought the problem with running the test were because the system was being overwhelmed with the large number of test projects (even though I have dual core, x64 and 3 gig&nbsp;of&nbsp;RAM). So I unloaded all but the logging test projects and verified what
+ you found - the unit test fails for a readonly error in the performance counter (failed during the constructor).&nbsp;&nbsp; When I placed a break point and attempted again I got a dreaded manifest error.&nbsp; I also found many&nbsp;of the other test failing.... not good....&nbsp;
+ This is with Enterprise Library 4.1 right out of the box, compiled and attempting to run the unit test.<br>
+<br>
+Signing out on this one - to much on my plate to fight infrastructure issues.&nbsp; Please let me know when Unit Test are working (I trust you'll be on them about this) so I can try EntLib4.1 again.<br>
+<br>
+Was fun :)<br>
+Bill<br>
+<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_163475" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="163581">
+    <td id="PostDetailsCell_163581" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post163581"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/billkrat">billkrat</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/2/2009 7:16:32 PM" LocalTimeTicks="1236050192">Mar 2, 2009 at 7:16 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_163581" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Odd&#32;how&#32;things&#32;work&#32;out&#32;sometimes...&#32;We&#39;re&#32;starting&#32;a&#32;new&#32;project&#47;sprint&#32;today&#32;and&#32;I&#32;was&#32;assigned&#32;logging&#32;and&#32;exception&#32;handling&#32;-&#32;go&#32;figure&#32;&#58;&#41;&#32;Needless&#32;to&#32;say,&#32;before&#32;I&#32;make&#32;the&#32;deterimination&#32;to&#32;not&#32;use&#32;EntLib&#32;4.1&#32;I&#39;ll&#32;have&#32;to&#32;do&#32;due&#32;diligence.&#32;What&#32;I&#39;ve&#32;found&#32;so&#32;far&#32;&#40;lucky&#32;guess&#41;&#32;was&#32;by&#32;running&#32;the&#32;&#38;quot&#59;Install&#32;Instrumentation&#38;quot&#59;&#32;menu&#32;option&#32;&#40;under&#32;Microsoft&#32;Practices&#32;&#38;amp&#59;&#32;Patterns&#32;&#124;&#32;Enterprise&#32;Library&#41;&#32;my&#32;unit&#32;test&#32;now&#32;initialize&#32;without&#32;failure&#59;&#32;it&#32;gets&#32;past&#32;TestInitialization&#32;and&#32;into&#32;the&#32;Unit&#32;Test&#32;without&#32;failure&#59;&#32;now&#32;if&#32;I&#32;can&#32;just&#32;get&#32;it&#32;to&#32;run&#32;without&#32;VS&#32;going&#32;&#38;quot&#59;not&#32;responding&#38;quot&#59;&#32;-&#32;work&#32;in&#32;progress.&#32;">
+        Odd how things work out sometimes...&nbsp; We're starting a new project/sprint today&nbsp;and I was assigned logging and exception handling - go figure :)&nbsp;&nbsp; Needless to say, before I make the deterimination to not use EntLib 4.1 I'll have to do due diligence.&nbsp;&nbsp;&nbsp;&nbsp;
+ What I've found so far (lucky guess) was by running the &quot;Install Instrumentation&quot; menu option (under Microsoft Practices &amp; Patterns | Enterprise Library) my unit test now initialize without failure; it gets past TestInitialization and into the
+ Unit Test without failure;&nbsp;now if I can just get it to run without VS going &quot;not responding&quot; - work in progress.
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_163581" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="163602">
+    <td id="PostDetailsCell_163602" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post163602"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/billkrat">billkrat</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/2/2009 9:36:18 PM" LocalTimeTicks="1236058578">Mar 2, 2009 at 9:36 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_163602" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Found&#32;the&#32;problem&#32;with&#32;the&#32;Enterprise&#32;Library&#32;4.1&#32;unit&#32;test&#32;and&#32;I&#32;can&#32;successfully&#32;run&#32;the&#32;code&#32;that&#32;should&#32;resolve&#32;your&#32;issue&#58;&#32;&#32;&#91;TestMethod&#93;&#32;public&#32;void&#32;CanCreateLogWriterUsingFactory&#40;&#41;&#32;&#123;&#32;LogWriter&#32;writer&#32;&#61;&#32;EnterpriseLibraryFactory.BuildUp&#38;lt&#59;LogWriter&#38;gt&#59;&#40;&#41;&#59;&#32;Assert.IsNotNull&#40;writer&#41;&#59;&#32;&#125;&#32;&#32;Blogged&#32;about&#32;on&#32;the&#32;following&#32;link.&#32;http&#58;&#47;&#47;www.global-webnet.net&#47;blogengine&#47;post&#47;2009&#47;03&#47;02&#47;Enterprise-Library-41-unit-test-dont-work.aspx&#32;">
+        Found the problem with the Enterprise Library 4.1 unit test and I can successfully run the code that should resolve your issue:<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; [TestMethod]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void CanCreateLogWriterUsingFactory()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LogWriter writer = EnterpriseLibraryFactory.BuildUp&lt;LogWriter&gt;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Assert.IsNotNull(writer);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+<br>
+Blogged about on the following link.<br>
+<a href="http://www.global-webnet.net/blogengine/post/2009/03/02/Enterprise-Library-41-unit-test-dont-work.aspx" rel="nofollow">http://www.global-webnet.net/blogengine/post/2009/03/02/Enterprise-Library-41-unit-test-dont-work.aspx</a>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_163602" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="164226">
+    <td id="PostDetailsCell_164226" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post164226"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/kierenH">kierenH</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/4/2009 9:21:12 AM" LocalTimeTicks="1236187272">Mar 4, 2009 at 9:21 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_164226" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi&#32;Bill&#32;&#32;I&#32;didn&#39;t&#32;think&#32;they&#39;d&#32;ship&#32;failing&#32;unit&#32;tests&#32;&#58;&#41;&#32;&#32;Why&#32;do&#32;I&#32;need&#32;to&#32;tell&#32;it&#32;to&#32;build&#32;up&#63;&#32;&#40;uContainer.BuildUp&#38;lt&#59;Type&#38;gt&#59;&#41;&#32;&#32;I&#32;expect&#40;ed&#41;&#32;that&#32;configuring&#32;the&#32;unity&#32;container,&#32;would&#32;essentially&#32;do&#32;that,&#32;and&#32;allow&#32;me&#32;to&#32;get&#32;a&#32;type&#58;&#32;uContainer.Resolve&#38;lt&#59;Type&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;If&#32;you&#32;look&#32;at&#32;my&#32;work-around,&#32;I&#32;don&#39;t&#32;need&#32;to&#32;do&#32;build-up...&#32;Root&#32;Folder&#32;.sln&#32;file&#32;-ProjectA&#32;--App.config&#32;&#32;-ProjectATest&#32;--&#91;App.config&#32;from&#32;ProjectA&#32;included&#32;in&#32;the&#32;project&#32;as&#32;a&#32;link&#93;&#32;&#32;Cheers&#32;Kieren&#32;">
+        Hi Bill<br>
+<br>
+I didn't think they'd ship failing unit tests :)<br>
+<br>
+Why do I need to tell it to build up? (uContainer.BuildUp&lt;Type&gt;)<br>
+<br>
+I expect(ed) that configuring the unity container, would essentially do that, and allow me to get a type:<br>
+uContainer.Resolve&lt;Type&gt;();<br>
+<br>
+If you look at my work-around, I don't need to do build-up...<br>
+Root Folder<br>
+.sln file<br>
+-ProjectA<br>
+--App.config<br>
+<br>
+-ProjectATest<br>
+--[App.config from ProjectA included in the project as a link]<br>
+<br>
+Cheers<br>
+Kieren<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_164226" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="164274">
+    <td id="PostDetailsCell_164274" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post164274"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/billkrat">billkrat</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/4/2009 11:51:29 AM" LocalTimeTicks="1236196289">Mar 4, 2009 at 11:51 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="3/4/2009 11:52:30 AM" LocalTimeTicks="1236196350">Mar 4, 2009 at 11:52 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_164274" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#91;kierenH&#93;&#32;I&#32;didn&#39;t&#32;think&#32;they&#39;d&#32;ship&#32;failing&#32;unit&#32;tests&#32;&#58;&#41;&#32;&#32;Yep,&#32;been&#32;keeping&#32;me&#32;pretty&#32;busy&#32;particularly&#32;since&#32;the&#32;Unit&#32;Test&#32;are&#32;my&#32;starting&#32;point&#32;for&#32;learning&#32;new&#32;P&#38;amp&#59;P&#32;projects.&#32;I&#32;decided&#32;to&#32;go&#32;with&#32;EntLib&#32;4.1&#32;&#40;more&#32;because&#32;of&#32;the&#32;great&#32;support&#32;than&#32;the&#32;confidence&#32;in&#32;it&#39;s&#32;ability&#32;to&#32;do&#32;the&#32;job&#41;&#32;combined&#32;with&#32;Interception&#32;&#40;because&#32;of&#32;a&#32;polymorphic&#32;infrastructure&#41;&#32;and&#32;I&#32;spend&#32;more&#32;time&#32;fixing&#32;Unit&#32;Test&#32;then&#32;I&#32;do&#32;achieving&#32;my&#32;objectives.&#32;Unfortunately,&#32;I&#32;&#38;quot&#59;have&#38;quot&#59;&#32;to&#32;determine&#32;why&#32;they&#32;are&#32;failing&#32;before&#32;I&#32;trust&#32;our&#32;production&#32;code&#32;to&#32;it.&#32;Besides,&#32;we&#32;can&#39;t&#32;anticipate&#32;TDD&#32;to&#32;go&#32;well&#32;when&#32;the&#32;out-of-the-box&#32;stuff&#32;is&#32;failing...&#32;&#32;&#32;&#91;kierenH&#93;&#32;Why&#32;do&#32;I&#32;need&#32;to&#32;tell&#32;it&#32;to&#32;build&#32;up&#63;&#32;&#40;uContainer.BuildUp&#38;lt&#59;Type&#38;gt&#59;&#41;&#32;&#32;Dough&#33;&#33;&#32;I&#32;missed&#32;that&#32;you&#32;had&#32;a&#32;work-around&#32;&#58;&#41;&#32;Great&#33;&#32;&#32;I&#39;ll&#32;keep&#32;this&#32;one&#32;book&#32;marked&#32;as&#32;Logging,&#32;Validation&#32;and&#32;Exception&#32;handling&#32;are&#32;on&#32;my&#32;plate&#32;for&#32;this&#32;sprint.&#32;">
+        [kierenH]&nbsp;I didn't think they'd ship failing unit tests :)<br>
+<br>
+Yep, been keeping me pretty busy particularly since the Unit Test are my starting point for learning new P&amp;P projects.&nbsp;&nbsp;&nbsp;I decided to go with EntLib 4.1 (more because of the great support than the confidence in it's ability to do the job) combined with
+ Interception (because of a polymorphic infrastructure)&nbsp;and I spend more time fixing Unit Test then I do achieving my objectives.&nbsp; Unfortunately, I &quot;have&quot; to determine why they are failing before I trust our production code to it.&nbsp; Besides, we&nbsp;can't&nbsp;anticipate
+ TDD to go well when the out-of-the-box stuff is failing...&nbsp;<br>
+<br>
+[kierenH]&nbsp;Why do I need to tell it to build up? (uContainer.BuildUp&lt;Type&gt;)<br>
+<br>
+Dough!!&nbsp; I missed that you had a work-around :)&nbsp; Great!<br>
+<br>
+I'll keep this one book marked as Logging, Validation and Exception handling are on my plate for this&nbsp;sprint.
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_164274" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="164429">
+    <td id="PostDetailsCell_164429" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post164429"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/4/2009 5:21:57 PM" LocalTimeTicks="1236216117">Mar 4, 2009 at 5:21 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_164429" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Bill,&#32;maybe&#32;you&#32;should&#32;ask&#32;the&#32;dev&#32;lead&#32;on&#32;Enterprise&#32;Library&#32;for&#32;help.&#32;I&#39;m&#32;sure&#32;if&#32;he&#32;saw&#32;the&#32;failures&#32;you&#39;re&#32;getting&#32;he&#39;d&#32;be&#32;able&#32;to&#32;get&#32;you&#32;running&#32;much&#32;more&#32;quickly.&#32;&#32;If&#32;only&#32;we&#32;knew&#32;who&#32;that&#32;person&#32;is.&#32;&#59;-&#41;&#32;&#32;-Chris&#32;">
+        Bill, maybe you should ask the dev lead on Enterprise Library for help. I'm sure if he saw the failures you're getting he'd be able to get you running much more quickly.<br>
+<br>
+If only we knew who that person is. ;-)<br>
+<br>
+-Chris<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_164429" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="164456">
+    <td id="PostDetailsCell_164456" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post164456"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/billkrat">billkrat</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/4/2009 6:14:40 PM" LocalTimeTicks="1236219280">Mar 4, 2009 at 6:14 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_164456" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;&#64;Chris,&#32;thanks&#32;but&#32;it&#8217;s&#32;too&#32;early&#32;in&#32;the&#32;game&#32;to&#32;be&#32;showing&#32;off&#32;my&#32;ignorance&#32;&#59;&#41;&#32;&#32;&#32;&#32;Being&#32;a&#32;newbie&#32;to&#32;EntLib&#32;4.1&#32;it&#8217;s&#32;hard&#32;to&#32;determine&#32;whether&#32;an&#32;issue&#32;is&#32;my&#32;failure&#32;to&#32;use&#32;existing&#32;documentation&#47;resources&#32;&#40;should&#32;be&#32;digging&#32;deeper&#41;&#32;or&#32;an&#32;actual&#32;problem.&#32;Remember&#32;the&#32;questions&#32;I&#32;use&#32;to&#32;bring&#32;to&#32;this&#32;forum&#32;in&#32;my&#32;ignorance&#32;&#40;in&#32;the&#32;early&#32;days&#41;&#32;&#8211;&#32;I&#32;trust&#32;it&#32;required&#32;a&#32;lot&#32;of&#32;patience&#32;on&#32;your&#32;part&#8230;&#32;&#32;&#32;Many&#32;of&#32;the&#32;EntLib&#32;problems&#32;were&#32;environmental&#32;&#40;running&#32;out&#32;of&#32;resources&#41;&#32;and&#32;a&#32;few&#32;configuration.&#32;I&#32;understand&#32;the&#32;configuration&#32;issues&#32;because&#32;I&#32;ran&#32;into&#32;this&#32;with&#32;EntLib&#32;3.1&#32;whenever&#32;I&#32;used&#32;the&#32;Enterprise&#32;Configuration&#32;utility&#32;&#8211;&#32;it&#32;would&#32;default&#32;to&#32;the&#32;.DLLs&#32;and&#32;I&#32;was&#32;referencing&#32;code&#32;projects&#59;&#32;I&#32;had&#32;to&#32;remove&#32;these&#32;references&#32;any&#32;time&#32;I&#32;used&#32;the&#32;tool.&#32;&#32;&#32;&#32;Another&#32;factor&#32;is&#32;my&#32;bleeding&#32;box&#32;&#8211;&#32;it&#8217;s&#32;on&#32;the&#32;bleeding&#32;edge&#32;so&#32;it&#32;places&#32;an&#32;extra&#32;burden&#32;on&#32;me&#32;to&#32;isolate&#32;issues.&#32;i.e.,&#32;remember&#32;when&#32;I&#32;reported&#32;that&#32;Unity&#32;Test&#32;that&#32;failed&#32;because&#32;of&#32;something&#32;like&#32;the&#32;following&#32;&#40;can&#8217;t&#32;remember&#32;exactly&#41;&#58;&#32;&#32;&#32;try&#32;&#123;&#32;&#32;&#47;&#47;&#32;did&#32;something&#32;here&#32;&#125;&#32;catch&#32;&#123;&#125;&#32;&#32;&#32;&#32;.NET&#32;Documentation&#32;showed&#32;it&#32;should&#32;work&#32;so&#32;technically&#32;your&#32;Unit&#32;Test&#32;was&#32;correct&#32;-&#32;but&#32;it&#32;was&#32;crashing.&#32;You&#32;asked&#32;the&#32;question&#32;if&#32;I&#32;had&#32;.Net&#32;3.5&#32;Sp1&#32;beta&#32;installed&#32;&#40;which&#32;I&#32;did&#41;&#32;so&#32;I&#32;moved&#32;on.&#32;&#32;&#32;Ultimately,&#32;I&#32;learn&#32;more&#32;by&#32;the&#32;search&#32;and&#32;destroy&#32;missions.&#32;When&#32;the&#32;smoke&#32;settles&#32;and&#32;I&#32;have&#32;confirmed&#32;issues&#32;I&#8217;ll&#32;find&#32;the&#32;Dev&#32;Lead&#32;&#40;whoever&#32;that&#32;is&#59;&#41;&#32;and&#32;report&#32;them&#32;and&#32;we&#32;can&#32;sift&#32;through&#32;what&#8217;s&#32;bleeding&#32;&#40;Windows&#32;7,&#32;x64,&#32;SQL&#32;Server&#32;2008,&#32;Windows&#32;Server&#32;2008&#32;R2&#32;domain,&#32;etc&#41;&#32;and&#32;what&#8217;s&#32;real.&#32;&#32;&#32;Bill&#32;&#32;">
+        <span style="font-family:'calibri','sans-serif'; color:#1f497d; font-size:11pt">
+<p style="margin:0in 0in 0pt"><span style="font-family:'calibri','sans-serif'; color:#1f497d; font-size:11pt">@Chris, thanks&nbsp;but itâ€™s too early in the game to be&nbsp;showing off my ignorance ;)&nbsp; &nbsp;&nbsp;</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:'calibri','sans-serif'; color:#1f497d; font-size:11pt">&nbsp;</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:'calibri','sans-serif'; color:#1f497d; font-size:11pt">Being a newbie to EntLib 4.1 itâ€™s hard to determine whether an issue is my failure to use existing documentation/resources (should be digging deeper)
+ or an actual problem.&nbsp;&nbsp; Remember the questions I use to bring to this forum in my ignorance (in the early days) â€“ I trust it required a lot of patience on your partâ€¦</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:'calibri','sans-serif'; color:#1f497d; font-size:11pt">&nbsp;</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:'calibri','sans-serif'; color:#1f497d; font-size:11pt">Many of the EntLib problems were environmental (running out of resources) and a few configuration.&nbsp; I understand the configuration issues because I
+ ran into this with EntLib 3.1 whenever I used the Enterprise Configuration utility â€“ it would default to the .DLLs and I was referencing code projects; &nbsp;I had to remove these references any time I used the tool.&nbsp;
+</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:'calibri','sans-serif'; color:#1f497d; font-size:11pt">&nbsp;</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:'calibri','sans-serif'; color:#1f497d; font-size:11pt">Another factor is my bleeding box â€“ itâ€™s on the bleeding edge so it places an extra burden on me to isolate issues. i.e., remember when I reported
+ that Unity Test that failed because&nbsp; of something like the following (canâ€™t remember exactly):</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:'calibri','sans-serif'; color:#1f497d; font-size:11pt">&nbsp;</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:'calibri','sans-serif'; color:#1f497d; font-size:11pt">try {</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:'calibri','sans-serif'; color:#1f497d; font-size:11pt">&nbsp;&nbsp; // did something here</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:'calibri','sans-serif'; color:#1f497d; font-size:11pt">} catch {}
+</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:'calibri','sans-serif'; color:#1f497d; font-size:11pt">&nbsp;</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:'calibri','sans-serif'; color:#1f497d; font-size:11pt">.NET Documentation showed it should work so technically your Unit Test was correct&nbsp; - but it was crashing.&nbsp;&nbsp; You asked the question if I had &nbsp;.Net
+ 3.5 Sp1 beta installed (which I did) so I moved on.</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:'calibri','sans-serif'; color:#1f497d; font-size:11pt">&nbsp;</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:'calibri','sans-serif'; color:#1f497d; font-size:11pt">Ultimately, I learn more by the search and destroy missions.&nbsp; When the smoke settles and I have confirmed issues Iâ€™ll find the Dev Lead (whoever that
+ is;) and report them and we can sift through whatâ€™s bleeding (Windows 7, x64, SQL Server 2008, &nbsp;Windows Server 2008 R2 domain, etc) and whatâ€™s real.</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:'calibri','sans-serif'; color:#1f497d; font-size:11pt">&nbsp;</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:'calibri','sans-serif'; color:#1f497d; font-size:11pt">Bill</span></p>
+</span>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_164456" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="192319">
+    <td id="PostDetailsCell_192319" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post192319"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/kierenh">kierenh</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/20/2009 12:02:00 PM" LocalTimeTicks="1242846120">May 20, 2009 at 12:02 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_192319" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="See&#58;&#32;http&#58;&#47;&#47;unity.codeplex.com&#47;Thread&#47;View.aspx&#63;ThreadId&#61;56864For&#32;better&#32;walk-through&#32;of&#32;the&#32;problem&#32;and&#32;explanation.">
+        
+<p>See: <a href="http://unity.codeplex.com/Thread/View.aspx?ThreadId=56864" rel="nofollow">http://unity.codeplex.com/Thread/View.aspx?ThreadId=56864</a><br>
+For better walk-through of the problem and explanation.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_192319" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f48825">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="0ca87b61-8c5e-40e5-8faa-d6af2f79c709">
+    <script class="options" defer="defer" id="0ca87b61-8c5e-40e5-8faa-d6af2f79c709" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_5456f36c-3fb3-41a4-b47a-eddcb296e7f3">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_27b09236-7408-47b3-bbf1-34ff836613ff">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_5456f36c-3fb3-41a4-b47a-eddcb296e7f3" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_27b09236-7408-47b3-bbf1-34ff836613ff" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/48825';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

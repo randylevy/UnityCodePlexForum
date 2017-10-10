@@ -1,0 +1,808 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Improvements to NotifyPropertyChangedBehavior, Comments&#63;</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/225915?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/225915?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="wUaXeGHsmYkBrSTCQ8HRBf36y5-xrZOJxdmVPX9erMDj4yhpy2jC-7Dq6QPlKjgU2JJQ3cNFSvXVC2_m1oFlBjKsp0i3OsQBVvEAo7tiN-v3p0E1_nResqf0suO1QNzGdXjDZg2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2b4119e1c-b8c7-4061-899c-9bfbc95cee0f" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:27:15 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f225915" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="e6ec444c-2e1d-4975-8a83-06c1972fd4aa">
+                
+                    <script class="options" defer="defer" id="e6ec444c-2e1d-4975-8a83-06c1972fd4aa" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="10d7b716-acd9-47fd-9b3e-aa112d84f390">
+                
+                    <script class="options" defer="defer" id="10d7b716-acd9-47fd-9b3e-aa112d84f390" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Improvements to NotifyPropertyChangedBehavior, Comments&#63;
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:225915]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="f1c42e7b-1bd1-4e11-a0a3-4acf93532b6e">
+    <script class="options" defer="defer" id="f1c42e7b-1bd1-4e11-a0a3-4acf93532b6e" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/225915","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="488692">
+    <td id="PostDetailsCell_488692" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post488692"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Ramirez">Ramirez</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/3/2010 7:58:35 AM" LocalTimeTicks="1283525915">Sep 3, 2010 at 7:58 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_488692" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;am&#32;quite&#32;new&#32;to&#32;unity&#32;interception.&#32;Autogenenrating&#32;code,&#32;which&#32;I&#32;type&#32;hundreds&#32;of&#32;times,&#32;looked&#32;quite&#32;appealing.&#32;I&#32;am&#32;talking&#32;of&#32;this&#32;code&#32;&#40;considering&#32;a&#32;mapped&#32;class&#32;MyClass&#32;with&#32;a&#32;property&#32;Name&#41;&#58;&#32;&#32;&#32;&#32;public&#32;string&#32;Name&#32;&#123;&#32;get&#32;&#123;&#32;return&#32;m_MyClass.Name&#59;&#32;&#125;&#32;set&#32;&#123;&#32;if&#40;Name&#32;&#61;&#61;&#32;value&#41;&#32;&#123;&#32;return&#59;&#32;&#125;&#32;m_MyClass.Name&#32;&#61;&#32;value&#59;&#32;OnPropertyChanged&#40;&#38;quot&#59;Name&#38;quot&#59;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;&#32;As&#32;the&#32;example&#32;for&#32;the&#32;NotifyPropertyChangedBehavior&#32;is&#32;in&#32;the&#32;Unity&#32;2&#32;help&#32;file,&#32;I&#32;startet&#32;looking&#32;at&#32;it.&#32;More&#32;or&#32;less&#32;it&#32;generates&#32;the&#32;following&#32;code&#58;&#32;&#32;&#32;&#32;public&#32;string&#32;Name&#32;&#123;&#32;get&#32;&#123;&#32;return&#32;m_MyClass.Name&#59;&#32;&#125;&#32;set&#32;&#123;&#32;m_MyClass.Name&#32;&#61;&#32;value&#59;&#32;OnPropertyChanged&#40;&#38;quot&#59;Name&#38;quot&#59;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;&#32;As&#32;this&#32;code&#32;can&#32;rise&#32;to&#32;event&#32;ping&#32;pong&#32;in&#32;certain&#32;binding&#32;scenerios,&#32;I&#32;changed&#32;the&#32;orignal&#32;code&#58;&#32;&#32;&#32;&#32;private&#32;IMethodReturn&#32;InterceptPropertySet&#40;IMethodInvocation&#32;input,&#32;GetNextInterceptionBehaviorDelegate&#32;getNext&#41;&#32;&#123;&#32;var&#32;propertyName&#32;&#61;&#32;input.MethodBase.Name.Substring&#40;4&#41;&#59;&#32;var&#32;returnValue&#32;&#61;&#32;getNext&#40;&#41;&#40;input,&#32;getNext&#41;&#59;&#32;var&#32;subscribers&#32;&#61;&#32;propertyChanged&#59;&#32;if&#32;&#40;subscribers&#32;&#33;&#61;&#32;null&#41;&#32;&#123;&#32;subscribers&#40;input.Target,&#32;new&#32;PropertyChangedEventArgs&#40;propertyName&#41;&#41;&#59;&#32;&#125;&#32;return&#32;returnValue&#59;&#32;&#125;&#32;&#32;&#32;&#32;to&#58;&#32;&#32;&#32;&#32;private&#32;IMethodReturn&#32;InterceptPropertySet&#40;IMethodInvocation&#32;input,&#32;GetNextInterceptionBehaviorDelegate&#32;getNext&#41;&#32;&#123;&#32;var&#32;propertyName&#32;&#61;&#32;input.MethodBase.Name.Substring&#40;4&#41;&#59;&#32;object&#91;&#93;&#32;propertyIndex&#32;&#61;&#32;input.Arguments.Cast&#38;lt&#59;object&#38;gt&#59;&#40;&#41;.&#32;Where&#40;&#40;a,&#32;index&#41;&#32;&#61;&#38;gt&#59;&#32;index&#32;&#38;lt&#59;&#32;input.Arguments.Count&#32;-&#32;1&#41;.&#32;ToArray&#40;&#41;&#59;&#32;object&#32;propertyTarget&#32;&#61;&#32;input.Target&#59;&#32;object&#32;propertyOldValue&#32;&#61;&#32;input.Target.&#32;GetType&#40;&#41;.&#32;GetProperty&#40;propertyName&#41;.&#32;GetValue&#40;propertyTarget,&#32;propertyIndex&#41;&#59;&#32;object&#32;propertyNewValue&#32;&#61;&#32;input.Arguments&#91;input.Arguments.Count&#32;-&#32;1&#93;&#59;&#32;IMethodReturn&#32;returnValue&#32;&#61;&#32;getNext&#40;&#41;&#40;input,&#32;getNext&#41;&#59;&#32;NotifySubscribers&#40;propertyTarget,&#32;propertyName,&#32;propertyOldValue,&#32;propertyNewValue&#41;&#59;&#32;return&#32;returnValue&#59;&#32;&#125;&#32;private&#32;void&#32;NotifySubscribers&#40;object&#32;target,&#32;string&#32;name,&#32;object&#32;oldValue,&#32;object&#32;newValue&#41;&#32;&#123;&#32;if&#32;&#40;oldValue&#32;&#61;&#61;&#32;newValue&#41;&#32;&#123;&#32;return&#59;&#32;&#125;&#32;var&#32;subscribers&#32;&#61;&#32;propertyChanged&#59;&#32;if&#32;&#40;subscribers&#32;&#61;&#61;&#32;null&#41;&#32;&#123;&#32;return&#59;&#32;&#125;&#32;subscribers&#40;target,&#32;new&#32;PropertyChangedEventArgs&#40;name&#41;&#41;&#59;&#32;&#125;&#32;&#32;&#32;&#32;This&#32;is&#32;not&#32;100&#37;&#32;the&#32;desired&#32;result,&#32;but&#32;more&#32;a&#58;&#32;&#32;&#32;&#32;public&#32;string&#32;Name&#32;&#123;&#32;get&#32;&#123;&#32;return&#32;m_MyClass.Name&#59;&#32;&#125;&#32;set&#32;&#123;&#32;m_MyClass.Name&#32;&#61;&#32;value&#59;&#32;if&#32;&#40;Name&#32;&#33;&#61;&#32;value&#41;&#32;&#123;&#32;OnPropertyChanged&#40;&#38;quot&#59;Name&#38;quot&#59;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#125;&#32;but&#32;as&#32;the&#32;event&#32;is&#32;only&#32;thrown&#32;at&#32;times,&#32;when&#32;really&#32;a&#32;change&#32;happens,&#32;it&#32;is&#32;the&#32;change&#32;I&#32;wanted&#32;to&#32;achieve.As&#32;said,&#32;I&#32;am&#32;new&#32;two&#32;unity&#32;2&#32;interception.&#32;Can&#32;someone&#32;please&#32;comment&#32;to&#32;the&#32;code&#32;if&#32;I&#32;solved&#32;this&#32;modification&#32;correct&#32;&#40;in&#32;the&#32;way&#32;I&#32;wanted&#32;it&#41;&#32;or&#32;I&#32;would&#32;have&#32;coded&#32;it&#32;better&#32;some&#32;other&#32;way.&#32;&#32;">
+        
+<p>I am quite new to unity interception. Autogenenrating code, which I type hundreds of times, looked quite appealing. I am talking of this code (considering a mapped class MyClass with a property Name):</p>
+<p></p>
+<div style="color:black; background-color:white">
+<pre>    <span style="color:blue">public</span> <span style="color:blue">string</span> Name {
+      <span style="color:blue">get</span> {
+        <span style="color:blue">return</span> m_MyClass.Name;
+      }
+      <span style="color:blue">set</span> {
+        <span style="color:blue">if</span>(Name == value) {
+          <span style="color:blue">return</span>;
+        }
+
+      	m_MyClass.Name = value;
+
+        OnPropertyChanged(<span style="color:#a31515">&quot;Name&quot;</span>);
+      }
+    }
+</pre>
+</div>
+<p></p>
+<p>As the example for the NotifyPropertyChangedBehavior is in the Unity 2 help file, I startet looking at it. More or less it generates the following code:</p>
+<p></p>
+<div style="color:black; background-color:white">
+<pre>    <span style="color:blue">public</span> <span style="color:blue">string</span> Name {
+      <span style="color:blue">get</span> {
+        <span style="color:blue">return</span> m_MyClass.Name;
+      }
+      <span style="color:blue">set</span> {
+      	m_MyClass.Name = value;
+
+        OnPropertyChanged(<span style="color:#a31515">&quot;Name&quot;</span>);
+      }
+    }
+
+</pre>
+</div>
+<p></p>
+<p>As this code can rise to event ping pong in certain binding scenerios, I changed the orignal code:</p>
+<p></p>
+<div style="color:black; background-color:white">
+<pre>    <span style="color:blue">private</span> IMethodReturn InterceptPropertySet(IMethodInvocation input, GetNextInterceptionBehaviorDelegate getNext) {
+      <span style="color:blue">var</span> propertyName = input.MethodBase.Name.Substring(4);
+
+      <span style="color:blue">var</span> returnValue = getNext()(input, getNext);
+
+      <span style="color:blue">var</span> subscribers = propertyChanged;
+      <span style="color:blue">if</span> (subscribers != <span style="color:blue">null</span>) {
+        subscribers(input.Target, <span style="color:blue">new</span> PropertyChangedEventArgs(propertyName));
+      }
+
+      <span style="color:blue">return</span> returnValue;
+    }
+
+</pre>
+</div>
+<p></p>
+<p>to:</p>
+<p></p>
+<div style="color:black; background-color:white">
+<pre>    <span style="color:blue">private</span> IMethodReturn InterceptPropertySet(IMethodInvocation input, GetNextInterceptionBehaviorDelegate getNext) {
+      <span style="color:blue">var</span> propertyName = input.MethodBase.Name.Substring(4);
+      <span style="color:blue">object</span>[] propertyIndex = input.Arguments.Cast&lt;<span style="color:blue">object</span>&gt;().
+                                 Where((a, index) =&gt; index &lt; input.Arguments.Count - 1).
+                                 ToArray();
+      <span style="color:blue">object</span> propertyTarget = input.Target;
+      <span style="color:blue">object</span> propertyOldValue = input.Target.
+                                  GetType().
+                                  GetProperty(propertyName).
+                                  GetValue(propertyTarget, propertyIndex);
+      <span style="color:blue">object</span> propertyNewValue = input.Arguments[input.Arguments.Count - 1];
+
+      IMethodReturn returnValue = getNext()(input, getNext);
+
+      NotifySubscribers(propertyTarget, propertyName, propertyOldValue, propertyNewValue);
+
+      <span style="color:blue">return</span> returnValue;
+    }
+
+    <span style="color:blue">private</span> <span style="color:blue">void</span> NotifySubscribers(<span style="color:blue">object</span> target, <span style="color:blue">string</span> name, <span style="color:blue">object</span> oldValue, <span style="color:blue">object</span> newValue) {
+      <span style="color:blue">if</span> (oldValue == newValue) {
+        <span style="color:blue">return</span>;
+      }
+
+      <span style="color:blue">var</span> subscribers = propertyChanged;
+      <span style="color:blue">if</span> (subscribers == <span style="color:blue">null</span>) {
+        <span style="color:blue">return</span>;
+      }
+
+      subscribers(target, <span style="color:blue">new</span> PropertyChangedEventArgs(name));
+    }
+
+</pre>
+</div>
+<p></p>
+<p>This is not 100% the desired result, but more a:</p>
+<p></p>
+<div style="color:black; background-color:white">
+<pre>    <span style="color:blue">public</span> <span style="color:blue">string</span> Name {
+      <span style="color:blue">get</span> {
+        <span style="color:blue">return</span> m_MyClass.Name;
+      }
+      <span style="color:blue">set</span> {
+        m_MyClass.Name = value;
+
+        <span style="color:blue">if</span> (Name != value) {
+          OnPropertyChanged(<span style="color:#a31515">&quot;Name&quot;</span>);
+        }
+      }
+    }
+
+<br>but as the event is only thrown at times, when really a change happens, it is the change I wanted to achieve.<br><br>As said, I am new two unity 2 interception. Can someone please comment to the code if I solved this modification correct (in the way I wanted it) or I would have coded it better some other way.</pre>
+</div>
+<p></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_488692" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="488734">
+    <td id="PostDetailsCell_488734" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post488734"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/billkrat">billkrat</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/3/2010 9:47:11 AM" LocalTimeTicks="1283532431">Sep 3, 2010 at 9:47 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_488734" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="In&#32;my&#32;studies&#32;on&#32;the&#32;topic&#32;I&#32;ran&#32;into&#32;the&#32;following&#32;link&#32;which&#32;seems&#32;to&#32;address&#32;a&#32;number&#32;of&#32;issues&#32;&#40;to&#32;include&#32;errors&#32;in&#32;setter&#32;as&#32;well&#32;as&#32;ensuring&#32;values&#32;have&#32;changed&#41;.&#38;nbsp&#59;&#38;nbsp&#59;&#32;INotifyPropertyChanged&#32;with&#32;Unity&#32;Interception&#38;nbsp&#59;AOPhttp&#58;&#47;&#47;shecht.wordpress.com&#47;2009&#47;12&#47;12&#47;inotifypropertychanged-with-unity-interception-aop&#47;&#32;Perhaps&#32;it&#32;might&#32;give&#32;you&#32;some&#32;additional&#32;ideas.&#32;Looking&#32;to&#32;learn&#32;from&#32;your&#32;experiences&#32;on&#32;the&#32;matter&#32;I&#32;was&#32;curious&#32;what&#32;the&#32;&#38;quot&#59;event&#32;ping&#32;pong&#38;quot&#59;&#32;issue&#32;was&#32;and&#32;when&#32;it&#32;could&#32;be&#32;a&#32;problem&#63;">
+        
+<p>In my studies on the topic I ran into the following link which seems to address a number of issues (to include errors in setter as well as ensuring values have changed).&nbsp;&nbsp;</p>
+<p><strong>INotifyPropertyChanged with Unity Interception&nbsp;AOP<br>
+</strong><a href="http://shecht.wordpress.com/2009/12/12/inotifypropertychanged-with-unity-interception-aop/" rel="nofollow">http://shecht.wordpress.com/2009/12/12/inotifypropertychanged-with-unity-interception-aop/</a></p>
+<p>Perhaps it might give you some additional ideas.</p>
+<p>Looking to learn from your experiences on the matter I was curious what the &quot;event ping pong&quot; issue was and when it could be a problem?</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_488734" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="489382">
+    <td id="PostDetailsCell_489382" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post489382"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Ramirez">Ramirez</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/5/2010 8:35:38 AM" LocalTimeTicks="1283700938">Sep 5, 2010 at 8:35 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_489382" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Thanks&#32;for&#32;the&#32;link.&#32;The&#32;code&#32;helps&#32;to&#32;modify&#32;my&#32;approach&#32;with&#32;a&#32;little&#32;more&#32;performance&#32;and&#32;it&#32;handles&#32;writeonly&#32;properties,&#32;which&#32;in&#32;my&#32;case&#32;would&#32;leed&#32;to&#32;an&#32;exception.&#32;But&#32;it&#32;does&#32;lack&#32;the&#32;handling&#32;of&#32;indexed&#32;properties.&#32;That&#38;acute&#59;s&#32;why&#32;I&#32;asked&#32;in&#32;the&#32;first&#32;place,&#32;there&#32;are&#32;a&#32;lot&#32;of&#32;options&#32;to&#32;handle.&#32;The&#32;problem&#32;that&#32;IMethodReturn&#32;res&#32;&#61;&#32;getNext&#40;&#41;&#40;input,&#32;getNext&#41;&#59;&#32;executes&#32;the&#32;interceptet&#32;classes&#32;setter&#32;code.&#32;So&#32;my&#32;ultimate&#32;goal&#32;&#40;to&#32;make&#32;the&#32;code&#32;perfect&#41;&#32;would&#32;be&#32;to&#32;give&#32;a&#32;modified&#32;input&#32;to&#32;the&#32;call&#32;chain,&#32;having&#32;an&#32;empty&#32;method.&#32;As&#32;for&#32;my&#32;problems&#32;with&#32;raising&#32;the&#32;PropertyChanged&#32;event&#32;everytime&#32;the&#32;setter&#32;is&#32;called&#32;regardless&#32;of&#32;the&#32;value&#58;&#32;1.&#32;There&#32;are&#32;some&#32;controls&#32;out&#32;there&#32;raising&#32;the&#32;Format&#47;Parse&#32;events&#32;not&#32;only&#32;for&#32;user&#32;interaction.&#32;So&#32;the&#32;user&#32;enters&#32;a&#32;value,&#32;the&#32;Format&#32;event&#32;is&#32;triggerd,&#32;setting&#32;the&#32;value.&#32;Then&#32;the&#32;Parse&#32;event&#32;kicks&#32;in&#32;setting&#32;a&#32;value.&#32;Then&#32;the&#32;Format,&#32;then&#32;Parse.....&#32;You&#32;get&#32;the&#32;picture&#63;&#32;2.&#32;I&#32;rely&#32;in&#32;my&#32;code&#32;on&#32;this&#32;event&#32;to&#32;handle&#32;a&#32;dirty&#32;flag.&#32;So&#32;I&#32;want&#32;it&#32;really&#32;to&#32;be&#32;set&#32;only&#32;in&#32;cases&#32;where&#32;a&#32;change&#32;actually&#32;has&#32;happened">
+        
+<p>Thanks for the link. The code helps to modify my approach with a little more performance and it handles writeonly properties, which in my case would leed to an exception. But it does lack the handling of indexed properties. That&acute;s why I asked in the
+ first place, there are a lot of options to handle.</p>
+<p>The problem that <code>IMethodReturn res = getNext()(input, getNext); executes the interceptet classes setter code. So my ultimate goal (to make the code perfect) would be to give a modified input to the call chain, having an empty method.</code></p>
+<p>As for my problems with raising the PropertyChanged event everytime the setter is called regardless of the value:</p>
+<p>1. There are some controls out there raising the Format/Parse events not only for user interaction. So the user enters a value, the Format event is triggerd, setting the value. Then the Parse event kicks in setting a value. Then the Format, then Parse.....
+ You get the picture?</p>
+<p>2. I rely in my code on this event to handle a dirty flag. So I want it really to be set only in cases where a change actually has happened</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_489382" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f225915">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="f2306db9-81aa-417b-88bf-cc6c82b2d497">
+    <script class="options" defer="defer" id="f2306db9-81aa-417b-88bf-cc6c82b2d497" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_259ebcae-bcad-46d2-ab31-5517ef35290b">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_aacc1773-4bf1-488c-a7dc-cdc943c680b0">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_259ebcae-bcad-46d2-ab31-5517ef35290b" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_aacc1773-4bf1-488c-a7dc-cdc943c680b0" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/225915';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

@@ -1,0 +1,1039 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Can&#39;t register remoted instances</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/62492?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/62492?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="wa-HkScKa8of93o9za_HMZPzADs27by1ygPUrzRjyRWj860LddrxXVg5P0i1RwsS65kiBdK0qou8ZK5bQkiqjGnh-nzUe4YJKW6YdWhuE2igrK_OliE5mrfTU3Z2eaYUpzHLhA2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2085f5e71-b76f-4650-8372-27a6c1a94dca" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:27:24 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f62492" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="f3db8219-6ad6-4038-b5c1-2c810c17da5e">
+                
+                    <script class="options" defer="defer" id="f3db8219-6ad6-4038-b5c1-2c810c17da5e" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="0ad810c6-966e-44d9-a02a-4629cd00ebf0">
+                
+                    <script class="options" defer="defer" id="0ad810c6-966e-44d9-a02a-4629cd00ebf0" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Can&#39;t register remoted instances
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:62492]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="ab974676-1e74-4c2b-ab8f-bd25cf04c626">
+    <script class="options" defer="defer" id="ab974676-1e74-4c2b-ab8f-bd25cf04c626" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/62492","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="212097">
+    <td id="PostDetailsCell_212097" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post212097"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/mrpmorris">mrpmorris</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/15/2009 12:37:33 PM" LocalTimeTicks="1247686653">Jul 15, 2009 at 12:37 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_212097" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="At&#32;the&#32;startup&#32;of&#32;my&#32;application&#32;I&#32;create&#32;an&#32;instance&#32;of&#32;a&#32;remoted&#32;object&#32;and&#32;try&#32;to&#32;register&#32;it&#32;using&#32;RegisterInstance&#38;lt&#59;T&#38;gt&#59;,&#32;but&#32;Unity&#32;won&#39;t&#32;let&#32;me.&#32;&#38;nbsp&#59;Is&#32;there&#32;a&#32;good&#32;reason&#32;for&#32;this&#63;&#32;&#38;nbsp&#59;I&#32;think&#32;that&#32;part&#32;of&#32;not&#32;caring&#32;which&#32;object&#32;implements&#32;my&#32;service&#32;interface&#32;should&#32;be&#32;not&#32;caring&#32;if&#32;it&#32;is&#32;local&#32;or&#32;remote.&#32;&#38;nbsp&#59;At&#32;the&#32;moment&#32;I&#32;have&#32;had&#32;to&#32;write&#32;a&#32;proxy&#32;class&#32;which&#32;passes&#32;calls&#32;onto&#32;the&#32;remoted&#32;instance,&#32;but&#32;I&#32;don&#39;t&#32;like&#32;having&#32;to&#32;do&#32;this.&#32;So,&#32;why&#32;is&#32;this&#32;restriction&#32;in&#32;place,&#32;and&#32;is&#32;there&#32;any&#32;chance&#32;of&#32;having&#32;it&#32;removed&#63;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;">
+        
+<p>At the startup of my application I create an instance of a remoted object and try to register it using RegisterInstance&lt;T&gt;, but Unity won't let me. &nbsp;Is there a good reason for this? &nbsp;I think that part of not caring which object implements
+ my service interface should be not caring if it is local or remote. &nbsp;At the moment I have had to write a proxy class which passes calls onto the remoted instance, but I don't like having to do this.</p>
+<p>So, why is this restriction in place, and is there any chance of having it removed?</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_212097" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="212204">
+    <td id="PostDetailsCell_212204" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post212204"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/15/2009 5:20:27 PM" LocalTimeTicks="1247703627">Jul 15, 2009 at 5:20 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_212204" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="What&#32;do&#32;you&#32;mean&#32;&#38;quot&#59;won&#39;t&#32;let&#32;you&#38;quot&#59;&#63;&#32;Are&#32;you&#32;getting&#32;an&#32;exception&#63;&#32;What&#32;is&#32;it&#63;&#32;&#38;nbsp&#59;">
+        
+<p>What do you mean &quot;won't let you&quot;? Are you getting an exception? What is it?</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_212204" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="212346">
+    <td id="PostDetailsCell_212346" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post212346"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/mrpmorris">mrpmorris</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/15/2009 10:08:42 PM" LocalTimeTicks="1247720922">Jul 15, 2009 at 10:08 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_212346" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Sorry&#32;for&#32;the&#32;vagueness&#32;of&#32;my&#32;post.&#32;&#38;nbsp&#59;I&#32;had&#32;seen&#32;it&#32;discussed&#32;before&#32;so&#32;I&#32;thought&#32;it&#32;was&#32;a&#32;well&#32;known&#32;issue...&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#32;static&#32;void&#32;RegisterApplicationServices&#40;IUnityContainer&#32;container&#41;&#32;&#32;&#123;&#32;&#32;var&#32;channel&#32;&#61;&#32;new&#32;TcpChannel&#40;&#41;&#59;&#32;&#32;ChannelServices.RegisterChannel&#40;channel,&#32;true&#41;&#59;&#32;&#32;var&#32;application&#32;&#61;&#32;&#40;IMyAppApplicationServer&#41;Activator.GetObject&#40;typeof&#40;IMyAppApplicationServer&#41;,&#32;Properties.Settings.Default.ApplicationServerUrl&#41;&#59;&#32;&#32;container.RegisterInstance&#38;lt&#59;IMyAppApplicationServer&#38;gt&#59;&#40;application,&#32;new&#32;ContainerControlledLifetimeManager&#40;&#41;&#41;&#59;&#32;&#32;&#125;&#32;&#32;&#32;static&#32;void&#32;RegisterApplicationServices&#40;IUnityContainer&#32;container&#41;&#32;&#123;&#32;var&#32;channel&#32;&#61;&#32;new&#32;TcpChannel&#40;&#41;&#59;&#32;ChannelServices.RegisterChannel&#40;channel,&#32;true&#41;&#59;&#32;var&#32;application&#32;&#61;&#32;&#40;IMyAppApplicationServer&#41;Activator.GetObject&#40;typeof&#40;IMyAppApplicationServer&#41;,&#32;Properties.Settings.Default.ApplicationServerUrl&#41;&#59;&#32;container.RegisterInstance&#38;lt&#59;IMyAppApplicationServer&#38;gt&#59;&#40;application,&#32;new&#32;ContainerControlledLifetimeManager&#40;&#41;&#41;&#59;&#32;&#125;&#32;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;System.ArgumentException&#32;was&#32;unhandled&#38;nbsp&#59;&#38;nbsp&#59;Message&#61;&#38;quot&#59;The&#32;type&#32;System.MarshalByRefObject&#32;cannot&#32;be&#32;assigned&#32;to&#32;variables&#32;of&#32;type&#32;MyApp.Server.SharedTypes.IMyApplicationServer.&#92;r&#92;nParameter&#32;name&#58;&#32;instance&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;Source&#61;&#38;quot&#59;Microsoft.Practices.Unity&#38;quot&#59;&#38;nbsp&#59;&#38;nbsp&#59;ParamName&#61;&#38;quot&#59;instance&#38;quot&#59;&#38;nbsp&#59;&#38;nbsp&#59;StackTrace&#58;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.Utility.Guard.TypeIsAssignable&#40;Type&#32;assignmentTargetType,&#32;Type&#32;assignmentValueType,&#32;String&#32;argumentName&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.UnityContainer.RegisterInstance&#40;Type&#32;t,&#32;String&#32;name,&#32;Object&#32;instance,&#32;LifetimeManager&#32;lifetime&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.UnityContainerBase.RegisterInstance&#91;TInterface&#93;&#40;TInterface&#32;instance,&#32;LifetimeManager&#32;lifetimeManager&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;MyApp.ServiceBootStrapper.RegisterApplicationServices&#40;IUnityContainer&#32;container&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;MyApp.ServiceBootStrapper.Initialize&#40;IUnityContainer&#32;container&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;MyApp.App..ctor&#40;&#41;&#32;in&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;MyApp.App.Main&#40;&#41;&#32;in&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.AppDomain._nExecuteAssembly&#40;Assembly&#32;assembly,&#32;String&#91;&#93;&#32;args&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.AppDomain.ExecuteAssembly&#40;String&#32;assemblyFile,&#32;Evidence&#32;assemblySecurity,&#32;String&#91;&#93;&#32;args&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.VisualStudio.HostingProcess.HostProc.RunUsersAssembly&#40;&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Threading.ThreadHelper.ThreadStart_Context&#40;Object&#32;state&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Threading.ExecutionContext.Run&#40;ExecutionContext&#32;executionContext,&#32;ContextCallback&#32;callback,&#32;Object&#32;state&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Threading.ThreadHelper.ThreadStart&#40;&#41;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;">
+        
+<p>Sorry for the vagueness of my post. &nbsp;I had seen it discussed before so I thought it was a well known issue...</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+<span style="white-space:pre"></span>static void RegisterApplicationServices(IUnityContainer container)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+<span style="white-space:pre"></span>{</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+<span style="white-space:pre"></span>var channel = new TcpChannel();</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+<span style="white-space:pre"></span>ChannelServices.RegisterChannel(channel, true);</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+<span style="white-space:pre"></span>var application = (IMyAppApplicationServer)Activator.GetObject(typeof(IMyAppApplicationServer), Properties.Settings.Default.ApplicationServerUrl);</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+<span style="white-space:pre"></span>container.RegisterInstance&lt;IMyAppApplicationServer&gt;(application, new ContainerControlledLifetimeManager());</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+<span style="white-space:pre"></span>}</div>
+<p></p>
+<p><span style="white-space:pre"></span>static void RegisterApplicationServices(IUnityContainer container)<br>
+<span style="white-space:pre"></span>{<br>
+<span style="white-space:pre"></span>var channel = new TcpChannel();<br>
+<span style="white-space:pre"></span>ChannelServices.RegisterChannel(channel, true);<br>
+<span style="white-space:pre"></span>var application = (IMyAppApplicationServer)Activator.GetObject(typeof(IMyAppApplicationServer), Properties.Settings.Default.ApplicationServerUrl);<br>
+<span style="white-space:pre"></span>container.RegisterInstance&lt;IMyAppApplicationServer&gt;(application, new ContainerControlledLifetimeManager());<br>
+<span style="white-space:pre"></span>}</p>
+<p></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>System.ArgumentException was unhandled<br>
+&nbsp;&nbsp;Message=&quot;The type System.MarshalByRefObject cannot be assigned to variables of type MyApp.Server.SharedTypes.IMyApplicationServer.\r\nParameter name: instance&quot;</p>
+<p>&nbsp;&nbsp;Source=&quot;Microsoft.Practices.Unity&quot;<br>
+&nbsp;&nbsp;ParamName=&quot;instance&quot;<br>
+&nbsp;&nbsp;StackTrace:<br>
+&nbsp;&nbsp; &nbsp; &nbsp; at Microsoft.Practices.Unity.Utility.Guard.TypeIsAssignable(Type assignmentTargetType, Type assignmentValueType, String argumentName)<br>
+&nbsp;&nbsp; &nbsp; &nbsp; at Microsoft.Practices.Unity.UnityContainer.RegisterInstance(Type t, String name, Object instance, LifetimeManager lifetime)<br>
+&nbsp;&nbsp; &nbsp; &nbsp; at Microsoft.Practices.Unity.UnityContainerBase.RegisterInstance[TInterface](TInterface instance, LifetimeManager lifetimeManager)<br>
+&nbsp;&nbsp; &nbsp; &nbsp; at MyApp.ServiceBootStrapper.RegisterApplicationServices(IUnityContainer container)&nbsp;<br>
+&nbsp;&nbsp; &nbsp; &nbsp; at MyApp.ServiceBootStrapper.Initialize(IUnityContainer container)&nbsp;<br>
+&nbsp;&nbsp; &nbsp; &nbsp; at MyApp.App..ctor() in<br>
+&nbsp;&nbsp; &nbsp; &nbsp; at MyApp.App.Main() in<br>
+&nbsp;&nbsp; &nbsp; &nbsp; at System.AppDomain._nExecuteAssembly(Assembly assembly, String[] args<br>
+&nbsp;&nbsp; &nbsp; &nbsp; at System.AppDomain.ExecuteAssembly(String assemblyFile, Evidence assemblySecurity, String[] args)<br>
+&nbsp;&nbsp; &nbsp; &nbsp; at Microsoft.VisualStudio.HostingProcess.HostProc.RunUsersAssembly()<br>
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Threading.ThreadHelper.ThreadStart_Context(Object state)<br>
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)<br>
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Threading.ThreadHelper.ThreadStart()</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div></div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_212346" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="213824">
+    <td id="PostDetailsCell_213824" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post213824"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/mrpmorris">mrpmorris</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/20/2009 2:55:21 PM" LocalTimeTicks="1248126921">Jul 20, 2009 at 2:55 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_213824" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Any&#32;ideas&#32;for&#32;this&#63;&#32;&#38;nbsp&#59;Having&#32;to&#32;write&#32;a&#32;passthrough&#32;for&#32;every&#32;remoted&#32;class&#32;is&#32;a&#32;pain.">
+        
+<p>Any ideas for this? &nbsp;Having to write a passthrough for every remoted class is a pain.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_213824" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="214045">
+    <td id="PostDetailsCell_214045" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post214045"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/rslaney">rslaney</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/20/2009 10:59:15 PM" LocalTimeTicks="1248155955">Jul 20, 2009 at 10:59 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_214045" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi.&#32;When&#32;you&#32;ask&#32;the&#32;Activator&#32;for&#32;an&#32;instance&#32;of&#32;the&#32;interface,&#32;the&#32;remoting&#32;TransparentProxy&#32;infrastructure&#32;cannot&#32;create&#32;any&#32;other&#32;concrete&#32;object&#32;other&#32;than&#32;MarshalByRefObject,&#32;although&#32;it&#32;does&#32;implement&#32;the&#32;interface.&#38;nbsp&#59;&#32;The&#32;weirdness&#32;that&#32;is&#32;remoting&#32;means&#32;that&#32;aspects&#32;of&#32;the&#32;reflection&#32;and&#32;type&#32;system&#32;in&#32;.NET&#32;cannot&#32;interrogate&#32;the&#32;object&#32;definition&#32;cleanly&#32;&#40;&#32;look&#32;at&#32;the&#32;application&#32;instance&#32;in&#32;the&#32;debugger&#32;and&#32;you&#32;see&#32;what&#32;I&#32;mean&#32;&#41;&#32;There&#32;is&#32;an&#32;easy&#32;answer&#32;though.&#38;nbsp&#59;&#32;You&#32;need&#32;to&#32;write&#32;a&#32;cusom&#32;lifetime&#32;manager&#32;to&#32;handle&#32;the&#32;Remoting&#32;Activation&#32;and&#32;use&#32;RegisterType&#32;instead&#32;of&#32;RegisterInstance.&#38;nbsp&#59;&#32;I&#32;have&#32;attached&#32;a&#32;sample&#32;nUnit&#32;TestFixture&#32;that&#32;&#38;quot&#59;works&#32;on&#32;my&#32;machine&#33;&#38;quot&#59;.&#32;Hope&#32;this&#32;helps&#32;Cheers...&#32;Robert&#32;&#38;nbsp&#59;&#32;&#32;&#32;&#91;TestFixture&#93;&#32;public&#32;class&#32;RemotingTest&#32;&#123;&#32;&#91;Test&#93;&#32;public&#32;void&#32;RegisterRemotingInstance&#40;&#41;&#32;&#123;&#32;TcpChannel&#32;channel&#32;&#61;&#32;new&#32;TcpChannel&#40;14000&#41;&#59;&#32;ChannelServices.RegisterChannel&#40;&#32;channel,&#32;true&#32;&#41;&#59;&#32;WellKnownServiceTypeEntry&#32;serviceTypeEntry&#32;&#61;&#32;new&#32;WellKnownServiceTypeEntry&#40;&#32;typeof&#40;HelloWorldServer&#41;,&#32;&#38;quot&#59;HelloWorld&#38;quot&#59;,&#32;WellKnownObjectMode.Singleton&#32;&#41;&#59;&#32;RemotingConfiguration.ApplicationName&#32;&#61;&#32;&#38;quot&#59;HelloWorld&#38;quot&#59;&#59;&#32;RemotingConfiguration.RegisterWellKnownServiceType&#40;&#32;serviceTypeEntry&#32;&#41;&#59;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#32;.RegisterType&#38;lt&#59;IHelloWorld,&#32;IHelloWorld&#38;gt&#59;&#40;new&#32;RemotingLifetimeManager&#38;lt&#59;IHelloWorld&#38;gt&#59;&#40;&#38;quot&#59;tcp&#58;&#47;&#47;localhost&#58;14000&#47;HelloWorld&#38;quot&#59;&#41;&#41;&#59;&#32;Assert.AreEqual&#40;&#32;&#38;quot&#59;Hello&#32;world&#38;quot&#59;,&#32;container.Resolve&#38;lt&#59;&#32;IHelloWorld&#32;&#38;gt&#59;&#40;&#41;.SayHello&#40;&#41;&#32;&#41;&#59;&#32;ChannelServices.UnregisterChannel&#40;&#32;channel&#32;&#41;&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;HelloWorldServer&#32;&#58;&#32;MarshalByRefObject,&#32;IHelloWorld&#32;&#123;&#32;&#35;region&#32;IHelloWorld&#32;Members&#32;public&#32;string&#32;SayHello&#40;&#41;&#32;&#123;&#32;return&#32;&#38;quot&#59;Hello&#32;world&#38;quot&#59;&#59;&#32;&#125;&#32;&#35;endregion&#32;&#125;&#32;public&#32;interface&#32;IHelloWorld&#32;&#123;&#32;string&#32;SayHello&#40;&#41;&#59;&#32;&#125;&#32;public&#32;class&#32;RemotingLifetimeManager&#38;lt&#59;I&#38;gt&#59;&#32;&#58;&#32;LifetimeManager&#32;&#123;&#32;private&#32;string&#32;uri&#59;&#32;public&#32;RemotingLifetimeManager&#40;&#32;string&#32;uri&#32;&#41;&#32;&#123;&#32;this.uri&#32;&#61;&#32;uri&#59;&#32;&#125;&#32;public&#32;override&#32;object&#32;GetValue&#40;&#41;&#32;&#123;&#32;return&#32;&#40;I&#41;Activator.GetObject&#40;&#32;typeof&#32;&#40;I&#41;,&#32;this.uri&#32;&#41;&#59;&#32;&#125;&#32;public&#32;override&#32;void&#32;RemoveValue&#40;&#41;&#32;&#123;&#32;throw&#32;new&#32;NotImplementedException&#40;&#41;&#59;&#32;&#125;&#32;public&#32;override&#32;void&#32;SetValue&#40;object&#32;newValue&#41;&#32;&#123;&#32;throw&#32;new&#32;NotImplementedException&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;&#38;nbsp&#59;">
+        
+<p>Hi.</p>
+<p>When you ask the Activator for an instance of the interface, the remoting TransparentProxy infrastructure cannot create any other concrete object other than MarshalByRefObject, although it does implement the interface.&nbsp; The weirdness that is remoting
+ means that aspects of the reflection and type system in .NET cannot interrogate the object definition cleanly ( look at the application instance in the debugger and you see what I mean )</p>
+<p>There is an easy answer though.&nbsp; You need to write a cusom lifetime manager to handle the Remoting Activation and use RegisterType instead of RegisterInstance.&nbsp; I have attached a sample nUnit TestFixture that &quot;works on my machine!&quot;.</p>
+<p>Hope this helps</p>
+<p>Cheers...</p>
+<p>Robert</p>
+<p>&nbsp;</p>
+<div style="color:Black; background-color:White">
+<pre>    [TestFixture]
+    <span style="color:Blue">public</span> <span style="color:Blue">class</span><span style="color:MediumTurquoise"> RemotingTest
+    </span>{
+        [Test]
+        <span style="color:Blue">public</span> <span style="color:Blue">void</span> RegisterRemotingInstance()
+        {
+            TcpChannel channel = <span style="color:Blue">new</span> TcpChannel(14000);
+
+            ChannelServices.RegisterChannel( channel, <span style="color:Blue">true</span> );
+
+            WellKnownServiceTypeEntry serviceTypeEntry = <span style="color:Blue">new</span> WellKnownServiceTypeEntry( <span style="color:Blue">typeof</span>(HelloWorldServer), <span style="color:#A31515">&quot;HelloWorld&quot;</span>, WellKnownObjectMode.Singleton );
+            RemotingConfiguration.ApplicationName = <span style="color:#A31515">&quot;HelloWorld&quot;</span>;
+            RemotingConfiguration.RegisterWellKnownServiceType( serviceTypeEntry );
+
+            IUnityContainer container = <span style="color:Blue">new</span> UnityContainer()
+                .RegisterType&lt;IHelloWorld, IHelloWorld&gt;(<span style="color:Blue">new</span> RemotingLifetimeManager&lt;IHelloWorld&gt;(<span style="color:#A31515">&quot;tcp://localhost:14000/HelloWorld&quot;</span>));
+
+            Assert.AreEqual( <span style="color:#A31515">&quot;Hello world&quot;</span>, container.Resolve&lt; IHelloWorld &gt;().SayHello() );
+
+            ChannelServices.UnregisterChannel( channel );
+        }
+    }
+
+    <span style="color:Blue">public</span> <span style="color:Blue">class</span><span style="color:MediumTurquoise"> HelloWorldServer : MarshalByRefObject, IHelloWorld
+    </span>{
+        <span style="color:Blue">#region</span> IHelloWorld Members
+
+        <span style="color:Blue">public</span> <span style="color:Blue">string</span> SayHello()
+        {
+            <span style="color:Blue">return</span> <span style="color:#A31515">&quot;Hello world&quot;</span>;
+        }
+
+        <span style="color:Blue">#endregion</span>
+    }
+
+    <span style="color:Blue">public</span> <span style="color:Blue">interface</span><span style="color:MediumTurquoise"> IHelloWorld
+    </span>{
+        <span style="color:Blue">string</span> SayHello();
+    }
+
+    <span style="color:Blue">public</span> <span style="color:Blue">class</span><span style="color:MediumTurquoise"> RemotingLifetimeManager&lt;I&gt; : LifetimeManager
+    </span>{
+        <span style="color:Blue">private</span> <span style="color:Blue">string</span> uri;
+
+        <span style="color:Blue">public</span> RemotingLifetimeManager( <span style="color:Blue">string</span> uri )
+        {
+            <span style="color:Blue">this</span>.uri = uri;
+        }
+
+        <span style="color:Blue">public</span> <span style="color:Blue">override</span> <span style="color:Blue">object</span> GetValue()
+        {
+            <span style="color:Blue">return</span> (I)Activator.GetObject( <span style="color:Blue">typeof</span> (I), <span style="color:Blue">this</span>.uri );
+        }
+
+        <span style="color:Blue">public</span> <span style="color:Blue">override</span> <span style="color:Blue">void</span> RemoveValue()
+        {
+            <span style="color:Blue">throw</span> <span style="color:Blue">new</span> NotImplementedException();
+        }
+
+        <span style="color:Blue">public</span> <span style="color:Blue">override</span> <span style="color:Blue">void</span> SetValue(<span style="color:Blue">object</span> newValue)
+        {
+            <span style="color:Blue">throw</span> <span style="color:Blue">new</span> NotImplementedException();
+        }
+    }
+
+</pre>
+</div>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_214045" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="214053">
+    <td id="PostDetailsCell_214053" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post214053"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/20/2009 11:18:48 PM" LocalTimeTicks="1248157128">Jul 20, 2009 at 11:18 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_214053" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Well,&#32;the&#32;real&#32;answer&#32;is&#32;to&#32;fix&#32;that&#32;assert,&#32;but&#32;I&#32;kind&#32;of&#32;like&#32;the&#32;custom&#32;lifetime&#32;manager&#32;idea.&#32;Although&#32;I&#32;might&#32;put&#32;it&#32;in&#32;a&#32;custom&#32;build&#32;plan&#32;instead&#32;&#40;like&#32;the&#32;static&#32;factory&#32;extension&#32;does&#41;&#59;&#32;that&#32;way&#32;you&#32;can&#32;actually&#32;use&#32;the&#32;container&#32;lifetime&#32;management&#32;on&#32;your&#32;proxies,&#32;instead&#32;of&#32;getting&#32;a&#32;new&#32;one&#32;every&#32;time&#32;like&#32;this&#32;implementation&#32;will&#32;do.&#32;&#38;nbsp&#59;">
+        
+<p>Well, the real answer is to fix that assert, but I kind of like the custom lifetime manager idea. Although I might put it in a custom build plan instead (like the static factory extension does); that way you can actually use the container lifetime management
+ on your proxies, instead of getting a new one every time like this implementation will do.</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_214053" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="214057">
+    <td id="PostDetailsCell_214057" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post214057"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/rslaney">rslaney</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/20/2009 11:34:16 PM" LocalTimeTicks="1248158056">Jul 20, 2009 at 11:34 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_214057" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="yes,&#38;nbsp&#59;a&#32;custom&#32;build&#32;plan&#32;would&#32;be&#32;cleaner,&#32;but&#32;more&#32;complicated&#32;solution&#32;and&#32;I&#32;usually&#32;tend&#32;towards&#32;simplicity.&#32;You&#32;could&#32;always&#32;create&#32;a&#32;ContainerControlledRemotingLifetimeManager&#32;&#40;&#32;let&#39;s&#32;see&#32;how&#32;big&#32;we&#32;can&#32;make&#32;the&#32;names&#32;&#59;&#41;&#38;nbsp&#59;to&#32;cache&#32;the&#32;proxy,&#32;but&#32;I&#32;always&#32;create&#32;new&#32;instances&#32;of&#32;proxies&#32;&#40;&#32;both&#32;Remoting&#32;and&#32;WCF&#32;&#41;&#32;everytime&#32;I&#32;want&#32;to&#32;use&#32;it.&#38;nbsp&#59;&#32;The&#32;overhead&#32;of&#32;the&#32;actual&#32;remote&#32;call&#32;far&#32;outweighs&#32;the&#32;overhead&#32;of&#32;creating&#32;a&#32;proxy&#32;and&#32;you&#32;get&#32;a&#32;safer&#32;experience.&#32;I&#39;m&#32;not&#32;sure&#32;that&#32;you&#32;can&#32;fix&#32;the&#32;assert,&#32;unless&#32;you&#32;actually&#32;cast&#32;one&#32;to&#32;the&#32;other&#32;and&#32;catch&#32;the&#32;exception.&#32;&#38;nbsp&#59;">
+        
+<p>yes,&nbsp;a custom build plan would be cleaner, but more complicated solution and I usually tend towards simplicity.</p>
+<p>You could always create a ContainerControlledRemotingLifetimeManager ( let's see how big we can make the names ;)&nbsp;to cache the proxy, but I always create new instances of proxies ( both Remoting and WCF ) everytime I want to use it.&nbsp; The overhead
+ of the actual remote call far outweighs the overhead of creating a proxy and you get a safer experience.</p>
+<p>I'm not sure that you can fix the assert, unless you actually cast one to the other and catch the exception.</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_214057" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="214506">
+    <td id="PostDetailsCell_214506" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post214506"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/mrpmorris">mrpmorris</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/21/2009 8:43:31 PM" LocalTimeTicks="1248234211">Jul 21, 2009 at 8:43 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_214506" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Thanks&#33;&#32;I&#32;made&#32;my&#32;service&#32;a&#32;simple&#32;request&#47;response&#32;instead&#32;so&#32;no&#32;need&#32;to&#32;modify&#32;each&#32;time&#32;I&#32;add&#32;new&#32;functionality.&#32;&#38;nbsp&#59;I&#32;think&#32;Unity&#32;needs&#32;to&#32;be&#32;fixed&#32;to&#32;allow&#32;remoted&#32;implementors&#32;too&#32;though.">
+        
+<p>Thanks!</p>
+<p>I made my service a simple request/response instead so no need to modify each time I add new functionality. &nbsp;I think Unity needs to be fixed to allow remoted implementors too though.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_214506" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="455707">
+    <td id="PostDetailsCell_455707" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post455707"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/markheath">markheath</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/15/2010 4:19:57 PM" LocalTimeTicks="1276643997">Jun 15, 2010 at 4:19 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_455707" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="we&#32;just&#32;ran&#32;into&#32;this&#32;same&#32;issue&#32;trying&#32;to&#32;register&#32;instances&#32;of&#32;remotable&#32;interfaces.&#32;would&#32;be&#32;nice&#32;to&#32;see&#32;this&#32;fixed&#32;in&#32;a&#32;future&#32;version&#32;of&#32;Unity&#32;Mark&#32;&#38;nbsp&#59;">
+        
+<p>we just ran into this same issue trying to register instances of remotable interfaces. would be nice to see this fixed in a future version of Unity</p>
+<p>Mark</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_455707" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="455869">
+    <td id="PostDetailsCell_455869" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post455869"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/15/2010 11:14:18 PM" LocalTimeTicks="1276668858">Jun 15, 2010 at 11:14 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_455869" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;thought&#32;we&#32;DID&#32;fix&#32;this&#32;in&#32;Unity&#32;2.0.&#32;If&#32;not,&#32;could&#32;you&#32;please&#32;make&#32;sure&#32;we&#39;ve&#32;got&#32;a&#32;bug&#32;in&#32;the&#32;issue&#32;tracker&#63;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;">
+        
+<p>I thought we DID fix this in Unity 2.0. If not, could you please make sure we've got a bug in the issue tracker?</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_455869" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f62492">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="5644342d-c39e-49fa-b14a-2cb3602ed0f4">
+    <script class="options" defer="defer" id="5644342d-c39e-49fa-b14a-2cb3602ed0f4" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_b630171c-0076-4b89-823e-480b76553439">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_cefafe8b-132c-4abe-a00c-f0df0d56c64f">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_b630171c-0076-4b89-823e-480b76553439" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_cefafe8b-132c-4abe-a00c-f0df0d56c64f" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/62492';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

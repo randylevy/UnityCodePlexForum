@@ -1,0 +1,1055 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - How to swallow Exception by IInterceptionBehavior&#63;</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/277377?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/277377?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="yU5QgiifYd1pHX6PrgTV87h_fqpDD5_t5jJFSf5H4PUwU9b2KpmjKi86_Dno4dS0OFPUp6tFdiax4zMybh5nqxgF8R5k0Bk7L97n_bPFvn0l0m6g1Rz6K3q9kUuyM8dPTx9rkw2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2490f4d84-8106-427f-b6cc-f1d84da25b75" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:26:20 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f277377" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="d3c8671f-b2bf-4e91-acec-b199fdeb8d42">
+                
+                    <script class="options" defer="defer" id="d3c8671f-b2bf-4e91-acec-b199fdeb8d42" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="9def85a4-8856-4c7e-bed4-d08f6b299d30">
+                
+                    <script class="options" defer="defer" id="9def85a4-8856-4c7e-bed4-d08f6b299d30" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                How to swallow Exception by IInterceptionBehavior&#63;
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:277377]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="d308d0a0-88cb-430a-8011-e1e57996c634">
+    <script class="options" defer="defer" id="d308d0a0-88cb-430a-8011-e1e57996c634" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/277377","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="690117">
+    <td id="PostDetailsCell_690117" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post690117"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/znfsky">znfsky</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/27/2011 8:31:03 AM" LocalTimeTicks="1319729463">Oct 27, 2011 at 8:31 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_690117" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#32;have&#32;a&#32;IInterceptionBehavior&#32;like&#32;blow&#58;&#32;&#32;public&#32;class&#32;TraceBehavior&#32;&#58;&#32;IInterceptionBehavior&#32;&#123;&#32;public&#32;IEnumerable&#38;lt&#59;Type&#38;gt&#59;&#32;GetRequiredInterfaces&#40;&#41;&#32;&#123;&#32;return&#32;Type.EmptyTypes&#59;&#32;&#125;&#32;public&#32;IMethodReturn&#32;Invoke&#40;IMethodInvocation&#32;input,&#32;GetNextInterceptionBehaviorDelegate&#32;getNext&#41;&#32;&#123;&#32;Console.WriteLine&#40;string.Format&#40;&#38;quot&#59;Invoke&#32;method&#58;&#123;0&#125;&#38;quot&#59;,input.MethodBase.ToString&#40;&#41;&#41;&#41;&#59;&#32;IMethodReturn&#32;result&#32;&#61;&#32;getNext&#40;&#41;&#40;input,&#32;getNext&#41;&#59;&#32;if&#32;&#40;result.Exception&#32;&#61;&#61;&#32;null&#41;&#32;&#123;&#32;Console.WriteLine&#40;&#38;quot&#59;Invoke&#32;successful&#33;&#38;quot&#59;&#41;&#59;&#32;&#125;&#32;else&#32;&#123;&#32;Console.WriteLine&#40;string.Format&#40;&#38;quot&#59;Invoke&#32;faild,&#32;error&#58;&#32;&#123;0&#125;&#38;quot&#59;,&#32;result.Exception.Message&#41;&#41;&#59;&#32;result.Exception&#32;&#61;&#32;null&#59;&#32;&#125;&#32;return&#32;result&#59;&#32;&#125;&#32;public&#32;bool&#32;WillExecute&#32;&#123;&#32;get&#32;&#123;&#32;return&#32;true&#59;&#32;&#125;&#32;&#125;&#32;&#125;&#32;&#32;&#32;&#38;nbsp&#59;&#32;Whether&#38;nbsp&#59;I&#38;nbsp&#59;put&#32;it&#38;nbsp&#59;on&#32;method&#32;or&#32;not,&#32;exception&#32;throw&#32;always.&#32;Anyone&#32;can&#32;help&#32;me&#63;&#32;">
+        
+<p>I have a IInterceptionBehavior like blow:</p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">public</span> <span style="color:blue">class</span> TraceBehavior : IInterceptionBehavior
+    {
+        <span style="color:blue">public</span> IEnumerable&lt;Type&gt; GetRequiredInterfaces()
+        {
+            <span style="color:blue">return</span> Type.EmptyTypes;
+        }
+
+        <span style="color:blue">public</span> IMethodReturn Invoke(IMethodInvocation input, GetNextInterceptionBehaviorDelegate getNext)
+        {
+            Console.WriteLine(<span style="color:blue">string</span>.Format(<span style="color:#a31515">&quot;Invoke method:{0}&quot;</span>,input.MethodBase.ToString()));
+            IMethodReturn result = getNext()(input, getNext);
+            <span style="color:blue">if</span> (result.Exception == <span style="color:blue">null</span>)
+            {
+                Console.WriteLine(<span style="color:#a31515">&quot;Invoke successful!&quot;</span>);
+            }
+            <span style="color:blue">else</span> 
+            {
+                Console.WriteLine(<span style="color:blue">string</span>.Format(<span style="color:#a31515">&quot;Invoke faild, error: {0}&quot;</span>, result.Exception.Message));
+                result.Exception = <span style="color:blue">null</span>;
+            }
+            <span style="color:blue">return</span> result;
+        }
+
+        <span style="color:blue">public</span> <span style="color:blue">bool</span> WillExecute { <span style="color:blue">get</span> { <span style="color:blue">return</span> <span style="color:blue">true</span>; } }
+    }
+</pre>
+</div>
+<p>&nbsp;</p>
+<p>Whether&nbsp;I&nbsp;put it&nbsp;on method or not, exception throw always. Anyone can help me?</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_690117" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="691223">
+    <td id="PostDetailsCell_691223" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post691223"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/30/2011 1:48:48 AM" LocalTimeTicks="1319964528">Oct 30, 2011 at 1:48 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_691223" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="What&#32;exception&#32;are&#32;you&#32;getting&#63;&#32;&#38;nbsp&#59;Can&#32;you&#32;post&#32;how&#32;you&#32;register&#32;the&#32;interceptor&#63;&#32;It&#32;seems&#32;to&#32;work&#32;fine&#32;in&#32;this&#32;example&#58;&#32;&#32;public&#32;interface&#32;ISpeak&#32;&#123;&#32;void&#32;Speak&#40;&#41;&#59;&#32;&#125;&#32;public&#32;class&#32;Dog&#32;&#58;&#32;ISpeak&#32;&#123;&#32;public&#32;void&#32;Speak&#40;&#41;&#32;&#123;&#32;Console.WriteLine&#40;&#34;WOOF&#33;&#34;&#41;&#59;&#32;&#125;&#32;&#125;&#32;class&#32;Program&#32;&#123;&#32;static&#32;void&#32;Main&#40;string&#91;&#93;&#32;args&#41;&#32;&#123;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.AddNewExtension&#38;lt&#59;Interception&#38;gt&#59;&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;ISpeak,&#32;Dog&#38;gt&#59;&#40;&#32;&#34;&#34;,&#32;new&#32;Interceptor&#40;new&#32;InterfaceInterceptor&#40;&#41;&#41;,&#32;new&#32;InterceptionBehavior&#40;new&#32;TraceBehavior&#40;&#41;&#41;&#32;&#41;&#59;&#32;var&#32;speaker&#32;&#61;&#32;container.Resolve&#38;lt&#59;ISpeak&#38;gt&#59;&#40;&#41;&#59;&#32;speaker.Speak&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;--&#32;Randy&#32;LevyEnterprise&#32;Library&#32;support&#32;engineerentlib.support&#64;live.com">
+        
+<p>What exception are you getting? &nbsp;Can you post how you register the interceptor?</p>
+<p>It seems to work fine in this example:</p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">public</span> <span style="color:blue">interface</span> ISpeak
+{
+    <span style="color:blue">void</span> Speak();
+}
+
+<span style="color:blue">public</span> <span style="color:blue">class</span> Dog : ISpeak
+{
+    <span style="color:blue">public</span> <span style="color:blue">void</span> Speak()
+    {
+        Console.WriteLine(<span style="color:#a31515">&quot;WOOF!&quot;</span>);
+    }
+}
+
+<span style="color:blue">class</span> Program
+{
+    <span style="color:blue">static</span> <span style="color:blue">void</span> Main(<span style="color:blue">string</span>[] args)
+    {
+        IUnityContainer container = <span style="color:blue">new</span> UnityContainer();
+        container.AddNewExtension&lt;Interception&gt;();
+
+        container.RegisterType&lt;ISpeak, Dog&gt;(
+            <span style="color:#a31515">&quot;&quot;</span>,    
+            <span style="color:blue">new</span> Interceptor(<span style="color:blue">new</span> InterfaceInterceptor()),
+            <span style="color:blue">new</span> InterceptionBehavior(<span style="color:blue">new</span> TraceBehavior())
+            );
+
+        <span style="color:blue">var</span> speaker = container.Resolve&lt;ISpeak&gt;();
+
+        speaker.Speak();
+    }
+}
+</pre>
+</div>
+<p>-- <br>
+Randy Levy<br>
+Enterprise Library support engineer<br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">entlib.support@live.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_691223" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="692589">
+    <td id="PostDetailsCell_692589" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post692589"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/znfsky">znfsky</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/2/2011 9:24:09 AM" LocalTimeTicks="1320251049">Nov 2, 2011 at 9:24 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="11/2/2011 9:24:51 AM" LocalTimeTicks="1320251091">Nov 2, 2011 at 9:24 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_692589" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;static&#32;void&#32;Main&#40;string&#91;&#93;&#32;args&#41;&#32;&#123;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;UnityConfigurationSection&#32;section&#32;&#61;&#32;&#40;UnityConfigurationSection&#41;ConfigurationManager.GetSection&#40;&#34;unity&#34;&#41;&#59;&#32;section.Configure&#40;container,&#34;ContainerOne&#34;&#41;&#59;&#32;ICalc&#32;calc&#32;&#61;&#32;container.Resolve&#38;lt&#59;ICalc&#38;gt&#59;&#40;&#41;&#59;&#32;calc.Add&#40;1,1&#41;&#59;&#32;calc.Divide&#40;2,0&#41;&#59;&#32;&#125;&#32;&#38;lt&#59;containers&#38;gt&#59;&#32;&#38;lt&#59;container&#32;name&#61;&#34;ContainerOne&#34;&#38;gt&#59;&#32;&#38;lt&#59;extension&#32;type&#61;&#34;Interception&#34;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;register&#32;type&#61;&#34;ICalc&#34;&#32;mapTo&#61;&#34;Calc&#34;&#38;gt&#59;&#32;&#38;lt&#59;interceptor&#32;type&#61;&#34;InterfaceInterceptor&#34;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;interceptionBehavior&#32;type&#61;&#34;BehaviorInterception.AOP.TraceBehavior,BehaviorInterception&#34;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;register&#38;gt&#59;&#32;&#38;lt&#59;&#47;container&#38;gt&#59;&#32;&#38;lt&#59;&#47;containers&#38;gt&#59;&#32;public&#32;class&#32;Calc&#58;ICalc&#32;&#123;&#32;public&#32;int&#32;Add&#40;int&#32;oprandA,&#32;int&#32;oprandB&#41;&#32;&#123;&#32;return&#32;oprandA&#32;&#43;&#32;oprandB&#59;&#32;&#125;&#32;public&#32;int&#32;Divide&#40;int&#32;dividend,&#32;int&#32;divisor&#41;&#32;&#123;&#32;return&#32;dividend&#32;&#47;&#32;divisor&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;&#32;&#32;">
+        
+<div style="background-color:white; color:black">
+<pre><span style="color:blue">static</span> <span style="color:blue">void</span> Main(<span style="color:blue">string</span>[] args)
+{
+      IUnityContainer container = <span style="color:blue">new</span> UnityContainer();
+      UnityConfigurationSection section = (UnityConfigurationSection)ConfigurationManager.GetSection(<span style="color:#a31515">&quot;unity&quot;</span>);
+      section.Configure(container,<span style="color:#a31515">&quot;ContainerOne&quot;</span>);
+
+      ICalc calc = container.Resolve&lt;ICalc&gt;();
+      calc.Add(1,1);
+      calc.Divide(2,0);
+}</pre>
+<pre><div style="background-color:white; color:black"><pre><span style="color:blue">&lt;</span><span style="color:#a31515">containers</span><span style="color:blue">&gt;</span>
+  <span style="color:blue">&lt;</span><span style="color:#a31515">container</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ContainerOne</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+    <span style="color:blue">&lt;</span><span style="color:#a31515">extension</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Interception</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+    <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ICalc</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Calc</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">interceptor</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">InterfaceInterceptor</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">interceptionBehavior</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">BehaviorInterception.AOP.TraceBehavior,BehaviorInterception</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+    <span style="color:blue">&lt;/</span><span style="color:#a31515">register</span><span style="color:blue">&gt;</span>
+  <span style="color:blue">&lt;/</span><span style="color:#a31515">container</span><span style="color:blue">&gt;</span>
+<span style="color:blue">&lt;/</span><span style="color:#a31515">containers</span><span style="color:blue">&gt;</span></pre>
+<pre><div style="background-color:white; color:black"><pre><span style="color:blue">public</span> <span style="color:blue">class</span> Calc:ICalc
+{
+    <span style="color:blue">public</span> <span style="color:blue">int</span> Add(<span style="color:blue">int</span> oprandA, <span style="color:blue">int</span> oprandB)
+    {
+        <span style="color:blue">return</span> oprandA &#43; oprandB;
+    }
+
+    <span style="color:blue">public</span> <span style="color:blue">int</span> Divide(<span style="color:blue">int</span> dividend, <span style="color:blue">int</span> divisor)
+    {
+         <span style="color:blue">return</span> dividend / divisor;
+    }
+}</pre>
+</div>
+</pre>
+</div>
+</pre>
+</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_692589" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="693671">
+    <td id="PostDetailsCell_693671" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post693671"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/4/2011 2:43:45 AM" LocalTimeTicks="1320399825">Nov 4, 2011 at 2:43 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_693671" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;think&#32;your&#32;configuration&#32;is&#32;not&#32;working&#32;as&#32;intended.&#32;&#38;nbsp&#59;Try&#32;this&#58;&#32;&#32;&#38;lt&#59;&#63;xml&#32;version&#61;&#34;1.0&#34;&#32;encoding&#61;&#34;utf-8&#34;&#32;&#63;&#38;gt&#59;&#32;&#38;lt&#59;configuration&#38;gt&#59;&#32;&#38;lt&#59;configSections&#38;gt&#59;&#32;&#38;lt&#59;section&#32;name&#61;&#34;unity&#34;&#32;type&#61;&#34;Microsoft.Practices.Unity.Configuration.UnityConfigurationSection,&#32;Microsoft.Practices.Unity.Configuration&#34;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;configSections&#38;gt&#59;&#32;&#38;lt&#59;unity&#32;xmlns&#61;&#34;http&#58;&#47;&#47;schemas.microsoft.com&#47;practices&#47;2010&#47;unity&#34;&#38;gt&#59;&#32;&#38;lt&#59;alias&#32;alias&#61;&#34;ICalc&#34;&#32;type&#61;&#34;IInterception.ICalc,&#32;IInterception&#34;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;alias&#32;alias&#61;&#34;Calc&#34;&#32;type&#61;&#34;IInterception.Calc,&#32;IInterception&#34;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;sectionExtension&#32;type&#61;&#34;Microsoft.Practices.Unity.InterceptionExtension.Configuration.InterceptionConfigurationExtension,&#32;Microsoft.Practices.Unity.Interception.Configuration&#34;&#47;&#38;gt&#59;&#32;&#38;lt&#59;container&#32;name&#61;&#34;ContainerOne&#34;&#38;gt&#59;&#32;&#38;lt&#59;extension&#32;type&#61;&#34;Interception&#34;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;register&#32;type&#61;&#34;ICalc&#34;&#32;mapTo&#61;&#34;Calc&#34;&#38;gt&#59;&#32;&#38;lt&#59;interceptor&#32;type&#61;&#34;InterfaceInterceptor&#34;&#47;&#38;gt&#59;&#32;&#38;lt&#59;interceptionBehavior&#32;type&#61;&#34;IInterception.TraceBehavior,&#32;IInterception&#34;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;register&#38;gt&#59;&#32;&#38;lt&#59;&#47;container&#38;gt&#59;&#32;&#38;lt&#59;&#47;unity&#38;gt&#59;&#32;&#38;lt&#59;&#47;configuration&#38;gt&#59;&#32;&#32;&#32;&#38;nbsp&#59;&#32;N.b.&#32;in&#32;this&#32;case&#32;the&#32;assembly&#32;is&#32;called&#32;IInterception&#32;--&#32;replace&#32;with&#32;your&#32;assembly&#32;information.&#32;--&#32;Randy&#32;LevyEnterprise&#32;Library&#32;support&#32;engineerentlib.support&#64;live.com">
+        
+<p>I think your configuration is not working as intended. &nbsp;Try this:</p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">&lt;?</span><span style="color:#a31515">xml</span> <span style="color:red">version</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">1.0</span><span style="color:black">&quot;</span> <span style="color:red">encoding</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">utf-8</span><span style="color:black">&quot;</span> <span style="color:blue">?&gt;</span>
+<span style="color:blue">&lt;</span><span style="color:#a31515">configuration</span><span style="color:blue">&gt;</span>
+  <span style="color:blue">&lt;</span><span style="color:#a31515">configSections</span><span style="color:blue">&gt;</span>
+    <span style="color:blue">&lt;</span><span style="color:#a31515">section</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">unity</span><span style="color:black">&quot;</span>
+        <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Microsoft.Practices.Unity.Configuration.UnityConfigurationSection, Microsoft.Practices.Unity.Configuration</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+  <span style="color:blue">&lt;/</span><span style="color:#a31515">configSections</span><span style="color:blue">&gt;</span>
+  <span style="color:blue">&lt;</span><span style="color:#a31515">unity</span> <span style="color:red">xmlns</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">http://schemas.microsoft.com/practices/2010/unity</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+    <span style="color:blue">&lt;</span><span style="color:#a31515">alias</span> <span style="color:red">alias</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ICalc</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">IInterception.ICalc, IInterception</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+    <span style="color:blue">&lt;</span><span style="color:#a31515">alias</span> <span style="color:red">alias</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Calc</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">IInterception.Calc, IInterception</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+    <span style="color:blue">&lt;</span><span style="color:#a31515">sectionExtension</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Microsoft.Practices.Unity.InterceptionExtension.Configuration.InterceptionConfigurationExtension, Microsoft.Practices.Unity.Interception.Configuration</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+    <span style="color:blue">&lt;</span><span style="color:#a31515">container</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ContainerOne</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">extension</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Interception</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ICalc</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Calc</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">interceptor</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">InterfaceInterceptor</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">interceptionBehavior</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">IInterception.TraceBehavior, IInterception</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+      <span style="color:blue">&lt;/</span><span style="color:#a31515">register</span><span style="color:blue">&gt;</span>
+    <span style="color:blue">&lt;/</span><span style="color:#a31515">container</span><span style="color:blue">&gt;</span>
+  <span style="color:blue">&lt;/</span><span style="color:#a31515">unity</span><span style="color:blue">&gt;</span>
+<span style="color:blue">&lt;/</span><span style="color:#a31515">configuration</span><span style="color:blue">&gt;</span>
+</pre>
+</div>
+<p>&nbsp;</p>
+<p>N.b. in this case the assembly is called IInterception -- replace with your assembly information.</p>
+<p>-- <br>
+Randy Levy<br>
+Enterprise Library support engineer<br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">entlib.support@live.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_693671" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="694677">
+    <td id="PostDetailsCell_694677" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post694677"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/znfsky">znfsky</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/7/2011 11:36:31 AM" LocalTimeTicks="1320694591">Nov 7, 2011 at 11:36 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_694677" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="My&#32;demo&#32;can&#32;run&#32;as&#32;expect,&#32;and&#32;your&#32;configuration&#32;just&#32;replace&#32;name&#32;of&#32;assembly&#40;or&#32;namespace&#41;.&#32;I&#39;m&#32;focus&#32;on&#32;why&#38;nbsp&#59;it&#32;throw&#32;exception&#32;even&#32;though&#38;nbsp&#59;I&#32;set&#32;result.Exception&#61;null&#32;manually.">
+        
+<p>My demo can run as expect, and your configuration just replace name of assembly(or namespace).</p>
+<p>I'm focus on why&nbsp;it throw exception even though&nbsp;I set result.Exception=null manually.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_694677" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="694678">
+    <td id="PostDetailsCell_694678" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post694678"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/znfsky">znfsky</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/7/2011 11:41:07 AM" LocalTimeTicks="1320694867">Nov 7, 2011 at 11:41 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_694678" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Someone&#32;on&#32;stackoverflow.com&#32;gave&#32;me&#32;an&#32;answer&#58;&#32;&#34;&#65279;That&#39;s&#32;not&#32;how&#32;it&#32;works.&#32;Don&#39;t&#32;set&#32;result.Exception,&#32;instead&#32;return&#32;input.CreateMethodReturn&#40;newReturnValues&#41;.&#34;&#32;Is&#39;t&#32;right&#63;&#32;However,&#32;I&#32;have&#32;tried&#32;this&#32;,&#32;not&#32;effect.">
+        
+<p>Someone on stackoverflow.com gave me an answer:</p>
+<p>&quot;&#65279;That's not how it works. Don't set result.Exception, instead return input.CreateMethodReturn(newReturnValues).&quot;</p>
+<p>Is't right? However, I have tried this , not effect.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_694678" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="695054">
+    <td id="PostDetailsCell_695054" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post695054"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/8/2011 1:26:07 AM" LocalTimeTicks="1320744367">Nov 8, 2011 at 1:26 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="11/10/2011 1:57:37 AM" LocalTimeTicks="1320919057">Nov 10, 2011 at 1:57 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_695054" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="The&#38;nbsp&#59;issue&#32;is&#32;that&#32;the&#32;Divide&#32;method&#32;is&#32;returning&#32;an&#32;int&#32;but&#32;you&#32;are&#32;handling&#32;the&#32;exception&#32;and&#32;not&#32;setting&#32;a&#32;return&#32;value&#32;so&#32;the&#32;result.ReturnValue&#32;is&#32;null.&#32;&#38;nbsp&#59;&#32;You&#32;can&#39;t&#32;return&#32;a&#32;null&#32;return&#32;value&#32;for&#32;a&#32;value&#32;type&#32;&#40;such&#32;as&#32;an&#32;int&#41;.&#32;&#38;nbsp&#59;&#40;A&#32;NullReferenceException&#32;is&#32;being&#32;thrown&#32;by&#32;what&#32;looks&#32;to&#32;be&#32;generated&#32;Unity&#32;code.&#41;&#32;If&#32;you&#32;want&#32;to&#32;prove&#32;it&#32;to&#32;yourself&#32;change&#32;your&#32;interface&#32;to&#32;return&#32;a&#32;reference&#32;type&#32;&#40;such&#32;as&#32;string&#41;&#58;&#32;&#32;&#32;public&#32;interface&#32;ICalc&#32;&#123;&#32;int&#32;Add&#40;int&#32;oprandA,&#32;int&#32;oprandB&#41;&#59;&#32;string&#32;Divide&#40;int&#32;dividend,&#32;int&#32;divisor&#41;&#59;&#32;&#125;&#32;public&#32;class&#32;Calc&#32;&#58;&#32;ICalc&#32;&#123;&#32;public&#32;int&#32;Add&#40;int&#32;oprandA,&#32;int&#32;oprandB&#41;&#32;&#123;&#32;return&#32;oprandA&#32;&#43;&#32;oprandB&#59;&#32;&#125;&#32;public&#32;string&#32;Divide&#40;int&#32;dividend,&#32;int&#32;divisor&#41;&#32;&#123;&#32;return&#32;&#40;dividend&#32;&#47;&#32;divisor&#41;.ToString&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;If&#32;you&#32;run&#32;this&#32;code&#32;then&#32;the&#32;exception&#32;will&#32;be&#32;swallowed&#32;and&#32;null&#32;returned.&#32;You&#32;could&#32;create&#32;a&#32;new&#32;method&#32;return&#32;but&#32;what&#32;will&#32;the&#32;default&#32;value&#32;be&#63;&#32;&#38;nbsp&#59;If&#32;it&#39;s&#32;null&#32;then&#32;you&#32;are&#32;in&#32;the&#32;same&#32;situation.&#32;&#38;nbsp&#59;&#32;One&#32;way&#32;to&#32;avoid&#32;returning&#32;null&#32;is&#32;to&#32;return&#32;the&#32;default&#32;value&#32;for&#32;the&#32;type&#32;in&#32;question&#58;&#32;&#32;result.Exception&#32;&#61;&#32;null&#59;&#32;Type&#32;type&#32;&#61;&#32;&#40;&#40;MethodInfo&#41;input.MethodBase&#41;.ReturnType&#59;&#32;if&#32;&#40;type.IsValueType&#41;&#32;&#123;&#32;result.ReturnValue&#32;&#61;&#32;Activator.CreateInstance&#40;type&#41;&#59;&#32;&#125;&#32;&#32;&#32;If&#32;you&#32;add&#32;that&#32;code&#32;to&#32;the&#38;nbsp&#59;TraceBehavior&#32;then&#32;you&#32;will&#32;avoid&#32;the&#32;exception&#32;being&#32;thrown.&#32;Also,&#32;it&#39;s&#32;usually&#32;not&#32;a&#32;good&#32;idea&#32;to&#32;swallow&#32;exceptions.&#32;&#38;nbsp&#59;&#32;Especially&#32;exceptions&#32;thrown&#32;from&#32;the&#32;target&#32;method.&#32;&#38;nbsp&#59;I&#32;can&#32;see&#32;swallowing&#32;exceptions&#32;that&#32;occur&#32;in&#32;the&#32;course&#32;of&#32;performing&#32;the&#32;interception.&#32;&#38;nbsp&#59;For&#32;example&#32;if&#32;the&#32;interception&#32;is&#32;performing&#32;logging&#32;and&#32;the&#32;logging&#32;fails&#32;then&#32;you&#32;might&#32;want&#32;to&#32;swallow&#32;it&#32;so&#32;the&#32;application&#32;can&#32;continue&#32;even&#32;though&#32;the&#32;logging&#32;failed&#32;--&#32;this&#32;is&#32;what&#32;Enterprise&#32;Library&#32;does.&#32;--&#32;&#32;Randy&#32;Levy&#32;Enterprise&#32;Library&#32;support&#32;engineer&#32;entlib.support&#64;live.com">
+        
+<p>The&nbsp;issue is that the Divide method is returning an int but you are handling the exception and not setting a return value so the result.ReturnValue is null. &nbsp;</p>
+<p>You can't return a null return value for a value type (such as an int). &nbsp;(A NullReferenceException is being thrown by what looks to be generated Unity code.)</p>
+<p>If you want to prove it to yourself change your interface to return a reference type (such as string):</p>
+<div style="color:black; background-color:white">
+<pre>    <span style="color:blue">public</span> <span style="color:blue">interface</span> ICalc
+    {
+        <span style="color:blue">int</span> Add(<span style="color:blue">int</span> oprandA, <span style="color:blue">int</span> oprandB);
+        <span style="color:blue">string</span> Divide(<span style="color:blue">int</span> dividend, <span style="color:blue">int</span> divisor);
+    }
+
+    <span style="color:blue">public</span> <span style="color:blue">class</span> Calc : ICalc
+    {
+        <span style="color:blue">public</span> <span style="color:blue">int</span> Add(<span style="color:blue">int</span> oprandA, <span style="color:blue">int</span> oprandB)
+        {
+            <span style="color:blue">return</span> oprandA &#43; oprandB;
+        }
+
+        <span style="color:blue">public</span> <span style="color:blue">string</span> Divide(<span style="color:blue">int</span> dividend, <span style="color:blue">int</span> divisor)
+        {
+            <span style="color:blue">return</span> (dividend / divisor).ToString();
+        }
+    }
+</pre>
+</div>
+<p>If you run this code then the exception will be swallowed and null returned.</p>
+<p>You could create a new method return but what will the default value be? &nbsp;If it's null then you are in the same situation. &nbsp;<br>
+One way to avoid returning null is to return the default value for the type in question:</p>
+<div style="color:black; background-color:white">
+<pre>result.Exception = <span style="color:blue">null</span>;
+Type type = ((MethodInfo)input.MethodBase).ReturnType;
+
+<span style="color:blue">if</span> (type.IsValueType)
+{
+    result.ReturnValue = Activator.CreateInstance(type);
+}
+</pre>
+</div>
+<p>If you add that code to the&nbsp;TraceBehavior then you will avoid the exception being thrown.</p>
+<p>Also, it's usually not a good idea to swallow exceptions. &nbsp; Especially exceptions thrown from the target method. &nbsp;I can see swallowing exceptions that occur in the course<br>
+of performing the interception. &nbsp;For example if the interception is performing logging and the logging fails then you might want to swallow it so the application can continue even though<br>
+the logging failed -- this is what Enterprise Library does.</p>
+<p>-- <br>
+Randy Levy<br>
+Enterprise Library support engineer<br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">entlib.support@live.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_695054" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="696214">
+    <td id="PostDetailsCell_696214" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post696214"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/znfsky">znfsky</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/10/2011 12:21:45 AM" LocalTimeTicks="1320913305">Nov 10, 2011 at 12:21 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_696214" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="A&#32;very&#32;nice&#32;answer,&#32;thanks&#33;">
+        
+<p>A very nice answer, thanks!</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_696214" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="783245">
+    <td id="PostDetailsCell_783245" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post783245"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/berkaykurtarab">berkaykurtarab</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/20/2012 5:35:17 AM" LocalTimeTicks="1329744917">Feb 20, 2012 at 5:35 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_783245" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Try&#32;using&#38;nbsp&#59;&#32;IMethodReturn&#38;nbsp&#59;result&#38;nbsp&#59;&#61;&#38;nbsp&#59;getNext&#40;&#41;.Invoke&#40;input,&#38;nbsp&#59;getNext&#41;&#59;&#32;instead&#32;of&#32;IMethodReturn&#38;nbsp&#59;result&#38;nbsp&#59;&#61;&#38;nbsp&#59;getNext&#40;&#41;&#40;input,&#38;nbsp&#59;getNext&#41;&#59;&#32;&#32;">
+        
+<p>Try using&nbsp;</p>
+<pre><span>IMethodReturn</span>&nbsp;result&nbsp;=&nbsp;getNext().Invoke(input,&nbsp;getNext);</pre>
+<pre>instead of</pre>
+<pre><pre><span>IMethodReturn</span>&nbsp;result&nbsp;=&nbsp;getNext()(input,&nbsp;getNext);
+</pre>
+<br></pre>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_783245" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f277377">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="60c24daa-e383-42d2-87e1-0ee6bbf2bcb9">
+    <script class="options" defer="defer" id="60c24daa-e383-42d2-87e1-0ee6bbf2bcb9" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_94f1264f-9036-408d-92b8-f61db7fcde22">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_938ebbe2-1ab2-4946-a3dd-7e8cff0e4309">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_94f1264f-9036-408d-92b8-f61db7fcde22" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_938ebbe2-1ab2-4946-a3dd-7e8cff0e4309" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/277377';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

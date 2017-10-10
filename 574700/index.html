@@ -1,0 +1,886 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - IOC Container dependency failure</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/574700?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/574700?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="L1cRa2nNIVLPfEtHolBPu27ja6lQjPWP5kIFTMYBrBAXm4gIVVpwZU4KxYkSbGNmi6gNe3FwrMxJ6OFH1xMVWtUXtc-whYxhf4P7PjwhqiMsNSoOvJjhOC0PhXVkL4Pa2MDpBg2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken20d8ca391-658a-4728-83f7-5f8018aead4a" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:25:31 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f574700" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="8bddf9c6-36eb-4f13-a4b9-ebacacf36f26">
+                
+                    <script class="options" defer="defer" id="8bddf9c6-36eb-4f13-a4b9-ebacacf36f26" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="b59429b5-5068-4d1d-9bf2-9a916a8f7a91">
+                
+                    <script class="options" defer="defer" id="b59429b5-5068-4d1d-9bf2-9a916a8f7a91" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                IOC Container dependency failure
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:574700]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="3e660bb1-a7ff-456a-8208-5745b9715b6d">
+    <script class="options" defer="defer" id="3e660bb1-a7ff-456a-8208-5745b9715b6d" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/574700","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="1331103">
+    <td id="PostDetailsCell_1331103" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1331103"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/JMarano">JMarano</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/11/2014 6:28:17 PM" LocalTimeTicks="1418351297">Dec 11, 2014 at 6:28 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="12/13/2014 8:01:12 PM" LocalTimeTicks="1418529672">Dec 13, 2014 at 8:01 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1331103" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="Hey&#32;everyone.&#32;I&#39;m&#32;getting&#32;an&#32;error&#32;while&#32;using&#32;Gallio&#32;to&#32;debug&#32;a&#32;unit&#32;test&#32;with&#32;vb.net&#32;code.&#32;The&#32;error&#32;does&#32;not&#32;occur&#32;when&#32;the&#32;program&#32;I&#39;m&#32;trying&#32;to&#32;test&#32;is&#32;debugged&#32;using&#32;SOAPUI&#32;to&#32;pass&#32;the&#32;input&#32;in,&#32;only&#32;during&#32;unit&#32;testing&#32;with&#32;gallio.&#10;&#10;Set&#32;Up&#32;System.TypeInitializationException&#58;&#32;The&#32;type&#32;initializer&#32;for&#32;&#39;CP.Adapter.Tests.ServiceIOCSetup&#39;&#32;threw&#32;an&#32;exception.&#32;---&#62;&#32;PA.DPW.Practices.CompositeBlock.Module.ModuleLoadException&#58;&#32;Failed&#32;to&#32;load&#32;module&#32;from&#32;assembly&#32;PA.DPW.eCIS.ServiceGateway.Cis,&#32;Version&#61;17.0.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;null.&#32;Error&#32;was&#58;&#10;Failed&#32;to&#32;load&#32;module&#32;from&#32;assembly&#32;PA.DPW.eCIS.ServiceGateway.Cis,&#32;Version&#61;17.0.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;null.&#32;Error&#32;was&#58;&#10;Resolution&#32;of&#32;the&#32;dependency&#32;failed,&#32;type&#32;&#61;&#32;&#34;PA.DPW.eCIS.ServiceGateway.Cis.CisEventListener&#34;,&#32;name&#32;&#61;&#32;&#34;&#40;none&#41;&#34;.&#10;Exception&#32;occurred&#32;while&#58;&#32;while&#32;resolving.&#10;Exception&#32;is&#58;&#32;InvalidOperationException&#32;-&#32;The&#32;current&#32;type,&#32;PA.DPW.eCIS.Root.Core.Interfaces.ILoggingService,&#32;is&#32;an&#32;interface&#32;and&#32;cannot&#32;be&#32;constructed.&#32;Are&#32;you&#32;missing&#32;a&#32;type&#32;mapping&#63;&#10;-----------------------------------------------&#10;&#10;This&#32;is&#32;the&#32;class&#32;that&#32;the&#32;unit&#32;test&#32;is&#32;calling&#32;in&#32;it&#39;s&#32;setup&#32;section.&#32;It&#32;starts&#32;with&#32;the&#32;Shared&#32;Sub&#32;New&#40;&#41;&#32;constructor&#32;but&#32;throws&#32;the&#32;error&#32;when&#32;it&#32;tries&#32;loader.Load&#40;container&#41;.&#10;&#10;Friend&#32;Class&#32;ServiceIOCSetup&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#32;Make&#32;sure&#32;we&#32;cannot&#32;create&#32;instances&#32;of&#32;this&#32;class.&#10;&#10;&#32;&#32;&#32;&#32;Private&#32;Sub&#32;New&#40;&#41;&#10;&#10;&#32;&#32;&#32;&#32;End&#32;Sub&#10;&#10;&#32;&#32;&#32;&#32;Shared&#32;Sub&#32;New&#40;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Dim&#32;unityContainer&#32;As&#32;IUnityContainer&#32;&#61;&#32;New&#32;UnityContainer&#40;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AddExtensions&#40;unityContainer&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Dim&#32;container&#32;As&#32;ICompositionContainer&#32;&#61;&#32;New&#32;UnityCompositionContainer&#40;unityContainer&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;LoadServices&#40;container&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;LoadModules&#40;container&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;IocContainerHelper.RootContainer&#32;&#61;&#32;container&#10;&#10;&#32;&#32;&#32;&#32;End&#32;Sub&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;&#60;summary&#62;&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;This&#32;is&#32;the&#32;Main&#32;Entry&#32;point&#32;to&#32;register&#32;types&#32;&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;in&#32;the&#32;container.&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;&#60;&#47;summary&#62;&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;&#60;remarks&#62;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;&#32;This&#32;method&#32;works&#32;as&#32;a&#32;bootstrapper&#32;in&#32;kicking&#32;off&#32;the&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;static&#32;constructor&#32;for&#32;the&#32;first&#32;call.&#32;Subsequent&#32;calls&#32;to&#32;this&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;method&#32;does&#32;nothing.&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;&#60;&#47;remarks&#62;&#10;&#10;&#32;&#32;&#32;&#32;Public&#32;Shared&#32;Sub&#32;EnsureServices&#40;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#10;&#10;&#32;&#32;&#32;&#32;End&#32;Sub&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;&#60;summary&#62;&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;Method&#32;to&#32;add&#32;extensions&#32;to&#32;the&#32;container&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;&#60;&#47;summary&#62;&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;&#60;param&#32;name&#61;&#34;container&#34;&#62;&#60;&#47;param&#62;&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;&#60;remarks&#62;&#60;&#47;remarks&#62;&#10;&#10;&#32;&#32;&#32;&#32;Private&#32;Shared&#32;Sub&#32;AddExtensions&#40;ByVal&#32;container&#32;As&#32;IUnityContainer&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.AddNewExtension&#40;Of&#32;SimpleEventBrokerExtension&#41;&#40;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.AddNewExtension&#40;Of&#32;Interception&#41;&#40;&#41;&#10;&#10;&#32;&#32;&#32;&#32;End&#32;Sub&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;&#60;summary&#62;&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;Load&#32;the&#32;individual&#32;Modules&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;&#60;&#47;summary&#62;&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;&#60;remarks&#62;&#60;&#47;remarks&#62;&#10;&#10;&#32;&#32;&#32;&#32;Private&#32;Shared&#32;Sub&#32;LoadModules&#40;ByVal&#32;container&#32;As&#32;ICompositionContainer&#41;&#10;&#10;&#32;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;GetType&#40;IServiceLoaderService&#41;,&#32;New&#32;ServiceLoaderService&#40;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Dim&#32;loader&#32;As&#32;New&#32;AppModuleLoaderService&#40;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;loader.Load&#40;container&#41;&#10;&#10;&#32;&#32;&#32;&#32;End&#32;Sub&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;&#60;summary&#62;&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;Load&#32;all&#32;the&#32;services&#32;used&#32;by&#32;the&#32;BWCs&#32;and&#32;DAO&#32;layers&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;&#60;&#47;summary&#62;&#10;&#10;&#32;&#32;&#32;&#32;&#39;&#39;&#39;&#32;&#60;remarks&#62;&#60;&#47;remarks&#62;&#10;&#10;&#32;&#32;&#32;&#32;Private&#32;Shared&#32;Sub&#32;LoadServices&#40;ByVal&#32;container&#32;As&#32;ICompositionContainer&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;IValidationService&#41;&#40;New&#32;ValidationService&#40;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;ITracingService&#41;&#40;New&#32;TracingService&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#39;container.RegisterInstance&#40;Of&#32;ILoggingService&#41;&#40;New&#32;LoggingService&#40;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#39;container.RegisterInstance&#40;Of&#32;ILoggingService&#41;&#40;&#34;AsyncLoggingService&#34;,&#32;New&#32;AsyncLoggingService&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;IExceptionHandler&#41;&#40;New&#32;DefaultExceptionHandler&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;IHttpContextLocatorService&#41;&#40;New&#32;HttpContextLocatorService&#40;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;IReferenceTableEnumParser&#41;&#40;New&#32;PA.DPW.eCIS.Shell.ReferenceTableEnumParser&#40;New&#32;PA.DPW.eCIS.Itasca.RefTableUtility.Parsers.ReferenceTableEnumParser&#40;&#41;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;IReferenceTableService&#41;&#40;New&#32;ReferenceTableService&#40;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;IOperationContextStorageProvider&#41;&#40;New&#32;EnterpriseServicesOperationContextStorageProvider&#40;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;IAuthorizationOperationContextService&#41;&#40;New&#32;AuthorizationOperationContextService&#40;container.Resolve&#40;Of&#32;IOperationContextStorageProvider&#41;&#40;&#41;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;IOperationContextMessageStorageService&#41;&#40;New&#32;OperationContextMessageStorageService&#40;container.Resolve&#40;Of&#32;IOperationContextStorageProvider&#41;&#40;&#41;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;IAuthorizationProvider&#41;&#40;New&#32;DefaultAuthorizationProvider&#40;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;INavigationService&#41;&#40;container.Resolve&#40;Of&#32;WebNavigationService&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Dim&#32;navigationWorkflow&#32;As&#32;New&#32;CommonFramework.Navigator.Runtime.NavigationServices&#40;&#34;NAV_DRIVER&#34;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;INavigationPathFactory&#41;&#40;New&#32;NavigationPathFactory&#40;navigationWorkflow&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;INavigationWorkflowScheduler&#41;&#40;New&#32;NavigationWorkflowScheduler&#40;navigationWorkflow&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;ISecurityContextLocatorService&#41;&#40;New&#32;SecurityContextLocatorService&#40;New&#32;ConfigurableSecurityContext&#40;&#41;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;ICaseWorkflowScheduler&#41;&#40;New&#32;CaseWorkflowScheduler&#40;navigationWorkflow&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;ISiteMapBuilderService&#41;&#40;New&#32;SiteMapBuilderService&#40;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;IValidationService&#41;&#40;New&#32;ValidationService&#40;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;ITracingService&#41;&#40;New&#32;TracingService&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#39;container.RegisterInstance&#40;Of&#32;ILoggingService&#41;&#40;New&#32;LoggingService&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#39;container.RegisterInstance&#40;Of&#32;ILoggingService&#41;&#40;&#34;AsyncLoggingService&#34;,&#32;New&#32;AsyncLoggingService&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;IExceptionHandler&#41;&#40;New&#32;DefaultExceptionHandler&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#39;&#32;Navigation-related&#32;services&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;INavigationService&#41;&#40;container.Resolve&#40;Of&#32;WebNavigationService&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#39;&#32;Reference&#32;table-related&#32;services&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;IReferenceTableService&#41;&#40;New&#32;ReferenceTableService&#40;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;GetType&#40;IReferenceTableEnumParser&#41;,&#32;New&#32;ReferenceTableEnumParser&#40;New&#32;PA.DPW.eCIS.Itasca.RefTableUtility.Parsers.ReferenceTableEnumParser&#40;&#41;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#39;&#32;&#32;container.RegisterInstance&#40;Of&#32;ISecurityContextLocatorService&#41;&#40;&#34;ConfigurableSecurityContextService&#34;,&#32;New&#32;SecurityContextLocatorService&#40;New&#32;ConfigurableSecurityContext&#40;&#41;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;IAuthorizationProvider&#41;&#40;New&#32;DefaultAuthorizationProvider&#40;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#39;Operation&#32;Context&#32;related&#32;services&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;IOperationContextStorageProvider&#41;&#40;New&#32;WebOperationContextStorageProvider&#40;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;ICustomCacheStorageProvider&#41;&#40;New&#32;CachingApplicationBlockStorageProvider&#40;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;IOperationContextStorageProvider&#41;&#40;New&#32;WebOperationContextStorageProvider&#40;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.RegisterInstance&#40;Of&#32;ICachingResultService&#41;&#40;New&#32;UserLevelCachingService&#40;container.Resolve&#40;Of&#32;ICustomCacheStorageProvider&#41;&#40;&#41;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;End&#32;Sub&#10;&#10;Once&#32;it&#32;is&#32;done&#32;with&#32;all&#32;this,&#32;when&#32;not&#32;debugging&#32;and&#32;failing,&#32;it&#32;calls&#32;a&#32;translator&#32;class&#32;which&#32;is&#32;meant&#32;to&#32;run&#32;this&#32;constructor,&#32;but&#32;if&#32;you&#32;don&#39;t&#32;do&#32;all&#32;of&#32;the&#32;IOC&#32;stuff&#32;above,&#32;it&#32;will&#32;throw&#32;an&#32;error&#32;saying&#32;that&#32;the&#32;IOC&#32;container&#32;is&#32;null,&#32;hence&#32;why&#32;I&#32;need&#32;it&#32;to&#32;complete&#32;calling&#32;the&#32;class&#32;above.&#32;If&#32;anyone&#32;has&#32;any&#32;answers,&#32;I&#39;d&#32;appreciate&#32;it.&#10;&#10;Private&#32;_enumParser&#32;As&#32;IReferenceTableEnumParser&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Friend&#32;Sub&#32;New&#40;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_enumParser&#32;&#61;&#32;IocContainerHelper.Resolve&#40;Of&#32;IReferenceTableEnumParser&#41;&#40;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;End&#32;Sub&#10;&#10;&#10;&#42;Update&#58;&#10;&#10;One&#32;of&#32;my&#32;coworkers&#32;figured&#32;it&#32;out.&#32;In&#32;the&#32;unit&#32;test&#32;we&#32;used&#32;this&#32;code&#32;in&#32;the&#32;setup&#32;section.&#32;I&#32;think&#32;this&#32;basically&#32;does&#32;what&#32;you&#32;were&#32;suggesting&#32;randy.&#32;Thanks&#32;for&#32;help.&#10;&#10;Private&#32;_enumParser&#32;As&#32;IReferenceTableEnumParser&#10;&#10;&#32;&#32;&#32;&#32;Private&#32;_container&#32;As&#32;UnityCompositionContainer&#10;&#10;&#32;&#32;&#32;&#32;Private&#32;translator&#32;As&#32;CompassPreAppTranslator&#10;&#10;&#32;&#32;&#32;&#32;&#60;SetUp&#40;&#41;&#62;&#32;_&#10;&#10;&#32;&#32;&#32;&#32;Public&#32;Sub&#32;SetUp&#40;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_enumParser&#32;&#61;&#32;New&#32;Global.PA.DPW.eCIS.Shell.ReferenceTableEnumParser&#40;New&#32;PA.DPW.eCIS.Itasca.RefTableUtility.Parsers.ReferenceTableEnumParser&#40;&#41;&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_container&#32;&#61;&#32;New&#32;UnityCompositionContainer&#40;New&#32;UnityContainer&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;PA.DPW.eCIS.Root.Shared.IocContainerHelper.RootContainer&#32;&#61;&#32;_container&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_container.RegisterInstance&#40;Of&#32;IReferenceTableEnumParser&#41;&#40;_enumParser&#41;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;translator&#32;&#61;&#32;New&#32;CompassPreAppTranslator&#10;&#10;&#32;&#32;&#32;&#32;End&#32;Sub">
+        <div class="markDownOutput ">Hey everyone. I'm getting an error while using Gallio to debug a unit test with vb.net code. The error does not occur when the program I'm trying to test is debugged using SOAPUI to pass the input in, only during unit testing with gallio.<br>
+<br>
+Set Up System.TypeInitializationException: The type initializer for 'CP.Adapter.Tests.ServiceIOCSetup' threw an exception. ---&gt; PA.DPW.Practices.CompositeBlock.Module.ModuleLoadException: Failed to load module from assembly PA.DPW.eCIS.ServiceGateway.Cis,
+ Version=17.0.0.0, Culture=neutral, PublicKeyToken=null. Error was:<br>
+Failed to load module from assembly PA.DPW.eCIS.ServiceGateway.Cis, Version=17.0.0.0, Culture=neutral, PublicKeyToken=null. Error was:<br>
+Resolution of the dependency failed, type = &quot;PA.DPW.eCIS.ServiceGateway.Cis.CisEventListener&quot;, name = &quot;(none)&quot;.<br>
+Exception occurred while: while resolving.<br>
+<h2>Exception is: InvalidOperationException - The current type, PA.DPW.eCIS.Root.Core.Interfaces.ILoggingService, is an interface and cannot be constructed. Are you missing a type mapping?</h2>
+This is the class that the unit test is calling in it's setup section. It starts with the Shared Sub New() constructor but throws the error when it tries loader.Load(container).<br>
+<br>
+Friend Class ServiceIOCSetup<br>
+<pre><code>' Make sure we cannot create instances of this class.
+
+Private Sub New()
+
+End Sub
+
+Shared Sub New()
+
+    Dim unityContainer As IUnityContainer = New UnityContainer()
+
+    AddExtensions(unityContainer)
+
+    Dim container As ICompositionContainer = New UnityCompositionContainer(unityContainer)
+
+    LoadServices(container)
+
+    LoadModules(container)
+
+    IocContainerHelper.RootContainer = container
+
+End Sub
+
+''' &lt;summary&gt;
+
+''' This is the Main Entry point to register types 
+
+''' in the container.
+
+''' &lt;/summary&gt;
+
+''' &lt;remarks&gt;        
+
+'''  This method works as a bootstrapper in kicking off the
+
+''' static constructor for the first call. Subsequent calls to this
+
+''' method does nothing.
+
+''' &lt;/remarks&gt;
+
+Public Shared Sub EnsureServices()
+
+
+
+End Sub
+
+''' &lt;summary&gt;
+
+''' Method to add extensions to the container
+
+''' &lt;/summary&gt;
+
+''' &lt;param name=&quot;container&quot;&gt;&lt;/param&gt;
+
+''' &lt;remarks&gt;&lt;/remarks&gt;
+
+Private Shared Sub AddExtensions(ByVal container As IUnityContainer)
+
+    container.AddNewExtension(Of SimpleEventBrokerExtension)()
+
+    container.AddNewExtension(Of Interception)()
+
+End Sub
+
+''' &lt;summary&gt;
+
+''' Load the individual Modules
+
+''' &lt;/summary&gt;
+
+''' &lt;remarks&gt;&lt;/remarks&gt;
+
+Private Shared Sub LoadModules(ByVal container As ICompositionContainer)
+
+
+
+    container.RegisterInstance(GetType(IServiceLoaderService), New ServiceLoaderService())
+
+    Dim loader As New AppModuleLoaderService()
+
+    loader.Load(container)
+
+End Sub
+
+''' &lt;summary&gt;
+
+''' Load all the services used by the BWCs and DAO layers
+
+''' &lt;/summary&gt;
+
+''' &lt;remarks&gt;&lt;/remarks&gt;
+
+Private Shared Sub LoadServices(ByVal container As ICompositionContainer)
+
+    container.RegisterInstance(Of IValidationService)(New ValidationService())
+
+    container.RegisterInstance(Of ITracingService)(New TracingService)
+
+    'container.RegisterInstance(Of ILoggingService)(New LoggingService())
+
+    'container.RegisterInstance(Of ILoggingService)(&quot;AsyncLoggingService&quot;, New AsyncLoggingService)
+
+    container.RegisterInstance(Of IExceptionHandler)(New DefaultExceptionHandler)
+
+    container.RegisterInstance(Of IHttpContextLocatorService)(New HttpContextLocatorService())
+
+    container.RegisterInstance(Of IReferenceTableEnumParser)(New PA.DPW.eCIS.Shell.ReferenceTableEnumParser(New PA.DPW.eCIS.Itasca.RefTableUtility.Parsers.ReferenceTableEnumParser()))
+
+    container.RegisterInstance(Of IReferenceTableService)(New ReferenceTableService())
+
+    container.RegisterInstance(Of IOperationContextStorageProvider)(New EnterpriseServicesOperationContextStorageProvider())
+
+    container.RegisterInstance(Of IAuthorizationOperationContextService)(New AuthorizationOperationContextService(container.Resolve(Of IOperationContextStorageProvider)()))
+
+    container.RegisterInstance(Of IOperationContextMessageStorageService)(New OperationContextMessageStorageService(container.Resolve(Of IOperationContextStorageProvider)()))
+
+    container.RegisterInstance(Of IAuthorizationProvider)(New DefaultAuthorizationProvider())
+
+    container.RegisterInstance(Of INavigationService)(container.Resolve(Of WebNavigationService))
+
+    Dim navigationWorkflow As New CommonFramework.Navigator.Runtime.NavigationServices(&quot;NAV_DRIVER&quot;)
+
+    container.RegisterInstance(Of INavigationPathFactory)(New NavigationPathFactory(navigationWorkflow))
+
+    container.RegisterInstance(Of INavigationWorkflowScheduler)(New NavigationWorkflowScheduler(navigationWorkflow))
+
+    container.RegisterInstance(Of ISecurityContextLocatorService)(New SecurityContextLocatorService(New ConfigurableSecurityContext()))
+
+    container.RegisterInstance(Of ICaseWorkflowScheduler)(New CaseWorkflowScheduler(navigationWorkflow))
+
+    container.RegisterInstance(Of ISiteMapBuilderService)(New SiteMapBuilderService())
+
+    container.RegisterInstance(Of IValidationService)(New ValidationService())
+
+    container.RegisterInstance(Of ITracingService)(New TracingService)
+
+    'container.RegisterInstance(Of ILoggingService)(New LoggingService)
+
+    'container.RegisterInstance(Of ILoggingService)(&quot;AsyncLoggingService&quot;, New AsyncLoggingService)
+
+    container.RegisterInstance(Of IExceptionHandler)(New DefaultExceptionHandler)
+
+    ' Navigation-related services
+
+    container.RegisterInstance(Of INavigationService)(container.Resolve(Of WebNavigationService))
+
+    ' Reference table-related services
+
+    container.RegisterInstance(Of IReferenceTableService)(New ReferenceTableService())
+
+    container.RegisterInstance(GetType(IReferenceTableEnumParser), New ReferenceTableEnumParser(New PA.DPW.eCIS.Itasca.RefTableUtility.Parsers.ReferenceTableEnumParser()))
+
+    '  container.RegisterInstance(Of ISecurityContextLocatorService)(&quot;ConfigurableSecurityContextService&quot;, New SecurityContextLocatorService(New ConfigurableSecurityContext()))
+
+    container.RegisterInstance(Of IAuthorizationProvider)(New DefaultAuthorizationProvider())
+
+    'Operation Context related services
+
+    container.RegisterInstance(Of IOperationContextStorageProvider)(New WebOperationContextStorageProvider())
+
+    container.RegisterInstance(Of ICustomCacheStorageProvider)(New CachingApplicationBlockStorageProvider())
+
+    container.RegisterInstance(Of IOperationContextStorageProvider)(New WebOperationContextStorageProvider())
+
+    container.RegisterInstance(Of ICachingResultService)(New UserLevelCachingService(container.Resolve(Of ICustomCacheStorageProvider)()))
+
+End Sub
+</code></pre>
+Once it is done with all this, when not debugging and failing, it calls a translator class which is meant to run this constructor, but if you don't do all of the IOC stuff above, it will throw an error saying that the IOC container is null, hence why I need
+ it to complete calling the class above. If anyone has any answers, I'd appreciate it.<br>
+<br>
+Private _enumParser As IReferenceTableEnumParser<br>
+<pre><code>    Friend Sub New()
+
+        _enumParser = IocContainerHelper.Resolve(Of IReferenceTableEnumParser)()
+
+    End Sub
+
+</code></pre>
+*Update:<br>
+<br>
+One of my coworkers figured it out. In the unit test we used this code in the setup section. I think this basically does what you were suggesting randy. Thanks for help.<br>
+<br>
+Private _enumParser As IReferenceTableEnumParser<br>
+<pre><code>Private _container As UnityCompositionContainer
+
+Private translator As CompassPreAppTranslator
+
+&lt;SetUp()&gt; _
+
+Public Sub SetUp()
+
+    _enumParser = New Global.PA.DPW.eCIS.Shell.ReferenceTableEnumParser(New PA.DPW.eCIS.Itasca.RefTableUtility.Parsers.ReferenceTableEnumParser())
+
+    _container = New UnityCompositionContainer(New UnityContainer)
+
+    PA.DPW.eCIS.Root.Shared.IocContainerHelper.RootContainer = _container
+
+    _container.RegisterInstance(Of IReferenceTableEnumParser)(_enumParser)
+
+    translator = New CompassPreAppTranslator
+
+End Sub</code></pre>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1331103" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1331196">
+    <td id="PostDetailsCell_1331196" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1331196"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/12/2014 3:55:57 AM" LocalTimeTicks="1418385357">Dec 12, 2014 at 3:55 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1331196" style="width: 100%; vertical-align: top;" 
+        class="discussionAnswer discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="The&#32;error&#32;message&#32;is&#32;telling&#32;you&#32;that&#32;ILoggingService&#32;is&#32;not&#32;registered.&#32;&#32;So,&#32;either&#32;it&#32;&#42;was&#32;not&#42;&#32;registered&#32;&#40;posted&#32;code&#32;does&#32;show&#32;a&#32;registration&#41;&#32;or&#32;the&#32;container&#32;reference&#32;that&#32;the&#32;ILoggingService&#32;was&#32;registered&#32;in&#32;is&#32;not&#32;being&#32;used.&#32;&#32;&#13;&#10;&#13;&#10;What&#32;you&#32;can&#32;do&#32;is&#32;to&#32;initialize&#32;the&#32;container&#32;during&#32;FixtureSetUp&#32;&#40;or&#32;SetUp&#32;depending&#32;on&#32;how&#32;you&#32;have&#32;structured&#32;your&#32;tests&#41;&#32;and&#32;keep&#32;a&#32;reference&#32;to&#32;the&#32;container&#32;in&#32;an&#32;instance&#32;variable&#32;or&#32;set&#32;a&#32;service&#32;locator&#32;to&#32;use&#32;that&#32;container&#32;&#40;since&#32;it&#32;looks&#32;like&#32;IocContainerHelper&#32;is&#32;a&#32;service&#32;locator&#41;.&#32;&#32;Then&#32;during&#32;the&#32;tests&#32;the&#32;initialized&#32;container&#32;will&#32;be&#32;used&#32;to&#32;resolve&#32;dependencies.&#13;&#10;&#13;&#10;&#126;&#126;&#13;&#10;Randy&#32;Levy&#13;&#10;&#91;entlib.support&#64;live.com&#93;&#40;mailto&#58;entlib.support&#64;live.com&#41;&#13;&#10;Enterprise&#32;Library&#32;support&#32;engineer&#13;&#10;&#91;Support&#32;How-to&#93;&#40;http&#58;&#47;&#47;entlib.codeplex.com&#47;wikipage&#63;title&#61;Support&#37;20How-to&#41;&#32;">
+        <div class="markDownOutput ">The error message is telling you that ILoggingService is not registered. So, either it
+<em>was not</em> registered (posted code does show a registration) or the container reference that the ILoggingService was registered in is not being used.<br>
+<br>
+What you can do is to initialize the container during FixtureSetUp (or SetUp depending on how you have structured your tests) and keep a reference to the container in an instance variable or set a service locator to use that container (since it looks like IocContainerHelper
+ is a service locator). Then during the tests the initialized container will be used to resolve dependencies.
+<br>
+<br>
+~~ <br>
+Randy Levy <br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">&#x65;n&#x74;&#108;&#105;&#x62;&#46;&#115;&#x75;&#112;&#112;&#x6f;&#x72;&#x74;&#x40;&#x6c;&#x69;&#118;&#x65;&#x2e;c&#x6f;&#x6d;</a>
+<br>
+Enterprise Library support engineer <br>
+<a href="http://entlib.codeplex.com/wikipage?title=Support%20How-to"  rel="nofollow">Support How-to</a>
+<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post discussionAnswer">
+        
+        <span class="answerCheck" id="checkmark_1331196" title="Marked as answer by JMarano on 12/13/2014 at 1:01 PM">
+            <img src="../assets/check_answer.png" alt="Marked as answer by JMarano on 12/13/2014 at 1:01 PM" />
+        </span>
+        
+        <div id="Options_1331196" class="Options"  style="margin-top: -22px">
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f574700">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="23b87345-0249-4ac1-9df0-6a89bcdbc067">
+    <script class="options" defer="defer" id="23b87345-0249-4ac1-9df0-6a89bcdbc067" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_5eda0fd4-7b44-44a8-9ecc-c236210db1e8">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_65547c1a-34cb-44c3-af6a-e91f4d9af62a">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_5eda0fd4-7b44-44a8-9ecc-c236210db1e8" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_65547c1a-34cb-44c3-af6a-e91f4d9af62a" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/574700';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

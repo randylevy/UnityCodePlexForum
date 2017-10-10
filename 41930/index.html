@@ -1,0 +1,1125 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Inject into child container</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/41930?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/41930?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="QHwRhW6JvvdTlFgQ0NeVIqd23Si9aZmqlzDnNw7RVnKCxPbBDrukGLASkTfRWNNm6eP-PtqRM6sQ1Onimmobgqtk6Km8zQJgU6PkOKXCA1vsACLkHJadhWcq6ygMi9emrhEsVQ2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2b950d74c-5f8e-4e07-ae88-26e0ac98e4b5" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:28:34 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f41930" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="7baec941-638d-45fc-b4a2-d903de4c8a5b">
+                
+                    <script class="options" defer="defer" id="7baec941-638d-45fc-b4a2-d903de4c8a5b" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="88a3b14e-f97a-4c06-b186-7837f06ae567">
+                
+                    <script class="options" defer="defer" id="88a3b14e-f97a-4c06-b186-7837f06ae567" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Inject into child container
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:41930]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="f93cc61a-deee-4968-981c-6fa58bbcfb1c">
+    <script class="options" defer="defer" id="f93cc61a-deee-4968-981c-6fa58bbcfb1c" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/41930","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="139166">
+    <td id="PostDetailsCell_139166" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post139166"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/RohanWest">RohanWest</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/10/2008 1:00:34 AM" LocalTimeTicks="1228899634">Dec 10, 2008 at 1:00 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="12/10/2008 1:03:23 AM" LocalTimeTicks="1228899803">Dec 10, 2008 at 1:03 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_139166" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi,&#32;I&#32;am&#32;fairly&#32;new&#32;to&#32;Di&#32;and&#32;the&#32;Unity&#32;Application&#32;block,&#32;I&#32;am&#32;having&#32;a&#32;hard&#32;time&#32;trying&#32;to&#32;Inject&#32;a&#32;UnityContainer&#32;into&#32;a&#32;child&#32;container&#32;using&#32;the&#32;parent.CreateChildContainer&#32;method.&#32;&#32;Any&#32;ideas&#63;&#32;&#32;&#32;&#32;&#32;public&#32;class&#32;RootContainer&#32;&#123;&#32;private&#32;IUnityContainer&#32;_container&#59;&#32;&#32;public&#32;RootContainer&#40;&#41;&#32;&#123;&#32;_container&#32;&#61;&#32;new&#32;TestUnityContainer&#40;&#41;&#59;&#32;_container.RegisterType&#38;lt&#59;IChildContainer,&#32;ChildContainer&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;&#47;&#47;&#32;Method&#32;1&#32;-&#32;Associate&#32;a&#32;new&#32;instance&#32;with&#32;the&#32;IUnityContainer&#32;&#47;&#47;_container.RegisterInstance&#38;lt&#59;IUnityContainer&#38;gt&#59;&#40;_container.CreateChildContainer&#40;&#41;&#41;&#59;&#32;&#32;IChildContainer&#32;child&#32;&#61;&#32;_container.Resolve&#38;lt&#59;IChildContainer&#38;gt&#59;&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;public&#32;interface&#32;IChildContainer&#32;&#123;&#32;&#125;&#32;&#32;public&#32;class&#32;ChildContainer&#32;&#58;&#32;IChildContainer&#32;&#123;&#32;private&#32;IUnityContainer&#32;_container&#59;&#32;&#32;&#47;&#42;&#32;I&#32;want&#32;to&#32;inject&#32;the&#32;parent.CreateChildContainer&#40;&#41;&#32;into&#32;this&#32;constructor&#32;&#42;&#47;&#32;public&#32;ChildContainer&#40;IUnityContainer&#32;container&#41;&#32;&#123;&#32;_container&#32;&#61;&#32;container&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#38;nbsp&#59;&#32;&#32;&#32;&#32;&#32;&#32;&#38;nbsp&#59;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;">
+        
+<p><span>Hi, I am fairly new to Di and the Unity Application block, I am having a hard time trying to Inject a UnityContainer into a child container using the parent.CreateChildContainer method.<br>
+<br>
+Any ideas?<br>
+</p>
+<p>&nbsp;</p>
+<p><span></p>
+<p>&nbsp;&nbsp;&nbsp; public class RootContainer<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private IUnityContainer _container;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public RootContainer()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _container = new TestUnityContainer();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _container.RegisterType&lt;IChildContainer, ChildContainer&gt;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Method 1 - Associate a new instance with the IUnityContainer<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //_container.RegisterInstance&lt;IUnityContainer&gt;(_container.CreateChildContainer());</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IChildContainer child = _container.Resolve&lt;IChildContainer&gt;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; public interface IChildContainer { }</p>
+<p>&nbsp;&nbsp;&nbsp; public class ChildContainer : IChildContainer<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private IUnityContainer _container;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* I want to inject the parent.CreateChildContainer() into this constructor */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public ChildContainer(IUnityContainer container)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _container = container;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }</p>
+</span>
+<p></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</span>
+<p></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_139166" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="139204">
+    <td id="PostDetailsCell_139204" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post139204"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/10/2008 6:47:21 AM" LocalTimeTicks="1228920441">Dec 10, 2008 at 6:47 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_139204" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi,&#32;&#32;You&#32;can&#32;try&#32;this,&#32;In&#32;your&#32;_container.RegisterType&#38;lt&#59;IChildContainer,&#32;ChildContainer&#38;gt&#59;&#40;&#41;&#59;,&#32;you&#32;can&#32;add&#32;a&#32;injectionConstructor&#32;in&#32;the&#32;parameter&#32;to&#32;specify&#32;the&#32;value&#32;that&#32;will&#32;be&#32;passed&#32;to&#32;the&#32;constructor&#32;of&#32;the&#32;type&#32;you&#32;are&#32;registering.&#32;like&#32;this,&#32;&#32;_container.RegisterType&#38;lt&#59;IChildContainer,&#32;ChildContainer&#38;gt&#59;&#40;new&#32;InjectionConstructor&#40;_container.CreateChildContainer&#40;&#41;&#41;&#41;&#59;&#32;&#32;&#32;&#32;&#32;Valiant&#32;Dudan&#32;Global&#32;Technology&#32;and&#32;Solutions&#32;Avanade,&#32;Inc.&#32;entlib.support&#64;avanade.com&#32;&#32;&#32;&#32;">
+        Hi,<br>
+<br>
+You can try this, In your&nbsp;_container.RegisterType&lt;IChildContainer, ChildContainer&gt;();, you can add a injectionConstructor in the parameter to specify the value that will be passed to the constructor of the type you are registering. like this,<br>
+<span style="font-size:13px; color:#0000ff">
+<p>_container.RegisterType&lt;IChildContainer, ChildContainer&gt;(new<span style="font-size:13px">
+</span><span style="font-size:13px; color:#2b91af">InjectionConstructor</span><span style="font-size:13px">(_container.CreateChildContainer())</span>);<br>
+<br>
+<br>
+</p>
+</span>
+<p><strong><em>Valiant Dudan<br>
+</em></strong>Global Technology and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow"><span style="color:#3e62a6">entlib.support@avanade.com</span></a>
+</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_139204" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="139216">
+    <td id="PostDetailsCell_139216" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post139216"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/RohanWest">RohanWest</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/10/2008 8:20:05 AM" LocalTimeTicks="1228926005">Dec 10, 2008 at 8:20 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="12/10/2008 8:21:00 AM" LocalTimeTicks="1228926060">Dec 10, 2008 at 8:21 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_139216" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Is&#32;it&#32;possible&#32;to&#32;do&#32;this&#32;when&#32;the&#32;object&#32;is&#32;creaed.&#32;For&#32;example,&#32;can&#32;I&#32;create&#32;an&#32;UnityContainerExtension&#32;that&#32;will&#32;register&#32;a&#32;custom&#32;IBuildPlanPolicy&#32;that&#32;will&#32;inject&#32;child&#32;containers.&#32;I&#32;was&#32;having&#32;some&#32;success&#32;with&#32;this&#32;method&#32;however&#32;I&#32;was&#32;unable&#32;to&#32;locate&#32;the&#32;constructing&#32;container&#32;from&#32;the&#32;IBuilderContext&#32;&#32;&#32;class&#32;Program&#32;&#123;&#32;static&#32;void&#32;Main&#40;string&#91;&#93;&#32;args&#41;&#32;&#123;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.AddNewExtension&#38;lt&#59;MyUnityContainerExtension&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;container.RegisterType&#38;lt&#59;IUnityContainer,&#32;MyUnityContainerDecorator&#38;gt&#59;&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;public&#32;class&#32;MyUnityContainerDecorator&#32;&#58;&#32;IUnityContainer&#32;&#123;&#32;private&#32;readonly&#32;IUnityContainer&#32;_container&#59;&#32;&#32;public&#32;MyUnityContainerDecorator&#40;IUnityContainer&#32;container&#41;&#32;&#123;&#32;_container&#32;&#61;&#32;container&#59;&#32;&#125;&#32;&#32;&#47;&#42;&#32;IUnityContainer&#32;members&#32;not&#32;implemented&#32;in&#32;this&#32;example&#32;&#42;&#47;&#32;&#125;&#32;&#32;public&#32;class&#32;MyUnityContainerExtension&#32;&#58;&#32;UnityContainerExtension&#32;&#123;&#32;protected&#32;override&#32;void&#32;Initialize&#40;&#41;&#32;&#123;&#32;this.Context.Policies.Set&#38;lt&#59;IBuildPlanPolicy&#38;gt&#59;&#40;new&#32;MyBuildPlanPolicy&#40;&#41;,&#32;NamedTypeBuildKey.Make&#38;lt&#59;MyUnityContainerDecorator&#38;gt&#59;&#40;&#41;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;public&#32;class&#32;MyBuildPlanPolicy&#32;&#58;&#32;IBuildPlanPolicy&#32;&#123;&#32;public&#32;void&#32;BuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#123;&#32;&#47;&#42;&#32;How&#32;can&#32;i&#32;get&#32;a&#32;reference&#32;to&#32;the&#32;constructing&#32;IUnityContainer&#32;&#42;&#47;&#32;if&#32;&#40;context.Existing&#32;&#61;&#61;&#32;null&#41;&#32;&#123;&#32;context&#32;&#61;&#32;new&#32;MyUnityContainerExtension&#40;&#47;&#42;&#32;container.CreateChildContainer&#40;&#41;&#32;&#42;&#47;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#125;&#32;">
+        Is it possible to do this when the object is creaed.&nbsp; For example, can I create an UnityContainerExtension that will register a custom&nbsp;IBuildPlanPolicy that will inject child containers.&nbsp;&nbsp; I was having some success with this method however I was unable
+ to locate the constructing container from the IBuilderContext<br>
+<br>
+<p>&nbsp;&nbsp;&nbsp; class Program<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static void Main(string[] args)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IUnityContainer container = new UnityContainer();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; container.AddNewExtension&lt;MyUnityContainerExtension&gt;();</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; container.RegisterType&lt;IUnityContainer, MyUnityContainerDecorator&gt;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; public class MyUnityContainerDecorator : IUnityContainer<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private readonly IUnityContainer _container;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public MyUnityContainerDecorator(IUnityContainer container)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _container = container;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;/* IUnityContainer members not implemented in this example */<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; public class MyUnityContainerExtension : UnityContainerExtension<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; protected override void Initialize()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.Context.Policies.Set&lt;IBuildPlanPolicy&gt;(new MyBuildPlanPolicy(), NamedTypeBuildKey.Make&lt;MyUnityContainerDecorator&gt;());<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; public class MyBuildPlanPolicy : IBuildPlanPolicy<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void BuildUp(IBuilderContext context)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* How can i get a reference to the constructing IUnityContainer */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (context.Existing == null)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; context = new MyUnityContainerExtension(/* container.CreateChildContainer() */);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_139216" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="140367">
+    <td id="PostDetailsCell_140367" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post140367"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/14/2008 11:40:59 AM" LocalTimeTicks="1229283659">Dec 14, 2008 at 11:40 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="12/14/2008 11:41:53 AM" LocalTimeTicks="1229283713">Dec 14, 2008 at 11:41 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_140367" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#39;m&#32;not&#32;sure&#32;what&#32;you&#39;re&#32;trying&#32;to&#32;do&#32;here&#32;but&#32;there&#32;may&#32;be&#32;another&#32;simpler&#32;way&#32;to&#32;do&#32;this.&#38;nbsp&#59;&#32;Anyway,&#32;I&#32;don&#39;t&#32;think&#32;you&#32;could&#32;get&#32;an&#32;instance&#32;of&#32;an&#32;IUnityContainer&#32;in&#32;the&#32;IBuilderContext.&#38;nbsp&#59;&#32;It&#32;contains&#32;current&#32;policy&#32;set&#32;and&#32;strategies&#32;that&#32;are&#32;being&#32;executed.&#38;nbsp&#59;&#32;You&#32;may&#32;want&#32;to&#32;check&#32;these&#32;posts&#32;by&#32;Chris&#32;Tavares...&#32;&#32;http&#58;&#47;&#47;www.tavaresstudios.com&#47;Blog&#47;post&#47;Deconstructing-ObjectBuilder---What-Is-ObjectBuilder.aspx&#32;http&#58;&#47;&#47;www.tavaresstudios.com&#47;Blog&#47;&#63;tag&#61;&#47;objectbuilder&#32;&#32;Regarding&#32;your&#32;first&#32;code&#32;sample,&#32;it&#32;may&#32;have&#32;something&#32;to&#32;do&#32;with&#32;your&#32;implementation&#32;inside&#32;the&#32;TestUnityContainer.&#32;&#32;&#32;Sarah&#32;Urmeneta&#32;Global&#32;Technology&#32;&#38;amp&#59;&#32;Solutions&#32;Avanade,&#32;Inc.&#32;entlib.support&#64;avanade.com&#32;&#32;&#32;&#32;&#32;&#32;&#32;">
+        I'm not sure what you're trying to do here but there may be another simpler way to do this.&nbsp; Anyway, I don't think you could get an instance of an IUnityContainer in the IBuilderContext.&nbsp; It contains current policy set and strategies that are
+ being executed.&nbsp; You may want to check these posts by Chris Tavares... <br>
+http://www.tavaresstudios.com/Blog/post/Deconstructing-ObjectBuilder---What-Is-ObjectBuilder.aspx<br>
+http://www.tavaresstudios.com/Blog/?tag=/objectbuilder<br>
+<br>
+Regarding your first code sample, it may have something to do with your implementation inside the TestUnityContainer.<br>
+<br>
+<br>
+<em><strong>Sarah Urmeneta</strong></em><br>
+Global Technology &amp; Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com?subject=Unity Forum Question" rel="nofollow">entlib.support@avanade.com</a><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_140367" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="140419">
+    <td id="PostDetailsCell_140419" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post140419"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/14/2008 6:32:16 PM" LocalTimeTicks="1229308336">Dec 14, 2008 at 6:32 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_140419" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Could&#32;we&#32;back&#32;up&#32;a&#32;little&#32;here&#63;&#32;Rather&#32;than&#32;telling&#32;us&#32;about&#32;the&#32;solution&#32;you&#39;re&#32;trying&#32;to&#32;build,&#32;could&#32;you&#32;tell&#32;us&#32;what&#32;problem&#32;you&#39;re&#32;trying&#32;to&#32;solve&#63;&#32;There&#32;may&#32;be&#32;other&#32;ways&#32;to&#32;approach&#32;it.&#32;&#32;By&#32;the&#32;way,&#32;registering&#32;IUnityContainer&#32;inside&#32;the&#32;container&#32;is&#32;a&#32;bad&#32;idea.&#32;The&#32;current&#32;container&#32;is&#32;automatically&#32;registered&#32;with&#32;itself&#32;as&#32;part&#32;of&#32;supporting&#32;the&#32;new&#32;collection&#32;injection&#32;feature.&#32;Overwriting&#32;that&#32;registration&#32;could&#32;cause&#32;lots&#32;of&#32;things&#32;to&#32;break.&#32;&#32;">
+        Could we back up a little here? Rather than telling us about the solution you're trying to build, could you tell us what problem you're trying to solve? There may be other ways to approach it.<br>
+<br>
+By the way, registering IUnityContainer inside the container is a bad idea. The current container is automatically registered with itself as part of supporting the new collection injection feature. Overwriting that registration could cause lots of things to
+ break.<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_140419" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="140426">
+    <td id="PostDetailsCell_140426" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post140426"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/pbolduc">pbolduc</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/14/2008 7:27:52 PM" LocalTimeTicks="1229311672">Dec 14, 2008 at 7:27 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_140426" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Chris,&#32;&#32;&#32;Could&#32;you&#32;give&#32;some&#32;clarification&#32;this&#32;statement,&#32;By&#32;the&#32;way,&#32;registering&#32;IUnityContainer&#32;inside&#32;the&#32;container&#32;is&#32;a&#32;bad&#32;idea.&#32;The&#32;current&#32;container&#32;is&#32;automatically&#32;registered&#32;with&#32;itself&#32;as&#32;part&#32;of&#32;supporting&#32;the&#32;new&#32;collection&#32;injection&#32;feature.&#32;Overwriting&#32;that&#32;registration&#32;could&#32;cause&#32;lots&#32;of&#32;things&#32;to&#32;break.&#32;Are&#32;you&#32;specifically&#32;talking&#32;about&#32;re-registering&#32;the&#32;type&#32;as&#32;in&#32;examples&#32;above,&#32;container.RegisterType&#38;lt&#59;IUnityContainer,&#32;MyUnityContainerDecorator&#38;gt&#59;&#40;&#41;&#59;&#32;As&#32;opposed&#32;to&#32;registering&#32;the&#32;container&#32;instance&#32;with&#32;itself,&#32;container.RegisterInstance&#38;lt&#59;IUnityContainer&#38;gt&#59;&#40;container&#41;&#59;&#32;&#32;Phil&#32;">
+        Chris, <br>
+<br>
+Could you give some clarification this statement,<br>
+<blockquote><em>By the way, registering IUnityContainer inside the container is a bad idea. The current container is automatically registered with itself as part of supporting the new collection injection feature. Overwriting that registration could cause lots
+ of things to break.</em><br>
+</blockquote>
+Are you specifically talking about re-registering the type as in examples above,<br>
+<blockquote>container.<strong>RegisterType</strong>&lt;IUnityContainer, <em>MyUnityContainerDecorator</em>&gt;();<br>
+</blockquote>
+As opposed to registering the container instance with itself,<br>
+<blockquote>container.<strong>RegisterInstance</strong>&lt;IUnityContainer&gt;(container);
+<br>
+</blockquote>
+Phil 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_140426" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="140437">
+    <td id="PostDetailsCell_140437" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post140437"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/14/2008 9:48:03 PM" LocalTimeTicks="1229320083">Dec 14, 2008 at 9:48 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_140437" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Both,&#32;actually.&#32;&#32;By&#32;default,&#32;the&#32;container&#32;is&#32;registered&#32;with&#32;itself.&#32;As&#32;such,&#32;if&#32;you&#32;reregister&#32;a&#32;different&#32;container,&#32;you&#32;will&#32;most&#32;likely&#32;break&#32;array&#32;resolution.&#32;&#32;In&#32;the&#32;second&#32;case,&#32;you&#39;d&#32;think&#32;that&#32;would&#32;just&#32;be&#32;a&#32;no&#32;op,&#32;but&#32;there&#39;s&#32;a&#32;nasty&#32;little&#32;bug&#32;there.&#32;Calling&#32;RegisterInstance&#32;by&#32;default&#32;uses&#32;the&#32;ContainerControlledLifetimeManager.&#32;As&#32;such,&#32;when&#32;the&#32;container&#32;is&#32;disposed,&#32;it&#39;ll&#32;also&#32;dispose&#32;anything&#32;managed&#32;by&#32;a&#32;ContainerControlledLifetimeManager.&#32;So&#32;when&#32;you&#32;Dispose&#32;the&#32;container,&#32;it&#39;ll&#32;find&#32;itself,&#32;try&#32;to&#32;dispose&#32;itself,&#32;and&#32;round&#32;we&#32;go&#32;until&#32;you&#32;run&#32;out&#32;of&#32;stack&#32;space.&#32;&#32;We&#39;ve&#32;correctly&#32;handled&#32;this&#32;case&#32;under&#32;the&#32;hood,&#32;so&#32;you&#32;don&#39;t&#32;need&#32;to&#32;worry&#32;about&#32;it,&#32;but&#32;if&#32;you&#32;do&#32;it&#32;yourself&#32;all&#32;bets&#32;are&#32;off.&#32;&#32;-Chris&#32;&#32;">
+        Both, actually.<br>
+<br>
+By default, the container is registered with itself. As such, if you reregister a different container, you will most likely break array resolution.<br>
+<br>
+In the second case, you'd think that would just be a no op, but there's a nasty little bug there. Calling RegisterInstance by default uses the ContainerControlledLifetimeManager. As such, when the container is disposed, it'll also dispose anything managed by
+ a ContainerControlledLifetimeManager. So when you Dispose the container, it'll find itself, try to dispose itself, and round we go until you run out of stack space.<br>
+<br>
+We've correctly handled this case under the hood, so you don't need to worry about it, but if you do it yourself all bets are off.<br>
+<br>
+-Chris<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_140437" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="140470">
+    <td id="PostDetailsCell_140470" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post140470"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/pbolduc">pbolduc</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/15/2008 5:17:57 AM" LocalTimeTicks="1229347077">Dec 15, 2008 at 5:17 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_140470" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="In&#32;the&#32;second&#32;case,&#32;you&#39;d&#32;think&#32;that&#32;would&#32;just&#32;be&#32;a&#32;no&#32;op,&#32;but&#32;there&#39;s&#32;a&#32;nasty&#32;little&#32;bug&#32;there.&#32;Calling&#32;RegisterInstance&#32;by&#32;default&#32;uses&#32;the&#32;ContainerControlledLifetimeManager.&#32;As&#32;such,&#32;when&#32;the&#32;container&#32;is&#32;disposed,&#32;it&#39;ll&#32;also&#32;dispose&#32;anything&#32;managed&#32;by&#32;a&#32;ContainerControlledLifetimeManager.&#32;So&#32;when&#32;you&#32;Dispose&#32;the&#32;container,&#32;it&#39;ll&#32;find&#32;itself,&#32;try&#32;to&#32;dispose&#32;itself,&#32;and&#32;round&#32;we&#32;go&#32;until&#32;you&#32;run&#32;out&#32;of&#32;stack&#32;space.&#32;&#32;The&#32;reason&#32;I&#32;asked&#32;the&#32;second&#32;part&#32;of&#32;the&#32;question&#32;is&#32;due&#32;to&#32;the&#32;Composite&#32;WPF&#32;and&#32;Silverlight&#32;project.&#32;In&#32;their&#32;source&#32;Microsoft.Practices.Composite.UnityExtensions.UnityBootstrapper,&#32;they&#32;perform&#32;that&#32;exact&#32;registration&#32;of&#32;the&#32;contain&#32;in&#32;the&#32;container.&#38;nbsp&#59;&#32;I&#32;was&#32;trying&#32;to&#32;determine&#32;if&#32;that&#32;was&#32;something&#32;they&#32;should&#32;be&#32;aware&#32;of&#32;or&#32;it&#32;was&#32;ok.&#32;&#32;protected&#32;virtual&#32;void&#32;ConfigureContainer&#40;&#41;&#32;&#123;&#32;Container.RegisterInstance&#38;lt&#59;ILoggerFacade&#38;gt&#59;&#40;LoggerFacade&#41;&#59;&#32;Container.RegisterInstance&#38;lt&#59;IUnityContainer&#38;gt&#59;&#40;Container&#41;&#59;&#32;Container.AddNewExtension&#38;lt&#59;UnityBootstrapperExtension&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;&#32;">
+        <em>In the second case, you'd think that would just be a no op, but there's a nasty little bug there. Calling RegisterInstance by default uses the ContainerControlledLifetimeManager. As such, when the container is disposed, it'll also dispose anything
+ managed by a ContainerControlledLifetimeManager. So when you Dispose the container, it'll find itself, try to dispose itself, and round we go until you run out of stack space.</em><br>
+<br>
+The reason I asked the second part of the question is due to the <a href="http://www.codeplex.com/CompositeWPF" rel="nofollow">
+Composite WPF and Silverlight</a> project. In their source Microsoft.Practices.Composite.UnityExtensions.UnityBootstrapper, they perform that exact registration of the contain in the container.&nbsp; I was trying to determine if that was something they should
+ be aware of or it was ok.<br>
+<pre>        <span style="color:rgb(0,0,255)">protected</span> <span style="color:rgb(0,0,255)">virtual</span> <span style="color:rgb(0,0,255)">void</span> ConfigureContainer()
+        {
+            Container.RegisterInstance&lt;ILoggerFacade&gt;(LoggerFacade);
+            Container.RegisterInstance&lt;IUnityContainer&gt;(Container);
+            Container.AddNewExtension&lt;UnityBootstrapperExtension&gt;();
+</pre>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_140470" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="140487">
+    <td id="PostDetailsCell_140487" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post140487"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/15/2008 6:45:15 AM" LocalTimeTicks="1229352315">Dec 15, 2008 at 6:45 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_140487" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Actually,&#32;Bob&#32;&#40;the&#32;Prism&#32;dev&#32;lead&#41;&#32;and&#32;I&#32;talked&#32;about&#32;this&#32;last&#32;Wednesday.&#32;They&#39;ve&#32;taken&#32;this&#32;registration&#32;out&#32;of&#32;their&#32;code&#32;for&#32;exactly&#32;the&#32;reasons&#32;I&#32;mention&#32;above.&#32;I&#32;assume&#32;the&#32;change&#32;will&#32;be&#32;in&#32;the&#32;next&#32;drop.&#32;">
+        Actually, Bob (the Prism dev lead) and I talked about this last Wednesday. They've taken this registration out of their code for exactly the reasons I mention above. I assume the change will be in the next drop.<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_140487" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="140693">
+    <td id="PostDetailsCell_140693" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post140693"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/RohanWest">RohanWest</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/15/2008 6:49:43 PM" LocalTimeTicks="1229395783">Dec 15, 2008 at 6:49 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="12/15/2008 6:56:12 PM" LocalTimeTicks="1229396172">Dec 15, 2008 at 6:56 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_140693" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Thanks&#32;for&#32;the&#32;info,&#32;&#32;&#32;Hi&#32;Chris,&#32;here&#32;is&#32;the&#32;original&#32;problem&#32;i&#32;was&#32;trying&#32;to&#32;solve.&#32;&#32;The&#32;original&#32;problem&#32;relates&#32;to&#32;the&#32;root&#32;of&#32;this&#32;discussion.&#32;I&#32;want&#32;to&#32;create&#32;an&#32;object&#32;&#38;quot&#59;RootContainer&#38;quot&#59;&#32;that&#32;contains&#32;an&#32;IUnityContainer,&#32;when&#32;i&#32;build&#32;up&#32;the&#32;&#38;quot&#59;ChildContainer&#38;quot&#59;&#32;i&#32;want&#32;to&#32;automatically&#32;inject&#32;a&#32;child&#32;container,&#32;using&#32;the&#32;CreateChildContainer&#32;method,&#32;each&#32;time&#32;i&#32;see&#32;a&#32;reference&#32;to&#32;an&#32;IUnityContainer,&#32;for&#32;example&#32;in&#32;the&#32;Constructor&#32;of&#32;the&#32;ChildContainer.&#32;&#32;Here&#32;is&#32;how&#32;i&#32;currently&#32;implemented&#32;the&#32;solution,&#32;any&#32;advice&#32;would&#32;be&#32;greatly&#32;appreciated.&#32;&#32;First&#32;of&#32;all&#32;i&#32;started&#32;with&#32;a&#32;new&#32;Strategy&#32;to&#32;intercept&#32;the&#32;build&#32;process&#32;&#32;&#32;public&#32;class&#32;UnityInversionStrategy&#32;&#58;&#32;BuilderStrategy&#123;&#32;public&#32;override&#32;void&#32;PreBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#123;&#32;&#32;&#47;&#47;&#32;Intercept&#32;all&#32;calls&#32;for&#32;creating&#32;IUnityContainers&#32;if&#32;&#40;context.BuildKey.Equals&#40;NamedTypeBuildKey.Make&#38;lt&#59;IUnityContainer&#38;gt&#59;&#40;&#41;&#41;&#41;&#32;&#123;&#32;ILifetimeSupportPolicy&#32;unityContainerLocator&#32;&#61;&#32;context.Policies.Get&#38;lt&#59;ILifetimeSupportPolicy&#38;gt&#59;&#40;context.BuildKey&#41;&#59;&#32;if&#32;&#40;unityContainerLocator&#32;&#33;&#61;&#32;null&#41;&#32;&#123;&#32;IUnityContainer&#32;unityContainer&#32;&#61;&#32;unityContainerLocator.Locate&#38;lt&#59;IUnityContainer&#38;gt&#59;&#40;context&#41;&#59;&#32;if&#32;&#40;unityContainer&#32;&#33;&#61;&#32;null&#41;&#32;&#123;&#32;context.Existing&#32;&#61;&#32;unityContainer.CreateChildContainer&#40;&#41;&#59;&#32;context.BuildComplete&#32;&#61;&#32;true&#59;&#32;&#125;&#32;&#125;&#32;&#125;&#32;&#125;&#125;&#32;&#32;&#32;After&#32;that&#32;i&#32;created&#32;a&#32;new&#32;Policy&#32;to&#32;perform&#32;the&#32;build&#32;up&#32;of&#32;the&#32;previously&#32;registered&#32;IUnityContainer&#32;&#32;&#32;&#32;public&#32;interface&#32;ILifetimeSupportPolicy&#32;&#58;&#32;IBuilderPolicy&#123;&#32;T&#32;Locate&#38;lt&#59;T&#38;gt&#59;&#40;IBuilderContext&#32;context&#41;&#59;&#125;&#32;public&#32;class&#32;LifetimeSupportPolicy&#32;&#58;&#32;ILifetimeSupportPolicy&#123;&#32;public&#32;T&#32;Locate&#38;lt&#59;T&#38;gt&#59;&#40;IBuilderContext&#32;context&#41;&#32;&#123;&#32;&#47;&#47;&#32;Fetch&#32;the&#32;currently&#32;registered&#32;IUnityContainer&#32;from&#32;the&#32;ILifetimePolicy&#32;using&#32;the&#32;LifetimeStrategy&#32;StagedStrategyChain&#38;lt&#59;BuilderStage&#38;gt&#59;&#32;strategyStages&#32;&#61;&#32;new&#32;StagedStrategyChain&#38;lt&#59;BuilderStage&#38;gt&#59;&#40;&#41;&#59;&#32;strategyStages.AddNew&#38;lt&#59;LifetimeStrategy&#38;gt&#59;&#40;BuilderStage.PreCreation&#41;&#59;&#32;return&#32;&#40;T&#41;&#32;strategyStages.MakeStrategyChain&#40;&#41;.ExecuteBuildUp&#40;context&#41;&#59;&#32;&#125;&#125;&#32;&#32;&#32;And&#32;finally&#32;created&#32;the&#32;UnityContainer&#32;Extension&#32;&#32;&#32;public&#32;class&#32;UnityContainerInversionExtension&#32;&#58;&#32;UnityContainerExtension&#123;&#32;protected&#32;override&#32;void&#32;Initialize&#40;&#41;&#32;&#123;&#32;this.Context.Policies.Set&#38;lt&#59;ILifetimeSupportPolicy&#38;gt&#59;&#40;new&#32;LifetimeSupportPolicy&#40;&#41;,&#32;NamedTypeBuildKey.Make&#38;lt&#59;IUnityContainer&#38;gt&#59;&#40;&#41;&#41;&#59;&#32;this.Context.Strategies.AddNew&#38;lt&#59;UnityInversionStrategy&#38;gt&#59;&#40;UnityBuildStage.TypeMapping&#41;&#59;&#32;&#125;&#125;&#32;&#32;">
+        Thanks for the info, <br>
+<br>
+Hi Chris, here is the original problem i was trying to solve.<br>
+<br>
+The original problem relates to the root of this discussion.&nbsp; I want to create an object &quot;RootContainer&quot;&nbsp;that contains an IUnityContainer, when i build up the &quot;ChildContainer&quot; i want to automatically inject a child container, using the CreateChildContainer
+ method,&nbsp; each time i see a reference to an IUnityContainer, for example in the Constructor of the ChildContainer.<br>
+<br>
+Here is how i currently implemented the solution, any advice would be greatly appreciated.<br>
+<br>
+First of all i started with a new Strategy to intercept the build process<br>
+<br>
+<div>
+<pre><span>public</span> <span>class</span> UnityInversionStrategy : BuilderStrategy<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;<span>public</span> <span>override</span> <span>void</span> PreBuildUp(IBuilderContext context)<br>&nbsp;&nbsp;&nbsp;&nbsp;{    <br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Intercept all calls for creating IUnityContainers<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>if</span> (context.BuildKey.Equals(NamedTypeBuildKey.Make&lt;IUnityContainer&gt;()))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ILifetimeSupportPolicy unityContainerLocator = context.Policies.Get&lt;ILifetimeSupportPolicy&gt;(context.BuildKey);<br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if</span> (unityContainerLocator != <span>null</span>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IUnityContainer unityContainer = unityContainerLocator.Locate&lt;IUnityContainer&gt;(context);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>if</span> (unityContainer != <span>null</span>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context.Existing = unityContainer.CreateChildContainer();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context.BuildComplete = <span>true</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}</pre>
+</div>
+<br>
+After that i created a new Policy to perform the build up of the previously registered IUnityContainer
+<br>
+<br>
+<div>
+<pre><span>public</span> <span>interface</span> ILifetimeSupportPolicy : IBuilderPolicy<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;T Locate&lt;T&gt;(IBuilderContext context);<br>}</pre>
+<pre><span>public</span> <span>class</span> LifetimeSupportPolicy : ILifetimeSupportPolicy<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;<span>public</span> T Locate&lt;T&gt;(IBuilderContext context)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Fetch the currently registered IUnityContainer from the ILifetimePolicy using the LifetimeStrategy<br></span>        StagedStrategyChain&lt;BuilderStage&gt; strategyStages = <span>new</span> StagedStrategyChain&lt;BuilderStage&gt;();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;strategyStages.AddNew&lt;LifetimeStrategy&gt;(BuilderStage.PreCreation);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>return</span> (T) strategyStages.MakeStrategyChain().ExecuteBuildUp(context);<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}</pre>
+</div>
+<br>
+And finally created&nbsp;the UnityContainer Extension<br>
+<br>
+<div>
+<pre><span>public</span> <span>class</span> UnityContainerInversionExtension : UnityContainerExtension<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;<span>protected</span> <span>override</span> <span>void</span> Initialize()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this</span>.Context.Policies.Set&lt;ILifetimeSupportPolicy&gt;(<span>new</span> LifetimeSupportPolicy(), NamedTypeBuildKey.Make&lt;IUnityContainer&gt;());<br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this</span>.Context.Strategies.AddNew&lt;UnityInversionStrategy&gt;(UnityBuildStage.TypeMapping);<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}</pre>
+</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_140693" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="149437">
+    <td id="PostDetailsCell_149437" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post149437"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/RussR">RussR</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/21/2009 8:17:10 PM" LocalTimeTicks="1232597830">Jan 21, 2009 at 8:17 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_149437" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="In&#32;the&#32;second&#32;case,&#32;you&#39;d&#32;think&#32;that&#32;would&#32;just&#32;be&#32;a&#32;no&#32;op,&#32;but&#32;there&#39;s&#32;a&#32;nasty&#32;little&#32;bug&#32;there.&#32;Calling&#32;RegisterInstance&#32;by&#32;default&#32;uses&#32;the&#32;ContainerControlledLifetimeManager.&#32;As&#32;such,&#32;when&#32;the&#32;container&#32;is&#32;disposed,&#32;it&#39;ll&#32;also&#32;dispose&#32;anything&#32;managed&#32;by&#32;a&#32;ContainerControlledLifetimeManager.&#32;So&#32;when&#32;you&#32;Dispose&#32;the&#32;container,&#32;it&#39;ll&#32;find&#32;itself,&#32;try&#32;to&#32;dispose&#32;itself,&#32;and&#32;round&#32;we&#32;go&#32;until&#32;you&#32;run&#32;out&#32;of&#32;stack&#32;space.&#32;&#32;We&#39;ve&#32;correctly&#32;handled&#32;this&#32;case&#32;under&#32;the&#32;hood,&#32;so&#32;you&#32;don&#39;t&#32;need&#32;to&#32;worry&#32;about&#32;it,&#32;but&#32;if&#32;you&#32;do&#32;it&#32;yourself&#32;all&#32;bets&#32;are&#32;off.&#32;&#32;Before&#32;reading&#32;this&#32;discussion,&#32;I&#32;had&#32;tried&#32;the&#32;above&#32;and&#32;yes,&#32;stuck&#32;myself&#32;with&#32;a&#32;stack&#32;overflow&#32;exception.&#32;I&#32;am&#32;using&#32;a&#32;child&#32;container&#32;and&#32;resolving&#32;IUnityContainer&#32;&#32;on&#32;the&#32;child&#32;container&#32;gives&#32;me&#32;the&#32;parent&#32;container.&#32;Here&#39;s&#32;test&#32;code&#32;I&#32;wrote&#32;to&#32;prove&#32;it&#32;to&#32;myself&#32;&#32;IUnityContainer&#32;child&#32;&#61;&#32;container.CreateChildContainer&#40;&#41;&#59;&#32;IUnityContainer&#32;resolved&#32;&#61;&#32;child.Resolve&#38;lt&#59;IUnityContainer&#38;gt&#59;&#40;&#41;&#59;&#32;System.Console.WriteLine&#40;&#38;quot&#59;child&#58;&#38;quot&#59;&#32;&#43;&#32;&#40;resolved&#32;&#61;&#61;&#32;child&#41;&#41;&#59;&#32;System.Console.WriteLine&#40;&#38;quot&#59;container&#58;&#38;quot&#59;&#32;&#43;&#32;&#40;resolved&#32;&#61;&#61;&#32;container&#41;&#41;&#59;&#32;&#32;The&#32;results&#32;are&#32;child&#58;False&#32;container&#58;True&#32;&#32;Is&#32;this&#32;a&#32;bug&#32;or&#32;am&#32;I&#32;doing&#32;something&#32;wrong&#63;&#32;Thanks.&#32;&#32;&#32;&#32;&#32;&#38;nbsp&#59;&#32;&#32;">
+        <em>In the second case, you'd think that would just be a no op, but there's a nasty little bug there. Calling RegisterInstance by default uses the ContainerControlledLifetimeManager. As such, when the container is disposed, it'll also dispose anything
+ managed by a ContainerControlledLifetimeManager. So when you Dispose the container, it'll find itself, try to dispose itself, and round we go until you run out of stack space.<br>
+<br>
+We've correctly handled this case under the hood, so you don't need to worry about it, but if you do it yourself all bets are off.<br>
+<br>
+</em>Before reading this discussion, I had tried the above and yes, stuck myself with a stack overflow exception.&nbsp; I am using a child container and resolving IUnityContainer
+<br>
+on the child container gives me the parent container.&nbsp; Here's test code I wrote to prove it to myself<br>
+<br>
+<span style="font-size:13px"><span style="color:#2b91af">IUnityContainer</span> child = container.CreateChildContainer();<br>
+<span style="color:#2b91af">IUnityContainer</span> resolved = child.Resolve&lt;<span style="color:#2b91af">IUnityContainer</span>&gt;();<br>
+System.<span style="color:#2b91af">Console</span>.WriteLine(<span style="color:#a31515">&quot;child:&quot;</span> &#43; (resolved == child));<br>
+System.<span style="color:#2b91af">Console</span>.WriteLine(<span style="color:#a31515">&quot;container:&quot;</span> &#43; (resolved == container));<br>
+</span><br>
+The results are<br>
+child:False<br>
+container:True<br>
+<br>
+Is this a bug or am I doing something wrong?&nbsp; Thanks.<br>
+<br>
+<br>
+<br>
+<span style="font-size:13px"><br>
+<p>&nbsp;</p>
+</span>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_149437" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f41930">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="93d5832d-d29a-4007-a02d-2474a65c0957">
+    <script class="options" defer="defer" id="93d5832d-d29a-4007-a02d-2474a65c0957" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_7159b57b-f51b-4649-94e9-1f9ab0816cf1">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_5690ee99-9d52-4976-b927-2da88b8d43a2">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_7159b57b-f51b-4649-94e9-1f9ab0816cf1" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_5690ee99-9d52-4976-b927-2da88b8d43a2" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/41930';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

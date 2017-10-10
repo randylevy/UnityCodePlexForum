@@ -1,0 +1,943 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - IUnityContainer type not mapped when Unity Versions are different in PRISM based modules</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/239741?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/239741?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="QS6zkiI5VBsgKKfEB6e8W8rMRjKnTNwpg4KoimeSE-VG9YqUsdpTtZ6V1pbLzDIWYm73jptS3kRjoBBpWnKdqaMAWQko-4B0N60Jlya_TtMIdNPcL0mRm78figjQaGRbJocufg2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2e4182dc5-f53e-43fd-a378-ecddc80e8b96" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:26:58 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f239741" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="9da5dec5-28b1-4c0c-97d5-1b0e5198e9d8">
+                
+                    <script class="options" defer="defer" id="9da5dec5-28b1-4c0c-97d5-1b0e5198e9d8" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="7c60ae8c-fd40-4365-ac6f-23a116654ec1">
+                
+                    <script class="options" defer="defer" id="7c60ae8c-fd40-4365-ac6f-23a116654ec1" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                IUnityContainer type not mapped when Unity Versions are different in PRISM based modules
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:239741]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="5eb74775-0955-41e9-ad4b-7a99314bab37">
+    <script class="options" defer="defer" id="5eb74775-0955-41e9-ad4b-7a99314bab37" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/239741","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="541110">
+    <td id="PostDetailsCell_541110" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post541110"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ermadhan">ermadhan</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/28/2010 9:22:41 AM" LocalTimeTicks="1293556961">Dec 28, 2010 at 9:22 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_541110" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;&#32;Hi,&#32;I&#32;am&#32;currently&#32;working&#32;on&#32;problem&#32;which&#32;is&#32;related&#32;to&#32;different&#32;version&#32;of&#32;PRISM&#32;used&#32;for&#32;Shell&#32;and&#32;a&#32;Module.&#32;I&#32;created&#32;a&#32;module&#32;which&#32;uses&#32;PRISM&#32;2.1.&#32;I&#32;am&#32;trying&#32;to&#32;load&#32;this&#32;module&#32;into&#32;a&#32;PRISM&#32;Shell&#32;which&#32;uses&#32;PRISM&#32;2.2.&#32;In&#32;my&#32;module,&#32;I&#32;am&#32;having&#32;constructor&#32;which&#32;accepts&#32;IUnityContainer&#32;as&#32;parameter.&#32;PRISM&#32;2.1&#32;uses&#32;Unity&#32;Framework&#32;1.2&#32;and&#32;PRISM&#32;2.2&#32;used&#32;Unity&#32;Framework&#32;2.0.&#32;When&#32;I&#32;tried&#32;to&#32;load&#32;the&#32;module,&#32;following&#32;error&#32;message&#32;is&#32;thrown&#32;and&#32;module&#32;load&#32;fails.&#32;&#38;quot&#59;The&#32;current&#32;type,&#32;Microsoft.Practices.Unity.IUnityContainer,&#32;is&#32;an&#32;interface&#32;and&#32;cannot&#32;be&#32;constructed.&#32;Are&#32;you&#32;missing&#32;a&#32;type&#32;mapping&#63;&#38;quot&#59;&#32;When&#32;I&#32;checked&#32;on&#32;the&#32;loaded&#32;modules&#32;in&#32;debug&#32;mode,&#32;I&#32;am&#32;able&#32;to&#32;see&#32;both&#32;versions&#32;of&#32;Unity&#32;Framework&#32;assemblies&#32;are&#32;loaded&#32;in&#32;memory.&#32;Any&#32;one&#32;has&#32;faced&#32;this&#32;problem&#32;before&#63;&#32;Regards,&#32;Madhan&#32;&#32;">
+        
+<div id="ctl00_ctl00_MasterContent_Content_PostRepeater_ctl00_BodyDiv">
+<p>Hi,</p>
+<p>I am currently working on problem which is related to different version of PRISM used for Shell and a Module. I created a module which uses PRISM 2.1. I am trying to load this module into a PRISM Shell which uses PRISM 2.2. In my module, I am having constructor
+ which accepts IUnityContainer as parameter. PRISM 2.1 uses Unity Framework 1.2 and PRISM 2.2 used Unity Framework 2.0.</p>
+<p>When I tried to load the module, following error message is thrown and module load fails.</p>
+<p>&quot;The current type, Microsoft.Practices.Unity.IUnityContainer, is an interface and cannot be constructed. Are you missing a type mapping?&quot;</p>
+<p>When I checked on the loaded modules in debug mode, I am able to see both versions of Unity Framework assemblies are loaded in memory.</p>
+<p>Any one has faced this problem before?</p>
+<p>Regards,</p>
+<p>Madhan</p>
+</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_541110" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="542267">
+    <td id="PostDetailsCell_542267" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post542267"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/30/2010 6:20:40 PM" LocalTimeTicks="1293762040">Dec 30, 2010 at 6:20 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_542267" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;The&#32;CLR&#32;treats&#32;types&#32;loaded&#32;from&#32;different&#32;assemblies&#32;as&#32;different&#32;types,&#32;even&#32;if&#32;they&#32;have&#32;the&#32;same&#32;name.&#32;Have&#32;you&#32;asked&#32;this&#32;question&#32;on&#32;the&#32;Prism&#32;forums&#63;&#32;There&#39;s&#32;probably&#32;some&#32;people&#32;with&#32;experience&#32;about&#32;this&#32;over&#32;there,&#32;but&#32;I&#32;expect&#32;the&#32;answer&#32;is&#32;going&#32;to&#32;be&#32;&#38;quot&#59;keep&#32;the&#32;versions&#32;the&#32;same.&#38;quot&#59;&#32;&#38;nbsp&#59;&#32;">
+        
+<p>The CLR treats types loaded from different assemblies as different types, even if they have the same name. Have you asked this question on the Prism forums? There's probably some people with experience about this over there, but I expect the answer is going
+ to be &quot;keep the versions the same.&quot;</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_542267" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="543076">
+    <td id="PostDetailsCell_543076" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post543076"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ermadhan">ermadhan</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/3/2011 8:24:36 AM" LocalTimeTicks="1294071876">Jan 3, 2011 at 8:24 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="1/3/2011 11:08:33 AM" LocalTimeTicks="1294081713">Jan 3, 2011 at 11:08 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_543076" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Thanks&#32;for&#32;the&#32;response.&#32;I&#32;did&#32;some&#32;more&#32;digging&#32;into&#32;the&#32;way&#32;Silverlight&#32;CLR&#32;behaves&#32;when&#32;multiple&#32;versions&#32;of&#32;assemblies&#32;are&#32;loaded.&#32;I&#32;realized&#32;that&#32;since&#32;Unity&#32;assembly&#32;name&#32;is&#32;different&#32;between&#32;1.2&#32;and&#32;2.0,&#32;both&#32;the&#32;assemblies&#32;are&#32;loaded&#32;into&#32;Silverlight&#32;application&#32;but&#32;cannot&#32;resolve&#32;to&#32;correct&#32;interface&#32;type&#32;since&#32;shell&#32;created&#32;container&#32;and&#32;module&#32;expected&#32;container&#32;are&#32;different&#32;types&#32;since&#32;both&#32;are&#32;from&#32;different&#32;assemblies.&#32;This&#32;is&#32;the&#32;problem&#32;we&#32;are&#32;facing&#32;now&#32;and&#32;I&#32;see&#32;no&#32;technical&#32;solution&#32;for&#32;this&#32;problem&#32;other&#32;than&#32;using&#32;the&#32;same&#32;version&#32;of&#32;PRISM&#32;for&#32;both&#32;Shell&#32;and&#32;Module.&#32;I&#32;already&#32;discussed&#32;this&#32;item&#32;in&#32;PRISM&#32;forum&#32;and&#32;got&#32;suggestion&#32;to&#32;use&#32;same&#32;PRISM&#32;version&#32;for&#32;both&#32;Shell&#32;and&#32;module.&#32;http&#58;&#47;&#47;compositewpf.codeplex.com&#47;Thread&#47;View.aspx&#63;ThreadId&#61;239358&#32;Once&#32;concern&#32;with&#32;repeated&#32;change&#32;in&#32;name&#32;of&#32;the&#32;assembly&#32;or&#32;namespace&#32;impacts&#32;developing&#32;an&#32;Enterprise&#32;Platform&#32;using&#32;PRISM&#32;or&#32;Unity&#32;framework.&#38;nbsp&#59;&#32;We&#32;request&#32;for&#32;keeping&#32;the&#32;namespace&#32;and&#32;assembly&#32;names&#32;stable&#32;for&#32;upcoming&#32;releases&#32;of&#32;Unity&#32;and&#32;PRISM.&#32;Regards,&#32;Madhan&#32;">
+        
+<p>Thanks for the response. I did some more digging into the way Silverlight CLR behaves when multiple versions of assemblies are loaded. I realized that since Unity assembly name is different between 1.2 and 2.0, both the assemblies are loaded into Silverlight
+ application but cannot resolve to correct interface type since shell created container and module expected container are different types since both are from different assemblies. This is the problem we are facing now and I see no technical solution for this
+ problem other than using the same version of PRISM for both Shell and Module.</p>
+<p>I already discussed this item in PRISM forum and got suggestion to use same PRISM version for both Shell and module.</p>
+<p>http://compositewpf.codeplex.com/Thread/View.aspx?ThreadId=239358</p>
+<p>Once concern with repeated change in name of the assembly or namespace impacts developing an Enterprise Platform using PRISM or Unity framework.&nbsp; We request for keeping the namespace and assembly names stable for upcoming releases of Unity and PRISM.</p>
+<p>Regards,</p>
+<p>Madhan</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_543076" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="543111">
+    <td id="PostDetailsCell_543111" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post543111"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ermadhan">ermadhan</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/3/2011 11:06:28 AM" LocalTimeTicks="1294081588">Jan 3, 2011 at 11:06 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_543111" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#32;did&#32;some&#32;more&#32;exploration&#32;of&#32;how&#32;loading&#32;of&#32;multiple&#32;version&#32;of&#32;assemblies&#32;works&#32;in&#32;Silverlight.&#32;Following&#32;are&#32;my&#32;observations.&#32;&#32;i&#41;&#32;Only&#32;one&#32;version&#32;of&#32;an&#32;assembly&#32;can&#32;exist&#32;in&#32;a&#32;Silverlight&#32;Application&#32;ii&#41;&#32;Loading&#32;multiple&#32;versions&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;a.&#32;Older&#40;1.0.0.0&#41;&#32;First&#32;and&#32;Latest&#40;2.0.0.0&#41;&#32;next&#58;&#32;If&#32;older&#32;version&#32;of&#32;assembly&#32;is&#32;loaded&#32;and&#32;then&#32;newer&#32;version&#32;is&#32;loaded,&#32;exception&#32;will&#32;be&#32;thrown&#32;by&#32;Silverlight&#32;Runtime.&#32;Whole&#32;application&#32;will&#32;crash.&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;b.&#32;Latest&#32;first&#32;and&#32;older&#32;next&#32;&#40;no&#32;breaking&#32;change&#32;in&#32;latest&#32;assembly&#41;&#58;&#32;If&#32;newer&#32;version&#32;of&#32;assembly&#32;is&#32;loaded&#32;and&#32;then&#32;older&#32;version&#32;of&#32;assembly&#32;is&#32;loaded,&#32;older&#32;version&#32;of&#32;assembly&#32;will&#32;not&#32;be&#32;loaded&#32;and&#32;no&#32;exception&#32;will&#32;occur.&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;c.&#38;nbsp&#59;&#32;Latest&#32;first&#32;and&#32;older&#32;next&#32;&#40;breaking&#32;change&#32;in&#32;latest&#32;assembly&#41;&#58;&#32;If&#32;newer&#32;version&#32;of&#32;assembly&#32;is&#32;loaded&#32;and&#32;then&#32;older&#32;version&#32;of&#32;assembly&#32;is&#32;loaded,&#32;exception&#32;will&#32;occur&#32;since&#32;in&#32;case&#32;of&#32;breaking&#32;changes&#32;in&#32;latest&#32;version&#32;assembly.&#32;Is&#32;my&#32;observation&#32;valid&#63;&#32;Any&#32;comments&#63;&#32;My&#32;previous&#32;posting&#32;conclusion&#32;is&#32;based&#32;on&#32;this&#32;findings.&#32;Regards,&#32;Madhan&#32;">
+        
+<p>I did some more exploration of how loading of multiple version of assemblies works in Silverlight. Following are my observations.<br>
+<br>
+i) Only one version of an assembly can exist in a Silverlight Application<br>
+ii) Loading multiple versions<br>
+&nbsp;&nbsp;&nbsp; a. Older(1.0.0.0) First and Latest(2.0.0.0) next: If older version of assembly is loaded and then newer version is loaded, exception will be thrown by Silverlight Runtime. Whole application will crash.<br>
+&nbsp;&nbsp;&nbsp; b. Latest first and older next (no breaking change in latest assembly): If newer version of assembly is loaded and then older version of assembly is loaded, older version of assembly will not be loaded and no exception will occur.<br>
+&nbsp;&nbsp;&nbsp; c.&nbsp; Latest first and older next (breaking change in latest assembly): If newer version of assembly is loaded and then older version of assembly is loaded, exception will occur since in case of breaking changes in latest version assembly.</p>
+<p>Is my observation valid? Any comments?</p>
+<p>My previous posting conclusion is based on this findings.</p>
+<p>Regards,</p>
+<p>Madhan</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_543111" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="543841">
+    <td id="PostDetailsCell_543841" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post543841"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/4/2011 5:22:11 PM" LocalTimeTicks="1294190531">Jan 4, 2011 at 5:22 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_543841" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Keeping&#32;the&#32;assembly&#32;version&#32;number&#32;the&#32;same&#32;despite&#32;there&#32;being&#32;changes&#32;will&#32;break&#32;a&#32;lot&#32;more&#32;than&#32;it&#39;ll&#32;help&#32;you.&#32;There&#32;are&#32;breaking&#32;changes&#32;in&#32;interfaces&#32;from&#32;Unity&#32;1.2&#32;to&#32;2.0.&#32;Would&#32;you&#32;rather&#32;be&#32;debugging&#32;&#38;quot&#59;Cannot&#32;load&#32;version&#32;xxx&#38;quot&#59;&#32;or&#32;&#38;quot&#59;Missing&#32;method&#38;quot&#59;&#32;exceptions&#63;&#32;If&#32;you&#32;really&#32;want&#32;the&#32;same&#32;version&#32;numbers,&#32;since&#32;Unity&#32;and&#32;Prism&#32;both&#32;ship&#32;full&#32;source,&#32;your&#32;best&#32;bet&#32;is&#32;probably&#32;to&#32;recompile&#32;them&#32;both&#32;with&#32;a&#32;known,&#32;fixed&#32;version&#32;&#35;&#32;and&#32;assembly&#32;names.&#32;Then&#32;when&#32;new&#32;versions&#32;come&#32;out&#32;recompile&#32;with&#32;that&#32;same&#32;version&#32;&#35;&#32;&#47;&#32;assembly&#32;name.&#32;At&#32;least&#32;that&#39;ll&#32;trick&#32;things&#32;into&#32;loading,&#32;but&#32;you&#39;ll&#32;probably&#32;still&#32;have&#32;issues.&#32;This&#32;is&#32;an&#32;open&#32;question&#32;in&#32;the&#32;.NET&#32;world.&#32;MEF&#32;is&#32;trying&#32;to&#32;address&#32;some&#32;of&#32;this.&#32;the&#32;older&#32;Managed&#32;Addin&#32;Framework&#32;&#40;MAF&#41;&#32;was&#32;also&#32;an&#32;attempt,&#32;but&#32;ended&#32;up&#32;so&#32;complicated&#32;it&#32;wasn&#39;t&#32;usable&#32;even&#32;by&#32;experts.&#32;&#38;nbsp&#59;&#32;">
+        
+<p>Keeping the assembly version number the same despite there being changes will break a lot more than it'll help you. There are breaking changes in interfaces from Unity 1.2 to 2.0. Would you rather be debugging &quot;Cannot load version xxx&quot; or &quot;Missing
+ method&quot; exceptions?</p>
+<p>If you really want the same version numbers, since Unity and Prism both ship full source, your best bet is probably to recompile them both with a known, fixed version # and assembly names. Then when new versions come out recompile with that same version
+ # / assembly name. At least that'll trick things into loading, but you'll probably still have issues.</p>
+<p>This is an open question in the .NET world. MEF is trying to address some of this. the older Managed Addin Framework (MAF) was also an attempt, but ended up so complicated it wasn't usable even by experts.</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_543841" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="544287">
+    <td id="PostDetailsCell_544287" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post544287"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ermadhan">ermadhan</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/5/2011 1:00:46 PM" LocalTimeTicks="1294261246">Jan 5, 2011 at 1:00 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_544287" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#32;am&#32;not&#32;suggesting&#32;to&#32;keep&#32;the&#32;version&#32;number&#32;same.&#32;I&#32;am&#32;suggesting&#32;to&#32;keep&#32;the&#32;assembly&#32;name&#32;and&#32;namespace&#32;as&#32;stable&#32;as&#32;much&#32;as&#32;possible.&#32;Hope&#32;I&#32;am&#32;clear&#32;with&#32;my&#32;suggestion.&#32;We&#32;are&#32;thinking&#32;in&#32;the&#32;same&#32;line&#32;as&#32;maintaining&#32;the&#32;PRISM&#32;and&#32;Unity&#32;code&#32;on&#32;our&#32;own.&#32;But&#32;definetly&#32;adds&#32;overhead&#32;for&#32;us.&#38;nbsp&#59;&#32;I&#32;will&#32;share&#32;more&#32;lessons&#32;learned&#32;once&#32;we&#32;solve&#32;this&#32;problem.&#32;Regards,&#32;Madhan&#32;">
+        
+<p>I am not suggesting to keep the version number same. I am suggesting to keep the assembly name and namespace as stable as much as possible. Hope I am clear with my suggestion. We are thinking in the same line as maintaining the PRISM and Unity code on our
+ own. But definetly adds overhead for us.&nbsp; I will share more lessons learned once we solve this problem.</p>
+<p>Regards,</p>
+<p>Madhan</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_544287" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="544417">
+    <td id="PostDetailsCell_544417" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post544417"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/5/2011 4:49:29 PM" LocalTimeTicks="1294274969">Jan 5, 2011 at 4:49 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_544417" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;The&#32;version&#32;number&#32;is&#32;part&#32;of&#32;the&#32;assembly&#32;name.&#32;If&#32;you&#32;change&#32;that,&#32;you&#32;change&#32;everything&#32;else.&#32;We&#39;re&#32;not&#32;planning&#32;on&#32;changing&#32;the&#32;name&#32;part&#32;of&#32;the&#32;assembly&#32;name&#32;or&#32;the&#32;namespace.&#32;Some&#32;of&#32;the&#32;internal&#32;stuff&#32;might&#32;move&#32;around,&#32;but&#32;the&#32;core&#32;stuff&#32;will&#32;be&#32;staying&#32;where&#32;it&#32;is.&#32;&#38;nbsp&#59;&#32;">
+        
+<p>The version number is part of the assembly name. If you change that, you change everything else.</p>
+<p>We're not planning on changing the name part of the assembly name or the namespace. Some of the internal stuff might move around, but the core stuff will be staying where it is.</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_544417" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="546614">
+    <td id="PostDetailsCell_546614" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post546614"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ermadhan">ermadhan</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/10/2011 12:15:50 PM" LocalTimeTicks="1294690550">Jan 10, 2011 at 12:15 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_546614" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Agreed.&#32;The&#32;problem&#32;I&#32;am&#32;facing&#32;is&#32;due&#32;to&#32;the&#32;change&#32;in&#32;Assembly&#32;name&#32;for&#32;Silverlight&#32;Unity.&#32;This&#32;is&#32;creating&#32;problem&#32;for&#32;me&#32;in&#32;handling&#32;the&#32;multiple&#32;version&#32;scenario.&#32;Regards,&#32;Madhan&#32;">
+        
+<p>Agreed.</p>
+<p>The problem I am facing is due to the change in Assembly name for Silverlight Unity. This is creating problem for me in handling the multiple version scenario.</p>
+<p>Regards,</p>
+<p>Madhan</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_546614" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="547058">
+    <td id="PostDetailsCell_547058" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post547058"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/11/2011 2:27:56 AM" LocalTimeTicks="1294741676">Jan 11, 2011 at 2:27 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_547058" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;We&#32;changed&#32;the&#32;assembly&#32;name&#32;in&#32;Unity&#32;2.0&#32;due&#32;to&#32;difficulties&#32;people&#32;were&#32;having&#32;keeping&#32;the&#32;desktop&#32;and&#32;Silverlight&#32;versions&#32;straight.&#32;We&#32;most&#32;likely&#32;won&#39;t&#32;change&#32;the&#32;names&#32;again.&#32;&#38;nbsp&#59;&#32;">
+        
+<p>We changed the assembly name in Unity 2.0 due to difficulties people were having keeping the desktop and Silverlight versions straight. We most likely won't change the names again.</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_547058" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="548094">
+    <td id="PostDetailsCell_548094" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post548094"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ermadhan">ermadhan</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/12/2011 4:02:24 PM" LocalTimeTicks="1294876944">Jan 12, 2011 at 4:02 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_548094" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Thanks&#32;for&#32;the&#32;support&#32;provided&#32;for&#32;this&#32;issue.&#32;Regards,&#32;Madhan&#32;">
+        
+<p>Thanks for the support provided for this issue.</p>
+<p>Regards,</p>
+<p>Madhan</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_548094" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f239741">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="560645f4-f9a5-4f6c-b426-f234e915fc30">
+    <script class="options" defer="defer" id="560645f4-f9a5-4f6c-b426-f234e915fc30" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_7423804b-f229-4a20-bb75-02ef92a0dba6">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_138e75e8-3dbf-4034-9539-8b61672d66cd">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_7423804b-f229-4a20-bb75-02ef92a0dba6" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_138e75e8-3dbf-4034-9539-8b61672d66cd" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/239741';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

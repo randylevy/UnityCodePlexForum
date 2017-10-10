@@ -1,0 +1,1325 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Design-time &#40;declarative&#41; configuration vs run-time configuration</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/278448?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/278448?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="HtDo7VfEV69LOrqDH5ouxwCuo6Lt1XuccSwxDu03FTW2dt55X0DEwwMR0VKONcUhnCvpaS8iguPsykeSIcjj2esI0tS78Tz8iQ_fGfYaCv_WAysJb5DtSf1RZX_A_U3OvjhZxQ2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken24e7ae345-a624-4e5f-8c70-9114d30319cc" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:26:26 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f278448" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="7d008649-113d-4056-9c93-f4c7a8ba071d">
+                
+                    <script class="options" defer="defer" id="7d008649-113d-4056-9c93-f4c7a8ba071d" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="f451e344-0955-406a-bc17-ad08706f3123">
+                
+                    <script class="options" defer="defer" id="f451e344-0955-406a-bc17-ad08706f3123" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Design-time &#40;declarative&#41; configuration vs run-time configuration
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:278448]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="8c0093f5-3d35-4e0b-a6c9-832b49989195">
+    <script class="options" defer="defer" id="8c0093f5-3d35-4e0b-a6c9-832b49989195" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/278448","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="694286">
+    <td id="PostDetailsCell_694286" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post694286"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/cb55555">cb55555</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/5/2011 5:15:55 PM" LocalTimeTicks="1320538555">Nov 5, 2011 at 5:15 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_694286" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#39;m&#32;trying&#32;to&#32;avoid&#32;using&#32;attributes,&#32;but&#32;I&#32;have&#32;a&#32;need&#32;apply&#32;a&#32;dependency&#32;attribute&#32;to&#32;an&#32;injected&#32;constructor&#32;parameter.&#32;I&#39;ve&#32;achieved&#32;this&#32;through&#32;using&#32;a&#32;configuration&#32;file&#32;like&#32;so&#32;&#40;using&#32;a&#32;StocksTicker&#32;lab&#32;example&#41;&#58;&#32;&#32;&#32;&#38;lt&#59;container&#38;gt&#59;&#32;&#38;lt&#59;register&#32;name&#61;&#38;quot&#59;Console&#38;quot&#59;&#32;type&#61;&#38;quot&#59;ILogger&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;ConsoleLogger&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;register&#32;name&#61;&#38;quot&#59;UI&#38;quot&#59;&#32;type&#61;&#38;quot&#59;ILogger&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;TraceSourceLogger&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;lifetime&#32;type&#61;&#38;quot&#59;singleton&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;traceSourceName&#38;quot&#59;&#32;value&#61;&#38;quot&#59;UI&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#32;&#38;lt&#59;&#47;register&#38;gt&#59;&#32;&#38;lt&#59;register&#32;type&#61;&#38;quot&#59;IStocksTickerView&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;StocksTickerForm&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;register&#32;type&#61;&#38;quot&#59;IStockQuoteService&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;RandomStockQuoteService&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;logger&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;dependency&#32;name&#61;&#38;quot&#59;Console&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#32;&#38;lt&#59;&#47;register&#38;gt&#59;&#32;&#38;lt&#59;register&#32;type&#61;&#38;quot&#59;StocksTickerPresenter&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;view&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;stockQuoteService&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;logger&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;dependency&#32;name&#61;&#38;quot&#59;UI&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#32;&#38;lt&#59;&#47;register&#38;gt&#59;&#32;&#38;lt&#59;&#47;container&#38;gt&#59;&#32;&#32;&#32;You&#32;can&#32;see&#32;that&#32;there&#32;are&#32;two&#32;loggers&#32;registered&#32;using&#32;different&#32;names&#32;&#40;ConsoleLogger&#32;and&#32;TraceSourceLogger&#32;registered&#32;with&#32;the&#32;names&#32;&#38;quot&#59;Console&#38;quot&#59;&#32;and&#32;&#38;quot&#59;UI&#38;quot&#59;&#32;respectively&#41;.&#32;The&#32;RandomStockQuoteService&#32;needs&#32;an&#32;instance&#32;of&#32;the&#32;logger&#32;registered&#32;as&#32;&#38;quot&#59;Console&#38;quot&#59;&#32;injected&#32;into&#32;the&#32;constructor.&#32;The&#32;StocksTickerPresenter&#32;needs&#32;an&#32;instance&#32;of&#32;the&#32;logger&#32;registered&#32;as&#32;&#38;quot&#59;UI&#38;quot&#59;&#32;injected&#32;into&#32;the&#32;constructor&#32;as&#32;well&#32;as&#32;an&#32;instance&#32;of&#32;IStockQuoteService,&#32;which&#32;in&#32;this&#32;case&#32;is&#32;the&#32;RandomStockQuoteService.&#32;Now&#32;this&#32;works&#32;beautifully&#32;using&#32;the&#32;configuration&#32;file,&#32;but&#32;I&#32;haven&#39;t&#32;been&#32;able&#32;to&#32;figure&#32;out&#32;how&#32;to&#32;achieve&#32;the&#32;same&#32;named&#38;nbsp&#59;type&#32;mappings&#32;and&#32;dependencies&#32;at&#32;run-time&#32;using&#32;RegisterType&#47;RegisterInstance.&#32;">
+        
+<p>I'm trying to avoid using attributes, but I have a need apply a dependency attribute to an injected constructor parameter.</p>
+<p>I've achieved this through using a configuration file like so (using a StocksTicker lab example):</p>
+<div style="color:black; background-color:white">
+<pre>    <span style="color:blue">&lt;</span><span style="color:#a31515">container</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Console</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ILogger</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ConsoleLogger</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">UI</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ILogger</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">TraceSourceLogger</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">lifetime</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">singleton</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+          <span style="color:blue">&lt;</span><span style="color:#a31515">param</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">traceSourceName</span><span style="color:black">&quot;</span> <span style="color:red">value</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">UI</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+        <span style="color:blue">&lt;/</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;/</span><span style="color:#a31515">register</span><span style="color:blue">&gt;</span>      
+      <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">IStocksTickerView</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">StocksTickerForm</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">IStockQuoteService</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">RandomStockQuoteService</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+          <span style="color:blue">&lt;</span><span style="color:#a31515">param</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">logger</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+            <span style="color:blue">&lt;</span><span style="color:#a31515">dependency</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Console</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+          <span style="color:blue">&lt;/</span><span style="color:#a31515">param</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;/</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;/</span><span style="color:#a31515">register</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">StocksTickerPresenter</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+          <span style="color:blue">&lt;</span><span style="color:#a31515">param</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">view</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+          <span style="color:blue">&lt;</span><span style="color:#a31515">param</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">stockQuoteService</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+          <span style="color:blue">&lt;</span><span style="color:#a31515">param</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">logger</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+            <span style="color:blue">&lt;</span><span style="color:#a31515">dependency</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">UI</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+          <span style="color:blue">&lt;/</span><span style="color:#a31515">param</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;/</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;/</span><span style="color:#a31515">register</span><span style="color:blue">&gt;</span>
+    <span style="color:blue">&lt;/</span><span style="color:#a31515">container</span><span style="color:blue">&gt;</span>
+</pre>
+</div>
+<p>You can see that there are two loggers registered using different names (ConsoleLogger and TraceSourceLogger registered with the names &quot;Console&quot; and &quot;UI&quot; respectively). The RandomStockQuoteService needs an instance of the logger registered
+ as &quot;Console&quot; injected into the constructor. The StocksTickerPresenter needs an instance of the logger registered as &quot;UI&quot; injected into the constructor as well as an instance of IStockQuoteService, which in this case is the RandomStockQuoteService.</p>
+<p>Now this works beautifully using the configuration file, but I haven't been able to figure out how to achieve the same named&nbsp;type mappings and dependencies at run-time using RegisterType/RegisterInstance.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_694286" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="694308">
+    <td id="PostDetailsCell_694308" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post694308"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/5/2011 8:10:44 PM" LocalTimeTicks="1320549044">Nov 5, 2011 at 8:10 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="11/6/2011 4:04:04 AM" LocalTimeTicks="1320581044">Nov 6, 2011 at 4:04 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_694308" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;think&#32;this&#32;should&#32;do&#32;what&#32;you&#32;want&#32;in&#32;C&#35;&#58;&#32;&#32;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;ILogger,&#32;TraceSourceLogger&#38;gt&#59;&#40;&#34;Trace&#34;,&#32;new&#32;ContainerControlledLifetimeManager&#40;&#41;,&#32;new&#32;InjectionConstructor&#40;&#34;UI&#34;&#41;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;ILogger,&#32;ConsoleLogger&#38;gt&#59;&#40;&#34;Console&#34;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;IStocksTickerView,&#32;StocksTickerForm&#38;gt&#59;&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;IStockQuoteService,&#32;RandomStockQuoteService&#38;gt&#59;&#40;&#32;new&#32;InjectionConstructor&#40;&#32;container.Resolve&#38;lt&#59;ILogger&#38;gt&#59;&#40;&#34;Console&#34;&#41;&#32;&#41;&#32;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;StocksTickerPresenter&#38;gt&#59;&#40;&#32;new&#32;InjectionConstructor&#40;&#32;container.Resolve&#38;lt&#59;IStocksTickerView&#38;gt&#59;&#40;&#41;,&#32;container.Resolve&#38;lt&#59;IStockQuoteService&#38;gt&#59;&#40;&#41;,&#32;container.Resolve&#38;lt&#59;ILogger&#38;gt&#59;&#40;&#34;Trace&#34;&#41;&#32;&#41;&#32;&#41;&#59;&#32;var&#32;presenter&#32;&#61;&#32;container.Resolve&#38;lt&#59;StocksTickerPresenter&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;&#32;&#32;&#32;&#32;&#32;--&#32;&#32;Randy&#32;Levy&#32;Enterprise&#32;Library&#32;support&#32;engineer&#32;entlib.support&#64;live.com">
+        
+<p>I think this should do what you want in C#:</p>
+<p></p>
+<div style="color:black; background-color:white">
+<pre>IUnityContainer container = <span style="color:blue">new</span> UnityContainer();
+
+container.RegisterType&lt;ILogger, TraceSourceLogger&gt;(<span style="color:#a31515">&quot;Trace&quot;</span>, 
+    <span style="color:blue">new</span> ContainerControlledLifetimeManager(), 
+    <span style="color:blue">new</span> InjectionConstructor(<span style="color:#a31515">&quot;UI&quot;</span>));
+
+container.RegisterType&lt;ILogger, ConsoleLogger&gt;(<span style="color:#a31515">&quot;Console&quot;</span>);
+
+container.RegisterType&lt;IStocksTickerView, StocksTickerForm&gt;();
+
+container.RegisterType&lt;IStockQuoteService, RandomStockQuoteService&gt;(
+    <span style="color:blue">new</span> InjectionConstructor(
+        container.Resolve&lt;ILogger&gt;(<span style="color:#a31515">&quot;Console&quot;</span>)
+    )
+);
+
+container.RegisterType&lt;StocksTickerPresenter&gt;(
+    <span style="color:blue">new</span> InjectionConstructor(
+            container.Resolve&lt;IStocksTickerView&gt;(),
+            container.Resolve&lt;IStockQuoteService&gt;(),
+            container.Resolve&lt;ILogger&gt;(<span style="color:#a31515">&quot;Trace&quot;</span>)
+    )
+);
+
+<span style="color:blue">var</span> presenter = container.Resolve&lt;StocksTickerPresenter&gt;();</pre>
+</div>
+<p></p>
+<div style="color:black; background-color:white">
+<pre>
+</pre>
+</div>
+<p>-- <br>
+Randy Levy<br>
+Enterprise Library support engineer<br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">entlib.support@live.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_694308" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="694323">
+    <td id="PostDetailsCell_694323" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post694323"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/cb55555">cb55555</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/5/2011 9:28:48 PM" LocalTimeTicks="1320553728">Nov 5, 2011 at 9:28 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="11/5/2011 10:03:24 PM" LocalTimeTicks="1320555804">Nov 5, 2011 at 10:03 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_694323" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Thanks,&#32;Randy&#33;&#32;I&#39;ll&#32;give&#32;it&#32;a&#32;try.&#32;BTW,&#32;what&#32;does&#32;the&#38;nbsp&#59;method&#32;call&#38;nbsp&#59;containter.RegisterType&#40;&#41;&#32;&#40;no&#32;arguments&#41;&#32;do&#63;&#32;Edit&#58;&#32;Nevermind&#32;about&#32;the&#32;last&#32;question.&#32;I&#32;see&#32;that&#32;your&#32;code&#32;is&#32;pseudo&#32;code&#32;since&#32;you&#32;omitted&#32;the&#32;type&#32;parameters&#32;from&#32;the&#32;method&#32;calls.&#32;So,&#32;is&#32;this&#32;what&#39;s&#32;happening&#32;behind&#32;the&#32;scenes&#32;when&#32;the&#32;UnityContainer&#32;uses&#32;the&#32;configuration&#32;file&#32;to&#32;do&#32;type&#32;mapping&#63;&#32;It&#32;seems&#32;like&#32;using&#32;the&#32;InjectionConstructor&#40;&#41;&#32;along&#32;with&#32;Resolve&#40;&#41;&#32;in&#32;the&#32;calls&#32;to&#32;RegisterType&#40;&#41;&#32;is&#32;no&#32;longer&#32;leveraging&#32;Unity&#39;s&#32;ability&#32;to&#32;figure&#32;out&#32;how&#32;to&#38;nbsp&#59;inject&#32;the&#38;nbsp&#59;correct&#32;object&#32;instances&#32;into&#32;the&#32;right&#32;arguments&#32;of&#32;the&#32;constructor&#32;of&#32;types&#32;being&#32;resolved.&#32;This&#32;seems&#32;very&#32;manual&#32;to&#32;me.">
+        
+<p>Thanks, Randy! I'll give it a try. BTW, what does the&nbsp;method call&nbsp;containter.RegisterType() (no arguments) do?</p>
+<p>Edit: Nevermind about the last question. I see that your code is pseudo code since you omitted the type parameters from the method calls.</p>
+<p>So, is this what's happening behind the scenes when the UnityContainer uses the configuration file to do type mapping? It seems like using the InjectionConstructor() along with Resolve() in the calls to RegisterType() is no longer leveraging Unity's ability
+ to figure out how to&nbsp;inject the&nbsp;correct object instances into the right arguments of the constructor of types being resolved. This seems very manual to me.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_694323" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="694380">
+    <td id="PostDetailsCell_694380" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post694380"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/6/2011 4:05:20 AM" LocalTimeTicks="1320581120">Nov 6, 2011 at 4:05 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="11/6/2011 4:05:37 AM" LocalTimeTicks="1320581137">Nov 6, 2011 at 4:05 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_694380" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Sorry&#32;about&#32;the&#32;code&#32;formatting.&#32;&#38;nbsp&#59;That&#32;was&#32;actual&#32;code&#32;that&#32;got&#32;mangled&#32;by&#32;the&#32;code&#32;formatter.&#32;&#38;nbsp&#59;I&#39;ve&#32;updated&#32;to&#32;include&#32;the&#32;generic&#32;types&#32;properly.&#32;--&#32;&#32;Randy&#32;Levy&#32;Enterprise&#32;Library&#32;support&#32;engineer&#32;entlib.support&#64;live.com">
+        
+<p>Sorry about the code formatting. &nbsp;That was actual code that got mangled by the code formatter. &nbsp;I've updated to include the generic types properly.</p>
+<p>-- <br>
+Randy Levy<br>
+Enterprise Library support engineer<br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">entlib.support@live.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_694380" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="694384">
+    <td id="PostDetailsCell_694384" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post694384"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/6/2011 4:42:23 AM" LocalTimeTicks="1320583343">Nov 6, 2011 at 4:42 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_694384" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="You&#32;can&#32;get&#32;automatic&#32;constructor&#32;injection&#32;if&#32;you&#32;are&#32;using&#32;concrete&#32;types.&#32;&#38;nbsp&#59;&#40;I&#32;wasn&#39;t&#32;sure&#32;what&#32;the&#32;target&#32;classes&#32;looked&#32;like&#32;so&#32;I&#32;assumed&#32;interfaces&#32;were&#32;used.&#41;&#32;If&#32;the&#32;classes&#32;are&#32;defined&#32;with&#32;concrete&#32;types&#32;&#40;e.g.&#32;StocksTickerPresenter&#32;takes&#32;a&#38;nbsp&#59;TraceSourceLogger&#41;&#38;nbsp&#59;then&#32;Unity&#32;will&#32;perform&#32;automatic&#32;constructor&#32;injection&#58;&#32;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;TraceSourceLogger&#38;gt&#59;&#40;&#32;new&#32;ContainerControlledLifetimeManager&#40;&#41;,&#32;new&#32;InjectionConstructor&#40;&#34;UI&#34;&#41;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;ConsoleLogger&#38;gt&#59;&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;IStocksTickerView,&#32;StocksTickerForm&#38;gt&#59;&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;IStockQuoteService,&#32;RandomStockQuoteService&#38;gt&#59;&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;StocksTickerPresenter&#38;gt&#59;&#40;&#41;&#59;&#32;var&#32;presenter&#32;&#61;&#32;container.Resolve&#38;lt&#59;StocksTickerPresenter&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;&#32;I&#39;m&#32;guessing&#32;that&#32;was&#32;more&#32;what&#32;you&#32;had&#32;in&#32;mind.&#32;--&#32;Randy&#32;LevyEnterprise&#32;Library&#32;support&#32;engineerentlib.support&#64;live.com">
+        
+<p>You can get automatic constructor injection if you are using concrete types. &nbsp;(I wasn't sure what the target classes looked like so I assumed interfaces were used.)</p>
+<p>If the classes are defined with concrete types (e.g. StocksTickerPresenter takes a&nbsp;TraceSourceLogger)&nbsp;then Unity will perform automatic constructor injection:</p>
+<div style="color:black; background-color:white">
+<pre>IUnityContainer container = <span style="color:blue">new</span> UnityContainer();
+
+container.RegisterType&lt;TraceSourceLogger&gt;(
+    <span style="color:blue">new</span> ContainerControlledLifetimeManager(),
+    <span style="color:blue">new</span> InjectionConstructor(<span style="color:#a31515">&quot;UI&quot;</span>));
+
+container.RegisterType&lt;ConsoleLogger&gt;();
+
+container.RegisterType&lt;IStocksTickerView, StocksTickerForm&gt;();
+
+container.RegisterType&lt;IStockQuoteService, RandomStockQuoteService&gt;();
+
+container.RegisterType&lt;StocksTickerPresenter&gt;();
+            
+<span style="color:blue">var</span> presenter = container.Resolve&lt;StocksTickerPresenter&gt;();
+</pre>
+</div>
+<p><br>
+I'm guessing that was more what you had in mind.</p>
+<p>-- <br>
+Randy Levy<br>
+Enterprise Library support engineer<br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">entlib.support@live.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_694384" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="694395">
+    <td id="PostDetailsCell_694395" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post694395"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/cb55555">cb55555</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/6/2011 7:21:46 AM" LocalTimeTicks="1320592906">Nov 6, 2011 at 7:21 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="11/6/2011 7:42:41 AM" LocalTimeTicks="1320594161">Nov 6, 2011 at 7:42 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_694395" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="No,&#32;I&#32;want&#32;to&#32;use&#32;interfaces,&#32;so&#32;your&#32;first&#32;version&#32;is&#32;more&#32;of&#32;what&#32;I&#32;wanted.&#32;Again,&#32;what&#32;I&#32;want&#32;to&#32;do&#32;was&#32;eliminate&#32;the&#32;need&#32;to&#32;use&#32;attributes&#32;like&#32;in&#32;this&#32;code&#58;&#32;&#32;&#32;public&#32;class&#32;RandomStockQuoteService&#32;&#58;&#32;IStockQuoteService&#32;&#123;&#32;public&#32;RandomStockQuoteService&#40;&#91;Dependency&#40;&#34;Console&#34;&#41;&#93;&#32;ILogger&#32;logger&#41;&#32;&#123;&#32;...&#32;&#125;&#32;...&#32;&#125;&#32;public&#32;class&#32;StocksTickerPresenter&#32;&#123;&#32;public&#32;StocksTickerPresenter&#40;&#32;IStocksTickerView&#32;view,&#32;IStockQuoteService&#32;stockQuoteService,&#32;&#91;Dependency&#40;&#34;UI&#34;&#41;&#93;&#32;ILogger&#32;logger&#41;&#32;&#123;&#32;...&#32;&#125;&#32;...&#32;&#125;&#32;&#32;&#32;Having&#32;to&#32;use&#32;InjectionConstructor&#32;along&#32;with&#32;individual&#32;container.Resolve&#40;&#41;&#32;calls&#32;seems&#32;like&#32;a&#32;lot&#32;of&#32;manual&#32;work&#32;for&#32;something&#32;that&#32;seems&#32;like&#32;it&#32;should&#32;be&#38;nbsp&#59;so&#32;fundamental--being&#32;able&#32;to&#32;group&#32;together&#38;nbsp&#59;type&#32;mappings.&#32;For&#32;instance,&#32;I&#39;d&#32;like&#32;to&#32;be&#32;able&#32;to&#32;do&#32;something&#32;like&#32;this&#58;&#32;&#32;&#32;container&#32;.RegisterType&#38;lt&#59;IWheel,&#32;CarWheel&#38;gt&#59;&#40;&#34;Car&#34;&#41;&#32;.RegisterType&#38;lt&#59;IEngine,&#32;CarEngine&#38;gt&#59;&#40;&#34;Car&#34;&#41;&#32;.RegisterType&#38;lt&#59;IVehicle,&#32;Car&#38;gt&#59;&#40;&#34;Car&#34;&#41;&#59;&#32;container&#32;.RegisterType&#38;lt&#59;IWheel,&#32;MotorcycleWheel&#38;gt&#59;&#40;&#34;Motorcycle&#34;&#41;&#32;.RegisterType&#38;lt&#59;IEngine,&#32;MotorcycleEngine&#38;gt&#59;&#40;&#34;Motorcycle&#34;&#41;&#32;.RegisterType&#38;lt&#59;IVehicle,&#32;Motorcycle&#38;gt&#59;&#40;&#34;Motorcycle&#34;&#41;&#59;&#32;var&#32;car&#32;&#61;&#32;container.Resolve&#38;lt&#59;IVehicle&#38;gt&#59;&#40;&#34;Car&#34;&#41;&#59;&#32;var&#32;motorcycle&#32;&#61;&#32;container.Resolve&#38;lt&#59;IVehicle&#38;gt&#59;&#40;&#34;Motorcycle&#34;&#41;&#59;&#32;&#32;&#32;Both&#32;the&#32;Car&#32;and&#32;Motorcycle&#32;classes&#32;would&#32;take&#32;an&#32;IEngine&#32;and&#32;IWheel&#32;as&#32;constructor&#32;arguments.&#32;&#38;nbsp&#59;">
+        
+<p>No, I want to use interfaces, so your first version is more of what I wanted. Again, what I want to do was eliminate the need to use attributes like in this code:</p>
+<div style="background-color:white; color:black">
+<pre>    <span style="color:blue">public</span> <span style="color:blue">class</span> RandomStockQuoteService : IStockQuoteService
+    {
+
+        <span style="color:blue">public</span> RandomStockQuoteService([Dependency(<span style="color:#a31515">&quot;Console&quot;</span>)] ILogger logger)
+        {
+           ...
+        }
+        ...
+    }
+
+    <span style="color:blue">public</span> <span style="color:blue">class</span> StocksTickerPresenter
+    {
+        <span style="color:blue">public</span> StocksTickerPresenter(
+            IStocksTickerView view,
+            IStockQuoteService stockQuoteService, 
+            [Dependency(<span style="color:#a31515">&quot;UI&quot;</span>)] ILogger logger)
+        {
+           ...
+        }
+        ...
+    }
+</pre>
+</div>
+<p>Having to use InjectionConstructor along with individual container.Resolve() calls seems like a lot of manual work for something that seems like it should be&nbsp;so fundamental--being able to group together&nbsp;type mappings. For instance, I'd like to
+ be able to do something like this:</p>
+<div style="background-color:white; color:black">
+<pre>                container
+                    .RegisterType&lt;IWheel, CarWheel&gt;(<span style="color:#a31515">&quot;Car&quot;</span>)
+                    .RegisterType&lt;IEngine, CarEngine&gt;(<span style="color:#a31515">&quot;Car&quot;</span>)
+                    .RegisterType&lt;IVehicle, Car&gt;(<span style="color:#a31515">&quot;Car&quot;</span>);
+                container
+                    .RegisterType&lt;IWheel, MotorcycleWheel&gt;(<span style="color:#a31515">&quot;Motorcycle&quot;</span>)
+                    .RegisterType&lt;IEngine, MotorcycleEngine&gt;(<span style="color:#a31515">&quot;Motorcycle&quot;</span>)
+                    .RegisterType&lt;IVehicle, Motorcycle&gt;(<span style="color:#a31515">&quot;Motorcycle&quot;</span>);
+
+                <span style="color:blue">var</span> car = container.Resolve&lt;IVehicle&gt;(<span style="color:#a31515">&quot;Car&quot;</span>);
+                <span style="color:blue">var</span> motorcycle = container.Resolve&lt;IVehicle&gt;(<span style="color:#a31515">&quot;Motorcycle&quot;</span>);
+</pre>
+</div>
+<p>Both the Car and Motorcycle classes would take an IEngine and IWheel as constructor arguments.</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_694395" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="694615">
+    <td id="PostDetailsCell_694615" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post694615"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Damien80">Damien80</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/7/2011 7:46:16 AM" LocalTimeTicks="1320680776">Nov 7, 2011 at 7:46 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="11/7/2011 9:59:08 AM" LocalTimeTicks="1320688748">Nov 7, 2011 at 9:59 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_694615" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="You&#32;could&#32;try&#32;something&#32;like&#32;this&#32;which&#32;gives&#32;you&#32;support&#32;for&#32;interfaces&#32;as&#32;well&#32;&#32;&#91;TestMethod&#93;&#32;public&#32;void&#32;UseDifferentLoggers&#40;&#41;&#32;&#123;&#32;var&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;ILogger,&#32;ConsoleLogger&#38;gt&#59;&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;IStockQuoteService,&#32;RandomStockQuoteService&#38;gt&#59;&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;StockTickerPresenter&#38;gt&#59;&#40;new&#32;InjectionConstructor&#40;typeof&#40;IStockQuoteService&#41;,&#32;typeof&#40;UiLogger&#41;&#41;&#41;&#59;&#32;var&#32;service&#32;&#61;&#32;container.Resolve&#38;lt&#59;IStockQuoteService&#38;gt&#59;&#40;&#41;&#59;&#32;Assert.IsInstanceOfType&#40;service.Logger,&#32;typeof&#40;ConsoleLogger&#41;&#41;&#59;&#32;var&#32;presenter&#32;&#61;&#32;container.Resolve&#38;lt&#59;StockTickerPresenter&#38;gt&#59;&#40;&#41;&#59;&#32;Assert.IsInstanceOfType&#40;presenter.Logger,&#32;typeof&#40;UiLogger&#41;&#41;&#59;&#32;&#125;&#32;&#125;&#32;public&#32;interface&#32;ILogger&#32;&#123;&#125;&#32;public&#32;class&#32;UiLogger&#32;&#58;&#32;ILogger&#32;&#123;&#125;&#32;public&#32;class&#32;ConsoleLogger&#32;&#58;&#32;ILogger&#32;&#123;&#125;&#32;public&#32;interface&#32;IStockQuoteService&#32;&#123;&#32;ILogger&#32;Logger&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;RandomStockQuoteService&#32;&#58;&#32;IStockQuoteService&#32;&#123;&#32;public&#32;ILogger&#32;Logger&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;public&#32;RandomStockQuoteService&#40;ILogger&#32;logger&#41;&#32;&#123;&#32;Logger&#32;&#61;&#32;logger&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;StockTickerPresenter&#32;&#123;&#32;public&#32;ILogger&#32;Logger&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;public&#32;StockTickerPresenter&#40;IStockQuoteService&#32;service,&#32;ILogger&#32;logger&#41;&#32;&#123;&#32;Logger&#32;&#61;&#32;logger&#59;&#32;&#125;&#32;&#125;&#32;&#32;This&#32;declares&#32;the&#32;ConsoleLogger&#32;as&#32;default&#32;mapping&#32;and&#32;tells&#32;Unity&#32;explicitely&#32;when&#32;to&#32;use&#32;the&#32;UiLogger&#32;instead.">
+        
+<p>You could try something like this which gives you support for interfaces as well</p>
+<div style="color:black; background-color:white">
+<pre>[TestMethod]
+<span style="color:blue">public</span> <span style="color:blue">void</span> UseDifferentLoggers()
+{
+  <span style="color:blue">var</span> container = <span style="color:blue">new</span> UnityContainer();
+  container.RegisterType&lt;ILogger, ConsoleLogger&gt;();
+  container.RegisterType&lt;IStockQuoteService, RandomStockQuoteService&gt;();
+  container.RegisterType&lt;StockTickerPresenter&gt;(<span style="color:blue">new</span> InjectionConstructor(<span style="color:blue">typeof</span>(IStockQuoteService), <span style="color:blue">typeof</span>(UiLogger)));
+  <span style="color:blue">var</span> service = container.Resolve&lt;IStockQuoteService&gt;();
+  Assert.IsInstanceOfType(service.Logger, <span style="color:blue">typeof</span>(ConsoleLogger));
+  <span style="color:blue">var</span> presenter = container.Resolve&lt;StockTickerPresenter&gt;();
+  Assert.IsInstanceOfType(presenter.Logger, <span style="color:blue">typeof</span>(UiLogger));
+  }
+}
+<span style="color:blue">public</span> <span style="color:blue">interface</span> ILogger {}
+<span style="color:blue">public</span> <span style="color:blue">class</span> UiLogger : ILogger {}
+<span style="color:blue">public</span> <span style="color:blue">class</span> ConsoleLogger : ILogger {}
+<span style="color:blue">public</span> <span style="color:blue">interface</span> IStockQuoteService
+{
+  ILogger Logger { <span style="color:blue">get</span>; <span style="color:blue">set</span>; }
+}
+<span style="color:blue">public</span> <span style="color:blue">class</span> RandomStockQuoteService : IStockQuoteService
+{
+  <span style="color:blue">public</span> ILogger Logger { <span style="color:blue">get</span>; <span style="color:blue">set</span>; }
+  <span style="color:blue">public</span> RandomStockQuoteService(ILogger logger)
+  {
+    Logger = logger;
+  }
+}
+<span style="color:blue">public</span> <span style="color:blue">class</span> StockTickerPresenter
+{
+  <span style="color:blue">public</span> ILogger Logger { <span style="color:blue">get</span>; <span style="color:blue">set</span>; }
+  <span style="color:blue">public</span> StockTickerPresenter(IStockQuoteService service, ILogger logger)
+  {
+    Logger = logger;
+  }
+}</pre>
+</div>
+<p>This declares the ConsoleLogger as default mapping and tells Unity explicitely when to use the UiLogger instead.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_694615" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="694971">
+    <td id="PostDetailsCell_694971" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post694971"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/cb55555">cb55555</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/7/2011 9:16:30 PM" LocalTimeTicks="1320729390">Nov 7, 2011 at 9:16 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="11/7/2011 9:16:45 PM" LocalTimeTicks="1320729405">Nov 7, 2011 at 9:16 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_694971" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#64;Damien80,&#32;That&#39;s&#32;a&#32;little&#32;better&#32;since&#32;you&#32;need&#32;only&#32;pass&#32;types&#32;to&#32;InjectionConstructor&#40;&#41;&#32;rather&#32;than&#32;having&#32;to&#32;call&#32;container.Resolve&#40;&#41;&#32;explicitly.&#32;I&#32;just&#32;wish&#32;it&#32;would&#32;be&#32;easier&#32;to&#32;do&#32;something&#32;like&#32;my&#32;Car&#47;Motorcycle&#32;example&#32;which&#32;doesn&#39;t&#32;require&#32;knowledge&#32;of&#32;the&#32;constructor&#32;arguments.&#32;I&#32;know&#32;that&#32;you&#32;can&#32;create&#32;a&#32;child&#32;container&#32;to&#32;get&#32;what&#32;I&#32;want,&#32;but&#32;that&#32;too&#32;is&#32;less&#32;than&#32;ideal.">
+        
+<p>@Damien80, That's a little better since you need only pass types to InjectionConstructor() rather than having to call container.Resolve() explicitly. I just wish it would be easier to do something like my Car/Motorcycle example which doesn't require knowledge
+ of the constructor arguments. I know that you can create a child container to get what I want, but that too is less than ideal.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_694971" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="695198">
+    <td id="PostDetailsCell_695198" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post695198"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Damien80">Damien80</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/8/2011 8:54:17 AM" LocalTimeTicks="1320771257">Nov 8, 2011 at 8:54 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="11/8/2011 9:06:55 AM" LocalTimeTicks="1320772015">Nov 8, 2011 at 9:06 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_695198" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#64;child&#32;container&#58;&#32;I&#32;would&#32;not&#32;bother&#32;using&#32;those.&#32;I&#32;have&#32;yet&#32;to&#32;find&#32;a&#32;scenario&#32;where&#32;you&#32;can&#32;do&#32;real&#32;dependency&#32;injection&#32;&#40;not&#32;service&#32;location&#33;&#41;&#32;with&#32;child&#32;containers.&#32;&#64;something&#32;like&#32;my&#32;car&#47;motorcycle&#32;example&#58;&#32;Actually&#32;you&#32;can.&#32;It&#32;just&#32;takes&#32;&#34;a&#32;little&#34;&#32;tweaking&#32;of&#32;Unity.&#32;Don&#39;t&#32;nail&#32;me&#32;down&#32;to&#32;a&#32;clean&#32;implementation&#32;but&#32;this&#32;test&#32;passes&#32;for&#32;the&#32;happy&#32;case.&#32;&#38;nbsp&#59;&#32;&#32;&#91;TestMethod&#93;&#32;public&#32;void&#32;CanGroupRegistrations&#40;&#41;&#32;&#123;&#32;var&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.AddNewExtension&#38;lt&#59;SemanticGroupExtension&#38;gt&#59;&#40;&#41;&#59;&#32;container.RegisterGroup&#38;lt&#59;IVehicle,&#32;Car&#38;gt&#59;&#40;&#34;Car&#34;&#41;.Use&#38;lt&#59;IWheel,&#32;CarWheel&#38;gt&#59;&#40;&#41;.Use&#38;lt&#59;IEngine,&#32;CarEngine&#38;gt&#59;&#40;&#41;&#59;&#32;container.RegisterGroup&#38;lt&#59;IVehicle,&#32;Motorcycle&#38;gt&#59;&#40;&#34;Motorcycle&#34;&#41;.Use&#38;lt&#59;IWheel,&#32;MotorcycleWheel&#38;gt&#59;&#40;&#41;.Use&#38;lt&#59;IEngine,&#32;MotorcycleEngine&#38;gt&#59;&#40;&#41;&#59;&#32;var&#32;car&#32;&#61;&#32;container.Resolve&#38;lt&#59;IVehicle&#38;gt&#59;&#40;&#34;Car&#34;&#41;&#59;&#32;Assert.IsInstanceOfType&#40;car.Wheel,&#32;typeof&#40;CarWheel&#41;&#41;&#59;&#32;Assert.IsInstanceOfType&#40;car.Engine,&#32;typeof&#40;CarEngine&#41;&#41;&#59;&#32;var&#32;motorcycle&#32;&#61;&#32;container.Resolve&#38;lt&#59;IVehicle&#38;gt&#59;&#40;&#34;Motorcycle&#34;&#41;&#59;&#32;Assert.IsInstanceOfType&#40;motorcycle.Wheel,&#32;typeof&#40;MotorcycleWheel&#41;&#41;&#59;&#32;Assert.IsInstanceOfType&#40;motorcycle.Engine,&#32;typeof&#40;MotorcycleEngine&#41;&#41;&#59;&#32;&#125;&#32;&#32;&#32;&#38;nbsp&#59;&#32;And&#32;this&#32;is&#32;the&#32;quick&#32;and&#32;dirty&#32;code&#32;that&#32;works&#32;behind&#32;the&#32;scenes&#32;&#38;nbsp&#59;&#32;&#32;public&#32;static&#32;class&#32;UnityContainerExtensions&#32;&#123;&#32;public&#32;static&#32;ISemanticGroup&#32;RegisterGroup&#38;lt&#59;TFrom,&#32;TTo&#38;gt&#59;&#40;this&#32;IUnityContainer&#32;container,&#32;string&#32;name&#41;&#32;&#123;&#32;var&#32;extension&#32;&#61;&#32;container.Configure&#38;lt&#59;ISemanticGroupConfigurator&#38;gt&#59;&#40;&#41;&#59;&#32;return&#32;extension.RegisterGroup&#38;lt&#59;TFrom,&#32;TTo&#38;gt&#59;&#40;name&#41;&#59;&#32;&#125;&#32;&#125;&#32;public&#32;interface&#32;ISemanticGroupConfigurator&#32;&#58;&#32;IUnityContainerExtensionConfigurator&#32;&#123;&#32;ISemanticGroup&#32;RegisterGroup&#38;lt&#59;TFrom,&#32;TTo&#38;gt&#59;&#40;string&#32;name&#41;&#59;&#32;&#125;&#32;public&#32;interface&#32;ISemanticGroup&#32;&#123;&#32;ISemanticGroup&#32;Use&#38;lt&#59;TFrom,&#32;TTo&#38;gt&#59;&#40;&#41;&#59;&#32;&#125;&#32;public&#32;class&#32;SemanticGroupExtension&#32;&#58;&#32;UnityContainerExtension,&#32;ISemanticGroupConfigurator&#32;&#123;&#32;protected&#32;override&#32;void&#32;Initialize&#40;&#41;&#32;&#123;&#32;var&#32;strategy&#32;&#61;&#32;new&#32;SemanticGroupStrategy&#40;&#41;&#59;&#32;Context.Strategies.Add&#40;strategy,&#32;UnityBuildStage.PreCreation&#41;&#59;&#32;&#125;&#32;public&#32;ISemanticGroup&#32;RegisterGroup&#38;lt&#59;TFrom,&#32;TTo&#38;gt&#59;&#40;string&#32;name&#41;&#32;&#123;&#32;return&#32;new&#32;SemanticGroup&#40;new&#32;SemanticGroupContext&#40;this&#41;,&#32;typeof&#40;TFrom&#41;,&#32;typeof&#40;TTo&#41;,&#32;name&#41;&#59;&#32;&#125;&#32;private&#32;class&#32;SemanticGroupContext&#32;&#58;&#32;ISemanticGroupContext&#32;&#123;&#32;private&#32;readonly&#32;SemanticGroupExtension&#32;semanticGroupExtension&#59;&#32;public&#32;SemanticGroupContext&#40;SemanticGroupExtension&#32;semanticGroupExtension&#41;&#32;&#123;&#32;this.semanticGroupExtension&#32;&#61;&#32;semanticGroupExtension&#59;&#32;&#125;&#32;public&#32;IPolicyList&#32;Policies&#32;&#123;&#32;get&#32;&#123;&#32;return&#32;this.semanticGroupExtension.Context.Policies&#59;&#32;&#125;&#32;&#125;&#32;public&#32;IUnityContainer&#32;Container&#32;&#123;&#32;get&#32;&#123;&#32;return&#32;this.semanticGroupExtension.Container&#59;&#32;&#125;&#32;&#125;&#32;&#125;&#32;&#125;&#32;public&#32;interface&#32;ISemanticGroupContext&#32;&#123;&#32;IPolicyList&#32;Policies&#32;&#123;&#32;get&#59;&#32;&#125;&#32;IUnityContainer&#32;Container&#32;&#123;&#32;get&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;SemanticGroupStrategy&#32;&#58;&#32;BuilderStrategy&#32;&#123;&#32;public&#32;override&#32;void&#32;PreBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#123;&#32;IPolicyList&#32;resolverPolicyDestination&#59;&#32;IConstructorSelectorPolicy&#32;selector&#32;&#61;&#32;context.Policies.Get&#38;lt&#59;IConstructorSelectorPolicy&#38;gt&#59;&#40;context.BuildKey,&#32;out&#32;resolverPolicyDestination&#41;&#59;&#32;var&#32;ctor&#32;&#61;&#32;selector.SelectConstructor&#40;context,&#32;resolverPolicyDestination&#41;&#59;&#32;if&#32;&#40;ctor&#32;&#61;&#61;&#32;null&#41;&#32;&#123;&#32;return&#59;&#32;&#125;&#32;ISemanticGroupPolicy&#32;policy&#32;&#61;&#32;context.Policies.Get&#38;lt&#59;ISemanticGroupPolicy&#38;gt&#59;&#40;context.BuildKey&#41;&#59;&#32;if&#32;&#40;policy&#32;&#61;&#61;&#32;null&#41;&#32;&#123;&#32;return&#59;&#32;&#125;&#32;var&#32;parameters&#32;&#61;&#32;ctor.Constructor.GetParameters&#40;&#41;&#59;&#32;var&#32;parameterKeys&#32;&#61;&#32;ctor.GetParameterKeys&#40;&#41;&#59;&#32;for&#32;&#40;int&#32;i&#32;&#61;&#32;0&#59;&#32;i&#32;&#38;lt&#59;&#32;parameters.Length&#59;&#32;i&#43;&#43;&#41;&#32;&#123;&#32;var&#32;&#64;using&#32;&#61;&#32;policy.Usings.FirstOrDefault&#40;u&#32;&#61;&#38;gt&#59;&#32;u.From&#32;&#61;&#61;&#32;parameters&#91;i&#93;.ParameterType&#41;&#59;&#32;if&#32;&#40;&#64;using&#32;&#33;&#61;&#32;null&#41;&#32;&#123;&#32;var&#32;resolverPolicy&#32;&#61;&#32;new&#32;NamedTypeDependencyResolverPolicy&#40;&#64;using.From,&#32;&#64;using.Name&#41;&#59;&#32;context.Policies.Set&#38;lt&#59;IDependencyResolverPolicy&#38;gt&#59;&#40;resolverPolicy,&#32;parameterKeys&#91;i&#93;&#41;&#59;&#32;&#125;&#32;&#125;&#32;resolverPolicyDestination.Set&#38;lt&#59;IConstructorSelectorPolicy&#38;gt&#59;&#40;&#32;new&#32;ReadonlyConstructorSelectorPolicy&#40;ctor&#41;,&#32;context.BuildKey&#41;&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;ReadonlyConstructorSelectorPolicy&#32;&#58;&#32;IConstructorSelectorPolicy&#32;&#123;&#32;private&#32;readonly&#32;SelectedConstructor&#32;selectedConstructor&#59;&#32;public&#32;ReadonlyConstructorSelectorPolicy&#40;SelectedConstructor&#32;selectedConstructor&#41;&#32;&#123;&#32;this.selectedConstructor&#32;&#61;&#32;selectedConstructor&#59;&#32;&#125;&#32;public&#32;SelectedConstructor&#32;SelectConstructor&#40;IBuilderContext&#32;context,&#32;IPolicyList&#32;resolverPolicyDestination&#41;&#32;&#123;&#32;return&#32;selectedConstructor&#59;&#32;&#125;&#32;&#125;&#32;public&#32;interface&#32;ISemanticGroupPolicy&#32;&#58;&#32;IBuilderPolicy&#32;&#123;&#32;ICollection&#38;lt&#59;Using&#38;gt&#59;&#32;Usings&#32;&#123;&#32;get&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;SemanticGroup&#32;&#58;&#32;ISemanticGroup&#32;&#123;&#32;private&#32;readonly&#32;ISemanticGroupContext&#32;context&#59;&#32;private&#32;readonly&#32;Type&#32;to&#59;&#32;private&#32;readonly&#32;string&#32;name&#59;&#32;private&#32;readonly&#32;Type&#32;&#64;from&#59;&#32;private&#32;SemanticGroupPolicy&#32;policy&#59;&#32;public&#32;SemanticGroup&#40;ISemanticGroupContext&#32;context,&#32;Type&#32;from,&#32;Type&#32;to,&#32;string&#32;name&#41;&#32;&#123;&#32;this.context&#32;&#61;&#32;context&#59;&#32;this.to&#32;&#61;&#32;to&#59;&#32;this.name&#32;&#61;&#32;name&#59;&#32;this.policy&#32;&#61;&#32;new&#32;SemanticGroupPolicy&#40;&#41;&#59;&#32;context.Policies.Set&#40;typeof&#40;ISemanticGroupPolicy&#41;,&#32;policy,&#32;new&#32;NamedTypeBuildKey&#40;to,&#32;name&#41;&#41;&#59;&#32;context.Container.RegisterType&#40;from,&#32;to,&#32;name&#41;&#59;&#32;&#125;&#32;public&#32;ISemanticGroup&#32;Use&#38;lt&#59;TFrom,&#32;TTo&#38;gt&#59;&#40;&#41;&#32;&#123;&#32;policy.Usings.Add&#40;new&#32;Using&#32;&#123;&#32;From&#32;&#61;&#32;typeof&#40;TFrom&#41;,&#32;To&#32;&#61;&#32;typeof&#40;TTo&#41;,&#32;Name&#32;&#61;&#32;this.name&#32;&#125;&#41;&#59;&#32;context.Container.RegisterType&#40;typeof&#40;TFrom&#41;,&#32;typeof&#40;TTo&#41;,&#32;this.name&#41;&#59;&#32;return&#32;this&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;SemanticGroupPolicy&#32;&#58;&#32;ISemanticGroupPolicy&#32;&#123;&#32;private&#32;readonly&#32;List&#38;lt&#59;Using&#38;gt&#59;&#32;usings&#59;&#32;public&#32;SemanticGroupPolicy&#40;&#41;&#32;&#123;&#32;usings&#32;&#61;&#32;new&#32;List&#38;lt&#59;Using&#38;gt&#59;&#40;&#41;&#59;&#32;&#125;&#32;public&#32;ICollection&#38;lt&#59;Using&#38;gt&#59;&#32;Usings&#32;&#123;&#32;get&#32;&#123;&#32;return&#32;usings&#59;&#32;&#125;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;Using&#32;&#123;&#32;public&#32;Type&#32;From&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;public&#32;Type&#32;To&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;public&#32;string&#32;Name&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;&#38;nbsp&#59;&#32;Using&#32;these&#32;test&#32;objects&#32;&#38;nbsp&#59;&#32;&#32;public&#32;interface&#32;IWheel&#32;&#123;&#32;&#125;&#32;public&#32;class&#32;CarWheel&#32;&#58;&#32;IWheel&#32;&#123;&#32;&#125;&#32;public&#32;class&#32;MotorcycleWheel&#32;&#58;&#32;IWheel&#32;&#123;&#32;&#125;&#32;public&#32;interface&#32;IEngine&#32;&#123;&#32;&#125;&#32;public&#32;class&#32;MotorcycleEngine&#32;&#58;&#32;IEngine&#32;&#123;&#32;&#125;&#32;public&#32;class&#32;CarEngine&#32;&#58;&#32;IEngine&#32;&#123;&#32;&#125;&#32;public&#32;interface&#32;IVehicle&#32;&#123;&#32;IWheel&#32;Wheel&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;IEngine&#32;Engine&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;Car&#32;&#58;&#32;IVehicle&#32;&#123;&#32;public&#32;IWheel&#32;Wheel&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;public&#32;IEngine&#32;Engine&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;public&#32;Car&#40;IWheel&#32;wheel,&#32;IEngine&#32;engine&#41;&#32;&#123;&#32;Wheel&#32;&#61;&#32;wheel&#59;&#32;Engine&#32;&#61;&#32;engine&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;Motorcycle&#32;&#58;&#32;IVehicle&#32;&#123;&#32;public&#32;IWheel&#32;Wheel&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;public&#32;IEngine&#32;Engine&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;public&#32;Motorcycle&#40;IWheel&#32;wheel,&#32;IEngine&#32;engine&#41;&#32;&#123;&#32;Wheel&#32;&#61;&#32;wheel&#59;&#32;Engine&#32;&#61;&#32;engine&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;&#38;nbsp&#59;&#32;Hope&#32;that&#32;helps">
+        
+<p>@child container: I would not bother using those. I have yet to find a scenario where you can do real dependency injection (not service location!) with child containers.</p>
+<p>@something like my car/motorcycle example: Actually you can. It just takes &quot;a little&quot; tweaking of Unity. Don't nail me down to a clean implementation but this test passes for the happy case.</p>
+<p>&nbsp;</p>
+<div style="color:black; background-color:white">
+<pre>[TestMethod]
+<span style="color:blue">public</span> <span style="color:blue">void</span> CanGroupRegistrations()
+{
+  <span style="color:blue">var</span> container = <span style="color:blue">new</span> UnityContainer();
+  container.AddNewExtension&lt;SemanticGroupExtension&gt;();
+  container.RegisterGroup&lt;IVehicle, Car&gt;(<span style="color:#a31515">&quot;Car&quot;</span>).Use&lt;IWheel, CarWheel&gt;().Use&lt;IEngine, CarEngine&gt;();
+  container.RegisterGroup&lt;IVehicle, Motorcycle&gt;(<span style="color:#a31515">&quot;Motorcycle&quot;</span>).Use&lt;IWheel, MotorcycleWheel&gt;().Use&lt;IEngine, MotorcycleEngine&gt;();
+  <span style="color:blue">var</span> car = container.Resolve&lt;IVehicle&gt;(<span style="color:#a31515">&quot;Car&quot;</span>);
+  Assert.IsInstanceOfType(car.Wheel, <span style="color:blue">typeof</span>(CarWheel));
+  Assert.IsInstanceOfType(car.Engine, <span style="color:blue">typeof</span>(CarEngine));
+  <span style="color:blue">var</span> motorcycle = container.Resolve&lt;IVehicle&gt;(<span style="color:#a31515">&quot;Motorcycle&quot;</span>);
+  Assert.IsInstanceOfType(motorcycle.Wheel, <span style="color:blue">typeof</span>(MotorcycleWheel));
+  Assert.IsInstanceOfType(motorcycle.Engine, <span style="color:blue">typeof</span>(MotorcycleEngine));
+}
+</pre>
+</div>
+<p>&nbsp;</p>
+<p>And this is the quick and dirty code that works behind the scenes</p>
+<p>&nbsp;</p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">public</span> <span style="color:blue">static</span> <span style="color:blue">class</span> UnityContainerExtensions
+{
+  <span style="color:blue">public</span> <span style="color:blue">static</span> ISemanticGroup RegisterGroup&lt;TFrom, TTo&gt;(<span style="color:blue">this</span> IUnityContainer container, <span style="color:blue">string</span> name)
+  {
+    <span style="color:blue">var</span> extension = container.Configure&lt;ISemanticGroupConfigurator&gt;();
+    <span style="color:blue">return</span> extension.RegisterGroup&lt;TFrom, TTo&gt;(name);
+  }
+}
+
+<span style="color:blue">public</span> <span style="color:blue">interface</span> ISemanticGroupConfigurator : IUnityContainerExtensionConfigurator
+{
+  ISemanticGroup RegisterGroup&lt;TFrom, TTo&gt;(<span style="color:blue">string</span> name);
+}
+
+<span style="color:blue">public</span> <span style="color:blue">interface</span> ISemanticGroup
+{
+  ISemanticGroup Use&lt;TFrom, TTo&gt;();
+}
+
+<span style="color:blue">public</span> <span style="color:blue">class</span> SemanticGroupExtension : UnityContainerExtension, ISemanticGroupConfigurator
+{
+  <span style="color:blue">protected</span> <span style="color:blue">override</span> <span style="color:blue">void</span> Initialize()
+  {
+    <span style="color:blue">var</span> strategy = <span style="color:blue">new</span> SemanticGroupStrategy();
+    Context.Strategies.Add(strategy, UnityBuildStage.PreCreation);
+  }
+  <span style="color:blue">public</span> ISemanticGroup RegisterGroup&lt;TFrom, TTo&gt;(<span style="color:blue">string</span> name)
+  {
+    <span style="color:blue">return</span> <span style="color:blue">new</span> SemanticGroup(<span style="color:blue">new</span> SemanticGroupContext(<span style="color:blue">this</span>), <span style="color:blue">typeof</span>(TFrom), <span style="color:blue">typeof</span>(TTo), name);
+  }
+  <span style="color:blue">private</span> <span style="color:blue">class</span> SemanticGroupContext : ISemanticGroupContext
+  {
+    <span style="color:blue">private</span> <span style="color:blue">readonly</span> SemanticGroupExtension semanticGroupExtension;
+    <span style="color:blue">public</span> SemanticGroupContext(SemanticGroupExtension semanticGroupExtension)
+    {
+      <span style="color:blue">this</span>.semanticGroupExtension = semanticGroupExtension;
+    }
+    <span style="color:blue">public</span> IPolicyList Policies { <span style="color:blue">get</span> { <span style="color:blue">return</span> <span style="color:blue">this</span>.semanticGroupExtension.Context.Policies; } }
+    <span style="color:blue">public</span> IUnityContainer Container { <span style="color:blue">get</span> { <span style="color:blue">return</span> <span style="color:blue">this</span>.semanticGroupExtension.Container; } }
+  }
+}
+
+<span style="color:blue">public</span> <span style="color:blue">interface</span> ISemanticGroupContext
+{
+  IPolicyList Policies { <span style="color:blue">get</span>; }
+  IUnityContainer Container { <span style="color:blue">get</span>; }
+}
+
+<span style="color:blue">public</span> <span style="color:blue">class</span> SemanticGroupStrategy : BuilderStrategy
+{
+  <span style="color:blue">public</span> <span style="color:blue">override</span> <span style="color:blue">void</span> PreBuildUp(IBuilderContext context)
+  {
+    IPolicyList resolverPolicyDestination;
+    IConstructorSelectorPolicy selector = context.Policies.Get&lt;IConstructorSelectorPolicy&gt;(context.BuildKey, <span style="color:blue">out</span> resolverPolicyDestination);
+    <span style="color:blue">var</span> ctor = selector.SelectConstructor(context, resolverPolicyDestination);
+    <span style="color:blue">if</span> (ctor == <span style="color:blue">null</span>) { <span style="color:blue">return</span>; }
+    ISemanticGroupPolicy policy = context.Policies.Get&lt;ISemanticGroupPolicy&gt;(context.BuildKey);
+    <span style="color:blue">if</span> (policy == <span style="color:blue">null</span>) { <span style="color:blue">return</span>; }
+    <span style="color:blue">var</span> parameters = ctor.Constructor.GetParameters();
+    <span style="color:blue">var</span> parameterKeys = ctor.GetParameterKeys();
+    <span style="color:blue">for</span> (<span style="color:blue">int</span> i = 0; i &lt; parameters.Length; i&#43;&#43;)
+    {
+      <span style="color:blue">var</span> @<span style="color:blue">using</span> = policy.Usings.FirstOrDefault(u =&gt; u.From == parameters[i].ParameterType);
+      <span style="color:blue">if</span> (@<span style="color:blue">using</span> != <span style="color:blue">null</span>)
+      {
+        <span style="color:blue">var</span> resolverPolicy = <span style="color:blue">new</span> NamedTypeDependencyResolverPolicy(@<span style="color:blue">using</span>.From, @<span style="color:blue">using</span>.Name);
+        context.Policies.Set&lt;IDependencyResolverPolicy&gt;(resolverPolicy, parameterKeys[i]);
+      }
+    }
+    resolverPolicyDestination.Set&lt;IConstructorSelectorPolicy&gt;(
+    <span style="color:blue">new</span> ReadonlyConstructorSelectorPolicy(ctor), context.BuildKey);
+  }
+}
+
+<span style="color:blue">public</span> <span style="color:blue">class</span> ReadonlyConstructorSelectorPolicy : IConstructorSelectorPolicy
+{
+  <span style="color:blue">private</span> <span style="color:blue">readonly</span> SelectedConstructor selectedConstructor;
+  <span style="color:blue">public</span> ReadonlyConstructorSelectorPolicy(SelectedConstructor selectedConstructor)
+  {
+    <span style="color:blue">this</span>.selectedConstructor = selectedConstructor;
+  }
+  <span style="color:blue">public</span> SelectedConstructor SelectConstructor(IBuilderContext context, IPolicyList resolverPolicyDestination)
+  {
+    <span style="color:blue">return</span> selectedConstructor;
+  }
+}
+
+<span style="color:blue">public</span> <span style="color:blue">interface</span> ISemanticGroupPolicy : IBuilderPolicy
+{
+  ICollection&lt;Using&gt; Usings { <span style="color:blue">get</span>; }
+}
+
+<span style="color:blue">public</span> <span style="color:blue">class</span> SemanticGroup : ISemanticGroup
+{
+  <span style="color:blue">private</span> <span style="color:blue">readonly</span> ISemanticGroupContext context;
+  <span style="color:blue">private</span> <span style="color:blue">readonly</span> Type to;
+  <span style="color:blue">private</span> <span style="color:blue">readonly</span> <span style="color:blue">string</span> name;
+  <span style="color:blue">private</span> <span style="color:blue">readonly</span> Type @<span style="color:blue">from</span>;
+  <span style="color:blue">private</span> SemanticGroupPolicy policy;
+  <span style="color:blue">public</span> SemanticGroup(ISemanticGroupContext context, Type <span style="color:blue">from</span>, Type to, <span style="color:blue">string</span> name)
+  {
+    <span style="color:blue">this</span>.context = context;
+    <span style="color:blue">this</span>.to = to;
+    <span style="color:blue">this</span>.name = name;
+    <span style="color:blue">this</span>.policy = <span style="color:blue">new</span> SemanticGroupPolicy();
+    context.Policies.Set(<span style="color:blue">typeof</span>(ISemanticGroupPolicy), policy, <span style="color:blue">new</span> NamedTypeBuildKey(to, name));
+    context.Container.RegisterType(<span style="color:blue">from</span>, to, name);
+  }
+  <span style="color:blue">public</span> ISemanticGroup Use&lt;TFrom, TTo&gt;()
+  {
+    policy.Usings.Add(<span style="color:blue">new</span> Using { From = <span style="color:blue">typeof</span>(TFrom), To = <span style="color:blue">typeof</span>(TTo), Name = <span style="color:blue">this</span>.name });
+    context.Container.RegisterType(<span style="color:blue">typeof</span>(TFrom), <span style="color:blue">typeof</span>(TTo), <span style="color:blue">this</span>.name);
+    <span style="color:blue">return</span> <span style="color:blue">this</span>;
+  }
+}
+
+<span style="color:blue">public</span> <span style="color:blue">class</span> SemanticGroupPolicy : ISemanticGroupPolicy
+{
+  <span style="color:blue">private</span> <span style="color:blue">readonly</span> List&lt;Using&gt; usings;
+  <span style="color:blue">public</span> SemanticGroupPolicy()
+  {
+    usings = <span style="color:blue">new</span> List&lt;Using&gt;();
+  }
+  <span style="color:blue">public</span> ICollection&lt;Using&gt; Usings { <span style="color:blue">get</span> { <span style="color:blue">return</span> usings; } }
+}
+
+<span style="color:blue">public</span> <span style="color:blue">class</span> Using
+{
+  <span style="color:blue">public</span> Type From { <span style="color:blue">get</span>; <span style="color:blue">set</span>; }
+  <span style="color:blue">public</span> Type To { <span style="color:blue">get</span>; <span style="color:blue">set</span>; }
+  <span style="color:blue">public</span> <span style="color:blue">string</span> Name { <span style="color:blue">get</span>; <span style="color:blue">set</span>; }
+}
+</pre>
+</div>
+<p>&nbsp;</p>
+<p>Using these test objects</p>
+<p>&nbsp;</p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">public</span> <span style="color:blue">interface</span> IWheel { }
+<span style="color:blue">public</span> <span style="color:blue">class</span> CarWheel : IWheel { }
+<span style="color:blue">public</span> <span style="color:blue">class</span> MotorcycleWheel : IWheel { }
+
+<span style="color:blue">public</span> <span style="color:blue">interface</span> IEngine { }
+<span style="color:blue">public</span> <span style="color:blue">class</span> MotorcycleEngine : IEngine { }
+<span style="color:blue">public</span> <span style="color:blue">class</span> CarEngine : IEngine { }
+
+<span style="color:blue">public</span> <span style="color:blue">interface</span> IVehicle
+{
+  IWheel Wheel { <span style="color:blue">get</span>; <span style="color:blue">set</span>; }
+  IEngine Engine { <span style="color:blue">get</span>; <span style="color:blue">set</span>; }
+}
+<span style="color:blue">public</span> <span style="color:blue">class</span> Car : IVehicle
+{
+  <span style="color:blue">public</span> IWheel Wheel { <span style="color:blue">get</span>; <span style="color:blue">set</span>; }
+  <span style="color:blue">public</span> IEngine Engine { <span style="color:blue">get</span>; <span style="color:blue">set</span>; }
+  <span style="color:blue">public</span> Car(IWheel wheel, IEngine engine)
+  {
+    Wheel = wheel;
+    Engine = engine;
+  }
+}
+<span style="color:blue">public</span> <span style="color:blue">class</span> Motorcycle : IVehicle
+{
+  <span style="color:blue">public</span> IWheel Wheel { <span style="color:blue">get</span>; <span style="color:blue">set</span>; }
+  <span style="color:blue">public</span> IEngine Engine { <span style="color:blue">get</span>; <span style="color:blue">set</span>; }
+  <span style="color:blue">public</span> Motorcycle(IWheel wheel, IEngine engine)
+  {
+    Wheel = wheel;
+    Engine = engine;
+  }
+}
+</pre>
+</div>
+<p>&nbsp;</p>
+<p>Hope that helps</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_695198" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="695467">
+    <td id="PostDetailsCell_695467" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post695467"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/cb55555">cb55555</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/8/2011 6:44:14 PM" LocalTimeTicks="1320806654">Nov 8, 2011 at 6:44 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_695467" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Whoa&#33;&#32;I&#32;wasn&#39;t&#32;expecting&#32;you&#32;to&#32;come&#32;up&#32;with&#32;a&#32;solution&#32;for&#32;me,&#32;although&#32;it&#39;s&#32;definitely&#32;appreciated.&#32;Thanks&#32;for&#32;the&#32;effort&#33;&#32;I&#32;thought&#32;of&#32;doing&#32;something&#32;similar&#32;to&#32;your&#32;example&#32;using&#32;child&#32;containers&#32;and&#32;a&#32;dictionary&#32;to&#32;keep&#32;track&#32;of&#32;the&#32;container&#32;instances&#32;corresponding&#32;to&#32;each&#32;group&#32;if&#32;Unity&#32;didn&#39;t&#32;support&#32;this&#32;concept&#32;of&#32;a&#32;&#34;semantic&#32;group&#34;&#32;out&#32;of&#32;the&#32;box.&#32;But&#32;since&#32;you&#32;say&#32;child&#32;containers&#32;aren&#39;t&#32;useful,&#32;I&#39;ll&#32;definitely&#32;check&#32;out&#32;your&#32;sample&#32;code.&#32;Thanks&#32;again&#33;&#32;&#38;nbsp&#59;">
+        
+<p>Whoa! I wasn't expecting you to come up with a solution for me, although it's definitely appreciated. Thanks for the effort!</p>
+<p>I thought of doing something similar to your example using child containers and a dictionary to keep track of the container instances corresponding to each group if Unity didn't support this concept of a &quot;semantic group&quot; out of the box. But since you say
+ child containers aren't useful, I'll definitely check out your sample code. Thanks again!</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_695467" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="695668">
+    <td id="PostDetailsCell_695668" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post695668"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Damien80">Damien80</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/9/2011 5:50:28 AM" LocalTimeTicks="1320846628">Nov 9, 2011 at 5:50 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_695668" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="You&#32;are&#32;welcome&#32;&#58;&#41;">
+        
+<p>You are welcome :)</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_695668" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f278448">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="0f6611c7-0b5f-44aa-88d7-cf3b96aaaed6">
+    <script class="options" defer="defer" id="0f6611c7-0b5f-44aa-88d7-cf3b96aaaed6" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_d0e89bd8-6f8f-4312-bc3b-cd4ac68c1721">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_ba53e976-5306-4516-bf92-a1051309d0c5">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_d0e89bd8-6f8f-4312-bc3b-cd4ac68c1721" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_ba53e976-5306-4516-bf92-a1051309d0c5" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/278448';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

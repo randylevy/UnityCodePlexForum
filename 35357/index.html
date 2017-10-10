@@ -1,0 +1,913 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - How to do service override in Unity</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/35357?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/35357?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="WnW8tEI3QdZKJE0-F68zCoKv6lkKg0kZhXWl1N6RrdO2qASQZML4ji88kYidaOqkGBfz0EcIwdi1mEH3WANQhD7y8H-CuVouTRZKRGmU1lBClD75TC9K5EgqQII1nrONp-867g2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken257892a29-c56e-4277-bead-215ae0ddc265" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:28:48 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f35357" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="f10aef27-a39a-4cd5-914f-50869ab16902">
+                
+                    <script class="options" defer="defer" id="f10aef27-a39a-4cd5-914f-50869ab16902" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="6e6c50aa-66e8-4f07-bf63-82f3c900f677">
+                
+                    <script class="options" defer="defer" id="6e6c50aa-66e8-4f07-bf63-82f3c900f677" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                How to do service override in Unity
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:35357]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="cfb9968f-9f48-42d2-ad3f-2af7df92921b">
+    <script class="options" defer="defer" id="cfb9968f-9f48-42d2-ad3f-2af7df92921b" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/35357","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="117524">
+    <td id="PostDetailsCell_117524" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post117524"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/kkozmic">kkozmic</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/10/2008 11:32:49 AM" LocalTimeTicks="1221071569">Sep 10, 2008 at 11:32 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="9/10/2008 1:43:38 PM" LocalTimeTicks="1221079418">Sep 10, 2008 at 1:43 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_117524" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi,&#32;&#32;I&#39;m&#32;trying&#32;to&#32;rewrite&#32;a&#32;sample&#32;application&#32;I&#32;created&#32;from&#32;Castle&#32;Windsor&#32;to&#32;Unity,&#32;and&#32;I&#39;m&#32;stuck&#32;with&#32;this&#32;piece&#32;of&#32;code&#58;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;container.Register&#40;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Component.For&#38;lt&#59;IPrinter&#38;gt&#59;&#40;&#41;.ImplementedBy&#40;MyOtherImplementation&#41;.Named&#40;&#38;quot&#59;Printer2&#38;quot&#59;&#41;.&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Interceptors&#40;new&#32;InterceptorReference&#40;typeof&#40;EvilInterceptor&#41;&#41;&#41;.Anywhere.&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Parameters&#40;Parameter.ForKey&#40;&#38;quot&#59;colorer&#38;quot&#59;&#41;.Eq&#40;&#38;quot&#59;&#36;&#123;Printer2.colorer&#125;&#38;quot&#59;&#41;&#41;&#41;&#59;&#32;&#32;It&#32;does&#32;three&#32;things&#58;&#32;&#32;Registers&#32;type&#32;represented&#32;by&#32;MyOtherImplementation&#32;as&#32;service&#32;IPrinter&#32;with&#32;name&#32;Printer2&#32;Adds&#32;an&#32;interceptor&#32;of&#32;type&#32;EvilInterceptor&#32;Tells&#32;Windsor&#32;that&#32;when&#32;building&#32;up&#32;object&#32;of&#32;type&#32;MyOtherImplementation,&#32;for&#32;parameter&#32;named&#32;colorer&#32;should&#32;be&#32;used&#32;object&#32;registered&#32;with&#32;the&#32;name&#32;Printer2.colorer&#32;&#32;How&#32;can&#32;I&#32;do&#32;the&#32;same&#32;thing&#32;in&#32;Unity&#63;&#32;I&#32;know&#32;how&#32;to&#32;do&#32;just&#32;number&#32;1.&#32;AFAIR&#32;number&#32;2&#32;is&#32;beyond&#32;Unity&#39;s&#32;capabilities&#32;at&#32;the&#32;moment.&#32;can&#32;number&#32;3&#32;be&#32;done&#63;&#32;&#32;Thanks.&#32;&#32;">
+        Hi,<br>
+<br>
+I'm trying to rewrite a sample application I created from Castle Windsor to Unity, and I'm stuck with this piece of code:<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; container.Register(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Component.For&lt;IPrinter&gt;().ImplementedBy(MyOtherImplementation).Named(&quot;Printer2&quot;).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Interceptors(new InterceptorReference(typeof(EvilInterceptor))).Anywhere.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Parameters(Parameter.ForKey(&quot;colorer&quot;).Eq(&quot;${Printer2.colorer}&quot;)));<br>
+<br>
+It does three things:<br>
+<ol>
+<li>Registers type represented by MyOtherImplementation as service IPrinter with name Printer2
+</li><li>Adds an interceptor of type EvilInterceptor </li><li>Tells Windsor that when building up object of type MyOtherImplementation, for parameter named colorer should be used object registered with the name Printer2.colorer
+</li></ol>
+How can I do the same thing in Unity?<br>
+I know how to do just number 1.<br>
+AFAIR number 2 is beyond Unity's capabilities at the moment.<br>
+can number 3 be done?<br>
+<br>
+Thanks.<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_117524" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="117601">
+    <td id="PostDetailsCell_117601" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post117601"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/10/2008 5:23:06 PM" LocalTimeTicks="1221092586">Sep 10, 2008 at 5:23 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_117601" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="We&#32;don&#39;t&#32;work&#32;exactly&#32;like&#32;Windsor.&#32;You&#32;can&#32;approximate&#32;it,&#32;though.&#32;You&#32;are&#32;correct&#32;that&#32;we&#32;don&#39;t&#32;have&#32;interception&#32;&#40;working&#32;on&#32;it&#32;now&#41;.&#32;&#32;As&#32;for&#32;the&#32;parameters,&#32;we&#32;don&#39;t&#32;have&#32;a&#32;general&#32;&#38;quot&#59;map&#32;this&#32;parameter&#32;name&#32;to&#32;this&#32;value&#38;quot&#59;.&#32;You&#32;can,&#32;however,&#32;specify&#32;values&#32;for&#32;constructor&#32;and&#32;properties.&#32;&#32;For&#32;example,&#32;if&#32;Colorer&#32;was&#32;a&#32;property,&#32;you&#32;could&#32;do&#58;&#32;&#32;container.RegisterType&#38;lt&#59;IPrinter,&#32;MyOtherImplementation&#38;gt&#59;&#40;&#38;quot&#59;Printer2&#38;quot&#59;,&#32;new&#32;ContainerControlledLifetimeManager&#40;&#41;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;.Configure&#38;lt&#59;InjectedMembers&#38;gt&#59;&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;.ConfigureInjectionFor&#38;lt&#59;MyOtherImplementation&#38;gt&#59;&#40;&#38;quot&#59;Printer2&#38;quot&#59;,&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;new&#32;InjectionProperty&#38;lt&#59;IColorer&#38;gt&#59;&#40;&#38;quot&#59;Colorer&#38;quot&#59;,&#32;new&#32;ResolvedParameter&#38;lt&#59;IColorer&#38;gt&#59;&#40;&#38;quot&#59;Printer2.colorer&#38;quot&#59;&#41;&#41;&#41;&#59;&#32;&#32;If&#32;you&#32;were&#32;using&#32;the&#32;default&#32;IColorer,&#32;you&#32;could&#32;just&#32;say&#32;typeof&#40;IColorer&#41;&#32;instead&#32;of&#32;using&#32;the&#32;ResolvedParameter&#32;object.&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#32;">
+        We don't work exactly like Windsor. You can approximate it, though. You are correct that we don't have interception (working on it now).<br>
+<br>
+As for the parameters, we don't have a general &quot;map this parameter name to this value&quot;. You can, however, specify values for constructor and properties.<br>
+<br>
+For example, if Colorer was a property, you could do:<br>
+<br>
+container.RegisterType&lt;IPrinter, MyOtherImplementation&gt;(&quot;Printer2&quot;, new ContainerControlledLifetimeManager())<br>
+&nbsp;&nbsp;&nbsp; .Configure&lt;InjectedMembers&gt;()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ConfigureInjectionFor&lt;MyOtherImplementation&gt;(&quot;Printer2&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new InjectionProperty&lt;IColorer&gt;(&quot;Colorer&quot;, new ResolvedParameter&lt;IColorer&gt;(&quot;Printer2.colorer&quot;)));<br>
+<br>
+If you were using the default IColorer, you could just say typeof(IColorer) instead of using the ResolvedParameter object.<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_117601" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="117798">
+    <td id="PostDetailsCell_117798" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post117798"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/kkozmic">kkozmic</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/11/2008 10:18:56 AM" LocalTimeTicks="1221153536">Sep 11, 2008 at 10:18 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_117798" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Thanks.&#32;I&#39;ve&#32;made&#32;it&#32;work.&#32;There&#39;s&#32;one&#32;thing&#32;that&#32;needs&#32;clarification&#32;though.&#32;When&#32;I&#32;want&#32;to&#32;specify&#32;explicitly&#32;constructor&#32;parameter,&#32;is&#32;it&#32;a&#32;all-or-nothing&#32;game&#63;&#32;&#32;With&#32;InjectionConstructor&#32;I&#32;have&#32;to&#32;specify&#32;values&#32;for&#32;ALL&#32;parameters,&#32;as&#32;that&#39;s&#32;what&#32;Unity&#32;seems&#32;to&#32;be&#32;using&#32;to&#32;decide&#32;which&#32;constructor&#32;to&#32;use&#32;If&#32;I&#32;have&#32;one&#32;constructor&#32;for&#32;MyOtherImplementation&#58;&#32;&#32;public&#32;MyOtherImplementation&#40;IConsoleColorer&#32;colorer&#41;&#123;&#125;&#32;&#32;I&#32;specify&#32;the&#32;parameter&#32;like&#32;this&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;ConfigureInjectionFor&#40;MyOtherImplementation,&#32;&#38;quot&#59;Printer2&#38;quot&#59;,&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;new&#32;InjectionConstructor&#40;new&#32;ResolvedParameter&#38;lt&#59;IConsoleColorer&#38;gt&#59;&#40;&#38;quot&#59;Printer2.colorer&#38;quot&#59;&#41;&#41;&#41;&#59;&#32;&#32;What&#32;if&#32;the&#32;constructor&#32;had&#32;a&#32;lot&#32;more&#32;parametes,&#32;and&#32;I&#32;wanted&#32;to&#32;just&#32;say,&#32;&#38;quot&#59;for&#32;that&#32;parameter&#32;use&#32;this&#32;value,&#32;and&#32;the&#32;rest&#32;figure&#32;out&#32;by&#32;yourself&#38;quot&#59;.&#32;Can&#32;that&#32;be&#32;done&#63;&#32;">
+        Thanks. I've made it work. There's one thing that needs clarification though.<br>
+When I want to specify explicitly constructor parameter, is it a all-or-nothing game?<br>
+<br>
+With InjectionConstructor I have to specify values for ALL parameters, as that's what Unity seems to be using to decide which constructor to use<br>
+If I have one constructor for MyOtherImplementation:<br>
+<br>
+public MyOtherImplementation(IConsoleColorer colorer){}<br>
+<br>
+I specify the parameter like this:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ConfigureInjectionFor(MyOtherImplementation, &quot;Printer2&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new InjectionConstructor(new ResolvedParameter&lt;IConsoleColorer&gt;(&quot;Printer2.colorer&quot;)));<br>
+<br>
+What if the constructor had a lot more parametes, and I wanted to just say, &quot;for that parameter use this value, and the rest figure out by yourself&quot;.<br>
+Can that be done?<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_117798" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="118176">
+    <td id="PostDetailsCell_118176" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post118176"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/12/2008 5:12:49 PM" LocalTimeTicks="1221264769">Sep 12, 2008 at 5:12 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_118176" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="It&#32;can&#32;be&#32;done,&#32;sort&#32;of.&#32;&#59;-&#41;&#32;&#32;Assuming&#32;you&#32;just&#32;want&#32;default&#32;values&#32;for&#32;each&#32;of&#32;the&#32;other&#32;parameters,&#32;you&#32;can&#32;just&#32;specify&#32;the&#32;type.&#32;You&#32;do&#32;need&#32;all&#32;the&#32;types&#32;of&#32;parameters&#32;to&#32;tell&#32;the&#32;container&#32;which&#32;constructor&#32;to&#32;pick.&#32;&#32;So,&#32;if&#32;you&#32;had&#32;IColorer&#32;and&#32;IOutputStream&#32;as&#32;parameters,&#32;and&#32;you&#32;just&#32;wanted&#32;the&#32;default&#32;IOutputStream,&#32;you&#32;can&#32;do&#58;&#32;&#32;ConfigureInjectionFor&#38;lt&#59;MyOtherImplementation&#38;gt&#59;&#40;&#38;quot&#59;Printer2&#38;quot&#59;,&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;new&#32;InjectionConstructor&#40;new&#32;ResolvedParameter&#38;lt&#59;IConsoleColorer&#38;gt&#59;&#40;&#38;quot&#59;Printer2.colorer&#38;quot&#59;&#41;,&#32;typeof&#40;IOutputStream&#41;&#41;&#59;&#32;&#32;-Chris&#32;&#32;">
+        It can be done, sort of. ;-)<br>
+<br>
+Assuming you just want default values for each of the other parameters, you can just specify the type. You do need all the types of parameters to tell the container which constructor to pick.<br>
+<br>
+So, if you had IColorer and IOutputStream as parameters, and you just wanted the default IOutputStream, you can do:<br>
+<br>
+ConfigureInjectionFor&lt;MyOtherImplementation&gt;(&quot;Printer2&quot;, <br>
+&nbsp;&nbsp;&nbsp; new InjectionConstructor(new ResolvedParameter&lt;IConsoleColorer&gt;(&quot;Printer2.colorer&quot;), typeof(IOutputStream));<br>
+<br>
+-Chris<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_118176" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="118511">
+    <td id="PostDetailsCell_118511" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post118511"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/kkozmic">kkozmic</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/15/2008 7:50:18 AM" LocalTimeTicks="1221490218">Sep 15, 2008 at 7:50 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_118511" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi&#32;Chris,&#32;&#32;To&#32;be&#32;crystal&#32;clearm&#32;by&#32;default&#32;IOutputStream&#32;do&#32;you&#32;mean&#32;default&#40;IOutputStream&#41;&#32;ie&#32;null,&#32;or&#32;the&#32;default&#32;instance&#32;registered&#32;with&#32;the&#32;container,&#32;as&#32;oposed&#32;to&#32;named&#32;instance&#32;pointed&#32;to&#32;by&#32;new&#32;ResolvedParameter&#38;lt&#59;IConsoleColorer&#38;gt&#59;&#40;&#38;quot&#59;Printer2.colorer&#38;quot&#59;&#41;&#32;&#63;&#32;&#32;What&#32;about&#32;a&#32;case,&#32;when&#32;all&#32;I&#32;know&#32;about&#32;the&#32;type&#32;behind&#32;the&#32;interface&#32;is&#32;the&#32;string&#32;containing&#32;its&#32;name&#32;and&#32;assembly&#32;that&#32;holds&#32;it,&#32;and&#32;the&#32;fact&#32;that&#32;it&#32;implements&#32;the&#32;interface.&#32;When&#32;I&#32;can&#39;t&#32;know&#32;anything&#32;about&#32;its&#32;constructors,&#32;and&#32;all&#32;I&#32;know&#32;is&#32;that&#32;somehow,&#32;either&#32;by&#32;propertry&#32;or&#32;by&#32;constructor&#32;it&#32;does&#32;have&#32;a&#32;dependency&#32;on&#32;IConsoleColorer,&#32;and&#32;I&#32;want&#32;to&#32;specify&#32;that&#32;it&#32;should&#32;use&#32;&#38;quot&#59;Printer2.colorer&#38;quot&#59;,&#32;but&#32;not&#32;be&#32;explicit&#32;about&#32;how&#32;that&#32;dependency&#32;should&#32;be&#32;injected.&#32;Can&#32;Unity&#32;figure&#32;it&#32;out&#32;on&#32;its&#32;own&#63;&#32;&#32;&#32;">
+        Hi Chris,<br>
+<br>
+To be crystal clearm by default IOutputStream do you mean default(IOutputStream) ie null, or the default instance registered with the container, as oposed to named instance pointed to by new ResolvedParameter&lt;IConsoleColorer&gt;(&quot;Printer2.colorer&quot;)
+ ?<br>
+<br>
+What about a case, when all I know about the type behind the interface is the string containing its name and assembly that holds it, and the fact that it implements the interface. When I can't know anything about its constructors, and all I know is that somehow,
+ either by propertry or by constructor it does have a dependency on IConsoleColorer, and I want to specify that it should use &quot;Printer2.colorer&quot;, but not be explicit about how that dependency should be injected. Can Unity figure it out on its own?<br>
+<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_118511" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="118921">
+    <td id="PostDetailsCell_118921" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post118921"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/16/2008 7:54:06 PM" LocalTimeTicks="1221620046">Sep 16, 2008 at 7:54 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_118921" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="By&#32;default&#32;IOutputStream&#32;I&#32;mean&#32;the&#32;default&#32;instance&#32;registered&#32;in&#32;the&#32;container&#32;&#40;i.e.&#32;the&#32;unnamed&#32;registration&#41;.&#32;&#32;The&#32;latter&#32;case&#32;you&#32;describe&#32;is&#32;not&#32;something&#32;Unity&#32;can&#32;figure&#32;out&#32;on&#32;it&#39;s&#32;own&#59;&#32;you&#39;ll&#32;need&#32;to&#32;come&#32;up&#32;with&#32;some&#32;kind&#32;of&#32;convention&#32;and&#32;possibly&#32;extend&#32;the&#32;container&#32;to&#32;know&#32;about&#32;that&#32;convention.&#32;&#32;">
+        By default IOutputStream I mean the default instance registered in the container (i.e. the unnamed registration).<br>
+<br>
+The latter case you describe is not something Unity can figure out on it's own; you'll need to come up with some kind of convention and possibly extend the container to know about that convention.<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_118921" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="121357">
+    <td id="PostDetailsCell_121357" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post121357"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/mvalenty">mvalenty</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/27/2008 6:42:51 PM" LocalTimeTicks="1222566171">Sep 27, 2008 at 6:42 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="9/27/2008 7:01:07 PM" LocalTimeTicks="1222567267">Sep 27, 2008 at 7:01 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_121357" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="This&#32;is&#32;a&#32;hot&#32;topic&#32;for&#32;me&#32;too.&#32;The&#32;issue&#32;for&#32;me&#32;is&#32;I&#32;have&#32;one&#32;constructor&#32;paramter&#32;that&#32;needs&#32;a&#32;specific&#32;named&#32;dependency,&#32;but&#32;the&#32;others&#32;should&#32;just&#32;use&#32;the&#32;defaults.&#32;Having&#32;to&#32;specify&#32;all&#32;or&#32;nothing&#32;means&#32;I&#32;have&#32;to&#32;update&#32;the&#32;ConfigureInjectionFor&#32;hooha&#32;when&#32;I&#32;add&#32;additional&#32;dependencies.&#32;The&#32;container&#32;goes&#32;from&#32;life&#32;changing&#32;freedom&#32;to&#32;a&#32;fragile&#32;management&#32;fiasco.&#32;Okay,&#32;that&#32;was&#32;a&#32;little&#32;dramatic&#32;but&#32;you&#32;get&#32;the&#32;point...&#32;&#32;&#32;I&#32;am&#32;super&#32;impressed&#32;with&#32;the&#32;extensibility&#32;of&#32;Unity&#32;and&#32;I&#39;m&#32;sure&#32;I&#32;could&#32;create&#32;the&#32;behavior&#32;I&#32;want&#32;with&#32;a&#32;point&#32;in&#32;the&#32;right&#32;direction.&#32;Of&#32;course,&#32;I&#32;would&#32;like&#32;to&#32;see&#32;native&#32;support&#32;for&#32;this.&#32;&#32;&#32;Instead&#32;of&#32;&#32;&#32;ConfigureInjectionFor&#38;lt&#59;MyConcreteService&#38;gt&#59;&#40;new&#32;InjectionConstructor&#40;&#91;all&#32;parameters&#32;so&#32;unity&#32;knows&#32;which&#32;constructor&#32;to&#32;pick&#93;&#41;&#41;&#32;&#32;&#32;maybe&#32;something&#32;like&#58;&#32;&#32;&#32;ConfigureInjectionFor&#38;lt&#59;MyConcreteService&#38;gt&#59;&#40;new&#32;ResolvedParameter&#38;lt&#59;IMyDependency&#38;gt&#59;&#40;&#38;quot&#59;use&#32;this&#32;named&#32;dependency&#32;for&#38;nbsp&#59;whatever&#32;constructor&#32;unity&#32;picks&#38;quot&#59;&#41;&#32;">
+        This is a hot topic for me too. The issue for me is I have one constructor paramter that needs a specific named dependency, but the others should just use the defaults. Having to specify all or nothing means I have to update the ConfigureInjectionFor hooha
+ when I add additional dependencies. The container goes from life changing freedom to a fragile management fiasco. Okay, that was a little dramatic but you get the point...
+<br>
+<br>
+I am super impressed with the extensibility of Unity and I'm sure I could create the behavior I want with a point in the right direction. Of course, I would like to see native support for this.
+<br>
+<br>
+Instead of <br>
+<br>
+<code>ConfigureInjectionFor&lt;MyConcreteService&gt;(new InjectionConstructor([all parameters so unity knows which constructor to pick]))
+</code><br>
+<br>
+maybe something like: <br>
+<br>
+<code>ConfigureInjectionFor&lt;MyConcreteService&gt;(new ResolvedParameter&lt;IMyDependency&gt;(&quot;use this named dependency for&nbsp;whatever constructor unity picks&quot;)</code>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_121357" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="121359">
+    <td id="PostDetailsCell_121359" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post121359"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/mvalenty">mvalenty</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/27/2008 7:03:28 PM" LocalTimeTicks="1222567408">Sep 27, 2008 at 7:03 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_121359" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Wow,&#32;don&#39;t&#32;use&#32;chrome&#32;to&#32;post&#32;messages&#32;on&#32;codeplex&#33;&#32;I&#32;just&#32;burned&#32;about&#32;30&#32;minutes&#32;and&#32;lost&#32;a&#32;few&#32;more&#32;hairs&#32;trying&#32;to&#32;figure&#32;out&#32;why&#32;my&#32;formatting&#32;got&#32;all&#32;crazy.&#32;">
+        Wow, don't use chrome to post messages on codeplex! I just burned about 30 minutes and lost a few more hairs trying to figure out why my formatting got all crazy.
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_121359" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f35357">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="35aae467-2a72-453d-8803-005615efc3d5">
+    <script class="options" defer="defer" id="35aae467-2a72-453d-8803-005615efc3d5" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_d1bd4989-35d3-40ae-bdfa-e8a4d73de3dc">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_07750188-6d3b-4b91-b8a1-3281deb4daec">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_d1bd4989-35d3-40ae-bdfa-e8a4d73de3dc" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_07750188-6d3b-4b91-b8a1-3281deb4daec" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/35357';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

@@ -1,0 +1,918 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Constructor Parameters &#40;again&#41;</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/30104?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/30104?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="o62hYSF2gU0lgKDENxC9hif1F2YON5tbcCsN_tDGKER4QvwQbHIq3MEwuRyxymyND-nOzLh49tAgMZhWZX8fgJuFXhNdGOQI2NBj5eTYeL_duw_v8_WBa_EBJsrmwoNGJhX7LA2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken282eae73b-56c9-4a27-9380-f38fe3d9cddc" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:27:48 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f30104" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="b4b2cc76-2973-4ad2-bdd4-81b22f36cda9">
+                
+                    <script class="options" defer="defer" id="b4b2cc76-2973-4ad2-bdd4-81b22f36cda9" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="49d0d611-c5f5-4254-964d-a07c5c60f803">
+                
+                    <script class="options" defer="defer" id="49d0d611-c5f5-4254-964d-a07c5c60f803" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Constructor Parameters &#40;again&#41;
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:30104]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="f10a5052-a26d-4391-a411-e4986f085bfc">
+    <script class="options" defer="defer" id="f10a5052-a26d-4391-a411-e4986f085bfc" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/30104","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="100304">
+    <td id="PostDetailsCell_100304" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post100304"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/BeSharp">BeSharp</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/23/2008 8:58:59 AM" LocalTimeTicks="1214236739">Jun 23, 2008 at 8:58 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_100304" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Sorry,&#32;I&#39;m&#32;a&#32;Unity&#32;newbie&#32;and&#32;haven&#39;t&#32;found&#32;an&#32;answer&#32;&#40;code&#41;&#32;for&#32;the&#32;following&#32;simple&#32;issue&#58;&#32;&#32;If&#32;I&#39;ve&#32;got&#32;a&#32;class&#32;with&#32;multiple&#32;constructors,&#32;I&#39;ve&#32;understood&#32;that&#32;Unity&#32;takes&#32;the&#32;one&#32;with&#32;the&#32;longest&#32;signature&#32;and&#32;&#38;quot&#59;tries&#38;quot&#59;&#32;to&#32;resolve&#32;objects&#32;which&#32;have&#32;been&#32;passed&#32;as&#32;constructor&#32;parameters.&#32;I&#32;also&#32;understood,&#32;that&#32;if&#32;the&#32;parameter&#32;is&#32;e.g.&#32;a&#32;string&#32;object,&#32;Unity&#32;cannot&#32;resolve&#32;apropriately.&#32;I&#39;ve&#32;read&#32;that&#32;there&#32;are&#32;methods&#32;to&#32;work&#32;around&#32;this&#32;and&#32;actually&#32;pass&#32;the&#32;string&#32;parameter.&#32;Can&#32;anybody&#32;provide&#32;the&#32;basic&#32;and&#32;stripped&#32;down&#32;CODE,&#32;that&#32;does&#32;just&#32;that&#32;based&#32;on&#32;the&#32;following&#32;type&#58;&#32;&#32;&#32;&#38;nbsp&#59;&#32;namespace&#32;&#32;&#38;nbsp&#59;&#32;&#32;&#32;UnityPlayground&#32;&#38;nbsp&#59;&#32;&#123;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;class&#32;NullLogger&#32;&#58;&#32;ILogger&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;private&#32;string&#32;version&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#32;NullLogger&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;this.version&#32;&#61;&#32;&#38;quot&#59;1.0&#38;quot&#59;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#32;NullLogger&#40;string&#32;v&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;this.version&#32;&#61;&#32;v&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#32;void&#32;Log&#40;string&#32;message&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;System.Console.WriteLine&#40;&#38;quot&#59;NULL&#38;gt&#59;&#32;&#38;quot&#59;&#43;message&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#125;&#32;&#32;&#38;nbsp&#59;&#32;&#32;">
+        
+<p>Sorry, I'm a Unity newbie and haven't found an answer (code) for the following simple issue:<br>
+<br>
+If I've got a class with multiple constructors, I've understood that Unity takes the one with the longest signature and &quot;tries&quot; to resolve objects which have been passed as constructor parameters. I also understood, that if the parameter is e.g. a
+ string object, Unity cannot resolve apropriately. I've read that there are methods to work around this and actually pass the string parameter. Can anybody provide the basic and stripped down CODE, that does just that based on the following type:<br>
+<br>
+<span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff"></p>
+<p>&nbsp;</p>
+<p>namespace</p>
+</span>
+<p>&nbsp;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px">UnityPlayground </p>
+<p>&nbsp;</p>
+<p>{</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;class</span></span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#2b91af"><span style="font-size:13px; color:#2b91af">NullLogger</span></span><span style="font-size:13px"> :
+</span><span style="font-size:13px; color:#2b91af"><span style="font-size:13px; color:#2b91af">ILogger<br>
+</span></span><span style="font-size:13px"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+</span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private</span></span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">string</span></span><span style="font-size:13px"> version;<br>
+</span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public</span></span><span style="font-size:13px"> NullLogger()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+</span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this</span></span><span style="font-size:13px">.version =
+</span><span style="font-size:13px; color:#a31515"><span style="font-size:13px; color:#a31515">&quot;1.0&quot;</span></span><span style="font-size:13px">;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+</span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public</span></span><span style="font-size:13px"> NullLogger(</span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">string</span></span><span style="font-size:13px"> v)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">this</span></span><span style="font-size:13px">.version = v;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+</span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public</span></span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">void</span></span><span style="font-size:13px"> Log(</span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">string</span></span><span style="font-size:13px">
+ message)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.</span><span style="font-size:13px; color:#2b91af"><span style="font-size:13px; color:#2b91af">Console</span></span><span style="font-size:13px">.WriteLine(</span><span style="font-size:13px; color:#a31515"><span style="font-size:13px; color:#a31515">&quot;NULL&gt;
+ &quot;</span></span><span style="font-size:13px">&#43;message);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+</p>
+<p>&nbsp;</p>
+</span>
+<p></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_100304" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="100381">
+    <td id="PostDetailsCell_100381" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post100381"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/MMcGuire">MMcGuire</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/23/2008 3:02:57 PM" LocalTimeTicks="1214258577">Jun 23, 2008 at 3:02 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_100381" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;might&#32;be&#32;getting&#32;the&#32;wrong&#32;end&#32;of&#32;the&#32;stick&#32;here...&#32;but&#32;are&#32;you&#32;after&#32;something&#32;like&#32;&#32;using&#32;System&#59;&#32;using&#32;System.Configuration&#59;&#32;using&#32;Microsoft.Practices.Unity&#59;&#32;using&#32;Microsoft.Practices.Unity.Configuration&#59;&#32;namespace&#32;MSUnityStringConstructorSample&#32;&#123;&#32;class&#32;Program&#32;&#123;&#32;private&#32;static&#32;void&#32;Main&#40;string&#91;&#93;&#32;args&#41;&#32;&#123;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;UnityConfigurationSection&#32;section&#32;&#61;&#32;&#40;UnityConfigurationSection&#41;ConfigurationManager.GetSection&#40;&#38;quot&#59;unity&#38;quot&#59;&#41;&#59;&#32;section.Containers.Default.Configure&#40;container&#41;&#59;&#32;ILogger&#32;nullLogger&#32;&#61;&#32;container.Resolve&#38;lt&#59;ILogger&#38;gt&#59;&#40;&#41;&#59;&#32;nullLogger.Log&#40;&#38;quot&#59;hello&#38;quot&#59;&#41;&#59;&#32;Console.ReadLine&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;class&#32;NullLogger&#32;&#58;&#32;ILogger&#32;&#123;&#32;private&#32;readonly&#32;string&#32;version&#59;&#32;public&#32;NullLogger&#40;&#41;&#32;&#123;&#32;version&#32;&#61;&#32;&#38;quot&#59;1.0&#38;quot&#59;&#59;&#32;&#125;&#32;public&#32;NullLogger&#40;string&#32;v&#41;&#32;&#123;&#32;version&#32;&#61;&#32;v&#59;&#32;&#125;&#32;public&#32;void&#32;Log&#40;string&#32;message&#41;&#32;&#123;&#32;Console.WriteLine&#40;&#38;quot&#59;NULL&#38;gt&#59;&#32;&#38;quot&#59;&#32;&#43;&#32;version&#32;&#43;&#32;&#38;quot&#59;&#32;&#58;&#32;&#38;quot&#59;&#32;&#43;&#32;message&#41;&#59;&#32;&#125;&#32;&#125;&#32;public&#32;interface&#32;ILogger&#32;&#123;&#32;void&#32;Log&#40;string&#32;message&#41;&#59;&#32;&#125;&#32;&#125;&#32;With&#32;a&#32;configuration&#38;nbsp&#59;like&#32;this&#32;&#32;&#38;lt&#59;&#63;xml&#32;version&#61;&#38;quot&#59;1.0&#38;quot&#59;&#32;encoding&#61;&#38;quot&#59;utf-8&#38;quot&#59;&#32;&#63;&#38;gt&#59;&#32;&#38;lt&#59;configuration&#38;gt&#59;&#32;&#38;lt&#59;configSections&#38;gt&#59;&#32;&#38;lt&#59;section&#32;name&#61;&#38;quot&#59;unity&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Microsoft.Practices.Unity.Configuration.UnityConfigurationSection,&#32;Microsoft.Practices.Unity.Configuration,&#32;Version&#61;1.1.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;configSections&#38;gt&#59;&#32;&#38;lt&#59;unity&#38;gt&#59;&#32;&#38;lt&#59;containers&#38;gt&#59;&#32;&#38;lt&#59;container&#38;gt&#59;&#32;&#38;lt&#59;types&#38;gt&#59;&#32;&#38;lt&#59;type&#32;type&#61;&#38;quot&#59;MSUnityStringConstructorSample.ILogger,&#32;MSUnityStringConstructorSample&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;MSUnityStringConstructorSample.NullLogger,&#32;MSUnityStringConstructorSample&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;typeConfig&#32;extensionType&#61;&#38;quot&#59;Microsoft.Practices.Unity.Configuration.TypeInjectionElement,&#32;Microsoft.Practices.Unity.Configuration&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;message&#38;quot&#59;&#32;parameterType&#61;&#38;quot&#59;System.String&#38;quot&#59;&#32;&#38;gt&#59;&#32;&#38;lt&#59;value&#32;value&#61;&#38;quot&#59;2.0&#38;quot&#59;&#32;type&#61;&#38;quot&#59;System.String&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#32;&#38;lt&#59;&#47;typeConfig&#38;gt&#59;&#32;&#38;lt&#59;&#47;type&#38;gt&#59;&#32;&#38;lt&#59;&#47;types&#38;gt&#59;&#32;&#38;lt&#59;&#47;container&#38;gt&#59;&#32;&#38;lt&#59;&#47;containers&#38;gt&#59;&#32;&#38;lt&#59;&#47;unity&#38;gt&#59;&#32;&#38;lt&#59;&#47;configuration&#38;gt&#59;&#32;&#38;lt&#59;STYLE&#32;type&#61;text&#47;css&#38;gt&#59;&#32;.csharpcode,&#32;.csharpcode&#32;pre&#32;&#123;&#32;font-size&#58;&#32;small&#59;&#32;color&#58;&#32;black&#59;&#32;font-family&#58;&#32;Consolas,&#32;&#38;quot&#59;Courier&#32;New&#38;quot&#59;,&#32;Courier,&#32;Monospace&#59;&#32;background-color&#58;&#32;&#35;ffffff&#59;&#32;&#47;&#42;white-space&#58;&#32;pre&#59;&#42;&#47;&#32;&#125;&#32;.csharpcode&#32;pre&#32;&#123;&#32;margin&#58;&#32;0em&#59;&#32;&#125;&#32;.csharpcode&#32;.rem&#32;&#123;&#32;color&#58;&#32;&#35;008000&#59;&#32;&#125;&#32;.csharpcode&#32;.kwrd&#32;&#123;&#32;color&#58;&#32;&#35;0000ff&#59;&#32;&#125;&#32;.csharpcode&#32;.str&#32;&#123;&#32;color&#58;&#32;&#35;006080&#59;&#32;&#125;&#32;.csharpcode&#32;.op&#32;&#123;&#32;color&#58;&#32;&#35;0000c0&#59;&#32;&#125;&#32;.csharpcode&#32;.preproc&#32;&#123;&#32;color&#58;&#32;&#35;cc6633&#59;&#32;&#125;&#32;.csharpcode&#32;.asp&#32;&#123;&#32;background-color&#58;&#32;&#35;ffff00&#59;&#32;&#125;&#32;.csharpcode&#32;.html&#32;&#123;&#32;color&#58;&#32;&#35;800000&#59;&#32;&#125;&#32;.csharpcode&#32;.attr&#32;&#123;&#32;color&#58;&#32;&#35;ff0000&#59;&#32;&#125;&#32;.csharpcode&#32;.alt&#32;&#123;&#32;background-color&#58;&#32;&#35;f4f4f4&#59;&#32;width&#58;&#32;100&#37;&#59;&#32;margin&#58;&#32;0em&#59;&#32;&#125;&#32;.csharpcode&#32;.lnum&#32;&#123;&#32;color&#58;&#32;&#35;606060&#59;&#32;&#125;&#32;&#38;lt&#59;&#47;STYLE&#38;gt&#59;&#32;&#32;I&#32;also&#32;have&#32;some&#32;other&#32;config&#32;based&#32;samples&#32;over&#32;at&#32;my&#32;blog&#32;if&#32;there&#32;any&#32;help&#38;nbsp&#59;http&#58;&#47;&#47;aardvarkblogs.wordpress.com&#47;2008&#47;06&#47;17&#47;unity-container-samples&#47;&#32;&#32;&#32;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#32;&#38;nbsp&#59;&#32;&#32;&#32;&#38;nbsp&#59;&#32;&#32;&#38;nbsp&#59;&#32;">
+        I might be getting the wrong end of the stick here... but are you after something like<br>
+<br>
+<pre class="csharpcode"><span class="kwrd">using</span> System;
+<span class="kwrd">using</span> System.Configuration;
+<span class="kwrd">using</span> Microsoft.Practices.Unity;
+<span class="kwrd">using</span> Microsoft.Practices.Unity.Configuration;
+
+<span class="kwrd">namespace</span> MSUnityStringConstructorSample
+{
+    <span class="kwrd">class</span> Program
+    {
+        <span class="kwrd">private</span> <span class="kwrd">static</span> <span class="kwrd">void</span> Main(<span class="kwrd">string</span>[] args)
+        {
+            IUnityContainer container = <span class="kwrd">new</span> UnityContainer();
+            UnityConfigurationSection section = (UnityConfigurationSection)ConfigurationManager.GetSection(<span class="str">&quot;unity&quot;</span>);
+            section.Containers.Default.Configure(container);
+            ILogger nullLogger = container.Resolve&lt;ILogger&gt;();
+
+            nullLogger.Log(<span class="str">&quot;hello&quot;</span>);
+            Console.ReadLine();
+        }
+    }
+
+    <span class="kwrd">class</span> NullLogger : ILogger
+    {
+        <span class="kwrd">private</span> <span class="kwrd">readonly</span> <span class="kwrd">string</span> version;
+
+        <span class="kwrd">public</span> NullLogger()
+        {
+            version = <span class="str">&quot;1.0&quot;</span>;
+        }
+        <span class="kwrd">public</span> NullLogger(<span class="kwrd">string</span> v)
+        {
+            version = v;
+        }
+        <span class="kwrd">public</span> <span class="kwrd">void</span> Log(<span class="kwrd">string</span> message)
+        {
+            Console.WriteLine(<span class="str">&quot;NULL&gt; &quot;</span> &#43; version &#43; <span class="str">&quot; : &quot;</span> &#43; message);
+        }
+    }
+
+    <span class="kwrd">public</span> <span class="kwrd">interface</span> ILogger
+    {  
+            <span class="kwrd">void</span> Log(<span class="kwrd">string</span> message); 
+    }
+}</pre>
+With a configuration&nbsp;like this<br>
+<br>
+<pre class="csharpcode"><span class="kwrd">&lt;?</span><span class="html">xml</span> <span class="attr">version</span><span class="kwrd">=&quot;1.0&quot;</span> <span class="attr">encoding</span><span class="kwrd">=&quot;utf-8&quot;</span> ?<span class="kwrd">&gt;</span>
+<span class="kwrd">&lt;</span><span class="html">configuration</span><span class="kwrd">&gt;</span>
+  <span class="kwrd">&lt;</span><span class="html">configSections</span><span class="kwrd">&gt;</span>
+    <span class="kwrd">&lt;</span><span class="html">section</span> <span class="attr">name</span><span class="kwrd">=&quot;unity&quot;</span>
+             <span class="attr">type</span><span class="kwrd">=&quot;Microsoft.Practices.Unity.Configuration.UnityConfigurationSection,
+                 Microsoft.Practices.Unity.Configuration, Version=1.1.0.0,
+                 Culture=neutral, PublicKeyToken=31bf3856ad364e35&quot;</span> <span class="kwrd">/&gt;</span>
+  <span class="kwrd">&lt;/</span><span class="html">configSections</span><span class="kwrd">&gt;</span>
+
+  <span class="kwrd">&lt;</span><span class="html">unity</span><span class="kwrd">&gt;</span>
+    <span class="kwrd">&lt;</span><span class="html">containers</span><span class="kwrd">&gt;</span>
+      <span class="kwrd">&lt;</span><span class="html">container</span><span class="kwrd">&gt;</span>
+        <span class="kwrd">&lt;</span><span class="html">types</span><span class="kwrd">&gt;</span>  
+          <span class="kwrd">&lt;</span><span class="html">type</span> <span class="attr">type</span><span class="kwrd">=&quot;MSUnityStringConstructorSample.ILogger, MSUnityStringConstructorSample&quot;</span>
+                <span class="attr">mapTo</span><span class="kwrd">=&quot;MSUnityStringConstructorSample.NullLogger, MSUnityStringConstructorSample&quot;</span><span class="kwrd">&gt;</span>
+            <span class="kwrd">&lt;</span><span class="html">typeConfig</span> <span class="attr">extensionType</span><span class="kwrd">=&quot;Microsoft.Practices.Unity.Configuration.TypeInjectionElement, Microsoft.Practices.Unity.Configuration&quot;</span><span class="kwrd">&gt;</span>     
+              <span class="kwrd">&lt;</span><span class="html">constructor</span><span class="kwrd">&gt;</span>
+                <span class="kwrd">&lt;</span><span class="html">param</span> <span class="attr">name</span><span class="kwrd">=&quot;message&quot;</span> 
+                       <span class="attr">parameterType</span><span class="kwrd">=&quot;System.String&quot;</span> <span class="kwrd">&gt;</span>
+                  <span class="kwrd">&lt;</span><span class="html">value</span> <span class="attr">value</span><span class="kwrd">=&quot;2.0&quot;</span> 
+                         <span class="attr">type</span><span class="kwrd">=&quot;System.String&quot;</span><span class="kwrd">/&gt;</span>
+                <span class="kwrd">&lt;/</span><span class="html">param</span><span class="kwrd">&gt;</span>           
+              <span class="kwrd">&lt;/</span><span class="html">constructor</span><span class="kwrd">&gt;</span>
+            <span class="kwrd">&lt;/</span><span class="html">typeConfig</span><span class="kwrd">&gt;</span>
+          <span class="kwrd">&lt;/</span><span class="html">type</span><span class="kwrd">&gt;</span>
+        <span class="kwrd">&lt;/</span><span class="html">types</span><span class="kwrd">&gt;</span>
+      <span class="kwrd">&lt;/</span><span class="html">container</span><span class="kwrd">&gt;</span>
+    <span class="kwrd">&lt;/</span><span class="html">containers</span><span class="kwrd">&gt;</span>
+  <span class="kwrd">&lt;/</span><span class="html">unity</span><span class="kwrd">&gt;</span>
+<span class="kwrd">&lt;/</span><span class="html">configuration</span><span class="kwrd">&gt;</span></pre>
+&lt;STYLE type=text/css&gt; .csharpcode, .csharpcode pre { font-size: small; color: black; font-family: Consolas, &quot;Courier New&quot;, Courier, Monospace; background-color: #ffffff; /*white-space: pre;*/ } .csharpcode pre { margin: 0em; } .csharpcode .rem
+ { color: #008000; } .csharpcode .kwrd { color: #0000ff; } .csharpcode .str { color: #006080; } .csharpcode .op { color: #0000c0; } .csharpcode .preproc { color: #cc6633; } .csharpcode .asp { background-color: #ffff00; } .csharpcode .html { color: #800000;
+ } .csharpcode .attr { color: #ff0000; } .csharpcode .alt { background-color: #f4f4f4; width: 100%; margin: 0em; } .csharpcode .lnum { color: #606060; } &lt;/STYLE&gt;
+<br>
+I also have some other config based samples over at my blog if there any help&nbsp;<a href="http://aardvarkblogs.wordpress.com/2008/06/17/unity-container-samples/" rel="nofollow">http://aardvarkblogs.wordpress.com/2008/06/17/unity-container-samples/</a><br>
+<br>
+<br>
+<br>
+<span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">&nbsp;
+<p>&nbsp;</p>
+</span>
+<p>&nbsp;</p>
+</span>
+<p><span style="font-size:13px"></p>
+<p>&nbsp;</p>
+</span>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_100381" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="100405">
+    <td id="PostDetailsCell_100405" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post100405"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/23/2008 5:02:42 PM" LocalTimeTicks="1214265762">Jun 23, 2008 at 5:02 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_100405" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="You&#32;can&#32;do&#32;this&#32;either&#32;via&#32;config&#32;or&#32;via&#32;the&#32;API.&#32;MMcGuire&#32;above&#32;has&#32;kindly&#32;provided&#32;the&#32;configuration&#32;above.&#32;&#32;Through&#32;the&#32;API,&#32;you&#39;d&#32;do&#32;something&#32;like&#32;this&#58;&#32;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;.RegisterType&#38;lt&#59;ILogger,&#32;NullLogger&#38;gt&#59;&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;.Configure&#38;lt&#59;InjectedMembers&#38;gt&#59;&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;.ConfigureInjectionFor&#38;lt&#59;NullLogger&#38;gt&#59;&#40;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;new&#32;InjectionConstructor&#40;&#38;quot&#59;some&#32;string&#38;quot&#59;&#41;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;.Container&#59;&#32;&#32;This&#32;configures&#32;the&#32;container&#32;to&#32;create&#32;an&#32;instance&#32;of&#32;NullLogger&#32;when&#32;resolving&#32;ILogger.&#32;When&#32;NullLogger&#32;is&#32;instantiated,&#32;it&#32;will&#32;call&#32;the&#32;constructor&#32;that&#32;takes&#32;a&#32;single&#32;string,&#32;and&#32;will&#32;pass&#32;the&#32;value&#32;&#38;quot&#59;some&#32;string&#38;quot&#59;&#32;to&#32;the&#32;constructor.&#32;&#32;There&#39;s&#32;a&#32;ton&#32;of&#32;different&#32;stuff&#32;you&#32;can&#32;pass&#32;ConfigureInjectionFor&#32;to&#32;customize&#32;what&#32;is&#32;injected&#32;and&#32;with&#32;what&#32;values.&#32;&#32;">
+        You can do this either via config or via the API. MMcGuire above has kindly provided the configuration above.<br>
+<br>
+Through the API, you'd do something like this:<br>
+<br>
+IUnityContainer container = new UnityContainer()<br>
+&nbsp;&nbsp;&nbsp; .RegisterType&lt;ILogger, NullLogger&gt;()<br>
+&nbsp;&nbsp;&nbsp; .Configure&lt;InjectedMembers&gt;()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ConfigureInjectionFor&lt;NullLogger&gt;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new InjectionConstructor(&quot;some string&quot;))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .Container;<br>
+<br>
+This configures the container to create an instance of NullLogger when resolving ILogger. When NullLogger is instantiated, it will call the constructor that takes a single string, and will pass the value &quot;some string&quot; to the constructor.<br>
+<br>
+There's a ton of different stuff you can pass ConfigureInjectionFor to customize what is injected and with what values.<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_100405" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="281902">
+    <td id="PostDetailsCell_281902" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post281902"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/brettright">brettright</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/26/2010 4:09:25 PM" LocalTimeTicks="1264550965">Jan 26, 2010 at 4:09 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_281902" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="You&#32;can&#32;also&#32;use&#32;the&#32;&#91;InjectionConstructor&#93;&#32;attribute&#32;on&#32;the&#32;constructor&#32;to&#32;mark&#32;the&#32;default&#32;constructor.&#32;In&#32;this&#32;case&#32;the&#32;&#91;InjectionConstructor&#93;&#32;public&#32;NullLogger&#40;&#41;&#32;...&#32;This&#32;wil&#32;cause&#32;Unity&#32;to&#32;use&#32;this&#32;constructor&#32;you&#32;can&#32;then&#32;set&#32;the&#32;version&#32;via&#32;a&#32;property&#32;if&#32;the&#32;relevant&#32;property&#32;exists.&#32;brett">
+        
+<p>You can also use the <strong>[InjectionConstructor]</strong> attribute on the constructor to mark the default constructor.</p>
+<p>In this case the</p>
+<p><strong>[InjectionConstructor]</strong></p>
+<p><strong></strong><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">public</span></span><span style="font-size:13px"> NullLogger() ...</span></p>
+<p><br>
+This wil cause Unity to use this constructor you can then set the version via a property if the relevant property exists.</p>
+<p>brett</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_281902" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="281926">
+    <td id="PostDetailsCell_281926" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post281926"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/26/2010 4:58:26 PM" LocalTimeTicks="1264553906">Jan 26, 2010 at 4:58 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_281926" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Just&#32;to&#32;follow&#32;up&#32;with&#32;the&#32;current&#32;version&#32;of&#32;the&#32;container,&#32;the&#32;API&#32;call&#32;now&#32;looks&#32;like&#32;this&#58;&#32;&#38;nbsp&#59;&#32;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#32;.RegisterType&#38;lt&#59;ILogger,&#32;NullLogger&#38;gt&#59;&#40;&#32;new&#32;InjectionConstructor&#40;&#38;quot&#59;some&#32;string&#38;quot&#59;&#41;&#41;&#59;&#32;&#32;&#32;Just&#32;slightly&#32;smaller&#32;and&#32;easier&#32;than&#32;the&#32;old&#32;API.&#32;&#58;-&#41;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;">
+        
+<p>Just to follow up with the current version of the container, the API call now looks like this:</p>
+<p>&nbsp;</p>
+<div style="color:Black; background-color:White">
+<pre>IUnityContainer container = <span style="color:Blue">new</span> UnityContainer()
+    .RegisterType&lt;ILogger, NullLogger&gt;(
+        <span style="color:Blue">new</span> InjectionConstructor(<span style="color:#A31515">&quot;some string&quot;</span>));
+</pre>
+</div>
+<p>Just slightly smaller and easier than the old API. :-)</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_281926" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f30104">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="17721225-8905-4461-ab35-d9f4bff8397f">
+    <script class="options" defer="defer" id="17721225-8905-4461-ab35-d9f4bff8397f" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_114d89bb-2489-4a98-802c-6e36e22c1434">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_298a84a1-406e-429f-9c7f-eede372337bc">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_114d89bb-2489-4a98-802c-6e36e22c1434" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_298a84a1-406e-429f-9c7f-eede372337bc" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/30104';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

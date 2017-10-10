@@ -1,0 +1,1219 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - IHttpModule with Unity</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/28207?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/28207?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="czWQPMii2zwDTNAt-UkgCDfN7PZKnw_2Uzenmv2oHtaNQneHyxHiTu9iW-ICL_t5qxFk557RQG0IpGfcEeBuASYhScmIvQbWA9EtrTdi-R_5jyGFeVhvFhDU1ZSYwpGenBpoOA2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken211624251-175b-4381-a9a1-da93efd4306b" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:29:01 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f28207" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="1abc0590-f581-4abd-964b-2c86f61ea103">
+                
+                    <script class="options" defer="defer" id="1abc0590-f581-4abd-964b-2c86f61ea103" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="530052ea-965e-451b-94d3-fd159844c2c5">
+                
+                    <script class="options" defer="defer" id="530052ea-965e-451b-94d3-fd159844c2c5" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                IHttpModule with Unity
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:28207]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="1c3ecb2d-905f-4675-8aad-4a898a0e66f5">
+    <script class="options" defer="defer" id="1c3ecb2d-905f-4675-8aad-4a898a0e66f5" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/28207","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="94114">
+    <td id="PostDetailsCell_94114" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post94114"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/hnchan">hnchan</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/22/2008 9:04:53 AM" LocalTimeTicks="1211472293">May 22, 2008 at 9:04 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_94114" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Could&#32;I&#32;do&#32;the&#32;Property&#32;Injection&#32;with&#32;IHttpModule&#63;&#32;">
+        Could I do the Property Injection with IHttpModule? 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_94114" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="94221">
+    <td id="PostDetailsCell_94221" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post94221"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/22/2008 6:01:26 PM" LocalTimeTicks="1211504486">May 22, 2008 at 6:01 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_94221" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="You&#32;want&#32;to&#32;create&#32;an&#32;HttpModule&#32;that&#32;gets&#32;run&#32;through&#32;a&#32;container&#63;&#32;Yes,&#32;you&#32;could,&#32;although&#32;you&#32;wouldn&#39;t&#32;be&#32;able&#32;to&#32;do&#32;constructor&#32;injection&#32;&#40;since&#32;ASP.NET&#32;creates&#32;the&#32;module&#32;instances,&#32;not&#32;you&#41;.&#32;You&#39;d&#32;need&#32;to&#32;have&#32;the&#32;module&#32;call&#32;the&#32;container&#39;s&#32;BuildUp&#32;method&#32;on&#32;itself.&#32;&#32;There&#39;s&#32;also&#32;the&#32;question&#32;of&#32;where&#32;the&#32;container&#32;is&#32;-&#32;global&#32;object,&#32;application&#32;object,&#32;somewhere&#32;else&#63;&#32;There&#39;s&#32;no&#32;one&#32;right&#32;answer&#32;for&#32;that&#32;one,&#32;so&#32;you&#39;ll&#32;have&#32;to&#32;decide&#32;how&#32;you&#32;want&#32;to&#32;do&#32;that.&#32;&#32;">
+        You want to create an HttpModule that gets run through a container? Yes, you could, although you wouldn't be able to do constructor injection (since ASP.NET creates the module instances, not you). You'd need to have the module call the container's BuildUp
+ method on itself.<br>
+<br>
+There's also the question of where the container is - global object, application object, somewhere else? There's no one right answer for that one, so you'll have to decide how you want to do that.<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_94221" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="94299">
+    <td id="PostDetailsCell_94299" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post94299"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/hnchan">hnchan</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/23/2008 5:31:48 AM" LocalTimeTicks="1211545908">May 23, 2008 at 5:31 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_94299" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Thanks.&#32;But&#32;how&#32;could&#32;I&#32;buildup&#32;with&#32;the&#32;IHttpmodule&#63;&#32;&#32;Currently,&#32;I&#32;have&#32;built&#32;a&#32;SecurityHttpModule&#32;which&#32;using&#32;IHttpModule.&#32;&#32;However,&#32;it&#32;seems&#32;I&#32;don&#39;t&#32;have&#32;a&#32;&#38;quot&#59;real&#38;quot&#59;&#32;instance&#32;under&#32;my&#32;code&#63;&#32;&#32;How&#32;could&#32;I&#32;capture&#32;this&#32;instance&#32;and&#32;build&#32;up&#32;it&#63;&#32;Thanks.&#32;">
+        Thanks.&nbsp; But how could I buildup with the IHttpmodule?<br>
+<br>
+Currently, I have built a SecurityHttpModule which using IHttpModule.<br>
+<br>
+However, it seems I don't have a &quot;real&quot; instance under my code?<br>
+<br>
+How could I capture this instance and build up it? Thanks. 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_94299" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="94300">
+    <td id="PostDetailsCell_94300" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post94300"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/hnchan">hnchan</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/23/2008 5:38:56 AM" LocalTimeTicks="1211546336">May 23, 2008 at 5:38 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_94300" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Thanks.&#32;But&#32;how&#32;could&#32;I&#32;buildup&#32;with&#32;the&#32;IHttpmodule&#63;&#32;&#32;Currently,&#32;I&#32;have&#32;built&#32;a&#32;SecurityHttpModule&#32;which&#32;using&#32;IHttpModule.&#32;&#32;However,&#32;it&#32;seems&#32;I&#32;don&#39;t&#32;have&#32;a&#32;&#38;quot&#59;real&#38;quot&#59;&#32;instance&#32;under&#32;my&#32;code&#63;&#32;&#32;How&#32;could&#32;I&#32;capture&#32;this&#32;instance&#32;and&#32;build&#32;up&#32;it&#63;&#32;Thanks.&#32;">
+        Thanks.&nbsp; But how could I buildup with the IHttpmodule?<br>
+<br>
+Currently, I have built a SecurityHttpModule which using IHttpModule.<br>
+<br>
+However, it seems I don't have a &quot;real&quot; instance under my code?<br>
+<br>
+How could I capture this instance and build up it? Thanks. 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_94300" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="94305">
+    <td id="PostDetailsCell_94305" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post94305"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/23/2008 6:08:53 AM" LocalTimeTicks="1211548133">May 23, 2008 at 6:08 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_94305" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#39;m&#32;sorry,&#32;I&#32;really&#32;don&#39;t&#32;understand&#32;what&#32;you&#39;re&#32;asking.&#32;Could&#32;you&#32;post&#32;some&#32;examples&#32;of&#32;what&#32;you&#39;re&#32;trying&#32;to&#32;do&#63;&#32;&#32;">
+        I'm sorry, I really don't understand what you're asking. Could you post some examples of what you're trying to do?<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_94305" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="94308">
+    <td id="PostDetailsCell_94308" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post94308"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/hnchan">hnchan</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/23/2008 6:14:03 AM" LocalTimeTicks="1211548443">May 23, 2008 at 6:14 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_94308" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;have&#32;create&#32;an&#32;HttpModule&#32;as&#32;follows&#32;and&#32;would&#32;like&#32;to&#32;the&#32;Dependency&#32;Injection&#32;on&#32;UserService.&#32;Howerver,&#32;it&#32;returns&#32;null&#32;&#58;-&#32;&#32;&#32;public&#32;class&#32;SecurityHttpModule&#32;&#58;&#32;IHttpModule&#32;&#123;&#32;private&#32;ICacheManager&#32;cacheObj&#59;&#32;&#32;&#47;&#47;private&#32;UserService&#32;_userservice&#59;&#32;&#32;&#47;&#47;&#91;Dependency&#93;&#32;&#47;&#47;public&#32;UserService&#32;UserServiceObj&#32;&#47;&#47;&#123;&#32;&#47;&#47;&#32;get&#32;&#123;&#32;return&#32;_userservice&#59;&#32;&#125;&#32;&#47;&#47;&#32;set&#32;&#123;&#32;_userservice&#32;&#61;&#32;value&#59;&#32;&#125;&#32;&#47;&#47;&#125;&#32;&#32;public&#32;SecurityHttpModule&#40;&#41;&#32;&#123;&#32;cacheObj&#32;&#61;&#32;CacheFactory.GetCacheManager&#40;&#41;&#59;&#32;&#125;&#32;&#32;public&#32;void&#32;Init&#40;HttpApplication&#32;context&#41;&#32;&#123;&#32;context.AuthenticateRequest&#32;&#43;&#61;&#32;&#32;&#40;new&#32;EventHandler&#40;this.Application_AuthenticateRequest&#41;&#41;&#59;&#32;&#125;&#32;&#32;&#32;private&#32;void&#32;Application_AuthenticateRequest&#40;Object&#32;source,&#32;EventArgs&#32;e&#41;&#32;&#123;&#32;&#32;if&#32;&#40;&#40;HttpContext.Current.User&#32;&#33;&#61;&#32;null&#41;&#32;&#38;amp&#59;&#38;amp&#59;&#32;&#40;HttpContext.Current.User.Identity.IsAuthenticated&#41;&#41;&#32;&#123;&#32;&#47;&#47;HttpContext.Current.User.Identity&#32;if&#32;&#40;cacheObj.GetData&#40;HttpContext.Current.User.Identity.Name&#41;&#32;&#61;&#61;&#32;null&#41;&#32;&#123;&#32;UserService&#32;UserServiceObj&#32;&#61;&#32;new&#32;UserService&#40;&#41;&#59;&#32;&#32;User&#32;user&#61;&#32;UserServiceObj.RetrieveUser&#40;HttpContext.Current.User.Identity.Name&#41;&#59;&#32;&#47;&#47;TODO&#58;&#32;Tempoarily&#32;assign&#32;null&#32;to&#32;user&#32;object&#32;UserPrincipal&#32;principal&#32;&#61;&#32;new&#32;UserPrincipal&#40;new&#32;UserIdentity&#40;&#32;HttpContext.Current.User.Identity.Name,&#32;HttpContext.Current.User.Identity.AuthenticationType,&#32;true,&#32;user&#41;,&#32;new&#32;List&#38;lt&#59;String&#38;gt&#59;&#40;&#41;&#32;&#123;&#32;&#38;quot&#59;Admin&#38;quot&#59;,&#32;&#38;quot&#59;2&#38;quot&#59;&#32;&#125;&#41;&#59;&#32;&#32;HttpContext.Current.User&#32;&#61;&#32;principal&#59;&#32;&#32;cacheObj.Add&#40;HttpContext.Current.User.Identity.Name,&#32;principal&#41;&#59;&#32;&#125;&#32;&#32;&#125;&#32;&#125;&#32;&#32;public&#32;void&#32;Dispose&#40;&#41;&#32;&#123;&#32;&#125;&#32;&#125;&#32;">
+        I have create an HttpModule as follows and would like to the Dependency Injection on UserService. Howerver, it returns null&nbsp;:-<br>
+<br>
+<br>
+<p>public class SecurityHttpModule : IHttpModule<br>
+{<br>
+&nbsp;&nbsp;&nbsp; private ICacheManager cacheObj;</p>
+<p>&nbsp;&nbsp;&nbsp; //private UserService _userservice;</p>
+<p>&nbsp;&nbsp;&nbsp; //[Dependency]<br>
+&nbsp;&nbsp;&nbsp; //public UserService UserServiceObj<br>
+&nbsp;&nbsp;&nbsp; //{<br>
+&nbsp;&nbsp;&nbsp; //&nbsp;&nbsp;&nbsp; get { return _userservice; }<br>
+&nbsp;&nbsp;&nbsp; //&nbsp;&nbsp;&nbsp; set { _userservice = value; }<br>
+&nbsp;&nbsp;&nbsp; //}</p>
+<p>&nbsp;&nbsp;&nbsp; public SecurityHttpModule()<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cacheObj = CacheFactory.GetCacheManager();<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; public void Init(HttpApplication context)<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; context.AuthenticateRequest &#43;= <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (new EventHandler(this.Application_AuthenticateRequest));<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; private void Application_AuthenticateRequest(Object source, EventArgs e)<br>
+&nbsp;&nbsp;&nbsp; {</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((HttpContext.Current.User != null) &amp;&amp; (HttpContext.Current.User.Identity.IsAuthenticated))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //HttpContext.Current.User.Identity<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (cacheObj.GetData(HttpContext.Current.User.Identity.Name) == null)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UserService UserServiceObj = new UserService();</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; User user= UserServiceObj.RetrieveUser(HttpContext.Current.User.Identity.Name);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //TODO: Tempoarily assign null to user object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UserPrincipal principal = new UserPrincipal(new UserIdentity(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HttpContext.Current.User.Identity.Name, HttpContext.Current.User.Identity.AuthenticationType, true, user),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new List&lt;String&gt;() { &quot;Admin&quot;, &quot;2&quot; });</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HttpContext.Current.User = principal;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cacheObj.Add(HttpContext.Current.User.Identity.Name, principal);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; public void Dispose()<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>}</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_94308" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="94423">
+    <td id="PostDetailsCell_94423" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post94423"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/pbolduc">pbolduc</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/23/2008 5:00:00 PM" LocalTimeTicks="1211587200">May 23, 2008 at 5:00 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_94423" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;think&#32;you&#32;need&#32;to&#32;do&#32;something&#32;like&#32;the&#32;following.&#38;nbsp&#59;&#32;You&#32;will&#32;have&#32;to&#32;ensure&#32;your&#32;container&#32;is&#32;initialized&#32;properly&#32;first.&#32;&#32;&#32;Non-Unity&#32;related&#32;issue,&#32;I&#32;would&#32;recommend&#32;against&#32;referencing&#32;HttpContext.Current&#32;from&#32;an&#32;IHttpModule.&#38;nbsp&#59;&#32;I&#32;believe&#32;the&#32;a&#32;better&#32;way&#32;to&#32;get&#32;the&#32;current&#32;HttpContext&#32;in&#32;a&#32;module&#32;is&#32;via&#32;the&#32;HttpApplication&#32;that&#32;is&#32;passed&#32;as&#32;the&#32;sender&#47;source&#32;of&#32;your&#32;event&#32;handler.&#38;nbsp&#59;&#32;If&#32;you&#32;dig&#32;into&#32;framework&#32;IHttpModules,&#32;you&#32;will&#32;see&#32;that&#32;HttpContext.Current&#32;is&#32;never&#32;referenced.&#38;nbsp&#59;&#32;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;SecurityHttpModule&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;container.BuildUp&#38;lt&#59;SecurityHttpModule&#38;gt&#59;&#40;this&#41;&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;cacheObj&#32;&#61;&#32;CacheFactory.GetCacheManager&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;void&#32;Init&#40;HttpApplication&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;context.AuthenticateRequest&#32;&#43;&#61;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#40;new&#32;EventHandler&#40;this.Application_AuthenticateRequest&#41;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;private&#32;void&#32;Application_AuthenticateRequest&#40;Object&#32;source,&#32;EventArgs&#32;e&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#32;avoid&#32;using&#32;HttpContext.Current&#32;in&#32;modules&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;HttpApplication&#32;application&#32;&#61;&#32;source&#32;as&#32;HttpApplication&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;HttpContext&#32;context&#32;&#61;&#32;application.Context&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;if&#32;&#40;&#40;context.User&#32;&#33;&#61;&#32;null&#41;&#32;&#38;amp&#59;&#38;amp&#59;&#32;&#40;context.User.Identity.IsAuthenticated&#41;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#32;&#32;hnchan&#32;wrote&#58;&#32;I&#32;have&#32;create&#32;an&#32;HttpModule&#32;as&#32;follows&#32;and&#32;would&#32;like&#32;to&#32;the&#32;Dependency&#32;Injection&#32;on&#32;UserService.&#32;Howerver,&#32;it&#32;returns&#32;null&#38;nbsp&#59;&#58;-&#32;&#32;&#32;public&#32;class&#32;SecurityHttpModule&#32;&#58;&#32;IHttpModule&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;private&#32;ICacheManager&#32;cacheObj&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;private&#32;UserService&#32;_userservice&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#91;Dependency&#93;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;public&#32;UserService&#32;UserServiceObj&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;get&#32;&#123;&#32;return&#32;_userservice&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;set&#32;&#123;&#32;_userservice&#32;&#61;&#32;value&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;SecurityHttpModule&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;cacheObj&#32;&#61;&#32;CacheFactory.GetCacheManager&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;void&#32;Init&#40;HttpApplication&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;context.AuthenticateRequest&#32;&#43;&#61;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#40;new&#32;EventHandler&#40;this.Application_AuthenticateRequest&#41;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;private&#32;void&#32;Application_AuthenticateRequest&#40;Object&#32;source,&#32;EventArgs&#32;e&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;if&#32;&#40;&#40;HttpContext.Current.User&#32;&#33;&#61;&#32;null&#41;&#32;&#38;amp&#59;&#38;amp&#59;&#32;&#40;HttpContext.Current.User.Identity.IsAuthenticated&#41;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;HttpContext.Current.User.Identity&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;if&#32;&#40;cacheObj.GetData&#40;HttpContext.Current.User.Identity.Name&#41;&#32;&#61;&#61;&#32;null&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;UserService&#32;UserServiceObj&#32;&#61;&#32;new&#32;UserService&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;User&#32;user&#61;&#32;UserServiceObj.RetrieveUser&#40;HttpContext.Current.User.Identity.Name&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;TODO&#58;&#32;Tempoarily&#32;assign&#32;null&#32;to&#32;user&#32;object&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;UserPrincipal&#32;principal&#32;&#61;&#32;new&#32;UserPrincipal&#40;new&#32;UserIdentity&#40;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;HttpContext.Current.User.Identity.Name,&#32;HttpContext.Current.User.Identity.AuthenticationType,&#32;true,&#32;user&#41;,&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;new&#32;List&#38;lt&#59;String&#38;gt&#59;&#40;&#41;&#32;&#123;&#32;&#38;quot&#59;Admin&#38;quot&#59;,&#32;&#38;quot&#59;2&#38;quot&#59;&#32;&#125;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;HttpContext.Current.User&#32;&#61;&#32;principal&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;cacheObj.Add&#40;HttpContext.Current.User.Identity.Name,&#32;principal&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;void&#32;Dispose&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;&#32;&#32;">
+        I think you need to do something like the following.&nbsp; You will have to ensure your container is initialized properly first.
+<br>
+<br>
+Non-Unity related issue, I would recommend against referencing HttpContext.Current from an IHttpModule.&nbsp; I believe the a better way to get the current HttpContext in a module is via the HttpApplication that is passed as the sender/source of your event
+ handler.&nbsp; If you dig into framework IHttpModules, you will see that HttpContext.Current is never referenced.&nbsp;
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public SecurityHttpModule()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; container.BuildUp&lt;SecurityHttpModule&gt;(this);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cacheObj = CacheFactory.GetCacheManager();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void Init(HttpApplication context)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; context.AuthenticateRequest &#43;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (new EventHandler(this.Application_AuthenticateRequest));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private void Application_AuthenticateRequest(Object source, EventArgs e)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // avoid using HttpContext.Current in modules<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HttpApplication application = source as HttpApplication;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HttpContext context = application.Context;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((context.User != null) &amp;&amp; (context.User.Identity.IsAuthenticated))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+<br>
+<div style="border-style:dotted none; border-width:0.1em medium; margin:1em 0em 2.5em 3em; padding:0.2em; font-style:italic">
+<br>
+hnchan wrote:<br>
+I have create an HttpModule as follows and would like to the Dependency Injection on UserService. Howerver, it returns null&nbsp;:-<br>
+<br>
+<br>
+<p>public class SecurityHttpModule : IHttpModule<br>
+{<br>
+&nbsp;&nbsp;&nbsp; private ICacheManager cacheObj;</p>
+<p>&nbsp;&nbsp;&nbsp; //private UserService _userservice;</p>
+<p>&nbsp;&nbsp;&nbsp; //[Dependency]<br>
+&nbsp;&nbsp;&nbsp; //public UserService UserServiceObj<br>
+&nbsp;&nbsp;&nbsp; //{<br>
+&nbsp;&nbsp;&nbsp; //&nbsp;&nbsp;&nbsp; get { return _userservice; }<br>
+&nbsp;&nbsp;&nbsp; //&nbsp;&nbsp;&nbsp; set { _userservice = value; }<br>
+&nbsp;&nbsp;&nbsp; //}</p>
+<p>&nbsp;&nbsp;&nbsp; public SecurityHttpModule()<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cacheObj = CacheFactory.GetCacheManager();<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; public void Init(HttpApplication context)<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; context.AuthenticateRequest &#43;= <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (new EventHandler(this.Application_AuthenticateRequest));<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; private void Application_AuthenticateRequest(Object source, EventArgs e)<br>
+&nbsp;&nbsp;&nbsp; {</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((HttpContext.Current.User != null) &amp;&amp; (HttpContext.Current.User.Identity.IsAuthenticated))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //HttpContext.Current.User.Identity<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (cacheObj.GetData(HttpContext.Current.User.Identity.Name) == null)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UserService UserServiceObj = new UserService();</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; User user= UserServiceObj.RetrieveUser(HttpContext.Current.User.Identity.Name);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //TODO: Tempoarily assign null to user object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UserPrincipal principal = new UserPrincipal(new UserIdentity(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HttpContext.Current.User.Identity.Name, HttpContext.Current.User.Identity.AuthenticationType, true, user),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new List&lt;String&gt;() { &quot;Admin&quot;, &quot;2&quot; });</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HttpContext.Current.User = principal;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cacheObj.Add(HttpContext.Current.User.Identity.Name, principal);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; public void Dispose()<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>}</p>
+<br>
+<br>
+</div>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_94423" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="94516">
+    <td id="PostDetailsCell_94516" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post94516"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/hnchan">hnchan</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/24/2008 5:04:59 AM" LocalTimeTicks="1211630699">May 24, 2008 at 5:04 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_94516" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Thank&#32;you&#32;very&#32;much.&#32;BTW,&#32;one&#32;more&#32;question.&#32;&#32;Currently,&#32;I&#32;init&#32;the&#32;container&#32;as&#32;a&#32;local&#32;variable&#32;from&#32;the&#32;Application_Start&#32;function&#32;under&#32;Global.asa.&#32;&#32;&#32;protected&#32;void&#32;Application_Start&#40;object&#32;sender,&#32;EventArgs&#32;e&#41;&#32;&#123;&#32;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;&#47;...&#47;&#32;&#32;&#125;&#32;&#32;According&#32;to&#32;your&#32;sample,&#32;do&#32;I&#32;need&#32;to&#32;change&#32;the&#32;container&#32;as&#32;the&#32;global&#32;variable&#63;&#32;Thanks&#32;again&#33;&#33;&#32;&#32;">
+        Thank you very much. BTW,&nbsp;one more question.<br>
+<br>
+Currently, I&nbsp;init the&nbsp;container as a local variable from the Application_Start function under Global.asa.<br>
+<br>
+<p>&nbsp;&nbsp;&nbsp; protected void Application_Start(object sender, EventArgs e)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IUnityContainer container = new UnityContainer();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/.../&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+According to your sample, do I need to change the container as the global variable?&nbsp;Thanks again!!<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_94516" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="94523">
+    <td id="PostDetailsCell_94523" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post94523"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/pbolduc">pbolduc</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/24/2008 6:42:35 AM" LocalTimeTicks="1211636555">May 24, 2008 at 6:42 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_94523" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="You&#32;could,&#32;but&#32;I&#32;think&#32;that&#32;would&#32;suck.&#32;&#58;-&#41;&#32;How&#32;about&#32;something&#32;like&#32;this,&#32;&#32;&#38;nbsp&#59;&#32;&#32;&#47;&#47;&#32;in&#32;global.asax.cs&#32;protected&#32;void&#32;Application_Start&#40;object&#32;sender,&#32;EventArgs&#32;e&#41;&#32;&#123;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;&#32;&#47;&#47;&#32;initialize&#32;the&#32;container&#32;Application&#91;&#38;quot&#59;UnityContainer&#38;quot&#59;&#93;&#32;&#61;&#32;container&#59;&#32;&#47;&#47;&#32;save&#32;the&#32;container&#32;for&#32;later&#32;&#125;&#32;&#32;&#38;nbsp&#59;&#32;&#32;&#47;&#47;&#32;in&#32;SecurityHttpModule.cs&#32;public&#32;class&#32;SecurityHttpModule&#32;&#58;&#32;IHttpModule&#32;&#123;&#32;public&#32;void&#32;Init&#40;HttpApplication&#32;context&#41;&#32;&#123;&#32;context.AuthenticateRequest&#32;&#43;&#61;&#32;Application_AuthenticateRequest&#59;&#32;IUnityContainer&#32;container&#32;&#61;&#32;context.Application&#91;&#38;quot&#59;UnityContainer&#38;quot&#59;&#93;&#32;as&#32;IUnityContainer&#59;&#32;if&#32;&#40;container&#32;&#61;&#61;&#32;null&#41;&#32;throw&#32;new&#32;ConfigurationErrorsException&#40;&#38;quot&#59;UnityContainer&#32;is&#32;not&#32;setup&#32;correctly.&#38;quot&#59;&#41;&#59;&#32;container.BuildUp&#40;this&#41;&#59;&#32;&#125;&#32;&#32;private&#32;void&#32;Application_AuthenticateRequest&#40;object&#32;sender,&#32;EventArgs&#32;e&#41;&#32;&#123;&#32;&#125;&#32;public&#32;void&#32;Dispose&#40;&#41;&#32;&#123;&#32;&#125;&#32;&#125;&#32;&#38;nbsp&#59;&#32;&#32;Or,&#32;you&#32;could&#32;setup&#32;a&#32;singleton&#32;to&#32;hold&#32;your&#32;container&#32;as&#32;shown&#32;in&#32;this&#32;post.&#32;&#32;hnchan&#32;wrote&#58;&#32;Thank&#32;you&#32;very&#32;much.&#32;BTW,&#32;one&#32;more&#32;question.&#32;&#32;Currently,&#32;I&#32;init&#32;the&#32;container&#32;as&#32;a&#32;local&#32;variable&#32;from&#32;the&#32;Application_Start&#32;function&#32;under&#32;Global.asa.&#32;&#32;&#32;protected&#32;void&#32;Application_Start&#40;object&#32;sender,&#32;EventArgs&#32;e&#41;&#32;&#123;&#32;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;&#47;...&#47;&#32;&#32;&#125;&#32;&#32;According&#32;to&#32;your&#32;sample,&#32;do&#32;I&#32;need&#32;to&#32;change&#32;the&#32;container&#32;as&#32;the&#32;global&#32;variable&#63;&#32;Thanks&#32;again&#33;&#33;&#32;&#32;&#32;&#32;&#32;&#32;">
+        
+<p>You could, but I think&nbsp;that would suck. :-)&nbsp; How about something like this,</p>
+<span style="font-size:13px">
+<p>&nbsp;</p>
+</span>
+<p><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#008000">// in global.asax.cs<br>
+</span>protected</span></span><span style="font-size:13px"> </span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">void</span></span><span style="font-size:13px"> Application_Start(</span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">object</span></span><span style="font-size:13px">
+ sender, </span><span style="font-size:13px; color:#2b91af"><span style="font-size:13px; color:#2b91af">EventArgs</span></span><span style="font-size:13px"> e) {<br>
+&nbsp;&nbsp;&nbsp; </span><span style="font-size:13px; color:#2b91af"><span style="font-size:13px; color:#2b91af">IUnityContainer</span></span><span style="font-size:13px"> container =
+</span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">new</span></span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#2b91af"><span style="font-size:13px; color:#2b91af">UnityContainer</span></span><span style="font-size:13px">();<br>
+</span><span style="font-size:13px; color:#008000"><span style="font-size:13px; color:#008000">&nbsp;&nbsp;&nbsp; // initialize the container<br>
+&nbsp;&nbsp;&nbsp; </span></span><span style="font-size:13px">Application[</span><span style="font-size:13px; color:#a31515"><span style="font-size:13px; color:#a31515">&quot;UnityContainer&quot;</span></span><span style="font-size:13px">] = container;
+</span><span style="font-size:13px; color:#008000"><span style="font-size:13px; color:#008000">// save the container for later<br>
+</span></span><span style="font-size:13px">}</span></p>
+<span style="font-size:13px">
+<p>&nbsp;</p>
+</span>
+<p><span style="font-size:13px; color:#008000"><span style="font-size:13px; color:#008000">// in SecurityHttpModule.cs<br>
+</span></span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">public</span></span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">class</span></span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#2b91af"><span style="font-size:13px; color:#2b91af">SecurityHttpModule</span></span><span style="font-size:13px"> :
+</span><span style="font-size:13px; color:#2b91af"><span style="font-size:13px; color:#2b91af">IHttpModule
+</span></span><span style="font-size:13px">{<br>
+&nbsp;&nbsp;&nbsp; </span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">public</span></span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">void</span></span><span style="font-size:13px"> Init(</span><span style="font-size:13px; color:#2b91af"><span style="font-size:13px; color:#2b91af">HttpApplication</span></span><span style="font-size:13px">
+ context) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; context.AuthenticateRequest &#43;= Application_AuthenticateRequest;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:13px; color:#2b91af"><span style="font-size:13px; color:#2b91af">IUnityContainer</span></span><span style="font-size:13px"> container = context.Application[</span><span style="font-size:13px; color:#a31515"><span style="font-size:13px; color:#a31515">&quot;UnityContainer&quot;</span></span><span style="font-size:13px">]
+</span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">as</span></span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#2b91af"><span style="font-size:13px; color:#2b91af">IUnityContainer</span></span><span style="font-size:13px">;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">if</span></span><span style="font-size:13px"> (container ==
+</span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">null</span></span><span style="font-size:13px">)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">throw</span></span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">new</span></span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#2b91af"><span style="font-size:13px; color:#2b91af">ConfigurationErrorsException</span></span><span style="font-size:13px">(</span><span style="font-size:13px; color:#a31515"><span style="font-size:13px; color:#a31515">&quot;UnityContainer
+ is not setup correctly.&quot;</span></span><span style="font-size:13px">);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; container.BuildUp(</span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">this</span></span><span style="font-size:13px">);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">private</span></span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">void</span></span><span style="font-size:13px"> Application_AuthenticateRequest(</span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">object</span></span><span style="font-size:13px">
+ sender, </span><span style="font-size:13px; color:#2b91af"><span style="font-size:13px; color:#2b91af">EventArgs</span></span><span style="font-size:13px"> e) { }<br>
+&nbsp;&nbsp;&nbsp; </span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">public</span></span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">void</span></span><span style="font-size:13px"> Dispose() { }<br>
+} </p>
+<p>&nbsp;</p>
+</span>
+<p></p>
+Or, you could setup a singleton to hold your container&nbsp;as shown in <a href="http://www.codeplex.com/unity/Thread/View.aspx?ThreadId=25186" rel="nofollow">
+this post</a>.<br>
+<div style="border-right:medium none; padding-right:0.2em; border-top:#aaa 0.1em dotted; padding-left:0.2em; padding-bottom:0.2em; margin:1em 0em 2.5em 3em; border-left:medium none; padding-top:0.2em; border-bottom:#aaa 0.1em dotted; font-style:italic">
+<br>
+hnchan wrote:<br>
+Thank you very much. BTW,&nbsp;one more question.<br>
+<br>
+Currently, I&nbsp;init the&nbsp;container as a local variable from the Application_Start function under Global.asa.<br>
+<br>
+<p>&nbsp;&nbsp;&nbsp; protected void Application_Start(object sender, EventArgs e)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IUnityContainer container = new UnityContainer();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/.../&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+According to your sample, do I need to change the container as the global variable?&nbsp;Thanks again!!<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<br>
+<br>
+</div>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_94523" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="94524">
+    <td id="PostDetailsCell_94524" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post94524"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/pbolduc">pbolduc</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/24/2008 7:03:48 AM" LocalTimeTicks="1211637828">May 24, 2008 at 7:03 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_94524" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="If&#32;your&#32;application&#32;depends&#32;on&#32;singletons,&#32;you&#32;should&#32;avoid&#32;using&#32;&#32;&#32;Application&#91;&#38;quot&#59;UnityContainer&#38;quot&#59;&#93;&#32;&#61;&#32;container&#59;&#32;&#32;as&#32;your&#32;web&#32;application&#32;will&#32;have&#32;one&#32;AppDomain&#32;with&#32;a&#32;pool&#32;of&#32;HttpApplication&#32;objects.&#32;An&#32;individual&#32;HttpApplication&#32;object&#32;is&#32;created&#32;to&#32;handle&#32;each&#32;simultaneous&#32;HTTP&#32;request.&#32;See&#32;this&#32;article&#32;for&#32;an&#32;explaination.&#32;This&#32;post&#32;I&#32;referenced&#32;last&#32;time&#32;uses&#32;the&#32;AppDomain&#32;to&#32;store&#32;the&#32;configured&#32;Unity&#32;container&#32;and&#32;would&#32;only&#32;create&#32;one.&#32;&#32;hnchan&#32;wrote&#58;&#32;Thank&#32;you&#32;very&#32;much.&#32;BTW,&#32;one&#32;more&#32;question.&#32;&#32;Currently,&#32;I&#32;init&#32;the&#32;container&#32;as&#32;a&#32;local&#32;variable&#32;from&#32;the&#32;Application_Start&#32;function&#32;under&#32;Global.asa.&#32;&#32;&#32;protected&#32;void&#32;Application_Start&#40;object&#32;sender,&#32;EventArgs&#32;e&#41;&#32;&#123;&#32;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;&#47;...&#47;&#32;&#32;&#125;&#32;&#32;According&#32;to&#32;your&#32;sample,&#32;do&#32;I&#32;need&#32;to&#32;change&#32;the&#32;container&#32;as&#32;the&#32;global&#32;variable&#63;&#32;Thanks&#32;again&#33;&#33;&#32;&#32;&#32;&#32;&#32;&#32;">
+        
+<p>If your application depends on singletons, you should avoid using&nbsp;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:13px">Application[</span><span style="font-size:13px; color:#a31515"><span style="font-size:13px; color:#a31515">&quot;UnityContainer&quot;</span></span><span style="font-size:13px">] = container;
+</span></p>
+<p>as your web application will have&nbsp;one AppDomain&nbsp;with a&nbsp;pool of HttpApplication&nbsp;objects.&nbsp;An individual HttpApplication object is created to handle each simultaneous HTTP request. See this&nbsp;<a href="http://jingyeluo.blogspot.com/2005/06/what-great-net-developers-ought-to_06.html" rel="nofollow">article</a>
+ for an explaination.&nbsp; This&nbsp;<a href="http://www.codeplex.com/unity/Thread/View.aspx?ThreadId=25186" rel="nofollow">post</a> I referenced last time uses the AppDomain to store the configured Unity container and would only create one.</p>
+<div style="border-right:medium none; padding-right:0.2em; border-top:#aaa 0.1em dotted; padding-left:0.2em; padding-bottom:0.2em; margin:1em 0em 2.5em 3em; border-left:medium none; padding-top:0.2em; border-bottom:#aaa 0.1em dotted; font-style:italic">
+<br>
+hnchan wrote:<br>
+Thank you very much. BTW,&nbsp;one more question.<br>
+<br>
+Currently, I&nbsp;init the&nbsp;container as a local variable from the Application_Start function under Global.asa.<br>
+<br>
+<p>&nbsp;&nbsp;&nbsp; protected void Application_Start(object sender, EventArgs e)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IUnityContainer container = new UnityContainer();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/.../&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+According to your sample, do I need to change the container as the global variable?&nbsp;Thanks again!!<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<br>
+<br>
+</div>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_94524" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="94533">
+    <td id="PostDetailsCell_94533" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post94533"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/hnchan">hnchan</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/24/2008 10:43:40 AM" LocalTimeTicks="1211651020">May 24, 2008 at 10:43 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_94533" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Thanks.&#32;It&#32;works&#32;now&#33;&#33;&#32;">
+        Thanks. It works now!! 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_94533" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="94559">
+    <td id="PostDetailsCell_94559" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post94559"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/pbolduc">pbolduc</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/24/2008 4:36:21 PM" LocalTimeTicks="1211672181">May 24, 2008 at 4:36 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_94559" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Not&#32;being&#32;satisfied&#32;with&#32;my&#32;own&#32;understanding&#32;of&#32;the&#32;AppDomain&#32;&#47;&#32;HttpApplication&#32;pool&#32;issue,&#32;I&#32;did&#32;some&#32;more&#32;digging.&#32;For&#32;those&#32;who&#32;are&#32;interested,&#32;read&#32;in&#32;the&#32;NET&#32;Framework&#32;Developer&#39;s&#32;Guide&#32;Working&#32;with&#32;HttpApplication&#32;Instances&#32;page.&#32;A&#32;couple&#32;of&#32;key&#32;points&#58;&#32;&#32;&#32;Application_OnStart&#32;is&#32;raised&#32;only&#32;once&#32;during&#32;an&#32;application&#39;s&#32;lifetime,&#32;on&#32;the&#32;first&#32;instance&#32;of&#32;HttpApplication.&#32;Use&#32;Application_OnStart&#32;only&#32;to&#32;create&#32;or&#32;modify&#32;states&#32;shared&#32;by&#32;all&#32;pipeline&#32;instances,&#32;such&#32;as&#32;the&#32;use&#32;of&#32;the&#32;ApplicationState&#32;object&#32;Application_OnEnd&#32;is&#32;raised&#32;only&#32;once&#32;during&#32;an&#32;application&#39;s&#32;lifetime,&#32;on&#32;the&#32;last&#32;instance&#32;of&#32;HttpApplication&#32;that&#32;is&#32;torn&#32;down.&#32;Use&#32;Application_OnEnd&#32;only&#32;to&#32;clean&#32;up&#32;states&#32;or&#32;resources&#32;shared&#32;by&#32;all&#32;pipeline&#32;instances,&#32;such&#32;as&#32;the&#32;use&#32;of&#32;the&#32;ApplicationState&#32;object.&#32;&#32;&#32;&#32;So&#32;my&#32;comment&#32;on&#32;singletons&#32;was&#32;not&#32;correct.&#32;&#32;Phil&#32;&#32;pbolduc&#32;wrote&#58;&#32;&#32;If&#32;your&#32;application&#32;depends&#32;on&#32;singletons,&#32;you&#32;should&#32;avoid&#32;using&#32;&#32;&#32;Application&#91;&#38;quot&#59;UnityContainer&#38;quot&#59;&#93;&#32;&#61;&#32;container&#59;&#32;&#32;as&#32;your&#32;web&#32;application&#32;will&#32;have&#32;one&#32;AppDomain&#32;with&#32;a&#32;pool&#32;of&#32;HttpApplication&#32;objects.&#32;An&#32;individual&#32;HttpApplication&#32;object&#32;is&#32;created&#32;to&#32;handle&#32;each&#32;simultaneous&#32;HTTP&#32;request.&#32;See&#32;this&#32;article&#32;for&#32;an&#32;explaination.&#32;This&#32;post&#32;I&#32;referenced&#32;last&#32;time&#32;uses&#32;the&#32;AppDomain&#32;to&#32;store&#32;the&#32;configured&#32;Unity&#32;container&#32;and&#32;would&#32;only&#32;create&#32;one.&#32;">
+        
+<p dir="ltr" style="margin-right:0px">Not being satisfied with my own understanding of the AppDomain / HttpApplication pool&nbsp;issue, I did some more digging.&nbsp; For those who are interested, read in the&nbsp;NET&nbsp;Framework&nbsp;Developer's&nbsp;Guide&nbsp;<a href="http://msdn.microsoft.com/en-us/library/a0xez8f2(VS.71).aspx" rel="nofollow">Working
+ with HttpApplication Instances</a> page. A couple of key points:<br>
+<strong></p>
+<ul>
+<li>Application_OnStart is raised only once during an application's lifetime, on the first instance of
+<b>HttpApplication</b>. Use <b>Application_OnStart</b> only to create or modify states shared by all pipeline instances, such as the use of the
+<b>ApplicationState</b> object </li><li><strong>Application_OnEnd</strong> is raised only once during an application's lifetime, on the last instance of
+<b>HttpApplication</b> that is torn down. Use <b>Application_OnEnd</b> only to clean up states or resources shared by all pipeline instances, such as the use of the
+<b>ApplicationState</b> object. </li></ul>
+</strong>
+<p></p>
+<p>&nbsp;So my comment on&nbsp;singletons was <strong>not</strong> correct.<br>
+<br>
+Phil</p>
+<div style="border-right:medium none; padding-right:0.2em; border-top:#aaa 0.1em dotted; padding-left:0.2em; padding-bottom:0.2em; margin:1em 0em 2.5em 3em; border-left:medium none; padding-top:0.2em; border-bottom:#aaa 0.1em dotted; font-style:italic">
+<br>
+pbolduc wrote:<br>
+</div>
+<p style="border-right:medium none; padding-right:0.2em; border-top:#aaa 0.1em dotted; padding-left:0.2em; padding-bottom:0.2em; margin:1em 0em 2.5em 3em; border-left:medium none; padding-top:0.2em; border-bottom:#aaa 0.1em dotted; font-style:italic">
+If your application depends on singletons, you should avoid using&nbsp;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:13px">Application[</span><span style="font-size:13px; color:#a31515"><span style="font-size:13px; color:#a31515">&quot;UnityContainer&quot;</span></span><span style="font-size:13px">] = container;
+</span></p>
+<p style="border-right:medium none; padding-right:0.2em; border-top:#aaa 0.1em dotted; padding-left:0.2em; padding-bottom:0.2em; margin:1em 0em 2.5em 3em; border-left:medium none; padding-top:0.2em; border-bottom:#aaa 0.1em dotted; font-style:italic">
+as your web application will have&nbsp;one AppDomain&nbsp;with a&nbsp;pool of HttpApplication&nbsp;objects.&nbsp;An individual HttpApplication object is created to handle each simultaneous HTTP request. See this&nbsp;<a href="http://jingyeluo.blogspot.com/2005/06/what-great-net-developers-ought-to_06.html" rel="nofollow">article</a>
+ for an explaination.&nbsp; This&nbsp;<a href="http://www.codeplex.com/unity/Thread/View.aspx?ThreadId=25186" rel="nofollow">post</a> I referenced last time uses the AppDomain to store the configured Unity container and would only create one.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_94559" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f28207">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="489384dc-2df6-4166-94be-a6686eb4f144">
+    <script class="options" defer="defer" id="489384dc-2df6-4166-94be-a6686eb4f144" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_602206e0-3eac-4041-8fd0-2d081aae0095">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_172a8f25-8225-4a9b-acf9-e42957f87341">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_602206e0-3eac-4041-8fd0-2d081aae0095" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_172a8f25-8225-4a9b-acf9-e42957f87341" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/28207';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

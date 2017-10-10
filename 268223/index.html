@@ -1,0 +1,1190 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Performance with loaded containers</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/268223?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/268223?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="_zAGLgytld8-FXwugEKzM_1OThltTNxDhhK2Qa7p9aN2XQ2-PXyGGxFwM3zFADbZ-0OuqTjDIeNsxYdguTYXoMpslATrbrbl218NlZL94jNj4poT862ktE68scNTBuFSSeb7oA2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2b5bec641-bdff-4c03-9609-5b5d46fda6b2" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:25:53 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f268223" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="611863f9-7419-459b-b0c5-86a708a33fae">
+                
+                    <script class="options" defer="defer" id="611863f9-7419-459b-b0c5-86a708a33fae" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="fb194838-c628-4e09-8be5-98051b78d3c1">
+                
+                    <script class="options" defer="defer" id="fb194838-c628-4e09-8be5-98051b78d3c1" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Performance with loaded containers
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:268223]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="4804c436-6ef6-4e8a-ab73-3ed4aae784b7">
+    <script class="options" defer="defer" id="4804c436-6ef6-4e8a-ab73-3ed4aae784b7" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/268223","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="654594">
+    <td id="PostDetailsCell_654594" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post654594"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/philipmateescu">philipmateescu</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/8/2011 3:26:09 PM" LocalTimeTicks="1312842369">Aug 8, 2011 at 3:26 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_654594" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#39;ve&#32;recently&#32;conducted&#32;a&#32;test&#32;of&#32;performance&#32;of&#32;various&#32;.Net&#32;DI&#32;containers&#32;&#40;more&#32;details&#32;here&#58;&#38;nbsp&#59;http&#58;&#47;&#47;philipm.at&#47;2011&#47;0808&#47;&#41;.&#32;When&#32;loaded&#32;with&#32;about&#32;222&#32;interfaces&#32;and&#32;666&#32;classes&#32;&#40;either&#32;configured&#32;as&#32;singletons&#32;or&#32;transient&#41;,&#32;Unity&#32;took&#32;60&#32;seconds&#32;to&#32;resolve&#32;100k&#32;calls&#59;&#32;that&#32;was&#32;368&#32;times&#32;slower&#32;than&#32;Autofac&#32;or&#32;similar&#32;containers.&#32;The&#32;source&#32;code&#32;for&#32;my&#32;tests&#32;is&#32;here&#58;&#38;nbsp&#59;https&#58;&#47;&#47;github.com&#47;philipmat&#47;di_speed.&#38;nbsp&#59;&#32;Any&#32;thoughts&#32;on&#32;what&#32;can&#32;cause&#32;such&#32;abysmal&#32;performance&#63;&#32;">
+        
+<p>I've recently conducted a test of performance of various .Net DI containers (more details here:&nbsp;<a href="http://philipm.at/2011/0808/" rel="nofollow">http://philipm.at/2011/0808/</a>).</p>
+<p>When loaded with about 222 interfaces and 666 classes (either configured as singletons or transient), Unity took
+<strong>60 seconds</strong> to resolve 100k calls; that was <strong>368 times slower</strong> than Autofac or similar containers.</p>
+<p>The source code for my tests is here:&nbsp;<a href="https://github.com/philipmat/di_speed" rel="nofollow">https://github.com/philipmat/di_speed</a>.&nbsp;</p>
+<p>Any thoughts on what can cause such abysmal performance?</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_654594" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="655511">
+    <td id="PostDetailsCell_655511" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post655511"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/9/2011 9:37:32 PM" LocalTimeTicks="1312951052">Aug 9, 2011 at 9:37 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_655511" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="My&#32;first&#32;guess&#32;would&#32;be&#32;&#40;not&#32;having&#32;looked&#32;&#64;&#32;the&#32;benchmark&#32;code&#41;&#32;that&#32;the&#32;way&#32;we&#32;copy&#32;policy&#32;lists&#32;to&#32;ensure&#32;thread&#32;safety&#32;is&#32;interacting&#32;pathologically&#32;with&#32;your&#32;test,&#32;resulting&#32;in&#32;a&#32;lot&#32;of&#32;garbage&#32;and&#32;thus&#32;overhead&#32;in&#32;the&#32;GC.&#32;That&#39;s&#32;just&#32;a&#32;guess.">
+        
+<p>My first guess would be (not having looked @ the benchmark code) that the way we copy policy lists to ensure thread safety is interacting pathologically with your test, resulting in a lot of garbage and thus overhead in the GC.</p>
+<p>That's just a guess.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_655511" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="655665">
+    <td id="PostDetailsCell_655665" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post655665"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/philipmateescu">philipmateescu</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/10/2011 5:40:52 AM" LocalTimeTicks="1312980052">Aug 10, 2011 at 5:40 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="8/10/2011 4:40:18 PM" LocalTimeTicks="1313019618">Aug 10, 2011 at 4:40 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_655665" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="The&#32;problem&#32;seems&#32;to&#32;lie&#32;with&#32;IsRegistered&#32;which&#32;takes&#32;a&#32;disproportionate&#32;amount&#32;of&#32;time&#32;&#40;32,347ms&#32;vs&#32;Resolve&#32;580ms&#41;&#58;&#32;http&#58;&#47;&#47;twitter.com&#47;roryprimrose&#47;status&#47;101150276437811200&#32;The&#32;code&#32;I&#32;used&#32;was&#58;&#32;&#32;&#32;public&#32;void&#32;Run&#40;&#41;&#32;&#123;&#32;if&#32;&#40;uc.IsRegistered&#38;lt&#59;IDummy&#38;gt&#59;&#40;&#41;&#41;&#32;uc.Resolve&#38;lt&#59;IDummy&#38;gt&#59;&#40;&#41;.Do&#40;&#41;&#59;&#32;else...&#32;&#125;&#32;&#32;&#32;">
+        
+<p>The problem seems to lie with IsRegistered which takes a disproportionate amount of time (32,347ms vs Resolve 580ms): http://twitter.com/roryprimrose/status/101150276437811200</p>
+<p>The code I used was:</p>
+<p></p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">public</span> <span style="color:blue">void</span> Run() {
+  <span style="color:blue">if</span> (uc.IsRegistered&lt;IDummy&gt;())
+    uc.Resolve&lt;IDummy&gt;().Do();
+  <span style="color:blue">else</span>...
+}
+</pre>
+</div>
+<p></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_655665" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="656062">
+    <td id="PostDetailsCell_656062" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post656062"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/10/2011 7:24:09 PM" LocalTimeTicks="1313029449">Aug 10, 2011 at 7:24 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_656062" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Yeah,&#32;IsRegistered&#32;is&#32;not&#32;optimized&#32;at&#32;all&#32;-&#32;in&#32;fact,&#32;it&#39;s&#32;almost&#32;deliberately&#32;suboptimal,&#32;because&#32;if&#32;you&#39;re&#32;using&#32;it&#32;a&#32;lot&#32;you&#39;re&#32;most&#32;likely&#32;doing&#32;DI&#32;wrong.&#32;Why&#32;do&#32;you&#32;call&#32;IsRegistered&#32;at&#32;all&#63;&#32;&#38;nbsp&#59;">
+        
+<p>Yeah, IsRegistered is not optimized at all - in fact, it's almost deliberately suboptimal, because if you're using it a lot you're most likely doing DI wrong.</p>
+<p>Why do you call IsRegistered at all?</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_656062" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="656343">
+    <td id="PostDetailsCell_656343" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post656343"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/philipmateescu">philipmateescu</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/11/2011 7:29:32 AM" LocalTimeTicks="1313072972">Aug 11, 2011 at 7:29 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_656343" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;think&#32;its&#32;usage&#32;in&#32;the&#32;tests&#32;I&#32;mentioned&#32;stemmed&#32;from&#32;how&#32;we&#32;are&#32;using&#32;Unity&#58;&#32;we&#32;have&#32;a&#32;good&#32;deal&#32;of&#32;optional&#32;plug&#32;in&#32;points&#32;and&#32;we&#32;thought&#32;using&#32;IsRegistered&#32;would&#32;be&#32;cheaper&#47;faster&#47;better&#47;stronger&#32;&#58;&#41;&#32;than&#32;handling&#38;nbsp&#59;ResolutionFailedExceptions.&#38;nbsp&#59;&#32;From&#32;a&#32;semantic&#32;point&#32;of&#32;view,&#32;IsRegistered&#32;seemed&#32;a&#32;better&#32;choice.&#32;After&#32;all,&#32;in&#32;our&#32;usage&#32;-&#32;but&#32;I&#32;should&#32;think&#32;this&#32;is&#32;spirit&#32;with&#32;Microsoft&#39;s&#32;recommendation&#32;on&#32;using&#32;exceptions,&#32;it&#39;s&#32;not&#32;an&#38;nbsp&#59;execution&#32;failure&#32;case&#32;for&#32;an&#32;optional&#32;&#38;nbsp&#59;plugin&#47;interface&#32;to&#32;have&#32;no&#32;class&#32;registered&#32;for&#32;it.&#32;So&#32;I&#32;was&#32;happy&#32;to&#32;see&#32;Unity&#32;2.0&#32;introduce&#32;IsRegistered&#32;because&#32;it&#32;seemed&#32;to&#32;make&#32;the&#32;code&#32;more&#32;explicit.&#32;If&#32;I&#32;was&#32;wrong,&#32;I&#39;d&#32;appreciate&#32;a&#32;word&#32;of&#32;guidance,&#32;and&#32;that&#32;brings&#32;me&#32;to&#32;the&#32;next&#32;question&#58;&#32;what&#32;is&#32;the&#32;purpose&#32;of&#32;IsRegistered&#32;then&#63;&#32;I&#32;think&#32;the&#32;necessity&#32;to&#32;check&#32;for&#32;presence&#32;of&#32;implementations&#32;can&#32;surely&#32;be&#32;mitigated&#32;by&#32;a&#32;Null&#32;Object&#32;Pattern&#32;approach.&#32;It&#32;just&#32;seemed&#32;excessive&#32;to&#32;provide&#32;no-op&#32;classes&#32;for&#32;every&#32;possible&#32;instance.&#32;But&#32;that&#32;might&#32;just&#32;be&#32;the&#32;laziness&#32;talking,&#32;so&#32;let&#39;s&#32;assume&#32;I&#32;did&#32;that&#32;&#40;or&#32;decided&#32;to&#32;handle&#32;ResolutionFailedException&#32;against&#32;my&#32;preference&#41;.&#32;But&#32;if&#32;that&#39;s&#32;the&#32;right&#32;way&#32;to&#32;go,&#32;then&#32;the&#32;question&#32;becomes&#32;even&#32;more&#32;pertinent&#58;&#32;why&#32;offer&#32;an&#32;IsRegistered&#32;at&#32;all,&#32;in&#32;particular&#32;one&#32;that&#32;is&#32;&#34;deliberately&#32;suboptimal&#34;,&#32;as&#32;you&#32;put&#32;it&#63;&#32;Thank&#32;you&#32;very&#32;much.">
+        
+<p>I think its usage in the tests I mentioned stemmed from how we are using Unity: we have a good deal of optional plug in points and we thought using IsRegistered would be cheaper/faster/better/stronger :) than handling&nbsp;ResolutionFailedExceptions.&nbsp;</p>
+<p>From a semantic point of view, IsRegistered seemed a better choice. After all, in our usage - but I should think this is spirit with Microsoft's recommendation on using exceptions, it's not an&nbsp;execution failure case for an optional &nbsp;plugin/interface
+ to have no class registered for it. So I was happy to see Unity 2.0 introduce IsRegistered because it seemed to make the code more explicit.</p>
+<p>If I was wrong, I'd appreciate a word of guidance, and that brings me to the next question: what is the purpose of IsRegistered then?</p>
+<p>I think the necessity to check for presence of implementations can surely be mitigated by a Null Object Pattern approach. It just seemed excessive to provide no-op classes for every possible instance. But that might just be the laziness talking, so let's
+ assume I did that (or decided to handle ResolutionFailedException against my preference). But if that's the right way to go, then the question becomes even more pertinent: why offer an IsRegistered at all, in particular one that is &quot;deliberately suboptimal&quot;,
+ as you put it?</p>
+<p>Thank you very much.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_656343" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="656580">
+    <td id="PostDetailsCell_656580" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post656580"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/gmelnik">gmelnik</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/11/2011 2:46:49 PM" LocalTimeTicks="1313099209">Aug 11, 2011 at 2:46 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="8/11/2011 3:24:37 PM" LocalTimeTicks="1313101477">Aug 11, 2011 at 3:24 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_656580" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="IsRegistered&#32;is&#32;intended&#32;for&#32;debugging&#32;your&#32;apps&#38;nbsp&#59;only.&#32;As&#32;Chris&#32;points&#32;out,&#32;this&#32;is&#32;for&#32;the&#32;sitations&#32;when&#32;you&#32;want&#32;to&#32;do&#32;a&#32;quick&#38;nbsp&#59;&#32;&#38;ldquo&#59;do&#32;I&#32;have&#32;this&#32;optional&#32;service&#38;rdquo&#59;&#32;kinds&#32;of&#32;resolve&#32;calls.">
+        
+<p>IsRegistered is intended for debugging your apps&nbsp;only. As Chris points out, this is for the sitations when you want to do a quick&nbsp; &ldquo;do I have this optional service&rdquo; kinds of resolve calls.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_656580" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="656602">
+    <td id="PostDetailsCell_656602" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post656602"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/philipmateescu">philipmateescu</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/11/2011 3:04:26 PM" LocalTimeTicks="1313100266">Aug 11, 2011 at 3:04 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_656602" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Thank&#32;you,&#32;Grigori.&#38;nbsp&#59;&#32;Is&#32;that&#32;&#34;insider&#32;information&#34;&#32;because&#32;neither&#32;the&#32;documentation&#32;page&#32;nor&#32;the&#32;actual&#32;source&#32;code&#32;mention&#32;such&#32;limitation&#58;&#63;&#32;http&#58;&#47;&#47;msdn.microsoft.com&#47;en-us&#47;library&#47;ff662021&#40;v&#61;PandP.20&#41;.aspx&#32;For&#32;my&#32;edification,&#32;could&#32;you&#32;point&#32;me&#32;to&#32;any&#32;resources&#32;that&#32;I&#32;can&#32;reference&#32;in&#32;my&#32;advice&#32;to&#32;other&#32;developers&#63;&#32;Thanks.">
+        
+<p>Thank you, Grigori.&nbsp;</p>
+<p>Is that &quot;insider information&quot; because neither the documentation page nor the actual source code mention such limitation:?</p>
+<p><a href="http://msdn.microsoft.com/en-us/library/ff662021(v=PandP.20).aspx" rel="nofollow">http://msdn.microsoft.com/en-us/library/ff662021(v=PandP.20).aspx</a></p>
+<p>For my edification, could you point me to any resources that I can reference in my advice to other developers?</p>
+<p>Thanks.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_656602" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="656736">
+    <td id="PostDetailsCell_656736" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post656736"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/11/2011 5:53:19 PM" LocalTimeTicks="1313110399">Aug 11, 2011 at 5:53 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_656736" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Well,&#32;it&#32;should&#32;be&#32;pretty&#32;obvious&#32;from&#32;the&#32;source&#32;code&#58;&#32;&#32;&#32;public&#32;static&#32;bool&#32;IsRegistered&#40;this&#32;IUnityContainer&#32;container,&#32;Type&#32;typeToCheck,&#32;string&#32;nameToCheck&#41;&#32;&#123;&#32;Guard.ArgumentNotNull&#40;container,&#32;&#34;container&#34;&#41;&#59;&#32;Guard.ArgumentNotNull&#40;typeToCheck,&#32;&#34;typeToCheck&#34;&#41;&#59;&#32;var&#32;registration&#32;&#61;&#32;from&#32;r&#32;in&#32;container.Registrations&#32;where&#32;r.RegisteredType&#32;&#61;&#61;&#32;typeToCheck&#32;&#38;amp&#59;&#38;amp&#59;&#32;r.Name&#32;&#61;&#61;&#32;nameToCheck&#32;select&#32;r&#59;&#32;return&#32;registration.FirstOrDefault&#40;&#41;&#32;&#33;&#61;&#32;null&#59;&#32;&#125;&#32;&#32;&#32;We&#32;grab&#32;the&#32;Registrations&#32;collection&#32;and&#32;iterate&#32;through&#32;it.&#32;This&#32;is&#32;going&#32;to&#32;be&#32;O&#40;N&#41;&#32;in&#32;the&#32;number&#32;of&#32;registrations&#32;for&#32;each&#32;resolve.&#32;So&#32;yeah,&#32;I&#39;d&#32;expect&#32;it&#32;to&#32;be&#32;slow.&#32;How&#32;many&#32;explicit&#32;calls&#32;to&#32;Resolve&#32;are&#32;you&#32;doing&#63;&#32;If&#32;you&#39;re&#32;calling&#32;a&#32;bunch&#32;of&#32;resolves&#32;to&#32;pull&#32;explicitly&#32;from&#32;the&#32;container,&#32;you&#39;re&#32;doing&#32;service&#32;locator,&#32;and&#32;that&#39;s&#32;a&#32;bigger&#32;problem&#32;than&#32;IsRegistered&#32;being&#32;slow.&#32;Did&#32;you&#32;know&#32;that&#32;Unity&#32;2.0&#32;has&#32;optional&#32;dependencies&#63;&#32;You&#32;could&#32;use&#32;that&#32;instead,&#32;and&#32;avoid&#32;the&#32;call&#32;to&#32;IsRegistered&#32;and&#32;to&#32;Resolve.">
+        
+<p>Well, it should be pretty obvious from the source code:</p>
+<div style="color:black; background-color:white">
+<pre>        <span style="color:blue">public</span> <span style="color:blue">static</span> <span style="color:blue">bool</span> IsRegistered(<span style="color:blue">this</span> IUnityContainer container, Type typeToCheck, <span style="color:blue">string</span> nameToCheck)
+        {
+            Guard.ArgumentNotNull(container, <span style="color:#a31515">&quot;container&quot;</span>);
+            Guard.ArgumentNotNull(typeToCheck, <span style="color:#a31515">&quot;typeToCheck&quot;</span>);
+
+            <span style="color:blue">var</span> registration = <span style="color:blue">from</span> r <span style="color:blue">in</span> container.Registrations
+                               <span style="color:blue">where</span> r.RegisteredType == typeToCheck &amp;&amp; r.Name == nameToCheck
+                               <span style="color:blue">select</span> r;
+            <span style="color:blue">return</span> registration.FirstOrDefault() != <span style="color:blue">null</span>;
+        }
+
+</pre>
+</div>
+<p>We grab the Registrations collection and iterate through it. This is going to be O(N) in the number of registrations for each resolve. So yeah, I'd expect it to be slow.</p>
+<p>How many explicit calls to Resolve are you doing? If you're calling a bunch of resolves to pull explicitly from the container, you're doing service locator, and that's a bigger problem than IsRegistered being slow. Did you know that Unity 2.0 has optional
+ dependencies? You could use that instead, and avoid the call to IsRegistered and to Resolve.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_656736" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="656764">
+    <td id="PostDetailsCell_656764" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post656764"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/philipmateescu">philipmateescu</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/11/2011 6:40:07 PM" LocalTimeTicks="1313113207">Aug 11, 2011 at 6:40 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_656764" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="ctavares&#32;wrote&#58;&#32;We&#32;grab&#32;the&#32;Registrations&#32;collection&#32;and&#32;iterate&#32;through&#32;it.&#32;This&#32;is&#32;going&#32;to&#32;be&#32;O&#40;N&#41;&#32;in&#32;the&#32;number&#32;of&#32;registrations&#32;for&#32;each&#32;resolve.&#32;So&#32;yeah,&#32;I&#39;d&#32;expect&#32;it&#32;to&#32;be&#32;slow.&#32;How&#32;many&#32;explicit&#32;calls&#32;to&#32;Resolve&#32;are&#32;you&#32;doing&#63;&#32;If&#32;you&#39;re&#32;calling&#32;a&#32;bunch&#32;of&#32;resolves&#32;to&#32;pull&#32;explicitly&#32;from&#32;the&#32;container,&#32;you&#39;re&#32;doing&#32;service&#32;locator,&#32;and&#32;that&#39;s&#32;a&#32;bigger&#32;problem&#32;than&#32;IsRegistered&#32;being&#32;slow.&#32;Did&#32;you&#32;know&#32;that&#32;Unity&#32;2.0&#32;has&#32;optional&#32;dependencies&#63;&#32;You&#32;could&#32;use&#32;that&#32;instead,&#32;and&#32;avoid&#32;the&#32;call&#32;to&#32;IsRegistered&#32;and&#32;to&#32;Resolve.&#32;&#32;Right,&#32;and&#32;I&#32;think&#32;the&#32;performance&#32;hit&#32;is&#32;not&#32;as&#32;much&#32;in&#32;looping&#32;performed&#32;in&#38;nbsp&#59;IsRegistered&#32;as&#32;it&#39;s&#32;in&#32;the&#32;building&#32;of&#32;Registrations,&#32;and&#32;furthermore&#32;probably&#32;in&#32;UnityContainer.FillTypeRegistrationDictionary.&#32;In&#32;these&#32;particular&#32;tests&#32;I&#32;have&#32;666&#32;classes&#32;registered,&#32;and&#32;I&#32;am&#32;calling&#32;IsRegistered,&#32;and&#32;by&#32;extension&#32;Registrations,&#32;10k&#32;and&#32;respectively&#32;100k&#32;times&#32;to&#32;get&#32;those&#32;numbers&#32;&#40;&#126;6&#32;seconds&#32;for&#32;the&#32;10k,&#32;60&#32;seconds&#32;for&#32;the&#32;100k&#41;.&#32;I&#32;wasn&#39;t&#32;aware&#32;of&#32;the&#32;optional&#32;registrations,&#32;thank&#32;you&#32;for&#32;pointing&#32;it&#32;out.&#32;You&#39;re&#32;right,&#32;it&#32;would&#32;be&#32;an&#32;appropriate&#32;solution&#32;for&#32;a&#32;great&#32;deal&#32;of&#32;cases&#59;&#32;might&#32;not&#32;work&#32;for&#32;us&#32;because&#32;we&#32;like&#32;to&#32;keep&#32;the&#32;DI&#32;aspects,&#32;such&#32;as&#32;specific&#32;attributes,&#32;out&#32;of&#32;our&#32;code&#32;&#40;even&#32;if&#32;that&#32;might&#32;sound&#32;a&#32;bit&#32;irrational&#41;.&#32;To&#32;top&#32;it&#32;off,&#32;in&#32;those&#32;specific&#32;places&#32;we&#32;make&#32;use&#32;of&#32;a&#32;ServiceLocator&#32;and&#32;a&#32;hierarchy&#32;of&#32;keyed&#32;child&#32;containers,&#32;and&#32;that&#39;s&#32;why&#32;we&#32;resort&#32;to&#32;Resolve&#38;lt&#59;T&#38;gt&#59;&#40;key&#41;.&#32;Again,&#32;I&#32;saw&#32;IsRegistered&#32;as&#32;a&#32;way&#32;to&#32;avoid&#32;handling&#32;exceptions&#32;in&#32;this&#32;fashion.&#32;Thank&#32;you&#32;very&#32;much&#32;-&#32;I&#32;have&#32;a&#32;bit&#32;of&#32;thinking&#32;to&#32;do&#32;and&#32;I&#32;need&#32;to&#32;come&#32;up&#32;a&#32;new&#32;test&#32;plan&#32;that&#32;will&#32;be&#32;closer&#32;to&#32;how&#32;most&#32;people&#32;probably&#32;use&#32;Unity&#32;while&#32;maintaining&#32;parity&#32;with&#32;the&#32;other&#32;containers&#32;so&#32;that&#32;the&#32;comparisons&#32;are&#32;valid.">
+        
+<blockquote style="border:solid .1em #ccc; font-style:italic; margin:.25em 1em 0 1em; padding:0 .25em 0 .25em">
+<strong>ctavares wrote:</strong><br>
+<p>We grab the Registrations collection and iterate through it. This is going to be O(N) in the number of registrations for each resolve. So yeah, I'd expect it to be slow.</p>
+<p>How many explicit calls to Resolve are you doing? If you're calling a bunch of resolves to pull explicitly from the container, you're doing service locator, and that's a bigger problem than IsRegistered being slow. Did you know that Unity 2.0 has optional
+ dependencies? You could use that instead, and avoid the call to IsRegistered and to Resolve.</p>
+</blockquote>
+<p>Right, and I think the performance hit is not as much in looping performed in&nbsp;<em>IsRegistered
+</em>as it's in the building of <em>Registrations</em>, and furthermore probably in
+<em>UnityContainer.FillTypeRegistrationDictionary</em>. In these particular tests I have 666 classes registered, and I am calling
+<em>IsRegistered</em>, and by extension <em>Registrations</em>, 10k and respectively 100k times to get those numbers (~6 seconds for the 10k, 60 seconds for the 100k).</p>
+<p>I wasn't aware of the optional registrations, thank you for pointing it out. You're right, it would be an appropriate solution for a great deal of cases; might not work for us because we like to keep the DI aspects, such as specific attributes, out of our
+ code (even if that might sound a bit irrational). To top it off, in those specific places we make use of a ServiceLocator and a hierarchy of keyed child containers, and that's why we resort to
+<em>Resolve&lt;T&gt;(key)</em>. Again, I saw <em>IsRegistered </em>as a way to avoid handling exceptions in this fashion.</p>
+<p>Thank you very much - I have a bit of thinking to do and I need to come up a new test plan that will be closer to how most people probably use Unity while maintaining parity with the other containers so that the comparisons are valid.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_656764" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="656824">
+    <td id="PostDetailsCell_656824" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post656824"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/11/2011 9:03:44 PM" LocalTimeTicks="1313121824">Aug 11, 2011 at 9:03 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_656824" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Optional&#32;dependencies&#32;can&#32;be&#32;configured&#32;the&#32;same&#32;way&#32;as&#32;any&#32;other&#32;dependency&#32;-&#32;through&#32;attributes,&#32;the&#32;API,&#32;or&#32;the&#32;config&#32;file.&#32;As&#32;such,&#32;you&#32;don&#39;t&#32;have&#32;to&#32;put&#32;attributes&#32;in&#32;your&#32;code&#32;anywhere.&#32;Just&#32;resolve&#38;nbsp&#59;an&#32;object&#32;with&#32;the&#32;optional&#32;dependencies,&#32;and&#32;that&#32;object&#32;will&#32;get&#32;them&#32;injected&#32;&#40;or&#32;not&#41;&#32;if&#32;the&#32;container&#32;has&#32;a&#32;registration&#32;for&#32;it.&#32;-Chris">
+        
+<p>Optional dependencies can be configured the same way as any other dependency - through attributes, the API, or the config file. As such, you don't have to put attributes in your code anywhere. Just resolve&nbsp;an object with the optional dependencies, and
+ that object will get them injected (or not) if the container has a registration for it.</p>
+<p>-Chris</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_656824" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="660403">
+    <td id="PostDetailsCell_660403" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post660403"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/philipmateescu">philipmateescu</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/19/2011 6:56:48 AM" LocalTimeTicks="1313762208">Aug 19, 2011 at 6:56 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_660403" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#39;ve&#32;updated&#32;my&#32;performance&#32;tests&#58;&#38;nbsp&#59;http&#58;&#47;&#47;philipm.at&#47;2011&#47;0819&#47;&#32;Unity&#32;posts&#32;some&#32;really&#32;good&#32;numbers&#32;when&#32;unencumbered&#32;by&#32;registration&#32;checks.&#32;Optional&#32;dependency&#32;resolution&#32;is&#32;quite&#32;speedy&#32;too.&#32;I&#32;think&#32;the&#32;lesson&#32;I&#39;ve&#32;learned&#32;is&#32;that&#32;when&#32;using&#32;Unity&#32;one&#32;needs&#32;to&#32;make&#32;sure&#32;that&#32;all&#32;dependencies&#32;resolve&#32;so&#32;that&#32;there&#39;s&#32;no&#32;need&#38;nbsp&#59;&#38;nbsp&#59;to&#32;resort&#32;to&#32;IsRegistered&#32;or&#32;worse,&#32;have&#32;to&#32;handle&#32;the&#32;crazy&#32;expensive&#32;ResolutionFailedException.&#32;Thank&#32;you&#32;very&#32;much&#32;for&#32;your&#32;help.&#32;I&#32;hope&#32;to&#32;see&#32;both&#32;IsRegistered&#32;and&#32;RFEx&#32;improved&#32;because&#32;I&#32;really&#32;enjoy&#32;using&#32;Unity.">
+        
+<p>I've updated my performance tests:&nbsp;http://philipm.at/2011/0819/</p>
+<p>Unity posts some really good numbers when unencumbered by registration checks. Optional dependency resolution is quite speedy too.</p>
+<p>I think the lesson I've learned is that when using Unity one needs to make sure that all dependencies resolve so that there's no need&nbsp;&nbsp;to resort to IsRegistered or worse, have to handle the crazy expensive ResolutionFailedException.</p>
+<p>Thank you very much for your help. I hope to see both IsRegistered and RFEx improved because I really enjoy using Unity.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_660403" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1039226">
+    <td id="PostDetailsCell_1039226" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1039226"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/CodeItNow">CodeItNow</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/4/2013 12:36:38 AM" LocalTimeTicks="1367652998">May 4, 2013 at 12:36 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1039226" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="A&#32;note&#32;here&#32;for&#32;those&#32;using&#32;Unity.MVC3.&#32;It&#32;appears&#32;to&#32;be&#32;using&#32;IsRegistered&#40;&#41;&#32;and&#32;thus&#32;suffers&#32;from&#32;the&#32;performance&#32;issues&#32;described&#32;above.&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#13;&#10;2013-05-03&#32;20&#58;08&#58;41,630&#32;&#91;220&#93;&#32;ERROR&#32;Portal.Services.LogService&#32;-&#32;Collection&#32;was&#32;modified&#59;&#32;enumeration&#32;operation&#32;may&#32;not&#32;execute.&#13;&#10;System.InvalidOperationException&#58;&#32;Collection&#32;was&#32;modified&#59;&#32;enumeration&#32;operation&#32;may&#32;not&#32;execute.&#13;&#10;&#32;&#32;&#32;at&#32;System.ThrowHelper.ThrowInvalidOperationException&#40;ExceptionResource&#32;resource&#41;&#13;&#10;&#32;&#32;&#32;at&#32;System.Collections.Generic.Dictionary&#96;2.KeyCollection.Enumerator.MoveNext&#40;&#41;&#13;&#10;&#32;&#32;&#32;at&#32;Microsoft.Practices.Unity.UnityContainer.FillTypeRegistrationDictionary&#40;IDictionary&#96;2&#32;typeRegistrations&#41;&#13;&#10;&#32;&#32;&#32;at&#32;Microsoft.Practices.Unity.UnityContainer.FillTypeRegistrationDictionary&#40;IDictionary&#96;2&#32;typeRegistrations&#41;&#13;&#10;&#32;&#32;&#32;at&#32;Microsoft.Practices.Unity.UnityContainer.get_Registrations&#40;&#41;&#13;&#10;&#32;&#32;__&#32;at&#32;Microsoft.Practices.Unity.UnityContainerExtensions.IsRegistered&#40;IUnityContainer&#32;container,&#32;Type&#32;typeToCheck,&#32;String&#32;nameToCheck&#41;&#13;&#10;&#32;&#32;&#32;at&#32;Microsoft.Practices.Unity.UnityContainerExtensions.IsRegistered&#40;IUnityContainer&#32;container,&#32;Type&#32;typeToCheck&#41;&#13;&#10;&#32;&#32;&#32;at&#32;Unity.Mvc3.UnityDependencyResolver.IsRegistered&#40;Type&#32;typeToCheck&#41;__&#13;&#10;&#32;&#32;&#32;at&#32;Unity.Mvc3.UnityDependencyResolver.&#60;GetServices&#62;d__0.MoveNext&#40;&#41;&#13;&#10;&#32;&#32;&#32;at&#32;System.Linq.Enumerable.&#60;CastIterator&#62;d__b1&#96;1.MoveNext&#40;&#41;&#13;&#10;&#32;&#32;&#32;at&#32;System.Linq.Enumerable.&#60;ConcatIterator&#62;d__71&#96;1.MoveNext&#40;&#41;&#13;&#10;&#32;&#32;&#32;at&#32;System.Linq.Enumerable.&#60;SelectManyIterator&#62;d__14&#96;2.MoveNext&#40;&#41;&#13;&#10;&#32;&#32;&#32;at&#32;System.Linq.Buffer&#96;1..ctor&#40;IEnumerable&#96;1&#32;source&#41;&#13;&#10;&#32;&#32;&#32;at&#32;System.Linq.OrderedEnumerable&#96;1.&#60;GetEnumerator&#62;d__0.MoveNext&#40;&#41;&#13;&#10;&#32;&#32;&#32;at&#32;System.Linq.Buffer&#96;1..ctor&#40;IEnumerable&#96;1&#32;source&#41;&#13;&#10;&#32;&#32;&#32;at&#32;System.Linq.Enumerable.&#60;ReverseIterator&#62;d__a0&#96;1.MoveNext&#40;&#41;&#13;&#10;&#32;&#32;&#32;at&#32;System.Web.Mvc.FilterProviderCollection.&#60;RemoveDuplicates&#62;d__b.MoveNext&#40;&#41;&#13;&#10;&#32;&#32;&#32;at&#32;System.Linq.Buffer&#96;1..ctor&#40;IEnumerable&#96;1&#32;source&#41;&#13;&#10;&#32;&#32;&#32;at&#32;System.Linq.Enumerable.&#60;ReverseIterator&#62;d__a0&#96;1.MoveNext&#40;&#41;&#13;&#10;&#32;&#32;&#32;at&#32;System.Linq.Enumerable.WhereSelectEnumerableIterator&#96;2.MoveNext&#40;&#41;&#13;&#10;&#32;&#32;&#32;at&#32;System.Collections.Generic.List&#96;1..ctor&#40;IEnumerable&#96;1&#32;collection&#41;&#13;&#10;&#32;&#32;&#32;at&#32;System.Linq.Enumerable.ToList&#91;TSource&#93;&#40;IEnumerable&#96;1&#32;source&#41;&#13;&#10;&#32;&#32;&#32;at&#32;System.Web.Mvc.FilterInfo..ctor&#40;IEnumerable&#96;1&#32;filters&#41;&#13;&#10;&#13;&#10;&#96;&#96;&#96;">
+        <div class="markDownOutput ">A note here for those using Unity.MVC3. It appears to be using IsRegistered() and thus suffers from the performance issues described above.<br>
+<pre><code>2013-05-03 20:08:41,630 [220] ERROR Portal.Services.LogService - Collection was modified; enumeration operation may not execute.
+System.InvalidOperationException: Collection was modified; enumeration operation may not execute.
+   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.KeyCollection.Enumerator.MoveNext()
+   at Microsoft.Practices.Unity.UnityContainer.FillTypeRegistrationDictionary(IDictionary`2 typeRegistrations)
+   at Microsoft.Practices.Unity.UnityContainer.FillTypeRegistrationDictionary(IDictionary`2 typeRegistrations)
+   at Microsoft.Practices.Unity.UnityContainer.get_Registrations()
+  __ at Microsoft.Practices.Unity.UnityContainerExtensions.IsRegistered(IUnityContainer container, Type typeToCheck, String nameToCheck)
+   at Microsoft.Practices.Unity.UnityContainerExtensions.IsRegistered(IUnityContainer container, Type typeToCheck)
+   at Unity.Mvc3.UnityDependencyResolver.IsRegistered(Type typeToCheck)__
+   at Unity.Mvc3.UnityDependencyResolver.&lt;GetServices&gt;d__0.MoveNext()
+   at System.Linq.Enumerable.&lt;CastIterator&gt;d__b1`1.MoveNext()
+   at System.Linq.Enumerable.&lt;ConcatIterator&gt;d__71`1.MoveNext()
+   at System.Linq.Enumerable.&lt;SelectManyIterator&gt;d__14`2.MoveNext()
+   at System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   at System.Linq.OrderedEnumerable`1.&lt;GetEnumerator&gt;d__0.MoveNext()
+   at System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   at System.Linq.Enumerable.&lt;ReverseIterator&gt;d__a0`1.MoveNext()
+   at System.Web.Mvc.FilterProviderCollection.&lt;RemoveDuplicates&gt;d__b.MoveNext()
+   at System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   at System.Linq.Enumerable.&lt;ReverseIterator&gt;d__a0`1.MoveNext()
+   at System.Linq.Enumerable.WhereSelectEnumerableIterator`2.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at System.Web.Mvc.FilterInfo..ctor(IEnumerable`1 filters)
+</code></pre>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1039226" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1039392">
+    <td id="PostDetailsCell_1039392" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1039392"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/gmelnik">gmelnik</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/4/2013 5:08:35 PM" LocalTimeTicks="1367712515">May 4, 2013 at 5:08 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1039392" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="FYI,&#32;Unity3&#32;comes&#32;with&#32;a&#32;package&#32;&#91;Unity.MVC&#93;&#40;http&#58;&#47;&#47;nuget.org&#47;packages&#47;Unity.Mvc&#47;&#41;&#32;that&#32;bootstraps&#32;ASP.NET&#32;MVC4.&#32;It&#39;s&#32;been&#32;properly&#32;tested&#32;&#40;including&#32;perf&#32;testing&#41;.&#32;">
+        <div class="markDownOutput ">FYI, Unity3 comes with a package <a href="http://nuget.org/packages/Unity.Mvc/"  rel="nofollow">
+Unity.MVC</a> that bootstraps ASP.NET MVC4. It's been properly tested (including perf testing).
+<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1039392" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1060968">
+    <td id="PostDetailsCell_1060968" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1060968"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/lsalotto">lsalotto</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/25/2013 3:52:35 PM" LocalTimeTicks="1372200755">Jun 25, 2013 at 3:52 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1060968" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="Can&#32;we&#32;use&#32;the&#32;package&#32;aforementioned&#32;with&#32;Unity&#32;2.1&#32;and&#32;.NET&#32;MVC3&#32;running&#32;on&#32;.NET4&#32;Fwk&#63;&#32;I&#32;don&#39;t&#32;think&#32;Unity.Mvc3&#32;will&#32;get&#32;an&#32;update&#32;to&#32;fix&#32;the&#32;issue&#32;mentioned&#32;with&#32;IsRegistered&#32;and&#32;I&#32;got&#32;the&#32;feeling&#32;that&#32;changing&#32;the&#32;single&#32;Unity.MVC&#32;library&#32;will&#32;be&#32;easier&#32;and&#32;safer&#32;than&#32;changing&#32;whole&#32;.NET&#32;fwk&#32;and&#32;MVC&#32;library.&#13;&#10;Thanks&#33;">
+        <div class="markDownOutput ">Can we use the package aforementioned with Unity 2.1 and .NET MVC3 running on .NET4 Fwk? I don't think Unity.Mvc3 will get an update to fix the issue mentioned with IsRegistered and I got the feeling that changing the single Unity.MVC library will be easier
+ and safer than changing whole .NET fwk and MVC library. <br>
+Thanks!<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1060968" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1061240">
+    <td id="PostDetailsCell_1061240" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1061240"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/26/2013 6:43:47 AM" LocalTimeTicks="1372254227">Jun 26, 2013 at 6:43 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1061240" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="The&#32;short&#32;answer&#32;is&#32;no&#58;&#32;Unity&#32;bootstrapper&#32;for&#32;ASP.NET&#32;MVC&#32;uses&#32;targets&#32;.NET&#32;4.5,&#32;Unity&#32;3&#32;and&#32;MVC&#32;4.&#13;&#10;&#13;&#10;You&#32;could&#32;get&#32;the&#32;Unity&#32;bootstrapper&#32;for&#32;ASP.NET&#32;MVC&#32;&#40;Unity.MVC&#41;&#32;source&#32;code&#32;and&#32;&#40;try&#32;to&#41;&#32;compile&#32;against&#32;Unity&#32;2.1&#32;and&#32;MVC&#32;3.&#13;&#10;&#13;&#10;&#126;&#126;&#13;&#10;Randy&#32;Levy&#13;&#10;&#91;entlib.support&#64;live.com&#93;&#40;mailto&#58;entlib.support&#64;live.com&#41;&#13;&#10;Enterprise&#32;Library&#32;support&#32;engineer&#13;&#10;&#91;Support&#32;How-to&#93;&#40;entlib.codeplex.com&#47;wikipage&#63;title&#61;Support&#37;20How-to&#41;&#32;">
+        <div class="markDownOutput ">The short answer is no: Unity bootstrapper for ASP.NET MVC uses targets .NET 4.5, Unity 3 and MVC 4.
+<br>
+<br>
+You could get the Unity bootstrapper for ASP.NET MVC (Unity.MVC) source code and (try to) compile against Unity 2.1 and MVC 3.
+<br>
+<br>
+~~ <br>
+Randy Levy <br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">&#x65;n&#x74;&#108;&#105;&#x62;&#46;&#115;&#x75;&#112;&#112;&#x6f;&#x72;&#x74;&#x40;&#x6c;&#x69;&#118;&#x65;&#x2e;c&#x6f;&#x6d;</a>
+<br>
+Enterprise Library support engineer <br>
+<a href="entlib.codeplex.com/wikipage?title=Support%20How-to"  rel="nofollow">Support How-to</a>
+<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1061240" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1061377">
+    <td id="PostDetailsCell_1061377" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1061377"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/lsalotto">lsalotto</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/26/2013 12:06:08 PM" LocalTimeTicks="1372273568">Jun 26, 2013 at 12:06 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1061377" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;&#32;Yeah..&#32;that&#39;s&#32;what&#32;I&#32;thought&#32;and&#32;ended&#32;up&#32;doing.&#32;The&#32;code&#32;is&#32;working&#32;smoothly&#32;since&#32;yday&#32;and&#32;now&#32;issues&#32;where&#32;detected&#32;since&#32;then.&#32;&#32;Thanks&#32;for&#32;the&#32;quick&#32;replay&#33;&#33;&#32;&#32;&#32;&#32;&#32;&#32;">
+        
+<div dir="ltr">
+<div>Yeah.. that's what I thought and ended up doing. The code is working smoothly since yday and now issues where detected since then.<br>
+</div>
+<div style="">Thanks for the quick replay!!</div>
+<div><br>
+<br>
+<div></div>
+</div>
+</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1061377" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f268223">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="d7a6cf72-24b0-4e19-a92a-96e27601bfff">
+    <script class="options" defer="defer" id="d7a6cf72-24b0-4e19-a92a-96e27601bfff" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_cf1bba7b-6782-4c79-b6d1-c01f449a22ef">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_a9e810e1-331c-49fd-a7d8-3249bd7cfd0e">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_cf1bba7b-6782-4c79-b6d1-c01f449a22ef" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_a9e810e1-331c-49fd-a7d8-3249bd7cfd0e" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/268223';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

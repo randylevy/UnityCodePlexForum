@@ -1,0 +1,1165 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Unity and MVC &#40;Constructor Injection, Property Injection&#41;</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/27343?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/27343?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="-qv4JDxgors4qbT5UE2T7UkzceFmoEZa4B2adS5ru_g1HKZP6O4bniZ0i6C0kytRtq9kFd4BovlBBj3qHLM3hVJH359ChL7sNmTdWFlFIWrQbuvnYSJ6j55UiPJS-LsRovUvZg2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2898d351b-1435-4746-8c19-ca4ab60ab219" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:28:51 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f27343" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="b0e526d8-ac13-4d30-82ea-fa644f20207d">
+                
+                    <script class="options" defer="defer" id="b0e526d8-ac13-4d30-82ea-fa644f20207d" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="f957d3ee-38cc-4be4-9be5-8a902b49c4e5">
+                
+                    <script class="options" defer="defer" id="f957d3ee-38cc-4be4-9be5-8a902b49c4e5" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Unity and MVC &#40;Constructor Injection, Property Injection&#41;
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:27343]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="7527a7fa-ca1c-48b4-a831-cc40d6dd5e25">
+    <script class="options" defer="defer" id="7527a7fa-ca1c-48b4-a831-cc40d6dd5e25" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/27343","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="91184">
+    <td id="PostDetailsCell_91184" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post91184"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/hnchan">hnchan</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/8/2008 11:37:50 AM" LocalTimeTicks="1210271870">May 8, 2008 at 11:37 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_91184" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Is&#32;the&#32;Unity&#32;Framework&#32;only&#32;support&#32;Constructor&#32;Injection&#32;with&#32;MVC&#63;I&#32;have&#32;tried&#32;property&#32;&#40;setter&#41;&#32;injection.&#32;It&#32;seems&#32;not&#32;work&#32;and&#32;following&#32;error&#32;is&#32;occurred.&#34;System.StackOverflowException&#32;was&#32;unhandled.&#34;">
+        Is the Unity Framework only support Constructor Injection with MVC?<br>
+<br>
+I have tried property (setter) injection. It seems not work and following error is occurred.<br>
+<br>
+&quot;System.StackOverflowException was unhandled.&quot;<br>
+<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_91184" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="91187">
+    <td id="PostDetailsCell_91187" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post91187"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/yazidarezki">yazidarezki</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/8/2008 11:53:42 AM" LocalTimeTicks="1210272822">May 8, 2008 at 11:53 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_91187" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Can&#32;you&#32;post&#32;the&#32;code&#32;you&#32;used&#63;">
+        Can you post the code you used?<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_91187" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="91208">
+    <td id="PostDetailsCell_91208" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post91208"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/hnchan">hnchan</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/8/2008 1:28:01 PM" LocalTimeTicks="1210278481">May 8, 2008 at 1:28 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_91208" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;It&#32;is&#32;very&#32;simple.&#32;private&#32;UserService&#32;_userservice&#59;Dependency&#32;private&#32;UserService&#32;UserService&#32;&#123;&#32;get&#32;&#123;&#32;return&#32;_userservice&#59;&#32;&#125;&#32;set&#32;&#123;&#32;_userservice&#32;&#61;&#32;value&#59;&#32;&#125;&#32;&#125;This&#32;won&#39;t&#32;work&#32;and&#32;return&#32;NULL.&#32;How&#32;could&#32;I&#32;solve&#32;it&#63;&#32;It&#32;seems&#32;it&#32;don&#39;t&#32;get&#32;the&#32;object&#32;from&#32;unity.BTW,&#32;&#34;System.StackOverflowException&#32;was&#32;unhandled.&#34;&#32;is&#32;my&#32;problem.&#32;it&#32;is&#32;a&#32;typo.&#32;private&#32;UserService&#32;_userservice&#59;&#32;public&#32;HomeController&#40;UserService&#32;userservice&#41;&#32;&#123;&#32;_userservice&#32;&#61;&#32;userservice&#59;&#32;&#125;">
+        It is very simple.<br>
+<br>
+private UserService _userservice;<br>
+<br>
+<a href="http://www.codeplex.com/unity/Wiki/View.aspx?title=Dependency" rel="nofollow">Dependency</a><br>
+private UserService UserService<br>
+{<br>
+get { return _userservice; }<br>
+set { _userservice = value; }<br>
+}<br>
+<br>
+This won't work and return NULL. How could I solve it? It seems it don't get the object from unity.<br>
+<br>
+BTW, &quot;System.StackOverflowException was unhandled.&quot; is my problem. it is a typo.<br>
+<br>
+<br>
+private UserService _userservice;<br>
+<br>
+public HomeController(UserService userservice)<br>
+{<br>
+_userservice = userservice;<br>
+}<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_91208" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="91217">
+    <td id="PostDetailsCell_91217" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post91217"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/yazidarezki">yazidarezki</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/8/2008 2:08:18 PM" LocalTimeTicks="1210280898">May 8, 2008 at 2:08 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_91217" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Try&#32;this&#32;code&#58;&#32;public&#32;class&#32;UserService&#32;&#123;&#32;public&#32;string&#32;MyName&#59;&#32;&#125;&#32;public&#32;class&#32;HomeController&#32;&#123;&#32;private&#32;UserService&#32;_userService&#59;&#32;&#91;Dependency&#93;&#32;public&#32;UserService&#32;UserService&#32;&#123;&#32;get&#32;&#123;&#32;return&#32;_userService&#59;&#32;&#125;&#32;set&#32;&#123;&#32;_userService&#32;&#61;&#32;value&#59;&#32;&#125;&#32;&#125;&#32;public&#32;HomeController&#40;UserService&#32;userService&#41;&#32;&#123;&#32;_userService&#32;&#61;&#32;userService&#59;&#32;&#125;&#32;&#125;&#32;&#91;TestMethod&#93;&#32;public&#32;void&#32;MyTest&#40;&#41;&#32;&#123;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;UserService,&#32;UserService&#38;gt&#59;&#40;&#41;&#59;&#32;HomeController&#32;controller&#32;&#61;&#32;container.Resolve&#38;lt&#59;HomeController&#38;gt&#59;&#40;&#41;&#59;&#32;Assert.IsNotNull&#40;controller&#41;&#59;&#32;Assert.IsNotNull&#40;controller.UserService&#41;&#59;&#32;&#125;&#32;CheersYaz">
+        Try this code:<br>
+<br>
+<pre style="background-color:#ECECEC; border:dashed .1em #3E62A6; font-family:Consolas,Courier New,Courier,Monospace; font-size:1em; margin-top:0; padding:.5em; height:auto; overflow:auto; overflow-x:auto; overflow-y:auto">
+ 
+public class UserService
+    {
+        public string MyName;
+    }
+    public class HomeController
+    {
+        private UserService _userService;
+        [Dependency]
+        public UserService UserService
+        {
+            get { return _userService; }
+            set { _userService = value; }
+        }
+        public HomeController(UserService userService)
+        {
+            _userService = userService;
+        }
+    }
+ 
+[TestMethod]
+        public void MyTest()
+        {
+            IUnityContainer container = new UnityContainer();
+            container.RegisterType&lt;UserService, UserService&gt;();
+            
+            HomeController controller = container.Resolve&lt;HomeController&gt;();
+ 
+            Assert.IsNotNull(controller);
+ 
+ 
+            Assert.IsNotNull(controller.UserService);
+ 
+        }
+ 
+</pre>
+<br>
+Cheers<br>
+Yaz<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_91217" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="91314">
+    <td id="PostDetailsCell_91314" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post91314"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/8/2008 8:24:33 PM" LocalTimeTicks="1210303473">May 8, 2008 at 8:24 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_91314" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;How&#32;are&#32;you&#32;hooking&#32;into&#32;the&#32;MVC&#32;framework&#63;&#32;What&#32;does&#32;your&#32;container.Resolve&#32;call&#32;look&#32;like,&#32;and&#32;where&#32;is&#32;it&#32;called.I&#39;ve&#32;used&#32;Unity&#32;with&#32;MVC&#32;lots&#32;of&#32;times,&#32;and&#32;all&#32;the&#32;injection&#32;methods&#32;worked&#32;for&#32;me.&#32;I&#32;suspect&#32;the&#32;issue&#32;is&#32;in&#32;the&#32;plumbing&#32;of&#32;how&#32;you&#39;ve&#32;hooked&#32;up&#32;Unity&#32;and&#32;MVC.">
+        How are you hooking into the MVC framework? What does your container.Resolve call look like, and where is it called.<br>
+<br>
+I've used Unity with MVC lots of times, and all the injection methods worked for me. I suspect the issue is in the plumbing of how you've hooked up Unity and MVC.<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_91314" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="91374">
+    <td id="PostDetailsCell_91374" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post91374"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/hnchan">hnchan</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/9/2008 3:58:48 AM" LocalTimeTicks="1210330728">May 9, 2008 at 3:58 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_91374" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="ctavares&#32;wrote&#58;How&#32;are&#32;you&#32;hooking&#32;into&#32;the&#32;MVC&#32;framework&#63;&#32;What&#32;does&#32;your&#32;container.Resolve&#32;call&#32;look&#32;like,&#32;and&#32;where&#32;is&#32;it&#32;called.I&#39;ve&#32;used&#32;Unity&#32;with&#32;MVC&#32;lots&#32;of&#32;times,&#32;and&#32;all&#32;the&#32;injection&#32;methods&#32;worked&#32;for&#32;me.&#32;I&#32;suspect&#32;the&#32;issue&#32;is&#32;in&#32;the&#32;plumbing&#32;of&#32;how&#32;you&#39;ve&#32;hooked&#32;up&#32;Unity&#32;and&#32;MVC.I&#32;use&#32;the&#32;approach&#32;from&#32;David&#32;Hayden&#32;and&#32;code&#32;it&#32;under&#32;Application_Start&#32;as&#32;follows&#32;&#58;-&#32;protected&#32;void&#32;Application_Start&#40;object&#32;sender,&#32;EventArgs&#32;e&#41;&#32;&#123;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#32;.RegisterType&#38;lt&#59;IUserService,&#32;UserService&#38;gt&#59;&#40;&#41;&#59;&#32;UnityControllerFactory&#32;factory&#32;&#61;&#32;new&#32;UnityControllerFactory&#40;container&#41;&#59;&#32;ControllerBuilder.Current.SetControllerFactory&#40;factory&#41;&#59;&#32;RegisterRoutes&#40;RouteTable.Routes&#41;&#59;&#32;&#125;It&#32;works&#32;for&#32;Constructor&#32;Injection&#32;but&#32;not&#32;Property&#40;Setter&#41;&#32;Injection.">
+        
+<div style="border:dotted .1em #aaa; border-left:none; border-right:none; font-style:italic; margin:1em 0em 2.5em 3em; padding:.2em">
+<br>
+ctavares wrote:<br>
+How are you hooking into the MVC framework? What does your container.Resolve call look like, and where is it called.<br>
+<br>
+I've used Unity with MVC lots of times, and all the injection methods worked for me. I suspect the issue is in the plumbing of how you've hooked up Unity and MVC.<br>
+<br>
+<br>
+</div>
+<br>
+I use the approach from David Hayden and code it under Application_Start as follows :-<br>
+<br>
+protected void Application_Start(object sender, EventArgs e)<br>
+{<br>
+IUnityContainer container = new UnityContainer()<br>
+.RegisterType&lt;IUserService, UserService&gt;();<br>
+<br>
+<br>
+UnityControllerFactory factory = new UnityControllerFactory(container);<br>
+<br>
+ControllerBuilder.Current.SetControllerFactory(factory);<br>
+<br>
+<br>
+RegisterRoutes(RouteTable.Routes);<br>
+<br>
+<br>
+}<br>
+<br>
+It works for Constructor Injection but not Property(Setter) Injection.<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_91374" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="91378">
+    <td id="PostDetailsCell_91378" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post91378"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/9/2008 5:05:13 AM" LocalTimeTicks="1210334713">May 9, 2008 at 5:05 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_91378" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Which&#32;DependencyAttribute&#32;are&#32;you&#32;using&#58;&#32;Microsoft.Practices.Unity.DependencyAttribute&#32;or&#32;Microsoft.Practices.Objectbuilder2.DependencyAttribute&#63;Please&#32;check&#32;your&#32;using&#32;statements&#32;in&#32;the&#32;definition&#32;of&#32;UserService&#32;and&#32;make&#32;sure&#32;you&#39;re&#32;using&#32;the&#32;one&#32;from&#32;Unity,&#32;not&#32;OB2.The&#32;OB2&#32;one&#32;will&#32;be&#32;removed&#32;in&#32;Unity&#32;1.1&#32;for&#32;precisely&#32;this&#32;reason.">
+        Which DependencyAttribute are you using: Microsoft.Practices.Unity.DependencyAttribute or Microsoft.Practices.Objectbuilder2.DependencyAttribute?<br>
+<br>
+Please check your using statements in the definition of UserService and make sure you're using the one from Unity, not OB2.<br>
+<br>
+The OB2 one will be removed in Unity 1.1 for precisely this reason.<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_91378" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="91379">
+    <td id="PostDetailsCell_91379" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post91379"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/hnchan">hnchan</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/9/2008 5:21:55 AM" LocalTimeTicks="1210335715">May 9, 2008 at 5:21 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_91379" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="ctavares&#32;wrote&#58;Which&#32;DependencyAttribute&#32;are&#32;you&#32;using&#58;&#32;Microsoft.Practices.Unity.DependencyAttribute&#32;or&#32;Microsoft.Practices.Objectbuilder2.DependencyAttribute&#63;Please&#32;check&#32;your&#32;using&#32;statements&#32;in&#32;the&#32;definition&#32;of&#32;UserService&#32;and&#32;make&#32;sure&#32;you&#39;re&#32;using&#32;the&#32;one&#32;from&#32;Unity,&#32;not&#32;OB2.The&#32;OB2&#32;one&#32;will&#32;be&#32;removed&#32;in&#32;Unity&#32;1.1&#32;for&#32;precisely&#32;this&#32;reason.It&#32;uses&#32;Microsoft.Practices.Unity.DependencyAttribute&#32;but&#32;still&#32;not&#32;work.">
+        <br>
+<div style="border:dotted .1em #aaa; border-left:none; border-right:none; font-style:italic; margin:1em 0em 2.5em 3em; padding:.2em">
+<br>
+ctavares wrote:<br>
+Which DependencyAttribute are you using: Microsoft.Practices.Unity.DependencyAttribute or Microsoft.Practices.Objectbuilder2.DependencyAttribute?<br>
+<br>
+Please check your using statements in the definition of UserService and make sure you're using the one from Unity, not OB2.<br>
+<br>
+The OB2 one will be removed in Unity 1.1 for precisely this reason.<br>
+<br>
+<br>
+</div>
+<br>
+It uses Microsoft.Practices.Unity.DependencyAttribute but still not work.<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_91379" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="91641">
+    <td id="PostDetailsCell_91641" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post91641"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/10/2008 4:34:03 AM" LocalTimeTicks="1210419243">May 10, 2008 at 4:34 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_91641" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Could&#32;please&#32;send&#32;me&#32;a&#32;small,&#32;complete&#32;example&#32;of&#32;your&#32;code&#32;that&#32;does&#32;not&#32;work&#32;that&#32;i&#32;can&#32;compile&#32;and&#32;test&#32;with&#63;&#32;&#32;Send&#32;it&#32;to&#32;ctavares&#32;at&#32;microsoft.com.&#38;nbsp&#59;&#32;Thanks.&#32;&#32;-Chris&#32;">
+        Could please send me a small, complete example of your code that does not work that i can compile and test with?<br>
+<br>
+Send it to ctavares at microsoft.com.&nbsp; Thanks.<br>
+<br>
+-Chris<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_91641" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="91839">
+    <td id="PostDetailsCell_91839" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post91839"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/12/2008 5:12:39 AM" LocalTimeTicks="1210594359">May 12, 2008 at 5:12 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_91839" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="It&#32;turned&#32;out&#32;the&#32;problem&#32;was&#32;something&#32;I&#32;should&#32;have&#32;spotted&#32;-&#32;the&#32;injected&#32;property&#32;was&#32;private.&#32;&#32;">
+        It turned out the problem was something I should have spotted - the injected property was private.<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_91839" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="91844">
+    <td id="PostDetailsCell_91844" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post91844"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/hnchan">hnchan</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/12/2008 5:39:20 AM" LocalTimeTicks="1210595960">May 12, 2008 at 5:39 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_91844" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Thanks,&#32;it&#32;works&#32;now.&#32;">
+        Thanks, it works now. 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_91844" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="114128">
+    <td id="PostDetailsCell_114128" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post114128"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AndresOlivares">AndresOlivares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/27/2008 2:25:39 PM" LocalTimeTicks="1219872339">Aug 27, 2008 at 2:25 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="8/27/2008 9:58:15 PM" LocalTimeTicks="1219899495">Aug 27, 2008 at 9:58 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_114128" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="What&#39;s&#32;the&#32;point&#32;in&#32;having&#32;the&#32;&#91;Dependency&#93;&#32;attribute&#32;if&#32;you&#32;are&#32;getting&#32;the&#32;value&#32;from&#32;the&#32;Constructor&#32;injection.&#32;This&#32;example&#32;seems&#32;useless.&#32;I&#32;could&#32;have&#32;done&#32;this&#32;to&#32;get&#32;the&#32;same&#32;result&#58;&#32;&#32;public&#32;class&#32;UserService&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;string&#32;MyName&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#32;public&#32;class&#32;HomeController&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;UserService&#32;_userService&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#32;UserService&#32;UserService&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;get&#32;&#123;&#32;return&#32;_userService&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#32;HomeController&#40;UserService&#32;userService&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;_userService&#32;&#61;&#32;userService&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#125;&#32;&#32;What&#32;I&#32;would&#32;like&#32;to&#32;see&#32;is&#32;something&#32;like&#32;this&#58;&#32;&#32;public&#32;class&#32;MyModule&#32;&#58;&#32;IModule&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;IUnityContainer&#32;container&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#32;MyModule&#40;IUnityContainer&#32;_container&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;container&#32;&#61;&#32;_container&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#32;void&#32;Inialize&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;container.RegisterInstance&#38;lt&#59;UserService&#38;gt&#59;&#40;container.Resolve&#38;lt&#59;UserService&#38;gt&#59;&#40;&#41;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;HomeController&#32;controller&#32;&#61;&#32;container.Resolve&#38;lt&#59;HomeController&#38;gt&#59;&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#125;&#32;&#32;public&#32;class&#32;UserService&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;string&#32;MyName&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#32;public&#32;class&#32;HomeController&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#91;Dependency&#93;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#32;UserService&#32;UserService&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#32;HomeController&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#32;&#125;&#32;&#125;&#32;&#32;&#32;but&#32;I&#32;do&#32;not&#32;know&#32;if&#32;this&#32;would&#32;work...&#32;">
+        What's the point in having the [Dependency] attribute if you are getting the value from the Constructor injection. This example seems useless. I could have done this to get the same result:<br>
+<br>
+public class UserService<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public string MyName;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+public class HomeController<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;UserService _userService;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public UserService UserService<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;get { return _userService; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public HomeController(UserService userService)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_userService = userService;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+What I would like to see is something like this:<br>
+<br>
+public class MyModule : IModule<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;IUnityContainer container;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public MyModule(IUnityContainer _container)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;container = _container;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public void Inialize()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;container.RegisterInstance&lt;UserService&gt;(container.Resolve&lt;UserService&gt;());<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HomeController controller = container.Resolve&lt;HomeController&gt;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+public class UserService<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public string MyName;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+public class HomeController<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[Dependency]&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public UserService UserService { get; set; }<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public HomeController()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ }<br>
+}<br>
+<br>
+<br>
+but I do not know if this would work... 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_114128" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="114279">
+    <td id="PostDetailsCell_114279" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post114279"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AndresOlivares">AndresOlivares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/27/2008 10:00:58 PM" LocalTimeTicks="1219899658">Aug 27, 2008 at 10:00 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="8/28/2008 11:53:10 AM" LocalTimeTicks="1219949590">Aug 28, 2008 at 11:53 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_114279" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;tried&#32;my&#32;suggestion&#32;and&#32;it&#32;does&#32;work&#32;but&#32;not&#32;completely&#32;the&#32;way&#32;I&#32;envisioned.&#32;The&#32;only&#32;change&#32;I&#32;would&#38;nbsp&#59;make&#32;is&#58;&#32;&#32;public&#32;void&#32;Initialize&#40;&#41;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#32;Registering&#32;an&#32;instance&#32;will&#32;cause&#32;the&#32;Dependency&#32;attribute&#32;to&#38;nbsp&#59;be&#32;ignored&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#32;Instead&#32;registration&#32;is&#32;executed&#32;for&#32;the&#32;type&#32;to&#32;allow&#32;property&#32;dependency&#32;injection&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;container.RegisterType&#38;lt&#59;UserService,&#38;nbsp&#59;UserService&#38;gt&#59;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;HomeController&#32;controller&#32;&#61;&#32;container.Resolve&#38;lt&#59;HomeController&#38;gt&#59;&#40;&#41;&#59;&#32;&#125;&#32;&#32;More&#32;discussion&#32;on&#32;the&#32;reasoning&#32;behind&#32;this&#32;change&#32;can&#32;be&#32;found&#32;here&#58;&#32;&#32;http&#58;&#47;&#47;www.codeplex.com&#47;CompositeWPF&#47;Thread&#47;View.aspx&#63;ThreadId&#61;34370&#32;&#32;Andres&#32;Olivares&#32;">
+        I tried my suggestion and it does work but not completely the way I envisioned. The only change I would&nbsp;make is:<br>
+<br>
+public void Initialize()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Registering an instance will cause the Dependency attribute to&nbsp;be ignored<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Instead registration is executed for the type to allow property dependency injection<br>
+&nbsp;&nbsp;&nbsp;&nbsp;container.RegisterType&lt;UserService,&nbsp;UserService&gt;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;HomeController controller = container.Resolve&lt;HomeController&gt;();<br>
+}<br>
+<br>
+More discussion on the reasoning behind this change can be found here:<br>
+<br>
+<a href="http://www.codeplex.com/CompositeWPF/Thread/View.aspx?ThreadId=34370" rel="nofollow">http://www.codeplex.com/CompositeWPF/Thread/View.aspx?ThreadId=34370</a><br>
+<br>
+Andres Olivares 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_114279" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f27343">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="0cef0709-a03b-4f41-9454-f12bc68862ac">
+    <script class="options" defer="defer" id="0cef0709-a03b-4f41-9454-f12bc68862ac" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_214328b4-87bc-413d-82d2-6480f4ba0309">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_c41c36f0-f1dc-4483-999e-2f46552d651b">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_214328b4-87bc-413d-82d2-6480f4ba0309" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_c41c36f0-f1dc-4483-999e-2f46552d651b" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/27343';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

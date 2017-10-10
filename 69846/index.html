@@ -1,0 +1,864 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Injecting application instance variable using unity</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/69846?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/69846?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="E94YpsudPNPljiRQAZ0Cyiyh1tYozDhNUgK4A0eg6Bw8aaBEkg4Ur9JCG8uD3QmOYrwPA23r1QdtT-LuOvvz9SIZ-mXrbhlzAjHIadjGajVqE2oinhvxVocj2HMfpO_su9RK2Q2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2647ab21d-f9e5-4465-9f77-3db837a29e49" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:28:08 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f69846" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="e11f601a-f9b6-417e-9bbe-0a2d75ca28ea">
+                
+                    <script class="options" defer="defer" id="e11f601a-f9b6-417e-9bbe-0a2d75ca28ea" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="4a551b77-5dda-4770-a138-d671cb330967">
+                
+                    <script class="options" defer="defer" id="4a551b77-5dda-4770-a138-d671cb330967" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Injecting application instance variable using unity
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:69846]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="938ac0fc-fdfd-45cc-a65a-1c5c3a06d4e6">
+    <script class="options" defer="defer" id="938ac0fc-fdfd-45cc-a65a-1c5c3a06d4e6" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/69846","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="237821">
+    <td id="PostDetailsCell_237821" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post237821"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Ram_2010">Ram_2010</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/23/2009 1:31:52 PM" LocalTimeTicks="1253737912">Sep 23, 2009 at 1:31 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_237821" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi,&#32;I&#39;m&#32;looking&#32;at&#32;crating&#32;objects&#32;via&#32;unity&#40;with&#32;some&#32;dependency&#41;&#32;where&#32;I&#32;can&#32;push&#32;some&#32;instance&#32;variable&#32;into&#32;its&#32;constructer&#32;which&#32;are&#32;not&#32;registered&#32;with&#32;unity.&#32;For&#32;example&#32;in&#32;below&#32;code,&#32;when&#32;I&#32;ask&#32;unity&#32;to&#32;create&#32;classA&#32;it&#32;is&#32;erroring&#32;&#38;nbsp&#59;out.&#32;Are&#32;there&#32;any&#32;ways&#32;to&#32;archive&#32;this&#32;simple&#32;requirements&#32;with&#32;uniy.&#32;Currently&#32;I&#39;m&#32;having&#32;some&#32;properties&#32;in&#32;classA&#32;to&#32;set&#32;some&#32;variable&#32;values&#32;as&#32;work&#32;around&#32;&#32;&#32;&#32;UnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;classA&#38;gt&#59;&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;classB&#38;gt&#59;&#40;&#41;&#59;&#32;int&#32;value&#32;&#61;&#32;100&#59;&#32;classA&#32;a&#32;&#61;&#32;container.Resolve&#38;lt&#59;classA&#38;gt&#59;&#40;&#41;&#59;&#32;&#47;&#47;&#32;here&#32;i&#32;want&#32;to&#32;send&#32;some&#32;value&#32;into&#32;constructer.&#32;Are&#32;there&#32;any&#32;methods&#32;to&#32;achive&#32;this&#63;&#32;public&#32;class&#32;classA&#32;&#123;&#32;classB&#32;_b&#59;&#32;int&#32;_i&#59;&#32;public&#32;classA&#40;classB&#32;b,int&#32;i&#41;&#32;&#123;&#32;_b&#32;&#61;&#32;b&#59;&#32;_i&#32;&#61;&#32;i&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;classB&#32;&#123;&#32;&#125;&#32;&#32;&#32;">
+        
+<p><span style="font-size:10pt; color:black">Hi, I'm looking at crating objects via unity(with some dependency) where I can push some instance variable into its constructer which are not registered with unity. For example in below code, when I ask unity to
+ create classA it is erroring &nbsp;out. Are there any ways to archive this simple requirements with uniy. Currently I'm having some properties in classA to set some variable values as work around</span></p>
+<div style="color:Black; background-color:White">
+<div style="color:Black; background-color:White">
+<pre> UnityContainer container = <span style="color:Blue">new</span> UnityContainer();
+           
+            container.RegisterType&lt;<span style="color:Blue">class</span><span style="color:MediumTurquoise">A&gt;();
+            container.RegisterType&lt;classB&gt;();
+            int value = 100;
+            classA a = container.Resolve&lt;classA&gt;(); // here i want to send some value into constructer. Are there any methods to achive this?
+
+public class classA
+    </span>{
+        
+        <span style="color:Blue">class</span><span style="color:MediumTurquoise">B _b;
+        int _i;
+        public classA(classB b,int i)
+        </span>{
+            _b = b;
+            _i = i;
+        }
+       
+    }
+    <span style="color:Blue">public</span> <span style="color:Blue">class</span><span style="color:MediumTurquoise"> classB
+    </span>{
+        
+    }
+</pre>
+</div>
+</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_237821" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="238560">
+    <td id="PostDetailsCell_238560" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post238560"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/cDoruC">cDoruC</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/24/2009 11:34:29 PM" LocalTimeTicks="1253860469">Sep 24, 2009 at 11:34 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_238560" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hello&#32;,I&#32;can&#32;recommend&#32;you&#32;to&#32;do&#32;this&#32;via&#32;configuration&#32;if&#32;you&#32;find&#32;this&#32;suited&#32;for&#32;your&#32;needs.Here&#39;s&#32;how&#58;&#32;Suppose&#32;you&#32;have&#32;a&#32;main&#32;contract&#32;you&#39;re&#32;classA&#32;needs&#32;to&#32;implement.Just&#32;to&#32;show&#32;this&#32;implementation&#32;works&#32;the&#32;contract&#32;will&#32;have&#32;the&#32;following&#32;method&#58;&#32;&#38;nbsp&#59;&#32;public&#32;interface&#32;IContract&#32;&#123;&#32;int&#32;increment&#40;&#41;&#59;&#32;&#125;now&#32;your&#32;classes&#32;ClassA&#32;and&#32;ClassB&#32;&#58;&#32;&#32;class&#32;ClassA&#32;&#58;&#32;IContract&#32;&#123;&#32;private&#32;int&#32;a&#59;&#32;private&#32;ClassB&#32;b&#59;&#32;public&#32;ClassA&#40;ClassB&#32;b,&#32;int&#32;a&#41;&#32;&#123;&#32;this.a&#32;&#61;&#32;a&#59;&#32;this.b&#32;&#61;&#32;b&#59;&#32;&#125;&#32;&#35;region&#32;IContract&#32;Members&#32;public&#32;int&#32;increment&#40;&#41;&#32;&#123;&#32;return&#32;a&#32;&#43;&#32;1&#59;&#32;&#125;&#32;&#35;endregion&#32;&#125;&#32;&#32;class&#32;ClassB&#32;&#123;&#32;public&#32;ClassB&#40;&#41;&#32;&#123;&#32;&#125;&#32;&#125;&#32;for&#32;the&#32;sake&#32;of&#32;simplicity&#32;ClassB&#32;does&#32;not&#32;implement&#32;any&#32;contract&#32;nor&#32;does&#32;it&#32;do&#32;something&#32;special&#32;you&#32;can&#32;add&#32;a&#32;config&#32;file&#32;with&#32;the&#32;name&#32;&#38;quot&#59;unity.config&#38;quot&#59;&#32;or&#32;whatever&#32;name&#32;you&#32;want&#32;&#40;&#32;i&#32;find&#32;it&#32;useful&#32;to&#32;have&#32;a&#32;separate&#32;config&#32;file&#32;just&#32;for&#32;unity&#32;&#41;&#32;&#32;&#38;lt&#59;&#63;xml&#32;version&#61;&#38;quot&#59;1.0&#38;quot&#59;&#32;encoding&#61;&#38;quot&#59;utf-8&#38;quot&#59;&#32;&#63;&#38;gt&#59;&#32;&#38;lt&#59;configuration&#38;gt&#59;&#32;&#38;lt&#59;configSections&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;section&#32;name&#61;&#38;quot&#59;unity&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Microsoft.Practices.Unity.Configuration.UnityConfigurationSection,&#32;Microsoft.Practices.Unity.Configuration&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;configSections&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;unity&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;typeAliases&#38;gt&#59;&#32;&#38;lt&#59;typeAlias&#32;alias&#61;&#38;quot&#59;string&#38;quot&#59;&#32;type&#61;&#38;quot&#59;System.String,&#32;mscorlib&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;typeAlias&#32;alias&#61;&#38;quot&#59;singleton&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Microsoft.Practices.Unity.ContainerControlledLifetimeManager,&#32;Microsoft.Practices.Unity&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;typeAlias&#32;alias&#61;&#38;quot&#59;IContract&#38;quot&#59;&#32;type&#32;&#61;&#38;quot&#59;Contracts.IContract,&#32;Contracts&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;typeAliases&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;containers&#38;gt&#59;&#32;&#38;lt&#59;container&#32;name&#61;&#38;quot&#59;container&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;types&#38;gt&#59;&#32;&#38;lt&#59;type&#32;type&#61;&#38;quot&#59;IContract&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;UnityTest.ClassA,&#32;UnityTest&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;typeConfig&#32;extensionType&#61;&#38;quot&#59;Microsoft.Practices.Unity.Configuration.TypeInjectionElement,&#32;Microsoft.Practices.Unity.Configuration&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;b&#38;quot&#59;&#32;parameterType&#61;&#38;quot&#59;UnityTest.ClassB,&#32;UnityTest&#38;quot&#59;&#32;&#38;gt&#59;&#32;&#38;lt&#59;dependency&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;a&#38;quot&#59;&#32;parameterType&#61;&#38;quot&#59;System.Int32&#38;quot&#59;&#32;&#38;gt&#59;&#32;&#38;lt&#59;value&#32;value&#61;&#38;quot&#59;1&#38;quot&#59;&#32;type&#61;&#38;quot&#59;System.Int32&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#32;&#38;lt&#59;&#47;typeConfig&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;type&#38;gt&#59;&#32;&#38;lt&#59;&#47;types&#38;gt&#59;&#32;&#38;lt&#59;&#47;container&#38;gt&#59;&#32;&#38;lt&#59;&#47;containers&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;unity&#38;gt&#59;&#32;&#38;lt&#59;&#47;configuration&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;with&#32;this&#32;configuration&#32;file&#32;you&#32;can&#32;resolve&#32;the&#32;type&#32;ClassA&#32;like&#32;this&#32;&#58;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;using&#32;System&#59;using&#32;System.Collections.Generic&#59;using&#32;System.Linq&#59;using&#32;System.Text&#59;using&#32;Microsoft.Practices.ObjectBuilder2&#59;using&#32;Microsoft.Practices.Unity&#59;using&#32;System.Configuration&#59;using&#32;Microsoft.Practices.Unity.Configuration&#59;using&#32;Contracts&#59;namespace&#32;UnityTest&#123;&#32;class&#32;Program&#32;&#123;&#32;static&#32;void&#32;Main&#40;string&#91;&#93;&#32;args&#41;&#32;&#123;&#32;IUnityContainer&#32;container&#32;&#61;&#32;GetContainer&#40;&#41;&#59;&#32;var&#32;ClassAResolved&#32;&#61;&#32;container.Resolve&#40;&#41;&#59;&#32;Console.WriteLine&#40;ClassAResolved.increment&#40;&#41;&#41;&#59;&#32;Console.ReadKey&#40;&#41;&#59;&#32;&#125;&#32;private&#32;static&#32;IUnityContainer&#32;GetContainer&#40;&#41;&#32;&#123;&#32;var&#32;map&#32;&#61;&#32;new&#32;ExeConfigurationFileMap&#40;&#41;&#59;&#32;map.ExeConfigFilename&#32;&#61;&#32;&#38;quot&#59;unity.config&#38;quot&#59;&#59;&#32;&#38;nbsp&#59;var&#32;config&#32;&#61;&#32;ConfigurationManager.OpenMappedExeConfiguration&#40;map,&#32;ConfigurationUserLevel.None&#41;&#59;&#32;var&#32;section&#32;&#61;&#32;&#40;UnityConfigurationSection&#41;config.GetSection&#40;&#38;quot&#59;unity&#38;quot&#59;&#41;&#59;&#32;var&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;section.Containers&#91;&#38;quot&#59;container&#38;quot&#59;&#93;.Configure&#40;container&#41;&#59;&#32;return&#32;container&#59;&#32;&#125;&#32;&#125;&#125;&#32;if&#32;your&#32;container&#32;is&#32;not&#32;named&#32;unity.config&#32;you&#32;can&#32;just&#32;change&#32;it&#39;s&#32;name&#32;to&#38;nbsp&#59;&#32;map.ExeConfigFilename&#32;&#61;&#32;&#38;quot&#59;whatever.config&#38;quot&#59;&#59;&#32;Also&#32;make&#32;sure&#32;your&#32;config&#32;file&#32;is&#32;in&#32;the&#32;same&#32;directory&#32;as&#32;the&#32;executable&#32;or&#32;else&#32;section.Containers&#91;&#38;quot&#59;container&#38;quot&#59;&#93;.Configure&#40;container&#41;&#32;will&#32;throw&#32;a&#32;null&#32;object&#32;exception&#32;&#32;To&#32;show&#32;it&#32;works,&#32;the&#32;ClassA&#32;type&#32;is&#32;resolved&#32;and&#32;it&#32;outputs&#32;the&#32;correct&#32;number&#32;2&#32;as&#32;a&#32;result&#32;of&#32;the&#32;incrementation&#32;of&#32;int&#32;1&#32;passed&#32;in&#32;the&#32;configuration&#32;file.&#32;I&#32;hope&#32;this&#32;helps,&#32;&#38;nbsp&#59;&#32;Doru.">
+        
+<p>Hello ,I can recommend you to do this via configuration if you find this suited for your needs.Here's how:</p>
+<p>Suppose you have a main contract you're classA needs to implement.Just to show this implementation works the contract will have the following method:</p>
+<p>&nbsp;</p>
+<pre>public interface IContract<br>    {<br>        int increment();<br>    }<br><br><br>now your classes ClassA and ClassB : <br><br><pre> class ClassA : IContract<br>    {<br>        private int a;<br>        private ClassB b;<br>        public ClassA(ClassB b, int a)<br>        {<br>            this.a = a;<br>            this.b = b;<br>        }<br><br>        #region IContract Members<br><br>        public int increment()<br>        {<br>            return a &#43; 1;<br>        }<br><br>        #endregion<br>    }</pre>
+<br><br>
+<pre>class ClassB<br>    {<br>        public ClassB()<br>        {<br><br>        }<br><br><br>    }</pre>
+<br>for the sake of simplicity ClassB does not implement any contract nor does it do something special <br><br>you can add a config file with the name &quot;unity.config&quot; or whatever name you want ( i find it useful to have a separate config file just for unity ) <br><br></pre>
+<p>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;</p>
+<p>&lt;configuration&gt;</p>
+<p>&lt;configSections&gt;</p>
+<p>&nbsp;</p>
+<p>&lt;section name=&quot;unity&quot; type=&quot;Microsoft.Practices.Unity.Configuration.UnityConfigurationSection, Microsoft.Practices.Unity.Configuration&quot; /&gt;</p>
+<p>&nbsp;</p>
+<p>&lt;/configSections&gt;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&lt;unity&gt;</p>
+<p>&nbsp;</p>
+<p>&lt;typeAliases&gt;</p>
+<p>&lt;typeAlias alias=&quot;string&quot; type=&quot;System.String, mscorlib&quot; /&gt;</p>
+<p>&lt;typeAlias alias=&quot;singleton&quot; type=&quot;Microsoft.Practices.Unity.ContainerControlledLifetimeManager, Microsoft.Practices.Unity&quot; /&gt;</p>
+<p>&lt;typeAlias alias=&quot;IContract&quot; type =&quot;Contracts.IContract, Contracts&quot; /&gt;</p>
+<p>&lt;/typeAliases&gt;</p>
+<p>&nbsp;</p>
+<p>&lt;containers&gt;</p>
+<p>&lt;container name=&quot;container&quot;&gt;</p>
+<p>&lt;types&gt;</p>
+<p>&lt;type type=&quot;IContract&quot; mapTo=&quot;UnityTest.ClassA, UnityTest&quot;&gt;</p>
+<p>&lt;typeConfig extensionType=&quot;Microsoft.Practices.Unity.Configuration.TypeInjectionElement, Microsoft.Practices.Unity.Configuration&quot;&gt;</p>
+<p>&lt;constructor&gt;</p>
+<p>&nbsp;</p>
+<p>&lt;param name=&quot;b&quot; parameterType=&quot;UnityTest.ClassB, UnityTest&quot; &gt;</p>
+<p>&lt;dependency/&gt;</p>
+<p>&lt;/param&gt;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&lt;param name=&quot;a&quot; parameterType=&quot;System.Int32&quot; &gt;</p>
+<p>&lt;value value=&quot;1&quot; type=&quot;System.Int32&quot;/&gt;</p>
+<p>&lt;/param&gt;</p>
+<p>&lt;/constructor&gt;</p>
+<p>&lt;/typeConfig&gt;</p>
+<p>&nbsp;</p>
+<p>&lt;/type&gt;</p>
+<p>&lt;/types&gt;</p>
+<p>&lt;/container&gt;</p>
+<p>&lt;/containers&gt;</p>
+<p>&nbsp;</p>
+<p>&lt;/unity&gt;</p>
+<p>&lt;/configuration&gt;</p>
+<p>&nbsp;</p>
+<p>with this configuration file you can resolve the type ClassA like this :</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<pre>using System;<br>using System.Collections.Generic;<br>using System.Linq;<br>using System.Text;<br>using Microsoft.Practices.ObjectBuilder2;<br>using Microsoft.Practices.Unity;<br>using System.Configuration;<br>using Microsoft.Practices.Unity.Configuration;<br>using Contracts;<br><br><br>namespace UnityTest<br>{<br>    class Program<br>    {<br>        static void Main(string[] args)<br>        {<br>            IUnityContainer container = GetContainer();<br>            var ClassAResolved = container.Resolve();<br><br>            Console.WriteLine(ClassAResolved.increment());<br>            Console.ReadKey();<br>        }<br><br>        private static IUnityContainer GetContainer()<br>        {<br>            var map = new ExeConfigurationFileMap();<br>            map.ExeConfigFilename = &quot;unity.config&quot;;<br>           &nbsp;var config = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);<br>            var section = (UnityConfigurationSection)config.GetSection(&quot;unity&quot;);<br>            var container = new UnityContainer();<br><br><br>            section.Containers[&quot;container&quot;].Configure(container);<br>            return container;<br>        }<br>    }<br>}<br></pre>
+<p>if your container is not named unity.config you can just change it's name to&nbsp;</p>
+<pre>map.ExeConfigFilename = &quot;whatever.config&quot;; Also make sure your config file is in the same directory as the executable or else <pre>section.Containers[&quot;container&quot;].Configure(container) will throw a null object exception<br></pre>
+</pre>
+<p>To show it works, the ClassA type is resolved and it outputs the correct number 2 as a result of the incrementation of int 1 passed in the configuration file.</p>
+<p>I hope this helps,</p>
+<p>&nbsp;</p>
+<p>Doru.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_238560" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="238570">
+    <td id="PostDetailsCell_238570" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post238570"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/cDoruC">cDoruC</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/24/2009 11:53:29 PM" LocalTimeTicks="1253861609">Sep 24, 2009 at 11:53 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_238570" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Or&#32;directly&#32;from&#32;code&#32;if&#32;you&#32;don&#39;t&#32;feel&#32;like&#32;a&#32;configuration-man&#32;&#38;nbsp&#59;&#32;using&#32;System&#59;&#32;using&#32;System.Collections.Generic&#59;&#32;using&#32;System.Linq&#59;&#32;using&#32;System.Text&#59;&#32;using&#32;Microsoft.Practices.ObjectBuilder2&#59;&#32;using&#32;Microsoft.Practices.Unity&#59;&#32;using&#32;System.Configuration&#59;&#32;using&#32;Microsoft.Practices.Unity.Configuration&#59;&#32;using&#32;Contracts&#59;&#32;&#32;&#32;namespace&#32;UnityTest&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;class&#32;Program&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;static&#32;void&#32;Main&#40;string&#91;&#93;&#32;args&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;ClassB&#32;b&#32;&#61;&#32;new&#32;ClassB&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;int&#32;val&#32;&#61;&#32;1&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;container.RegisterType&#38;lt&#59;IContract,&#32;ClassA&#38;gt&#59;&#40;&#41;.Configure&#38;lt&#59;InjectedMembers&#38;gt&#59;&#40;&#41;.&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;ConfigureInjectionFor&#38;lt&#59;ClassA&#38;gt&#59;&#40;new&#32;InjectionConstructor&#40;new&#32;object&#91;&#93;&#32;&#123;&#32;b,&#32;val&#32;&#125;&#41;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;var&#32;ClassAResolved&#32;&#61;&#32;container.Resolve&#38;lt&#59;IContract&#38;gt&#59;&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Console.WriteLine&#40;ClassAResolved.increment&#40;&#41;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Console.ReadKey&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#125;&#32;&#38;nbsp&#59;&#32;with&#32;the&#32;following&#32;specification&#32;&#58;&#32;you&#32;need&#32;to&#32;change&#32;you&#32;ClassA&#32;from&#32;the&#32;previous&#32;example&#32;like&#32;this&#32;&#58;&#32;&#38;nbsp&#59;&#32;class&#32;ClassA&#32;&#58;&#32;IContract&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;private&#32;int&#32;a&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;private&#32;ClassB&#32;b&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#91;InjectionConstructor&#40;&#41;&#93;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;ClassA&#40;ClassB&#32;b,&#32;int&#32;a&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;this.a&#32;&#61;&#32;a&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;this.b&#32;&#61;&#32;b&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#35;region&#32;IContract&#32;Members&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;int&#32;increment&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;return&#32;a&#32;&#43;&#32;1&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#35;endregion&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#32;You&#32;add&#32;the&#32;&#91;InjectionConstructor&#40;&#41;&#93;&#32;attribute&#32;to&#32;the&#32;constructor&#32;of&#32;your&#32;ClassA&#32;type&#32;to&#32;specify&#32;to&#32;unity&#32;that&#32;the&#32;these&#32;dependencies&#32;will&#32;be&#32;injected">
+        
+<p>Or directly from code if you don't feel like a configuration-man</p>
+<p>&nbsp;</p>
+<p>using System;<br>
+using System.Collections.Generic;<br>
+using System.Linq;<br>
+using System.Text;<br>
+using Microsoft.Practices.ObjectBuilder2;<br>
+using Microsoft.Practices.Unity;<br>
+using System.Configuration;<br>
+using Microsoft.Practices.Unity.Configuration;<br>
+using Contracts;<br>
+<br>
+<br>
+namespace UnityTest<br>
+{<br>
+&nbsp;&nbsp;&nbsp; class Program<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static void Main(string[] args)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IUnityContainer container = new UnityContainer();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ClassB b = new ClassB();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int val = 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; container.RegisterType&lt;IContract, ClassA&gt;().Configure&lt;InjectedMembers&gt;().<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ConfigureInjectionFor&lt;ClassA&gt;(new InjectionConstructor(new object[] { b, val }));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var ClassAResolved = container.Resolve&lt;IContract&gt;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(ClassAResolved.increment());<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.ReadKey();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}</p>
+<p>&nbsp;</p>
+<p>with the following specification : you need to change you ClassA from the previous example like this :</p>
+<p>&nbsp;</p>
+<p>class ClassA : IContract<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private int a;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private ClassB b;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [InjectionConstructor()]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public ClassA(ClassB b, int a)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.a = a;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.b = b;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #region IContract Members<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public int increment()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return a &#43; 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #endregion<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;</p>
+<p>You add the [InjectionConstructor()] attribute to the constructor of your ClassA type to specify to unity that the these dependencies will be injected</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_238570" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="238732">
+    <td id="PostDetailsCell_238732" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post238732"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Ram_2010">Ram_2010</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/25/2009 11:22:47 AM" LocalTimeTicks="1253902967">Sep 25, 2009 at 11:22 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_238732" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi&#32;Doru&#59;&#32;many&#32;thanks&#32;for&#32;your&#32;response.&#32;Looks&#32;this&#32;as&#32;what&#32;I&#38;rsquo&#59;m&#32;looking&#32;at.&#32;Further&#32;in&#32;my&#32;project&#32;I&#32;need&#32;to&#32;inject&#32;common&#32;overseeing&#32;controller&#32;object&#32;instance&#32;to&#32;most&#32;of&#32;the&#32;views,&#32;presenters&#32;and&#32;preseantermodels&#32;so&#32;that&#32;controller&#32;can&#32;co-ordinate&#32;views&#32;creation.&#32;I&#39;m&#32;on&#32;vacation&#32;next&#32;week,&#32;will&#32;try&#32;out&#32;this&#32;once&#32;I&#38;rsquo&#59;m&#32;back&#32;to&#32;work.&#32;&#32;Regards,&#32;Ram">
+        
+<p><span style="font-size:10pt; color:black">Hi Doru; many thanks for your response. Looks this as what I&rsquo;m looking at. Further in my project I need to inject common overseeing controller object instance to most of the views, presenters and preseantermodels
+ so that controller can co-ordinate views creation. I'm on vacation next week, will try out this once I&rsquo;m back to work.
+</span></p>
+<p><span style="font-size:10pt; color:black">Regards,</span></p>
+<p><span style="font-size:10pt; color:black">Ram</span></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_238732" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f69846">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="c898fe6c-8e4c-450f-9548-3dec3287499c">
+    <script class="options" defer="defer" id="c898fe6c-8e4c-450f-9548-3dec3287499c" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_924dbc4b-e8d9-4a74-bb1d-a19aca0eed3f">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_b96734bb-3eac-4452-b689-c7ee46a194a2">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_924dbc4b-e8d9-4a74-bb1d-a19aca0eed3f" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_b96734bb-3eac-4452-b689-c7ee46a194a2" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/69846';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

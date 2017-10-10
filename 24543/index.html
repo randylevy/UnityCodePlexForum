@@ -1,0 +1,1095 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - IsInstanceRegistered &#63;</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/24543?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/24543?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="jCB4YK4gPY90IkjDU-Xyv2qwP-woVDS7TvnBisWRIBf1DW8N4rv2SduxiusYm8cUGe8WiDK-1RVzuyt6Lc_Mkh_KCfNGL2jYLzr_L7JAg3UJr1lU7XcgvlLYOBShUTvoA-jZAA2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken207414a45-d79f-4bf2-ad64-c080ddc0af8b" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:27:03 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f24543" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="1491a7c5-b93b-42e2-bdef-42908bc4cb68">
+                
+                    <script class="options" defer="defer" id="1491a7c5-b93b-42e2-bdef-42908bc4cb68" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="f78cd4b5-8407-4adc-8878-431a81379330">
+                
+                    <script class="options" defer="defer" id="f78cd4b5-8407-4adc-8878-431a81379330" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                IsInstanceRegistered &#63;
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:24543]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="c85e165f-8d8c-46e5-9976-9b01f7909501">
+    <script class="options" defer="defer" id="c85e165f-8d8c-46e5-9976-9b01f7909501" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/24543","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="82315">
+    <td id="PostDetailsCell_82315" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post82315"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/MichaelDBang">MichaelDBang</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/23/2008 9:30:23 PM" LocalTimeTicks="1206333023">Mar 23, 2008 at 9:30 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_82315" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Is&#32;there&#32;some&#32;way&#32;of&#32;checking&#32;to&#32;see&#32;if&#32;an&#32;instance&#32;of&#32;a&#32;type&#32;is&#32;registered&#32;correctly&#63;&#32;Right&#32;now&#32;I&#39;m&#32;calling&#32;container.Resolve&#38;lt&#59;MyType&#38;gt&#59;&#40;&#41;&#32;and&#32;it&#39;s&#32;throwing&#32;an&#32;exception&#32;because&#32;a&#32;dependency&#32;isn&#39;t&#32;defined&#32;&#40;which&#32;is&#32;why&#32;I&#32;am&#32;resolving&#32;this&#32;type,&#32;ironically&#41;.&#32;Having&#32;an&#32;IsInstanceRegistered&#38;lt&#59;ObjectType&#40;&#41;&#32;would&#32;be&#32;handy.&#32;&#58;&#41;&#32;I&#39;ll&#32;just&#32;wrap&#32;this&#32;in&#32;a&#32;try-catch&#32;extension&#32;method&#32;in&#32;the&#32;meantime.Thanks&#32;you&#32;for&#32;any&#32;consideration&#33;">
+        Is there some way of checking to see if an instance of a type is registered correctly? Right now I'm calling container.Resolve&lt;MyType&gt;() and it's throwing an exception because a dependency isn't defined (which is why I am resolving this type, ironically).
+ Having an IsInstanceRegistered&lt;ObjectType() would be handy. :) I'll just wrap this in a try-catch extension method in the meantime.<br>
+<br>
+Thanks you for any consideration!<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_82315" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="82327">
+    <td id="PostDetailsCell_82327" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post82327"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/francois_tanguay">francois_tanguay</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/24/2008 12:53:23 AM" LocalTimeTicks="1206345203">Mar 24, 2008 at 12:53 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="3/24/2008 12:53:47 AM" LocalTimeTicks="1206345227">Mar 24, 2008 at 12:53 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_82327" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Michael,Don&#39;t&#32;forget&#32;that&#32;Unity&#32;tries&#32;to&#32;resolve&#32;any&#32;concrete&#32;type&#32;by&#32;using&#32;the&#32;longest&#32;ctor,&#32;so&#32;concrete&#32;types&#32;not&#32;registered&#32;will&#32;still&#32;get&#32;resolved&#32;and&#32;built.However,&#32;if&#32;you&#32;want&#32;to&#32;check&#32;whether&#32;a&#32;given&#32;type&#32;is&#32;either&#32;registered&#32;or&#32;has&#32;an&#32;instance&#32;registered&#32;for&#32;it&#58;Something&#32;along&#32;those&#32;lines&#32;should&#32;do&#32;it&#58;&#32;public&#32;class&#32;ModelExtension&#32;&#58;&#32;UnityContainerExtension&#32;&#123;&#32;public&#32;static&#32;bool&#32;CanResolve&#38;lt&#59;T&#38;gt&#59;&#40;this&#32;UnityContainer&#32;container&#41;&#32;&#123;&#32;return&#32;container.Configure&#38;lt&#59;ModelExtension&#38;gt&#59;&#40;&#41;.registeredTypes.Contains&#40;typeof&#40;T&#41;&#41;&#59;&#32;&#125;&#32;private&#32;List&#38;lt&#59;Type&#38;gt&#59;&#32;registeredTypes&#32;&#61;&#32;new&#32;List&#38;lt&#59;Type&#38;gt&#59;&#40;&#41;&#59;&#32;protected&#32;override&#32;void&#32;Initialize&#40;&#41;&#32;&#123;&#32;Context.RegisteringInstance&#32;&#43;&#61;&#32;&#40;sender,&#32;e&#41;&#32;&#61;&#38;gt&#59;&#32;registeredTypes.Add&#40;e.RegisteredType&#41;&#59;&#32;Context.Registering&#32;&#43;&#61;&#32;&#40;sender,&#32;e&#41;&#32;&#61;&#38;gt&#59;&#32;registeredTypes.Add&#40;e.TypeFrom&#41;&#59;&#32;&#125;&#32;&#125;&#32;and&#32;then&#32;you&#32;can&#32;use&#58;&#32;UnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#32;.RegisterType&#38;lt&#59;IFoo,&#32;Foo&#38;gt&#59;&#40;&#41;&#32;.RegisterInstance&#38;lt&#59;IBar&#38;gt&#59;&#40;new&#32;Bar&#40;&#41;&#41;&#59;&#32;Assert.True&#40;container.CanResolve&#38;lt&#59;IFoo&#38;gt&#59;&#40;&#41;&#41;&#59;&#32;Assert.True&#40;container.CanResolve&#38;lt&#59;IBar&#38;gt&#59;&#40;&#41;&#41;&#59;&#32;Assert.False&#40;container.CanResolve&#38;lt&#59;ILogger&#38;gt&#59;&#40;&#41;&#41;&#59;&#32;Just&#32;be&#32;careful&#32;if&#32;you&#32;keep&#32;additional&#32;data&#32;in&#32;your&#32;ModelExtension&#32;&#40;such&#32;as&#32;the&#32;registered&#32;instance&#41;&#32;to&#32;keep&#32;references&#32;in&#32;WeakRef&#32;as&#32;it&#32;would&#32;otherwise&#32;compete&#32;with&#32;the&#32;LifetimeManager.Makes&#32;sense&#63;">
+        Michael,<br>
+<br>
+Don't forget that Unity tries to resolve any concrete type by using the longest ctor, so concrete types not registered will still get resolved and built.<br>
+<br>
+However, if you want to check whether a given type is either registered or has an instance registered for it:<br>
+<br>
+Something along those lines should do it:<br>
+<br>
+<pre style="background-color:#ECECEC; border:dashed .1em #3E62A6; font-family:Consolas,Courier New,Courier,Monospace; font-size:1em; margin-top:0; padding:.5em; height:auto; overflow:auto; overflow-x:auto; overflow-y:auto">
+public class ModelExtension : UnityContainerExtension
+{
+    public static bool CanResolve&lt;T&gt;(this UnityContainer container)
+    {
+        return container.Configure&lt;ModelExtension&gt;().registeredTypes.Contains(typeof(T));
+    }
+ 
+    private List&lt;Type&gt; registeredTypes = new List&lt;Type&gt;();
+ 
+    protected override void Initialize()
+    {
+        Context.RegisteringInstance &#43;= (sender, e) =&gt; registeredTypes.Add(e.RegisteredType);
+        Context.Registering &#43;= (sender, e) =&gt; registeredTypes.Add(e.TypeFrom);
+    }
+}
+</pre>
+<br>
+and then you can use:<br>
+<br>
+<pre style="background-color:#ECECEC; border:dashed .1em #3E62A6; font-family:Consolas,Courier New,Courier,Monospace; font-size:1em; margin-top:0; padding:.5em; height:auto; overflow:auto; overflow-x:auto; overflow-y:auto">
+UnityContainer container = new UnityContainer()
+  .RegisterType&lt;IFoo, Foo&gt;()
+  .RegisterInstance&lt;IBar&gt;(new Bar());
+ 
+Assert.True(container.CanResolve&lt;IFoo&gt;());
+Assert.True(container.CanResolve&lt;IBar&gt;());
+Assert.False(container.CanResolve&lt;ILogger&gt;());
+</pre>
+<br>
+Just be careful if you keep additional data in your ModelExtension (such as the registered instance) to keep references in WeakRef as it would otherwise compete with the LifetimeManager.<br>
+<br>
+Makes sense?<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_82327" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="82334">
+    <td id="PostDetailsCell_82334" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post82334"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/MichaelDBang">MichaelDBang</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/24/2008 1:43:30 AM" LocalTimeTicks="1206348210">Mar 24, 2008 at 1:43 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_82334" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;This&#32;is&#32;a&#32;very&#32;cool&#32;way&#32;of&#32;looking&#32;at&#32;this.&#32;However,&#32;if&#32;I&#32;do&#32;this,&#32;then&#32;I&#32;will&#32;have&#32;my&#32;current&#32;extension&#32;coupled&#32;with&#32;this&#32;new&#32;one.&#32;Is&#32;this&#32;an&#32;acceptible&#32;practice&#63;&#32;I&#32;guess&#32;what&#32;I&#39;m&#32;looking&#32;to&#32;ensure&#32;is&#32;that&#32;if&#32;I&#32;add&#32;one&#32;extension,&#32;that&#32;it&#32;gracefully&#32;adds&#32;all&#32;dependent&#32;extensions&#32;without&#32;overriding&#47;duplicating&#32;ones&#32;that&#32;may&#32;already&#32;exist&#32;within&#32;the&#32;container.I&#32;suppose&#32;it&#32;would&#32;be&#32;feasible&#32;to&#32;put&#32;this&#32;extension&#32;in&#32;a&#32;common&#32;assembly&#32;&#40;which&#32;I&#32;already&#32;have&#32;&#58;&#41;&#41;&#32;and&#32;then&#32;just&#32;use&#32;it&#32;from&#32;there.&#32;Ok...&#32;I&#32;think&#32;I&#39;m&#32;getting&#32;the&#32;hang&#32;of&#32;this&#32;stuff&#32;works...&#32;Thanks&#33;">
+        This is a very cool way of looking at this. However, if I do this, then I will have my current extension coupled with this new one. Is this an acceptible practice? I guess what I'm looking to ensure is that if I add one extension, that it gracefully adds
+ all dependent extensions without overriding/duplicating ones that may already exist within the container.<br>
+<br>
+I suppose it would be feasible to put this extension in a common assembly (which I already have :)) and then just use it from there. Ok... I think I'm getting the hang of this stuff works... Thanks!<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_82334" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="86640">
+    <td id="PostDetailsCell_86640" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post86640"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/EvilShrike">EvilShrike</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/14/2008 8:55:06 AM" LocalTimeTicks="1208188506">Apr 14, 2008 at 8:55 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="4/14/2008 9:39:32 AM" LocalTimeTicks="1208191172">Apr 14, 2008 at 9:39 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_86640" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;If&#32;we&#32;try&#32;to&#32;compile&#32;we&#39;ll&#32;get&#32;an&#32;error&#32;for&#32;method&#32;&#39;public&#32;static&#32;bool&#32;CanResolve&#38;lt&#59;T&#38;gt&#59;&#40;this&#32;UnityContainer&#32;container&#41;&#39;&#32;&#58;Extension&#32;methods&#32;must&#32;be&#32;defined&#32;in&#32;a&#32;non-generic&#32;static&#32;classProbably&#32;I&#32;have&#32;to&#32;change&#32;the&#32;code&#32;to&#58;&#32;public&#32;static&#32;class&#32;ModelExtension&#32;&#123;&#32;public&#32;class&#32;UnityExtensionWithTypeTracking&#58;&#32;UnityContainerExtension&#32;&#123;&#32;internal&#32;readonly&#32;List&#38;lt&#59;Type&#38;gt&#59;&#32;registeredTypes&#32;&#61;&#32;new&#32;List&#38;lt&#59;Type&#38;gt&#59;&#40;&#41;&#59;&#32;protected&#32;override&#32;void&#32;Initialize&#40;&#41;&#32;&#123;&#32;Context.RegisteringInstance&#32;&#43;&#61;&#32;&#40;sender,&#32;e&#41;&#32;&#61;&#38;gt&#59;&#32;registeredTypes.Add&#40;e.RegisteredType&#41;&#59;&#32;Context.Registering&#32;&#43;&#61;&#32;&#40;sender,&#32;e&#41;&#32;&#61;&#38;gt&#59;&#32;registeredTypes.Add&#40;e.TypeFrom&#41;&#59;&#32;&#125;&#32;&#125;&#32;public&#32;static&#32;bool&#32;CanResolve&#38;lt&#59;T&#38;gt&#59;&#40;this&#32;UnityContainer&#32;container&#41;&#32;&#123;&#32;return&#32;container.Configure&#38;lt&#59;UnityExtensionWithTypeTracking&#38;gt&#59;&#40;&#41;.registeredTypes.Contains&#40;typeof&#40;T&#41;&#41;&#59;&#32;&#125;&#32;&#125;&#32;yeah&#63;And&#32;it&#39;s&#32;not&#32;enough.&#32;I&#32;guess&#32;you&#39;ve&#32;just&#32;skipped&#32;steps&#32;wich&#32;obvious&#32;for&#32;you.&#32;But&#32;for&#32;me&#32;as&#32;for&#32;a&#32;begginer&#32;in&#32;Unity&#32;it&#39;s&#32;a&#32;bit&#32;challeging.&#32;So&#32;have&#32;to&#32;register&#32;the&#32;extension&#32;explicitly&#58;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#32;.RegisterType&#38;lt&#59;IFoo,&#32;Foo&#38;gt&#59;&#40;&#41;&#32;.RegisterInstance&#38;lt&#59;IBar&#38;gt&#59;&#40;new&#32;Bar&#40;&#41;&#41;&#59;&#32;.AddNewExtension&#38;lt&#59;ModelExtension.UnityExtensionWithTypeTracking&#38;gt&#59;&#40;&#41;&#59;&#32;Assert.IsTrue&#40;container.CanResolve&#38;lt&#59;IFoo&#38;gt&#59;&#40;&#41;&#41;&#59;&#32;Assert.IsTrue&#40;container.CanResolve&#38;lt&#59;IBar&#38;gt&#59;&#40;&#41;&#41;&#59;&#32;Assert.IsFalse&#40;container.CanResolve&#38;lt&#59;ILogger&#38;gt&#59;&#40;&#41;&#41;&#59;&#32;">
+        If we try to compile we'll get an error for method 'public static bool CanResolve&lt;T&gt;(this UnityContainer container)' :<br>
+Extension methods must be defined in a non-generic static class<br>
+<br>
+Probably I have to change the code to:<br>
+<br>
+<pre style="background-color:#ECECEC; border:dashed .1em #3E62A6; font-family:Consolas,Courier New,Courier,Monospace; font-size:1em; margin-top:0; padding:.5em; height:auto; overflow:auto; overflow-x:auto; overflow-y:auto">
+	public static class ModelExtension 
+	{
+		public class UnityExtensionWithTypeTracking: UnityContainerExtension
+		{
+			internal readonly List&lt;Type&gt; registeredTypes = new List&lt;Type&gt;();
+ 
+			protected override void Initialize()
+			{
+				Context.RegisteringInstance &#43;= (sender, e) =&gt; registeredTypes.Add(e.RegisteredType);
+				Context.Registering &#43;= (sender, e) =&gt; registeredTypes.Add(e.TypeFrom);
+			}
+			
+		}
+		public static bool CanResolve&lt;T&gt;(this UnityContainer container)
+		{
+			return container.Configure&lt;UnityExtensionWithTypeTracking&gt;().registeredTypes.Contains(typeof(T));
+		}
+	}
+</pre>
+<br>
+yeah?<br>
+<br>
+And it's not enough. I guess you've just skipped steps wich obvious for you. But for me as for a begginer in Unity it's a bit challeging. So have to register the extension explicitly:<br>
+<pre style="background-color:#ECECEC; border:dashed .1em #3E62A6; font-family:Consolas,Courier New,Courier,Monospace; font-size:1em; margin-top:0; padding:.5em; height:auto; overflow:auto; overflow-x:auto; overflow-y:auto">
+IUnityContainer container = new UnityContainer()
+  .RegisterType&lt;IFoo, Foo&gt;()
+  .RegisterInstance&lt;IBar&gt;(new Bar());
+  .AddNewExtension&lt;ModelExtension.UnityExtensionWithTypeTracking&gt;();
+ 
+Assert.IsTrue(container.CanResolve&lt;IFoo&gt;());
+Assert.IsTrue(container.CanResolve&lt;IBar&gt;());
+Assert.IsFalse(container.CanResolve&lt;ILogger&gt;());
+</pre>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_86640" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="174315">
+    <td id="PostDetailsCell_174315" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post174315"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Calin">Calin</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/1/2009 1:27:15 PM" LocalTimeTicks="1238617635">Apr 1, 2009 at 1:27 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_174315" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi,&#32;I&#39;ve&#32;modified&#32;the&#32;classs&#32;so&#32;that&#32;it&#32;supports&#32;named&#32;instances&#58;&#32;public&#32;static&#32;class&#32;ModelExtension&#32;&#123;&#32;public&#32;class&#32;UnityExtensionWithTypeTracking&#32;&#58;&#32;UnityContainerExtension&#32;&#123;&#32;internal&#32;readonly&#32;List&#38;lt&#59;RegisterInstanceEventArgs&#38;gt&#59;&#32;registeredInstanceTypes&#32;&#61;&#32;new&#32;List&#38;lt&#59;RegisterInstanceEventArgs&#38;gt&#59;&#40;&#41;&#59;&#32;internal&#32;readonly&#32;List&#38;lt&#59;RegisterEventArgs&#38;gt&#59;&#32;registeredTypes&#32;&#61;&#32;new&#32;List&#38;lt&#59;RegisterEventArgs&#38;gt&#59;&#40;&#41;&#59;&#32;protected&#32;override&#32;void&#32;Initialize&#40;&#41;&#32;&#123;&#32;Context.RegisteringInstance&#32;&#43;&#61;&#32;&#40;sender,&#32;e&#41;&#32;&#61;&#38;gt&#59;&#32;registeredInstanceTypes.Add&#40;e&#41;&#59;&#32;Context.Registering&#32;&#43;&#61;&#32;&#40;sender,&#32;e&#41;&#32;&#61;&#38;gt&#59;&#32;registeredTypes.Add&#40;e&#41;&#59;&#32;&#125;&#32;&#125;&#32;public&#32;static&#32;bool&#32;CanResolve&#38;lt&#59;T&#38;gt&#59;&#40;this&#32;IUnityContainer&#32;container&#41;&#32;&#123;&#32;return&#32;&#40;container.Configure&#38;lt&#59;UnityExtensionWithTypeTracking&#38;gt&#59;&#40;&#41;.registeredInstanceTypes.Any&#40;t&#32;&#61;&#38;gt&#59;&#32;t.RegisteredType&#32;&#61;&#61;&#32;typeof&#40;T&#41;&#41;&#32;&#124;&#124;&#32;container.Configure&#38;lt&#59;UnityExtensionWithTypeTracking&#38;gt&#59;&#40;&#41;.registeredTypes.Any&#40;t&#32;&#61;&#38;gt&#59;&#32;t.TypeFrom&#32;&#61;&#61;&#32;typeof&#40;T&#41;&#41;&#41;&#59;&#32;&#125;&#32;public&#32;static&#32;bool&#32;CanResolve&#38;lt&#59;T&#38;gt&#59;&#40;this&#32;IUnityContainer&#32;container,&#32;string&#32;name&#41;&#32;&#123;&#32;return&#32;&#40;container.Configure&#38;lt&#59;UnityExtensionWithTypeTracking&#38;gt&#59;&#40;&#41;.registeredInstanceTypes&#32;.Any&#40;t&#32;&#61;&#38;gt&#59;&#32;t.RegisteredType&#32;&#61;&#61;&#32;typeof&#40;T&#41;&#32;&#38;amp&#59;&#38;amp&#59;&#32;t.Name.Equals&#40;name,&#32;StringComparison.InvariantCultureIgnoreCase&#41;&#41;&#32;&#124;&#124;&#32;container.Configure&#38;lt&#59;UnityExtensionWithTypeTracking&#38;gt&#59;&#40;&#41;.registeredTypes&#32;.Any&#40;t&#32;&#61;&#38;gt&#59;&#32;t.TypeFrom&#32;&#61;&#61;&#32;typeof&#40;T&#41;&#32;&#38;amp&#59;&#38;amp&#59;&#32;t.Name.Equals&#40;name,&#32;StringComparison.InvariantCultureIgnoreCase&#41;&#41;&#41;&#59;&#32;&#125;&#32;&#125;Hope&#32;this&#32;helps&#32;someone.Regards,Calin">
+        Hi,
+<div><br>
+</div>
+<div>&nbsp;I've modified the classs so that it supports named instances:</div>
+<div><br>
+</div>
+<div><code>&nbsp;&nbsp; &nbsp;public static class ModelExtension</code></div>
+<code>
+<div>&nbsp;&nbsp; &nbsp;{</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;public class UnityExtensionWithTypeTracking : UnityContainerExtension</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;{</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;internal readonly List&lt;RegisterInstanceEventArgs&gt; registeredInstanceTypes = new List&lt;RegisterInstanceEventArgs&gt;();</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;internal readonly List&lt;RegisterEventArgs&gt; registeredTypes = new List&lt;RegisterEventArgs&gt;();</div>
+<div><br>
+</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;protected override void Initialize()</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Context.RegisteringInstance &#43;= (sender, e) =&gt; registeredInstanceTypes.Add(e);</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Context.Registering &#43;= (sender, e) =&gt; registeredTypes.Add(e);</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;}</div>
+<div><br>
+</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;public static bool CanResolve&lt;T&gt;(this IUnityContainer container)</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;{</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return (container.Configure&lt;UnityExtensionWithTypeTracking&gt;().registeredInstanceTypes.Any(t =&gt; t.RegisteredType == typeof(T)) ||</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;container.Configure&lt;UnityExtensionWithTypeTracking&gt;().registeredTypes.Any(t =&gt; t.TypeFrom == typeof(T)));</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;}</div>
+<div><br>
+</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;public static bool CanResolve&lt;T&gt;(this IUnityContainer container, string name)</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;{</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return (container.Configure&lt;UnityExtensionWithTypeTracking&gt;().registeredInstanceTypes</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.Any(t =&gt; t.RegisteredType == typeof(T) &amp;&amp; t.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ||</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;container.Configure&lt;UnityExtensionWithTypeTracking&gt;().registeredTypes</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.Any(t =&gt; t.TypeFrom == typeof(T) &amp;&amp; t.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)));</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;}</div>
+</code>
+<div><code>&nbsp;&nbsp; &nbsp;}</code>
+<div><br>
+</div>
+<div>Hope this helps someone.</div>
+<div><br>
+</div>
+<div>Regards,</div>
+<div>Calin</div>
+</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_174315" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="179646">
+    <td id="PostDetailsCell_179646" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post179646"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/imaji">imaji</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/15/2009 3:28:51 PM" LocalTimeTicks="1239834531">Apr 15, 2009 at 3:28 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_179646" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi,&#32;&#32;There&#39;s&#32;a&#32;bug&#32;in&#32;the&#32;named&#32;instance&#32;variant&#32;that&#32;throws&#32;a&#32;null&#32;reference&#32;exception&#32;when&#32;it&#32;finds&#32;a&#32;match&#32;to&#32;the&#32;type&#32;but&#32;the&#32;name&#32;is&#32;not&#32;set.&#32;I&#39;ve&#32;modified&#32;it&#32;to&#32;include&#32;a&#32;null&#32;check&#32;on&#32;the&#32;name.&#32;&#32;&#32;public&#32;static&#32;class&#32;ModelExtension&#32;&#32;&#32;&#123;&#32;&#32;public&#32;class&#32;UnityExtensionWithTypeTracking&#32;&#58;&#32;UnityContainerExtension&#32;&#32;&#123;&#32;&#32;internal&#32;readonly&#32;List&#38;lt&#59;RegisterInstanceEventArgs&#38;gt&#59;&#32;registeredInstanceTypes&#32;&#61;&#32;new&#32;List&#38;lt&#59;RegisterInstanceEventArgs&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;internal&#32;readonly&#32;List&#38;lt&#59;RegisterEventArgs&#38;gt&#59;&#32;registeredTypes&#32;&#61;&#32;new&#32;List&#38;lt&#59;RegisterEventArgs&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;&#32;&#32;protected&#32;override&#32;void&#32;Initialize&#40;&#41;&#32;&#32;&#123;&#32;&#32;Context.RegisteringInstance&#32;&#43;&#61;&#32;&#40;sender,&#32;e&#41;&#32;&#61;&#38;gt&#59;&#32;registeredInstanceTypes.Add&#40;e&#41;&#59;&#32;&#32;Context.Registering&#32;&#43;&#61;&#32;&#40;sender,&#32;e&#41;&#32;&#61;&#38;gt&#59;&#32;registeredTypes.Add&#40;e&#41;&#59;&#32;&#32;&#125;&#32;&#32;&#125;&#32;&#32;&#32;&#32;public&#32;static&#32;bool&#32;CanResolve&#38;lt&#59;T&#38;gt&#59;&#40;this&#32;IUnityContainer&#32;container&#41;&#32;&#32;&#123;&#32;&#32;return&#32;&#40;container.Configure&#38;lt&#59;UnityExtensionWithTypeTracking&#38;gt&#59;&#40;&#41;.registeredInstanceTypes.Any&#40;t&#32;&#61;&#38;gt&#59;&#32;t.RegisteredType&#32;&#61;&#61;&#32;typeof&#40;T&#41;&#41;&#32;&#124;&#124;&#32;&#32;container.Configure&#38;lt&#59;UnityExtensionWithTypeTracking&#38;gt&#59;&#40;&#41;.registeredTypes.Any&#40;t&#32;&#61;&#38;gt&#59;&#32;t.TypeFrom&#32;&#61;&#61;&#32;typeof&#40;T&#41;&#41;&#41;&#59;&#32;&#32;&#125;&#32;&#32;&#32;&#32;public&#32;static&#32;bool&#32;CanResolve&#38;lt&#59;T&#38;gt&#59;&#40;this&#32;IUnityContainer&#32;container,&#32;string&#32;name&#41;&#32;&#32;&#123;&#32;&#32;return&#32;&#40;container.Configure&#38;lt&#59;UnityExtensionWithTypeTracking&#38;gt&#59;&#40;&#41;.registeredInstanceTypes&#32;&#32;.Any&#40;t&#32;&#61;&#38;gt&#59;&#32;t.RegisteredType&#32;&#61;&#61;&#32;typeof&#40;T&#41;&#32;&#38;amp&#59;&#38;amp&#59;&#32;t.Name&#32;&#33;&#61;&#32;null&#32;&#38;amp&#59;&#38;amp&#59;&#32;t.Name.Equals&#40;name,&#32;StringComparison.InvariantCultureIgnoreCase&#41;&#41;&#32;&#124;&#124;&#32;&#32;container.Configure&#38;lt&#59;UnityExtensionWithTypeTracking&#38;gt&#59;&#40;&#41;.registeredTypes&#32;&#32;.Any&#40;t&#32;&#61;&#38;gt&#59;&#32;t.TypeFrom&#32;&#61;&#61;&#32;typeof&#40;T&#41;&#32;&#38;amp&#59;&#38;amp&#59;&#32;t.Name&#32;&#33;&#61;&#32;null&#32;&#38;amp&#59;&#38;amp&#59;&#32;t.Name.Equals&#40;name,&#32;StringComparison.InvariantCultureIgnoreCase&#41;&#41;&#41;&#59;&#32;&#32;&#125;&#32;&#32;&#32;&#125;&#32;&#32;Cheers,&#32;John&#32;">
+        Hi,<br>
+<br>
+There's a bug in the named instance variant that throws a null reference exception when it finds a match to the type but the name is not set.&nbsp; I've modified it to include a null check on the name.<br>
+<br>
+<div><code>&nbsp;&nbsp; &nbsp;public static class ModelExtension</code></div>
+<code>
+<div>&nbsp;&nbsp; &nbsp;{</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;public class UnityExtensionWithTypeTracking : UnityContainerExtension</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;{</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;internal readonly List&lt;RegisterInstanceEventArgs&gt; registeredInstanceTypes = new List&lt;RegisterInstanceEventArgs&gt;();</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;internal readonly List&lt;RegisterEventArgs&gt; registeredTypes = new List&lt;RegisterEventArgs&gt;();</div>
+<div><br>
+</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;protected override void Initialize()</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Context.RegisteringInstance &#43;= (sender, e) =&gt; registeredInstanceTypes.Add(e);</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Context.Registering &#43;= (sender, e) =&gt; registeredTypes.Add(e);</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;}</div>
+<div><br>
+</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;public static bool CanResolve&lt;T&gt;(this IUnityContainer container)</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;{</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return (container.Configure&lt;UnityExtensionWithTypeTracking&gt;().registeredInstanceTypes.Any(t =&gt; t.RegisteredType == typeof(T)) ||</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;container.Configure&lt;UnityExtensionWithTypeTracking&gt;().registeredTypes.Any(t =&gt; t.TypeFrom == typeof(T)));</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;}</div>
+<div><br>
+</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;public static bool CanResolve&lt;T&gt;(this IUnityContainer container, string name)</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;{</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return (container.Configure&lt;UnityExtensionWithTypeTracking&gt;().registeredInstanceTypes</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.Any(t =&gt; t.RegisteredType == typeof(T) &amp;&amp; t.Name != null &amp;&amp; t.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ||</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;container.Configure&lt;UnityExtensionWithTypeTracking&gt;().registeredTypes</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.Any(t =&gt; t.TypeFrom == typeof(T) &amp;&amp;&nbsp;t.Name != null &amp;&amp; t.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)));</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;}</div>
+</code>
+<div><code>&nbsp;&nbsp; &nbsp;}</code><br>
+<br>
+Cheers,<br>
+John</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_179646" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="179733">
+    <td id="PostDetailsCell_179733" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post179733"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Calin">Calin</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/15/2009 6:04:22 PM" LocalTimeTicks="1239843862">Apr 15, 2009 at 6:04 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_179733" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="You&#32;are&#32;absolutely&#32;right&#32;John,&#32;hit&#32;that&#32;in&#32;my&#32;test&#39;s&#32;but&#32;forgot&#32;to&#32;post&#32;a&#32;new&#32;version.Thank&#32;you,Calin">
+        You are absolutely right John, hit that in my test's but forgot to post a new version.
+<div><br>
+</div>
+<div>Thank you,</div>
+<div>Calin</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_179733" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="180583">
+    <td id="PostDetailsCell_180583" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post180583"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/imaji">imaji</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/17/2009 1:35:46 PM" LocalTimeTicks="1240000546">Apr 17, 2009 at 1:35 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_180583" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hey,&#32;&#32;One&#32;more&#32;change&#32;to&#32;the&#32;code,&#32;I&#39;ve&#32;changed&#32;the&#32;string&#32;comparison&#32;to&#32;InvariantCulture.&#32;This&#32;is&#32;to&#32;stop&#32;the&#32;Resolve&#32;exception&#32;being&#32;thrown,&#32;as&#32;the&#32;container&#32;is&#32;case&#32;sensitive&#32;and&#32;won&#39;t&#32;resolve&#32;the&#32;type&#32;if&#32;the&#32;requested&#32;name&#32;and&#32;keyed&#32;name&#32;don&#39;t&#32;match&#32;exactly.&#32;&#32;public&#32;static&#32;class&#32;ModelExtension&#32;&#32;&#123;&#32;&#32;public&#32;class&#32;UnityExtensionWithTypeTracking&#32;&#58;&#32;UnityContainerExtension&#32;&#32;&#123;&#32;&#32;internal&#32;readonly&#32;List&#38;lt&#59;RegisterInstanceEventArgs&#38;gt&#59;&#32;registeredInstanceTypes&#32;&#61;&#32;new&#32;List&#38;lt&#59;RegisterInstanceEventArgs&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;internal&#32;readonly&#32;List&#38;lt&#59;RegisterEventArgs&#38;gt&#59;&#32;registeredTypes&#32;&#61;&#32;new&#32;List&#38;lt&#59;RegisterEventArgs&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;&#32;&#32;protected&#32;override&#32;void&#32;Initialize&#40;&#41;&#32;&#32;&#123;&#32;&#32;Context.RegisteringInstance&#32;&#43;&#61;&#32;&#40;sender,&#32;e&#41;&#32;&#61;&#38;gt&#59;&#32;registeredInstanceTypes.Add&#40;e&#41;&#59;&#32;&#32;Context.Registering&#32;&#43;&#61;&#32;&#40;sender,&#32;e&#41;&#32;&#61;&#38;gt&#59;&#32;registeredTypes.Add&#40;e&#41;&#59;&#32;&#32;&#125;&#32;&#32;&#125;&#32;&#32;&#32;&#32;public&#32;static&#32;bool&#32;CanResolve&#38;lt&#59;T&#38;gt&#59;&#40;this&#32;IUnityContainer&#32;container&#41;&#32;&#32;&#123;&#32;&#32;return&#32;&#40;container.Configure&#38;lt&#59;UnityExtensionWithTypeTracking&#38;gt&#59;&#40;&#41;.registeredInstanceTypes.Any&#40;t&#32;&#61;&#38;gt&#59;&#32;t.RegisteredType&#32;&#61;&#61;&#32;typeof&#40;T&#41;&#41;&#32;&#124;&#124;&#32;&#32;container.Configure&#38;lt&#59;UnityExtensionWithTypeTracking&#38;gt&#59;&#40;&#41;.registeredTypes.Any&#40;t&#32;&#61;&#38;gt&#59;&#32;t.TypeFrom&#32;&#61;&#61;&#32;typeof&#40;T&#41;&#41;&#41;&#59;&#32;&#32;&#125;&#32;&#32;&#32;&#32;public&#32;static&#32;bool&#32;CanResolve&#38;lt&#59;T&#38;gt&#59;&#40;this&#32;IUnityContainer&#32;container,&#32;string&#32;name&#41;&#32;&#32;&#123;&#32;&#32;return&#32;&#40;container.Configure&#38;lt&#59;UnityExtensionWithTypeTracking&#38;gt&#59;&#40;&#41;.registeredInstanceTypes&#32;&#32;.Any&#40;t&#32;&#61;&#38;gt&#59;&#32;t.RegisteredType&#32;&#61;&#61;&#32;typeof&#40;T&#41;&#32;&#38;amp&#59;&#38;amp&#59;&#32;t.Name&#32;&#33;&#61;&#32;null&#32;&#38;amp&#59;&#38;amp&#59;&#32;t.Name.Equals&#40;name,&#32;StringComparison.InvariantCulture&#41;&#41;&#32;&#124;&#124;&#32;&#32;container.Configure&#38;lt&#59;UnityExtensionWithTypeTracking&#38;gt&#59;&#40;&#41;.registeredTypes&#32;&#32;.Any&#40;t&#32;&#61;&#38;gt&#59;&#32;t.TypeFrom&#32;&#61;&#61;&#32;typeof&#40;T&#41;&#32;&#38;amp&#59;&#38;amp&#59;&#32;t.Name&#32;&#33;&#61;&#32;null&#32;&#38;amp&#59;&#38;amp&#59;&#32;t.Name.Equals&#40;name,&#32;StringComparison.InvariantCulture&#41;&#41;&#41;&#59;&#32;&#32;&#125;&#32;&#32;&#32;&#125;&#32;&#32;Cheers,&#32;John&#32;">
+        Hey,<br>
+<br>
+One more change to the code, I've changed the string comparison to InvariantCulture.&nbsp; This is to stop the&nbsp;Resolve exception&nbsp;&nbsp;being thrown, as the container is case sensitive and won't resolve the type if the requested name and keyed name don't match exactly.<br>
+<br>
+<span style="font-family:courier new">public static class ModelExtension</span><code>
+<div>&nbsp;&nbsp; &nbsp;{</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;public class UnityExtensionWithTypeTracking : UnityContainerExtension</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;{</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;internal readonly List&lt;RegisterInstanceEventArgs&gt; registeredInstanceTypes = new List&lt;RegisterInstanceEventArgs&gt;();</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;internal readonly List&lt;RegisterEventArgs&gt; registeredTypes = new List&lt;RegisterEventArgs&gt;();</div>
+<div><br>
+</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;protected override void Initialize()</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Context.RegisteringInstance &#43;= (sender, e) =&gt; registeredInstanceTypes.Add(e);</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Context.Registering &#43;= (sender, e) =&gt; registeredTypes.Add(e);</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;}</div>
+<div><br>
+</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;public static bool CanResolve&lt;T&gt;(this IUnityContainer container)</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;{</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return (container.Configure&lt;UnityExtensionWithTypeTracking&gt;().registeredInstanceTypes.Any(t =&gt; t.RegisteredType == typeof(T)) ||</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;container.Configure&lt;UnityExtensionWithTypeTracking&gt;().registeredTypes.Any(t =&gt; t.TypeFrom == typeof(T)));</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;}</div>
+<div><br>
+</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;public static bool CanResolve&lt;T&gt;(this IUnityContainer container, string name)</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;{</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return (container.Configure&lt;UnityExtensionWithTypeTracking&gt;().registeredInstanceTypes</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.Any(t =&gt; t.RegisteredType == typeof(T) &amp;&amp; t.Name != null &amp;&amp; t.Name.Equals(name, StringComparison.InvariantCulture))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;||</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;container.Configure&lt;UnityExtensionWithTypeTracking&gt;().registeredTypes</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.Any(t =&gt; t.TypeFrom == typeof(T) &amp;&amp;&nbsp;t.Name != null &amp;&amp; t.Name.Equals(name, StringComparison.InvariantCulture)));</div>
+<div>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;}</div>
+</code>
+<div><code>&nbsp;&nbsp; &nbsp;}<br>
+<br>
+Cheers,<br>
+John</code></div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_180583" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="525929">
+    <td id="PostDetailsCell_525929" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post525929"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jdanyow">jdanyow</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/23/2010 3:47:48 PM" LocalTimeTicks="1290556068">Nov 23, 2010 at 3:47 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="11/23/2010 5:14:31 PM" LocalTimeTicks="1290561271">Nov 23, 2010 at 5:14 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_525929" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;This&#32;thread&#32;was&#32;very&#32;helpful.&#38;nbsp&#59;&#32;Our&#32;implementation&#32;of&#32;TryResolve&#38;lt&#59;T&#38;gt&#59;&#32;was&#32;very&#32;slow&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#38;nbsp&#59;static&#38;nbsp&#59;T&#38;nbsp&#59;TryResolve&#38;lt&#59;T&#38;gt&#59;&#40;this&#38;nbsp&#59;IUnityContainer&#38;nbsp&#59;container&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;where&#38;nbsp&#59;T&#38;nbsp&#59;&#58;&#38;nbsp&#59;class&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;if&#38;nbsp&#59;&#40;&#33;typeof&#40;T&#41;.IsInterface&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;throw&#38;nbsp&#59;new&#38;nbsp&#59;InvalidOperationException&#40;&#38;quot&#59;Only&#38;nbsp&#59;interface&#38;nbsp&#59;types&#38;nbsp&#59;may&#38;nbsp&#59;be&#38;nbsp&#59;used&#38;nbsp&#59;with&#38;nbsp&#59;TryResolve.&#38;quot&#59;&#41;&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;try&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;return&#38;nbsp&#59;container.Resolve&#38;lt&#59;T&#38;gt&#59;&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;catch&#38;nbsp&#59;&#40;ResolutionFailedException&#38;nbsp&#59;e&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;if&#38;nbsp&#59;&#40;&#33;e.Message.Contains&#40;&#38;quot&#59;is&#38;nbsp&#59;an&#38;nbsp&#59;interface&#38;nbsp&#59;and&#38;nbsp&#59;cannot&#38;nbsp&#59;be&#38;nbsp&#59;constructed.&#38;nbsp&#59;Are&#38;nbsp&#59;you&#38;nbsp&#59;missing&#38;nbsp&#59;a&#38;nbsp&#59;type&#38;nbsp&#59;mapping&#63;&#38;quot&#59;&#41;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;throw&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;return&#38;nbsp&#59;null&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;I&#39;ve&#32;adapted&#32;the&#32;example&#32;to&#32;work&#32;with&#32;child&#32;containers,&#32;use&#32;dictionaries&#32;for&#32;the&#32;type&#32;lookups&#32;and&#32;to&#32;unregister&#32;event&#32;handlers&#32;when&#32;the&#32;extension&#32;is&#32;removed.&#32;namespace&#38;nbsp&#59;Microsoft.Practices.Unity&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;Extensions&#38;nbsp&#59;for&#38;nbsp&#59;Microsoft&#38;nbsp&#59;Unity&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;&#47;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#38;nbsp&#59;static&#38;nbsp&#59;class&#38;nbsp&#59;Extensions&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;Extension&#38;nbsp&#59;that&#38;nbsp&#59;tracks&#38;nbsp&#59;types&#38;nbsp&#59;registered&#38;nbsp&#59;in&#38;nbsp&#59;the&#38;nbsp&#59;container.&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;&#47;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#38;nbsp&#59;class&#38;nbsp&#59;UnityExtensionWithTypeTracking&#38;nbsp&#59;&#58;&#38;nbsp&#59;UnityContainerExtension&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;private&#38;nbsp&#59;readonly&#38;nbsp&#59;Dictionary&#38;lt&#59;Type,&#38;nbsp&#59;Type&#38;gt&#59;&#38;nbsp&#59;types&#38;nbsp&#59;&#61;&#38;nbsp&#59;new&#38;nbsp&#59;Dictionary&#38;lt&#59;Type,&#38;nbsp&#59;Type&#38;gt&#59;&#40;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;private&#38;nbsp&#59;readonly&#38;nbsp&#59;Dictionary&#38;lt&#59;string,&#38;nbsp&#59;Type&#38;gt&#59;&#38;nbsp&#59;namedTypes&#38;nbsp&#59;&#61;&#38;nbsp&#59;new&#38;nbsp&#59;Dictionary&#38;lt&#59;string,&#38;nbsp&#59;Type&#38;gt&#59;&#40;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;private&#38;nbsp&#59;const&#38;nbsp&#59;string&#38;nbsp&#59;NamedTypeFormatString&#38;nbsp&#59;&#61;&#38;nbsp&#59;&#38;quot&#59;&#123;0&#125;,&#38;nbsp&#59;&#123;1&#125;&#38;quot&#59;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;Returns&#38;nbsp&#59;whether&#38;nbsp&#59;a&#38;nbsp&#59;type&#38;nbsp&#59;is&#38;nbsp&#59;registered.&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;&#47;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;type&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;type.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#38;nbsp&#59;bool&#38;nbsp&#59;IsRegistered&#40;Type&#38;nbsp&#59;type&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;return&#38;nbsp&#59;this.types.ContainsKey&#40;type&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#124;&#124;&#38;nbsp&#59;&#40;this.Container.Parent&#38;nbsp&#59;&#33;&#61;&#38;nbsp&#59;null&#38;nbsp&#59;&#38;amp&#59;&#38;amp&#59;&#38;nbsp&#59;this.Container.Parent.IsRegistered&#40;type&#41;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;Returns&#38;nbsp&#59;whether&#38;nbsp&#59;a&#38;nbsp&#59;type&#38;nbsp&#59;is&#38;nbsp&#59;registered.&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;&#47;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;type&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;type.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;name&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;name&#38;nbsp&#59;the&#38;nbsp&#59;type&#38;nbsp&#59;is&#38;nbsp&#59;registered&#38;nbsp&#59;with.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#38;nbsp&#59;bool&#38;nbsp&#59;IsRegistered&#40;Type&#38;nbsp&#59;type,&#38;nbsp&#59;string&#38;nbsp&#59;name&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;var&#38;nbsp&#59;namedTypeKey&#38;nbsp&#59;&#61;&#38;nbsp&#59;UnityExtensionWithTypeTracking.GetNamedTypeKey&#40;type,&#38;nbsp&#59;name&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;return&#38;nbsp&#59;this.namedTypes.ContainsKey&#40;namedTypeKey&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#124;&#124;&#38;nbsp&#59;&#40;this.Container.Parent&#38;nbsp&#59;&#33;&#61;&#38;nbsp&#59;null&#38;nbsp&#59;&#38;amp&#59;&#38;amp&#59;&#38;nbsp&#59;this.Container.Parent.IsRegistered&#40;type,&#38;nbsp&#59;name&#41;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;protected&#38;nbsp&#59;override&#38;nbsp&#59;void&#38;nbsp&#59;Initialize&#40;&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;this.Context.RegisteringInstance&#38;nbsp&#59;&#38;&#35;43&#59;&#61;&#38;nbsp&#59;&#40;sender,&#38;nbsp&#59;e&#41;&#38;nbsp&#59;&#61;&#38;gt&#59;&#38;nbsp&#59;this.AddRegistrationToDictionaries&#40;e.RegisteredType,&#38;nbsp&#59;e.Name&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;this.Context.Registering&#38;nbsp&#59;&#38;&#35;43&#59;&#61;&#38;nbsp&#59;&#40;sender,&#38;nbsp&#59;e&#41;&#38;nbsp&#59;&#61;&#38;gt&#59;&#38;nbsp&#59;this.AddRegistrationToDictionaries&#40;e.TypeFrom,&#38;nbsp&#59;e.Name&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#38;nbsp&#59;override&#38;nbsp&#59;void&#38;nbsp&#59;Remove&#40;&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;this.Context.RegisteringInstance&#38;nbsp&#59;-&#61;&#38;nbsp&#59;&#40;sender,&#38;nbsp&#59;e&#41;&#38;nbsp&#59;&#61;&#38;gt&#59;&#38;nbsp&#59;this.AddRegistrationToDictionaries&#40;e.RegisteredType,&#38;nbsp&#59;e.Name&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;this.Context.Registering&#38;nbsp&#59;-&#61;&#38;nbsp&#59;&#40;sender,&#38;nbsp&#59;e&#41;&#38;nbsp&#59;&#61;&#38;gt&#59;&#38;nbsp&#59;this.AddRegistrationToDictionaries&#40;e.TypeFrom,&#38;nbsp&#59;e.Name&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;base.Remove&#40;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;Returns&#38;nbsp&#59;a&#38;nbsp&#59;key&#38;nbsp&#59;for&#38;nbsp&#59;use&#38;nbsp&#59;in&#38;nbsp&#59;the&#38;nbsp&#59;namedTypes&#38;nbsp&#59;dictionary.&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;&#47;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;type&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;registered&#38;nbsp&#59;type.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;name&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;name&#38;nbsp&#59;of&#38;nbsp&#59;the&#38;nbsp&#59;registration.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;private&#38;nbsp&#59;static&#38;nbsp&#59;string&#38;nbsp&#59;GetNamedTypeKey&#40;Type&#38;nbsp&#59;type,&#38;nbsp&#59;string&#38;nbsp&#59;name&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;return&#38;nbsp&#59;string.Format&#40;NamedTypeFormatString,&#38;nbsp&#59;type.AssemblyQualifiedName,&#38;nbsp&#59;name&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;Adds&#38;nbsp&#59;a&#38;nbsp&#59;registration&#38;nbsp&#59;to&#38;nbsp&#59;the&#38;nbsp&#59;dictionaries.&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;&#47;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;type&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;from&#38;nbsp&#59;type.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;name&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;name&#38;nbsp&#59;of&#38;nbsp&#59;the&#38;nbsp&#59;registration.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;private&#38;nbsp&#59;void&#38;nbsp&#59;AddRegistrationToDictionaries&#40;Type&#38;nbsp&#59;type,&#38;nbsp&#59;string&#38;nbsp&#59;name&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;if&#38;nbsp&#59;&#40;&#33;types.ContainsKey&#40;type&#41;&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;types.Add&#40;type,&#38;nbsp&#59;type&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;if&#38;nbsp&#59;&#40;name&#38;nbsp&#59;&#61;&#61;&#38;nbsp&#59;null&#41;&#38;nbsp&#59;return&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;var&#38;nbsp&#59;key&#38;nbsp&#59;&#61;&#38;nbsp&#59;GetNamedTypeKey&#40;type,&#38;nbsp&#59;name&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;if&#38;nbsp&#59;&#40;&#33;namedTypes.ContainsKey&#40;key&#41;&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;namedTypes.Add&#40;key,&#38;nbsp&#59;type&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;Returns&#38;nbsp&#59;whether&#38;nbsp&#59;a&#38;nbsp&#59;type&#38;nbsp&#59;is&#38;nbsp&#59;registered.&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;&#47;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;typeparam&#38;nbsp&#59;name&#61;&#38;quot&#59;T&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;type.&#38;lt&#59;&#47;typeparam&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;container&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;container.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#38;nbsp&#59;static&#38;nbsp&#59;bool&#38;nbsp&#59;IsRegistered&#38;lt&#59;T&#38;gt&#59;&#40;this&#38;nbsp&#59;IUnityContainer&#38;nbsp&#59;container&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;return&#38;nbsp&#59;container.IsRegistered&#40;typeof&#40;T&#41;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;Returns&#38;nbsp&#59;whether&#38;nbsp&#59;a&#38;nbsp&#59;type&#38;nbsp&#59;is&#38;nbsp&#59;registered.&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;&#47;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;container&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;container.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;type&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;type.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#38;nbsp&#59;static&#38;nbsp&#59;bool&#38;nbsp&#59;IsRegistered&#40;this&#38;nbsp&#59;IUnityContainer&#38;nbsp&#59;container,&#38;nbsp&#59;Type&#38;nbsp&#59;type&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;return&#38;nbsp&#59;container.Configure&#38;lt&#59;UnityExtensionWithTypeTracking&#38;gt&#59;&#40;&#41;.IsRegistered&#40;type&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;Returns&#38;nbsp&#59;whether&#38;nbsp&#59;a&#38;nbsp&#59;type&#38;nbsp&#59;is&#38;nbsp&#59;registered.&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;&#47;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;typeparam&#38;nbsp&#59;name&#61;&#38;quot&#59;T&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;type.&#38;lt&#59;&#47;typeparam&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;container&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;container.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;name&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;name&#38;nbsp&#59;the&#38;nbsp&#59;type&#38;nbsp&#59;is&#38;nbsp&#59;registered&#38;nbsp&#59;with.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#38;nbsp&#59;static&#38;nbsp&#59;bool&#38;nbsp&#59;IsRegistered&#38;lt&#59;T&#38;gt&#59;&#40;this&#38;nbsp&#59;IUnityContainer&#38;nbsp&#59;container,&#38;nbsp&#59;string&#38;nbsp&#59;name&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;return&#38;nbsp&#59;container.IsRegistered&#40;typeof&#40;T&#41;,&#38;nbsp&#59;name&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;Returns&#38;nbsp&#59;whether&#38;nbsp&#59;a&#38;nbsp&#59;type&#38;nbsp&#59;is&#38;nbsp&#59;registered.&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;&#47;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;container&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;container.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;type&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;type.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;name&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;name&#38;nbsp&#59;the&#38;nbsp&#59;type&#38;nbsp&#59;is&#38;nbsp&#59;registered&#38;nbsp&#59;with.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#38;nbsp&#59;static&#38;nbsp&#59;bool&#38;nbsp&#59;IsRegistered&#40;this&#38;nbsp&#59;IUnityContainer&#38;nbsp&#59;container,&#38;nbsp&#59;Type&#38;nbsp&#59;type,&#38;nbsp&#59;string&#38;nbsp&#59;name&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;return&#38;nbsp&#59;container.Configure&#38;lt&#59;UnityExtensionWithTypeTracking&#38;gt&#59;&#40;&#41;.IsRegistered&#40;type,&#38;nbsp&#59;name&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;Attempts&#38;nbsp&#59;to&#38;nbsp&#59;resolve&#38;nbsp&#59;a&#38;nbsp&#59;type,&#38;nbsp&#59;returning&#38;nbsp&#59;null&#38;nbsp&#59;when&#38;nbsp&#59;the&#38;nbsp&#59;type&#38;nbsp&#59;isn&#39;t&#38;nbsp&#59;registered.&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;&#47;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;container&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;container.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;type&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;type&#38;nbsp&#59;to&#38;nbsp&#59;resolve.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#38;nbsp&#59;static&#38;nbsp&#59;object&#38;nbsp&#59;TryResolve&#40;this&#38;nbsp&#59;IUnityContainer&#38;nbsp&#59;container,&#38;nbsp&#59;Type&#38;nbsp&#59;type&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;if&#38;nbsp&#59;&#40;&#33;type.IsInterface&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;throw&#38;nbsp&#59;new&#38;nbsp&#59;ArgumentException&#40;&#38;quot&#59;The&#38;nbsp&#59;type&#38;nbsp&#59;must&#38;nbsp&#59;be&#38;nbsp&#59;an&#38;nbsp&#59;interface.&#38;quot&#59;,&#38;nbsp&#59;&#38;quot&#59;type&#38;quot&#59;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;if&#38;nbsp&#59;&#40;container.IsRegistered&#40;type&#41;&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;return&#38;nbsp&#59;container.Resolve&#40;type&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;return&#38;nbsp&#59;null&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;Attempts&#38;nbsp&#59;to&#38;nbsp&#59;resolve&#38;nbsp&#59;a&#38;nbsp&#59;type,&#38;nbsp&#59;returning&#38;nbsp&#59;null&#38;nbsp&#59;when&#38;nbsp&#59;the&#38;nbsp&#59;type&#38;nbsp&#59;isn&#39;t&#38;nbsp&#59;registered.&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;&#47;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;typeparam&#38;nbsp&#59;name&#61;&#38;quot&#59;T&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;type&#38;nbsp&#59;to&#38;nbsp&#59;resolve.&#38;lt&#59;&#47;typeparam&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;container&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;container.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#38;nbsp&#59;static&#38;nbsp&#59;T&#38;nbsp&#59;TryResolve&#38;lt&#59;T&#38;gt&#59;&#40;this&#38;nbsp&#59;IUnityContainer&#38;nbsp&#59;container&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;where&#38;nbsp&#59;T&#38;nbsp&#59;&#58;&#38;nbsp&#59;class&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;return&#38;nbsp&#59;&#40;T&#41;container.TryResolve&#40;typeof&#40;T&#41;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;Attempts&#38;nbsp&#59;to&#38;nbsp&#59;resolve&#38;nbsp&#59;a&#38;nbsp&#59;type,&#38;nbsp&#59;returning&#38;nbsp&#59;null&#38;nbsp&#59;when&#38;nbsp&#59;the&#38;nbsp&#59;type&#38;nbsp&#59;isn&#39;t&#38;nbsp&#59;registered.&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;&#47;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;container&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;container.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;type&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;type&#38;nbsp&#59;to&#38;nbsp&#59;resolve.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;name&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;name&#38;nbsp&#59;the&#38;nbsp&#59;type&#38;nbsp&#59;is&#38;nbsp&#59;registered&#38;nbsp&#59;with.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#38;nbsp&#59;static&#38;nbsp&#59;object&#38;nbsp&#59;TryResolve&#40;this&#38;nbsp&#59;IUnityContainer&#38;nbsp&#59;container,&#38;nbsp&#59;Type&#38;nbsp&#59;type,&#38;nbsp&#59;string&#38;nbsp&#59;name&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;if&#38;nbsp&#59;&#40;&#33;type.IsInterface&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;throw&#38;nbsp&#59;new&#38;nbsp&#59;ArgumentException&#40;&#38;quot&#59;The&#38;nbsp&#59;type&#38;nbsp&#59;must&#38;nbsp&#59;be&#38;nbsp&#59;an&#38;nbsp&#59;interface.&#38;quot&#59;,&#38;nbsp&#59;&#38;quot&#59;type&#38;quot&#59;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;if&#38;nbsp&#59;&#40;container.IsRegistered&#40;type,&#38;nbsp&#59;name&#41;&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;return&#38;nbsp&#59;container.Resolve&#40;type,&#38;nbsp&#59;name&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;return&#38;nbsp&#59;null&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;Attempts&#38;nbsp&#59;to&#38;nbsp&#59;resolve&#38;nbsp&#59;a&#38;nbsp&#59;type,&#38;nbsp&#59;returning&#38;nbsp&#59;null&#38;nbsp&#59;when&#38;nbsp&#59;the&#38;nbsp&#59;type&#38;nbsp&#59;isn&#39;t&#38;nbsp&#59;registered.&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;&#47;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;typeparam&#38;nbsp&#59;name&#61;&#38;quot&#59;T&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;type&#38;nbsp&#59;to&#38;nbsp&#59;resolve.&#38;lt&#59;&#47;typeparam&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;container&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;container.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;name&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;name&#38;nbsp&#59;the&#38;nbsp&#59;type&#38;nbsp&#59;is&#38;nbsp&#59;registered&#38;nbsp&#59;with.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#38;nbsp&#59;static&#38;nbsp&#59;T&#38;nbsp&#59;TryResolve&#38;lt&#59;T&#38;gt&#59;&#40;this&#38;nbsp&#59;IUnityContainer&#38;nbsp&#59;container,&#38;nbsp&#59;string&#38;nbsp&#59;name&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;where&#38;nbsp&#59;T&#38;nbsp&#59;&#58;&#38;nbsp&#59;class&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;return&#38;nbsp&#59;&#40;T&#41;container.TryResolve&#40;typeof&#40;T&#41;,&#38;nbsp&#59;name&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;Attempts&#38;nbsp&#59;to&#38;nbsp&#59;resolve&#38;nbsp&#59;a&#38;nbsp&#59;type,&#38;nbsp&#59;resolving&#38;nbsp&#59;the&#38;nbsp&#59;substitute&#38;nbsp&#59;type&#38;nbsp&#59;if&#38;nbsp&#59;the&#38;nbsp&#59;type&#38;nbsp&#59;isn&#39;t&#38;nbsp&#59;registered.&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;&#47;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;container&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;container.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;type&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;type&#38;nbsp&#59;to&#38;nbsp&#59;resolve.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;substitute&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;type&#38;nbsp&#59;to&#38;nbsp&#59;resolve&#38;nbsp&#59;if&#38;nbsp&#59;the&#38;nbsp&#59;first&#38;nbsp&#59;type&#38;nbsp&#59;isn&#39;t&#38;nbsp&#59;registered.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#38;nbsp&#59;static&#38;nbsp&#59;object&#38;nbsp&#59;TryResolve&#40;this&#38;nbsp&#59;IUnityContainer&#38;nbsp&#59;container,&#38;nbsp&#59;Type&#38;nbsp&#59;type,&#38;nbsp&#59;Type&#38;nbsp&#59;substitute&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;return&#38;nbsp&#59;container.TryResolve&#40;type&#41;&#38;nbsp&#59;&#63;&#63;&#38;nbsp&#59;container.Resolve&#40;substitute&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;Attempts&#38;nbsp&#59;to&#38;nbsp&#59;resolve&#38;nbsp&#59;a&#38;nbsp&#59;type,&#38;nbsp&#59;resolving&#38;nbsp&#59;the&#38;nbsp&#59;substitute&#38;nbsp&#59;type&#38;nbsp&#59;if&#38;nbsp&#59;the&#38;nbsp&#59;type&#38;nbsp&#59;isn&#39;t&#38;nbsp&#59;registered.&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;&#47;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;typeparam&#38;nbsp&#59;name&#61;&#38;quot&#59;T&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;type&#38;nbsp&#59;to&#38;nbsp&#59;resolve.&#38;lt&#59;&#47;typeparam&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;typeparam&#38;nbsp&#59;name&#61;&#38;quot&#59;TSubstitute&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;type&#38;nbsp&#59;to&#38;nbsp&#59;resolve&#38;nbsp&#59;if&#38;nbsp&#59;the&#38;nbsp&#59;first&#38;nbsp&#59;type&#38;nbsp&#59;isn&#39;t&#38;nbsp&#59;registered.&#38;lt&#59;&#47;typeparam&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;container&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;container.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#38;nbsp&#59;static&#38;nbsp&#59;T&#38;nbsp&#59;TryResolve&#38;lt&#59;T,&#38;nbsp&#59;TSubstitute&#38;gt&#59;&#40;this&#38;nbsp&#59;IUnityContainer&#38;nbsp&#59;container&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;where&#38;nbsp&#59;T&#38;nbsp&#59;&#58;&#38;nbsp&#59;class&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;where&#38;nbsp&#59;TSubstitute&#38;nbsp&#59;&#58;&#38;nbsp&#59;T&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;return&#38;nbsp&#59;&#40;T&#41;container.TryResolve&#40;typeof&#40;T&#41;,&#38;nbsp&#59;typeof&#40;TSubstitute&#41;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;Retrieves&#38;nbsp&#59;the&#38;nbsp&#59;child&#38;nbsp&#59;container&#38;nbsp&#59;registered&#38;nbsp&#59;with&#38;nbsp&#59;the&#38;nbsp&#59;specified&#38;nbsp&#59;name.&#38;nbsp&#59;&#38;nbsp&#59;If&#38;nbsp&#59;one&#38;nbsp&#59;doesn&#39;t&#38;nbsp&#59;exist&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;then&#38;nbsp&#59;a&#38;nbsp&#59;new&#38;nbsp&#59;child&#38;nbsp&#59;container&#38;nbsp&#59;is&#38;nbsp&#59;created,&#38;nbsp&#59;registered&#38;nbsp&#59;and&#38;nbsp&#59;returned.&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;&#47;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;The&#38;nbsp&#59;name&#38;nbsp&#59;the&#38;nbsp&#59;child&#38;nbsp&#59;container&#38;nbsp&#59;instance&#38;nbsp&#59;was&#38;nbsp&#59;registered&#38;nbsp&#59;with&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#38;nbsp&#59;static&#38;nbsp&#59;IUnityContainer&#38;nbsp&#59;GetChildContainer&#40;this&#38;nbsp&#59;IUnityContainer&#38;nbsp&#59;container,&#38;nbsp&#59;string&#38;nbsp&#59;name&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;if&#38;nbsp&#59;&#40;container.IsRegistered&#38;lt&#59;IUnityContainer&#38;gt&#59;&#40;name&#41;&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;return&#38;nbsp&#59;container.Resolve&#38;lt&#59;IUnityContainer&#38;gt&#59;&#40;name&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;var&#38;nbsp&#59;childContainer&#38;nbsp&#59;&#61;&#38;nbsp&#59;container.CreateChildContainer&#40;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;childContainer.AddNewExtension&#38;lt&#59;Extensions.UnityExtensionWithTypeTracking&#38;gt&#59;&#40;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;container.RegisterInstance&#38;lt&#59;IUnityContainer&#38;gt&#59;&#40;name,&#38;nbsp&#59;childContainer&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;return&#38;nbsp&#59;childContainer&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;Resolves&#38;nbsp&#59;a&#38;nbsp&#59;list&#38;nbsp&#59;of&#38;nbsp&#59;types.&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;&#47;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;typeparam&#38;nbsp&#59;name&#61;&#38;quot&#59;T&#38;quot&#59;&#38;gt&#59;The&#38;nbsp&#59;base&#38;nbsp&#59;type&#38;nbsp&#59;or&#38;nbsp&#59;common&#38;nbsp&#59;interface&#38;nbsp&#59;of&#38;nbsp&#59;each&#38;nbsp&#59;item&#38;nbsp&#59;in&#38;nbsp&#59;the&#38;nbsp&#59;list.&#38;lt&#59;&#47;typeparam&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#47;&#47;&#47;&#38;nbsp&#59;&#38;lt&#59;param&#38;nbsp&#59;name&#61;&#38;quot&#59;types&#38;quot&#59;&#38;gt&#59;A&#38;nbsp&#59;list&#38;nbsp&#59;of&#38;nbsp&#59;types&#38;nbsp&#59;to&#38;nbsp&#59;resolve.&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#38;nbsp&#59;static&#38;nbsp&#59;IEnumerable&#38;lt&#59;T&#38;gt&#59;&#38;nbsp&#59;Resolve&#38;lt&#59;T&#38;gt&#59;&#40;this&#38;nbsp&#59;IUnityContainer&#38;nbsp&#59;container,&#38;nbsp&#59;IEnumerable&#38;lt&#59;Type&#38;gt&#59;&#38;nbsp&#59;types&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;var&#38;nbsp&#59;items&#38;nbsp&#59;&#61;&#38;nbsp&#59;new&#38;nbsp&#59;List&#38;lt&#59;T&#38;gt&#59;&#40;types.Count&#40;&#41;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;foreach&#38;nbsp&#59;&#40;var&#38;nbsp&#59;type&#38;nbsp&#59;in&#38;nbsp&#59;types&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;if&#38;nbsp&#59;&#40;typeof&#40;T&#41;.IsAssignableFrom&#40;type&#41;&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;items.Add&#40;&#40;T&#41;container.Resolve&#40;type&#41;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;else&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;throw&#38;nbsp&#59;new&#38;nbsp&#59;ArgumentException&#40;string.Format&#40;&#38;quot&#59;Each&#38;nbsp&#59;element&#38;nbsp&#59;must&#38;nbsp&#59;be&#38;nbsp&#59;a&#38;nbsp&#59;&#123;0&#125;.&#38;quot&#59;,&#38;nbsp&#59;typeof&#40;T&#41;.FullName&#41;,&#38;nbsp&#59;&#38;quot&#59;types&#38;quot&#59;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;return&#38;nbsp&#59;items&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#125;&#32;">
+        
+<p>This thread was very helpful.&nbsp; Our implementation of TryResolve&lt;T&gt; was very slow:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">public</span>&nbsp;<span style="color:blue">static</span>&nbsp;T&nbsp;TryResolve&lt;T&gt;(<span style="color:blue">this</span>&nbsp;<span style="color:#2b91af">IUnityContainer</span>&nbsp;container)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">where</span>&nbsp;T&nbsp;:&nbsp;<span style="color:blue">class</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">if</span>&nbsp;(!<span style="color:blue">typeof</span>(T).IsInterface)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">throw</span>&nbsp;<span style="color:blue">new</span>&nbsp;<span style="color:#2b91af">InvalidOperationException</span>(<span style="color:#a31515">&quot;Only&nbsp;interface&nbsp;types&nbsp;may&nbsp;be&nbsp;used&nbsp;with&nbsp;TryResolve.&quot;</span>);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">return</span>&nbsp;container.Resolve&lt;T&gt;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">catch</span>&nbsp;(<span style="color:#2b91af">ResolutionFailedException</span>&nbsp;e)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">if</span>&nbsp;(!e.Message.Contains(<span style="color:#a31515">&quot;is&nbsp;an&nbsp;interface&nbsp;and&nbsp;cannot&nbsp;be&nbsp;constructed.&nbsp;Are&nbsp;you&nbsp;missing&nbsp;a&nbsp;type&nbsp;mapping?&quot;</span>))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">throw</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">return</span>&nbsp;<span style="color:blue">null</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p>
+<p>I've adapted the example to work with child containers, use dictionaries for the type lookups and to unregister event handlers when the extension is removed.</p>
+<pre style="font-family:consolas"><span style="color:blue">namespace</span>&nbsp;Microsoft.Practices.Unity<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;Extensions&nbsp;for&nbsp;Microsoft&nbsp;Unity</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;/summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">public</span>&nbsp;<span style="color:blue">static</span>&nbsp;<span style="color:blue">class</span>&nbsp;<span style="color:#2b91af">Extensions</span><br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;Extension&nbsp;that&nbsp;tracks&nbsp;types&nbsp;registered&nbsp;in&nbsp;the&nbsp;container.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;/summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">public</span>&nbsp;<span style="color:blue">class</span>&nbsp;<span style="color:#2b91af">UnityExtensionWithTypeTracking</span>&nbsp;:&nbsp;<span style="color:#2b91af">UnityContainerExtension</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">private</span>&nbsp;<span style="color:blue">readonly</span>&nbsp;<span style="color:#2b91af">Dictionary</span>&lt;<span style="color:#2b91af">Type</span>,&nbsp;<span style="color:#2b91af">Type</span>&gt;&nbsp;types&nbsp;=&nbsp;<span style="color:blue">new</span>&nbsp;<span style="color:#2b91af">Dictionary</span>&lt;<span style="color:#2b91af">Type</span>,&nbsp;<span style="color:#2b91af">Type</span>&gt;();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">private</span>&nbsp;<span style="color:blue">readonly</span>&nbsp;<span style="color:#2b91af">Dictionary</span>&lt;<span style="color:blue">string</span>,&nbsp;<span style="color:#2b91af">Type</span>&gt;&nbsp;namedTypes&nbsp;=&nbsp;<span style="color:blue">new</span>&nbsp;<span style="color:#2b91af">Dictionary</span>&lt;<span style="color:blue">string</span>,&nbsp;<span style="color:#2b91af">Type</span>&gt;();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">private</span>&nbsp;<span style="color:blue">const</span>&nbsp;<span style="color:blue">string</span>&nbsp;NamedTypeFormatString&nbsp;=&nbsp;<span style="color:#a31515">&quot;{0},&nbsp;{1}&quot;</span>;<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;Returns&nbsp;whether&nbsp;a&nbsp;type&nbsp;is&nbsp;registered.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;/summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;type&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;type.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">public</span>&nbsp;<span style="color:blue">bool</span>&nbsp;IsRegistered(<span style="color:#2b91af">Type</span>&nbsp;type)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">return</span>&nbsp;<span style="color:blue">this</span>.types.ContainsKey(type)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;||&nbsp;(<span style="color:blue">this</span>.Container.Parent&nbsp;!=&nbsp;<span style="color:blue">null</span>&nbsp;&amp;&amp;&nbsp;<span style="color:blue">this</span>.Container.Parent.IsRegistered(type));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;Returns&nbsp;whether&nbsp;a&nbsp;type&nbsp;is&nbsp;registered.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;/summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;type&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;type.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;name&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;name&nbsp;the&nbsp;type&nbsp;is&nbsp;registered&nbsp;with.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">public</span>&nbsp;<span style="color:blue">bool</span>&nbsp;IsRegistered(<span style="color:#2b91af">Type</span>&nbsp;type,&nbsp;<span style="color:blue">string</span>&nbsp;name)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">var</span>&nbsp;namedTypeKey&nbsp;=&nbsp;<span style="color:#2b91af">UnityExtensionWithTypeTracking</span>.GetNamedTypeKey(type,&nbsp;name);<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">return</span>&nbsp;<span style="color:blue">this</span>.namedTypes.ContainsKey(namedTypeKey)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;||&nbsp;(<span style="color:blue">this</span>.Container.Parent&nbsp;!=&nbsp;<span style="color:blue">null</span>&nbsp;&amp;&amp;&nbsp;<span style="color:blue">this</span>.Container.Parent.IsRegistered(type,&nbsp;name));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">protected</span>&nbsp;<span style="color:blue">override</span>&nbsp;<span style="color:blue">void</span>&nbsp;Initialize()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">this</span>.Context.RegisteringInstance&nbsp;&#43;=&nbsp;(sender,&nbsp;e)&nbsp;=&gt;&nbsp;<span style="color:blue">this</span>.AddRegistrationToDictionaries(e.RegisteredType,&nbsp;e.Name);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">this</span>.Context.Registering&nbsp;&#43;=&nbsp;(sender,&nbsp;e)&nbsp;=&gt;&nbsp;<span style="color:blue">this</span>.AddRegistrationToDictionaries(e.TypeFrom,&nbsp;e.Name);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">public</span>&nbsp;<span style="color:blue">override</span>&nbsp;<span style="color:blue">void</span>&nbsp;Remove()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">this</span>.Context.RegisteringInstance&nbsp;-=&nbsp;(sender,&nbsp;e)&nbsp;=&gt;&nbsp;<span style="color:blue">this</span>.AddRegistrationToDictionaries(e.RegisteredType,&nbsp;e.Name);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">this</span>.Context.Registering&nbsp;-=&nbsp;(sender,&nbsp;e)&nbsp;=&gt;&nbsp;<span style="color:blue">this</span>.AddRegistrationToDictionaries(e.TypeFrom,&nbsp;e.Name);<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">base</span>.Remove();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;Returns&nbsp;a&nbsp;key&nbsp;for&nbsp;use&nbsp;in&nbsp;the&nbsp;namedTypes&nbsp;dictionary.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;/summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;type&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;registered&nbsp;type.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;name&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;name&nbsp;of&nbsp;the&nbsp;registration.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">private</span>&nbsp;<span style="color:blue">static</span>&nbsp;<span style="color:blue">string</span>&nbsp;GetNamedTypeKey(<span style="color:#2b91af">Type</span>&nbsp;type,&nbsp;<span style="color:blue">string</span>&nbsp;name)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">return</span>&nbsp;<span style="color:blue">string</span>.Format(NamedTypeFormatString,&nbsp;type.AssemblyQualifiedName,&nbsp;name);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;Adds&nbsp;a&nbsp;registration&nbsp;to&nbsp;the&nbsp;dictionaries.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;/summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;type&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;from&nbsp;type.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;name&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;name&nbsp;of&nbsp;the&nbsp;registration.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">private</span>&nbsp;<span style="color:blue">void</span>&nbsp;AddRegistrationToDictionaries(<span style="color:#2b91af">Type</span>&nbsp;type,&nbsp;<span style="color:blue">string</span>&nbsp;name)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">if</span>&nbsp;(!types.ContainsKey(type))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;types.Add(type,&nbsp;type);<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">if</span>&nbsp;(name&nbsp;==&nbsp;<span style="color:blue">null</span>)&nbsp;<span style="color:blue">return</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">var</span>&nbsp;key&nbsp;=&nbsp;GetNamedTypeKey(type,&nbsp;name);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">if</span>&nbsp;(!namedTypes.ContainsKey(key))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;namedTypes.Add(key,&nbsp;type);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;Returns&nbsp;whether&nbsp;a&nbsp;type&nbsp;is&nbsp;registered.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;/summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;typeparam&nbsp;name=</span><span style="color:gray">&quot;T&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;type.</span><span style="color:gray">&lt;/typeparam&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;container&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;container.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">public</span>&nbsp;<span style="color:blue">static</span>&nbsp;<span style="color:blue">bool</span>&nbsp;IsRegistered&lt;T&gt;(<span style="color:blue">this</span>&nbsp;<span style="color:#2b91af">IUnityContainer</span>&nbsp;container)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">return</span>&nbsp;container.IsRegistered(<span style="color:blue">typeof</span>(T));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;Returns&nbsp;whether&nbsp;a&nbsp;type&nbsp;is&nbsp;registered.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;/summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;container&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;container.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;type&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;type.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">public</span>&nbsp;<span style="color:blue">static</span>&nbsp;<span style="color:blue">bool</span>&nbsp;IsRegistered(<span style="color:blue">this</span>&nbsp;<span style="color:#2b91af">IUnityContainer</span>&nbsp;container,&nbsp;<span style="color:#2b91af">Type</span>&nbsp;type)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">return</span>&nbsp;container.Configure&lt;<span style="color:#2b91af">UnityExtensionWithTypeTracking</span>&gt;().IsRegistered(type);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;Returns&nbsp;whether&nbsp;a&nbsp;type&nbsp;is&nbsp;registered.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;/summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;typeparam&nbsp;name=</span><span style="color:gray">&quot;T&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;type.</span><span style="color:gray">&lt;/typeparam&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;container&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;container.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;name&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;name&nbsp;the&nbsp;type&nbsp;is&nbsp;registered&nbsp;with.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">public</span>&nbsp;<span style="color:blue">static</span>&nbsp;<span style="color:blue">bool</span>&nbsp;IsRegistered&lt;T&gt;(<span style="color:blue">this</span>&nbsp;<span style="color:#2b91af">IUnityContainer</span>&nbsp;container,&nbsp;<span style="color:blue">string</span>&nbsp;name)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">return</span>&nbsp;container.IsRegistered(<span style="color:blue">typeof</span>(T),&nbsp;name);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;Returns&nbsp;whether&nbsp;a&nbsp;type&nbsp;is&nbsp;registered.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;/summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;container&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;container.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;type&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;type.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;name&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;name&nbsp;the&nbsp;type&nbsp;is&nbsp;registered&nbsp;with.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">public</span>&nbsp;<span style="color:blue">static</span>&nbsp;<span style="color:blue">bool</span>&nbsp;IsRegistered(<span style="color:blue">this</span>&nbsp;<span style="color:#2b91af">IUnityContainer</span>&nbsp;container,&nbsp;<span style="color:#2b91af">Type</span>&nbsp;type,&nbsp;<span style="color:blue">string</span>&nbsp;name)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">return</span>&nbsp;container.Configure&lt;<span style="color:#2b91af">UnityExtensionWithTypeTracking</span>&gt;().IsRegistered(type,&nbsp;name);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;Attempts&nbsp;to&nbsp;resolve&nbsp;a&nbsp;type,&nbsp;returning&nbsp;null&nbsp;when&nbsp;the&nbsp;type&nbsp;isn't&nbsp;registered.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;/summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;container&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;container.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;type&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;type&nbsp;to&nbsp;resolve.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">public</span>&nbsp;<span style="color:blue">static</span>&nbsp;<span style="color:blue">object</span>&nbsp;TryResolve(<span style="color:blue">this</span>&nbsp;<span style="color:#2b91af">IUnityContainer</span>&nbsp;container,&nbsp;<span style="color:#2b91af">Type</span>&nbsp;type)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">if</span>&nbsp;(!type.IsInterface)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">throw</span>&nbsp;<span style="color:blue">new</span>&nbsp;<span style="color:#2b91af">ArgumentException</span>(<span style="color:#a31515">&quot;The&nbsp;type&nbsp;must&nbsp;be&nbsp;an&nbsp;interface.&quot;</span>,&nbsp;<span style="color:#a31515">&quot;type&quot;</span>);<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">if</span>&nbsp;(container.IsRegistered(type))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">return</span>&nbsp;container.Resolve(type);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">return</span>&nbsp;<span style="color:blue">null</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;Attempts&nbsp;to&nbsp;resolve&nbsp;a&nbsp;type,&nbsp;returning&nbsp;null&nbsp;when&nbsp;the&nbsp;type&nbsp;isn't&nbsp;registered.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;/summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;typeparam&nbsp;name=</span><span style="color:gray">&quot;T&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;type&nbsp;to&nbsp;resolve.</span><span style="color:gray">&lt;/typeparam&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;container&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;container.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">public</span>&nbsp;<span style="color:blue">static</span>&nbsp;T&nbsp;TryResolve&lt;T&gt;(<span style="color:blue">this</span>&nbsp;<span style="color:#2b91af">IUnityContainer</span>&nbsp;container)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">where</span>&nbsp;T&nbsp;:&nbsp;<span style="color:blue">class</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">return</span>&nbsp;(T)container.TryResolve(<span style="color:blue">typeof</span>(T));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;Attempts&nbsp;to&nbsp;resolve&nbsp;a&nbsp;type,&nbsp;returning&nbsp;null&nbsp;when&nbsp;the&nbsp;type&nbsp;isn't&nbsp;registered.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;/summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;container&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;container.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;type&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;type&nbsp;to&nbsp;resolve.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;name&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;name&nbsp;the&nbsp;type&nbsp;is&nbsp;registered&nbsp;with.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">public</span>&nbsp;<span style="color:blue">static</span>&nbsp;<span style="color:blue">object</span>&nbsp;TryResolve(<span style="color:blue">this</span>&nbsp;<span style="color:#2b91af">IUnityContainer</span>&nbsp;container,&nbsp;<span style="color:#2b91af">Type</span>&nbsp;type,&nbsp;<span style="color:blue">string</span>&nbsp;name)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">if</span>&nbsp;(!type.IsInterface)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">throw</span>&nbsp;<span style="color:blue">new</span>&nbsp;<span style="color:#2b91af">ArgumentException</span>(<span style="color:#a31515">&quot;The&nbsp;type&nbsp;must&nbsp;be&nbsp;an&nbsp;interface.&quot;</span>,&nbsp;<span style="color:#a31515">&quot;type&quot;</span>);<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">if</span>&nbsp;(container.IsRegistered(type,&nbsp;name))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">return</span>&nbsp;container.Resolve(type,&nbsp;name);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">return</span>&nbsp;<span style="color:blue">null</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;Attempts&nbsp;to&nbsp;resolve&nbsp;a&nbsp;type,&nbsp;returning&nbsp;null&nbsp;when&nbsp;the&nbsp;type&nbsp;isn't&nbsp;registered.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;/summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;typeparam&nbsp;name=</span><span style="color:gray">&quot;T&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;type&nbsp;to&nbsp;resolve.</span><span style="color:gray">&lt;/typeparam&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;container&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;container.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;name&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;name&nbsp;the&nbsp;type&nbsp;is&nbsp;registered&nbsp;with.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">public</span>&nbsp;<span style="color:blue">static</span>&nbsp;T&nbsp;TryResolve&lt;T&gt;(<span style="color:blue">this</span>&nbsp;<span style="color:#2b91af">IUnityContainer</span>&nbsp;container,&nbsp;<span style="color:blue">string</span>&nbsp;name)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">where</span>&nbsp;T&nbsp;:&nbsp;<span style="color:blue">class</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">return</span>&nbsp;(T)container.TryResolve(<span style="color:blue">typeof</span>(T),&nbsp;name);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;Attempts&nbsp;to&nbsp;resolve&nbsp;a&nbsp;type,&nbsp;resolving&nbsp;the&nbsp;substitute&nbsp;type&nbsp;if&nbsp;the&nbsp;type&nbsp;isn't&nbsp;registered.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;/summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;container&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;container.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;type&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;type&nbsp;to&nbsp;resolve.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;substitute&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;type&nbsp;to&nbsp;resolve&nbsp;if&nbsp;the&nbsp;first&nbsp;type&nbsp;isn't&nbsp;registered.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">public</span>&nbsp;<span style="color:blue">static</span>&nbsp;<span style="color:blue">object</span>&nbsp;TryResolve(<span style="color:blue">this</span>&nbsp;<span style="color:#2b91af">IUnityContainer</span>&nbsp;container,&nbsp;<span style="color:#2b91af">Type</span>&nbsp;type,&nbsp;<span style="color:#2b91af">Type</span>&nbsp;substitute)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">return</span>&nbsp;container.TryResolve(type)&nbsp;??&nbsp;container.Resolve(substitute);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;Attempts&nbsp;to&nbsp;resolve&nbsp;a&nbsp;type,&nbsp;resolving&nbsp;the&nbsp;substitute&nbsp;type&nbsp;if&nbsp;the&nbsp;type&nbsp;isn't&nbsp;registered.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;/summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;typeparam&nbsp;name=</span><span style="color:gray">&quot;T&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;type&nbsp;to&nbsp;resolve.</span><span style="color:gray">&lt;/typeparam&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;typeparam&nbsp;name=</span><span style="color:gray">&quot;TSubstitute&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;type&nbsp;to&nbsp;resolve&nbsp;if&nbsp;the&nbsp;first&nbsp;type&nbsp;isn't&nbsp;registered.</span><span style="color:gray">&lt;/typeparam&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;container&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;container.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">public</span>&nbsp;<span style="color:blue">static</span>&nbsp;T&nbsp;TryResolve&lt;T,&nbsp;TSubstitute&gt;(<span style="color:blue">this</span>&nbsp;<span style="color:#2b91af">IUnityContainer</span>&nbsp;container)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">where</span>&nbsp;T&nbsp;:&nbsp;<span style="color:blue">class</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">where</span>&nbsp;TSubstitute&nbsp;:&nbsp;T<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">return</span>&nbsp;(T)container.TryResolve(<span style="color:blue">typeof</span>(T),&nbsp;<span style="color:blue">typeof</span>(TSubstitute));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;Retrieves&nbsp;the&nbsp;child&nbsp;container&nbsp;registered&nbsp;with&nbsp;the&nbsp;specified&nbsp;name.&nbsp;&nbsp;If&nbsp;one&nbsp;doesn't&nbsp;exist</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;then&nbsp;a&nbsp;new&nbsp;child&nbsp;container&nbsp;is&nbsp;created,&nbsp;registered&nbsp;and&nbsp;returned.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;/summary&gt;</span><span style="color:green">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;The&nbsp;name&nbsp;the&nbsp;child&nbsp;container&nbsp;instance&nbsp;was&nbsp;registered&nbsp;with</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">public</span>&nbsp;<span style="color:blue">static</span>&nbsp;<span style="color:#2b91af">IUnityContainer</span>&nbsp;GetChildContainer(<span style="color:blue">this</span>&nbsp;<span style="color:#2b91af">IUnityContainer</span>&nbsp;container,&nbsp;<span style="color:blue">string</span>&nbsp;name)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">if</span>&nbsp;(container.IsRegistered&lt;<span style="color:#2b91af">IUnityContainer</span>&gt;(name))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">return</span>&nbsp;container.Resolve&lt;<span style="color:#2b91af">IUnityContainer</span>&gt;(name);<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">var</span>&nbsp;childContainer&nbsp;=&nbsp;container.CreateChildContainer();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;childContainer.AddNewExtension&lt;<span style="color:#2b91af">Extensions</span>.<span style="color:#2b91af">UnityExtensionWithTypeTracking</span>&gt;();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;container.RegisterInstance&lt;<span style="color:#2b91af">IUnityContainer</span>&gt;(name,&nbsp;childContainer);<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">return</span>&nbsp;childContainer;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;Resolves&nbsp;a&nbsp;list&nbsp;of&nbsp;types.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;/summary&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;typeparam&nbsp;name=</span><span style="color:gray">&quot;T&quot;</span><span style="color:gray">&gt;</span><span style="color:green">The&nbsp;base&nbsp;type&nbsp;or&nbsp;common&nbsp;interface&nbsp;of&nbsp;each&nbsp;item&nbsp;in&nbsp;the&nbsp;list.</span><span style="color:gray">&lt;/typeparam&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray">///</span><span style="color:green">&nbsp;</span><span style="color:gray">&lt;param&nbsp;name=</span><span style="color:gray">&quot;types&quot;</span><span style="color:gray">&gt;</span><span style="color:green">A&nbsp;list&nbsp;of&nbsp;types&nbsp;to&nbsp;resolve.</span><span style="color:gray">&lt;/param&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">public</span>&nbsp;<span style="color:blue">static</span>&nbsp;<span style="color:#2b91af">IEnumerable</span>&lt;T&gt;&nbsp;Resolve&lt;T&gt;(<span style="color:blue">this</span>&nbsp;<span style="color:#2b91af">IUnityContainer</span>&nbsp;container,&nbsp;<span style="color:#2b91af">IEnumerable</span>&lt;<span style="color:#2b91af">Type</span>&gt;&nbsp;types)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">var</span>&nbsp;items&nbsp;=&nbsp;<span style="color:blue">new</span>&nbsp;<span style="color:#2b91af">List</span>&lt;T&gt;(types.Count());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">foreach</span>&nbsp;(<span style="color:blue">var</span>&nbsp;type&nbsp;<span style="color:blue">in</span>&nbsp;types)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">if</span>&nbsp;(<span style="color:blue">typeof</span>(T).IsAssignableFrom(type))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;items.Add((T)container.Resolve(type));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">else</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">throw</span>&nbsp;<span style="color:blue">new</span>&nbsp;<span style="color:#2b91af">ArgumentException</span>(<span style="color:blue">string</span>.Format(<span style="color:#a31515">&quot;Each&nbsp;element&nbsp;must&nbsp;be&nbsp;a&nbsp;{0}.&quot;</span>,&nbsp;<span style="color:blue">typeof</span>(T).FullName),&nbsp;<span style="color:#a31515">&quot;types&quot;</span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">return</span>&nbsp;items;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}</pre>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_525929" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f24543">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="120dc81d-7928-4c8a-b299-0924618d0827">
+    <script class="options" defer="defer" id="120dc81d-7928-4c8a-b299-0924618d0827" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_8fe6c2c9-7943-4287-a54a-7727684921db">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_89794b98-9044-471d-9059-45e89e5ff442">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_8fe6c2c9-7943-4287-a54a-7727684921db" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_89794b98-9044-471d-9059-45e89e5ff442" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/24543';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

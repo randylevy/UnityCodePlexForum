@@ -1,0 +1,1096 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Configuration of Policy Injection</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/53233?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/53233?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="ACqoMrRh5Ie8wXVBAltGooYr0b7RVFkYXmP_FUZeq9c6W9zn4MQbb4pKWbBWn1h502-5aKjWEMsBYCGU_5k60HruTKMLh6nPL4PwXpKTZO42Jxnt_sMqvPS0jVedGKqTKC83Tg2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken23b62bd82-6803-4510-9254-303799ae22d5" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:28:23 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f53233" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="8bc65af2-3940-4129-8ecc-d8a73a7e5e3e">
+                
+                    <script class="options" defer="defer" id="8bc65af2-3940-4129-8ecc-d8a73a7e5e3e" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="71ea2458-d528-431c-9ef9-3182c8f00b63">
+                
+                    <script class="options" defer="defer" id="71ea2458-d528-431c-9ef9-3182c8f00b63" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Configuration of Policy Injection
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:53233]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="eb4782b6-c962-4191-8e5f-c53e6f2ad7a8">
+    <script class="options" defer="defer" id="eb4782b6-c962-4191-8e5f-c53e6f2ad7a8" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/53233","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="179050">
+    <td id="PostDetailsCell_179050" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post179050"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/vincent_lauzon">vincent_lauzon</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/14/2009 2:52:05 PM" LocalTimeTicks="1239745925">Apr 14, 2009 at 2:52 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_179050" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi,&#32;&#32;&#32;&#32;&#32;We&#32;are&#32;using&#32;Unity&#32;1.2&#32;on&#32;a&#32;project&#32;to&#32;do&#32;our&#32;IoC.&#32;Now&#32;we&#32;would&#32;like&#32;to&#32;integrate&#32;some&#32;policies&#32;&#40;AOP&#41;&#32;on&#32;objects&#32;resolved&#32;by&#32;Unity.&#32;&#32;&#32;I&#32;would&#32;prefer&#32;to&#32;use&#32;Unity&#32;&#8220;purely&#8221;&#32;as&#32;oppose&#32;to&#32;rigging&#32;some&#32;integration&#32;with&#32;Policy&#32;Injection&#32;Application&#32;Block&#32;&#40;PIAB&#41;.&#32;PIAB&#32;seems&#32;to&#32;be&#32;on&#32;the&#32;path&#32;of&#32;obsoleteness,&#32;being&#32;superseeded&#32;by&#32;Unity.&#32;I&#39;m&#32;used&#32;to&#32;Unity&#32;&#38;amp&#59;&#32;I&#39;m&#32;also&#32;used&#32;to&#32;Policy&#32;Injection,&#32;I&#32;now&#32;want&#32;to&#32;use&#32;both&#32;functionalites.&#32;&#32;So&#8230;&#32;I&#8217;m&#32;looking&#32;at&#32;Ent&#32;Lib&#32;doc&#32;and&#32;I&#32;can&#8217;t&#32;find&#32;a&#32;full&#32;&#38;quot&#59;A&#32;to&#32;Z&#38;quot&#59;&#32;sample&#32;of&#32;how&#32;to&#32;do&#32;this&#32;using&#32;solely&#32;configuration&#32;&#40;most&#32;examples&#32;I&#32;found&#32;were&#32;using&#32;the&#32;runtime&#32;API&#41;.&#32;The&#32;closest&#32;I&#32;found&#32;was&#32;a&#32;generic&#32;discussion&#58;&#32;&#32;&#32;http&#58;&#47;&#47;msdn.microsoft.com&#47;en-us&#47;library&#47;dd203168.aspx&#32;&#32;&#32;Where&#32;no&#32;real&#32;policy&#32;is&#32;applied&#32;in&#32;configuration.&#32;Also,&#32;I&#32;found&#32;this&#58;&#32;&#32;&#32;http&#58;&#47;&#47;msdn.microsoft.com&#47;en-us&#47;library&#47;dd203179.aspx&#32;&#32;&#32;Which&#32;talk&#32;about&#32;the&#32;Tag&#32;matching&#32;rule&#32;I&#32;want&#32;to&#32;use,&#32;but&#32;doesn&#8217;t&#32;explain&#32;how&#32;to&#32;configure&#32;it.&#32;&#32;&#32;Is&#32;it&#32;me&#32;or&#32;the&#32;documentation&#32;is&#32;falling&#32;a&#32;little&#32;short&#32;on&#32;that&#32;topic&#63;&#32;I&#32;also&#32;looked&#32;at&#32;the&#32;Quick&#32;Starts&#32;but&#32;none&#32;is&#32;using&#32;configuration.&#32;&#32;&#32;Could&#32;you&#32;tell&#32;me&#32;where&#32;I&#32;could&#32;find&#32;a&#32;simple&#32;sample&#32;having&#32;injection&#32;of&#32;policies&#32;using&#32;some&#32;matching&#32;rules&#63;&#32;&#32;&#32;&#32;&#32;Cheers,&#32;">
+        
+<p style="margin:0in 0in 0pt"><span style="font-family:calibri">Hi,</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:calibri">&nbsp;</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:calibri">&nbsp;</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:calibri">We are using Unity 1.2 on a project to do our IoC.&nbsp; Now we would like to integrate some policies (AOP) on objects resolved by Unity.</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:calibri">&nbsp;</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:calibri">I would prefer to use Unity â€œpurelyâ€ as oppose to rigging some integration with Policy Injection Application Block (PIAB).&nbsp; PIAB&nbsp;seems to be on the path of obsoleteness, being superseeded by Unity.&nbsp;
+ I'm used to Unity &amp; I'm also used to Policy Injection, I now want to&nbsp;use both functionalites.</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:calibri"></span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:calibri">Soâ€¦&nbsp; Iâ€™m looking at Ent Lib doc and I canâ€™t find a full &quot;A to Z&quot; sample of how to do this using solely configuration (most examples I found were using the runtime API).&nbsp; The closest I
+ found was a generic discussion:</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:calibri">&nbsp;</span></p>
+<p style="margin:0in 0in 0pt"><a href="http://msdn.microsoft.com/en-us/library/dd203168.aspx" rel="nofollow"><span style="font-family:calibri">http://msdn.microsoft.com/en-us/library/dd203168.aspx</span></a></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:calibri">&nbsp;</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:calibri">Where no real policy is applied in configuration.&nbsp; Also, I found this:</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:calibri">&nbsp;</span></p>
+<p style="margin:0in 0in 0pt"><a href="http://msdn.microsoft.com/en-us/library/dd203179.aspx" rel="nofollow"><span style="font-family:calibri">http://msdn.microsoft.com/en-us/library/dd203179.aspx</span></a></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:calibri">&nbsp;</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:calibri">Which talk about the Tag matching rule I want to use, but doesnâ€™t explain how to configure it.</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:calibri">&nbsp;</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:calibri">Is it me or the documentation is falling a little short on that topic?&nbsp; I also looked at the Quick Starts but none is using configuration.</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:calibri">&nbsp;</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:calibri">Could you tell me where I could find a simple sample having injection of policies using some matching rules?</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:calibri">&nbsp;</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:calibri">&nbsp;</span></p>
+<p style="margin:0in 0in 0pt"><span style="font-family:calibri">Cheers,</span></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_179050" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="179956">
+    <td id="PostDetailsCell_179956" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post179956"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/16/2009 6:08:38 AM" LocalTimeTicks="1239887318">Apr 16, 2009 at 6:08 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_179956" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi&#32;Vincent,&#32;there&#32;isn&#39;t&#32;a&#32;full&#32;&#38;quot&#59;A&#32;to&#32;Z&#38;quot&#59;&#32;example&#32;in&#32;the&#32;docs&#32;but&#32;the&#32;it&#32;did&#32;elaborate&#32;the&#32;configuration&#32;schema&#32;for&#32;unity&#32;which&#32;includes&#32;the&#32;&#38;lt&#59;policies&#38;gt&#59;&#32;element.&#32;Have&#32;you&#32;read&#32;the&#32;Source&#32;Schema&#32;for&#32;the&#32;Unity&#32;Application&#32;Block&#32;section&#63;&#32;The&#32;discussion&#32;on&#32;the&#32;&#38;lt&#59;policies&#38;gt&#59;&#32;element&#32;should&#32;get&#32;you&#32;started.&#32;If&#32;you&#32;still&#32;have&#32;trouble&#32;after&#32;going&#32;through&#32;it,&#32;you&#32;can&#32;always&#32;ask&#32;here.&#32;Here&#39;s&#32;my&#32;sample&#32;config.&#32;I&#32;have&#32;an&#32;interface&#32;IFoo&#32;having&#32;a&#32;method&#32;named&#32;Greeting&#40;string&#32;name&#41;&#32;implemented&#32;by&#32;class&#32;Foo.&#32;I&#32;also&#32;have&#32;a&#32;custom&#32;call&#32;handler&#32;&#40;MyCustomHandler&#41;&#32;which&#32;just&#32;appends&#32;some&#32;string&#32;to&#32;the&#32;parameter&#32;passed&#32;to&#32;the&#32;Greeting&#32;method.&#32;What&#32;my&#32;config&#32;does&#32;is&#32;add&#32;a&#32;TransparentProxyInterceptor&#32;&#40;&#38;lt&#59;interceptor&#38;gt&#59;&#32;element&#41;,&#32;add&#32;a&#32;policy&#32;which&#32;would&#32;allow&#32;interception&#32;of&#32;the&#32;Greeting&#32;method&#32;by&#32;defining&#32;a&#32;MethodNameMemberMatchingRule&#32;applying&#32;MyCustomHandler.&#32;&#32;&#32;&#32;&#38;lt&#59;container&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;extensions&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;add&#32;type&#61;&#38;quot&#59;Microsoft.Practices.Unity.InterceptionExtension.Interception,&#32;Microsoft.Practices.Unity.Interception&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;&#32;&#32;extensions&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;extensionConfig&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;add&#32;name&#61;&#38;quot&#59;interception&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Microsoft.Practices.Unity.InterceptionExtension.Configuration.InterceptionConfigurationElement,&#32;Microsoft.Practices.Unity.Interception.Configuration&#38;quot&#59;&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;interceptors&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;interceptor&#32;type&#61;&#38;quot&#59;Microsoft.Practices.Unity.InterceptionExtension.TransparentProxyInterceptor,&#32;Microsoft.Practices.Unity.Interception&#38;quot&#59;&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;key&#32;type&#61;&#38;quot&#59;CustomObjects.IFoo,&#32;CustomObjects&#38;quot&#59;&#38;gt&#59;&#38;lt&#59;&#47;key&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;&#32;&#32;interceptor&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;&#32;&#32;interceptors&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;policies&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;policy&#32;name&#61;&#38;quot&#59;GreetingPolicy&#38;quot&#59;&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;matchingRules&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;matchingRule&#32;name&#61;&#38;quot&#59;GreetingRule&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Microsoft.Practices.Unity.InterceptionExtension.MemberNameMatchingRule,&#32;Microsoft.Practices.Unity.Interception&#38;quot&#59;&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;injection&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;constructor&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;param&#32;name&#61;&#38;quot&#59;nameToMatch&#38;quot&#59;&#32;parameterType&#61;&#38;quot&#59;System.String&#38;quot&#59;&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;value&#32;value&#61;&#38;quot&#59;Greeting&#38;quot&#59;&#32;type&#61;&#38;quot&#59;System.String&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;&#32;&#32;param&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;param&#32;name&#61;&#38;quot&#59;ignoreCase&#38;quot&#59;&#32;parameterType&#61;&#38;quot&#59;System.Boolean&#38;quot&#59;&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;value&#32;value&#61;&#38;quot&#59;true&#38;quot&#59;&#32;type&#61;&#38;quot&#59;System.Boolean&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;&#32;&#32;param&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;&#32;&#32;constructor&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;&#32;&#32;injection&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;&#32;&#32;matchingRule&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;&#32;&#32;matchingRules&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;callHandlers&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;callHandler&#32;name&#61;&#38;quot&#59;myHandler&#38;quot&#59;&#32;type&#61;&#38;quot&#59;CustomObjects.MyCustomHandler,&#32;CustomObjects&#38;quot&#59;&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;lifetime&#32;type&#61;&#38;quot&#59;singleton&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;injection&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;constructor&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;param&#32;name&#61;&#38;quot&#59;order&#38;quot&#59;&#32;parameterType&#61;&#38;quot&#59;System.Int32&#38;quot&#59;&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;value&#32;value&#61;&#38;quot&#59;1&#38;quot&#59;&#32;type&#61;&#38;quot&#59;System.Int32&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;&#32;&#32;param&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;&#32;&#32;constructor&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;&#32;&#32;injection&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;&#32;&#32;callHandler&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;&#32;&#32;callHandlers&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;&#32;&#32;policy&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;&#32;&#32;policies&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;&#32;&#32;add&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;&#32;&#32;extensionConfig&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;types&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#32;&#32;type&#32;type&#61;&#38;quot&#59;CustomObjects.IFoo,&#32;CustomObjects&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;CustomObjects.Foo,&#32;CustomObjects&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;&#32;&#32;types&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;&#32;&#32;container&#38;gt&#59;&#32;&#32;&#32;Sarah&#32;Urmeneta&#32;Global&#32;Technology&#32;&#38;amp&#59;&#32;Solutions&#32;Avanade,&#32;Inc.&#32;entlib.support&#64;avanade.com&#32;">
+        
+<p>Hi Vincent, there isn't a full &quot;A to Z&quot; example in the docs but the it did elaborate the configuration schema for unity which includes the &lt;policies&gt; element.&nbsp; Have you read the&nbsp;<span id="nsrTitle">Source Schema for the Unity Application
+ Block</span>&nbsp;section?&nbsp; The discussion on the &lt;policies&gt; element should get you started.&nbsp; If you still have trouble after going through it, you can always ask here.</p>
+<p>Here's&nbsp;my sample config.&nbsp;&nbsp;I have an interface IFoo&nbsp;having a method named Greeting(string name)&nbsp;implemented by class Foo.&nbsp; I also have a custom call handler (MyCustomHandler) which just appends some string to the parameter passed to the Greeting method.&nbsp;
+ What my config does is add a TransparentProxyInterceptor (&lt;interceptor&gt; element), add a policy which would allow interception of the Greeting method by defining a MethodNameMemberMatchingRule applying MyCustomHandler.<br>
+<span style="font-size:13px; color:#0000ff">&nbsp;</span> </p>
+<p>&lt;<span style="font-size:13px; color:#a31515">container</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">extensions</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">add</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">type</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">Microsoft.Practices.Unity.InterceptionExtension.Interception,
+ Microsoft.Practices.Unity.Interception</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff"> /&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;/</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">extensions</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">extensionConfig</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">add</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">name</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">interception</span><span style="font-size:13px">&quot;
+</span><span style="font-size:13px; color:#ff0000">type</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">Microsoft.Practices.Unity.InterceptionExtension.Configuration.InterceptionConfigurationElement,
+ Microsoft.Practices.Unity.Interception.Configuration</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">interceptors</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">interceptor</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">type</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">Microsoft.Practices.Unity.InterceptionExtension.TransparentProxyInterceptor,
+ Microsoft.Practices.Unity.Interception</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">key</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">type</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">CustomObjects.IFoo, CustomObjects</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">&gt;&lt;/</span><span style="font-size:13px; color:#a31515">key</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;/</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">interceptor</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;/</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">interceptors</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">policies</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">policy</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">name</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">GreetingPolicy</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">matchingRules</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">matchingRule</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">name</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">GreetingRule</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">type</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">Microsoft.Practices.Unity.InterceptionExtension.MemberNameMatchingRule,
+ Microsoft.Practices.Unity.Interception</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">injection</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">constructor</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">param</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">name</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">nameToMatch</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">parameterType</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">System.String</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">value</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">value</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">Greeting</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">type</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">System.String</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">/&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;/</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">param</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">param</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">name</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">ignoreCase</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">parameterType</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">System.Boolean</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">value</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">value</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">true</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">type</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">System.Boolean</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+ /&gt; </p>
+<p>&nbsp;</p>
+<p>&lt;/</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">param</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;/</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">constructor</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;/</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">injection</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;/</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">matchingRule</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;/</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">matchingRules</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">callHandlers</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">callHandler</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">name</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;<span style="color:#0000ff">my</span></span><span style="font-size:13px; color:#0000ff">Handler</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">type</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">CustomObjects.MyCustomHandler, CustomObjects</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">lifetime</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">type</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">singleton</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+ /&gt; </p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">injection</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">constructor</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">param</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">name</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">order</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">parameterType</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">System.Int32</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">value</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">value</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">1</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">type</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">System.Int32</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">/&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;/</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">param</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;/</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">constructor</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;/</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">injection</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;/</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">callHandler</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;/</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">callHandlers</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;/</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">policy</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;/</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">policies</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;/</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">add</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;/</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">extensionConfig</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">types</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">type</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">type</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">CustomObjects.IFoo, CustomObjects</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">mapTo</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">CustomObjects.Foo, CustomObjects</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+ /&gt; </p>
+<p>&nbsp;</p>
+<p>&lt;/</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">types</span><span style="font-size:13px; color:#0000ff">&gt;
+</p>
+<p>&nbsp;</p>
+<p>&lt;/</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#a31515">container</span><span style="font-size:13px; color:#0000ff">&gt;</span><br>
+<br>
+<br>
+<strong><em>Sarah Urmeneta</em></strong><br>
+Global Technology &amp; Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_179956" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="180332">
+    <td id="PostDetailsCell_180332" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post180332"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/vincent_lauzon">vincent_lauzon</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/16/2009 10:36:03 PM" LocalTimeTicks="1239946563">Apr 16, 2009 at 10:36 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_180332" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Thank&#32;you&#32;Sarah&#33;&#32;&#32;I&#39;ve&#32;also&#32;found&#32;an&#32;example&#32;on&#32;http&#58;&#47;&#47;www.nablasoft.com&#47;alkampfer&#47;index.php&#47;2009&#47;01&#47;31&#47;unity-and-aop-in-enterprise-library&#47;.&#32;It&#32;was&#32;quite&#32;a&#32;coincidence&#32;as&#32;the&#32;code&#32;described&#32;wasn&#39;t&#32;using&#32;configuration&#32;but&#32;in&#32;the&#32;code&#32;sample&#32;there&#32;was&#32;the&#32;full&#32;configuration&#32;only&#32;commented&#32;out&#33;&#32;&#32;I&#32;think&#32;it&#32;would&#32;be&#32;worth&#32;it&#32;for&#32;me&#32;to&#32;write&#32;a&#32;quick&#32;article&#32;on&#32;a&#32;public&#32;web&#32;site&#32;so&#32;that&#32;this&#32;gets&#32;publically&#32;documented&#32;and&#32;easily&#32;searchable.&#32;&#32;&#32;Cheers,&#32;&#32;Vincent-Philippe&#32;Lauzon&#32;">
+        Thank you Sarah!<br>
+<br>
+I've also found an example on&nbsp;<a href="http://www.nablasoft.com/alkampfer/index.php/2009/01/31/unity-and-aop-in-enterprise-library/" rel="nofollow">http://www.nablasoft.com/alkampfer/index.php/2009/01/31/unity-and-aop-in-enterprise-library/</a>.&nbsp; It was quite a coincidence
+ as the code described wasn't using configuration but in the code sample there was the full configuration only commented out!<br>
+<br>
+I think it would be worth it for me to write a quick article on a public web site so that this gets publically documented and easily searchable.<br>
+<br>
+<br>
+Cheers,<br>
+<br>
+Vincent-Philippe Lauzon 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_180332" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="180345">
+    <td id="PostDetailsCell_180345" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post180345"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/16/2009 11:17:23 PM" LocalTimeTicks="1239949043">Apr 16, 2009 at 11:17 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_180345" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Have&#32;you&#32;looked&#32;at&#32;the&#32;recently&#32;release&#32;Hands&#32;on&#32;lab&#32;for&#32;interception&#63;&#32;That&#32;goes&#32;into&#32;a&#32;lot&#32;more&#32;detail&#32;of&#32;how&#32;to&#32;configure&#32;interception&#32;with&#32;the&#32;various&#32;options,&#32;both&#32;through&#32;Unity&#32;and&#32;using&#32;PIAB.&#32;">
+        Have you looked at the recently release Hands on lab for interception? That goes into a lot more detail of how to configure interception with the various options, both through Unity and using PIAB.<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_180345" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="180716">
+    <td id="PostDetailsCell_180716" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post180716"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/vincent_lauzon">vincent_lauzon</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/17/2009 11:03:11 PM" LocalTimeTicks="1240034591">Apr 17, 2009 at 11:03 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_180716" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Are&#32;you&#32;talking&#32;about&#32;the&#32;HOL&#32;available&#32;at&#32;http&#58;&#47;&#47;www.microsoft.com&#47;downloads&#47;details.aspx&#63;displaylang&#61;en&#38;amp&#59;FamilyID&#61;93a5e18f-3211-44ef-b785-c59bcec4cd6f&#63;&#32;&#32;I&#32;just&#32;downloaded&#32;it&#32;and&#32;didn&#39;t&#32;find&#32;any&#32;injection&#32;samples&#32;in&#32;the&#32;configuration&#32;file.&#32;I&#32;did&#32;a&#32;search&#32;for&#32;&#38;quot&#59;&#38;lt&#59;policy&#38;quot&#59;&#32;on&#32;all&#32;the&#32;&#42;.config&#32;file&#32;and&#32;didn&#39;t&#32;find&#32;anything.&#32;It&#39;s&#32;odd&#32;since&#32;the&#32;download&#32;page&#32;does&#32;mention&#32;&#38;quot&#59;configuring&#32;injection&#32;through&#32;API&#32;and&#32;files&#38;quot&#59;.&#32;&#32;Do&#32;I&#32;miss&#32;something&#63;&#32;">
+        Are you talking about the HOL available at&nbsp;<a href="http://www.microsoft.com/downloads/details.aspx?displaylang=en&FamilyID=93a5e18f-3211-44ef-b785-c59bcec4cd6f" rel="nofollow">http://www.microsoft.com/downloads/details.aspx?displaylang=en&amp;FamilyID=93a5e18f-3211-44ef-b785-c59bcec4cd6f</a>?<br>
+<br>
+I just downloaded it and didn't find any injection samples in the configuration file.&nbsp; I did a search for &quot;&lt;policy&quot; on all the *.config file and didn't find anything.&nbsp; It's odd since the download page does mention &quot;configuring injection through
+ API and files&quot;.<br>
+<br>
+Do I miss something? 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_180716" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f53233">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="5704b342-46e0-49af-a400-7e9f3ad7c08b">
+    <script class="options" defer="defer" id="5704b342-46e0-49af-a400-7e9f3ad7c08b" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_ff325f69-06d9-4162-a6dd-2c8b4270f3e0">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_1f6065ef-4f51-49bb-94ce-b12f132652bd">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_ff325f69-06d9-4162-a6dd-2c8b4270f3e0" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_1f6065ef-4f51-49bb-94ce-b12f132652bd" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/53233';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

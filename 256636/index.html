@@ -1,0 +1,753 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Unity startup performance</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/256636?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/256636?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="qOGhfGEbfQRyPnsdLyM63kbDoAnZbSoEMT7s_XgJaneQZ20MNWzlkkvDtojuwb-AO8wl8DN1kpl8tI7pn0tImySBNp6CeazLfmdI6PhY4rEHvhHPgzlSCF0fCuqcQfAXH5GB5g2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2f9664c82-2491-4a5d-ab0b-743cad0597aa" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:26:43 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f256636" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="12c7f394-1c13-4e21-b7cd-3e0e78549f5a">
+                
+                    <script class="options" defer="defer" id="12c7f394-1c13-4e21-b7cd-3e0e78549f5a" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="4228b1ae-649d-4626-9175-de3ffca2c117">
+                
+                    <script class="options" defer="defer" id="4228b1ae-649d-4626-9175-de3ffca2c117" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Unity startup performance
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:256636]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="3505b6f5-e520-4067-a5f3-708cadc80ee7">
+    <script class="options" defer="defer" id="3505b6f5-e520-4067-a5f3-708cadc80ee7" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/256636","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="608396">
+    <td id="PostDetailsCell_608396" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post608396"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jnykiel">jnykiel</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/6/2011 11:40:48 AM" LocalTimeTicks="1304707248">May 6, 2011 at 11:40 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_608396" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#32;am&#32;developing&#32;a&#32;desktop&#32;application&#32;depending&#32;on&#32;the&#32;Entity&#32;Framework&#32;for&#32;data&#32;access&#32;and&#32;on&#32;Unity&#32;for&#32;dependency&#32;injection.&#32;I&#32;am&#32;trying&#32;to&#32;cut&#32;down&#32;its&#32;startup&#32;time,&#32;currently&#32;at&#32;40&#32;seconds&#32;for&#32;the&#32;automatically&#32;driven&#32;&#38;ldquo&#59;startup&#32;&#38;&#35;43&#59;&#32;two&#32;consecutive&#32;database&#32;accesses,&#32;no&#32;UI&#38;rdquo&#59;&#32;scenario.&#32;The&#32;data&#32;model&#32;has&#32;over&#32;300&#32;entities,&#32;and&#32;the&#32;Unity&#32;configuration&#32;consists&#32;of&#32;about&#32;7000&#32;registrations&#32;&#40;which&#32;I&#32;am&#32;doing&#32;programmatically,&#32;no&#32;XML&#32;configuration&#32;here&#41;.&#32;The&#32;40&#32;seconds&#32;consists&#32;roughly&#32;of&#32;20&#32;seconds&#32;for&#32;Unity&#32;configuration,&#32;and&#32;the&#32;other&#32;20&#32;for&#32;EF&#32;initialization&#32;on&#32;first&#32;database&#32;access&#32;&#38;ndash&#59;&#32;the&#32;second&#32;access&#32;takes&#32;milliseconds&#32;and&#32;is&#32;negligible&#32;in&#32;this&#32;case.&#32;The&#32;EF&#38;rsquo&#59;s&#32;20&#32;seconds&#32;goes&#32;down&#32;to&#32;4&#32;if&#32;I&#32;pre-generate&#32;the&#32;ESQL&#32;views&#32;as&#32;documented,&#32;but&#32;I&#32;see&#32;no&#32;obvious&#32;way&#32;to&#32;optimize&#32;Unity&#32;configuration.&#32;I&#32;thought&#32;the&#32;Unity&#32;startup&#32;time&#32;comes&#32;from&#32;its&#32;Reflection.Emit&#38;nbsp&#59;&#32;usage,&#32;but&#32;I&#32;found&#32;out&#32;that&#32;the&#32;dynamic&#32;build&#32;plan&#32;methods&#32;are&#32;compiled&#32;on&#32;first&#32;resolve&#32;&#38;ndash&#59;&#32;not&#32;on&#32;registration.&#32;Profiling&#32;revealed&#32;that&#32;the&#32;most&#32;expensive&#32;operation&#32;during&#32;the&#32;&#126;7000&#32;.RegisterType&#32;calls&#32;is&#32;PolicyList.ClonePolicies&#40;&#41;.&#32;It&#32;seems&#32;that&#32;access&#32;to&#32;this&#32;structure&#32;&#40;through&#32;.Set&#32;and&#32;.Clear&#41;&#32;is&#32;being&#32;guaranteed&#32;to&#32;be&#32;thread-safe&#32;all&#32;the&#32;time,&#32;even&#32;if&#32;type&#32;registration&#32;is&#32;supposed&#32;to&#32;be&#32;not,&#32;as&#32;detailed&#32;in&#32;several&#32;threads&#32;here&#32;&#40;for&#32;example,&#32;this&#32;one&#58;&#32;&#32;http&#58;&#47;&#47;unity.codeplex.com&#47;discussions&#47;27496&#32;&#41;.&#32;If&#32;I&#32;replace&#32;the&#32;ClonePolicies&#40;&#41;&#32;method&#32;body&#32;with&#32;&#38;ldquo&#59;return&#32;policies&#59;&#38;rdquo&#59;&#32;the&#32;performance&#32;of&#32;type&#32;registration&#32;increases&#32;so&#32;that&#32;the&#32;configuration&#32;is&#32;done&#32;in&#32;2&#32;seconds,&#32;I&#32;observe&#32;no&#32;obvious&#32;side&#32;effects&#32;&#40;Unity&#32;unit&#32;tests&#32;all&#32;pass&#41;,&#32;but&#32;since&#32;the&#32;PolicyList&#32;structure&#32;is&#32;used&#32;later&#32;on&#32;during&#32;Resolve&#32;operations,&#32;which&#32;are&#32;supposed&#32;to&#32;be&#32;thread&#32;safe,&#32;I&#38;rsquo&#59;d&#32;need&#32;to&#32;implement&#32;some&#32;kind&#32;of&#32;flag&#32;that&#32;sets&#32;the&#32;container&#32;back&#32;to&#32;&#38;ldquo&#59;thread-safe&#32;mode&#38;rdquo&#59;&#32;after&#32;configuration&#32;is&#32;done&#32;for&#32;the&#32;solution&#32;to&#32;be&#32;complete.&#32;My&#32;question&#32;is,&#32;since&#32;I&#32;don&#38;rsquo&#59;t&#32;know&#32;very&#32;much&#32;about&#32;Unity&#47;ObjectBuilder&#32;gory&#32;internals,&#32;won&#38;rsquo&#59;t&#32;that&#32;break&#32;anything&#32;I&#32;am&#32;not&#32;aware&#32;of&#63;&#32;Am&#32;I&#32;not&#32;missing&#32;a&#32;more&#32;obvious&#32;solution&#32;to&#32;the&#32;&#38;ldquo&#59;Unity&#32;startup&#32;performance&#38;rdquo&#59;&#32;problem,&#32;apart&#32;from&#32;&#38;ldquo&#59;register&#32;less&#32;types&#38;rdquo&#59;&#63;&#32;">
+        
+<p>I am developing a desktop application depending on the Entity Framework for data access and on Unity for dependency injection. I am trying to cut down its startup time, currently at 40 seconds for the automatically driven &ldquo;startup &#43; two consecutive
+ database accesses, no UI&rdquo; scenario. The data model has over 300 entities, and the Unity configuration consists of about 7000 registrations (which I am doing programmatically, no XML configuration here). The 40 seconds consists roughly of 20 seconds for
+ Unity configuration, and the other 20 for EF initialization on first database access &ndash; the second access takes milliseconds and is negligible in this case. The EF&rsquo;s 20 seconds goes down to 4 if I pre-generate the ESQL views as documented, but I
+ see no obvious way to optimize Unity configuration. I thought the Unity startup time comes from its Reflection.Emit&nbsp; usage, but I found out that the dynamic build plan methods are compiled on first resolve &ndash; not on registration. Profiling revealed
+ that the most expensive operation during the ~7000 .RegisterType calls is PolicyList.ClonePolicies(). It seems that access to this structure (through .Set and .Clear) is being guaranteed to be thread-safe all the time, even if type registration is supposed
+ to be not, as detailed in several threads here (for example, this one: <a href="http://unity.codeplex.com/discussions/27496" rel="nofollow">
+http://unity.codeplex.com/discussions/27496</a> ). If I replace the ClonePolicies() method body with &ldquo;return policies;&rdquo; the performance of type registration increases so that the configuration is done in 2 seconds, I observe no obvious side effects
+ (Unity unit tests all pass), but since the PolicyList structure is used later on during Resolve operations, which are supposed to be thread safe, I&rsquo;d need to implement some kind of flag that sets the container back to &ldquo;thread-safe mode&rdquo; after
+ configuration is done for the solution to be complete. My question is, since I don&rsquo;t know very much about Unity/ObjectBuilder gory internals, won&rsquo;t that break anything I am not aware of? Am I not missing a more obvious solution to the &ldquo;Unity
+ startup performance&rdquo; problem, apart from &ldquo;register less types&rdquo;?</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_608396" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="609303">
+    <td id="PostDetailsCell_609303" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post609303"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/9/2011 2:12:50 AM" LocalTimeTicks="1304932370">May 9, 2011 at 2:12 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_609303" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi,&#32;From&#32;your&#32;statement&#32;&#34;but&#32;I&#32;found&#32;out&#32;that&#32;the&#32;dynamic&#32;build&#32;plan&#32;methods&#32;are&#32;compiled&#32;on&#32;first&#32;resolve&#32;&#38;ndash&#59;&#32;not&#32;on&#32;registration&#34;&#32;do&#32;you&#32;mean&#32;it&#32;taking&#32;up&#32;more&#32;time&#32;on&#32;resolving&#63;&#32;If&#32;yes,&#32;is&#32;there&#32;by&#32;any&#32;chance&#32;you&#32;were&#32;able&#32;to&#32;see&#32;this&#32;other&#32;thread&#32;&#40;http&#58;&#47;&#47;unity.codeplex.com&#47;discussions&#47;255250&#41;&#32;and&#32;see&#32;if&#32;it&#32;somehow&#32;helps&#32;on&#32;improving&#32;the&#32;performance.&#32;&#32;As&#32;for&#32;the&#32;changes&#32;made&#32;in&#32;the&#32;Unity&#32;source&#32;code&#32;we&#32;couldn&#38;rsquo&#59;t&#32;tell&#32;what&#32;any&#32;possible&#32;drawbacks,&#32;the&#32;Entlib&#32;team&#32;may&#32;have&#32;more&#32;inputs&#32;on&#32;this.&#32;&#32;Gino&#32;TerradoGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p><span style="color:black; font-size:10pt">Hi,</span></p>
+<p><span style="color:black; font-size:10pt">From your statement <em>&quot;but I found out that the dynamic build plan methods are compiled on first resolve &ndash; not on registration&quot;
+</em>do you mean it taking up more time on resolving? If yes, is there by any chance you were able to see this other thread (<a href="http://unity.codeplex.com/discussions/255250" rel="nofollow">http://unity.codeplex.com/discussions/255250</a>) and see if it somehow helps
+ on improving the performance. </span></p>
+<p><span style="color:black; font-size:10pt">As for the changes made in the Unity source code we couldn&rsquo;t tell what any possible drawbacks, the Entlib team may have more inputs on this.
+</span></p>
+<p><strong><em><span style="color:#30332d; font-size:9.5pt">Gino Terrado</span></em></strong><span style="color:#30332d; font-size:9.5pt"><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+</span><a href="mailto:entlib.support@avanade.com" rel="nofollow"><span style="color:#3e62a6; font-size:9.5pt">entlib.support@avanade.com</span></a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_609303" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="609351">
+    <td id="PostDetailsCell_609351" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post609351"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jnykiel">jnykiel</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/9/2011 6:04:02 AM" LocalTimeTicks="1304946242">May 9, 2011 at 6:04 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_609351" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="AvanadeSupport&#32;wrote&#58;&#32;Hi,&#32;From&#32;your&#32;statement&#32;&#34;but&#32;I&#32;found&#32;out&#32;that&#32;the&#32;dynamic&#32;build&#32;plan&#32;methods&#32;are&#32;compiled&#32;on&#32;first&#32;resolve&#32;&#38;ndash&#59;&#32;not&#32;on&#32;registration&#34;&#32;do&#32;you&#32;mean&#32;it&#32;taking&#32;up&#32;more&#32;time&#32;on&#32;resolving&#63;&#32;If&#32;yes,&#32;is&#32;there&#32;by&#32;any&#32;chance&#32;you&#32;were&#32;able&#32;to&#32;see&#32;this&#32;other&#32;thread&#32;&#40;http&#58;&#47;&#47;unity.codeplex.com&#47;discussions&#47;255250&#41;&#32;and&#32;see&#32;if&#32;it&#32;somehow&#32;helps&#32;on&#32;improving&#32;the&#32;performance.&#32;&#32;As&#32;for&#32;the&#32;changes&#32;made&#32;in&#32;the&#32;Unity&#32;source&#32;code&#32;we&#32;couldn&#38;rsquo&#59;t&#32;tell&#32;what&#32;any&#32;possible&#32;drawbacks,&#32;the&#32;Entlib&#32;team&#32;may&#32;have&#32;more&#32;inputs&#32;on&#32;this.&#32;&#32;&#32;Yes,&#32;I&#32;did&#32;mean&#32;that&#32;the&#32;first&#32;resolve&#32;of&#32;a&#32;registration&#32;takes&#38;nbsp&#59;a&#32;little&#38;nbsp&#59;more&#32;time&#32;that&#32;the&#32;subsequent&#32;ones,&#32;but&#32;that&#32;isn&#39;t&#32;the&#32;cause&#32;of&#32;my&#32;problem,&#32;because&#58;&#32;&#32;I&#32;have&#32;issues&#32;with&#32;the&#32;registration&#32;performance,&#32;not&#32;resolve&#32;performance,&#32;the&#32;hit&#32;on&#32;the&#32;performance&#32;on&#32;first&#32;resolve&#32;due&#32;to&#32;the&#32;dynamic&#32;method&#32;compilation&#32;is&#32;very&#32;small.&#32;">
+        
+<blockquote style="padding-bottom:0px; font-style:italic; margin:0.25em 1em 0px; padding-left:0.25em; padding-right:0.25em; padding-top:0px; border:#ccc 0.1em solid">
+<strong>AvanadeSupport wrote:</strong><br>
+<p><span style="color:black; font-size:10pt">Hi,</span></p>
+<p><span style="color:black; font-size:10pt">From your statement <em>&quot;but I found out that the dynamic build plan methods are compiled on first resolve &ndash; not on registration&quot;
+</em>do you mean it taking up more time on resolving? If yes, is there by any chance you were able to see this other thread (<a href="http://unity.codeplex.com/discussions/255250" rel="nofollow">http://unity.codeplex.com/discussions/255250</a>) and see if it somehow helps
+ on improving the performance. </span></p>
+<p><span style="color:black; font-size:10pt">As for the changes made in the Unity source code we couldn&rsquo;t tell what any possible drawbacks, the Entlib team may have more inputs on this.
+</span></p>
+</blockquote>
+<p><br>
+Yes, I did mean that the first resolve of a registration takes&nbsp;a little&nbsp;more time that the subsequent ones, but that isn't the cause of my problem, because:</p>
+<ul>
+<li>I have issues with the registration performance, not resolve performance, </li><li>the hit on the performance on first resolve due to the dynamic method compilation is very small.
+</li></ul>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_609351" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="612134">
+    <td id="PostDetailsCell_612134" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post612134"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/13/2011 3:20:36 AM" LocalTimeTicks="1305282036">May 13, 2011 at 3:20 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_612134" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Agree,&#32;I&#32;believe&#32;the&#32;first&#32;resolve&#32;could&#32;probably&#32;be&#32;slower&#32;than&#32;the&#32;next&#32;or&#32;later.&#38;nbsp&#59;&#32;We&#32;don&#39;t&#32;know&#32;what&#32;could&#32;be&#32;the&#32;performance&#32;penalty&#32;of&#32;each&#32;registration&#32;though&#32;given&#32;that&#32;you&#32;have&#32;&#126;7000&#32;of&#32;it&#32;I&#32;would&#32;think&#32;there&#32;would&#32;have.&#32;How&#32;about&#32;trying&#32;out&#32;to&#32;measure&#32;a&#32;few&#32;registration&#32;first&#32;and&#32;see&#32;if&#32;it&#32;calculates&#38;nbsp&#59;to&#32;the&#32;same&#38;nbsp&#59;amount&#32;of&#32;performance&#32;hit&#32;you&#32;are&#32;getting&#38;nbsp&#59;on&#32;the&#32;actual&#32;&#126;7000&#32;registrations.&#32;Though,&#38;nbsp&#59;personally&#32;I&#32;really&#32;don&#39;t&#32;know&#32;any&#32;other&#32;approach&#38;nbsp&#59;to&#32;optimize&#32;this&#32;other&#32;that&#32;with&#32;those&#32;related&#32;thread&#32;I&#32;posted&#32;initially.&#32;Gino&#32;TerradoGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>Agree, I believe the first resolve could probably be slower than the next or later.&nbsp; We don't know what could be the performance penalty of each registration though given that you have ~7000 of it I would think there would have. How about trying out
+ to measure a few registration first and see if it calculates&nbsp;to the same&nbsp;amount of performance hit you are getting&nbsp;on the actual ~7000 registrations. Though,&nbsp;personally I really don't know any other approach&nbsp;to optimize this other
+ that with those related thread I posted initially.</p>
+<p><strong><em><span style="color:#30332d; font-size:9.5pt">Gino Terrado</span></em></strong><span style="color:#30332d; font-size:9.5pt"><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+</span><a href="mailto:entlib.support@avanade.com" rel="nofollow"><span style="color:#3e62a6; font-size:9.5pt">entlib.support@avanade.com</span></a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_612134" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f256636">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="6797261c-b08a-4c47-b7a6-e9e4325d9a67">
+    <script class="options" defer="defer" id="6797261c-b08a-4c47-b7a6-e9e4325d9a67" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_ae663b57-777a-4747-b7a7-5d0c4cf882de">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_67d1139a-c453-45cf-b066-fcf044f8ae34">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_ae663b57-777a-4747-b7a7-5d0c4cf882de" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_67d1139a-c453-45cf-b066-fcf044f8ae34" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/256636';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

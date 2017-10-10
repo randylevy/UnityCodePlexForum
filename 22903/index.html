@@ -1,0 +1,909 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - I LifetimeManager</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/22903?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/22903?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="5u6evNfuC3eKtab1Stzgaon1tsI72n8cf1WnQk9FsRjJElHK4NdKdrkcl3qkMOJSh97P98U8HqL275xivggsQkDp1G5te8kSFpINDOQ718o-bLt860caM6DjZBZeubbm8QRRIA2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2d33ee66e-d94c-4cb9-91fd-4b83e59fe65e" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:29:21 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f22903" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="d49178d2-277f-4bda-80df-90317148b286">
+                
+                    <script class="options" defer="defer" id="d49178d2-277f-4bda-80df-90317148b286" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="d116259e-4123-4fed-aa13-556ec585008f">
+                
+                    <script class="options" defer="defer" id="d116259e-4123-4fed-aa13-556ec585008f" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                I LifetimeManager
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:22903]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="22947d14-0932-4481-bbec-501c66921beb">
+    <script class="options" defer="defer" id="22947d14-0932-4481-bbec-501c66921beb" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/22903","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="76596">
+    <td id="PostDetailsCell_76596" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post76596"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/francois_tanguay">francois_tanguay</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/26/2008 10:52:26 PM" LocalTimeTicks="1204095146">Feb 26, 2008 at 10:52 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="2/26/2008 10:53:00 PM" LocalTimeTicks="1204095180">Feb 26, 2008 at 10:53 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_76596" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#32;know&#32;I&#32;know.&#32;Interfaces&#32;and&#32;versioning.&#32;However&#32;if&#32;that&#32;stands&#32;true,&#32;there&#39;s&#32;plenty&#32;of&#32;refactoring&#32;to&#32;be&#32;done&#32;in&#32;OB.I&#39;d&#32;vote&#32;for&#32;ILifetimeManager&#32;so&#32;it&#32;is&#32;easier&#32;to&#32;decorate&#32;or&#32;mock.And&#32;I&#39;d&#32;rename&#32;ClearValue&#32;to&#32;RemoveValue&#32;as&#32;it&#32;is&#32;a&#32;well&#32;known&#32;and&#32;vastly&#32;used&#32;term.">
+        I know I know. Interfaces and versioning. However if that stands true, there's plenty of refactoring to be done in OB.<br>
+<br>
+I'd vote for ILifetimeManager so it is easier to decorate or mock.<br>
+<br>
+And I'd rename ClearValue to RemoveValue as it is a well known and vastly used term.<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_76596" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="76631">
+    <td id="PostDetailsCell_76631" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post76631"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/27/2008 2:13:59 AM" LocalTimeTicks="1204107239">Feb 27, 2008 at 2:13 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_76631" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#39;d&#32;really&#32;like&#32;your&#32;opinion&#32;on&#32;the&#32;lifetime&#32;manager&#32;abstraction&#32;before&#32;discussing&#32;interface&#32;vs.&#32;abstract&#32;class.&#32;It&#32;looks&#32;like&#32;it&#39;s&#32;what&#32;we&#32;need&#32;to&#32;me,&#32;but&#32;other&#32;opinions&#32;are&#32;important&#32;on&#32;this&#32;one.">
+        I'd really like your opinion on the lifetime manager abstraction before discussing interface vs. abstract class. It looks like it's what we need to me, but other opinions are important on this one.<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_76631" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="76641">
+    <td id="PostDetailsCell_76641" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post76641"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/francois_tanguay">francois_tanguay</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/27/2008 3:01:32 AM" LocalTimeTicks="1204110092">Feb 27, 2008 at 3:01 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="2/27/2008 3:03:30 AM" LocalTimeTicks="1204110210">Feb 27, 2008 at 3:03 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_76641" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Yeah&#32;you&#39;re&#32;right.For&#32;what&#32;it&#32;is&#32;right&#32;now&#58;In&#32;the&#32;long&#32;run,&#32;I&#32;think&#32;it&#32;will&#32;be&#32;confusing&#32;for&#32;people&#32;to&#32;differentiate&#32;between&#32;SetSingleton&#40;&#41;,&#32;RegisterInstance&#40;&#41;&#32;and&#32;SetLifetime&#40;&#41;&#32;but&#32;I&#32;see&#32;where&#32;it&#32;comes&#32;from.In&#32;UnitDefaultBehaviorExtension,&#32;I&#39;d&#32;reuse&#32;the&#32;same&#32;instance&#32;of&#32;SingletonLifetimeManager&#32;as&#32;there&#32;is&#32;no&#32;need&#32;to&#32;create&#32;a&#32;new&#32;one&#32;all&#32;the&#32;time&#32;&#40;not&#32;that&#32;it&#32;really&#32;matters&#32;performance&#32;wise&#41;In&#32;SpecificInstanceLifetimeManager,&#32;I&#32;understand&#32;the&#32;flow&#32;but&#32;the&#32;&#34;hack&#34;&#32;to&#32;root&#32;the&#32;instance&#32;until&#32;Initialize&#32;is&#32;called&#32;and&#32;the&#32;release&#32;by&#32;setting&#32;the&#32;private&#32;member&#32;to&#32;null&#32;is&#32;a&#32;design&#32;smell&#32;to&#32;meI&#39;m&#32;wondering&#32;whether&#32;it&#32;would&#32;make&#32;sense&#32;or&#32;not&#32;to&#32;have&#32;a&#32;RegisterInstance&#32;that&#32;takes&#32;an&#32;optional&#32;LifetimeManager&#32;to&#32;control&#32;its&#32;lifetime&#32;so&#32;it&#32;isn&#39;t&#32;controlled&#32;by&#32;ILifetimeContainer.I&#39;d&#32;see&#32;TransientLifetimeManager&#32;as&#32;being&#32;registered&#32;as&#32;the&#32;default&#32;policy.Having&#32;to&#32;provide&#32;the&#32;ExtensionContext&#32;to&#32;Initialize&#32;is&#32;an&#32;indicator&#32;that&#32;LifetimeManager&#32;is&#32;closer&#32;to&#32;an&#32;extension&#32;than&#32;you&#39;d&#32;like&#32;to&#32;agree&#32;&#58;&#41;The&#32;more&#32;I&#32;think&#32;about&#32;it,&#32;the&#32;more&#32;I&#32;think&#32;SpecificInstance&#32;doesn&#39;t&#32;make&#32;sense.&#32;It&#32;is&#32;the&#32;main&#32;&#40;and&#32;probably&#32;only&#41;&#32;reason&#32;why&#32;you&#32;had&#32;to&#32;add&#32;LifetimeManager.Initialize.&#32;It&#32;doesn&#39;t&#32;suit&#32;the&#32;model&#32;well.If&#32;you&#32;get&#32;closer&#32;to&#32;what&#32;we&#32;talked&#32;before,&#32;you&#39;d&#32;get&#32;something&#32;like&#58;Keep&#32;only&#32;SetLifetime&#40;Type&#32;type,&#32;string&#32;name,&#32;LifetimeManager&#32;manager&#41;&#32;&#43;&#32;generic&#32;overloads,&#32;remove&#32;SetSingletonChange&#32;slightly&#32;RegisterInstance&#32;to&#58;&#32;RegisterInstance&#40;Type&#32;type,&#32;object&#32;instance,&#32;string&#32;name,&#32;LifetimeManager&#32;manager&#41;&#32;&#43;&#32;generic&#32;overloadsMake&#32;Singleton&#32;and&#32;Transient&#32;lifetime&#32;managers&#32;singletons&#32;so&#32;we&#32;can&#32;have&#32;an&#32;.Instance&#32;syntax&#32;and&#32;don&#39;t&#32;have&#32;to&#32;new&#32;them&#32;all&#32;the&#32;timeThe&#32;code&#32;for&#32;RegisterInstance&#32;would&#32;simply&#32;call&#32;the&#32;lifetimeManager.SetValue&#40;...&#41;&#32;public&#32;void&#32;RegiserInstance&#40;Type&#32;type,&#32;object&#32;instance,&#32;string&#32;name,&#32;LifetimeManager&#32;manager&#41;&#32;&#123;&#32;SetLifetime&#40;type,&#32;name,&#32;manager&#41;&#59;&#32;manager.SetValue&#40;instance&#41;&#59;&#32;&#47;&#47;TODO&#32;We&#32;don&#39;t&#32;have&#32;access&#32;to&#32;the&#32;IBuilderContext&#32;here.&#32;Does&#32;it&#32;really&#32;make&#32;sense&#32;to&#32;require&#32;IBuilderContext&#63;&#32;&#125;&#32;Of&#32;course,&#32;I&#32;see&#32;an&#32;overload&#32;of&#32;RegisterInstance&#32;without&#32;a&#32;LifetimeManager&#32;that&#32;uses&#32;SingletonLifetimeManager.InstanceAt&#32;least&#32;that&#39;s&#32;what&#32;I&#32;see&#32;for&#32;now...&#32;Thoughts&#63;">
+        Yeah you're right.<br>
+<br>
+For what it is right now:<br>
+<br>
+<ul>
+<li>In the long run, I think it will be confusing for people to differentiate between SetSingleton(), RegisterInstance() and SetLifetime() but I see where it comes from.</li><li>In UnitDefaultBehaviorExtension, I'd reuse the same instance of SingletonLifetimeManager as there is no need to create a new one all the time (not that it really matters performance wise)</li><li>In SpecificInstanceLifetimeManager, I understand the flow but the &quot;hack&quot; to root the instance until Initialize is called and the release by setting the private member to null is a design smell to me</li><li>I'm wondering whether it would make sense or not to have a RegisterInstance that takes an optional LifetimeManager to control its lifetime so it isn't controlled by ILifetimeContainer.</li><li>I'd see TransientLifetimeManager as being registered as the default policy.</li><li>Having to provide the ExtensionContext to Initialize is an indicator that LifetimeManager is closer to an extension than you'd like to agree :)</li><li>The more I think about it, the more I think SpecificInstance doesn't make sense. It is the main (and probably only) reason why you had to add LifetimeManager.Initialize. It doesn't suit the model well.</li></ul>
+<br>
+<br>
+If you get closer to what we talked before, you'd get something like:<br>
+<br>
+<ul>
+<li>Keep only SetLifetime(Type type, string name, LifetimeManager manager) &#43; generic overloads, remove SetSingleton</li><li>Change slightly RegisterInstance to: RegisterInstance(Type type, object instance, string name, LifetimeManager manager) &#43; generic overloads</li><li>Make Singleton and Transient lifetime managers singletons so we can have an .Instance syntax and don't have to new them all the time</li></ul>
+<br>
+The code for RegisterInstance would simply call the lifetimeManager.SetValue(...)<br>
+<br>
+<pre style="background-color:#ECECEC; border:dashed .1em #3E62A6; font-family:Consolas,Courier New,Courier,Monospace; font-size:1em; margin-top:0; padding:.5em; height:auto; overflow:auto; overflow-x:auto; overflow-y:auto">
+public void RegiserInstance(Type type, object instance, string name, LifetimeManager manager)
+{
+  SetLifetime(type, name, manager);
+  manager.SetValue(instance); //TODO We don't have access to the IBuilderContext here. Does it really make sense to require IBuilderContext?
+}
+</pre>
+<br>
+Of course, I see an overload of RegisterInstance without a LifetimeManager that uses SingletonLifetimeManager.Instance<br>
+<br>
+At least that's what I see for now... Thoughts?<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_76641" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="77248">
+    <td id="PostDetailsCell_77248" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post77248"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/29/2008 4:52:47 AM" LocalTimeTicks="1204289567">Feb 29, 2008 at 4:52 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_77248" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#32;think&#32;I&#32;see&#32;where&#32;you&#39;re&#32;going&#32;with&#32;RegisterInstance,and&#32;I&#32;think&#32;I&#32;like&#32;it.So,&#32;instead&#32;of&#32;SpecificInstanceLifetimeManager,&#32;we&#39;d&#32;instead&#32;have&#32;&#34;ContainerControlledLifetimeManager&#34;&#32;&#40;strong&#32;reference&#41;&#32;and&#32;&#34;ExternalLifetimeManager&#34;&#32;&#40;weak&#32;reference&#41;&#32;or&#32;something&#32;like&#32;that&#63;&#32;SpecificInstance&#32;would&#32;just&#32;go&#32;away.The&#32;ExtensionContext&#32;and&#32;IBuilderContext&#32;were&#32;passed&#32;to&#32;the&#32;lifetime&#32;manager&#32;so&#32;that&#32;they&#39;d&#32;have&#32;access&#32;to&#32;the&#32;locator,&#32;lifetime&#32;container,&#32;and&#32;policy&#32;list.&#32;With&#32;the&#32;above&#32;change,&#32;we&#32;don&#39;t&#32;need&#32;the&#32;locator&#32;anymore.&#32;We&#32;could&#32;have&#32;the&#32;container&#32;add&#32;the&#32;lifetime&#32;manager&#32;to&#32;the&#32;lifetime&#32;container&#32;on&#32;registration&#32;if&#32;it&#32;implements&#32;IDisposable.&#32;The&#32;policy&#32;list&#32;isn&#39;t&#32;needed&#32;by&#32;anything&#32;we&#39;ve&#32;written&#32;so&#32;far&#59;&#32;perhaps&#32;that&#39;s&#32;unneeded&#32;generalization&#63;&#32;If&#32;that&#39;s&#32;the&#32;case,&#32;we&#32;can&#32;remove&#32;these&#32;parameters&#32;and&#32;the&#32;Initialize&#32;method&#32;completely.SetSingleton&#32;is&#32;staying&#32;because&#32;our&#32;docs&#32;guy&#32;thought&#32;it&#32;made&#32;the&#32;container&#32;simpler.&#32;When&#32;the&#32;guy&#32;in&#32;charge&#32;of&#32;explaining&#32;things&#32;says&#32;this,&#32;you&#32;listen.&#32;&#59;-&#41;&#32;Also,&#32;I&#39;d&#32;rather&#32;not&#32;make&#32;SingletonLifetime&#32;a&#32;singleton&#59;&#32;I&#32;like&#32;the&#32;&#34;one&#32;manager&#32;instance&#32;per&#32;registration&#34;&#32;model.&#32;Since&#32;it&#32;doesn&#39;t&#32;actually&#32;make&#32;any&#32;difference&#32;perf-wise.So&#32;we&#32;remove&#32;the&#32;bool&#32;&#34;containerControlsLifetime&#34;&#32;from&#32;RegisterInstance,&#32;and&#32;instead&#32;it&#32;takes&#32;a&#32;LifetimeManager.I&#32;like&#32;it.&#32;I&#39;ll&#32;play&#32;with&#32;it,&#32;and&#32;some&#32;of&#32;these&#32;changes&#32;should&#32;be&#32;in&#32;the&#32;next&#32;drop.-Chris">
+        I think I see where you're going with RegisterInstance,and I think I like it.<br>
+<br>
+So, instead of SpecificInstanceLifetimeManager, we'd instead have &quot;ContainerControlledLifetimeManager&quot; (strong reference) and &quot;ExternalLifetimeManager&quot; (weak reference) or something like that? SpecificInstance would just go away.<br>
+<br>
+The ExtensionContext and IBuilderContext were passed to the lifetime manager so that they'd have access to the locator, lifetime container, and policy list. With the above change, we don't need the locator anymore. We could have the container add the lifetime
+ manager to the lifetime container on registration if it implements IDisposable. The policy list isn't needed by anything we've written so far; perhaps that's unneeded generalization? If that's the case, we can remove these parameters and the Initialize method
+ completely.<br>
+<br>
+SetSingleton is staying because our docs guy thought it made the container simpler. When the guy in charge of explaining things says this, you listen. ;-) Also, I'd rather not make SingletonLifetime a singleton; I like the &quot;one manager instance per registration&quot;
+ model. Since it doesn't actually make any difference perf-wise.<br>
+<br>
+So we remove the bool &quot;containerControlsLifetime&quot; from RegisterInstance, and instead it takes a LifetimeManager.<br>
+<br>
+I like it. I'll play with it, and some of these changes should be in the next drop.<br>
+<br>
+-Chris<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_77248" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="77430">
+    <td id="PostDetailsCell_77430" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post77430"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/francois_tanguay">francois_tanguay</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/29/2008 5:08:47 PM" LocalTimeTicks="1204333727">Feb 29, 2008 at 5:08 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_77430" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#32;wish&#32;I&#32;had&#32;a&#32;&#34;Doc&#32;guy&#34;&#32;&#58;&#41;Some&#32;more&#32;feedbackI&#39;m&#32;not&#32;sure&#32;I&#32;see&#32;the&#32;difference&#32;between&#32;SingletonLifetimeManager&#32;and&#32;ContainerControlledLifetimeManager.&#32;To&#32;me&#32;they&#32;both&#32;scope&#32;the&#32;lifetime&#32;of&#32;the&#32;referenced&#32;object&#32;to&#32;the&#32;lifetime&#32;of&#32;the&#32;container.&#32;That&#39;s&#32;why&#32;in&#32;the&#32;past&#32;I&#32;proposed&#32;&#34;PerContainerLifetimeManager&#34;.I&#32;think&#32;that&#32;you&#32;can&#32;safely&#32;remove&#32;the&#32;context&#32;from&#32;the&#32;lifetime&#32;manager&#32;methods.&#32;If&#32;some&#32;manager&#32;requires&#32;the&#32;context,&#32;it&#32;can&#32;receive&#32;it&#32;in&#32;its&#32;constructor.&#32;I&#32;already&#32;created&#32;an&#32;extension&#32;that&#32;&#34;exposes&#34;&#32;the&#32;ExtensionContext.">
+        I wish I had a &quot;Doc guy&quot; :)<br>
+<br>
+Some more feedback<br>
+<br>
+<ul>
+<li>I'm not sure I see the difference between SingletonLifetimeManager and ContainerControlledLifetimeManager. To me they both scope the lifetime of the referenced object to the lifetime of the container. That's why in the past I proposed &quot;PerContainerLifetimeManager&quot;.</li><li>I think that you can safely remove the context from the lifetime manager methods. If some manager requires the context, it can receive it in its constructor. I already created an extension that &quot;exposes&quot; the ExtensionContext.</li></ul>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_77430" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="77459">
+    <td id="PostDetailsCell_77459" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post77459"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/29/2008 6:43:41 PM" LocalTimeTicks="1204339421">Feb 29, 2008 at 6:43 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_77459" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="francois_tanguay&#32;wrote&#58;I&#32;wish&#32;I&#32;had&#32;a&#32;&#34;Doc&#32;guy&#34;&#32;&#58;&#41;Some&#32;more&#32;feedbackI&#39;m&#32;not&#32;sure&#32;I&#32;see&#32;the&#32;difference&#32;between&#32;SingletonLifetimeManager&#32;and&#32;ContainerControlledLifetimeManager.&#32;To&#32;me&#32;they&#32;both&#32;scope&#32;the&#32;lifetime&#32;of&#32;the&#32;referenced&#32;object&#32;to&#32;the&#32;lifetime&#32;of&#32;the&#32;container.&#32;That&#39;s&#32;why&#32;in&#32;the&#32;past&#32;I&#32;proposed&#32;&#34;PerContainerLifetimeManager&#34;.There&#32;isn&#39;t&#32;any&#32;difference,&#32;and&#32;SingletonLifetimeManager&#32;is&#32;gone.I&#32;think&#32;that&#32;you&#32;can&#32;safely&#32;remove&#32;the&#32;context&#32;from&#32;the&#32;lifetime&#32;manager&#32;methods.&#32;If&#32;some&#32;manager&#32;requires&#32;the&#32;context,&#32;it&#32;can&#32;receive&#32;it&#32;in&#32;its&#32;constructor.&#32;I&#32;already&#32;created&#32;an&#32;extension&#32;that&#32;&#34;exposes&#34;&#32;the&#32;ExtensionContext.I&#32;did&#32;this&#32;last&#32;night,&#32;actually.&#32;The&#32;initialize&#32;method&#32;is&#32;about&#32;to&#32;go&#32;bye-bye&#32;as&#32;well.-Chris">
+        
+<div style="border:dotted .1em #aaa; border-left:none; border-right:none; font-style:italic; margin:1em 0em 2.5em 3em; padding:.2em">
+<br>
+francois_tanguay wrote:<br>
+I wish I had a &quot;Doc guy&quot; :)<br>
+<br>
+Some more feedback<br>
+<br>
+<ul>
+<li>I'm not sure I see the difference between SingletonLifetimeManager and ContainerControlledLifetimeManager. To me they both scope the lifetime of the referenced object to the lifetime of the container. That's why in the past I proposed &quot;PerContainerLifetimeManager&quot;.</li></ul>
+<br>
+</div>
+There isn't any difference, and SingletonLifetimeManager is gone.<br>
+<br>
+<div style="border:dotted .1em #aaa; border-left:none; border-right:none; font-style:italic; margin:1em 0em 2.5em 3em; padding:.2em">
+<br>
+<ul>
+<li>I think that you can safely remove the context from the lifetime manager methods. If some manager requires the context, it can receive it in its constructor. I already created an extension that &quot;exposes&quot; the ExtensionContext.</li></ul>
+<br>
+<br>
+</div>
+<br>
+I did this last night, actually. The initialize method is about to go bye-bye as well.<br>
+<br>
+-Chris<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_77459" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="77839">
+    <td id="PostDetailsCell_77839" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post77839"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/derekgreer">derekgreer</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/3/2008 3:30:44 PM" LocalTimeTicks="1204587044">Mar 3, 2008 at 3:30 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_77839" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#32;think&#32;you&#32;guys&#32;ought&#32;to&#32;take&#32;a&#32;community&#32;poll&#32;to&#32;guide&#32;the&#32;decision&#32;of&#32;whether&#32;to&#32;keep&#32;SetSingleton&#40;&#41;&#32;or&#32;not.&#32;Unfortunately,&#32;the&#32;Unity&#32;codeplex&#32;site&#32;probably&#32;won&#39;t&#32;get&#32;a&#32;lot&#32;of&#32;traffic&#32;until&#32;Unity&#32;is&#32;already&#32;released.&#32;My&#32;vote&#32;is&#32;still&#32;&#34;consistency&#32;over&#32;convenience&#34;&#32;...&#32;do&#32;all&#32;lifetime&#32;management&#32;through&#32;Extensions.&#32;I&#32;understand&#32;the&#32;facade&#32;argument,&#32;but&#32;Unity&#32;is&#32;only&#32;a&#32;facade&#32;because&#32;Object&#32;Builder&#32;is&#32;a&#32;framework.&#32;I&#32;wonder&#32;would&#32;the&#32;IUnityContainer&#32;be&#32;evolving&#32;differently&#32;if&#32;there&#32;were&#32;no&#32;Object&#32;Builder&#32;to&#32;begin&#32;with.Derek">
+        I think you guys ought to take a community poll to guide the decision of whether to keep SetSingleton() or not. Unfortunately, the Unity codeplex site probably won't get a lot of traffic until Unity is already released. My vote is still &quot;consistency over
+ convenience&quot; ... do all lifetime management through Extensions. I understand the facade argument, but Unity is only a facade because Object Builder is a framework. I wonder would the IUnityContainer be evolving differently if there were no Object Builder to
+ begin with.<br>
+<br>
+Derek<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_77839" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="77886">
+    <td id="PostDetailsCell_77886" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post77886"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/3/2008 6:40:02 PM" LocalTimeTicks="1204598402">Mar 3, 2008 at 6:40 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_77886" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;New&#32;API&#32;coming&#32;tomorrow.&#32;SetSingleton&#32;is&#32;history.">
+        New API coming tomorrow. SetSingleton is history.<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_77886" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f22903">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="455f8d5d-3dcc-4826-87cb-47297ba5fa68">
+    <script class="options" defer="defer" id="455f8d5d-3dcc-4826-87cb-47297ba5fa68" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_7275830e-385c-415e-bb3b-60e5fc8109f6">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_986e54f8-ba46-4e32-b5f0-a60e0ffeae60">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_7275830e-385c-415e-bb3b-60e5fc8109f6" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_986e54f8-ba46-4e32-b5f0-a60e0ffeae60" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/22903';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

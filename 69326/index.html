@@ -1,0 +1,787 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Dependency Injection Failure</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/69326?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/69326?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="6h3SBiODE79TEIBYASeXJf2Uc7fXhov0pTQFFHnUst-G2nCTpEvLc3C2MNRFzx-wtpLsryvDb5ha7Rb99WOgi2AU5WvV_FvJsHQPdz2jME3l65yL-OerNEWEXWo7X-3HLewBCA2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2b11aef25-0c10-41a3-9c20-8ec2d9ed8cd6" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:28:08 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f69326" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="81d3eb7c-b40f-4f3e-9d4b-1c459ca1e9d8">
+                
+                    <script class="options" defer="defer" id="81d3eb7c-b40f-4f3e-9d4b-1c459ca1e9d8" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="3bbf1335-91b4-4f93-a3b4-2590e26a0271">
+                
+                    <script class="options" defer="defer" id="3bbf1335-91b4-4f93-a3b4-2590e26a0271" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Dependency Injection Failure
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:69326]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="33a48d22-96e8-485a-a295-f9b5a25706dd">
+    <script class="options" defer="defer" id="33a48d22-96e8-485a-a295-f9b5a25706dd" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/69326","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="235852">
+    <td id="PostDetailsCell_235852" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post235852"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/hardywang">hardywang</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/18/2009 1:17:52 AM" LocalTimeTicks="1253261872">Sep 18, 2009 at 1:17 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_235852" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi&#32;all,&#32;I&#32;have&#32;2&#32;interfaces,&#32;one&#32;has&#32;depedency&#32;of&#32;another.&#32;But&#32;when&#32;I&#32;use&#32;container&#32;to&#32;resolve&#32;it&#32;throws&#32;exception.&#32;Here&#32;is&#32;my&#32;code&#32;snip.&#32;&#32;interface&#32;IFileNameProvider&#32;&#123;&#32;string&#32;GetFileName&#40;&#41;&#59;&#32;&#125;&#32;class&#32;RandonFileName&#32;&#58;&#32;IFileNameProvider&#32;&#123;&#32;public&#32;string&#32;GetFileName&#40;&#41;&#32;&#123;&#32;return&#32;&#38;quot&#59;Random.txt&#38;quot&#59;&#59;&#32;&#125;&#32;&#125;&#32;class&#32;SequentialFileName&#32;&#58;&#32;IFileNameProvider&#32;&#123;&#32;public&#32;string&#32;GetFileName&#40;&#41;&#32;&#123;&#32;return&#32;&#38;quot&#59;Sequential.txt&#38;quot&#59;&#59;&#32;&#125;&#32;&#125;&#32;&#32;Above&#32;are&#32;my&#32;first&#32;interface&#32;to&#32;provide&#32;file&#32;naming&#32;function.&#32;interface&#32;IFileSaver&#32;&#123;&#32;bool&#32;SaveFile&#40;string&#32;content&#41;&#59;&#32;IFileNameProvider&#32;FileNameProvider&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;&#125;&#32;class&#32;CsvFileSaver&#32;&#58;&#32;IFileSaver&#32;&#123;&#32;public&#32;bool&#32;SaveFile&#40;string&#32;content&#41;&#32;&#123;&#32;string&#32;filename&#32;&#61;&#32;FileNameProvider.GetFileName&#40;&#41;&#59;&#32;return&#32;true&#59;&#32;&#125;&#32;&#91;Dependency&#93;&#32;public&#32;IFileNameProvider&#32;FileNameProvider&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;&#125;&#32;class&#32;BinaryFileSaver&#32;&#58;&#32;IFileSaver&#32;&#123;&#32;public&#32;bool&#32;SaveFile&#40;string&#32;content&#41;&#32;&#123;&#32;string&#32;filename&#32;&#61;&#32;FileNameProvider.GetFileName&#40;&#41;&#59;&#32;return&#32;false&#59;&#32;&#125;&#32;&#91;Dependency&#93;&#32;public&#32;IFileNameProvider&#32;FileNameProvider&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;&#125;&#32;Above&#32;is&#32;my&#32;2nd&#32;interface&#32;to&#32;do&#32;the&#32;actual&#32;file&#32;save&#32;job.&#32;&#38;nbsp&#59;&#32;In&#32;my&#32;main&#32;program,&#32;I&#32;have&#32;following&#32;code&#32;and&#32;there&#32;is&#32;no&#32;config&#32;file&#32;at&#32;all.&#32;&#32;class&#32;Program&#32;&#123;&#32;static&#32;void&#32;Main&#40;string&#91;&#93;&#32;args&#41;&#32;&#123;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;IFileNameProvider,&#32;RandonFileName&#38;gt&#59;&#40;&#38;quot&#59;RandonName&#38;quot&#59;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;IFileNameProvider,&#32;SequentialFileName&#38;gt&#59;&#40;&#38;quot&#59;SequentialName&#38;quot&#59;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;IFileSaver,&#32;CsvFileSaver&#38;gt&#59;&#40;&#38;quot&#59;SaveCsv&#38;quot&#59;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;IFileSaver,&#32;BinaryFileSaver&#38;gt&#59;&#40;&#38;quot&#59;SaveBin&#38;quot&#59;&#41;&#59;&#32;IFileSaver&#32;saver&#32;&#61;&#32;container.Resolve&#38;lt&#59;IFileSaver&#38;gt&#59;&#40;&#38;quot&#59;SaveBin&#38;quot&#59;&#41;&#59;&#32;saver.SaveFile&#40;&#38;quot&#59;text&#38;quot&#59;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;When&#32;I&#32;run&#32;the&#32;application&#32;I&#32;got&#32;exception&#32;like&#32;below.&#32;Anybody&#32;knows&#32;what&#32;is&#32;wrong&#63;&#32;Microsoft.Practices.Unity.ResolutionFailedException&#32;was&#32;unhandled&#38;nbsp&#59;&#32;Message&#61;&#38;quot&#59;Resolution&#32;of&#32;the&#32;dependency&#32;failed,&#32;type&#32;&#61;&#32;&#92;&#38;quot&#59;UnityTest.IFileSaver&#92;&#38;quot&#59;,&#32;name&#32;&#61;&#32;&#92;&#38;quot&#59;SaveBin&#92;&#38;quot&#59;.&#32;Exception&#32;message&#32;is&#58;&#32;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;UnityTest.BinaryFileSaver,&#32;SaveBin&#93;&#41;&#32;failed&#58;&#32;The&#32;value&#32;for&#32;the&#32;property&#32;&#92;&#38;quot&#59;FileNameProvider&#92;&#38;quot&#59;&#32;could&#32;not&#32;be&#32;resolved.&#32;&#40;Strategy&#32;type&#32;BuildPlanStrategy,&#32;index&#32;3&#41;&#38;quot&#59;&#38;nbsp&#59;&#32;Source&#61;&#38;quot&#59;Microsoft.Practices.Unity&#38;quot&#59;&#38;nbsp&#59;&#32;NameRequested&#61;&#38;quot&#59;SaveBin&#38;quot&#59;&#38;nbsp&#59;&#32;TypeRequested&#61;&#38;quot&#59;IFileSaver&#38;quot&#59;&#38;nbsp&#59;&#32;StackTrace&#58;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.UnityContainer.DoBuildUp&#40;Type&#32;t,&#32;Object&#32;existing,&#32;String&#32;name&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.UnityContainer.DoBuildUp&#40;Type&#32;t,&#32;String&#32;name&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.UnityContainer.Resolve&#40;Type&#32;t,&#32;String&#32;name&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.UnityContainerBase.Resolve&#91;T&#93;&#40;String&#32;name&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;UnityTest.Program.Main&#40;String&#91;&#93;&#32;args&#41;&#32;in&#32;C&#58;&#92;Temp&#92;UnityTest&#92;UnityTest&#92;Program.cs&#58;line&#32;16&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.AppDomain._nExecuteAssembly&#40;Assembly&#32;assembly,&#32;String&#91;&#93;&#32;args&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.AppDomain.ExecuteAssembly&#40;String&#32;assemblyFile,&#32;Evidence&#32;assemblySecurity,&#32;String&#91;&#93;&#32;args&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.VisualStudio.HostingProcess.HostProc.RunUsersAssembly&#40;&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Threading.ThreadHelper.ThreadStart_Context&#40;Object&#32;state&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Threading.ExecutionContext.Run&#40;ExecutionContext&#32;executionContext,&#32;ContextCallback&#32;callback,&#32;Object&#32;state&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Threading.ThreadHelper.ThreadStart&#40;&#41;&#38;nbsp&#59;&#32;InnerException&#58;&#32;Microsoft.Practices.ObjectBuilder2.BuildFailedException&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Message&#61;&#38;quot&#59;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;UnityTest.BinaryFileSaver,&#32;SaveBin&#93;&#41;&#32;failed&#58;&#32;The&#32;value&#32;for&#32;the&#32;property&#32;&#92;&#38;quot&#59;FileNameProvider&#92;&#38;quot&#59;&#32;could&#32;not&#32;be&#32;resolved.&#32;&#40;Strategy&#32;type&#32;BuildPlanStrategy,&#32;index&#32;3&#41;&#38;quot&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Source&#61;&#38;quot&#59;Microsoft.Practices.ObjectBuilder2&#38;quot&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;BuildKey&#61;&#38;quot&#59;Build&#32;Key&#91;UnityTest.BinaryFileSaver,&#32;SaveBin&#93;&#38;quot&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;ExecutingStrategyIndex&#61;3&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;ExecutingStrategyTypeName&#61;&#38;quot&#59;BuildPlanStrategy&#38;quot&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;StackTrace&#58;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp&#40;IBuilderContext&#32;context&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.Builder.BuildUp&#40;IReadWriteLocator&#32;locator,&#32;ILifetimeContainer&#32;lifetime,&#32;IPolicyList&#32;policies,&#32;IStrategyChain&#32;strategies,&#32;Object&#32;buildKey,&#32;Object&#32;existing&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.UnityContainer.DoBuildUp&#40;Type&#32;t,&#32;Object&#32;existing,&#32;String&#32;name&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;InnerException&#58;&#32;System.InvalidOperationException&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Message&#61;&#38;quot&#59;The&#32;value&#32;for&#32;the&#32;property&#32;&#92;&#38;quot&#59;FileNameProvider&#92;&#38;quot&#59;&#32;could&#32;not&#32;be&#32;resolved.&#38;quot&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Source&#61;&#38;quot&#59;Microsoft.Practices.ObjectBuilder2&#38;quot&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;StackTrace&#58;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodPropertySetterStrategy.ThrowOnFailedPropertyValueResolution&#40;Exception&#32;inner,&#32;String&#32;propertyName&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;BuildUp_UnityTest.BinaryFileSaver&#40;IBuilderContext&#32;&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp&#40;IBuilderContext&#32;context&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp&#40;IBuilderContext&#32;context&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp&#40;IBuilderContext&#32;context&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;InnerException&#58;&#32;Microsoft.Practices.ObjectBuilder2.BuildFailedException&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Message&#61;&#38;quot&#59;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;UnityTest.IFileNameProvider,&#32;null&#93;&#41;&#32;failed&#58;&#32;The&#32;current&#32;type,&#32;UnityTest.IFileNameProvider,&#32;is&#32;an&#32;interface&#32;and&#32;cannot&#32;be&#32;constructed.&#32;Are&#32;you&#32;missing&#32;a&#32;type&#32;mapping&#63;&#32;&#40;Strategy&#32;type&#32;BuildPlanStrategy,&#32;index&#32;3&#41;&#38;quot&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Source&#61;&#38;quot&#59;Microsoft.Practices.ObjectBuilder2&#38;quot&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;BuildKey&#61;&#38;quot&#59;Build&#32;Key&#91;UnityTest.IFileNameProvider,&#32;null&#93;&#38;quot&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;ExecutingStrategyIndex&#61;3&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;ExecutingStrategyTypeName&#61;&#38;quot&#59;BuildPlanStrategy&#38;quot&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;StackTrace&#58;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp&#40;IBuilderContext&#32;context&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.ObjectBuilder.NamedTypeDependencyResolverPolicy.Resolve&#40;IBuilderContext&#32;context&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;BuildUp_UnityTest.BinaryFileSaver&#40;IBuilderContext&#32;&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;InnerException&#58;&#32;System.InvalidOperationException&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Message&#61;&#38;quot&#59;The&#32;current&#32;type,&#32;UnityTest.IFileNameProvider,&#32;is&#32;an&#32;interface&#32;and&#32;cannot&#32;be&#32;constructed.&#32;Are&#32;you&#32;missing&#32;a&#32;type&#32;mapping&#63;&#38;quot&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Source&#61;&#38;quot&#59;Microsoft.Practices.ObjectBuilder2&#38;quot&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;StackTrace&#58;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForAttemptingToConstructInterface&#40;IBuilderContext&#32;context&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;BuildUp_UnityTest.IFileNameProvider&#40;IBuilderContext&#32;&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp&#40;IBuilderContext&#32;context&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp&#40;IBuilderContext&#32;context&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp&#40;IBuilderContext&#32;context&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;InnerException&#58;&#32;&#32;&#32;&#32;&#32;&#32;">
+        
+<p>Hi all,</p>
+<p>I have 2 interfaces, one has depedency of another. But when I use container to resolve it throws exception. Here is my code snip.</p>
+<div style="color:Black; background-color:White">
+<pre><span style="color:Blue">interface</span><span style="color:MediumTurquoise"> IFileNameProvider </span>{
+	<span style="color:Blue">string</span> GetFileName();
+}
+
+<span style="color:Blue">class</span><span style="color:MediumTurquoise"> RandonFileName : IFileNameProvider </span>{
+	<span style="color:Blue">public</span> <span style="color:Blue">string</span> GetFileName() {
+		<span style="color:Blue">return</span> <span style="color:#A31515">&quot;Random.txt&quot;</span>;
+	}
+}
+
+<span style="color:Blue">class</span><span style="color:MediumTurquoise"> SequentialFileName : IFileNameProvider </span>{
+	<span style="color:Blue">public</span> <span style="color:Blue">string</span> GetFileName() {
+		<span style="color:Blue">return</span> <span style="color:#A31515">&quot;Sequential.txt&quot;</span>;
+	}
+}
+</pre>
+<pre>Above are my first interface to provide file naming function.</pre>
+<pre><div style="color:Black; background-color:White"><pre><span style="color:Blue">interface</span><span style="color:MediumTurquoise"> IFileSaver </span>{
+	<span style="color:Blue">bool</span> SaveFile(<span style="color:Blue">string</span> content);
+
+	IFileNameProvider FileNameProvider {
+		<span style="color:Blue">get</span>;
+		<span style="color:Blue">set</span>;
+	}
+}
+
+<span style="color:Blue">class</span><span style="color:MediumTurquoise"> CsvFileSaver : IFileSaver </span>{
+	<span style="color:Blue">public</span> <span style="color:Blue">bool</span> SaveFile(<span style="color:Blue">string</span> content) {
+		<span style="color:Blue">string</span> filename = FileNameProvider.GetFileName();
+
+		<span style="color:Blue">return</span> <span style="color:Blue">true</span>;
+	}
+
+	[Dependency]
+	<span style="color:Blue">public</span> IFileNameProvider FileNameProvider {
+		<span style="color:Blue">get</span>;
+		<span style="color:Blue">set</span>;
+	}
+}
+
+<span style="color:Blue">class</span><span style="color:MediumTurquoise"> BinaryFileSaver : IFileSaver </span>{
+	<span style="color:Blue">public</span> <span style="color:Blue">bool</span> SaveFile(<span style="color:Blue">string</span> content) {
+		<span style="color:Blue">string</span> filename = FileNameProvider.GetFileName();
+		<span style="color:Blue">return</span> <span style="color:Blue">false</span>;
+	}
+
+	[Dependency]
+	<span style="color:Blue">public</span> IFileNameProvider FileNameProvider {
+		<span style="color:Blue">get</span>;
+		<span style="color:Blue">set</span>;
+	}
+}
+Above is my 2nd interface to do the actual file save job.</pre>
+<pre>&nbsp;</pre>
+<pre>In my main program, I have following code and there is no config file at all.</pre>
+<pre><div style="color:Black; background-color:White"><pre>	<span style="color:Blue">class</span><span style="color:MediumTurquoise"> Program </span>{
+		<span style="color:Blue">static</span> <span style="color:Blue">void</span> Main(<span style="color:Blue">string</span>[] args) {
+			IUnityContainer container = <span style="color:Blue">new</span> UnityContainer();
+			container.RegisterType&lt;IFileNameProvider, RandonFileName&gt;(<span style="color:#A31515">&quot;RandonName&quot;</span>);
+			container.RegisterType&lt;IFileNameProvider, SequentialFileName&gt;(<span style="color:#A31515">&quot;SequentialName&quot;</span>);
+			container.RegisterType&lt;IFileSaver, CsvFileSaver&gt;(<span style="color:#A31515">&quot;SaveCsv&quot;</span>);
+			container.RegisterType&lt;IFileSaver, BinaryFileSaver&gt;(<span style="color:#A31515">&quot;SaveBin&quot;</span>);
+
+			IFileSaver saver = container.Resolve&lt;IFileSaver&gt;(<span style="color:#A31515">&quot;SaveBin&quot;</span>);
+			saver.SaveFile(<span style="color:#A31515">&quot;text&quot;</span>);
+		}
+	}
+</pre>
+<pre>When I run the application I got exception like below. Anybody knows what is wrong?</pre>
+<pre>Microsoft.Practices.Unity.ResolutionFailedException was unhandled<br>&nbsp; Message=&quot;Resolution of the dependency failed, type = \&quot;UnityTest.IFileSaver\&quot;, name = \&quot;SaveBin\&quot;. Exception message is: The current build operation (build key Build Key[UnityTest.BinaryFileSaver, SaveBin]) failed: The value for the property \&quot;FileNameProvider\&quot; could not be resolved. (Strategy type BuildPlanStrategy, index 3)&quot;<br>&nbsp; Source=&quot;Microsoft.Practices.Unity&quot;<br>&nbsp; NameRequested=&quot;SaveBin&quot;<br>&nbsp; TypeRequested=&quot;IFileSaver&quot;<br>&nbsp; StackTrace:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, String name)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at Microsoft.Practices.Unity.UnityContainer.Resolve(Type t, String name)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at Microsoft.Practices.Unity.UnityContainerBase.Resolve[T](String name)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at UnityTest.Program.Main(String[] args) in C:\Temp\UnityTest\UnityTest\Program.cs:line 16<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at System.AppDomain._nExecuteAssembly(Assembly assembly, String[] args)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at System.AppDomain.ExecuteAssembly(String assemblyFile, Evidence assemblySecurity, String[] args)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at Microsoft.VisualStudio.HostingProcess.HostProc.RunUsersAssembly()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at System.Threading.ThreadHelper.ThreadStart_Context(Object state)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at System.Threading.ThreadHelper.ThreadStart()<br>&nbsp; InnerException: Microsoft.Practices.ObjectBuilder2.BuildFailedException<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Message=&quot;The current build operation (build key Build Key[UnityTest.BinaryFileSaver, SaveBin]) failed: The value for the property \&quot;FileNameProvider\&quot; could not be resolved. (Strategy type BuildPlanStrategy, index 3)&quot;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Source=&quot;Microsoft.Practices.ObjectBuilder2&quot;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BuildKey=&quot;Build Key[UnityTest.BinaryFileSaver, SaveBin]&quot;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ExecutingStrategyIndex=3<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ExecutingStrategyTypeName=&quot;BuildPlanStrategy&quot;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; StackTrace:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.Builder.BuildUp(IReadWriteLocator locator, ILifetimeContainer lifetime, IPolicyList policies, IStrategyChain strategies, Object buildKey, Object existing)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; InnerException: System.InvalidOperationException<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Message=&quot;The value for the property \&quot;FileNameProvider\&quot; could not be resolved.&quot;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Source=&quot;Microsoft.Practices.ObjectBuilder2&quot;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; StackTrace:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodPropertySetterStrategy.ThrowOnFailedPropertyValueResolution(Exception inner, String propertyName)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at BuildUp_UnityTest.BinaryFileSaver(IBuilderContext )<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; InnerException: Microsoft.Practices.ObjectBuilder2.BuildFailedException<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Message=&quot;The current build operation (build key Build Key[UnityTest.IFileNameProvider, null]) failed: The current type, UnityTest.IFileNameProvider, is an interface and cannot be constructed. Are you missing a type mapping? (Strategy type BuildPlanStrategy, index 3)&quot;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Source=&quot;Microsoft.Practices.ObjectBuilder2&quot;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BuildKey=&quot;Build Key[UnityTest.IFileNameProvider, null]&quot;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ExecutingStrategyIndex=3<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ExecutingStrategyTypeName=&quot;BuildPlanStrategy&quot;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; StackTrace:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at Microsoft.Practices.Unity.ObjectBuilder.NamedTypeDependencyResolverPolicy.Resolve(IBuilderContext context)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at BuildUp_UnityTest.BinaryFileSaver(IBuilderContext )<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; InnerException: System.InvalidOperationException<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Message=&quot;The current type, UnityTest.IFileNameProvider, is an interface and cannot be constructed. Are you missing a type mapping?&quot;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Source=&quot;Microsoft.Practices.ObjectBuilder2&quot;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; StackTrace:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForAttemptingToConstructInterface(IBuilderContext context)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at BuildUp_UnityTest.IFileNameProvider(IBuilderContext )<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; InnerException: <br></pre>
+</div>
+</pre>
+</div>
+</pre>
+</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_235852" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="236009">
+    <td id="PostDetailsCell_236009" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post236009"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/billkrat">billkrat</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/18/2009 12:44:44 PM" LocalTimeTicks="1253303084">Sep 18, 2009 at 12:44 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_236009" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="You&#32;only&#32;have&#32;named&#32;types&#32;registered&#32;so&#32;the&#32;dependency&#32;property&#32;cannot&#32;be&#32;resolved,&#32;i.e.&#32;you&#32;would&#32;need&#32;something&#32;as&#32;follows&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;container.RegisterType&#38;lt&#59;IFileNameProvider,&#32;RandonFileName&#38;gt&#59;&#40;&#41;&#59;&#32;I&#39;m&#32;just&#32;barely&#32;rolling&#32;up&#32;my&#32;sleeves&#32;on&#32;the&#32;latest&#32;drop&#32;&#40;so&#32;there&#32;may&#32;be&#32;yet&#32;a&#32;better&#32;way&#41;but&#32;you&#32;can&#32;do&#32;the&#32;following&#32;&#40;unit&#32;test&#32;passes&#41;&#32;using&#32;the&#32;latest&#32;drop&#32;&#40;Unity&#32;2.0&#41;&#58;&#32;&#91;TestMethod&#93;public&#32;void&#32;canUseNamedProperty&#40;&#41;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;container.RegisterType&#38;lt&#59;IFileNameProvider,&#32;RandonFileName&#38;gt&#59;&#40;&#38;quot&#59;RandonName&#38;quot&#59;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;container.RegisterType&#38;lt&#59;IFileNameProvider,&#32;SequentialFileName&#38;gt&#59;&#40;&#38;quot&#59;SequentialName&#38;quot&#59;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;container.RegisterType&#38;lt&#59;IFileSaver,&#32;CsvFileSaver&#38;gt&#59;&#40;&#38;quot&#59;SaveCsv&#38;quot&#59;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;container.RegisterType&#38;lt&#59;IFileSaver,&#32;BinaryFileSaver&#38;gt&#59;&#40;&#38;quot&#59;SaveBin&#38;quot&#59;,&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;new&#32;InjectionProperty&#40;&#38;quot&#59;FileNameProvider&#38;quot&#59;,&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;container.Resolve&#38;lt&#59;IFileNameProvider&#38;gt&#59;&#40;&#38;quot&#59;RandonName&#38;quot&#59;&#41;&#41;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;IFileSaver&#32;saver&#32;&#61;&#32;container.Resolve&#38;lt&#59;IFileSaver&#38;gt&#59;&#40;&#38;quot&#59;SaveBin&#38;quot&#59;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;saver.SaveFile&#40;&#38;quot&#59;text&#38;quot&#59;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Assert.AreEqual&#40;&#38;quot&#59;Random.txt&#38;quot&#59;,saver.FileNameProvider.GetFileName&#40;&#41;&#41;&#59;&#125;&#32;&#38;nbsp&#59;">
+        
+<p>You only have named types registered so the dependency property cannot be resolved, i.e. you would need something as follows:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<em>container.RegisterType&lt;IFileNameProvider, RandonFileName&gt;();</em></p>
+<p>I'm just barely rolling up my sleeves on the latest drop (so there may be yet a better way)<br>
+but you can do the following (unit test passes) using the latest drop (Unity 2.0):</p>
+<p>[TestMethod]<br>
+<span style="color:Blue">public</span> <span style="color:Blue">void</span> canUseNamedProperty()<br>
+{<br>
+&nbsp;&nbsp;&nbsp; IUnityContainer container = <span style="color:Blue">new</span> UnityContainer();<br>
+&nbsp;&nbsp;&nbsp; container.RegisterType&lt;IFileNameProvider, RandonFileName&gt;(<span style="color:#A31515">&quot;RandonName&quot;</span>);<br>
+&nbsp;&nbsp;&nbsp; container.RegisterType&lt;IFileNameProvider, SequentialFileName&gt;(<span style="color:#A31515">&quot;SequentialName&quot;</span>);<br>
+&nbsp;&nbsp;&nbsp; container.RegisterType&lt;IFileSaver, CsvFileSaver&gt;(<span style="color:#A31515">&quot;SaveCsv&quot;</span>);<br>
+&nbsp;&nbsp;&nbsp; container.RegisterType&lt;IFileSaver, BinaryFileSaver&gt;(<span style="color:#A31515">&quot;SaveBin&quot;</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:Blue">new</span> InjectionProperty(<span style="color:#A31515">&quot;FileNameProvider&quot;</span>,
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; container.Resolve&lt;IFileNameProvider&gt;(<span style="color:#A31515">&quot;RandonName&quot;</span>)));<br>
+<br>
+&nbsp;&nbsp;&nbsp; IFileSaver saver = container.Resolve&lt;IFileSaver&gt;(<span style="color:#A31515">&quot;SaveBin&quot;</span>);<br>
+&nbsp;&nbsp;&nbsp; saver.SaveFile(<span style="color:#A31515">&quot;text&quot;</span>);<br>
+&nbsp;&nbsp;&nbsp; Assert.AreEqual(<span style="color:#A31515">&quot;Random.txt&quot;</span>,saver.FileNameProvider.GetFileName());<br>
+}<br>
+<br>
+</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_236009" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="236053">
+    <td id="PostDetailsCell_236053" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post236053"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/hardywang">hardywang</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/18/2009 2:41:49 PM" LocalTimeTicks="1253310109">Sep 18, 2009 at 2:41 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_236053" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Thanks,&#32;That&#32;makes&#32;sense&#32;to&#32;me.">
+        
+<p>Thanks,</p>
+<p>That makes sense to me.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_236053" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f69326">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="ccc48762-db5f-4e1a-b449-05a7a2ce9902">
+    <script class="options" defer="defer" id="ccc48762-db5f-4e1a-b449-05a7a2ce9902" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_bef152bf-5bd8-4ea7-a3d0-3185f7f36ef3">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_ae98d8b2-1454-417e-9569-24219f6913ea">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_bef152bf-5bd8-4ea7-a3d0-3185f7f36ef3" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_ae98d8b2-1454-417e-9569-24219f6913ea" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/69326';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

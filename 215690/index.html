@@ -1,0 +1,977 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Resolve &#34;Policy enabled&#34; objects with Unity2</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/215690?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/215690?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="ibrGZhS3qhw4fD44TmgcOetuw5Wz5amow0DU5Ilg9UYv2xDlfgjxrliskh9685sRJN9ipn1SykN-mLNOyDH9xx0S8QMzHJ46sPJW18v57WtKA4-jAZy0BvWYplktrAB4r5e9tA2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2a9f0506f-0f02-4a9c-8eae-6b965f3ae034" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:27:24 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f215690" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="4a239588-5091-4c9f-8e60-abbf8c173be2">
+                
+                    <script class="options" defer="defer" id="4a239588-5091-4c9f-8e60-abbf8c173be2" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="1f992924-ab9b-4676-972b-6518e7926453">
+                
+                    <script class="options" defer="defer" id="1f992924-ab9b-4676-972b-6518e7926453" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Resolve &#34;Policy enabled&#34; objects with Unity2
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:215690]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="431b723a-82f3-4951-8a9f-45581e1d6714">
+    <script class="options" defer="defer" id="431b723a-82f3-4951-8a9f-45581e1d6714" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/215690","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="454292">
+    <td id="PostDetailsCell_454292" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post454292"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/marcusoft_net">marcusoft_net</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/11/2010 7:08:32 AM" LocalTimeTicks="1276265312">Jun 11, 2010 at 7:08 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="6/11/2010 7:12:32 AM" LocalTimeTicks="1276265552">Jun 11, 2010 at 7:12 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_454292" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hello,&#32;I&#32;want&#32;to&#32;mix&#32;configuration&#32;and&#32;code&#32;in&#32;a&#32;way&#32;that&#32;I&#32;cannot&#32;find&#32;the&#32;solution&#32;for.&#38;nbsp&#59;&#32;I&#39;m&#32;using&#32;Unity2.0&#32;and&#32;Enterprise&#32;Library&#32;5.&#32;I&#32;want&#32;to&#32;have&#32;the&#32;registration&#32;and&#32;resolving&#32;of&#32;my&#32;objects&#32;in&#32;code,&#32;but&#32;in&#32;a&#32;way&#32;that&#32;later&#32;on&#32;can&#32;add&#32;policies&#32;in&#32;the&#32;config&#32;file,&#32;so&#32;that&#32;I&#32;can&#32;change&#32;the&#32;behavior&#32;&#40;Logging,&#32;Tracing&#32;etc&#41;&#32;with&#32;the&#32;configuration,&#32;without&#32;having&#32;to&#32;recompile.&#32;The&#32;shorter&#32;description&#32;is&#59;&#32;I&#32;want&#32;to&#32;resolve&#32;objects&#32;so&#32;that&#32;they&#32;are&#32;&#38;amp&#59;quot&#59;Policy&#32;enabled&#38;amp&#59;quot&#59;,&#32;so&#32;that&#32;I&#32;later&#32;on&#32;can&#32;add&#32;policies&#32;in&#32;configuration&#32;that&#32;will&#32;be&#32;picked&#32;up&#32;by&#32;the&#32;resolved&#32;objects.&#32;Here&#32;is&#32;my&#32;stab&#32;at&#32;it....&#32;It&#32;resolves&#32;alright&#32;but&#32;the&#32;logging&#32;&#40;via&#32;polices&#41;&#32;doesn&#39;t&#32;happen.&#32;What&#32;is&#32;wrong&#63;&#32;&#32;using&#32;System&#59;&#32;using&#32;System.Collections&#59;&#32;using&#32;System.Collections.Generic&#59;&#32;using&#32;System.Data&#59;&#32;using&#32;System.Diagnostics&#59;&#32;static&#32;class&#32;Module1&#32;&#123;&#32;private&#32;static&#32;IUnityContainer&#32;_container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;public&#32;static&#32;void&#32;Main&#40;&#41;&#32;&#123;&#32;ConfigureUnity&#40;&#41;&#59;&#32;object&#32;m&#32;&#61;&#32;_container.Resolve&#38;lt&#59;IMarcus&#38;gt&#59;&#40;&#41;&#59;&#32;m.CallMe&#40;&#41;&#59;&#32;Console.WriteLine&#40;m.CallMeAgain&#40;&#41;&#41;&#59;&#32;Console.ReadLine&#40;&#41;&#59;&#32;&#125;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;I&#32;want&#32;to&#32;be&#32;able&#32;to&#32;add&#47;update&#47;change&#32;policies,&#32;matching&#32;rules&#32;and&#32;callhandlers&#32;&#47;&#47;&#47;&#32;in&#32;the&#32;configuration&#32;file&#32;without&#32;being&#32;forced&#32;to&#32;recompile&#32;&#47;&#47;&#47;&#32;&#32;&#47;&#47;&#47;&#32;So&#32;the&#32;following&#32;scenarios&#32;can&#32;be&#32;accomplished&#58;&#32;&#47;&#47;&#47;&#32;-&#32;add&#32;a&#32;performance&#32;counter&#32;call&#32;handler&#32;on&#32;a&#32;server&#32;to&#32;find&#32;problems&#32;&#47;&#47;&#47;&#32;-&#32;increase&#32;the&#32;level&#32;of&#32;logging&#32;information&#32;to&#32;find&#32;problems&#32;&#47;&#47;&#47;&#32;-&#32;etc.&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;remarks&#38;gt&#59;&#38;lt&#59;&#47;remarks&#38;gt&#59;&#32;private&#32;static&#32;void&#32;ConfigureUnity&#40;&#41;&#32;&#123;&#32;_container.AddNewExtension&#38;lt&#59;Interception&#38;gt&#59;&#40;&#41;&#59;&#32;_container.RegisterType&#38;lt&#59;IMarcus,&#32;Marcus&#38;gt&#59;&#40;new&#32;Interceptor&#38;lt&#59;InterfaceInterceptor&#38;gt&#59;&#40;&#41;,&#32;new&#32;InterceptionBehavior&#38;lt&#59;PolicyInjectionBehavior&#38;gt&#59;&#40;&#41;&#41;&#59;&#32;&#125;&#32;public&#32;class&#32;Marcus&#32;&#58;&#32;IMarcus&#32;&#123;&#32;public&#32;void&#32;CallMe&#40;&#41;&#32;&#123;&#32;&#125;&#32;public&#32;string&#32;CallMeAgain&#40;&#41;&#32;&#123;&#32;return&#32;&#38;quot&#59;CallMeAgain&#32;called&#38;quot&#59;&#59;&#32;&#125;&#32;&#125;&#32;public&#32;interface&#32;IMarcus&#32;&#123;&#32;void&#32;CallMe&#40;&#41;&#59;&#32;string&#32;CallMeAgain&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;And&#32;here&#32;is&#32;the&#32;configuration&#58;&#32;&#32;&#38;lt&#59;&#63;xml&#32;version&#61;&#38;quot&#59;1.0&#38;quot&#59;&#32;encoding&#61;&#38;quot&#59;utf-8&#38;quot&#59;&#32;&#63;&#38;gt&#59;&#32;&#38;lt&#59;configuration&#38;gt&#59;&#32;&#38;lt&#59;configSections&#38;gt&#59;&#32;&#38;lt&#59;section&#32;name&#61;&#38;quot&#59;loggingConfiguration&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LoggingSettings,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;null&#38;quot&#59;&#32;requirePermission&#61;&#38;quot&#59;true&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;section&#32;name&#61;&#38;quot&#59;policyInjection&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.PolicyInjectionSettings,&#32;Microsoft.Practices.EnterpriseLibrary.PolicyInjection,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;null&#38;quot&#59;&#32;requirePermission&#61;&#38;quot&#59;true&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;configSections&#38;gt&#59;&#32;&#38;lt&#59;loggingConfiguration&#32;name&#61;&#38;quot&#59;&#38;quot&#59;&#32;tracingEnabled&#61;&#38;quot&#59;true&#38;quot&#59;&#32;defaultCategory&#61;&#38;quot&#59;General&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;listeners&#38;gt&#59;&#32;&#38;lt&#59;add&#32;name&#61;&#38;quot&#59;Flat&#32;File&#32;Trace&#32;Listener&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.FlatFileTraceListener,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;null&#38;quot&#59;&#32;listenerDataType&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.FlatFileTraceListenerData,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;null&#38;quot&#59;&#32;fileName&#61;&#38;quot&#59;trace.log&#38;quot&#59;&#32;formatter&#61;&#38;quot&#59;Text&#32;Formatter&#38;quot&#59;&#32;traceOutputOptions&#61;&#38;quot&#59;DateTime,&#32;Timestamp,&#32;ProcessId&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;listeners&#38;gt&#59;&#32;&#38;lt&#59;formatters&#38;gt&#59;&#32;&#38;lt&#59;add&#32;type&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.TextFormatter,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;null&#38;quot&#59;&#32;template&#61;&#38;quot&#59;Timestamp&#58;&#32;&#123;timestamp&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;Message&#58;&#32;&#123;message&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;Category&#58;&#32;&#123;category&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;Priority&#58;&#32;&#123;priority&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;EventId&#58;&#32;&#123;eventid&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;Severity&#58;&#32;&#123;severity&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;Title&#58;&#123;title&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;Machine&#58;&#32;&#123;localMachine&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;App&#32;Domain&#58;&#32;&#123;localAppDomain&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;ProcessId&#58;&#32;&#123;localProcessId&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;Process&#32;Name&#58;&#32;&#123;localProcessName&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;Thread&#32;Name&#58;&#32;&#123;threadName&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;Win32&#32;ThreadId&#58;&#123;win32ThreadId&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;Extended&#32;Properties&#58;&#32;&#123;dictionary&#40;&#123;key&#125;&#32;-&#32;&#123;value&#125;&#123;newline&#125;&#41;&#125;&#38;quot&#59;&#32;name&#61;&#38;quot&#59;Text&#32;Formatter&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;formatters&#38;gt&#59;&#32;&#38;lt&#59;categorySources&#38;gt&#59;&#32;&#38;lt&#59;add&#32;switchValue&#61;&#38;quot&#59;All&#38;quot&#59;&#32;name&#61;&#38;quot&#59;General&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;listeners&#38;gt&#59;&#32;&#38;lt&#59;add&#32;name&#61;&#38;quot&#59;Flat&#32;File&#32;Trace&#32;Listener&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;listeners&#38;gt&#59;&#32;&#38;lt&#59;&#47;add&#38;gt&#59;&#32;&#38;lt&#59;&#47;categorySources&#38;gt&#59;&#32;&#38;lt&#59;specialSources&#38;gt&#59;&#32;&#38;lt&#59;allEvents&#32;switchValue&#61;&#38;quot&#59;All&#38;quot&#59;&#32;name&#61;&#38;quot&#59;All&#32;Events&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;notProcessed&#32;switchValue&#61;&#38;quot&#59;All&#38;quot&#59;&#32;name&#61;&#38;quot&#59;Unprocessed&#32;Category&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;errors&#32;switchValue&#61;&#38;quot&#59;All&#38;quot&#59;&#32;name&#61;&#38;quot&#59;Logging&#32;Errors&#32;&#38;amp&#59;amp&#59;&#32;Warnings&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;listeners&#38;gt&#59;&#32;&#38;lt&#59;add&#32;name&#61;&#38;quot&#59;Flat&#32;File&#32;Trace&#32;Listener&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;listeners&#38;gt&#59;&#32;&#38;lt&#59;&#47;errors&#38;gt&#59;&#32;&#38;lt&#59;&#47;specialSources&#38;gt&#59;&#32;&#38;lt&#59;&#47;loggingConfiguration&#38;gt&#59;&#32;&#38;lt&#59;policyInjection&#38;gt&#59;&#32;&#38;lt&#59;policies&#38;gt&#59;&#32;&#38;lt&#59;add&#32;name&#61;&#38;quot&#59;DemoPolicy&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;matchingRules&#38;gt&#59;&#32;&#38;lt&#59;add&#32;type&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.PolicyInjection.MatchingRules.TypeMatchingRule,&#32;Microsoft.Practices.EnterpriseLibrary.PolicyInjection,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;null&#38;quot&#59;&#32;name&#61;&#38;quot&#59;InterfaceMatchingRule&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;matches&#38;gt&#59;&#32;&#38;lt&#59;add&#32;match&#61;&#38;quot&#59;IMarcus&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;matches&#38;gt&#59;&#32;&#38;lt&#59;&#47;add&#38;gt&#59;&#32;&#38;lt&#59;&#47;matchingRules&#38;gt&#59;&#32;&#38;lt&#59;handlers&#38;gt&#59;&#32;&#38;lt&#59;add&#32;type&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.Logging.PolicyInjection.LogCallHandler,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;null&#38;quot&#59;&#32;name&#61;&#38;quot&#59;LoggingCallHandler&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;categories&#38;gt&#59;&#32;&#38;lt&#59;add&#32;name&#61;&#38;quot&#59;General&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;categories&#38;gt&#59;&#32;&#38;lt&#59;&#47;add&#38;gt&#59;&#32;&#38;lt&#59;&#47;handlers&#38;gt&#59;&#32;&#38;lt&#59;&#47;add&#38;gt&#59;&#32;&#38;lt&#59;&#47;policies&#38;gt&#59;&#32;&#38;lt&#59;&#47;policyInjection&#38;gt&#59;&#32;&#38;lt&#59;&#47;configuration&#38;gt&#59;&#32;&#32;&#32;&#38;nbsp&#59;">
+        
+<p>Hello,</p>
+<p>I want to mix configuration and code in a way that I cannot find the solution for.&nbsp; I'm using Unity2.0 and Enterprise Library 5.</p>
+<p>I want to have the registration and resolving of my objects in code, but in a way that later on can add policies in the config file, so that I can change the behavior (Logging, Tracing etc) with the configuration, without having to recompile.</p>
+<p>The shorter description is; I want to resolve objects so that they are &amp;quot;Policy enabled&amp;quot;, so that I later on can add policies in configuration that will be picked up by the resolved objects.</p>
+<p>Here is my stab at it.... It resolves alright but the logging (via polices) doesn't happen. What is wrong?</p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">using</span> System;
+<span style="color:blue">using</span> System.Collections;
+<span style="color:blue">using</span> System.Collections.Generic;
+<span style="color:blue">using</span> System.Data;
+<span style="color:blue">using</span> System.Diagnostics;
+<span style="color:blue">static</span> <span style="color:blue">class</span> Module1
+{
+
+
+	<span style="color:blue">private</span> <span style="color:blue">static</span> IUnityContainer _container = <span style="color:blue">new</span> UnityContainer();
+	<span style="color:blue">public</span> <span style="color:blue">static</span> <span style="color:blue">void</span> Main()
+	{
+		ConfigureUnity();
+
+		<span style="color:blue">object</span> m = _container.Resolve&lt;IMarcus&gt;();
+
+		m.CallMe();
+		Console.WriteLine(m.CallMeAgain());
+		Console.ReadLine();
+	}
+
+	<span style="color:gray">///</span> <span style="color:gray">&lt;summary&gt;</span>
+	<span style="color:gray">///</span><span style="color:green"> I want to be able to add/update/change policies, matching rules and callhandlers</span>
+	<span style="color:gray">///</span><span style="color:green"> in the configuration file without being forced to recompile</span>
+	<span style="color:gray">///</span><span style="color:green"> </span>
+	<span style="color:gray">///</span><span style="color:green"> So the following scenarios can be accomplished:</span>
+	<span style="color:gray">///</span><span style="color:green">    - add a performance counter call handler on a server to find problems</span>
+	<span style="color:gray">///</span><span style="color:green">    - increase the level of logging information to find problems</span>
+	<span style="color:gray">///</span><span style="color:green">    - etc.</span>
+	<span style="color:gray">///</span> <span style="color:gray">&lt;/summary&gt;</span>
+	<span style="color:gray">///</span> <span style="color:gray">&lt;remarks&gt;</span><span style="color:gray">&lt;/remarks&gt;</span>
+	<span style="color:blue">private</span> <span style="color:blue">static</span> <span style="color:blue">void</span> ConfigureUnity()
+	{
+		_container.AddNewExtension&lt;Interception&gt;();
+
+		_container.RegisterType&lt;IMarcus, Marcus&gt;(<span style="color:blue">new</span> Interceptor&lt;InterfaceInterceptor&gt;(), <span style="color:blue">new</span> InterceptionBehavior&lt;PolicyInjectionBehavior&gt;());
+	}
+
+
+	<span style="color:blue">public</span> <span style="color:blue">class</span> Marcus : IMarcus
+	{
+
+		<span style="color:blue">public</span> <span style="color:blue">void</span> CallMe()
+		{
+		}
+		<span style="color:blue">public</span> <span style="color:blue">string</span> CallMeAgain()
+		{
+			<span style="color:blue">return</span> <span style="color:#a31515">&quot;CallMeAgain called&quot;</span>;
+		}
+	}
+
+	<span style="color:blue">public</span> <span style="color:blue">interface</span> IMarcus
+	{
+		<span style="color:blue">void</span> CallMe();
+		<span style="color:blue">string</span> CallMeAgain();
+	}
+
+}
+</pre>
+</div>
+<p>And here is the configuration:</p>
+<div style="color:black; background-color:white">
+<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+<span style="color:blue">&lt;</span><span style="color:#a31515">configuration</span><span style="color:blue">&gt;</span>
+	<span style="color:blue">&lt;</span><span style="color:#a31515">configSections</span><span style="color:blue">&gt;</span>
+		<span style="color:blue">&lt;</span><span style="color:#a31515">section</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:blue">&quot;loggingConfiguration&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:blue">&quot;Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LoggingSettings, Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=null&quot;</span> <span style="color:red">requirePermission</span><span style="color:blue">=</span><span style="color:blue">&quot;true&quot;</span> <span style="color:blue">/&gt;</span>
+		<span style="color:blue">&lt;</span><span style="color:#a31515">section</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:blue">&quot;policyInjection&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:blue">&quot;Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.PolicyInjectionSettings, Microsoft.Practices.EnterpriseLibrary.PolicyInjection, Version=5.0.414.0, Culture=neutral, PublicKeyToken=null&quot;</span> <span style="color:red">requirePermission</span><span style="color:blue">=</span><span style="color:blue">&quot;true&quot;</span> <span style="color:blue">/&gt;</span>
+	<span style="color:blue">&lt;/</span><span style="color:#a31515">configSections</span><span style="color:blue">&gt;</span>
+	<span style="color:blue">&lt;</span><span style="color:#a31515">loggingConfiguration</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:blue">&quot;&quot; tracingEnabled=&quot;true&quot;</span> <span style="color:red">defaultCategory</span><span style="color:blue">=</span><span style="color:blue">&quot;General&quot;</span><span style="color:blue">&gt;</span>
+		<span style="color:blue">&lt;</span><span style="color:#a31515">listeners</span><span style="color:blue">&gt;</span>
+			<span style="color:blue">&lt;</span><span style="color:#a31515">add</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:blue">&quot;Flat File Trace Listener&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:blue">&quot;Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.FlatFileTraceListener, Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=null&quot;</span>
+                <span style="color:red">listenerDataType</span><span style="color:blue">=</span><span style="color:blue">&quot;Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.FlatFileTraceListenerData, Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=null&quot;</span>
+                <span style="color:red">fileName</span><span style="color:blue">=</span><span style="color:blue">&quot;trace.log&quot;</span> <span style="color:red">formatter</span><span style="color:blue">=</span><span style="color:blue">&quot;Text Formatter&quot;</span> <span style="color:red">traceOutputOptions</span><span style="color:blue">=</span><span style="color:blue">&quot;DateTime, Timestamp, ProcessId&quot;</span> <span style="color:blue">/&gt;</span>
+		<span style="color:blue">&lt;/</span><span style="color:#a31515">listeners</span><span style="color:blue">&gt;</span>
+		<span style="color:blue">&lt;</span><span style="color:#a31515">formatters</span><span style="color:blue">&gt;</span>
+			<span style="color:blue">&lt;</span><span style="color:#a31515">add</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:blue">&quot;Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.TextFormatter, Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=null&quot;</span>
+                <span style="color:red">template</span><span style="color:blue">=</span><span style="color:blue">&quot;Timestamp: {timestamp}{newline}&amp;#xA;Message: {message}{newline}&amp;#xA;Category: {category}{newline}&amp;#xA;Priority: {priority}{newline}&amp;#xA;EventId: {eventid}{newline}&amp;#xA;Severity: {severity}{newline}&amp;#xA;Title:{title}{newline}&amp;#xA;Machine: {localMachine}{newline}&amp;#xA;App Domain: {localAppDomain}{newline}&amp;#xA;ProcessId: {localProcessId}{newline}&amp;#xA;Process Name: {localProcessName}{newline}&amp;#xA;Thread Name: {threadName}{newline}&amp;#xA;Win32 ThreadId:{win32ThreadId}{newline}&amp;#xA;Extended Properties: {dictionary({key} - {value}{newline})}&quot;</span>
+                <span style="color:red">name</span><span style="color:blue">=</span><span style="color:blue">&quot;Text Formatter&quot;</span> <span style="color:blue">/&gt;</span>
+		<span style="color:blue">&lt;/</span><span style="color:#a31515">formatters</span><span style="color:blue">&gt;</span>
+		<span style="color:blue">&lt;</span><span style="color:#a31515">categorySources</span><span style="color:blue">&gt;</span>
+			<span style="color:blue">&lt;</span><span style="color:#a31515">add</span> <span style="color:red">switchValue</span><span style="color:blue">=</span><span style="color:blue">&quot;All&quot;</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:blue">&quot;General&quot;</span><span style="color:blue">&gt;</span>
+				<span style="color:blue">&lt;</span><span style="color:#a31515">listeners</span><span style="color:blue">&gt;</span>
+					<span style="color:blue">&lt;</span><span style="color:#a31515">add</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:blue">&quot;Flat File Trace Listener&quot;</span> <span style="color:blue">/&gt;</span>
+				<span style="color:blue">&lt;/</span><span style="color:#a31515">listeners</span><span style="color:blue">&gt;</span>
+			<span style="color:blue">&lt;/</span><span style="color:#a31515">add</span><span style="color:blue">&gt;</span>
+		<span style="color:blue">&lt;/</span><span style="color:#a31515">categorySources</span><span style="color:blue">&gt;</span>
+		<span style="color:blue">&lt;</span><span style="color:#a31515">specialSources</span><span style="color:blue">&gt;</span>
+			<span style="color:blue">&lt;</span><span style="color:#a31515">allEvents</span> <span style="color:red">switchValue</span><span style="color:blue">=</span><span style="color:blue">&quot;All&quot;</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:blue">&quot;All Events&quot;</span> <span style="color:blue">/&gt;</span>
+			<span style="color:blue">&lt;</span><span style="color:#a31515">notProcessed</span> <span style="color:red">switchValue</span><span style="color:blue">=</span><span style="color:blue">&quot;All&quot;</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:blue">&quot;Unprocessed Category&quot;</span> <span style="color:blue">/&gt;</span>
+			<span style="color:blue">&lt;</span><span style="color:#a31515">errors</span> <span style="color:red">switchValue</span><span style="color:blue">=</span><span style="color:blue">&quot;All&quot;</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:blue">&quot;Logging Errors &amp;amp; Warnings&quot;</span><span style="color:blue">&gt;</span>
+				<span style="color:blue">&lt;</span><span style="color:#a31515">listeners</span><span style="color:blue">&gt;</span>
+					<span style="color:blue">&lt;</span><span style="color:#a31515">add</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:blue">&quot;Flat File Trace Listener&quot;</span> <span style="color:blue">/&gt;</span>
+				<span style="color:blue">&lt;/</span><span style="color:#a31515">listeners</span><span style="color:blue">&gt;</span>
+			<span style="color:blue">&lt;/</span><span style="color:#a31515">errors</span><span style="color:blue">&gt;</span>
+		<span style="color:blue">&lt;/</span><span style="color:#a31515">specialSources</span><span style="color:blue">&gt;</span>
+	<span style="color:blue">&lt;/</span><span style="color:#a31515">loggingConfiguration</span><span style="color:blue">&gt;</span>
+
+	<span style="color:blue">&lt;</span><span style="color:#a31515">policyInjection</span><span style="color:blue">&gt;</span>
+		<span style="color:blue">&lt;</span><span style="color:#a31515">policies</span><span style="color:blue">&gt;</span>
+			<span style="color:blue">&lt;</span><span style="color:#a31515">add</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:blue">&quot;DemoPolicy&quot;</span><span style="color:blue">&gt;</span>
+				<span style="color:blue">&lt;</span><span style="color:#a31515">matchingRules</span><span style="color:blue">&gt;</span>
+					<span style="color:blue">&lt;</span><span style="color:#a31515">add</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:blue">&quot;Microsoft.Practices.EnterpriseLibrary.PolicyInjection.MatchingRules.TypeMatchingRule, Microsoft.Practices.EnterpriseLibrary.PolicyInjection, Version=5.0.414.0, Culture=neutral, PublicKeyToken=null&quot;</span>
+                        <span style="color:red">name</span><span style="color:blue">=</span><span style="color:blue">&quot;InterfaceMatchingRule&quot;</span><span style="color:blue">&gt;</span>
+						<span style="color:blue">&lt;</span><span style="color:#a31515">matches</span><span style="color:blue">&gt;</span>
+							<span style="color:blue">&lt;</span><span style="color:#a31515">add</span> <span style="color:red">match</span><span style="color:blue">=</span><span style="color:blue">&quot;IMarcus&quot;</span> <span style="color:blue">/&gt;</span>
+						<span style="color:blue">&lt;/</span><span style="color:#a31515">matches</span><span style="color:blue">&gt;</span>
+					<span style="color:blue">&lt;/</span><span style="color:#a31515">add</span><span style="color:blue">&gt;</span>
+				<span style="color:blue">&lt;/</span><span style="color:#a31515">matchingRules</span><span style="color:blue">&gt;</span>
+				<span style="color:blue">&lt;</span><span style="color:#a31515">handlers</span><span style="color:blue">&gt;</span>
+					<span style="color:blue">&lt;</span><span style="color:#a31515">add</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:blue">&quot;Microsoft.Practices.EnterpriseLibrary.Logging.PolicyInjection.LogCallHandler, Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=null&quot;</span>
+                        <span style="color:red">name</span><span style="color:blue">=</span><span style="color:blue">&quot;LoggingCallHandler&quot;</span><span style="color:blue">&gt;</span>
+						<span style="color:blue">&lt;</span><span style="color:#a31515">categories</span><span style="color:blue">&gt;</span>
+							<span style="color:blue">&lt;</span><span style="color:#a31515">add</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:blue">&quot;General&quot;</span> <span style="color:blue">/&gt;</span>
+						<span style="color:blue">&lt;/</span><span style="color:#a31515">categories</span><span style="color:blue">&gt;</span>
+					<span style="color:blue">&lt;/</span><span style="color:#a31515">add</span><span style="color:blue">&gt;</span>
+				<span style="color:blue">&lt;/</span><span style="color:#a31515">handlers</span><span style="color:blue">&gt;</span>
+			<span style="color:blue">&lt;/</span><span style="color:#a31515">add</span><span style="color:blue">&gt;</span>
+		<span style="color:blue">&lt;/</span><span style="color:#a31515">policies</span><span style="color:blue">&gt;</span>
+	<span style="color:blue">&lt;/</span><span style="color:#a31515">policyInjection</span><span style="color:blue">&gt;</span>
+<span style="color:blue">&lt;/</span><span style="color:#a31515">configuration</span><span style="color:blue">&gt;</span>
+
+</pre>
+</div>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_454292" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="454327">
+    <td id="PostDetailsCell_454327" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post454327"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/11/2010 9:11:56 AM" LocalTimeTicks="1276272716">Jun 11, 2010 at 9:11 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="6/11/2010 9:36:12 AM" LocalTimeTicks="1276274172">Jun 11, 2010 at 9:36 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_454327" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Try&#32;a&#65279;dd&#65279;&#65279;&#65279;&#65279;i&#65279;n&#65279;g&#65279;&#65279;&#65279;&#65279;&#65279;&#65279;&#32;&#65279;the&#32;EnterpriseLibraryCoreExtension&#32;to&#32;your&#32;container.&#38;nbsp&#59;&#32;Your&#32;posted&#32;code&#32;also&#32;resolves&#32;an&#32;IMarcus&#32;interface&#32;and&#32;assigning&#32;it&#32;to&#32;an&#32;object.&#38;nbsp&#59;&#32;I&#32;assume&#32;that&#39;s&#32;just&#32;a&#32;typo&#32;since&#32;it&#32;will&#32;generate&#32;a&#32;compile&#32;error&#32;on&#32;your&#32;end&#32;if&#32;it&#32;isn&#39;t&#32;an&#32;IMarcus.&#32;Sarah&#32;UrmenetaGlobal&#32;Technology&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>Try a<span id="_mce_start" style="line-height:0">&#65279;</span>dd<span id="_mce_start" style="line-height:0">&#65279;</span><span id="_mce_start" style="line-height:0">&#65279;</span><span id="_mce_start" style="line-height:0">&#65279;</span><span id="_mce_start" style="line-height:0">&#65279;</span>i<span id="_mce_start" style="line-height:0">&#65279;</span>n<span id="_mce_start" style="line-height:0">&#65279;</span>g<span id="_mce_start" style="line-height:0">&#65279;<span id="_mce_start" style="line-height:0">&#65279;</span><span id="_mce_start" style="line-height:0">&#65279;</span><span id="_mce_start" style="line-height:0">&#65279;</span><span id="_mce_start" style="line-height:0">&#65279;</span><span id="_mce_start" style="line-height:0">&#65279;</span></span>
+<span id="_mce_start" style="line-height:0">&#65279;</span>the EnterpriseLibraryCoreExtension to your container.&nbsp;</p>
+<p>Your posted code also resolves an IMarcus interface and assigning it to an object.&nbsp; I assume that's just a typo since it will generate a compile error on your end if it isn't an IMarcus.</p>
+<p><span><strong><em>Sarah Urmeneta</em></strong><br>
+Global Technology and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow"><span style="color:#3e62a6">entlib.support@avanade.com</span></a></span></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_454327" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="454347">
+    <td id="PostDetailsCell_454347" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post454347"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/marcusoft_net">marcusoft_net</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/11/2010 10:13:52 AM" LocalTimeTicks="1276276432">Jun 11, 2010 at 10:13 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="6/11/2010 10:25:51 AM" LocalTimeTicks="1276277151">Jun 11, 2010 at 10:25 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_454347" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hello,&#32;that&#32;looks&#32;very&#32;promising...&#32;The&#32;resolving&#32;process&#32;was&#32;halted&#32;since&#32;I&#32;was&#32;missing&#32;a&#32;reference&#32;to&#32;Microsoft.Practices.EnterpriseLibarary.Logging&#32;in&#32;my&#32;project.&#32;Great&#33;&#32;That&#32;means&#32;that&#32;it&#39;s&#32;picking&#32;up&#32;my&#32;configuration.&#32;But...&#32;when&#32;that&#32;reference&#32;was&#32;added&#32;&#40;and&#32;the&#32;reference&#32;to&#32;Microsoft.Practices.EnterpriseLibrary.Common&#32;where&#32;EnterpriseLibraryCoreExtension&#32;is&#32;located&#41;&#32;it&#32;still&#32;doesn&#39;t&#32;work.&#32;Deep&#32;from&#32;the&#32;bellows&#32;of&#32;EntLib&#32;&#40;in&#32;Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Unity.ReaderWriterLockExtension,&#32;in&#32;the&#32;inlined&#32;class&#58;&#32;ReaderWriterLockCompensator&#32;in&#32;the&#32;Recover-method&#41;&#32;I&#32;get&#32;an&#32;exception&#32;&#38;quot&#59;The&#32;read&#32;lock&#32;is&#32;being&#32;released&#32;without&#32;being&#32;held.&#38;quot&#59;&#32;Am&#32;I&#32;missing&#32;something&#63;">
+        
+<p>Hello, that looks very promising...</p>
+<p>The resolving process was halted since I was missing a reference to Microsoft.Practices.EnterpriseLibarary.Logging in my project. Great!</p>
+<p>That means that it's picking up my configuration.</p>
+<p>But... when that reference was added (and the reference to Microsoft.Practices.EnterpriseLibrary.Common where EnterpriseLibraryCoreExtension is located)
+<br>
+it still doesn't work. Deep from the bellows of EntLib (in Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Unity.ReaderWriterLockExtension,
+<br>
+in the inlined class: ReaderWriterLockCompensator in the Recover-method) I get an exception
+<strong>&quot;The read lock is being released without being held.&quot; </strong>
+<br>
+<br>
+Am I missing something?</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_454347" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="454348">
+    <td id="PostDetailsCell_454348" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post454348"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/marcusoft_net">marcusoft_net</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/11/2010 10:18:31 AM" LocalTimeTicks="1276276711">Jun 11, 2010 at 10:18 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="6/11/2010 10:26:15 AM" LocalTimeTicks="1276277175">Jun 11, 2010 at 10:26 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_454348" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Ahhh&#32;-&#32;saw&#32;the&#32;note&#32;here&#32;&#40;http&#58;&#47;&#47;msdn.microsoft.com&#47;en-us&#47;library&#47;ff650299.aspx&#41;&#32;just&#32;now...&#32;Add&#32;the&#32;EnterpriseLibraryCoreExtension&#32;before&#32;any&#32;other&#32;extensions.&#32;I&#39;ll&#32;try&#32;that">
+        
+<p>Ahhh - saw the note here (http://msdn.microsoft.com/en-us/library/ff650299.aspx) just now...
+<br>
+Add the EnterpriseLibraryCoreExtension <strong>before</strong> any other extensions. I'll try that</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_454348" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="454353">
+    <td id="PostDetailsCell_454353" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post454353"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/marcusoft_net">marcusoft_net</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/11/2010 10:35:10 AM" LocalTimeTicks="1276277710">Jun 11, 2010 at 10:35 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="6/11/2010 10:47:27 AM" LocalTimeTicks="1276278447">Jun 11, 2010 at 10:47 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_454353" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="YES&#33;&#32;That&#32;did&#32;the&#32;trick&#33;&#32;Although&#32;I&#32;had&#32;some&#32;problems&#32;with&#32;an&#32;exception&#32;concering&#32;my&#32;resolved&#32;proxy&#32;&#38;quot&#59;is&#32;attempting&#32;to&#32;implement&#32;an&#32;inaccessible&#32;interface.&#38;quot&#59;&#63;But&#32;that&#32;had&#32;to&#32;do&#32;with&#32;me&#32;writing&#32;the&#32;interface&#32;inside&#32;the&#32;Module1-class&#32;above.&#32;When&#32;I&#32;moved&#38;nbsp&#59;the&#32;interface&#32;and&#32;it&#39;s&#32;implementer&#38;nbsp&#59;to&#32;a&#32;class&#32;of&#32;it&#39;s&#32;own&#32;everything&#32;worked.&#32;Thank&#32;you&#32;Sarah&#33;&#32;Here&#32;is&#32;my&#32;complete&#32;example&#32;&#40;the&#32;.config-file&#32;has&#32;not&#32;changed&#32;from&#32;above&#41;&#58;&#32;&#32;using&#32;System&#59;&#32;using&#32;System.Collections&#59;&#32;using&#32;System.Collections.Generic&#59;&#32;using&#32;System.Data&#59;&#32;using&#32;System.Diagnostics&#59;&#32;using&#32;Microsoft.Practices.Unity&#59;&#32;using&#32;Microsoft.Practices.Unity.InterceptionExtension&#59;&#32;using&#32;Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Unity&#59;&#32;static&#32;class&#32;Module1&#32;&#123;&#32;private&#32;static&#32;IUnityContainer&#32;_container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;public&#32;static&#32;void&#32;Main&#40;&#41;&#32;&#123;&#32;ConfigureUnity&#40;&#41;&#59;&#32;object&#32;m&#32;&#61;&#32;_container.Resolve&#38;lt&#59;IMarcus&#38;gt&#59;&#40;&#41;&#59;&#32;m.CallMe&#40;&#41;&#59;&#32;Console.WriteLine&#40;m.CallMeAgain&#40;&#41;&#41;&#59;&#32;Console.ReadLine&#40;&#41;&#59;&#32;&#125;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;I&#32;want&#32;to&#32;be&#32;able&#32;to&#32;add&#47;update&#47;change&#32;policies,&#32;matching&#32;rules&#32;and&#32;callhandlers&#32;&#47;&#47;&#47;&#32;in&#32;the&#32;configuration&#32;file&#32;without&#32;being&#32;forced&#32;to&#32;recompile&#32;&#47;&#47;&#47;&#32;&#32;&#47;&#47;&#47;&#32;So&#32;the&#32;following&#32;scenarios&#32;can&#32;be&#32;accomplished&#58;&#32;&#47;&#47;&#47;&#32;-&#32;add&#32;a&#32;performance&#32;counter&#32;call&#32;handler&#32;on&#32;a&#32;server&#32;to&#32;find&#32;problems&#32;&#47;&#47;&#47;&#32;-&#32;increase&#32;the&#32;level&#32;of&#32;logging&#32;information&#32;to&#32;find&#32;problems&#32;&#47;&#47;&#47;&#32;-&#32;etc.&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;remarks&#38;gt&#59;&#38;lt&#59;&#47;remarks&#38;gt&#59;&#32;private&#32;static&#32;void&#32;ConfigureUnity&#40;&#41;&#32;&#123;&#32;_container.AddNewExtension&#38;lt&#59;EnterpriseLibraryCoreExtension&#38;gt&#59;&#40;&#41;&#59;&#32;_container.AddNewExtension&#38;lt&#59;Interception&#38;gt&#59;&#40;&#41;&#59;&#32;_container.RegisterType&#38;lt&#59;IMarcus,&#32;Marcus&#38;gt&#59;&#40;new&#32;Interceptor&#38;lt&#59;InterfaceInterceptor&#38;gt&#59;&#40;&#41;,&#32;new&#32;InterceptionBehavior&#38;lt&#59;PolicyInjectionBehavior&#38;gt&#59;&#40;&#41;&#41;&#59;&#32;&#125;&#32;&#125;&#32;public&#32;interface&#32;IMarcus&#32;&#123;&#32;void&#32;CallMe&#40;&#41;&#59;&#32;string&#32;CallMeAgain&#40;&#41;&#59;&#32;&#125;&#32;public&#32;class&#32;Marcus&#32;&#58;&#32;IMarcus&#32;&#123;&#32;public&#32;void&#32;CallMe&#40;&#41;&#32;&#123;&#32;&#125;&#32;public&#32;string&#32;CallMeAgain&#40;&#41;&#32;&#123;&#32;return&#32;&#38;quot&#59;CallMeAgain&#32;called&#38;quot&#59;&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;&#38;nbsp&#59;">
+        
+<p>YES!</p>
+<p>That did the trick!</p>
+<p>Although I had some problems with an exception concering my resolved proxy &quot;<span style="word-spacing:0px; font:16px 'Times New Roman'; text-transform:none; color:#000000; text-indent:0px; white-space:normal; letter-spacing:normal; border-collapse:separate"><span style="font-size:13px; color:#333333; line-height:16px; font-family:'Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif; text-align:left">is
+ attempting to implement an inaccessible interface.</span></span>&quot;?<br>
+But that had to do with me writing the interface inside the Module1-class above. When I moved&nbsp;the interface and it's implementer&nbsp;to a class of it's own everything worked.</p>
+<p>Thank you Sarah!</p>
+<p>Here is my complete example (the .config-file has not changed from above):</p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">using</span> System;
+<span style="color:blue">using</span> System.Collections;
+<span style="color:blue">using</span> System.Collections.Generic;
+<span style="color:blue">using</span> System.Data;
+<span style="color:blue">using</span> System.Diagnostics;
+<span style="color:blue">using</span> Microsoft.Practices.Unity;
+<span style="color:blue">using</span> Microsoft.Practices.Unity.InterceptionExtension;
+<span style="color:blue">using</span> Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Unity;
+
+<span style="color:blue">static</span> <span style="color:blue">class</span> Module1
+{
+
+
+	<span style="color:blue">private</span> <span style="color:blue">static</span> IUnityContainer _container = <span style="color:blue">new</span> UnityContainer();
+	<span style="color:blue">public</span> <span style="color:blue">static</span> <span style="color:blue">void</span> Main()
+	{
+		ConfigureUnity();
+
+		<span style="color:blue">object</span> m = _container.Resolve&lt;IMarcus&gt;();
+
+		m.CallMe();
+		Console.WriteLine(m.CallMeAgain());
+		Console.ReadLine();
+	}
+
+	<span style="color:gray">///</span> <span style="color:gray">&lt;summary&gt;</span>
+	<span style="color:gray">///</span><span style="color:green"> I want to be able to add/update/change policies, matching rules and callhandlers</span>
+	<span style="color:gray">///</span><span style="color:green"> in the configuration file without being forced to recompile</span>
+	<span style="color:gray">///</span><span style="color:green"> </span>
+	<span style="color:gray">///</span><span style="color:green"> So the following scenarios can be accomplished:</span>
+	<span style="color:gray">///</span><span style="color:green">    - add a performance counter call handler on a server to find problems</span>
+	<span style="color:gray">///</span><span style="color:green">    - increase the level of logging information to find problems</span>
+	<span style="color:gray">///</span><span style="color:green">    - etc.</span>
+	<span style="color:gray">///</span> <span style="color:gray">&lt;/summary&gt;</span>
+	<span style="color:gray">///</span> <span style="color:gray">&lt;remarks&gt;</span><span style="color:gray">&lt;/remarks&gt;</span>
+	<span style="color:blue">private</span> <span style="color:blue">static</span> <span style="color:blue">void</span> ConfigureUnity()
+	{
+		<strong>_container.AddNewExtension&lt;EnterpriseLibraryCoreExtension&gt;();</strong>
+		_container.AddNewExtension&lt;Interception&gt;();
+
+		_container.RegisterType&lt;IMarcus, Marcus&gt;(<span style="color:blue">new</span> Interceptor&lt;InterfaceInterceptor&gt;(), <span style="color:blue">new</span> InterceptionBehavior&lt;PolicyInjectionBehavior&gt;());
+	}
+
+}
+
+<span style="color:blue">public</span> <span style="color:blue">interface</span> IMarcus
+{
+	<span style="color:blue">void</span> CallMe();
+	<span style="color:blue">string</span> CallMeAgain();
+}
+
+<span style="color:blue">public</span> <span style="color:blue">class</span> Marcus : IMarcus
+{
+
+	<span style="color:blue">public</span> <span style="color:blue">void</span> CallMe()
+	{
+	}
+	<span style="color:blue">public</span> <span style="color:blue">string</span> CallMeAgain()
+	{
+		<span style="color:blue">return</span> <span style="color:#a31515">&quot;CallMeAgain called&quot;</span>;
+	}
+}
+
+</pre>
+</div>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_454353" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f215690">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="f05861fc-50de-4afe-9344-56cb8c7ec4bb">
+    <script class="options" defer="defer" id="f05861fc-50de-4afe-9344-56cb8c7ec4bb" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_c8612e64-cc7b-4e74-9ee2-8c256c0d4fd0">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_82d479a7-b48a-46ae-87ba-d69cb29a0c00">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_c8612e64-cc7b-4e74-9ee2-8c256c0d4fd0" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_82d479a7-b48a-46ae-87ba-d69cb29a0c00" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/215690';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

@@ -1,0 +1,870 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - fail regist the instance with PerResolveLifetimeManager in config file</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/259908?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/259908?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="V2PKIDBqEvLHPDBR2ttbFyYmmGRc1-8kcPh1HI_RxRhHdSAYEfCHkrIMLkt9PGnNOjHoJx2nV6ev_k9ziXKcNwAKo7UjK4XmSDWnFooZhw9aBdYd2agRiM_1om2k20lvXD8NDw2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken24aaf3381-da7e-4827-8da2-434dd0b7e5f4" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:26:41 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f259908" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="5a7d9e31-5425-4bce-98af-37d97d40b3ab">
+                
+                    <script class="options" defer="defer" id="5a7d9e31-5425-4bce-98af-37d97d40b3ab" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="1dd21e00-1c5b-4824-a155-411514a364b1">
+                
+                    <script class="options" defer="defer" id="1dd21e00-1c5b-4824-a155-411514a364b1" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                fail regist the instance with PerResolveLifetimeManager in config file
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:259908]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="92ebda23-1c12-4613-8888-becca9056c07">
+    <script class="options" defer="defer" id="92ebda23-1c12-4613-8888-becca9056c07" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/259908","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="621882">
+    <td id="PostDetailsCell_621882" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post621882"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/pengjinqiang">pengjinqiang</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/2/2011 9:31:40 AM" LocalTimeTicks="1307032300">Jun 2, 2011 at 9:31 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_621882" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Hi&#32;All,&#32;I&#32;want&#32;to&#32;regist&#32;the&#32;instance&#32;with&#32;PerResolveLifetimeManager&#32;and&#32;I&#39;m&#32;successfully&#32;with&#32;the&#32;run-time&#32;code&#32;config.&#32;But&#32;I&#39;m&#32;fail&#32;to&#32;regist&#32;the&#32;instance&#32;with&#32;lifetime&#32;PerResolve.&#32;It&#32;seems&#32;The&#32;instance&#32;will&#32;recreate&#32;again.&#32;Here&#32;is&#32;my&#32;code&#32;snippet&#58;&#32;public&#32;class&#32;CustomView&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;public&#32;IPresent&#32;Present&#123;get&#59;set&#59;&#125;&#32;&#125;&#32;&#38;nbsp&#59;&#32;public&#32;class&#32;CustomPresent&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;public&#32;IView&#32;View&#123;get&#59;set&#59;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;public&#32;CustomPresent&#40;IView&#32;view&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;this.View&#61;view&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#125;&#32;&#125;&#32;Config&#58;&#32;&#38;lt&#59;register&#32;type&#61;&#38;ldquo&#59;IPresent&#38;rdquo&#59;&#32;mapTo&#61;&#38;ldquo&#59;CustomPresent&#38;rdquo&#59;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;view&#38;quot&#59;&#32;type&#61;&#38;quot&#59;IView&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#32;&#38;lt&#59;&#47;register&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;register&#32;type&#61;&#38;quot&#59;IView&#38;quot&#59;&#32;mapTo&#61;&#38;ldquo&#59;CustomView&#38;rdquo&#59;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;lifetime&#32;type&#61;&#38;quot&#59;PerResolve&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;property&#32;name&#61;&#38;quot&#59;Present&#38;quot&#59;&#32;dependenceType&#61;&#38;quot&#59;CustomePresent&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;register&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#47;&#47;--&#32;var&#32;view&#61;container.Resolve&#38;lt&#59;IView&#38;gt&#59;&#40;&#41;&#59;&#47;&#47;&#32;The&#32;exception&#32;will&#32;be&#32;throw&#32;out.&#32;For&#32;the&#32;IView&#32;is&#32;a&#32;interface&#32;and&#32;can&#39;t&#32;construct.&#32;So&#32;It&#32;seems&#32;when&#32;the&#32;present&#40;In&#32;the&#32;CustomView&#41;&#32;init,&#32;the&#32;CustomView&#32;is&#32;init&#32;again.&#32;Is&#32;there&#32;any&#32;mistake&#32;for&#32;me&#63;&#32;&#38;nbsp&#59;Anyhelp&#32;will&#32;be&#32;appreciate.&#32;&#38;nbsp&#59;&#32;Best&#32;Regard.&#32;">
+        
+<p>Hi All,</p>
+<p>I want to regist the instance with PerResolveLifetimeManager and I'm successfully with the run-time code config.</p>
+<p>But I'm fail to regist the instance with lifetime PerResolve. It seems The instance will recreate again.</p>
+<p>Here is my code snippet:</p>
+<p>public class CustomView</p>
+<p>{</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp;public IPresent Present{get;set;}</p>
+<p>}</p>
+<p>&nbsp;</p>
+<p>public class CustomPresent</p>
+<p>{</p>
+<p>&nbsp;&nbsp; &nbsp;public IView View{get;set;}</p>
+<p>&nbsp;&nbsp; &nbsp;public CustomPresent(IView view)</p>
+<p>&nbsp;&nbsp; &nbsp;{</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;this.View=view;</p>
+<p>&nbsp;&nbsp; &nbsp; }</p>
+<p>}</p>
+<p>Config:</p>
+<p>&lt;register type=&ldquo;IPresent&rdquo; mapTo=&ldquo;CustomPresent&rdquo;&gt;</p>
+<p>&nbsp;&nbsp; &nbsp; &lt;constructor&gt;</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;param name=&quot;view&quot; type=&quot;IView&quot;/&gt;</p>
+<p>&nbsp;&nbsp; &nbsp; &lt;/constructor&gt;</p>
+<p>&lt;/register&gt;</p>
+<p>&nbsp;</p>
+<p>&lt;register type=&quot;IView&quot; mapTo=&ldquo;CustomView&rdquo;&gt;</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp;&lt;lifetime type=&quot;PerResolve&quot;/&gt;</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp;&lt;property name=&quot;Present&quot; dependenceType=&quot;CustomePresent&quot;/&gt;</p>
+<p>&lt;/register&gt;</p>
+<p>&nbsp;</p>
+<p>//--</p>
+<p>var view=container.Resolve&lt;IView&gt;();// The exception will be throw out. For the IView is a interface and can't construct.</p>
+<p>So It seems when the present(In the CustomView) init, the CustomView is init again.</p>
+<p>Is there any mistake for me? &nbsp;Anyhelp will be appreciate.</p>
+<p>&nbsp;</p>
+<p>Best Regard.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_621882" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="621924">
+    <td id="PostDetailsCell_621924" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post621924"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/2/2011 11:57:29 AM" LocalTimeTicks="1307041049">Jun 2, 2011 at 11:57 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_621924" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi,&#32;Is&#32;this&#32;already&#32;the&#32;complete&#32;code&#32;you&#39;re&#32;referring&#32;to&#63;&#32;Could&#32;you&#32;post&#32;your&#32;complete&#32;code&#32;here&#32;for&#32;us&#32;to&#32;further&#32;investigate&#32;them.&#32;Noel&#32;Angelo&#32;BolasocGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com&#32;&#38;nbsp&#59;">
+        
+<p>Hi,</p>
+<p>Is this already the complete code you're referring to? Could you post your complete code here for us to further investigate them.</p>
+<p><em><strong>Noel Angelo Bolasoc</strong></em><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_621924" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="622304">
+    <td id="PostDetailsCell_622304" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post622304"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/pengjinqiang">pengjinqiang</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/3/2011 3:05:16 AM" LocalTimeTicks="1307095516">Jun 3, 2011 at 3:05 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_622304" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi,&#32;Thank&#32;you&#32;for&#32;your&#32;response.&#32;Here&#32;is&#32;My&#32;Sample&#32;Code&#38;nbsp&#59;&#32;&#32;Sample&#32;Code.&#38;nbsp&#59;&#38;nbsp&#59;and&#32;I&#32;can&#39;t&#32;resolve&#32;the&#32;DefaultView&#32;for&#32;the&#32;exception&#58;&#32;The&#32;current&#32;type,&#32;DVDemo.EL.WebApp.View.Interface.IView,&#32;is&#32;an&#32;interface&#32;and&#32;cannot&#32;be&#32;constructed.&#32;Are&#32;you&#32;missing&#32;a&#32;type&#32;mapping&#63;&#32;The&#32;follows&#32;is&#32;my&#32;config.&#32;&#38;lt&#59;unity&#32;xmlns&#61;&#34;http&#58;&#47;&#47;schemas.microsoft.com&#47;practices&#47;2010&#47;unity&#34;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;alias&#32;alias&#61;&#34;VTest&#34;&#32;type&#61;&#34;DVDemo.EL.WebApp.View.VTest,DVDemo.EL.WebApp&#34;&#47;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;alias&#32;alias&#61;&#34;IPresent&#34;&#32;type&#61;&#34;DVDemo.EL.WebApp.Present.Interface.IPresent,&#32;DVDemo.EL.WebApp&#34;&#47;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;alias&#32;alias&#61;&#34;DefaultPresent&#34;&#32;type&#61;&#34;DVDemo.EL.WebApp.Present.DefaultPresent,&#32;DVDemo.EL.WebApp&#34;&#47;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;alias&#32;alias&#61;&#34;IView&#34;&#32;type&#61;&#34;DVDemo.EL.WebApp.View.Interface.IView,&#32;DVDemo.EL.WebApp&#34;&#47;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;alias&#32;alias&#61;&#34;DefaultView&#34;&#32;type&#61;&#34;DVDemo.EL.WebApp.View.DefaultView,&#32;DVDemo.EL.WebApp&#34;&#47;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;container&#32;name&#61;&#34;MVP&#34;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;register&#32;type&#61;&#34;VTest&#34;&#32;mapTo&#61;&#34;VTest&#34;&#32;name&#61;&#34;VTest&#34;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;property&#32;name&#61;&#34;Title&#34;&#32;value&#61;&#34;Title&#32;is&#32;DVTest&#34;&#38;gt&#59;&#38;lt&#59;&#47;property&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;&#47;register&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;register&#32;type&#61;&#34;IPresent&#34;&#32;mapTo&#61;&#34;DefaultPresent&#34;&#32;name&#61;&#34;DefaultPresent&#34;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;constructor&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#34;view&#34;&#32;type&#61;&#34;IView&#34;&#47;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;register&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;register&#32;type&#61;&#34;IView&#34;&#32;mapTo&#61;&#34;DefaultView&#34;&#32;name&#61;&#34;DefaultView&#34;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;lifetime&#32;type&#61;&#34;perresolve&#34;&#47;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;property&#32;name&#61;&#34;Present&#34;&#32;dependencyType&#61;&#34;DefaultPresent&#34;&#32;&#47;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;&#47;register&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;&#47;container&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;lt&#59;&#47;unity&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;Thank&#32;you&#32;for&#32;you&#32;help.&#32;Best&#32;Regards.&#32;">
+        
+<p>Hi,</p>
+<p>Thank you for your response. Here is My Sample Code&nbsp;</p>
+<p><a href="http://cid-918c1c17ddccf838.office.live.com/self.aspx/.Public/DVDemo.EL.rar" rel="nofollow">Sample Code.</a>&nbsp;&nbsp;and I can't resolve the DefaultView for the exception:</p>
+<p><span style="color:#ff0000"><em>The current type, DVDemo.EL.WebApp.View.Interface.IView, is an interface and cannot be constructed. Are you missing a type mapping?</em></span></p>
+<p><em>The follows is my config.</em></p>
+<p><em>&lt;unity xmlns=&quot;http://schemas.microsoft.com/practices/2010/unity&quot;&gt;</em></p>
+<p><em>&nbsp;&nbsp; &nbsp; &lt;alias alias=&quot;VTest&quot; type=&quot;DVDemo.EL.WebApp.View.VTest,DVDemo.EL.WebApp&quot;/&gt;</em></p>
+<p><em>&nbsp;&nbsp; &nbsp;&lt;alias alias=&quot;IPresent&quot; type=&quot;DVDemo.EL.WebApp.Present.Interface.IPresent, DVDemo.EL.WebApp&quot;/&gt;</em></p>
+<p><em>&nbsp;&nbsp; &nbsp;&lt;alias alias=&quot;DefaultPresent&quot; type=&quot;DVDemo.EL.WebApp.Present.DefaultPresent, DVDemo.EL.WebApp&quot;/&gt;</em></p>
+<p><em>&nbsp;&nbsp; &nbsp;&lt;alias alias=&quot;IView&quot; type=&quot;DVDemo.EL.WebApp.View.Interface.IView, DVDemo.EL.WebApp&quot;/&gt;</em></p>
+<p><em>&nbsp;&nbsp; &nbsp;&lt;alias alias=&quot;DefaultView&quot; type=&quot;DVDemo.EL.WebApp.View.DefaultView, DVDemo.EL.WebApp&quot;/&gt;<br>
+&nbsp;&nbsp; &nbsp;&lt;container name=&quot;MVP&quot;&gt;</em></p>
+<p><em>&nbsp;&nbsp; &nbsp; &nbsp;&lt;register type=&quot;VTest&quot; mapTo=&quot;VTest&quot; name=&quot;VTest&quot;&gt;</em></p>
+<p><em>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&lt;property name=&quot;Title&quot; value=&quot;Title is DVTest&quot;&gt;&lt;/property&gt;</em></p>
+<p><em>&nbsp;&nbsp; &nbsp; &nbsp;&lt;/register&gt;<br>
+&nbsp;&nbsp; &nbsp; &nbsp;&lt;register type=&quot;IPresent&quot; mapTo=&quot;DefaultPresent&quot; name=&quot;DefaultPresent&quot;&gt;</em></p>
+<p><em>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&lt;constructor&gt;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</em></p>
+<p><em>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &lt;param name=&quot;view&quot; type=&quot;IView&quot;/&gt;</em></p>
+<p><em>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&lt;/constructor&gt;&nbsp;&nbsp; &nbsp; &nbsp;</em></p>
+<p><em>&nbsp;&nbsp; &nbsp; &lt;/register&gt;</em></p>
+<p><em>&nbsp;&nbsp; &nbsp; &lt;register type=&quot;IView&quot; mapTo=&quot;DefaultView&quot; name=&quot;DefaultView&quot;&gt;</em></p>
+<p><em>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&lt;lifetime type=&quot;perresolve&quot;/&gt;</em></p>
+<p><em>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&lt;property name=&quot;Present&quot; dependencyType=&quot;DefaultPresent&quot; /&gt;</em></p>
+<p><em>&nbsp;&nbsp; &nbsp; &nbsp;&lt;/register&gt;<br>
+&nbsp;&nbsp; &nbsp;&lt;/container&gt;</em></p>
+<p><em>&nbsp;&nbsp;&lt;/unity&gt;</em></p>
+<p>&nbsp;</p>
+<p><em>Thank you for you help. Best Regards.</em></p>
+<p><em><br>
+</em></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_622304" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="622305">
+    <td id="PostDetailsCell_622305" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post622305"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/pengjinqiang">pengjinqiang</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/3/2011 3:05:43 AM" LocalTimeTicks="1307095543">Jun 3, 2011 at 3:05 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="6/3/2011 3:23:27 AM" LocalTimeTicks="1307096607">Jun 3, 2011 at 3:23 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_622305" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#58;&#32;&#41;">
+        
+<p>: )</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_622305" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="622316">
+    <td id="PostDetailsCell_622316" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post622316"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/3/2011 4:16:45 AM" LocalTimeTicks="1307099805">Jun 3, 2011 at 4:16 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_622316" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi,&#32;You&#32;need&#32;to&#32;specify&#32;how&#38;nbsp&#59;will&#32;you&#38;nbsp&#59;resolve&#32;the&#32;IView&#32;parameter&#38;nbsp&#59;on&#32;DefaultPresent&#32;and&#32;the&#32;IPresent&#38;nbsp&#59;property&#38;nbsp&#59;on&#32;DefaultView.&#32;Since&#32;they&#32;are&#32;already&#32;registered&#32;on&#32;the&#32;container,&#32;you&#32;just&#32;need&#32;to&#32;specify&#32;their&#32;registration&#32;names&#32;on&#32;the&#32;dependencyName&#32;so&#32;you&#32;can&#32;be&#32;able&#32;to&#32;resolve&#32;them.&#32;Refer&#32;to&#32;the&#32;code&#32;below&#58;&#32;&#32;&#38;lt&#59;register&#32;type&#61;&#34;IPresent&#34;&#32;mapTo&#61;&#34;DefaultPresent&#34;&#32;name&#61;&#34;DefaultPresent&#34;&#38;gt&#59;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#32;&#38;lt&#59;&#33;--&#38;lt&#59;param&#32;name&#61;&#34;view&#34;&#32;type&#61;&#34;IView&#34;&#47;&#38;gt&#59;--&#38;gt&#59;&#32;&#32;&#38;lt&#59;param&#32;name&#61;&#34;view&#34;&#32;dependencyName&#61;&#34;DefaultView&#34;&#47;&#38;gt&#59;&#32;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#32;&#38;lt&#59;&#47;register&#38;gt&#59;&#32;&#38;lt&#59;register&#32;type&#61;&#34;IView&#34;&#32;mapTo&#61;&#34;DefaultView&#34;&#32;name&#61;&#34;DefaultView&#34;&#38;gt&#59;&#32;&#38;lt&#59;lifetime&#32;type&#61;&#34;perresolve&#34;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#33;--&#38;lt&#59;property&#32;name&#61;&#34;Present&#34;&#32;dependencyType&#61;&#34;DefaultPresent&#34;&#32;&#47;&#38;gt&#59;--&#38;gt&#59;&#32;&#38;lt&#59;property&#32;name&#61;&#34;Present&#34;&#32;dependencyName&#61;&#34;DefaultPresent&#34;&#32;&#47;&#38;gt&#59;&#32;&#32;&#38;lt&#59;&#47;register&#38;gt&#59;&#32;&#32;&#38;nbsp&#59;&#32;Noel&#32;Angelo&#32;BolasocGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com&#58;&#32;">
+        
+<p>Hi,</p>
+<p>You need to specify how&nbsp;will you&nbsp;resolve the IView parameter&nbsp;on DefaultPresent and the IPresent&nbsp;property&nbsp;on DefaultView. Since they are already registered on the container, you just need to specify their registration names on the
+ dependencyName so you can be able to resolve them. Refer to the code below:</p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">IPresent</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">DefaultPresent</span><span style="color:black">&quot;</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">DefaultPresent</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+          <span style="color:green">&lt;!--&lt;param name=&quot;view&quot; type=&quot;IView&quot;/&gt;--&gt;</span>
+       <strong>   <span style="color:blue">&lt;</span><span style="color:#a31515">param</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">view</span><span style="color:black">&quot;</span> <span style="color:red">dependencyName</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">DefaultView</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+</strong>        <span style="color:blue">&lt;/</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;/</span><span style="color:#a31515">register</span><span style="color:blue">&gt;</span>
+      
+      <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">IView</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">DefaultView</span><span style="color:black">&quot;</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">DefaultView</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">lifetime</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">perresolve</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+        <span style="color:green">&lt;!--&lt;property name=&quot;Present&quot; dependencyType=&quot;DefaultPresent&quot; /&gt;--&gt;</span>
+        <strong><span style="color:blue">&lt;</span><span style="color:#a31515">property</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Present</span><span style="color:black">&quot;</span> <span style="color:red">dependencyName</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">DefaultPresent</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+</strong>      <span style="color:blue">&lt;/</span><span style="color:#a31515">register</span><span style="color:blue">&gt;</span>
+</pre>
+<p>&nbsp;</p>
+<p><em><strong>Noel Angelo Bolasoc</strong></em><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a>:</p>
+</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_622316" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="622336">
+    <td id="PostDetailsCell_622336" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post622336"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/pengjinqiang">pengjinqiang</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/3/2011 5:26:08 AM" LocalTimeTicks="1307103968">Jun 3, 2011 at 5:26 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_622336" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi,&#32;Thank&#32;you&#32;for&#32;your&#32;advice.&#32;I&#32;think&#32;the&#32;programmatic&#32;configuration&#32;is&#32;more&#32;rude&#32;than&#32;the&#32;XML&#32;Config.&#32;&#58;&#32;D">
+        
+<p>Hi,</p>
+<p>Thank you for your advice. I think the programmatic configuration is more rude than the XML Config. : D</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_622336" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f259908">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="19b7594f-366f-467b-9307-b1b90efbc3bb">
+    <script class="options" defer="defer" id="19b7594f-366f-467b-9307-b1b90efbc3bb" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_a638bab1-85dd-445b-bdc9-b0f5081b2fc8">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_e6f5caf3-4299-4bf8-9dac-616da51e4f60">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_a638bab1-85dd-445b-bdc9-b0f5081b2fc8" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_e6f5caf3-4299-4bf8-9dac-616da51e4f60" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/259908';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

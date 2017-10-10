@@ -1,0 +1,1210 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Unity Decorator Extension fails with multiple implementations</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/449159?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/449159?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="6WteMBuP5o74z8TE7WveFjxygDhhCPkOdLXYDVkNHql19Kjx9-vs4iqY-hUXj010mmFteorsfYEJoq7VFColJI2g877SXX9pYLj9GPk4SM4QQkbXFRgdVrSfaRZjbvYarlfSrA2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2b53bbe7d-b174-448c-a5a8-33614e7ed1e1" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:25:50 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f449159" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="14cf3fe7-fa23-465a-8253-7da7aae7e5bd">
+                
+                    <script class="options" defer="defer" id="14cf3fe7-fa23-465a-8253-7da7aae7e5bd" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="2c489b99-8236-4343-b68a-0ed7ab173f09">
+                
+                    <script class="options" defer="defer" id="2c489b99-8236-4343-b68a-0ed7ab173f09" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Unity Decorator Extension fails with multiple implementations
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:449159]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="13daa2e0-783c-4086-9c2b-1641fd1b5dd3">
+    <script class="options" defer="defer" id="13daa2e0-783c-4086-9c2b-1641fd1b5dd3" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/449159","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="1064907">
+    <td id="PostDetailsCell_1064907" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1064907"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/julealgon">julealgon</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/5/2013 3:32:56 PM" LocalTimeTicks="1373063576">Jul 5, 2013 at 3:32 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="7/5/2013 3:34:41 PM" LocalTimeTicks="1373063681">Jul 5, 2013 at 3:34 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1064907" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="As&#32;always,&#32;I&#39;ve&#32;created&#32;this&#32;same&#32;question&#32;o&#32;SO&#32;already,&#32;will&#32;be&#32;copying&#32;it&#32;here&#32;for&#32;reference&#58;&#10;http&#58;&#47;&#47;stackoverflow.com&#47;questions&#47;17478689&#47;unity-decorator-extension-fails-with-multiple-implementations&#10;&#10;I&#39;ve&#32;been&#32;struggling&#32;with&#32;this&#32;problem&#32;for&#32;a&#32;couple&#32;days,&#32;and&#32;I&#32;still&#32;am&#32;not&#32;sure&#32;how&#32;to&#32;solve&#32;it.&#10;&#10;I&#39;ve&#32;created&#32;a&#32;container&#32;extension&#32;for&#32;the&#32;Unity&#32;Container&#32;to&#32;enable&#32;me&#32;to&#32;easily&#32;register&#32;decorator&#32;classes&#32;in&#32;the&#32;container.&#32;This&#32;is&#32;the&#32;implementation&#32;I&#32;currently&#32;have,&#32;which&#32;is&#32;almost&#32;identical&#32;to&#32;the&#32;one&#32;in&#32;&#91;this&#93;&#40;http&#58;&#47;&#47;www.beefycode.com&#47;post&#47;Decorator-Unity-Container-Extension.aspx&#41;&#32;article&#58;&#10;&#10;&#96;&#96;&#96;&#10;&#32;&#32;&#32;&#32;public&#32;class&#32;DecoratorExtension&#32;&#58;&#32;UnityContainerExtension&#10;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;private&#32;int&#32;m_order&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;private&#32;Dictionary&#60;Type,&#32;IList&#60;DecoratorRegistration&#62;&#62;&#32;m_typeStacks&#59;&#10;&#32;&#32;&#32;&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;protected&#32;override&#32;void&#32;Initialize&#40;&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;m_typeStacks&#32;&#61;&#32;new&#32;Dictionary&#60;Type,&#32;IList&#60;DecoratorRegistration&#62;&#62;&#40;&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Context.Registering&#32;&#43;&#61;&#32;AddRegistration&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Context.Strategies.Add&#40;new&#32;DecoratorBuildStrategy&#40;m_typeStacks&#41;,&#32;UnityBuildStage.PreCreation&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#10;&#32;&#32;&#32;&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;private&#32;void&#32;AddRegistration&#40;object&#32;_sender,&#32;RegisterEventArgs&#32;_e&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;_e.TypeFrom&#32;&#61;&#61;&#32;null&#32;&#124;&#124;&#32;&#33;_e.TypeFrom.IsInterface&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#59;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;GetStack&#40;_e.TypeFrom&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.Add&#40;new&#32;DecoratorRegistration&#32;&#123;Order&#32;&#61;&#32;m_order&#43;&#43;,&#32;Type&#32;&#61;&#32;_e.TypeTo&#125;&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#10;&#32;&#32;&#32;&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;private&#32;IList&#60;DecoratorRegistration&#62;&#32;GetStack&#40;Type&#32;_type&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;&#33;m_typeStacks.ContainsKey&#40;_type&#41;&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;m_typeStacks.Add&#40;_type,&#32;new&#32;List&#60;DecoratorRegistration&#62;&#40;&#41;&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;m_typeStacks&#91;_type&#93;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#10;&#32;&#32;&#32;&#32;&#125;&#10;&#96;&#96;&#96;&#10;&#10;What&#32;this&#32;does&#32;is&#32;use&#32;a&#32;list&#32;for&#32;each&#32;type,&#32;to&#32;store&#32;all&#32;type&#32;registrations&#32;for&#32;the&#32;same&#32;target&#32;type,&#32;so&#32;that&#32;I&#32;can&#32;reassemble&#32;it&#32;when&#32;Resolve&#32;is&#32;called,&#32;using&#32;this&#32;build&#32;strategy&#58;&#10;&#10;&#96;&#96;&#96;&#10;&#32;&#32;&#32;&#32;internal&#32;class&#32;DecoratorBuildStrategy&#32;&#58;&#32;BuilderStrategy&#10;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;private&#32;readonly&#32;Dictionary&#60;Type,&#32;IList&#60;DecoratorRegistration&#62;&#62;&#32;m_typeStacks&#59;&#10;&#32;&#32;&#32;&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;internal&#32;DecoratorBuildStrategy&#40;Dictionary&#60;Type,&#32;IList&#60;DecoratorRegistration&#62;&#62;&#32;_typeStacks&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;m_typeStacks&#32;&#61;&#32;_typeStacks&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#10;&#32;&#32;&#32;&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;public&#32;override&#32;void&#32;PreBuildUp&#40;IBuilderContext&#32;_context&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;var&#32;key&#32;&#61;&#32;_context.OriginalBuildKey&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;_context.GetOverriddenResolver&#40;key.Type&#41;&#32;&#33;&#61;&#32;null&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#59;&#10;&#32;&#32;&#32;&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;Only&#32;interfaces&#32;can&#32;use&#32;decorators.&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;&#33;key.Type.IsInterface&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;Gets&#32;the&#32;list&#32;of&#32;types&#32;required&#32;to&#32;build&#32;the&#32;&#39;decorated&#39;&#32;instance.&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;The&#32;list&#32;is&#32;reversed&#32;so&#32;that&#32;the&#32;least&#32;dependent&#32;types&#32;are&#32;built&#32;first.&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;var&#32;decoratorTypes&#32;&#61;&#32;GetDecoratorTypes&#40;key.Type&#41;.Reverse&#40;&#41;.ToList&#40;&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;&#33;decoratorTypes.Any&#40;&#41;&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#59;&#10;&#32;&#32;&#32;&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;object&#32;value&#32;&#61;&#32;null&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;foreach&#32;&#40;var&#32;type&#32;in&#32;decoratorTypes&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Type&#32;typeToBuild&#32;&#61;&#32;type&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;typeToBuild.IsGenericTypeDefinition&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Type&#91;&#93;&#32;genericArgumentTypes&#32;&#61;&#32;key.Type.GetGenericArguments&#40;&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;typeToBuild&#32;&#61;&#32;typeToBuild.MakeGenericType&#40;genericArgumentTypes&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#10;&#32;&#32;&#32;&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;value&#32;&#61;&#32;_context.NewBuildUp&#40;new&#32;NamedTypeBuildKey&#40;typeToBuild,&#32;key.Name&#41;&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;An&#32;Override&#32;is&#32;created&#32;so&#32;that&#32;in&#32;the&#32;next&#32;BuildUp&#32;the&#32;already&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;built&#32;object&#32;gets&#32;used&#32;instead&#32;of&#32;doing&#32;the&#32;BuildUp&#32;again&#32;and&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;entering&#32;an&#32;infinite&#32;loop&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_context.AddResolverOverrides&#40;new&#32;DependencyOverride&#40;key.Type,&#32;value&#41;&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#10;&#32;&#32;&#32;&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_context.Existing&#32;&#61;&#32;value&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_context.BuildComplete&#32;&#61;&#32;true&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#10;&#32;&#32;&#32;&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;private&#32;IEnumerable&#60;Type&#62;&#32;GetDecoratorTypes&#40;Type&#32;_type&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;var&#32;typeList&#32;&#61;&#32;m_typeStacks.GetValueOrDefault&#40;_type&#41;&#32;&#63;&#63;&#32;new&#32;List&#60;DecoratorRegistration&#62;&#40;0&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;&#33;_type.IsGenericType&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;typeList.Select&#40;_reg&#32;&#61;&#62;&#32;_reg.Type&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;If&#32;the&#32;type&#32;is&#32;a&#32;generic&#32;type,&#32;we&#32;need&#32;to&#32;get&#32;all&#32;open&#32;generic&#32;registrations&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;alongside&#32;the&#32;closed&#32;ones&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;var&#32;openGenericList&#32;&#61;&#32;m_typeStacks&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.GetValueOrDefault&#40;_type.GetGenericTypeDefinition&#40;&#41;&#41;&#32;&#63;&#63;&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;new&#32;List&#60;DecoratorRegistration&#62;&#40;0&#41;&#59;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;The&#32;final&#32;result&#32;is&#32;an&#32;ordered&#32;concatenation&#32;of&#32;the&#32;closed&#32;and&#32;open&#32;registrations&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;that&#32;should&#32;be&#32;used&#32;for&#32;the&#32;type&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;typeList&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.Concat&#40;openGenericList&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.OrderBy&#40;_registration&#32;&#61;&#62;&#32;_registration.Order&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.Select&#40;_reg&#32;&#61;&#62;&#32;_reg.Type&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#10;&#32;&#32;&#32;&#32;&#125;&#10;&#96;&#96;&#96;&#10;&#10;This&#32;is&#32;where&#32;the&#32;DecoratorRegistration&#32;model&#32;is&#32;used.&#32;It&#32;is&#32;just&#32;a&#32;pair&#32;of&#32;type&#47;int&#32;that&#32;represents&#32;the&#32;order&#32;of&#32;the&#32;registration.&#32;I&#32;created&#32;this&#32;to&#32;be&#32;able&#32;to&#32;mix&#32;open&#32;and&#32;closed&#32;generic&#32;registrations&#32;correctly&#58;&#10;&#10;&#96;&#96;&#96;&#10;&#32;&#32;&#32;&#32;internal&#32;struct&#32;DecoratorRegistration&#10;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;public&#32;int&#32;Order&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;public&#32;Type&#32;Type&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#10;&#32;&#32;&#32;&#32;&#125;&#10;&#96;&#96;&#96;&#10;&#10;This&#32;works&#32;wonders&#32;for&#32;the&#32;most&#32;part.&#32;The&#32;problem&#32;started&#32;when&#32;I&#32;had&#32;a&#32;class&#32;that&#32;implemented&#32;two&#32;interfaces,&#32;one&#32;which&#32;was&#32;decorated,&#32;and&#32;one&#32;that&#32;wasn&#39;t.&#10;&#10;This&#32;is&#32;the&#32;current&#32;test&#32;case&#32;I&#39;m&#32;trying&#32;to&#32;make&#32;work&#58;&#10;&#10;&#96;&#96;&#96;&#10;&#32;&#32;&#32;&#32;private&#32;interface&#32;IAny&#60;T&#62;&#32;&#123;&#125;&#10;&#32;&#32;&#32;&#32;private&#32;interface&#32;IAnotherInterface&#32;&#123;&#125;&#10;&#32;&#32;&#32;&#32;private&#32;class&#32;Base&#60;T&#62;&#32;&#58;&#32;IAnotherInterface,&#32;IAny&#60;T&#62;&#32;&#123;&#125;&#32;&#32;&#32;&#10;&#32;&#32;&#32;&#32;private&#32;class&#32;Decorator1&#60;T&#62;&#32;&#58;&#32;IAny&#60;T&#62;&#10;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;internal&#32;readonly&#32;IAny&#60;T&#62;&#32;Decorated&#59;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;public&#32;Decorator1&#40;IAny&#60;T&#62;&#32;_decorated&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Decorated&#32;&#61;&#32;_decorated&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#10;&#32;&#32;&#32;&#32;&#125;&#10;&#10;&#32;&#32;&#32;&#32;&#91;TestMethod&#93;&#10;&#32;&#32;&#32;&#32;public&#32;void&#32;DecoratorExtensionDoesNotInterfereWithNormalRegistrations&#40;&#41;&#10;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;Arrange&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;var&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.AddNewExtension&#60;DecoratorExtension&#62;&#40;&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.RegisterType&#60;Base&#60;string&#62;&#62;&#40;new&#32;ContainerControlledLifetimeManager&#40;&#41;&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.RegisterType&#60;IAny&#60;string&#62;,&#32;Decorator1&#60;string&#62;&#62;&#40;&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.RegisterType&#60;IAny&#60;string&#62;,&#32;Base&#60;string&#62;&#62;&#40;&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.RegisterType&#60;IAnotherInterface,&#32;Base&#60;string&#62;&#62;&#40;&#41;&#59;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;Act&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;var&#32;decorated&#32;&#61;&#32;container.Resolve&#60;IAny&#60;string&#62;&#62;&#40;&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;var&#32;normal&#32;&#61;&#32;container.Resolve&#60;IAnotherInterface&#62;&#40;&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;var&#32;anotherDecorated&#32;&#61;&#32;container.Resolve&#60;IAny&#60;string&#62;&#62;&#40;&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;var&#32;anotherNormal&#32;&#61;&#32;container.Resolve&#60;IAnotherInterface&#62;&#40;&#41;&#59;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;Assert&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Assert.IsInstanceOfType&#40;normal,&#32;typeof&#32;&#40;IAnotherInterface&#41;&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Assert.IsInstanceOfType&#40;decorated,&#32;typeof&#32;&#40;Decorator1&#60;string&#62;&#41;&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Assert.AreSame&#40;normal,&#32;anotherNormal&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Assert.AreSame&#40;decorated,&#32;anotherDecorated&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#125;&#10;&#96;&#96;&#96;&#10;&#10;This&#32;test&#32;should&#32;make&#32;my&#32;intent&#32;clear.&#32;I&#32;wanted&#32;singleton&#32;classes,&#32;but&#32;the&#32;first&#32;call&#32;to&#32;Resolve,&#32;for&#32;either&#32;&#96;IAnotherInterface&#96;&#32;or&#32;&#96;IAny&#60;string&#62;&#96;&#32;results&#32;in&#32;every&#32;subsequent&#32;call&#32;to&#32;return&#32;the&#32;same&#32;thing.&#32;Thus,&#32;I&#32;get&#32;an&#32;exception&#58;&#10;&#10;&#96;&#96;&#96;&#10;&#32;&#32;&#32;&#32;System.InvalidCastException&#58;&#32;Unable&#32;to&#32;cast&#32;object&#32;of&#32;type&#32;&#39;Decorator1&#96;1&#91;System.String&#93;&#39;&#32;to&#32;type&#32;&#39;IAnotherInterface&#39;.&#10;&#96;&#96;&#96;&#10;&#10;on&#32;this&#32;line&#58;&#10;&#10;&#96;&#96;&#96;&#10;var&#32;normal&#32;&#61;&#32;container.Resolve&#60;IAnotherInterface&#62;&#40;&#41;&#59;&#10;&#96;&#96;&#96;&#10;&#10;I&#39;m&#32;not&#32;sure&#32;what&#32;to&#32;do&#32;here.&#32;I&#32;had&#32;to&#32;temporarily&#32;disable&#32;singletons&#32;in&#32;our&#32;project&#32;so&#32;that&#32;this&#32;could&#32;work&#32;as&#32;intended.&#32;What&#32;I&#32;wanted&#32;is&#32;that&#32;the&#32;&#96;Base&#60;string&#62;&#96;&#32;instance&#32;was&#32;a&#32;sintleton,&#32;but&#32;when&#32;I&#32;requested&#32;a&#32;&#96;IAny&#60;string&#62;&#96;&#32;it&#32;would&#32;create&#32;a&#32;NEW&#32;instance&#32;with&#32;the&#32;SAME&#32;base&#32;being&#32;decorated.&#10;&#10;This&#32;is&#32;still&#32;using&#32;.Net&#32;4.0,&#32;so&#32;I&#39;m&#32;stuck&#32;with&#32;Unity&#32;2.1&#32;here&#32;&#40;shouldn&#39;t&#32;matter&#32;in&#32;this&#32;case&#32;though&#41;.">
+        <div class="markDownOutput ">As always, I've created this same question o SO already, will be copying it here for reference:<br>
+<a href="http://stackoverflow.com/questions/17478689/unity-decorator-extension-fails-with-multiple-implementations"  rel="nofollow">http://stackoverflow.com/questions/17478689/unity-decorator-extension-fails-with-multiple-implementations</a><br>
+<br>
+I've been struggling with this problem for a couple days, and I still am not sure how to solve it.<br>
+<br>
+I've created a container extension for the Unity Container to enable me to easily register decorator classes in the container. This is the implementation I currently have, which is almost identical to the one in
+<a href="http://www.beefycode.com/post/Decorator-Unity-Container-Extension.aspx"  rel="nofollow">
+this</a> article:<br>
+<pre><code>    public class DecoratorExtension : UnityContainerExtension
+    {
+        private int m_order;
+        private Dictionary&lt;Type, IList&lt;DecoratorRegistration&gt;&gt; m_typeStacks;
+    
+        protected override void Initialize()
+        {
+            m_typeStacks = new Dictionary&lt;Type, IList&lt;DecoratorRegistration&gt;&gt;();
+            Context.Registering &#43;= AddRegistration;
+            Context.Strategies.Add(new DecoratorBuildStrategy(m_typeStacks), UnityBuildStage.PreCreation);
+        }
+    
+        private void AddRegistration(object _sender, RegisterEventArgs _e)
+        {
+            if (_e.TypeFrom == null || !_e.TypeFrom.IsInterface)
+                return;
+
+            GetStack(_e.TypeFrom)
+                .Add(new DecoratorRegistration {Order = m_order&#43;&#43;, Type = _e.TypeTo});
+        }
+    
+        private IList&lt;DecoratorRegistration&gt; GetStack(Type _type)
+        {
+            if (!m_typeStacks.ContainsKey(_type))
+                m_typeStacks.Add(_type, new List&lt;DecoratorRegistration&gt;());
+    
+            return m_typeStacks[_type];
+        }
+    }</code></pre>
+What this does is use a list for each type, to store all type registrations for the same target type, so that I can reassemble it when Resolve is called, using this build strategy:<br>
+<pre><code>    internal class DecoratorBuildStrategy : BuilderStrategy
+    {
+        private readonly Dictionary&lt;Type, IList&lt;DecoratorRegistration&gt;&gt; m_typeStacks;
+    
+        internal DecoratorBuildStrategy(Dictionary&lt;Type, IList&lt;DecoratorRegistration&gt;&gt; _typeStacks)
+        {
+            m_typeStacks = _typeStacks;
+        }
+    
+        public override void PreBuildUp(IBuilderContext _context)
+        {
+            var key = _context.OriginalBuildKey;
+            if (_context.GetOverriddenResolver(key.Type) != null)
+                return;
+    
+            // Only interfaces can use decorators.
+            if (!key.Type.IsInterface)
+                return;
+            
+            // Gets the list of types required to build the 'decorated' instance.
+            // The list is reversed so that the least dependent types are built first.
+            var decoratorTypes = GetDecoratorTypes(key.Type).Reverse().ToList();
+            if (!decoratorTypes.Any())
+                return;
+    
+            object value = null;
+            foreach (var type in decoratorTypes)
+            {
+                Type typeToBuild = type;
+                if (typeToBuild.IsGenericTypeDefinition)
+                {
+                    Type[] genericArgumentTypes = key.Type.GetGenericArguments();
+                    typeToBuild = typeToBuild.MakeGenericType(genericArgumentTypes);
+                }
+    
+                value = _context.NewBuildUp(new NamedTypeBuildKey(typeToBuild, key.Name));
+    
+                // An Override is created so that in the next BuildUp the already 
+                // built object gets used instead of doing the BuildUp again and 
+                // entering an infinite loop
+                _context.AddResolverOverrides(new DependencyOverride(key.Type, value));
+            }
+    
+            _context.Existing = value;
+            _context.BuildComplete = true;
+        }
+    
+        private IEnumerable&lt;Type&gt; GetDecoratorTypes(Type _type)
+        {
+            var typeList = m_typeStacks.GetValueOrDefault(_type) ?? new List&lt;DecoratorRegistration&gt;(0);
+            if (!_type.IsGenericType)
+                return typeList.Select(_reg =&gt; _reg.Type);
+    
+            // If the type is a generic type, we need to get all open generic registrations
+            // alongside the closed ones
+            var openGenericList = m_typeStacks
+                    .GetValueOrDefault(_type.GetGenericTypeDefinition()) ?? 
+                    new List&lt;DecoratorRegistration&gt;(0);
+
+            // The final result is an ordered concatenation of the closed and open registrations 
+            // that should be used for the type
+            return typeList
+                .Concat(openGenericList)
+                .OrderBy(_registration =&gt; _registration.Order)
+                .Select(_reg =&gt; _reg.Type);
+        }
+    }</code></pre>
+This is where the DecoratorRegistration model is used. It is just a pair of type/int that represents the order of the registration. I created this to be able to mix open and closed generic registrations correctly:<br>
+<pre><code>    internal struct DecoratorRegistration
+    {
+        public int Order { get; set; }
+        public Type Type { get; set; }
+    }</code></pre>
+This works wonders for the most part. The problem started when I had a class that implemented two interfaces, one which was decorated, and one that wasn't.<br>
+<br>
+This is the current test case I'm trying to make work:<br>
+<pre><code>    private interface IAny&lt;T&gt; {}
+    private interface IAnotherInterface {}
+    private class Base&lt;T&gt; : IAnotherInterface, IAny&lt;T&gt; {}   
+    private class Decorator1&lt;T&gt; : IAny&lt;T&gt;
+    {
+        internal readonly IAny&lt;T&gt; Decorated;
+
+        public Decorator1(IAny&lt;T&gt; _decorated)
+        {
+            Decorated = _decorated;
+        }
+    }
+
+    [TestMethod]
+    public void DecoratorExtensionDoesNotInterfereWithNormalRegistrations()
+    {
+        // Arrange
+        var container = new UnityContainer()
+            .AddNewExtension&lt;DecoratorExtension&gt;()
+            .RegisterType&lt;Base&lt;string&gt;&gt;(new ContainerControlledLifetimeManager())
+            .RegisterType&lt;IAny&lt;string&gt;, Decorator1&lt;string&gt;&gt;()
+            .RegisterType&lt;IAny&lt;string&gt;, Base&lt;string&gt;&gt;()
+            .RegisterType&lt;IAnotherInterface, Base&lt;string&gt;&gt;();
+
+        // Act
+        var decorated = container.Resolve&lt;IAny&lt;string&gt;&gt;();
+        var normal = container.Resolve&lt;IAnotherInterface&gt;();
+        var anotherDecorated = container.Resolve&lt;IAny&lt;string&gt;&gt;();
+        var anotherNormal = container.Resolve&lt;IAnotherInterface&gt;();
+
+        // Assert
+        Assert.IsInstanceOfType(normal, typeof (IAnotherInterface));
+        Assert.IsInstanceOfType(decorated, typeof (Decorator1&lt;string&gt;));
+        Assert.AreSame(normal, anotherNormal);
+        Assert.AreSame(decorated, anotherDecorated);
+    }</code></pre>
+This test should make my intent clear. I wanted singleton classes, but the first call to Resolve, for either
+<code>IAnotherInterface</code> or <code>IAny&lt;string&gt;</code> results in every subsequent call to return the same thing. Thus, I get an exception:<br>
+<pre><code>    System.InvalidCastException: Unable to cast object of type 'Decorator1`1[System.String]' to type 'IAnotherInterface'.</code></pre>
+on this line:<br>
+<pre><code>var normal = container.Resolve&lt;IAnotherInterface&gt;();</code></pre>
+I'm not sure what to do here. I had to temporarily disable singletons in our project so that this could work as intended. What I wanted is that the
+<code>Base&lt;string&gt;</code> instance was a sintleton, but when I requested a <code>
+IAny&lt;string&gt;</code> it would create a NEW instance with the SAME base being decorated.<br>
+<br>
+This is still using .Net 4.0, so I'm stuck with Unity 2.1 here (shouldn't matter in this case though).<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1064907" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1065308">
+    <td id="PostDetailsCell_1065308" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1065308"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/7/2013 7:09:18 PM" LocalTimeTicks="1373249358">Jul 7, 2013 at 7:09 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="7/12/2013 6:29:41 PM" LocalTimeTicks="1373678981">Jul 12, 2013 at 6:29 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1065308" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="I&#32;know&#32;you&#39;ve&#32;seen&#32;it,&#32;but&#32;&#91;this&#32;discussion&#32;post&#93;&#40;http&#58;&#47;&#47;unity.codeplex.com&#47;discussions&#47;406534&#41;&#32;shows&#32;how&#32;to&#32;used&#32;named&#32;instances&#32;to&#32;create&#32;decorators.&#10;&#10;What&#32;I&#39;m&#32;seeing&#32;is&#32;that&#32;the&#32;extension&#32;is&#32;resolving&#32;a&#32;different&#32;type&#32;than&#32;the&#32;BuildKey&#32;that&#32;Unity&#32;has&#32;mapped&#32;to.&#10;&#10;For&#32;example&#58;&#10;&#10;&#42;&#32;An&#32;IAny&#60;string&#62;&#32;is&#32;requested&#32;&#32;&#10;&#42;&#32;Unity&#32;maps&#32;that&#32;to&#32;Base&#60;string&#62;&#32;since&#32;it&#32;was&#32;the&#32;last&#32;IAny&#60;string&#62;&#32;registered&#10;&#42;&#32;The&#32;extension&#32;runs&#32;and&#32;creates&#32;all&#32;the&#32;decorators&#32;and&#32;returns&#32;the&#32;last&#32;decorator&#32;object.&#32;&#32;In&#32;this&#32;case&#32;it&#32;is&#32;Decorator1&#60;string&#62;.&#10;&#10;Now&#32;as&#32;you&#32;say,&#32;this&#32;is&#32;usually&#32;great&#32;--&#32;the&#32;object&#32;is&#32;created&#32;with&#32;the&#32;chain&#32;of&#32;decorators,&#32;returned&#32;and&#32;everything&#32;works.&#32;&#32;The&#32;issue&#32;occurs&#32;because&#32;ContainerControlledLifetimeManager&#32;&#40;which&#32;is&#32;being&#32;used&#32;for&#32;singletons&#41;&#32;stores&#32;the&#32;newly&#32;created&#32;Decorator1&#60;string&#62;&#32;instance&#32;with&#32;the&#32;Base&#60;string&#62;&#32;BuildKey.&#32;&#32;So&#32;then&#58;&#10;&#10;&#42;&#32;Unity&#32;stores&#32;Decorator1&#60;string&#62;&#32;with&#32;the&#32;Base&#60;string&#62;&#32;BuildKey&#10;&#42;&#32;An&#32;IAnotherInterface&#32;is&#32;resolved&#10;&#42;&#32;Unity&#32;maps&#32;that&#32;to&#32;Base&#60;string&#62;&#10;&#42;&#32;Unity&#32;returns&#32;the&#32;Decorator1&#60;string&#62;&#32;instance&#32;from&#32;the&#32;ContainerControlledLifetimeManager&#32;associated&#32;with&#32;the&#32;Base&#60;string&#62;&#32;build&#32;key&#32;__without&#32;calling&#32;the&#32;decorator&#32;extension__&#32;&#10;&#42;&#32;InvalidCastException&#10;&#10;That&#39;s&#32;a&#32;problem&#32;because&#32;Decorator1&#60;string&#62;&#32;is&#32;actually&#32;stored&#32;in&#32;the&#32;Base&#60;string&#62;&#32;lifetime&#32;manager&#32;and&#32;Decorator1&#60;string&#62;&#32;__is&#32;not&#32;an__&#32;IAnotherInterface&#32;&#40;whereas&#32;Base&#60;string&#62;&#32;is&#41;.&#10;&#10;I&#32;was&#32;able&#32;to&#32;get&#32;the&#32;unit&#32;tests&#32;to&#32;pass.&#32;&#32;That&#32;said,&#32;I&#39;m&#32;not&#32;saying&#32;it&#39;s&#32;correct&#32;in&#32;general&#32;since&#32;there&#32;are&#32;so&#32;many&#32;different&#32;scenarios&#32;that&#32;could&#32;occur.&#10;&#10;What&#32;I&#32;did&#32;was&#32;to&#32;create&#32;another&#32;BuildStrategy&#32;that&#32;is&#32;run&#32;in&#32;the&#32;TypeMapping&#32;phase.&#32;&#32;It&#32;basically&#32;maps&#32;the&#32;OriginalBuildKey&#32;to&#32;the&#32;final&#32;BuildKey&#32;as&#32;determined&#32;by&#32;the&#32;decorator&#32;chain&#58;&#10;&#10;&#96;&#96;&#96;&#32;c&#35;&#10;&#32;&#32;&#32;&#32;public&#32;class&#32;DecoratorExtension&#32;&#58;&#32;UnityContainerExtension&#10;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;private&#32;int&#32;m_order&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;private&#32;Dictionary&#60;Type,&#32;IList&#60;DecoratorRegistration&#62;&#62;&#32;m_typeStacks&#59;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;protected&#32;override&#32;void&#32;Initialize&#40;&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;m_typeStacks&#32;&#61;&#32;new&#32;Dictionary&#60;Type,&#32;IList&#60;DecoratorRegistration&#62;&#62;&#40;&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Context.Registering&#32;&#43;&#61;&#32;AddRegistration&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Context.Strategies.Add&#40;new&#32;DecoratorBuildStrategy&#40;m_typeStacks,&#32;GetDecoratorTypes&#41;,&#32;UnityBuildStage.PreCreation&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Context.Strategies.Add&#40;new&#32;TypeMappingDecoratorBuildStrategy&#40;m_typeStacks,&#32;GetDecoratorTypes&#41;,&#32;UnityBuildStage.TypeMapping&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;private&#32;void&#32;AddRegistration&#40;object&#32;_sender,&#32;RegisterEventArgs&#32;_e&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;_e.TypeFrom&#32;&#61;&#61;&#32;null&#32;&#124;&#124;&#32;&#33;_e.TypeFrom.IsInterface&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#59;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;GetStack&#40;_e.TypeFrom&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.Add&#40;new&#32;DecoratorRegistration&#32;&#123;&#32;Order&#32;&#61;&#32;m_order&#43;&#43;,&#32;Type&#32;&#61;&#32;_e.TypeTo&#32;&#125;&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;private&#32;IList&#60;DecoratorRegistration&#62;&#32;GetStack&#40;Type&#32;_type&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;&#33;m_typeStacks.ContainsKey&#40;_type&#41;&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;m_typeStacks.Add&#40;_type,&#32;new&#32;List&#60;DecoratorRegistration&#62;&#40;&#41;&#41;&#59;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;m_typeStacks&#91;_type&#93;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;private&#32;IEnumerable&#60;Type&#62;&#32;GetDecoratorTypes&#40;Type&#32;_type&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;var&#32;typeList&#32;&#61;&#32;m_typeStacks.GetValueOrDefault&#40;_type&#41;&#32;&#63;&#63;&#32;new&#32;List&#60;DecoratorRegistration&#62;&#40;0&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;&#33;_type.IsGenericType&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;typeList.Select&#40;_reg&#32;&#61;&#62;&#32;_reg.Type&#41;&#59;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;If&#32;the&#32;type&#32;is&#32;a&#32;generic&#32;type,&#32;we&#32;need&#32;to&#32;get&#32;all&#32;open&#32;generic&#32;registrations&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;alongside&#32;the&#32;closed&#32;ones&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;var&#32;openGenericList&#32;&#61;&#32;m_typeStacks&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.GetValueOrDefault&#40;_type.GetGenericTypeDefinition&#40;&#41;&#41;&#32;&#63;&#63;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;new&#32;List&#60;DecoratorRegistration&#62;&#40;0&#41;&#59;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;The&#32;final&#32;result&#32;is&#32;an&#32;ordered&#32;concatenation&#32;of&#32;the&#32;closed&#32;and&#32;open&#32;registrations&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;that&#32;should&#32;be&#32;used&#32;for&#32;the&#32;type&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;typeList&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.Concat&#40;openGenericList&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.OrderBy&#40;_registration&#32;&#61;&#62;&#32;_registration.Order&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.Select&#40;_reg&#32;&#61;&#62;&#32;_reg.Type&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#10;&#32;&#32;&#32;&#32;&#125;&#10;&#10;&#32;&#32;&#32;&#32;public&#32;class&#32;TypeMappingDecoratorBuildStrategy&#32;&#58;&#32;BuilderStrategy&#10;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;private&#32;readonly&#32;Dictionary&#60;Type,&#32;IList&#60;DecoratorRegistration&#62;&#62;&#32;m_typeStacks&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;private&#32;readonly&#32;Func&#60;Type,&#32;IEnumerable&#60;Type&#62;&#62;&#32;getDecoratorTypes&#59;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;internal&#32;TypeMappingDecoratorBuildStrategy&#40;Dictionary&#60;Type,&#32;IList&#60;DecoratorRegistration&#62;&#62;&#32;_typeStacks,&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Func&#60;Type,&#32;IEnumerable&#60;Type&#62;&#62;&#32;getDecoratorTypes&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;m_typeStacks&#32;&#61;&#32;_typeStacks&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;this.getDecoratorTypes&#32;&#61;&#32;getDecoratorTypes&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;public&#32;override&#32;void&#32;PreBuildUp&#40;IBuilderContext&#32;_context&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;var&#32;key&#32;&#61;&#32;_context.OriginalBuildKey&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;_context.GetOverriddenResolver&#40;key.Type&#41;&#32;&#33;&#61;&#32;null&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#59;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;Only&#32;interfaces&#32;can&#32;use&#32;decorators.&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;&#33;key.Type.IsInterface&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#59;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;Gets&#32;the&#32;list&#32;of&#32;types&#32;required&#32;to&#32;build&#32;the&#32;&#39;decorated&#39;&#32;instance.&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;The&#32;list&#32;is&#32;reversed&#32;so&#32;that&#32;the&#32;least&#32;dependent&#32;types&#32;are&#32;built&#32;first.&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;var&#32;decoratorTypes&#32;&#61;&#32;getDecoratorTypes&#40;key.Type&#41;.Reverse&#40;&#41;.ToList&#40;&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;&#33;decoratorTypes.Any&#40;&#41;&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#59;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_context.BuildKey&#32;&#61;&#32;new&#32;NamedTypeBuildKey&#40;decoratorTypes.Last&#40;&#41;,&#32;_context.BuildKey.Name&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#10;&#32;&#32;&#32;&#32;&#125;&#10;&#10;&#32;&#32;&#32;&#32;internal&#32;class&#32;DecoratorBuildStrategy&#32;&#58;&#32;BuilderStrategy&#10;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;private&#32;readonly&#32;Dictionary&#60;Type,&#32;IList&#60;DecoratorRegistration&#62;&#62;&#32;m_typeStacks&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;private&#32;readonly&#32;Func&#60;Type,&#32;IEnumerable&#60;Type&#62;&#62;&#32;getDecoratorTypes&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;internal&#32;DecoratorBuildStrategy&#40;Dictionary&#60;Type,&#32;IList&#60;DecoratorRegistration&#62;&#62;&#32;_typeStacks,&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Func&#60;Type,&#32;IEnumerable&#60;Type&#62;&#62;&#32;getDecoratorTypes&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;m_typeStacks&#32;&#61;&#32;_typeStacks&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;this.getDecoratorTypes&#32;&#61;&#32;getDecoratorTypes&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;public&#32;override&#32;void&#32;PreBuildUp&#40;IBuilderContext&#32;_context&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;var&#32;key&#32;&#61;&#32;_context.OriginalBuildKey&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;_context.GetOverriddenResolver&#40;key.Type&#41;&#32;&#33;&#61;&#32;null&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#59;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;Only&#32;interfaces&#32;can&#32;use&#32;decorators.&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;&#33;key.Type.IsInterface&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#59;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;Gets&#32;the&#32;list&#32;of&#32;types&#32;required&#32;to&#32;build&#32;the&#32;&#39;decorated&#39;&#32;instance.&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;The&#32;list&#32;is&#32;reversed&#32;so&#32;that&#32;the&#32;least&#32;dependent&#32;types&#32;are&#32;built&#32;first.&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;var&#32;decoratorTypes&#32;&#61;&#32;getDecoratorTypes&#40;key.Type&#41;.Reverse&#40;&#41;.ToList&#40;&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;&#33;decoratorTypes.Any&#40;&#41;&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#59;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;object&#32;value&#32;&#61;&#32;null&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;foreach&#32;&#40;var&#32;type&#32;in&#32;decoratorTypes&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Type&#32;typeToBuild&#32;&#61;&#32;type&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;typeToBuild.IsGenericTypeDefinition&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Type&#91;&#93;&#32;genericArgumentTypes&#32;&#61;&#32;key.Type.GetGenericArguments&#40;&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;typeToBuild&#32;&#61;&#32;typeToBuild.MakeGenericType&#40;genericArgumentTypes&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;value&#32;&#61;&#32;_context.NewBuildUp&#40;new&#32;NamedTypeBuildKey&#40;typeToBuild,&#32;key.Name&#41;&#41;&#59;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;An&#32;Override&#32;is&#32;created&#32;so&#32;that&#32;in&#32;the&#32;next&#32;BuildUp&#32;the&#32;already&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;built&#32;object&#32;gets&#32;used&#32;instead&#32;of&#32;doing&#32;the&#32;BuildUp&#32;again&#32;and&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;entering&#32;an&#32;infinite&#32;loop&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_context.AddResolverOverrides&#40;new&#32;DependencyOverride&#40;key.Type,&#32;value&#41;&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_context.Existing&#32;&#61;&#32;value&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_context.BuildComplete&#32;&#61;&#32;true&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#10;&#32;&#32;&#32;&#32;&#125;&#10;&#10;&#96;&#96;&#96;&#10;I&#32;also&#32;had&#32;to&#32;explicitly&#32;register&#32;the&#32;Decorators&#32;as&#32;singletons&#58;&#10;&#10;&#96;&#96;&#96;&#32;c&#35;&#10;var&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#10;&#32;&#32;&#32;&#32;.AddNewExtension&#60;DecoratorExtension&#62;&#40;&#41;&#10;&#32;&#32;&#32;&#32;.RegisterType&#60;Base&#60;string&#62;&#62;&#40;new&#32;ContainerControlledLifetimeManager&#40;&#41;&#41;&#10;&#32;&#32;&#32;&#32;.RegisterType&#60;Decorator1&#60;string&#62;&#62;&#40;new&#32;ContainerControlledLifetimeManager&#40;&#41;&#41;&#10;&#32;&#32;&#32;&#32;.RegisterType&#60;IAny&#60;string&#62;,&#32;Decorator1&#60;string&#62;&#62;&#40;&#41;&#10;&#32;&#32;&#32;&#32;.RegisterType&#60;IAny&#60;string&#62;,&#32;Base&#60;string&#62;&#62;&#40;&#41;&#10;&#32;&#32;&#32;&#32;.RegisterType&#60;IAnotherInterface,&#32;Base&#60;string&#62;&#62;&#40;&#41;&#59;&#10;&#10;&#96;&#96;&#96;&#10;&#10;The&#32;unit&#32;tests&#32;pass&#32;with&#32;the&#32;above&#32;and&#32;also&#32;seem&#32;to&#32;work&#32;with&#32;a&#32;Transient&#32;registration.&#32;&#32;I&#32;hope&#32;that&#32;helps.&#32;&#32;&#10;&#10;I&#39;ll&#32;just&#32;say&#32;that&#32;the&#32;multiple&#32;RegisterType&#32;calls&#32;to&#32;configure&#32;the&#32;decorator&#32;chain&#32;could&#32;be&#32;a&#32;bit&#32;confusing&#32;to&#32;people&#32;familiar&#32;with&#32;Unity&#32;since&#32;only&#32;the&#32;last&#32;one&#32;will&#32;result&#32;in&#32;an&#32;actual&#32;registration&#32;&#40;last&#32;in&#32;wins&#41;.&#32;&#32;Maybe&#32;an&#32;extension&#32;method&#32;with&#32;a&#32;comment&#32;could&#32;convey&#32;the&#32;intent&#32;a&#32;bit&#32;better&#63;&#10;&#10;&#96;&#96;&#96;&#32;c&#35;&#10;&#32;&#32;&#32;&#32;public&#32;static&#32;class&#32;UnityExtensions&#10;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#47;&#32;&#60;summary&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#47;&#32;Register&#32;decorator&#32;type&#32;mapping.&#32;&#32;This&#32;uses&#32;standard&#32;Unity&#32;register&#32;method&#32;and&#32;the&#32;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#47;&#32;DecoratorContainerExtension&#32;takes&#32;care&#32;of&#32;storing&#32;the&#32;decorators&#47;type&#32;mapping.&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#47;&#32;&#60;&#47;summary&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;public&#32;static&#32;IUnityContainer&#32;RegisterDecorator&#60;TFrom,&#32;TTo&#62;&#40;this&#32;IUnityContainer&#32;container&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;container.RegisterType&#40;typeof&#40;TFrom&#41;,&#32;typeof&#40;TTo&#41;&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;public&#32;static&#32;IUnityContainer&#32;RegisterDecorator&#40;this&#32;IUnityContainer&#32;container,&#32;Type&#32;from,&#32;Type&#32;to&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;container.RegisterType&#40;from,&#32;to&#41;&#59;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#10;&#32;&#32;&#32;&#32;&#125;&#10;&#10;&#32;&#32;&#32;&#32;var&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.AddNewExtension&#60;DecoratorExtension&#62;&#40;&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.RegisterType&#40;typeof&#40;Base&#60;&#62;&#41;,&#32;new&#32;ContainerControlledLifetimeManager&#40;&#41;&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.RegisterType&#40;typeof&#40;Decorator1&#60;&#62;&#41;,new&#32;ContainerControlledLifetimeManager&#40;&#41;&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.RegisterDecorator&#60;IAny&#60;string&#62;,&#32;Decorator1&#60;string&#62;&#62;&#40;&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.RegisterDecorator&#60;IAny&#60;string&#62;,&#32;Base&#60;string&#62;&#62;&#40;&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.RegisterDecorator&#60;IAnotherInterface,&#32;Base&#60;string&#62;&#62;&#40;&#41;&#59;&#10;&#10;&#96;&#96;&#96;&#10;Just&#32;a&#32;thought.&#10;&#10;&#126;&#126;&#10;Randy&#32;Levy&#10;&#91;entlib.support&#64;live.com&#93;&#40;mailto&#58;entlib.support&#64;live.com&#41;&#10;Enterprise&#32;Library&#32;support&#32;engineer&#10;&#91;Support&#32;How-to&#93;&#40;entlib.codeplex.com&#47;wikipage&#63;title&#61;Support&#37;20How-to&#41;&#32;">
+        <div class="markDownOutput ">I know you've seen it, but <a href="http://unity.codeplex.com/discussions/406534"  rel="nofollow">
+this discussion post</a> shows how to used named instances to create decorators.<br>
+<br>
+What I'm seeing is that the extension is resolving a different type than the BuildKey that Unity has mapped to.<br>
+<br>
+For example:<br>
+<ul>
+<li>An IAny&lt;string&gt; is requested </li><li>Unity maps that to Base&lt;string&gt; since it was the last IAny&lt;string&gt; registered
+</li><li>The extension runs and creates all the decorators and returns the last decorator object. In this case it is Decorator1&lt;string&gt;.<br>
+</li></ul>
+Now as you say, this is usually great -- the object is created with the chain of decorators, returned and everything works. The issue occurs because ContainerControlledLifetimeManager (which is being used for singletons) stores the newly created Decorator1&lt;string&gt;
+ instance with the Base&lt;string&gt; BuildKey. So then:<br>
+<ul>
+<li>Unity stores Decorator1&lt;string&gt; with the Base&lt;string&gt; BuildKey </li><li>An IAnotherInterface is resolved </li><li>Unity maps that to Base&lt;string&gt; </li><li>Unity returns the Decorator1&lt;string&gt; instance from the ContainerControlledLifetimeManager associated with the Base&lt;string&gt; build key
+<strong>without calling the decorator extension</strong> </li><li>InvalidCastException<br>
+</li></ul>
+That's a problem because Decorator1&lt;string&gt; is actually stored in the Base&lt;string&gt; lifetime manager and Decorator1&lt;string&gt;
+<strong>is not an</strong> IAnotherInterface (whereas Base&lt;string&gt; is).<br>
+<br>
+I was able to get the unit tests to pass. That said, I'm not saying it's correct in general since there are so many different scenarios that could occur.<br>
+<br>
+What I did was to create another BuildStrategy that is run in the TypeMapping phase. It basically maps the OriginalBuildKey to the final BuildKey as determined by the decorator chain:<br>
+<div style="color:Black; background-color:White">
+<pre>
+    <span style="color:Blue">public</span> <span style="color:Blue">class</span> DecoratorExtension : UnityContainerExtension
+    {
+        <span style="color:Blue">private</span> <span style="color:Blue">int</span> m_order;
+        <span style="color:Blue">private</span> Dictionary&lt;Type, IList&lt;DecoratorRegistration&gt;&gt; m_typeStacks;
+
+        <span style="color:Blue">protected</span> <span style="color:Blue">override</span> <span style="color:Blue">void</span> Initialize()
+        {
+            m_typeStacks = <span style="color:Blue">new</span> Dictionary&lt;Type, IList&lt;DecoratorRegistration&gt;&gt;();
+            Context.Registering &#43;= AddRegistration;
+            Context.Strategies.Add(<span style="color:Blue">new</span> DecoratorBuildStrategy(m_typeStacks, GetDecoratorTypes), UnityBuildStage.PreCreation);
+            Context.Strategies.Add(<span style="color:Blue">new</span> TypeMappingDecoratorBuildStrategy(m_typeStacks, GetDecoratorTypes), UnityBuildStage.TypeMapping);
+        }
+
+        <span style="color:Blue">private</span> <span style="color:Blue">void</span> AddRegistration(<span style="color:Blue">object</span> _sender, RegisterEventArgs _e)
+        {
+            <span style="color:Blue">if</span> (_e.TypeFrom == <span style="color:Blue">null</span> || !_e.TypeFrom.IsInterface)
+                <span style="color:Blue">return</span>;
+
+            GetStack(_e.TypeFrom)
+                .Add(<span style="color:Blue">new</span> DecoratorRegistration { Order = m_order&#43;&#43;, Type = _e.TypeTo });
+        }
+
+        <span style="color:Blue">private</span> IList&lt;DecoratorRegistration&gt; GetStack(Type _type)
+        {
+            <span style="color:Blue">if</span> (!m_typeStacks.ContainsKey(_type))
+                m_typeStacks.Add(_type, <span style="color:Blue">new</span> List&lt;DecoratorRegistration&gt;());
+
+            <span style="color:Blue">return</span> m_typeStacks[_type];
+        }
+
+        <span style="color:Blue">private</span> IEnumerable&lt;Type&gt; GetDecoratorTypes(Type _type)
+        {
+            <span style="color:Blue">var</span> typeList = m_typeStacks.GetValueOrDefault(_type) ?? <span style="color:Blue">new</span> List&lt;DecoratorRegistration&gt;(0);
+            <span style="color:Blue">if</span> (!_type.IsGenericType)
+                <span style="color:Blue">return</span> typeList.Select(_reg =&gt; _reg.Type);
+
+            <span style="color:Green">// If the type is a generic type, we need to get all open generic registrations</span>
+            <span style="color:Green">// alongside the closed ones</span>
+            <span style="color:Blue">var</span> openGenericList = m_typeStacks
+                    .GetValueOrDefault(_type.GetGenericTypeDefinition()) ??
+                    <span style="color:Blue">new</span> List&lt;DecoratorRegistration&gt;(0);
+
+            <span style="color:Green">// The final result is an ordered concatenation of the closed and open registrations </span>
+            <span style="color:Green">// that should be used for the type</span>
+            <span style="color:Blue">return</span> typeList
+                .Concat(openGenericList)
+                .OrderBy(_registration =&gt; _registration.Order)
+                .Select(_reg =&gt; _reg.Type);
+        }
+    }
+
+    <span style="color:Blue">public</span> <span style="color:Blue">class</span> TypeMappingDecoratorBuildStrategy : BuilderStrategy
+    {
+        <span style="color:Blue">private</span> <span style="color:Blue">readonly</span> Dictionary&lt;Type, IList&lt;DecoratorRegistration&gt;&gt; m_typeStacks;
+        <span style="color:Blue">private</span> <span style="color:Blue">readonly</span> Func&lt;Type, IEnumerable&lt;Type&gt;&gt; getDecoratorTypes;
+
+        <span style="color:Blue">internal</span> TypeMappingDecoratorBuildStrategy(Dictionary&lt;Type, IList&lt;DecoratorRegistration&gt;&gt; _typeStacks,
+            Func&lt;Type, IEnumerable&lt;Type&gt;&gt; getDecoratorTypes)
+        {
+            m_typeStacks = _typeStacks;
+            <span style="color:Blue">this</span>.getDecoratorTypes = getDecoratorTypes;
+        }
+
+        <span style="color:Blue">public</span> <span style="color:Blue">override</span> <span style="color:Blue">void</span> PreBuildUp(IBuilderContext _context)
+        {
+            <span style="color:Blue">var</span> key = _context.OriginalBuildKey;
+            <span style="color:Blue">if</span> (_context.GetOverriddenResolver(key.Type) != <span style="color:Blue">null</span>)
+                <span style="color:Blue">return</span>;
+
+            <span style="color:Green">// Only interfaces can use decorators.</span>
+            <span style="color:Blue">if</span> (!key.Type.IsInterface)
+                <span style="color:Blue">return</span>;
+
+            <span style="color:Green">// Gets the list of types required to build the &#39;decorated&#39; instance.</span>
+            <span style="color:Green">// The list is reversed so that the least dependent types are built first.</span>
+            <span style="color:Blue">var</span> decoratorTypes = getDecoratorTypes(key.Type).Reverse().ToList();
+            <span style="color:Blue">if</span> (!decoratorTypes.Any())
+                <span style="color:Blue">return</span>;
+
+            _context.BuildKey = <span style="color:Blue">new</span> NamedTypeBuildKey(decoratorTypes.Last(), _context.BuildKey.Name);
+        }
+    }
+
+    <span style="color:Blue">internal</span> <span style="color:Blue">class</span> DecoratorBuildStrategy : BuilderStrategy
+    {
+        <span style="color:Blue">private</span> <span style="color:Blue">readonly</span> Dictionary&lt;Type, IList&lt;DecoratorRegistration&gt;&gt; m_typeStacks;
+        <span style="color:Blue">private</span> <span style="color:Blue">readonly</span> Func&lt;Type, IEnumerable&lt;Type&gt;&gt; getDecoratorTypes;
+        
+        <span style="color:Blue">internal</span> DecoratorBuildStrategy(Dictionary&lt;Type, IList&lt;DecoratorRegistration&gt;&gt; _typeStacks,
+            Func&lt;Type, IEnumerable&lt;Type&gt;&gt; getDecoratorTypes)
+        {
+            m_typeStacks = _typeStacks;
+            <span style="color:Blue">this</span>.getDecoratorTypes = getDecoratorTypes;
+        }
+
+        <span style="color:Blue">public</span> <span style="color:Blue">override</span> <span style="color:Blue">void</span> PreBuildUp(IBuilderContext _context)
+        {
+            <span style="color:Blue">var</span> key = _context.OriginalBuildKey;
+            <span style="color:Blue">if</span> (_context.GetOverriddenResolver(key.Type) != <span style="color:Blue">null</span>)
+                <span style="color:Blue">return</span>;
+
+            <span style="color:Green">// Only interfaces can use decorators.</span>
+            <span style="color:Blue">if</span> (!key.Type.IsInterface)
+                <span style="color:Blue">return</span>;
+
+            <span style="color:Green">// Gets the list of types required to build the &#39;decorated&#39; instance.</span>
+            <span style="color:Green">// The list is reversed so that the least dependent types are built first.</span>
+            <span style="color:Blue">var</span> decoratorTypes = getDecoratorTypes(key.Type).Reverse().ToList();
+            <span style="color:Blue">if</span> (!decoratorTypes.Any())
+                <span style="color:Blue">return</span>;
+
+            <span style="color:Blue">object</span> value = <span style="color:Blue">null</span>;
+            <span style="color:Blue">foreach</span> (<span style="color:Blue">var</span> type <span style="color:Blue">in</span> decoratorTypes)
+            {
+                Type typeToBuild = type;
+                <span style="color:Blue">if</span> (typeToBuild.IsGenericTypeDefinition)
+                {
+                    Type[] genericArgumentTypes = key.Type.GetGenericArguments();
+                    typeToBuild = typeToBuild.MakeGenericType(genericArgumentTypes);
+                }
+
+                value = _context.NewBuildUp(<span style="color:Blue">new</span> NamedTypeBuildKey(typeToBuild, key.Name));
+
+                <span style="color:Green">// An Override is created so that in the next BuildUp the already </span>
+                <span style="color:Green">// built object gets used instead of doing the BuildUp again and </span>
+                <span style="color:Green">// entering an infinite loop</span>
+                _context.AddResolverOverrides(<span style="color:Blue">new</span> DependencyOverride(key.Type, value));
+            }
+
+            _context.Existing = value;
+            _context.BuildComplete = <span style="color:Blue">true</span>;
+        }
+    }
+
+</pre>
+</div>
+I also had to explicitly register the Decorators as singletons:<br>
+<div style="color:Black; background-color:White">
+<pre>
+<span style="color:Blue">var</span> container = <span style="color:Blue">new</span> UnityContainer()
+    .AddNewExtension&lt;DecoratorExtension&gt;()
+    .RegisterType&lt;Base&lt;<span style="color:Blue">string</span>&gt;&gt;(<span style="color:Blue">new</span> ContainerControlledLifetimeManager())
+    .RegisterType&lt;Decorator1&lt;<span style="color:Blue">string</span>&gt;&gt;(<span style="color:Blue">new</span> ContainerControlledLifetimeManager())
+    .RegisterType&lt;IAny&lt;<span style="color:Blue">string</span>&gt;, Decorator1&lt;<span style="color:Blue">string</span>&gt;&gt;()
+    .RegisterType&lt;IAny&lt;<span style="color:Blue">string</span>&gt;, Base&lt;<span style="color:Blue">string</span>&gt;&gt;()
+    .RegisterType&lt;IAnotherInterface, Base&lt;<span style="color:Blue">string</span>&gt;&gt;();
+
+</pre>
+</div>
+The unit tests pass with the above and also seem to work with a Transient registration. I hope that helps.<br>
+<br>
+I'll just say that the multiple RegisterType calls to configure the decorator chain could be a bit confusing to people familiar with Unity since only the last one will result in an actual registration (last in wins). Maybe an extension method with a comment
+ could convey the intent a bit better?<br>
+<div style="color:Black; background-color:White">
+<pre>
+    <span style="color:Blue">public</span> <span style="color:Blue">static</span> <span style="color:Blue">class</span> UnityExtensions
+    {
+        <span style="color:Gray">///</span> <span style="color:Gray">&lt;summary&gt;</span>
+        <span style="color:Gray">///</span><span style="color:Green"> Register decorator type mapping.  This uses standard Unity register method and the </span>
+        <span style="color:Gray">///</span><span style="color:Green"> DecoratorContainerExtension takes care of storing the decorators/type mapping.</span>
+        <span style="color:Gray">///</span> <span style="color:Gray">&lt;/summary&gt;</span>
+        <span style="color:Blue">public</span> <span style="color:Blue">static</span> IUnityContainer RegisterDecorator&lt;TFrom, TTo&gt;(<span style="color:Blue">this</span> IUnityContainer container)
+        {
+            <span style="color:Blue">return</span> container.RegisterType(<span style="color:Blue">typeof</span>(TFrom), <span style="color:Blue">typeof</span>(TTo));
+        }
+
+        <span style="color:Blue">public</span> <span style="color:Blue">static</span> IUnityContainer RegisterDecorator(<span style="color:Blue">this</span> IUnityContainer container, Type <span style="color:Blue">from</span>, Type to)
+        {
+            <span style="color:Blue">return</span> container.RegisterType(<span style="color:Blue">from</span>, to);
+        }
+    }
+
+    <span style="color:Blue">var</span> container = <span style="color:Blue">new</span> UnityContainer()
+        .AddNewExtension&lt;DecoratorExtension&gt;()
+        .RegisterType(<span style="color:Blue">typeof</span>(Base&lt;&gt;), <span style="color:Blue">new</span> ContainerControlledLifetimeManager())
+        .RegisterType(<span style="color:Blue">typeof</span>(Decorator1&lt;&gt;),<span style="color:Blue">new</span> ContainerControlledLifetimeManager())
+        .RegisterDecorator&lt;IAny&lt;<span style="color:Blue">string</span>&gt;, Decorator1&lt;<span style="color:Blue">string</span>&gt;&gt;()
+        .RegisterDecorator&lt;IAny&lt;<span style="color:Blue">string</span>&gt;, Base&lt;<span style="color:Blue">string</span>&gt;&gt;()
+        .RegisterDecorator&lt;IAnotherInterface, Base&lt;<span style="color:Blue">string</span>&gt;&gt;();
+
+</pre>
+</div>
+Just a thought.<br>
+<br>
+~~<br>
+Randy Levy<br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">&#x65;n&#x74;&#108;&#105;&#x62;&#46;&#115;&#x75;&#112;&#112;&#x6f;&#x72;&#x74;&#x40;&#x6c;&#x69;&#118;&#x65;&#x2e;c&#x6f;&#x6d;</a><br>
+Enterprise Library support engineer<br>
+<a href="entlib.codeplex.com/wikipage?title=Support%20How-to"  rel="nofollow">Support How-to</a>
+<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1065308" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1065655">
+    <td id="PostDetailsCell_1065655" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1065655"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/julealgon">julealgon</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/8/2013 5:07:53 PM" LocalTimeTicks="1373328473">Jul 8, 2013 at 5:07 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1065655" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="Ok,&#32;I&#32;can&#32;see&#32;what&#32;you&#32;did.&#32;This&#32;was&#32;something&#32;I&#32;thought&#32;about&#32;too,&#32;the&#32;fact&#32;that&#32;things&#32;were&#32;registered&#32;with&#32;the&#32;wrong&#32;buildkey.&#13;&#10;&#13;&#10;I&#39;ll&#32;thoroughly&#32;examine&#32;this&#32;later,&#32;but&#32;it&#32;will&#32;probably&#32;take&#32;a&#32;few&#32;days&#32;because&#32;I&#39;m&#32;resolving&#32;an&#32;issue&#32;here.&#32;And&#32;about&#32;the&#32;intent&#32;not&#32;being&#32;clear&#32;with&#32;consecutive&#32;RegisterType&#32;calls,&#32;I&#32;agree&#32;with&#32;that.&#32;My&#32;only&#32;concern&#32;with&#32;an&#32;extension&#32;method&#32;in&#32;this&#32;case&#32;is&#32;that&#32;someone&#32;could&#32;actually&#32;register&#32;a&#32;decorator&#32;without&#32;using&#32;it&#32;at&#32;all.&#32;Maybe&#32;if&#32;I&#32;could&#32;somehow&#32;enforce&#32;the&#32;usage&#32;of&#32;this&#32;extension&#32;method&#32;for&#32;decorators&#63;&#32;It&#32;will&#32;obviously&#32;not&#32;work&#32;with&#32;the&#32;current&#32;code,&#32;but&#32;I&#32;wonder&#32;if&#32;there&#32;is&#32;a&#32;way&#32;to&#32;do&#32;that&#63;&#13;&#10;&#13;&#10;And,&#32;again,&#32;just&#32;wanted&#32;to&#32;say&#32;thank&#32;you&#32;Randy&#32;for&#32;the&#32;huge&#32;help.&#32;I&#32;was&#32;impressed&#32;with&#32;how&#32;you&#32;actually&#32;understood&#32;the&#32;problem&#32;and&#32;proposed&#32;a&#32;good&#32;solution&#32;so&#32;fast&#32;without&#32;even&#32;needing&#32;more&#32;details.&#13;&#10;&#13;&#10;Will&#32;report&#32;back&#32;as&#32;soon&#32;as&#32;I&#32;can&#32;try&#32;this&#32;out&#32;a&#32;bit.">
+        <div class="markDownOutput ">Ok, I can see what you did. This was something I thought about too, the fact that things were registered with the wrong buildkey.
+<br>
+<br>
+I'll thoroughly examine this later, but it will probably take a few days because I'm resolving an issue here. And about the intent not being clear with consecutive RegisterType calls, I agree with that. My only concern with an extension method in this case
+ is that someone could actually register a decorator without using it at all. Maybe if I could somehow enforce the usage of this extension method for decorators? It will obviously not work with the current code, but I wonder if there is a way to do that?
+<br>
+<br>
+And, again, just wanted to say thank you Randy for the huge help. I was impressed with how you actually understood the problem and proposed a good solution so fast without even needing more details.
+<br>
+<br>
+Will report back as soon as I can try this out a bit.<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1065655" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1073486">
+    <td id="PostDetailsCell_1073486" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1073486"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/julealgon">julealgon</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/26/2013 1:55:12 PM" LocalTimeTicks="1374872112">Jul 26, 2013 at 1:55 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1073486" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="Hi&#32;Randy.&#13;&#10;&#13;&#10;I&#39;m&#32;very&#32;sorry&#32;it&#32;took&#32;this&#32;long&#32;for&#32;me&#32;to&#32;come&#32;back&#32;to&#32;this.&#32;We&#32;had&#32;quite&#32;a&#32;few&#32;problems&#32;in&#32;a&#32;short&#32;period&#32;of&#32;time&#32;and&#32;I&#32;ended&#32;up&#32;letting&#32;this&#32;bug&#32;slide&#32;a&#32;bit,&#32;since&#32;I&#39;ve&#32;changed&#32;the&#32;registrations&#32;to&#32;Transient&#32;as&#32;a&#32;quick&#32;fix.&#13;&#10;&#13;&#10;I&#32;can&#32;confirm&#32;your&#32;code&#32;is&#32;really&#32;working.&#32;As&#32;you&#32;saw&#32;yourself,&#32;the&#32;test&#32;was&#32;wrong&#32;to&#32;begin&#32;with.&#32;The&#32;decorated&#32;instances&#32;should&#32;of&#32;course&#32;be&#32;different&#32;with&#32;these&#32;registrations,&#32;that&#32;was&#32;a&#32;mistake&#32;on&#32;my&#32;part.&#32;What&#32;I&#32;wanted&#32;to&#32;test&#32;is&#32;if&#32;the&#32;contained&#32;base&#32;class&#32;on&#32;each&#32;of&#32;the&#32;decorators&#32;was&#32;the&#32;same,&#32;and&#32;this&#32;is&#32;also&#32;working&#32;&#58;&#41;&#13;&#10;&#13;&#10;I&#39;m&#32;still&#32;curious&#32;if&#32;it&#32;is&#32;possible&#32;to&#32;abstract&#32;the&#32;decorator&#32;registrations&#32;away&#32;from&#32;the&#32;container&#32;itself&#32;in&#32;some&#32;way.&#32;What&#32;I&#32;think&#32;would&#32;be&#32;ideal&#32;is&#32;if&#32;registering&#32;decorators&#32;was&#32;only&#32;possible&#32;thought&#32;some&#32;custom&#32;api&#32;&#40;like&#32;your&#32;extension&#32;methods&#41;.&#32;As&#32;I&#32;said&#32;earlier,&#32;I&#32;agree&#32;that&#32;the&#32;way&#32;it&#32;is&#32;working&#32;now&#32;is&#32;not&#32;that&#32;intuitive,&#32;but&#32;I&#32;don&#39;t&#32;like&#32;the&#32;fact&#32;that&#32;your&#32;extension&#32;methods&#32;use&#32;the&#32;normal&#32;RegisterType&#32;to&#32;do&#32;that&#32;same&#32;thing,&#32;as&#32;that&#32;opens&#32;up&#32;problems&#32;with&#32;people&#32;registering&#32;decorators&#32;through&#32;RegisterType&#32;directly&#32;by&#32;mistake.&#32;Is&#32;there&#32;a&#32;way&#32;I&#32;can&#32;customize&#32;the&#32;container&#32;to&#32;achieve&#32;that&#63;&#13;&#10;&#13;&#10;Also,&#32;when&#32;working&#32;with&#32;the&#32;normal&#32;extensions,&#32;the&#32;container&#32;overrides&#32;the&#32;last&#32;registration&#32;if&#32;another&#32;one&#32;is&#32;made&#32;for&#32;the&#32;same&#32;type&#32;right&#63;&#32;I&#32;figure&#32;this&#32;is&#32;currently&#32;broken&#32;by&#32;my&#32;extension&#63;&#32;I&#32;don&#39;t&#32;have&#32;a&#32;situation&#32;yet&#32;in&#32;which&#32;the&#32;same&#32;type&#32;is&#32;registered&#32;multiple&#32;times.&#32;By&#32;forcing&#32;users&#32;to&#32;use&#32;a&#32;custom&#32;api&#32;to&#32;register&#32;decorators,&#32;I&#32;could&#32;avoid&#32;the&#32;normal&#32;workflow&#32;on&#32;the&#32;container,&#32;avoiding&#32;this&#32;problem&#32;altogether.&#13;&#10;&#13;&#10;As&#32;you&#32;may&#32;have&#32;noticed&#32;by&#32;now,&#32;I&#32;really&#32;like&#32;this&#32;concept,&#32;and&#32;would&#32;like&#32;to&#32;keep&#32;using&#32;this&#32;in&#32;our&#32;environment.&#32;I&#32;wanted&#32;to&#32;guarantee&#32;that&#32;this&#32;extension&#32;does&#32;not&#32;interfere&#32;too&#32;much&#32;with&#32;the&#32;rest&#32;of&#32;the&#32;container&#32;pipeline,&#32;so&#32;any&#32;help&#32;is&#32;appreciated.&#32;For&#32;instance,&#32;if&#32;you&#32;happen&#32;to&#32;know&#32;a&#32;more&#32;complicated&#32;test&#32;case&#32;that&#32;could&#32;be&#32;tested&#32;would&#32;you&#32;please&#32;share&#32;the&#32;idea&#32;with&#32;me&#63;&#13;&#10;&#13;&#10;Thanks&#32;a&#32;lot&#32;&#40;again&#41;&#32;man,&#13;&#10;Juliano">
+        <div class="markDownOutput ">Hi Randy. <br>
+<br>
+I'm very sorry it took this long for me to come back to this. We had quite a few problems in a short period of time and I ended up letting this bug slide a bit, since I've changed the registrations to Transient as a quick fix.
+<br>
+<br>
+I can confirm your code is really working. As you saw yourself, the test was wrong to begin with. The decorated instances should of course be different with these registrations, that was a mistake on my part. What I wanted to test is if the contained base class
+ on each of the decorators was the same, and this is also working :) <br>
+<br>
+I'm still curious if it is possible to abstract the decorator registrations away from the container itself in some way. What I think would be ideal is if registering decorators was only possible thought some custom api (like your extension methods). As I said
+ earlier, I agree that the way it is working now is not that intuitive, but I don't like the fact that your extension methods use the normal RegisterType to do that same thing, as that opens up problems with people registering decorators through RegisterType
+ directly by mistake. Is there a way I can customize the container to achieve that?
+<br>
+<br>
+Also, when working with the normal extensions, the container overrides the last registration if another one is made for the same type right? I figure this is currently broken by my extension? I don't have a situation yet in which the same type is registered
+ multiple times. By forcing users to use a custom api to register decorators, I could avoid the normal workflow on the container, avoiding this problem altogether.
+<br>
+<br>
+As you may have noticed by now, I really like this concept, and would like to keep using this in our environment. I wanted to guarantee that this extension does not interfere too much with the rest of the container pipeline, so any help is appreciated. For
+ instance, if you happen to know a more complicated test case that could be tested would you please share the idea with me?
+<br>
+<br>
+Thanks a lot (again) man, <br>
+Juliano<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1073486" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1075395">
+    <td id="PostDetailsCell_1075395" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1075395"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/1/2013 3:49:04 AM" LocalTimeTicks="1375354144">Aug 1, 2013 at 3:49 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="8/1/2013 3:49:53 AM" LocalTimeTicks="1375354193">Aug 1, 2013 at 3:49 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1075395" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="There&#32;aren&#39;t&#32;many&#32;hooks&#32;to&#32;trigger&#32;the&#32;container&#32;extension&#32;so&#32;I&#32;think&#32;you&#32;are&#32;pretty&#32;much&#32;stuck&#32;with&#32;RegisterType.&#32;&#32;Another&#32;option&#32;would&#32;be&#32;to&#32;modify&#32;Unity&#32;source&#32;to&#32;add&#32;the&#32;functionality&#32;you&#32;want.&#32;&#32;A&#32;middle&#32;ground&#32;might&#32;be&#32;to&#32;register&#32;the&#32;decorators&#32;directly&#32;with&#32;the&#32;container&#32;extension&#32;and&#32;then&#32;add&#32;the&#32;container&#32;extension&#32;to&#32;the&#32;container.&#10;&#10;Something&#32;like&#58;&#10;&#10;&#96;&#96;&#96;&#32;c&#35;&#10;&#32;&#32;&#32;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.RegisterType&#40;typeof&#40;Base&#60;&#62;&#41;,&#32;new&#32;ContainerControlledLifetimeManager&#40;&#41;&#41;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.RegisterType&#40;typeof&#40;Decorator1&#60;&#62;&#41;,new&#32;ContainerControlledLifetimeManager&#40;&#41;&#41;&#59;&#10;&#10;&#32;&#32;&#32;&#32;DecoratorExtension&#32;extension&#32;&#61;&#32;new&#32;DecoratorExension&#40;container&#41;&#59;&#10;&#32;&#32;&#32;&#32;extension.RegisterDecorator&#60;IAny&#60;string&#62;,&#32;Decorator1&#60;string&#62;&#62;&#40;&#41;&#59;&#10;&#32;&#32;&#32;&#32;extension.RegisterDecorator&#60;IAny&#60;string&#62;,&#32;Base&#60;string&#62;&#62;&#40;&#41;&#59;&#10;&#32;&#32;&#32;&#32;extension.RegisterDecorator&#60;IAnotherInterface,&#32;Base&#60;string&#62;&#62;&#40;&#41;&#59;&#10;&#10;&#32;&#32;&#32;&#32;container.AddExtension&#40;extension&#41;&#59;&#10;&#10;&#96;&#96;&#96;&#10;&#10;&#126;&#126;&#10;Randy&#32;Levy&#10;&#91;entlib.support&#64;live.com&#93;&#40;mailto&#58;entlib.support&#64;live.com&#41;&#10;Enterprise&#32;Library&#32;support&#32;engineer&#10;&#91;Support&#32;How-to&#93;&#40;http&#58;&#47;&#47;entlib.codeplex.com&#47;wikipage&#63;title&#61;Support&#37;20How-to&#41;&#32;&#10;">
+        <div class="markDownOutput ">There aren't many hooks to trigger the container extension so I think you are pretty much stuck with RegisterType. Another option would be to modify Unity source to add the functionality you want. A middle ground might be to register the decorators directly
+ with the container extension and then add the container extension to the container.<br>
+<br>
+Something like:<br>
+<div style="color:Black; background-color:White">
+<pre>
+    IUnityContainer container = <span style="color:Blue">new</span> UnityContainer()
+        .RegisterType(<span style="color:Blue">typeof</span>(Base&lt;&gt;), <span style="color:Blue">new</span> ContainerControlledLifetimeManager())
+        .RegisterType(<span style="color:Blue">typeof</span>(Decorator1&lt;&gt;),<span style="color:Blue">new</span> ContainerControlledLifetimeManager());
+
+    DecoratorExtension extension = <span style="color:Blue">new</span> DecoratorExension(container);
+    extension.RegisterDecorator&lt;IAny&lt;<span style="color:Blue">string</span>&gt;, Decorator1&lt;<span style="color:Blue">string</span>&gt;&gt;();
+    extension.RegisterDecorator&lt;IAny&lt;<span style="color:Blue">string</span>&gt;, Base&lt;<span style="color:Blue">string</span>&gt;&gt;();
+    extension.RegisterDecorator&lt;IAnotherInterface, Base&lt;<span style="color:Blue">string</span>&gt;&gt;();
+
+    container.AddExtension(extension);
+
+</pre>
+</div>
+~~<br>
+Randy Levy<br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">&#x65;n&#x74;&#108;&#105;&#x62;&#46;&#115;&#x75;&#112;&#112;&#x6f;&#x72;&#x74;&#x40;&#x6c;&#x69;&#118;&#x65;&#x2e;c&#x6f;&#x6d;</a><br>
+Enterprise Library support engineer<br>
+<a href="http://entlib.codeplex.com/wikipage?title=Support%20How-to"  rel="nofollow">Support How-to</a>
+<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1075395" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1084368">
+    <td id="PostDetailsCell_1084368" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1084368"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/julealgon">julealgon</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/23/2013 11:04:21 PM" LocalTimeTicks="1377324261">Aug 23, 2013 at 11:04 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1084368" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="I&#39;m&#32;sorry&#32;for&#32;not&#32;coming&#32;back&#32;to&#32;you&#32;earlier,&#32;thanks&#32;a&#32;lot&#32;for&#32;the&#32;insight.&#32;&#13;&#10;&#13;&#10;I&#32;think&#32;the&#32;option&#32;of&#32;registering&#32;on&#32;the&#32;extension&#32;itself&#32;seems&#32;appropriate.&#32;I&#32;would&#32;have&#32;to&#32;&#39;cache&#39;&#32;the&#32;registrations&#32;inside&#32;the&#32;extension&#32;and&#32;apply&#32;them&#32;on&#32;the&#32;event&#32;fired&#32;when&#32;it&#39;s&#32;added&#32;to&#32;the&#32;container&#32;right&#63;&#32;Is&#32;this&#32;how&#32;the&#32;EnterpriseLibraryCoreExtension&#32;works&#63;&#32;I&#39;m&#32;using&#32;it&#32;right&#32;now&#32;to&#32;register&#32;a&#32;custom&#32;application&#32;block&#32;automatically&#32;from&#32;the&#32;config&#32;settings.&#13;&#10;&#13;&#10;It&#39;s&#32;unfortunate&#32;that&#32;this&#32;is&#32;still&#32;not&#32;ideal&#32;though,&#32;because&#32;the&#32;problem&#32;persists&#32;&#40;a&#32;normal&#32;registration&#32;can&#32;still&#32;serve&#32;as&#32;a&#32;decorator&#32;registration&#41;.">
+        <div class="markDownOutput ">I'm sorry for not coming back to you earlier, thanks a lot for the insight. <br>
+<br>
+I think the option of registering on the extension itself seems appropriate. I would have to 'cache' the registrations inside the extension and apply them on the event fired when it's added to the container right? Is this how the EnterpriseLibraryCoreExtension
+ works? I'm using it right now to register a custom application block automatically from the config settings.
+<br>
+<br>
+It's unfortunate that this is still not ideal though, because the problem persists (a normal registration can still serve as a decorator registration).<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1084368" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f449159">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="d87fcfc3-5c53-4a76-a5c0-287d1f9677f2">
+    <script class="options" defer="defer" id="d87fcfc3-5c53-4a76-a5c0-287d1f9677f2" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_1b50d5b7-239d-44aa-bf44-5ffade9bee09">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_d58689ff-958f-4929-b0ba-29107ec646a6">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_1b50d5b7-239d-44aa-bf44-5ffade9bee09" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_d58689ff-958f-4929-b0ba-29107ec646a6" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/449159';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

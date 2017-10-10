@@ -1,0 +1,789 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Unity, Entlib, ServiceLocation Signing</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/213942?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/213942?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="0lkNH1mvDL1aQaFvG0endmjUaupPDV-1xxcfiUeB4VcAJuRHBgSYyqMQF72mnZiYy5Es6vK07HvJwWuGibA6IXVLhGhMXCpX1TTyGM7Sx4zjGlGUHp20Iuq8h1nCwKKcEv5TnQ2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2d991d095-a39e-4b92-94ce-0778c0c7859b" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:27:27 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f213942" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="b1db84a1-48db-47c4-a082-ce186c71f91c">
+                
+                    <script class="options" defer="defer" id="b1db84a1-48db-47c4-a082-ce186c71f91c" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="1e4a7f64-58d8-4bfe-9778-0c6e499c65f3">
+                
+                    <script class="options" defer="defer" id="1e4a7f64-58d8-4bfe-9778-0c6e499c65f3" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Unity, Entlib, ServiceLocation Signing
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:213942]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="450ecb30-84ed-42e5-be89-82c5fff3c498">
+    <script class="options" defer="defer" id="450ecb30-84ed-42e5-be89-82c5fff3c498" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/213942","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="447730">
+    <td id="PostDetailsCell_447730" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post447730"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/charker">charker</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/26/2010 4:29:27 PM" LocalTimeTicks="1274916567">May 26, 2010 at 4:29 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="5/27/2010 8:50:06 AM" LocalTimeTicks="1274975406">May 27, 2010 at 8:50 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_447730" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi&#32;Each&#32;time&#32;a&#32;new&#32;Entlib&#32;appears&#32;I&#32;have&#32;the&#32;same&#32;trouble&#32;tracking&#32;down&#32;how&#32;I&#32;create&#32;a&#32;complete&#32;set&#32;of&#32;DLL&#39;s&#32;that&#32;are&#32;signed&#32;with&#32;my&#32;companies&#32;strong&#32;name&#32;key.&#32;I&#32;want&#32;to&#32;build&#32;a&#32;complete&#32;Entlib5,&#32;strong&#32;named&#32;with&#32;my&#32;key&#32;and&#32;targetting&#32;.NET&#32;4&#32;CLR&#32;I&#32;can&#32;get&#32;the&#32;source&#32;to&#32;Entlib&#32;and&#32;Unity,&#32;tweak&#32;the&#32;project&#32;files&#32;and&#32;set&#32;the&#32;key&#32;BUT&#32;what&#32;about&#32;Microsoft.Practices.ServiceLocation.DLL&#32;How&#32;do&#32;I&#32;get&#32;this&#32;signed&#63;&#32;Is&#32;it&#32;already&#32;signed&#32;with&#32;a&#32;trusted&#32;key&#32;and&#32;I&#32;just&#32;put&#32;in&#32;in&#32;the&#32;GAC&#63;&#32;Is&#32;it&#32;built&#32;for&#32;.NET&#32;4&#32;CLR&#63;&#32;any&#32;help&#32;appreciated,&#32;I&#32;can&#39;t&#32;be&#32;the&#32;only&#32;one&#32;wanting&#32;to&#32;do&#32;this&#32;thanks">
+        
+<p>Hi Each time a new Entlib appears I have the same trouble tracking down how I create a complete set of DLL's that are signed with my companies strong name key.</p>
+<p>I want to build a complete Entlib5, strong named with my key and targetting .NET 4 CLR</p>
+<p>I can get the source to Entlib and Unity, tweak the project files and set the key BUT what about</p>
+<p>Microsoft.Practices.ServiceLocation.DLL</p>
+<p>How do I get this signed? Is it already signed with a trusted key and I just put in in the GAC?</p>
+<p>Is it built for .NET 4 CLR?</p>
+<p>any help appreciated, I can't be the only one wanting to do this thanks</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_447730" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="447754">
+    <td id="PostDetailsCell_447754" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post447754"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/26/2010 5:21:15 PM" LocalTimeTicks="1274919675">May 26, 2010 at 5:21 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_447754" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="ServiceLocation&#32;dll&#32;code&#32;is&#32;available&#32;here&#32;on&#32;codeplex&#58;&#32;http&#58;&#47;&#47;commonservicelocator.codeplex.com&#32;The&#32;DLL&#32;is&#32;signed&#32;with&#32;a&#32;Microsoft&#32;key.&#32;It&#32;targets&#32;.NET&#32;2.0,&#32;but&#32;works&#32;unchanged&#32;on&#32;.NET&#32;4.0&#32;&#40;it&#39;s&#32;mostly&#32;an&#32;interface&#32;definition&#41;.&#32;I&#32;would&#32;strongly&#32;recommend&#32;against&#32;recompiling&#32;and&#32;resigning&#32;this&#32;DLL.&#32;The&#32;whole&#32;point&#32;is&#32;to&#32;be&#32;a&#32;common&#32;binary&#32;interface&#32;for&#32;multiple&#32;DI&#32;containers&#32;to&#32;use.&#32;If&#32;you&#32;recompile&#32;and&#32;resign,&#32;you&#32;will&#32;break&#32;every&#32;container&#32;adapter&#32;out&#32;there.&#32;Just&#32;out&#32;of&#32;curiosity,&#32;why&#32;do&#32;you&#32;want&#32;to&#32;rebuild&#32;targeting&#32;.NET&#32;4.0&#63;&#32;I&#32;hear&#32;the&#32;occasional&#32;person&#32;wanting&#32;to&#32;do&#32;this,&#32;but&#32;I&#39;ve&#32;never&#32;heard&#32;an&#32;actual&#32;reason&#32;other&#32;than&#32;&#38;quot&#59;it&#39;s&#32;the&#32;latest&#32;and&#32;greatest.&#38;quot&#59;&#32;">
+        ServiceLocation dll code is available here on codeplex: http://commonservicelocator.codeplex.com The DLL is signed with a Microsoft key. It targets .NET 2.0, but works unchanged on .NET 4.0 (it's mostly an interface definition). I would strongly recommend
+ against recompiling and resigning this DLL. The whole point is to be a common binary interface for multiple DI containers to use. If you recompile and resign, you will break every container adapter out there. Just out of curiosity, why do you want to rebuild
+ targeting .NET 4.0? I hear the occasional person wanting to do this, but I've never heard an actual reason other than &quot;it's the latest and greatest.&quot;
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_447754" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="447898">
+    <td id="PostDetailsCell_447898" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post447898"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/charker">charker</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/26/2010 11:26:54 PM" LocalTimeTicks="1274941614">May 26, 2010 at 11:26 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="5/27/2010 12:16:02 AM" LocalTimeTicks="1274944562">May 27, 2010 at 12:16 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_447898" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;am&#32;happy&#32;to&#32;be&#32;talked&#32;out&#32;of&#32;rebuilding&#32;everything&#32;in&#32;.NET&#32;4&#32;but&#32;I&#32;was&#32;under&#32;the&#32;impression&#32;that&#32;if&#32;we&#32;want&#32;to&#32;exploit&#32;the&#32;new&#32;features&#32;of&#32;V4&#32;we&#32;have&#32;to&#32;compile&#32;everything&#32;in&#32;V4.&#32;Are&#32;you&#32;saying&#32;we&#32;can&#32;mix&#32;V2&#32;and&#32;V4,&#32;I&#32;thought&#32;there&#32;was&#32;a&#32;new&#32;CLR&#63;&#32;If&#32;we&#32;have&#32;some&#32;assemblies&#32;targeting&#32;V2&#32;&#40;like&#32;this&#32;one&#41;&#38;nbsp&#59;then&#32;you&#32;can&#32;get&#32;into&#32;trouble&#32;with&#32;it&#32;pulling&#32;in&#32;V2&#32;versions&#32;of&#32;DLL&#39;s&#32;you&#32;have&#32;rebuilt&#32;in&#32;V4&#32;don&#39;t&#32;you&#63;&#32;I&#32;quote&#32;from&#32;this&#32;article&#38;nbsp&#59;for&#32;more&#32;info&#58;&#38;nbsp&#59;http&#58;&#47;&#47;msdn.microsoft.com&#47;en-us&#47;magazine&#47;ee819091.aspxalso&#32;&#58;http&#58;&#47;&#47;blogs.msdn.com&#47;clrteam&#47;archive&#47;2009&#47;06&#47;07&#47;in-process-side-by-side-part-2-common-in-proc-sxs-scenarios.aspx&#32;Library&#32;Developers&#32;and&#32;Consumers&#58;&#38;nbsp&#59;In-Proc&#32;SxS&#32;does&#32;not&#32;solve&#32;the&#32;compatibility&#32;problems&#32;faced&#32;by&#32;library&#32;developers.&#32;Any&#32;libraries&#32;directly&#32;loaded&#32;by&#32;an&#32;application&#38;mdash&#59;either&#32;via&#32;a&#32;direct&#32;reference&#32;or&#32;an&#32;Assembly.Load&#42;&#38;mdash&#59;will&#32;continue&#32;to&#32;load&#32;directly&#32;into&#32;the&#32;runtime&#32;and&#32;AppDomain&#32;of&#32;the&#32;application&#32;loading&#32;it.&#32;This&#32;means&#32;that&#32;if&#32;an&#32;application&#32;is&#32;recompiled&#32;to&#32;run&#32;against&#32;the&#32;.NET&#32;Framework&#32;4&#32;runtime&#32;and&#32;still&#32;has&#32;dependent&#32;assemblies&#32;built&#32;against&#32;.NET&#32;2.0,&#32;those&#32;dependents&#32;will&#32;load&#32;on&#32;the&#32;.NET&#32;4&#32;runtime&#32;as&#32;well.&#32;Therefore,&#32;we&#32;still&#32;recommend&#32;testing&#32;your&#32;libraries&#32;against&#32;all&#32;version&#32;of&#32;the&#32;framework&#32;you&#32;wish&#32;to&#32;support.&#32;This&#32;is&#32;one&#32;of&#32;the&#32;reasons&#32;we&#32;have&#32;continued&#32;to&#32;maintain&#32;our&#32;high&#32;level&#32;of&#32;backward&#32;compatibility.&#32;So&#32;this&#32;is&#32;saying&#32;I&#32;can&#32;run&#32;this&#32;DLL&#32;targetted&#32;to&#32;.NET&#32;V2&#32;within&#32;V4&#32;and&#32;it&#32;will&#32;just&#32;work&#63;&#32;&#38;nbsp&#59;My&#32;concern&#32;is&#32;if&#32;this&#32;DLL&#32;&#40;say&#41;&#32;referenced&#32;Fred.DLL&#32;V2&#32;that&#32;has&#32;now&#32;been&#32;built&#32;for&#32;V2&#32;and&#32;V4.&#32;Perhaps&#32;the&#32;V4&#32;has&#32;already&#32;been&#32;loaded&#32;or&#32;may&#32;be&#32;loaded&#32;by&#32;the&#32;parent&#32;app&#32;later,&#32;would&#32;this&#32;DLL&#32;pull&#32;in&#32;the&#32;V2&#32;version&#63;&#32;Meaning&#32;we&#32;have&#32;both&#32;in&#32;memory&#32;or&#32;worse&#32;the&#32;v4&#32;code&#32;starts&#32;using&#32;the&#32;v2&#32;assembly&#63;&#32;Imagine&#32;how&#32;this&#32;might&#32;cascade&#32;through&#32;mutiple&#32;versions&#32;of&#32;Entlib&#32;DLL&#39;s&#32;getting&#32;loaded.&#32;&#38;nbsp&#59;Perhaps&#32;the&#32;SQLData&#32;class,&#32;a&#32;V2&#32;DLL&#32;writes&#32;to&#32;SQL&#32;and&#32;pulls&#32;in&#32;the&#32;V2&#32;Entlib&#32;DLL.&#32;The&#32;rest&#32;of&#32;the&#32;code&#32;is&#32;running&#32;the&#32;V4&#32;version.&#32;&#38;nbsp&#59;&#32;What&#32;may&#32;happen&#32;with&#32;mixed&#32;DLL&#32;versions&#32;all&#32;logging&#32;through&#32;the&#32;Entlib&#32;block&#32;with&#32;3&#32;versions&#32;of&#32;entlib&#32;installed&#32;&#40;maybe&#32;in&#32;the&#32;GAC&#41;&#32;I&#32;just&#32;don&#39;t&#32;want&#32;trouble&#32;along&#32;the&#32;road&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;">
+        
+<p>I am happy to be talked out of rebuilding everything in .NET 4 but I was under the impression that if we want to exploit the new features of V4 we have to compile everything in V4. Are you saying we can mix V2 and V4, I thought there was a new CLR?</p>
+<p>If we have some assemblies targeting V2 (like this one)&nbsp;then you can get into trouble with it pulling in V2 versions of DLL's you have rebuilt in V4 don't you?</p>
+<p>I quote from this article&nbsp;for more info:&nbsp;<a href="http://msdn.microsoft.com/en-us/magazine/ee819091.aspx" rel="nofollow">http://msdn.microsoft.com/en-us/magazine/ee819091.aspx</a><br>
+also :<a href="http://blogs.msdn.com/clrteam/archive/2009/06/07/in-process-side-by-side-part-2-common-in-proc-sxs-scenarios.aspx" rel="nofollow">http://blogs.msdn.com/clrteam/archive/2009/06/07/in-process-side-by-side-part-2-common-in-proc-sxs-scenarios.aspx</a></p>
+<p><strong>Library Developers and Consumers:</strong>&nbsp;In-Proc SxS does not solve the compatibility problems faced by library developers. Any libraries directly loaded by an application&mdash;either via a direct reference or an Assembly.Load*&mdash;will
+ continue to load directly into the runtime and AppDomain of the application loading it. This means that if an application is recompiled to run against the .NET Framework 4 runtime and still has dependent assemblies built against .NET 2.0, those dependents
+ will load on the .NET 4 runtime as well. Therefore, we still recommend testing your libraries â€¨against all version of the framework you wish to support. This is one of the reasons we have continued to maintain our high level of backward compatibility.</p>
+<p>So this is saying I can run this DLL targetted to .NET V2 within V4 and it will just work? &nbsp;My concern is if this DLL (say) referenced Fred.DLL V2 that has now been built for V2 and V4. Perhaps the V4 has already been loaded or may be loaded by the
+ parent app later, would this DLL pull in the V2 version? Meaning we have both in memory or worse the v4 code starts using the v2 assembly?</p>
+<p>Imagine how this might cascade through mutiple versions of Entlib DLL's getting loaded. &nbsp;Perhaps the SQLData class, a V2 DLL writes to SQL and pulls in the V2 Entlib DLL. The rest of the code is running the V4 version. &nbsp;</p>
+<p>What may happen with mixed DLL versions all logging through the Entlib block with 3 versions of entlib installed (maybe in the GAC)</p>
+<p>I just don't want trouble along the road</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_447898" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="447960">
+    <td id="PostDetailsCell_447960" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post447960"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/27/2010 4:45:31 AM" LocalTimeTicks="1274960731">May 27, 2010 at 4:45 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_447960" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="There&#32;is&#32;no&#32;free&#32;lunch,&#32;of&#32;course,&#32;you&#39;ll&#32;need&#32;to&#32;test&#32;on&#32;the&#32;target&#32;framework&#32;you&#39;ll&#32;be&#32;running&#32;on.&#32;In&#32;general,&#32;you&#32;solve&#32;this&#32;one&#32;through&#32;deployment&#32;-&#32;if&#32;you&#32;only&#32;deploy&#32;the&#32;DLL&#32;that&#32;targets&#32;V4,&#32;that&#39;s&#32;the&#32;one&#32;that&#39;ll&#32;get&#32;loaded&#32;&#40;assuming&#32;version&#32;&#35;&#39;s&#32;and&#32;public&#32;key&#32;tokens&#32;line&#32;up,&#32;of&#32;course&#41;.&#32;It&#39;s&#32;going&#32;to&#32;be&#32;difficult&#32;to&#32;run&#32;multiple&#32;versions&#32;of&#32;Entlib&#32;in&#32;one&#32;process&#32;anyway,&#32;even&#32;if&#32;you&#32;were&#32;on&#32;the&#32;same&#32;CLR.&#32;Recompiling&#32;for&#32;V4&#32;won&#39;t&#32;affect&#32;this&#32;in&#32;any&#32;way,&#32;except&#32;by&#32;making&#32;it&#32;worse&#32;by&#32;adding&#32;yet&#32;another&#32;assembly&#32;version.&#32;Again,&#32;there&#39;s&#32;nothing&#32;stopping&#32;you&#32;from&#32;doing&#32;this,&#32;other&#32;than,&#32;as&#32;I&#32;said,&#32;I&#32;strongly&#32;recommend&#32;against&#32;rebuilding&#32;the&#32;ServiceLocator&#32;DLL&#32;for&#32;the&#32;compatibility&#32;reasons&#32;I&#32;mentioned&#32;above.&#32;But&#32;you&#32;don&#39;t&#32;gain&#32;anything&#32;either&#32;from&#32;what&#32;I&#32;know.&#32;">
+        There is no free lunch, of course, you'll need to test on the target framework you'll be running on. In general, you solve this one through deployment - if you only deploy the DLL that targets V4, that's the one that'll get loaded (assuming version #'s
+ and public key tokens line up, of course). It's going to be difficult to run multiple versions of Entlib in one process anyway, even if you were on the same CLR. Recompiling for V4 won't affect this in any way, except by making it worse by adding yet another
+ assembly version.
+<p>Again, there's nothing stopping you from doing this, other than, as I said, I strongly recommend against rebuilding the ServiceLocator DLL for the compatibility reasons I mentioned above. But you don't gain anything either from what I know.
+</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_447960" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="448080">
+    <td id="PostDetailsCell_448080" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post448080"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/charker">charker</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/27/2010 9:49:41 AM" LocalTimeTicks="1274978981">May 27, 2010 at 9:49 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="5/28/2010 8:52:42 AM" LocalTimeTicks="1275061962">May 28, 2010 at 8:52 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_448080" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi&#32;Thanks&#32;for&#32;taking&#32;the&#32;time&#32;to&#32;reply.&#32;I&#32;have&#32;more&#32;questions&#32;&#58;&#41;&#32;In&#32;our&#32;environment&#32;we&#32;chose&#32;to&#32;re-bundle&#32;EntLib&#32;in&#32;a&#32;framework&#32;of&#32;our&#32;own&#32;making&#32;way&#32;back&#32;at&#32;V3&#32;&#40;I&#32;think&#41;.&#32;It&#32;is&#32;signed&#32;with&#32;our&#32;keys&#32;and&#32;the&#32;version&#32;number&#32;tweaked&#32;for&#32;our&#32;own&#32;use.&#38;nbsp&#59;&#32;This&#32;has&#32;been&#32;rolled&#32;out&#32;to&#32;1000&#39;s&#32;of&#32;desktops&#32;across&#32;the&#32;company.&#32;As&#32;things&#32;are&#32;fixed&#32;a&#32;new&#32;version&#32;is&#32;rolled&#32;out&#32;but&#32;the&#32;old&#32;versions&#32;remains&#32;for&#32;existing&#32;apps&#32;because&#32;of&#32;the&#32;cost&#32;of&#32;regression&#32;testing&#32;and&#32;paranoia&#33;&#38;nbsp&#59;&#32;So&#32;we&#32;have&#32;ones&#32;versioned&#32;as&#32;1.1,&#32;1.2,&#32;1.3&#32;and&#32;1.4&#32;targetted&#32;at&#32;CLR&#32;1.1.&#38;nbsp&#59;&#32;We&#32;rebuilt&#32;and&#32;enhanced&#32;for&#32;CLR2&#32;and&#32;rolled&#32;out&#32;a&#32;2.0,&#32;there&#32;may&#32;also&#32;be&#32;a&#32;2.1.&#38;nbsp&#59;&#32;Now&#32;we&#32;have&#32;CLR4&#32;and&#32;a&#32;framework&#47;entlib&#32;targetted&#32;at&#32;that&#32;maybe.&#32;So&#32;the&#32;clients&#32;could&#32;have&#32;6&#32;or&#32;more&#32;copies&#32;of&#32;Entlib&#32;DLL&#39;s&#32;with&#32;version&#32;numbers&#32;1.1,&#32;1.2,&#32;1.3,&#32;1.4,&#32;2.0,&#32;2.1,&#32;4.0&#32;In&#32;fact&#32;the&#32;entlib&#32;in&#32;1.1&#47;2&#47;3&#47;4&#32;will&#32;be&#32;virtually&#32;indentical&#32;except&#32;for&#32;the&#32;version&#32;number.&#32;2.0&#32;has&#32;Entlib&#32;3.1&#32;and&#32;for&#32;2.1&#32;we&#32;would&#32;have&#32;incremented&#32;Entlib&#32;to&#32;3.2&#32;&#40;for&#32;our&#32;own&#32;use&#33;&#41;&#32;I&#32;believe&#32;these&#32;are&#32;all&#32;in&#32;the&#32;GAC.&#32;A&#32;new&#32;development&#32;comes&#32;along&#32;and&#32;uses&#32;4.0.&#38;nbsp&#59;&#32;Let&#39;s&#32;say&#32;it&#32;drags&#32;in&#32;an&#32;old&#32;2.1&#32;assembly&#32;because&#32;we&#32;don&#39;t&#32;have&#32;the&#32;source&#32;and&#32;can&#39;t&#32;recompile&#32;it,&#32;and&#32;it&#32;starts&#32;logging&#32;through&#32;Entlib.&#38;nbsp&#59;&#32;Which&#32;Entlib&#32;DLL&#32;will&#32;be&#32;brought&#32;in&#63;&#32;My&#32;guess&#32;would&#32;be&#32;2.1.&#32;But&#32;what&#32;if&#32;the&#32;parent&#32;app&#32;&#40;CLR4&#41;&#32;has&#32;already&#32;logged&#32;things,&#32;it&#32;will&#32;have&#32;brought&#32;in&#32;logging&#32;V4&#32;so&#32;would&#32;the&#32;old&#32;DLL&#32;use&#32;that&#63;&#32;I&#32;can&#39;t&#32;see&#32;how&#32;it&#32;can.&#32;Perhaps&#32;because,&#32;as&#32;you&#32;say,&#32;commonservicelocator&#32;is&#32;just&#32;interface&#32;definitions&#32;and&#32;I&#32;guess&#32;references&#32;very&#32;few&#32;&#40;if&#32;any&#41;&#32;custom&#32;V2&#32;assemblies,&#32;it&#32;is&#32;not&#32;such&#32;an&#32;issue.&#32;Perhaps&#32;the&#32;commonservicelocator&#32;project&#32;could&#32;release&#32;a&#32;version&#32;that&#32;targets&#32;.NET&#32;4.&#38;nbsp&#59;&#32;That&#32;would&#32;be&#32;quite&#32;easy&#32;&#40;&#63;&#41;&#32;and&#32;make&#32;life&#32;easier&#32;&#58;&#41;&#41;&#32;thanks&#32;again&#32;&#38;nbsp&#59;">
+        
+<p>Hi</p>
+<p>Thanks for taking the time to reply. I have more questions :)</p>
+<p>In our environment we chose to re-bundle EntLib in a framework of our own making way back at V3 (I think). It is signed with our keys and the version number tweaked for our own use.&nbsp; This has been rolled out to 1000's of desktops across the company.
+ As things are fixed a new version is rolled out but the old versions remains for existing apps because of the cost of regression testing and paranoia!&nbsp; So we have ones versioned as 1.1, 1.2, 1.3 and 1.4 targetted at CLR 1.1.&nbsp; We rebuilt and enhanced
+ for CLR2 and rolled out a 2.0, there may also be a 2.1.&nbsp; Now we have CLR4 and a framework/entlib targetted at that maybe.</p>
+<p>So the clients could have 6 or more copies of Entlib DLL's with version numbers 1.1, 1.2, 1.3, 1.4, 2.0, 2.1, 4.0</p>
+<p>In fact the entlib in 1.1/2/3/4 will be virtually indentical except for the version number. 2.0 has Entlib 3.1 and for 2.1 we would have incremented Entlib to 3.2 (for our own use!)</p>
+<p>I believe these are all in the GAC.</p>
+<p>A new development comes along and uses 4.0.&nbsp; Let's say it drags in an old 2.1 assembly because we don't have the source and can't recompile it, and it starts logging through Entlib.&nbsp; Which Entlib DLL will be brought in? My guess would be 2.1. But
+ what if the parent app (CLR4) has already logged things, it will have brought in logging V4 so would the old DLL use that? I can't see how it can.</p>
+<p>Perhaps because, as you say, commonservicelocator is just interface definitions and I guess references very few (if any) custom V2 assemblies, it is not such an issue.</p>
+<p>Perhaps the commonservicelocator project could release a version that targets .NET 4.&nbsp; That would be quite easy (?) and make life easier :))</p>
+<p>thanks again</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_448080" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f213942">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="50717458-121d-4193-8a31-bd87e802608b">
+    <script class="options" defer="defer" id="50717458-121d-4193-8a31-bd87e802608b" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_9c06eead-d507-40cb-979c-0c1a8f59b39a">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_0bc1e06f-79c3-47dc-8e2a-5f5873560941">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_9c06eead-d507-40cb-979c-0c1a8f59b39a" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_0bc1e06f-79c3-47dc-8e2a-5f5873560941" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/213942';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

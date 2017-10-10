@@ -1,0 +1,796 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Inject mappings automatically</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/359739?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/359739?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="xjkRDZ83HIE5N1JG_H1oAGhDH0r8lLkPP5HLCdLUqFHiE7fixPK_HJ3jQbp-MhOrTjtKCn6xeAewkVjPEJBBz5G3vu_ROz5AcYriMg4Y00hlOWDClenA0uX8L5IQ6Fza5riyTA2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2ece57099-e6ea-41e9-9699-5526ef1522a4" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:25:57 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f359739" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="291602da-99ca-4ad1-821c-97c356169b42">
+                
+                    <script class="options" defer="defer" id="291602da-99ca-4ad1-821c-97c356169b42" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="8b12c733-960f-4770-8a0b-17b1952b7c99">
+                
+                    <script class="options" defer="defer" id="8b12c733-960f-4770-8a0b-17b1952b7c99" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Inject mappings automatically
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:359739]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="6d48a445-494d-4559-a238-3d1fbab391fe">
+    <script class="options" defer="defer" id="6d48a445-494d-4559-a238-3d1fbab391fe" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/359739","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="849470">
+    <td id="PostDetailsCell_849470" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post849470"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ChubbyArse">ChubbyArse</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/15/2012 11:29:27 AM" LocalTimeTicks="1339784967">Jun 15, 2012 at 11:29 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_849470" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Hi,&#32;we&#32;have&#32;been&#32;using&#32;Unity&#32;in&#32;the&#32;azure&#32;environment&#32;and&#32;have&#32;written&#32;our&#32;ObjectBuilder&#32;wrapper&#32;class&#32;to&#32;traverse&#32;the&#32;executing&#32;directory&#32;and&#32;find&#32;all&#32;dependencies&#32;in&#32;the&#32;assemblise&#32;it&#32;finds.&#32;It&#32;does&#32;this&#32;by&#32;inspecting&#32;the&#32;classes&#32;in&#32;each&#32;assembly&#32;for&#32;one&#32;that&#32;implements&#32;IObjectBuilderInitialiser&#32;and&#32;invokes&#32;a&#32;Register&#40;IObjectBuilder&#32;objectBuilder&#41;&#32;method&#32;which&#32;registers&#32;all&#32;the&#32;dependencies&#32;in&#32;that&#32;assembly.&#32;It&#32;works&#32;really&#32;well,&#32;in&#32;the&#32;azure&#32;environment&#32;as&#32;there&#32;is&#32;&#32;no&#32;GAC&#38;nbsp&#59;&#40;that&#32;we&#32;install&#32;in&#41;&#32;and&#32;everything&#32;the&#32;application&#32;needs&#32;is&#32;in&#32;the&#32;same&#32;directory.&#32;However,&#32;now&#32;we&#32;come&#32;back&#32;to&#32;more&#32;conventional&#32;development&#32;we&#32;are&#32;again&#32;working&#32;with&#32;the&#32;GAC.&#32;Our&#32;ObjectBuilder&#32;wrapper&#32;for&#32;Unity&#32;is&#32;now&#32;in&#32;the&#32;GAC,&#32;meaning&#32;that&#32;when&#32;it&#32;initialises&#32;-&#32;it&#32;will&#32;not&#32;find&#32;any&#32;of&#32;the&#32;applications&#32;assemblies&#32;and&#32;therefore&#32;not&#32;find&#32;any&#32;dependencies.&#32;We&#39;ve&#32;taken&#32;this&#32;approach&#32;as&#32;we&#32;were&#32;finding&#32;the&#32;.config&#32;unity&#32;section&#32;becoming&#32;unwieldy.&#32;Anyway,&#32;is&#32;there&#32;an&#32;approach&#32;we&#32;can&#32;take&#32;with&#32;Unity&#32;in&#32;this&#32;respect&#32;that&#32;will&#32;allow&#32;the&#32;dependencies&#32;of&#32;an&#32;application&#32;to&#32;be&#32;discovered&#63;&#32;Don&#39;t&#32;pay&#32;too&#32;much&#32;heed&#32;to&#32;our&#32;original&#32;approach&#32;at&#32;the&#32;top&#32;-&#32;we&#32;are&#32;open&#32;to&#32;all&#32;suggestions.&#32;Thanks&#32;">
+        
+<p>Hi, we have been using Unity in the azure environment and have written our ObjectBuilder wrapper class to traverse the executing directory and find all dependencies in the assemblise it finds. It does this by inspecting the classes in each assembly for one
+ that implements IObjectBuilderInitialiser and invokes a Register(IObjectBuilder objectBuilder) method which registers all the dependencies in that assembly.</p>
+<p>It works really well, in the azure environment as there is <span style="text-decoration:underline">
+no GAC</span>&nbsp;(that we install in) and everything the application needs is in the same directory. However, now we come back to more conventional development we are again working with the GAC.</p>
+<p>Our ObjectBuilder wrapper for Unity is now in the GAC, meaning that when it initialises - it will not find any of the applications assemblies and therefore not find any dependencies.</p>
+<p>We've taken this approach as we were finding the .config unity section becoming unwieldy.</p>
+<p>Anyway, is there an approach we can take with Unity in this respect that will allow the dependencies of an application to be discovered? Don't pay too much heed to our original approach at the top - we are open to all suggestions.</p>
+<p>Thanks</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_849470" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="849473">
+    <td id="PostDetailsCell_849473" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post849473"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/weberse">weberse</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/15/2012 11:38:06 AM" LocalTimeTicks="1339785486">Jun 15, 2012 at 11:38 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="6/15/2012 11:38:48 AM" LocalTimeTicks="1339785528">Jun 15, 2012 at 11:38 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_849473" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Have&#32;a&#32;look&#32;at&#32;the&#32;&#32;TecX&#32;project&#32;here&#32;on&#32;CodePlex.&#32;It&#32;contains&#32;a&#32;port&#32;of&#32;the&#32;StructureMap&#32;config&#32;engine&#32;that&#32;also&#32;supports&#32;various&#32;conventions&#32;like&#32;&#38;quot&#59;register&#32;all&#32;implementations&#32;of&#32;IFoo&#32;that&#32;you&#32;can&#32;find&#32;in&#32;the&#32;application&#32;base&#32;directory&#38;quot&#59;.&#32;And&#32;its&#32;easy&#32;to&#32;modularize&#32;your&#32;configuration&#32;by&#32;deriving&#32;classes&#32;from&#32;ConfigurationBuilder,&#32;put&#32;them&#32;inside&#32;your&#32;modules&#32;and&#32;load&#32;them&#32;all&#32;from&#32;a&#32;bootstrapper&#32;&#40;see&#32;the&#32;code&#32;in&#32;TecX.Unity.Configuration.Plugins&#32;and&#32;the&#32;associated&#32;tests&#41;.&#32;">
+        
+<p>Have a look at the <a href="http://tecx.codeplex.com/wikipage?title=AdvancedConfigurationEngineForUnity&referringTitle=Documentation" target="_blank" rel="nofollow">
+TecX project here on CodePlex</a>. It contains a port of the StructureMap config engine that also supports various conventions like &quot;register all implementations of
+<em>IFoo </em>that you can find in the application base directory&quot;. And its easy to modularize your configuration by deriving classes from
+<em>ConfigurationBuilder</em>, put them inside your modules and load them all from a bootstrapper (see the code in
+<em>TecX.Unity.Configuration.Plugins</em> and the associated tests).</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_849473" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="852047">
+    <td id="PostDetailsCell_852047" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post852047"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ChubbyArse">ChubbyArse</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/21/2012 11:00:20 AM" LocalTimeTicks="1340301620">Jun 21, 2012 at 11:00 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_852047" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi&#32;weberse,&#32;thanks&#32;for&#32;the&#32;response&#32;and&#32;apologies&#32;for&#32;the&#32;delay&#32;in&#32;picking&#32;this&#32;back&#32;up.&#32;I&#39;ve&#32;had&#32;a&#32;read&#32;through&#32;the&#32;introduction&#32;to&#32;the&#32;TecX&#32;framework,&#32;but&#32;need&#32;to&#32;pick&#32;your&#32;brains&#32;on&#32;an&#32;aspect&#32;that&#32;I&#32;alluded&#32;to&#32;in&#32;my&#32;original&#32;post.&#32;The&#32;summary&#32;has&#32;this&#32;line&#32;in&#32;it&#58;&#32;&#34;It&#32;searches&#32;all&#32;assemblies&#32;in&#32;the&#32;current&#32;application&#32;base&#32;directory&#32;for&#32;classes&#32;that&#32;inherit&#32;from&#32;ConfigurationBuilder.&#32;&#34;&#32;This&#32;very&#32;similar&#32;to&#32;our&#32;approach&#32;that&#32;we&#32;took,&#32;however&#32;we&#32;were&#32;usurped&#32;by&#32;the&#32;fact&#32;that&#32;our&#32;unity&#32;implementation&#32;&#40;ObjectBuilder&#41;&#32;lives&#32;in&#32;the&#32;GAC&#32;in&#32;a&#32;Common&#32;library,&#32;not&#32;in&#32;the&#32;application&#32;directory.&#32;Does&#32;your&#32;framework&#32;assume&#32;the&#32;the&#32;process&#32;is&#32;being&#32;instantiated&#32;by&#32;an&#32;object&#32;in&#32;the&#32;executing&#32;directory&#63;&#32;The&#32;problem&#32;we&#32;have&#32;is&#32;that&#32;a&#32;lot&#32;of&#32;implementations&#32;we&#32;need&#32;to&#32;automatically&#32;discover&#32;are&#32;located&#32;in&#32;the&#32;GAC&#32;and&#32;not&#32;necessarily&#32;in&#32;this&#32;application&#32;directory.&#32;Can&#32;TecX&#32;cater&#32;for&#32;this&#63;&#32;Thanks">
+        
+<p>Hi weberse, thanks for the response and apologies for the delay in picking this back up.</p>
+<p>I've had a read through the introduction to the TecX framework, but need to pick your brains on an aspect that I alluded to in my original post. The summary has this line in it:</p>
+<p><em>&quot;It searches all assemblies in the current application base directory for classes that inherit from ConfigurationBuilder. &quot;</em></p>
+<p>This very similar to our approach that we took, however we were usurped by the fact that our unity implementation (ObjectBuilder) lives in the GAC in a Common library, not in the application directory. Does your framework assume the the process is being
+ instantiated by an object in the executing directory?</p>
+<p>The problem we have is that a lot of implementations we need to automatically discover are located in the GAC and not necessarily in this application directory.</p>
+<p>Can TecX cater for this?</p>
+<p>Thanks</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_852047" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="852058">
+    <td id="PostDetailsCell_852058" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post852058"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/weberse">weberse</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/21/2012 11:25:43 AM" LocalTimeTicks="1340303143">Jun 21, 2012 at 11:25 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_852058" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi&#32;&#64;ChubbyArse&#32;&#40;nice&#32;nickname&#32;btw&#32;&#59;&#41;&#41;,&#32;you&#32;can&#32;always&#32;use&#32;an&#32;overload&#32;of&#32;the&#32;AssemblyScanner.AssembliesFromPath&#40;&#41;&#32;method&#32;to&#32;specify&#32;where&#32;the&#32;ConfigurationBuilder&#32;should&#32;look&#32;for&#32;assemblies.&#32;The&#32;code&#32;would&#32;look&#32;something&#32;like&#32;that&#58;&#32;&#32;&#32;var&#32;builder&#32;&#61;&#32;new&#32;ConfigurationBuilder&#40;&#41;&#59;&#32;builder.Scan&#40;s&#32;&#61;&#38;gt&#59;&#32;&#123;&#32;s.AssembliesFromPath&#40;&#34;thePathToMyApplicationBinFolder&#34;&#41;&#59;&#32;s.LookForConfigBuilders&#40;&#41;&#59;&#32;&#125;&#41;&#59;&#32;&#32;&#32;&#32;Does&#32;that&#32;help&#63;">
+        
+<p>Hi @ChubbyArse (nice nickname btw ;)),</p>
+<p>you can always use an overload of the <em>AssemblyScanner.AssembliesFromPath()</em> method to specify where the
+<em>ConfigurationBuilder </em>should look for assemblies.</p>
+<p>The code would look something like that:</p>
+<p></p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">var</span> builder = <span style="color:blue">new</span> ConfigurationBuilder();
+builder.Scan(s =&gt; 
+  {
+    s.AssembliesFromPath(<span style="color:#a31515">&quot;thePathToMyApplicationBinFolder&quot;</span>);
+    s.LookForConfigBuilders();
+  });
+</pre>
+</div>
+<p></p>
+<p>Does that help?</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_852058" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1014222">
+    <td id="PostDetailsCell_1014222" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1014222"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/gmelnik">gmelnik</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/12/2013 10:48:44 PM" LocalTimeTicks="1363153724">Mar 12, 2013 at 10:48 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1014222" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="&#64;Chubby,&#13;&#10;&#13;&#10;Out&#32;of&#32;curiosity,&#32;why&#32;would&#32;you&#32;want&#32;to&#32;scan&#32;the&#32;entire&#32;GAC&#63;&#13;&#10;Especially,&#32;if&#32;you&#32;have&#32;a&#32;situation&#32;with&#32;different&#32;version&#32;of&#32;the&#32;same&#32;assembly&#32;in&#32;the&#32;GAC&#63;&#13;&#10;&#13;&#10;If&#32;you&#32;know&#32;which&#32;assembly&#32;from&#32;the&#32;GAC&#32;you&#32;want&#32;to&#32;be&#32;scanned,&#32;then&#32;you&#32;can&#32;load&#32;them&#32;and&#32;provide&#32;a&#32;list&#32;of&#32;assemblies.&#13;&#10;&#13;&#10;It&#32;would&#32;help&#32;to&#32;know&#32;a&#32;concerete&#32;example&#32;of&#32;how&#32;you&#32;see&#32;this&#32;working&#32;wth&#32;the&#32;GAC.&#13;&#10;&#13;&#10;By&#32;the&#32;way,&#32;we&#32;are&#32;adding&#32;the&#32;registration&#32;by&#32;convention&#32;feature&#32;in&#32;Unity&#32;3.0.&#32;See&#32;&#91;this&#93;&#40;http&#58;&#47;&#47;blogs.msdn.com&#47;b&#47;agile&#47;archive&#47;2013&#47;03&#47;12&#47;unity-configuration-registration-by-convention.aspx&#41;.&#13;&#10;&#13;&#10;Grigori">
+        <div class="markDownOutput ">@Chubby, <br>
+<br>
+Out of curiosity, why would you want to scan the entire GAC? <br>
+Especially, if you have a situation with different version of the same assembly in the GAC?
+<br>
+<br>
+If you know which assembly from the GAC you want to be scanned, then you can load them and provide a list of assemblies.
+<br>
+<br>
+It would help to know a concerete example of how you see this working wth the GAC.
+<br>
+<br>
+By the way, we are adding the registration by convention feature in Unity 3.0. See
+<a href="http://blogs.msdn.com/b/agile/archive/2013/03/12/unity-configuration-registration-by-convention.aspx"  rel="nofollow">
+this</a>. <br>
+<br>
+Grigori<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1014222" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f359739">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="95cecab4-6913-4e15-b9f6-ad2a6867bb8d">
+    <script class="options" defer="defer" id="95cecab4-6913-4e15-b9f6-ad2a6867bb8d" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_927ff5c1-8a2f-4c0b-bacb-dbdea5b9bcc6">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_4973bca2-610a-48cb-aba6-67f2d3a92bc1">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_927ff5c1-8a2f-4c0b-bacb-dbdea5b9bcc6" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_4973bca2-610a-48cb-aba6-67f2d3a92bc1" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/359739';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

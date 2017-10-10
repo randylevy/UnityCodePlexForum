@@ -1,0 +1,872 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Combining Unity container setup through code &#43; configuration</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/257278?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/257278?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="m_LkY4653PPLysI41ZgYFV6ummfz6PhICNj2lW8gcHq4SZPQabEsDfkpNx8y8L-4oznMEqEzFIvN0de2CxU7UNQDSAGsNMw6VHovZt3DGnZIOoBVmNDXtT5sXJ7-z7F_xl-CFQ2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken285e1dcad-f5fe-496d-906c-1b1c1a3dd91b" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:26:42 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f257278" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="39aedaf8-481c-4b49-a527-883056ec02b1">
+                
+                    <script class="options" defer="defer" id="39aedaf8-481c-4b49-a527-883056ec02b1" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="fe663840-a19f-47a3-938d-cddf790887b0">
+                
+                    <script class="options" defer="defer" id="fe663840-a19f-47a3-938d-cddf790887b0" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Combining Unity container setup through code &#43; configuration
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:257278]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="e769bdc9-6e4f-450c-b2a4-965ec1e140a7">
+    <script class="options" defer="defer" id="e769bdc9-6e4f-450c-b2a4-965ec1e140a7" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/257278","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="611277">
+    <td id="PostDetailsCell_611277" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post611277"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Dhodaalaa">Dhodaalaa</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/11/2011 10:34:14 PM" LocalTimeTicks="1305178454">May 11, 2011 at 10:34 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_611277" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#32;have&#32;a&#32;unity&#32;container&#32;that&#32;I&#32;have&#32;setup&#32;through&#32;code,&#32;but&#32;have&#32;application&#32;blocks&#39;&#32;setup&#32;information&#32;in&#32;separate&#32;config&#32;files.&#32;I&#32;see&#32;a&#38;nbsp&#59;solution&#38;nbsp&#59;that&#32;will&#32;allow&#32;keeping&#32;entlib&#32;configurations&#32;in&#32;separate&#32;files,&#32;but&#32;require&#32;that&#32;all&#32;configuration&#32;happen&#32;through&#32;configuration&#32;files&#32;only.&#32;What&#32;I&#32;am&#32;looking&#32;for&#32;is&#32;to&#32;setup&#32;unity&#32;container&#32;through&#32;code&#32;and&#32;when&#32;I&#32;do&#32;container.AddNewExtension&#38;lt&#59;EnterpriseLibraryCoreExtensions&#38;gt&#59;&#40;&#41;,&#32;it&#32;should&#32;go&#32;through&#32;app.config&#32;and&#32;load&#32;the&#32;configurations&#32;for&#32;any&#32;application&#32;blocks&#32;mentioned&#32;or&#32;referenced&#32;there.&#32;The&#32;way&#32;I&#32;have&#32;set&#32;it&#32;up,&#32;I&#32;have&#32;an&#32;app.config&#32;that&#32;points&#32;to&#32;a&#32;logging.config&#32;for&#32;Logging&#32;Application&#32;Block&#32;settings&#32;but&#32;I&#32;am&#32;getting&#32;an&#32;error&#32;during&#32;container&#32;setup.&#32;I&#32;am&#32;still&#32;investigating&#32;the&#32;root&#32;cause&#32;of&#32;the&#32;problem&#32;and&#32;will&#32;post&#32;specific&#32;exceptions&#32;&#47;&#32;error&#32;messages&#32;as&#32;I&#32;discover&#32;them,&#32;but&#32;just&#32;wanted&#32;to&#32;get&#32;a&#32;quick&#32;confirmation&#32;if&#32;what&#32;I&#32;am&#32;attempting&#32;is&#32;even&#32;legal.&#32;For&#32;your&#32;reference,&#32;here&#32;is&#32;my&#32;app.config&#32;&#40;only&#32;relevant&#32;portions&#32;produced&#32;below.&#32;I&#32;have&#32;verified&#32;there&#32;is&#32;no&#32;error&#32;in&#32;any&#32;other&#32;parts&#32;of&#32;app.config&#59;&#32;if&#32;I&#32;comment&#32;out&#32;this&#32;part,&#32;it&#32;works&#32;fine&#41;&#58;&#32;&#32;&#32;&#38;lt&#59;&#33;--Enterprise&#32;Library&#32;Settings--&#38;gt&#59;&#32;&#38;lt&#59;configSections&#38;gt&#59;&#32;&#38;lt&#59;section&#32;name&#61;&#38;quot&#59;loggingConfiguration&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LoggingSettings,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#38;quot&#59;&#32;requirePermission&#61;&#38;quot&#59;true&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;configSections&#38;gt&#59;&#32;&#38;lt&#59;loggingConfiguration&#32;configSource&#61;&#38;quot&#59;logging.config&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#32;&#32;&#32;Here&#32;is&#32;my&#32;logging.config&#32;&#40;some&#32;may&#32;argue&#32;that&#32;if&#32;you&#32;are&#32;coming&#32;here&#32;through&#32;configSource,&#32;you&#32;should&#32;not&#32;put&#32;enclosing&#32;&#38;lt&#59;configuration&#38;gt&#59;&#32;tags,&#32;but&#32;removing&#32;them&#32;does&#32;not&#32;fix&#32;the&#32;problem&#32;either.&#32;The&#32;logging&#32;configurations&#32;were&#32;generated&#32;through&#32;Enterprise&#32;Library&#32;Configuration&#32;Editor,&#32;so&#32;I&#32;don&#39;t&#32;anticipate&#32;any&#32;syntactical&#32;issues&#32;either&#41;&#58;&#32;&#32;&#32;&#38;lt&#59;configuration&#38;gt&#59;&#32;&#38;lt&#59;loggingConfiguration&#32;name&#61;&#38;quot&#59;&#38;quot&#59;&#32;tracingEnabled&#61;&#38;quot&#59;true&#38;quot&#59;&#32;defaultCategory&#61;&#38;quot&#59;General&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;listeners&#38;gt&#59;&#32;&#38;lt&#59;add&#32;name&#61;&#38;quot&#59;Event&#32;Log&#32;Listener&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.FormattedEventLogTraceListener,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#38;quot&#59;&#32;listenerDataType&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.FormattedEventLogTraceListenerData,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#38;quot&#59;&#32;source&#61;&#38;quot&#59;Enterprise&#32;Library&#32;Logging&#38;quot&#59;&#32;formatter&#61;&#38;quot&#59;Text&#32;Formatter&#38;quot&#59;&#32;log&#61;&#38;quot&#59;&#38;quot&#59;&#32;machineName&#61;&#38;quot&#59;.&#38;quot&#59;&#32;traceOutputOptions&#61;&#38;quot&#59;None&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;add&#32;name&#61;&#38;quot&#59;WMI&#32;Trace&#32;Listener&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.WmiTraceListener,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#38;quot&#59;&#32;listenerDataType&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.WmiTraceListenerData,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;listeners&#38;gt&#59;&#32;&#38;lt&#59;formatters&#38;gt&#59;&#32;&#38;lt&#59;add&#32;type&#61;&#38;quot&#59;Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.TextFormatter,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#38;quot&#59;&#32;template&#61;&#38;quot&#59;Timestamp&#58;&#32;&#123;timestamp&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;Message&#58;&#32;&#123;message&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;Category&#58;&#32;&#123;category&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;Priority&#58;&#32;&#123;priority&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;EventId&#58;&#32;&#123;eventid&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;Severity&#58;&#32;&#123;severity&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;Title&#58;&#123;title&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;Machine&#58;&#32;&#123;localMachine&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;App&#32;Domain&#58;&#32;&#123;localAppDomain&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;ProcessId&#58;&#32;&#123;localProcessId&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;Process&#32;Name&#58;&#32;&#123;localProcessName&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;Thread&#32;Name&#58;&#32;&#123;threadName&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;Win32&#32;ThreadId&#58;&#123;win32ThreadId&#125;&#123;newline&#125;&#38;amp&#59;&#35;xA&#59;Extended&#32;Properties&#58;&#32;&#123;dictionary&#40;&#123;key&#125;&#32;-&#32;&#123;value&#125;&#123;newline&#125;&#41;&#125;&#38;quot&#59;&#32;name&#61;&#38;quot&#59;Text&#32;Formatter&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;formatters&#38;gt&#59;&#32;&#38;lt&#59;categorySources&#38;gt&#59;&#32;&#38;lt&#59;add&#32;switchValue&#61;&#38;quot&#59;All&#38;quot&#59;&#32;name&#61;&#38;quot&#59;General&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;listeners&#38;gt&#59;&#32;&#38;lt&#59;add&#32;name&#61;&#38;quot&#59;WMI&#32;Trace&#32;Listener&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;listeners&#38;gt&#59;&#32;&#38;lt&#59;&#47;add&#38;gt&#59;&#32;&#38;lt&#59;&#47;categorySources&#38;gt&#59;&#32;&#38;lt&#59;specialSources&#38;gt&#59;&#32;&#38;lt&#59;allEvents&#32;switchValue&#61;&#38;quot&#59;All&#38;quot&#59;&#32;name&#61;&#38;quot&#59;All&#32;Events&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;notProcessed&#32;switchValue&#61;&#38;quot&#59;All&#38;quot&#59;&#32;name&#61;&#38;quot&#59;Unprocessed&#32;Category&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;errors&#32;switchValue&#61;&#38;quot&#59;All&#38;quot&#59;&#32;name&#61;&#38;quot&#59;Logging&#32;Errors&#32;&#38;amp&#59;amp&#59;&#32;Warnings&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;listeners&#38;gt&#59;&#32;&#38;lt&#59;add&#32;name&#61;&#38;quot&#59;Event&#32;Log&#32;Listener&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;listeners&#38;gt&#59;&#32;&#38;lt&#59;&#47;errors&#38;gt&#59;&#32;&#38;lt&#59;&#47;specialSources&#38;gt&#59;&#32;&#38;lt&#59;&#47;loggingConfiguration&#38;gt&#59;&#32;&#38;lt&#59;&#47;configuration&#38;gt&#59;&#32;&#32;&#32;&#32;">
+        
+<p>I have a unity container that I have setup through code, but have application blocks' setup information in separate config files. I see a&nbsp;<a href="http://www.pnpguidance.net/News/EnterpriseLibraryExternalConfigurationSourceApplicationBlockSettings.aspx" rel="nofollow">solution</a>&nbsp;that
+ will allow keeping entlib configurations in separate files, but require that all configuration happen through configuration files only. What I am looking for is to setup unity container through code and when I do container.AddNewExtension&lt;EnterpriseLibraryCoreExtensions&gt;(),
+ it should go through app.config and load the configurations for any application blocks mentioned or referenced there. The way I have set it up, I have an app.config that points to a logging.config for Logging Application Block settings but I am getting an
+ error during container setup. I am still investigating the root cause of the problem and will post specific exceptions / error messages as I discover them, but just wanted to get a quick confirmation if what I am attempting is even legal.</p>
+<p>For your reference, here is my app.config (only relevant portions produced below. I have verified there is no error in any other parts of app.config; if I comment out this part, it works fine):</p>
+<p></p>
+<div style="color:black; background-color:white">
+<pre><span style="color:green">&lt;!--Enterprise Library Settings--&gt;</span>
+   <span style="color:blue">&lt;</span><span style="color:#a31515">configSections</span><span style="color:blue">&gt;</span>
+    <span style="color:blue">&lt;</span><span style="color:#a31515">section</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">loggingConfiguration</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LoggingSettings, Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</span><span style="color:black">&quot;</span> <span style="color:red">requirePermission</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">true</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+  <span style="color:blue">&lt;/</span><span style="color:#a31515">configSections</span><span style="color:blue">&gt;</span>
+  <span style="color:blue">&lt;</span><span style="color:#a31515">loggingConfiguration</span> <span style="color:red">configSource</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">logging.config</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+ 
+</pre>
+</div>
+<p></p>
+<p>Here is my logging.config (some may argue that if you are coming here through configSource, you should not put enclosing &lt;configuration&gt; tags, but removing them does not fix the problem either. The logging configurations were generated through Enterprise
+ Library Configuration Editor, so I don't anticipate any syntactical issues either):</p>
+<p></p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">&lt;</span><span style="color:#a31515">configuration</span><span style="color:blue">&gt;</span> 
+  <span style="color:blue">&lt;</span><span style="color:#a31515">loggingConfiguration</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">&quot; tracingEnabled=&quot;true</span><span style="color:black">&quot;</span> <span style="color:red">defaultCategory</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">General</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">listeners</span><span style="color:blue">&gt;</span>
+            <span style="color:blue">&lt;</span><span style="color:#a31515">add</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Event Log Listener</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.FormattedEventLogTraceListener, Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</span><span style="color:black">&quot;</span>
+                <span style="color:red">listenerDataType</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.FormattedEventLogTraceListenerData, Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</span><span style="color:black">&quot;</span>
+                <span style="color:red">source</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Enterprise Library Logging</span><span style="color:black">&quot;</span> <span style="color:red">formatter</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Text Formatter</span><span style="color:black">&quot;</span>
+                <span style="color:red">log</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">&quot; machineName=&quot;.</span><span style="color:black">&quot;</span> <span style="color:red">traceOutputOptions</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">None</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+            <span style="color:blue">&lt;</span><span style="color:#a31515">add</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">WMI Trace Listener</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.WmiTraceListener, Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</span><span style="color:black">&quot;</span>
+                <span style="color:red">listenerDataType</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.WmiTraceListenerData, Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+        <span style="color:blue">&lt;/</span><span style="color:#a31515">listeners</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">formatters</span><span style="color:blue">&gt;</span>
+            <span style="color:blue">&lt;</span><span style="color:#a31515">add</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.TextFormatter, Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</span><span style="color:black">&quot;</span>
+                <span style="color:red">template</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Timestamp: {timestamp}{newline}&amp;#xA;Message: {message}{newline}&amp;#xA;Category: {category}{newline}&amp;#xA;Priority: {priority}{newline}&amp;#xA;EventId: {eventid}{newline}&amp;#xA;Severity: {severity}{newline}&amp;#xA;Title:{title}{newline}&amp;#xA;Machine: {localMachine}{newline}&amp;#xA;App Domain: {localAppDomain}{newline}&amp;#xA;ProcessId: {localProcessId}{newline}&amp;#xA;Process Name: {localProcessName}{newline}&amp;#xA;Thread Name: {threadName}{newline}&amp;#xA;Win32 ThreadId:{win32ThreadId}{newline}&amp;#xA;Extended Properties: {dictionary({key} - {value}{newline})}</span><span style="color:black">&quot;</span>
+                <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Text Formatter</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+        <span style="color:blue">&lt;/</span><span style="color:#a31515">formatters</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">categorySources</span><span style="color:blue">&gt;</span>
+            <span style="color:blue">&lt;</span><span style="color:#a31515">add</span> <span style="color:red">switchValue</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">All</span><span style="color:black">&quot;</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">General</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+                <span style="color:blue">&lt;</span><span style="color:#a31515">listeners</span><span style="color:blue">&gt;</span>
+                    <span style="color:blue">&lt;</span><span style="color:#a31515">add</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">WMI Trace Listener</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+                <span style="color:blue">&lt;/</span><span style="color:#a31515">listeners</span><span style="color:blue">&gt;</span>
+            <span style="color:blue">&lt;/</span><span style="color:#a31515">add</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;/</span><span style="color:#a31515">categorySources</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">specialSources</span><span style="color:blue">&gt;</span>
+            <span style="color:blue">&lt;</span><span style="color:#a31515">allEvents</span> <span style="color:red">switchValue</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">All</span><span style="color:black">&quot;</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">All Events</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+            <span style="color:blue">&lt;</span><span style="color:#a31515">notProcessed</span> <span style="color:red">switchValue</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">All</span><span style="color:black">&quot;</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Unprocessed Category</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+            <span style="color:blue">&lt;</span><span style="color:#a31515">errors</span> <span style="color:red">switchValue</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">All</span><span style="color:black">&quot;</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Logging Errors &amp;amp; Warnings</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+                <span style="color:blue">&lt;</span><span style="color:#a31515">listeners</span><span style="color:blue">&gt;</span>
+                    <span style="color:blue">&lt;</span><span style="color:#a31515">add</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Event Log Listener</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+                <span style="color:blue">&lt;/</span><span style="color:#a31515">listeners</span><span style="color:blue">&gt;</span>
+            <span style="color:blue">&lt;/</span><span style="color:#a31515">errors</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;/</span><span style="color:#a31515">specialSources</span><span style="color:blue">&gt;</span>
+    <span style="color:blue">&lt;/</span><span style="color:#a31515">loggingConfiguration</span><span style="color:blue">&gt;</span>
+<span style="color:blue">&lt;/</span><span style="color:#a31515">configuration</span><span style="color:blue">&gt;</span>
+</pre>
+</div>
+<p></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_611277" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="611310">
+    <td id="PostDetailsCell_611310" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post611310"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Dhodaalaa">Dhodaalaa</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/11/2011 11:34:52 PM" LocalTimeTicks="1305182092">May 11, 2011 at 11:34 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_611310" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Quick&#32;update&#58;&#32;the&#32;settings&#32;shown&#32;above&#32;seem&#32;to&#32;work&#32;in&#32;a&#32;console&#32;program,&#32;but&#32;fail&#32;in&#32;Windows&#32;service.&#32;I&#32;would&#32;still&#32;look&#32;for&#32;official&#32;confirmation&#32;so&#32;I&#32;don&#39;t&#32;get&#32;some&#32;surprises&#32;down&#32;the&#32;road.&#32;Attempting&#32;to&#32;debug&#32;Windows&#32;Service&#32;errors&#32;now.">
+        
+<p>Quick update: the settings shown above seem to work in a console program, but fail in Windows service. I would still look for official confirmation so I don't get some surprises down the road. Attempting to debug Windows Service errors now.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_611310" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="611535">
+    <td id="PostDetailsCell_611535" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post611535"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/abkar">abkar</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/12/2011 10:19:30 AM" LocalTimeTicks="1305220770">May 12, 2011 at 10:19 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_611535" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#39;m&#32;not&#32;sure&#32;if&#32;I&#32;understand&#32;your&#32;porblem&#32;in&#32;WindowsService&#32;the&#32;Working&#32;CurrentDirectory&#32;is&#32;System32.&#32;probably&#32;does&#32;not&#32;load&#32;your&#32;configuration.&#32;Try&#32;set&#32;the&#32;CurrentDirectory&#32;before&#32;start&#32;your&#32;service&#58;&#32;&#32;&#32;System.IO.Directory.SetCurrentDirectory&#32;&#40;System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase&#41;&#59;&#32;&#32;&#32;">
+        
+<p><span id="result_box" lang="en"><span title="Fai clic per visualizzare le traduzioni alternative">I'm not sure</span>
+<span title="Fai clic per visualizzare le traduzioni alternative">if I</span> <span title="Fai clic per visualizzare le traduzioni alternative">
+understand</span> <span title="Fai clic per visualizzare le traduzioni alternative">
+your</span> <span title="Fai clic per visualizzare le traduzioni alternative">porblem</span></span></p>
+<p><span lang="en"><span title="Fai clic per visualizzare le traduzioni alternative">in WindowsService the Working</span></span> CurrentDirectory is System32.
+<span id="result_box" lang="en"><span title="Fai clic per visualizzare le traduzioni alternative">probably</span>
+<span title="Fai clic per visualizzare le traduzioni alternative">does not load</span> your
+<span title="Fai clic per visualizzare le traduzioni alternative">configuration.</span></span></p>
+<p><span lang="en"><span title="Fai clic per visualizzare le traduzioni alternative">Try set the CurrentDirectory before start your service:</span></span></p>
+<p><span lang="en"><span title="Fai clic per visualizzare le traduzioni alternative"></p>
+<div style="color:black; background-color:white">
+<pre>System.IO.Directory.SetCurrentDirectory
+              (System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase);   
+
+</pre>
+</div>
+<br>
+</span></span>
+<p></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_611535" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="611835">
+    <td id="PostDetailsCell_611835" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post611835"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Dhodaalaa">Dhodaalaa</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/12/2011 5:38:42 PM" LocalTimeTicks="1305247122">May 12, 2011 at 5:38 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_611835" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Thank&#32;you&#32;for&#32;your&#32;response.&#32;Path&#32;is&#32;most&#32;certainly&#32;not&#32;the&#32;problem&#32;here&#32;because&#58;&#32;1.&#32;I&#32;know&#32;app.config&#32;is&#32;being&#32;read&#32;correctly&#32;because&#32;it&#32;has&#32;some&#32;connectionstrings&#32;and&#32;WCF&#32;settings&#32;that&#32;drive&#32;Entities&#32;and&#32;Web&#32;Services&#32;setup&#32;both&#32;of&#32;which&#32;are&#32;working&#32;correctly.&#32;2.&#32;I&#32;have&#32;the&#32;problem&#32;even&#32;if&#32;I&#32;took&#32;all&#32;of&#32;logging.config&#32;and&#32;stuck&#32;it&#32;in&#32;app.config.&#32;I&#32;copy&#32;over&#32;logging.config&#32;to&#32;the&#32;bin&#32;directory&#32;which&#32;is&#32;where&#32;exe.config&#32;for&#32;the&#32;Windows&#32;Service&#32;gets&#32;written.&#32;So&#32;if&#32;it&#32;can&#32;read&#32;app.config,&#32;it&#32;should&#32;be&#32;able&#32;to&#32;find&#32;logging.config.&#32;I&#32;even&#32;tried&#32;turning&#32;requiredPermission&#32;to&#32;false&#32;thinking&#32;that&#32;there&#32;could&#32;be&#32;a&#32;trust&#32;issue&#32;since&#32;Windows&#32;Service&#32;runs&#32;under&#32;a&#32;low&#32;level&#32;id.&#32;3.&#32;I&#32;did&#32;give&#32;your&#32;solution&#32;a&#32;shot,&#32;and&#32;it&#32;did&#32;not&#32;fix&#32;the&#32;problem.&#32;&#38;nbsp&#59;&#32;So,&#32;to&#32;answer&#32;your&#32;question&#32;about&#32;what&#32;is&#32;exactly&#32;is&#32;the&#32;problem&#32;we&#32;are&#32;trying&#32;to&#32;solve&#58;&#32;I&#32;think&#32;the&#32;key&#32;problem&#32;is&#32;making&#32;logging&#32;settings&#32;work&#32;through&#32;configuration&#32;files&#32;&#40;never&#32;mind&#32;separating&#32;out&#32;logging&#32;settings&#32;into&#32;a&#32;separate&#32;configSource&#41;.&#32;So&#32;far,&#32;I&#32;have&#32;not&#32;had&#32;this&#32;problem&#32;because&#32;I&#32;was&#32;doing&#32;all&#32;container&#32;setups&#32;through&#32;code&#32;rather&#32;than&#32;config&#32;files.&#32;I&#32;suspect&#32;that&#32;if&#32;I&#32;attempt&#32;to&#32;setup&#32;the&#32;unity&#32;container&#32;through&#32;config&#32;files&#32;I&#32;am&#32;going&#32;to&#32;run&#32;into&#32;a&#32;similar&#32;problem.&#32;Obviously,&#32;I&#32;am&#32;missing&#32;some&#32;basic&#32;step.&#32;Here&#32;is&#32;the&#32;code&#32;I&#32;have&#32;in&#32;my&#32;windows&#32;service&#32;Main&#40;&#41;.&#32;This&#32;is&#32;probably&#32;more&#32;information&#32;than&#32;you&#32;need&#59;&#32;if&#32;I&#32;took&#32;out&#32;loggingConfiguration&#32;from&#32;the&#32;equation,&#32;everything&#32;works&#32;just&#32;fine.&#32;So&#32;there&#32;is&#32;probably&#32;some&#32;problem&#32;when&#32;executing&#32;.AddNewExtension&#38;lt&#59;EnterpriseLibraryCoreExtension&#38;gt&#59;&#40;&#41;&#58;&#32;&#32;&#32;&#32;private&#32;static&#32;void&#32;Main&#40;&#41;&#32;&#123;&#32;using&#40;IUnityContainer&#32;container&#61;new&#32;UnityContainer&#40;&#41;&#41;&#32;&#123;&#32;container&#32;.AddNewExtension&#38;lt&#59;EnterpriseLibraryCoreExtension&#38;gt&#59;&#40;&#41;&#32;.RegisterType&#38;lt&#59;MyWindowsService&#38;gt&#59;&#32;&#40;&#32;new&#32;ContainerControlledLifetimeManager&#40;&#41;,&#32;new&#32;Interceptor&#40;typeof&#40;VirtualMethodInterceptor&#41;,&#34;VMInterceptor&#34;&#41;,&#32;new&#32;InterceptionBehavior&#38;lt&#59;PolicyInjectionBehavior&#38;gt&#59;&#40;&#41;&#32;&#41;&#32;.Configure&#38;lt&#59;Interception&#38;gt&#59;&#40;&#41;&#32;.AddPolicy&#40;&#34;MyValidation&#34;&#41;&#32;.AddMatchingRule&#40;typeof&#40;TagAttributeMatchingRule&#41;,&#32;new&#32;InjectionConstructor&#40;&#34;MyMethod&#34;&#41;&#41;&#32;.AddCallHandler&#32;&#40;typeof&#40;ValidationCallHandler&#41;,&#32;&#34;VHandler&#34;,&#32;new&#32;ContainerControlledLifetimeManager&#40;&#41;,&#32;new&#32;InjectionConstructor&#32;&#40;&#34;RuleSet&#34;,&#32;SpecificationSource.Attributes&#32;&#41;&#32;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;IMyWebService,&#32;MyWebService&#38;gt&#59;&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;IRepository,&#32;Repository&#38;gt&#59;&#40;&#34;entity&#34;,new&#32;ContainerControlledLifetimeManager&#40;&#41;&#41;&#59;&#32;container.RegisterInstance&#32;&#40;typeof&#40;Assembly&#41;,&#32;&#34;MessageTemplates&#34;,&#32;Assembly.LoadFrom&#40;String.Format&#40;&#34;&#123;0&#125;&#92;&#92;My.Resources.dll&#34;,&#32;System.AppDomain.CurrentDomain.BaseDirectory&#41;&#41;,&#32;new&#32;ContainerControlledLifetimeManager&#40;&#41;&#41;&#59;&#32;EnterpriseLibraryContainer.Current&#32;&#61;&#32;new&#32;UnityServiceLocator&#40;container&#41;&#59;&#32;ServiceBase.Run&#40;container.Resolve&#38;lt&#59;MyWindowsService&#38;gt&#59;&#40;&#41;&#41;&#59;&#32;&#125;&#32;&#32;&#32;">
+        
+<p>Thank you for your response. Path is most certainly not the problem here because:</p>
+<p>1. I know app.config is being read correctly because it has some connectionstrings and WCF settings that drive Entities and Web Services setup both of which are working correctly.</p>
+<p>2. I have the problem even if I took all of logging.config and stuck it in app.config. I copy over logging.config to the bin directory which is where exe.config for the Windows Service gets written. So if it can read</p>
+<p>app.config, it should be able to find logging.config. I even tried turning requiredPermission to false thinking that there could be a trust issue since Windows Service runs under a low level id.</p>
+<p>3. I did give your solution a shot, and it did not fix the problem.</p>
+<p>&nbsp;</p>
+<p>So, to answer your question about what is exactly is the problem we are trying to solve:</p>
+<p>I think the key problem is making logging settings work through configuration files (never mind separating out logging settings into a separate configSource). So far, I have not had this problem because I was doing all container setups through code rather
+ than config files. I suspect</p>
+<p>that if I attempt to setup the unity container through config files I am going to run into a similar problem. Obviously, I am missing some basic step.</p>
+<p>Here is the code I have in my windows service Main(). This is probably more information than you need; if I took out loggingConfiguration from the equation, everything works just fine. So there is probably some</p>
+<p>problem when executing .AddNewExtension&lt;EnterpriseLibraryCoreExtension&gt;():</p>
+<p></p>
+<div style="color:black; background-color:white">
+<pre>       <span style="color:blue">private</span> <span style="color:blue">static</span> <span style="color:blue">void</span> Main()
+        {
+            
+            <span style="color:blue">using</span>(IUnityContainer container=<span style="color:blue">new</span> UnityContainer())
+            {
+                container
+                    .AddNewExtension&lt;EnterpriseLibraryCoreExtension&gt;()
+                    .RegisterType&lt;MyWindowsService&gt;
+                    (
+                        <span style="color:blue">new</span> ContainerControlledLifetimeManager(),
+                        <span style="color:blue">new</span> Interceptor(<span style="color:blue">typeof</span>(VirtualMethodInterceptor),<span style="color:#a31515">&quot;VMInterceptor&quot;</span>),
+                        <span style="color:blue">new</span> InterceptionBehavior&lt;PolicyInjectionBehavior&gt;()
+                     )
+                    .Configure&lt;Interception&gt;()
+                    .AddPolicy(<span style="color:#a31515">&quot;MyValidation&quot;</span>)
+                    .AddMatchingRule(<span style="color:blue">typeof</span>(TagAttributeMatchingRule), <span style="color:blue">new</span> InjectionConstructor(<span style="color:#a31515">&quot;MyMethod&quot;</span>))
+                    .AddCallHandler
+                        (<span style="color:blue">typeof</span>(ValidationCallHandler), 
+                        <span style="color:#a31515">&quot;VHandler&quot;</span>, 
+                        <span style="color:blue">new</span> ContainerControlledLifetimeManager(),
+                        <span style="color:blue">new</span> InjectionConstructor
+                            (<span style="color:#a31515">&quot;RuleSet&quot;</span>,
+                            SpecificationSource.Attributes
+                            )
+                        );
+                container.RegisterType&lt;IMyWebService, MyWebService&gt;();
+                container.RegisterType&lt;IRepository, Repository&gt;(<span style="color:#a31515">&quot;entity&quot;</span>,<span style="color:blue">new</span> ContainerControlledLifetimeManager());
+                container.RegisterInstance
+                    (<span style="color:blue">typeof</span>(Assembly), 
+                    <span style="color:#a31515">&quot;MessageTemplates&quot;</span>,
+                    Assembly.LoadFrom(String.Format(<span style="color:#a31515">&quot;{0}\\My.Resources.dll&quot;</span>, System.AppDomain.CurrentDomain.BaseDirectory)),
+                    <span style="color:blue">new</span> ContainerControlledLifetimeManager());
+                EnterpriseLibraryContainer.Current = <span style="color:blue">new</span> UnityServiceLocator(container);
+                ServiceBase.Run(container.Resolve&lt;MyWindowsService&gt;());
+            }
+ 
+</pre>
+</div>
+<p></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_611835" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="613532">
+    <td id="PostDetailsCell_613532" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post613532"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Dhodaalaa">Dhodaalaa</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/16/2011 7:53:11 PM" LocalTimeTicks="1305600791">May 16, 2011 at 7:53 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_613532" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;couldn&#39;t&#32;figure&#32;this&#32;out&#59;&#32;probably&#32;some&#32;setups&#32;are&#32;incorrect&#32;in&#32;my&#32;environment.&#32;For&#32;the&#32;time&#32;being&#32;I&#32;have&#32;taken&#32;the&#32;Fleunt&#32;API&#32;route&#32;to&#32;setup&#32;logging&#32;application&#32;block&#59;&#32;seems&#32;to&#32;be&#32;working&#32;correctly&#32;for&#32;now.&#32;I&#32;will&#32;try&#32;to&#32;come&#32;back&#32;to&#32;this&#32;problem&#32;once&#32;my&#32;immediate&#32;priorities&#32;are&#32;covered.">
+        
+<p>I couldn't figure this out; probably some setups are incorrect in my environment. For the time being I have taken the Fleunt API route to setup logging application block; seems to be working correctly for now. I will try to come back to this problem once
+ my immediate priorities are covered.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_613532" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f257278">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="e3f9b146-42c2-4fa5-85bf-f82b6ea433f7">
+    <script class="options" defer="defer" id="e3f9b146-42c2-4fa5-85bf-f82b6ea433f7" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_dbd2f051-1ac7-4894-a178-a31d7a261d7f">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_87cd6f0c-9af3-4283-a335-0e9a87ec0aa9">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_dbd2f051-1ac7-4894-a178-a31d7a261d7f" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_87cd6f0c-9af3-4283-a335-0e9a87ec0aa9" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/257278';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

@@ -1,0 +1,947 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Using Unity to Unit Test</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/70751?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/70751?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="fawW7wa29XcqtEGh6KECv7GE0edtr-viKG3pefWhnPWx6X8ykkyt8-4RN8OQBgsXsuahhM_0rKpJCq0WE6MAlyo3Fz8nsPivuR7t6MR86VX5D1UqyyQEmhuO87vcljcz-YOtUQ2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2a148b83f-8094-4df9-82fd-d35445790402" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:28:07 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f70751" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="ad6963f1-e551-43ee-897d-da00a935f342">
+                
+                    <script class="options" defer="defer" id="ad6963f1-e551-43ee-897d-da00a935f342" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="912f0847-8e22-4ef0-877b-6f8197433cd2">
+                
+                    <script class="options" defer="defer" id="912f0847-8e22-4ef0-877b-6f8197433cd2" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Using Unity to Unit Test
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:70751]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="8aaf46bd-fa1b-4bf4-9cc2-17003e6e6b4a">
+    <script class="options" defer="defer" id="8aaf46bd-fa1b-4bf4-9cc2-17003e6e6b4a" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/70751","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="241043">
+    <td id="PostDetailsCell_241043" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post241043"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/edeuser">edeuser</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/1/2009 7:56:29 PM" LocalTimeTicks="1254452189">Oct 1, 2009 at 7:56 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_241043" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hello&#32;I&#32;am&#32;new&#32;to&#32;unity&#32;and&#32;trying&#32;to&#32;understand&#32;more&#32;about&#32;how&#32;it&#32;can&#32;help&#32;with&#32;unit&#32;testing.&#38;nbsp&#59;&#32;I&#32;realize&#32;its&#32;power&#32;but&#32;am&#32;trying&#32;to&#32;get&#32;it&#32;setup....&#32;Enclosed&#32;is&#32;a&#32;unit&#32;test&#32;of&#32;the&#32;randomquoteservice&#32;that&#32;comes&#32;with&#32;the&#32;Hands&#32;on&#32;lab...&#38;nbsp&#59;&#32;any&#32;help&#32;on&#32;getting&#32;this&#32;setup&#32;would&#32;be&#32;greatly&#32;appreciated&#32;&#32;using&#32;Microsoft.Practices.Unity&#59;&#32;using&#32;StocksTicker.StockQuoteServices&#59;&#32;using&#32;Microsoft.VisualStudio.TestTools.UnitTesting&#59;&#32;using&#32;Microsoft.VisualStudio.TestTools.UnitTesting.Web&#59;&#32;using&#32;System.Collections.Generic&#59;&#32;using&#32;StocksTicker.Loggers&#59;&#32;namespace&#32;&#123;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;StocksTickerTest&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#47;This&#32;is&#32;a&#32;test&#32;class&#32;for&#32;RandomStockQuoteServiceTest&#32;and&#32;is&#32;intended&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#47;to&#32;contain&#32;all&#32;RandomStockQuoteServiceTest&#32;Unit&#32;Tests&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#47;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#91;&#32;&#38;nbsp&#59;&#32;TestClass&#40;&#41;&#93;public&#32;class&#32;RandomStockQuoteServiceTest&#32;&#123;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;private&#32;TestContext&#32;testContextInstance&#59;private&#32;IUnityContainer&#32;unityContainer&#59;private&#32;IStockQuoteService&#32;model&#59;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#47;Gets&#32;or&#32;sets&#32;the&#32;test&#32;context&#32;which&#32;provides&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#47;information&#32;about&#32;and&#32;functionality&#32;for&#32;the&#32;current&#32;test&#32;run.&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#47;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#32;public&#32;TestContext&#32;TestContextget&#32;&#123;&#32;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#32;return&#32;testContextInstance&#59;set&#32;&#123;&#32;testContextInstance&#32;&#61;&#32;&#125;&#32;&#125;&#32;value&#59;&#32;&#35;region&#32;&#38;nbsp&#59;&#32;Additional&#32;test&#32;attributes&#47;&#47;&#32;&#32;&#38;nbsp&#59;&#32;&#47;&#47;You&#32;can&#32;use&#32;the&#32;following&#32;additional&#32;attributes&#32;as&#32;you&#32;write&#32;your&#32;tests&#58;&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#32;&#38;nbsp&#59;&#32;&#47;&#47;Use&#32;ClassInitialize&#32;to&#32;run&#32;code&#32;before&#32;running&#32;the&#32;first&#32;test&#32;in&#32;the&#32;class&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#91;ClassInitialize&#40;&#41;&#93;&#32;&#38;nbsp&#59;&#32;&#47;&#47;public&#32;static&#32;void&#32;MyClassInitialize&#40;TestContext&#32;testContext&#41;&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#123;&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#125;&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#32;&#38;nbsp&#59;&#32;&#47;&#47;Use&#32;ClassCleanup&#32;to&#32;run&#32;code&#32;after&#32;all&#32;tests&#32;in&#32;a&#32;class&#32;have&#32;run&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#91;ClassCleanup&#40;&#41;&#93;&#32;&#38;nbsp&#59;&#32;&#47;&#47;public&#32;static&#32;void&#32;MyClassCleanup&#40;&#41;&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#123;&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#125;&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#32;&#38;nbsp&#59;&#32;&#47;&#47;Use&#32;TestInitialize&#32;to&#32;run&#32;code&#32;before&#32;running&#32;each&#32;test&#32;&#91;&#32;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#32;.RegisterType&#38;lt&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#32;TestInitialize&#40;&#41;&#93;public&#32;void&#32;MyTestInitialize&#40;&#41;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;IStockQuoteService,&#32;RandomStockQuoteService&#38;gt&#59;&#40;&#41;&#59;this.unityContainer&#32;&#61;&#32;container&#59;this.model&#32;&#61;&#32;this.unityContainer.Resolve&#38;lt&#59;IStockQuoteService&#38;gt&#59;&#40;&#41;&#59;&#32;&#47;&#47;&#32;&#38;nbsp&#59;&#32;&#47;&#47;Use&#32;TestCleanup&#32;to&#32;run&#32;code&#32;after&#32;each&#32;test&#32;has&#32;run&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#91;TestCleanup&#40;&#41;&#93;&#32;&#38;nbsp&#59;&#32;&#47;&#47;public&#32;void&#32;MyTestCleanup&#40;&#41;&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#123;&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#125;&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#32;&#35;endregion&#32;&#38;nbsp&#59;&#32;&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#47;A&#32;test&#32;for&#32;Logger&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#47;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#32;TODO&#58;&#32;Ensure&#32;that&#32;the&#32;UrlToTest&#32;attribute&#32;specifies&#32;a&#32;URL&#32;to&#32;an&#32;ASP.NET&#32;page&#32;&#40;for&#32;example,&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#32;http&#58;&#47;&#47;...&#47;Default.aspx&#41;.&#32;This&#32;is&#32;necessary&#32;for&#32;the&#32;unit&#32;test&#32;to&#32;be&#32;executed&#32;on&#32;the&#32;web&#32;server,&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#32;whether&#32;you&#32;are&#32;testing&#32;a&#32;page,&#32;web&#32;service,&#32;or&#32;a&#32;WCF&#32;service.&#32;&#91;&#32;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;TestMethod&#40;&#41;&#93;public&#32;void&#32;LoggerTest&#40;&#41;ILogger&#32;expected&#32;&#61;&#32;null&#59;&#32;&#47;&#47;&#32;TODO&#58;&#32;Initialize&#32;to&#32;an&#32;appropriate&#32;value&#32;&#38;nbsp&#59;&#32;model.Logger&#32;&#61;&#32;expected&#59;&#32;actual&#32;&#61;&#32;target.Logger&#59;&#32;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#32;ILogger&#32;actual&#59;Assert.AreEqual&#40;expected,&#32;actual&#41;&#59;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#47;A&#32;test&#32;for&#32;GenerateRandomQuote&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#47;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#32;TODO&#58;&#32;Ensure&#32;that&#32;the&#32;UrlToTest&#32;attribute&#32;specifies&#32;a&#32;URL&#32;to&#32;an&#32;ASP.NET&#32;page&#32;&#40;for&#32;example,&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#32;http&#58;&#47;&#47;...&#47;Default.aspx&#41;.&#32;This&#32;is&#32;necessary&#32;for&#32;the&#32;unit&#32;test&#32;to&#32;be&#32;executed&#32;on&#32;the&#32;web&#32;server,&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#32;whether&#32;you&#32;are&#32;testing&#32;a&#32;page,&#32;web&#32;service,&#32;or&#32;a&#32;WCF&#32;service.&#32;&#91;&#32;&#91;&#32;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#32;TestMethod&#40;&#41;&#93;DeploymentItem&#40;&#38;quot&#59;StocksTicker.dll&#38;quot&#59;&#41;&#93;public&#32;void&#32;GenerateRandomQuoteTest&#40;&#41;RandomStockQuoteService_Accessor&#32;target&#32;&#61;&#32;new&#32;RandomStockQuoteService_Accessor&#40;&#41;&#59;&#32;&#47;&#47;&#32;TODO&#58;&#32;Initialize&#32;to&#32;an&#32;appropriate&#32;value&#32;&#38;nbsp&#59;&#32;string&#32;symbol&#32;&#61;&#32;&#38;quot&#59;GE&#38;quot&#59;&#59;&#32;&#47;&#47;&#32;TODO&#58;&#32;Initialize&#32;to&#32;an&#32;appropriate&#32;value&#32;&#38;nbsp&#59;&#32;StockQuote&#32;expected&#32;&#61;&#32;null&#59;&#32;&#47;&#47;&#32;TODO&#58;&#32;Initialize&#32;to&#32;an&#32;appropriate&#32;value&#32;&#38;nbsp&#59;&#32;actual&#32;&#61;&#32;target.GenerateRandomQuote&#40;symbol&#41;&#59;&#32;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#32;StockQuote&#32;actual&#59;Assert.AreEqual&#40;expected,&#32;actual&#41;&#59;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#47;A&#32;test&#32;for&#32;GetQuotes&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#47;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#32;TODO&#58;&#32;Ensure&#32;that&#32;the&#32;UrlToTest&#32;attribute&#32;specifies&#32;a&#32;URL&#32;to&#32;an&#32;ASP.NET&#32;page&#32;&#40;for&#32;example,&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#32;http&#58;&#47;&#47;...&#47;Default.aspx&#41;.&#32;This&#32;is&#32;necessary&#32;for&#32;the&#32;unit&#32;test&#32;to&#32;be&#32;executed&#32;on&#32;the&#32;web&#32;server,&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#32;whether&#32;you&#32;are&#32;testing&#32;a&#32;page,&#32;web&#32;service,&#32;or&#32;a&#32;WCF&#32;service.&#32;&#91;&#32;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#32;TestMethod&#40;&#41;&#93;public&#32;void&#32;GetQuotesTest&#40;&#41;RandomStockQuoteService&#32;target&#32;&#61;&#32;new&#32;RandomStockQuoteService&#40;&#41;&#59;&#32;&#47;&#47;&#32;TODO&#58;&#32;Initialize&#32;to&#32;an&#32;appropriate&#32;value&#32;&#38;nbsp&#59;&#32;IEnumerable&#38;lt&#59;string&#38;gt&#59;&#32;symbols&#32;&#61;&#32;null&#59;&#32;&#47;&#47;&#32;TODO&#58;&#32;Initialize&#32;to&#32;an&#32;appropriate&#32;value&#32;&#38;nbsp&#59;&#32;IDictionary&#38;lt&#59;string,&#32;StockQuote&#38;gt&#59;&#32;expected&#32;&#61;&#32;null&#59;&#32;&#47;&#47;&#32;TODO&#58;&#32;Initialize&#32;to&#32;an&#32;appropriate&#32;value&#32;&#38;nbsp&#59;&#32;actual&#32;&#61;&#32;target.GetQuotes&#40;symbols&#41;&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#125;&#32;&#125;&#32;&#125;&#32;IDictionary&#38;lt&#59;string,&#32;StockQuote&#38;gt&#59;&#32;actual&#59;Assert.AreEqual&#40;expected,&#32;actual&#41;&#59;Assert.Inconclusive&#40;&#38;quot&#59;Verify&#32;the&#32;correctness&#32;of&#32;this&#32;test&#32;method.&#38;quot&#59;&#41;&#59;">
+        
+<p>Hello I am new to unity and trying to understand more about how it can help with unit testing.&nbsp; I realize its power but am trying to get it setup....</p>
+<p>Enclosed is a unit test of the randomquoteservice that comes with the Hands on lab...&nbsp; any help on getting this setup would be greatly appreciated</p>
+<p><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff"></p>
+<p>using</p>
+</span></span><span style="font-size:x-small">Microsoft.Practices.Unity;</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">
+<p>using</p>
+</span></span><span style="font-size:x-small">StocksTicker.StockQuoteServices;</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">
+<p>using</p>
+</span></span><span style="font-size:x-small">Microsoft.VisualStudio.TestTools.UnitTesting;</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">
+<p>using</p>
+</span></span><span style="font-size:x-small">Microsoft.VisualStudio.TestTools.UnitTesting.Web;</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">
+<p>using</p>
+</span></span><span style="font-size:x-small">System.Collections.Generic;</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">
+<p>using</p>
+</span></span><span style="font-size:x-small">StocksTicker.Loggers;</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">
+<p>namespace</p>
+<p>{</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</span></span><span style="font-size:x-small">StocksTickerTest</span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">///</span></span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">
+</span></span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">&lt;summary&gt;</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">///</span></span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">This is a test class for RandomStockQuoteServiceTest
+ and is intended</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">///</span></span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">to contain all RandomStockQuoteServiceTest Unit
+ Tests</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">///&lt;/summary&gt;</span></span><span style="font-size:x-small">
+<p>[</p>
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">TestClass</span></span><span style="font-size:x-small">()]</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">public</span></span><span style="font-size:x-small">
+</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">class</span></span><span style="font-size:x-small">
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">RandomStockQuoteServiceTest</span></span><span style="font-size:x-small">
+<p>{</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">private</span></span><span style="font-size:x-small">
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">TestContext</span></span><span style="font-size:x-small"> testContextInstance;</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">private</span></span><span style="font-size:x-small">
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">IUnityContainer</span></span><span style="font-size:x-small"> unityContainer;</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">private</span></span><span style="font-size:x-small">
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">IStockQuoteService</span></span><span style="font-size:x-small"> model;</span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">///</span></span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">
+</span></span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">&lt;summary&gt;</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">///</span></span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">Gets or sets the test context which provides</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">///</span></span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">information about and functionality for the current
+ test run.</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">///&lt;/summary&gt;</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+<p>{</p>
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">public</span></span><span style="font-size:x-small">
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">TestContext</span></span><span style="font-size:x-small"> TestContext</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">get</span></span><span style="font-size:x-small">
+<p>{</p>
+<p>&nbsp;</p>
+<p>}</p>
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">return</span></span><span style="font-size:x-small"> testContextInstance;</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">set</span></span><span style="font-size:x-small">
+<p>{</p>
+<p>testContextInstance =</p>
+<p>}</p>
+<p>}</p>
+</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">value</span></span><span style="font-size:x-small">;</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">
+<p>#region</p>
+<p>&nbsp;</p>
+</span></span><span style="font-size:x-small">Additional test attributes</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//
+</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//You can use the following additional attributes as you write your tests:</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//Use ClassInitialize to run code before running the first test in the class</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//[ClassInitialize()]</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//public static void MyClassInitialize(TestContext testContext)</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//{</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//}</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//Use ClassCleanup to run code after all tests in a class have run</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//[ClassCleanup()]</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//public static void MyClassCleanup()</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//{</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//}</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//Use TestInitialize to run code before running each test</span></span><span style="font-size:x-small">
+<p>[</p>
+<p>&nbsp;</p>
+<p>{</p>
+<p>&nbsp;</p>
+<p>.RegisterType&lt;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>}</p>
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">TestInitialize</span></span><span style="font-size:x-small">()]</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">public</span></span><span style="font-size:x-small">
+</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">void</span></span><span style="font-size:x-small"> MyTestInitialize()</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">IUnityContainer</span></span><span style="font-size:x-small">
+ container = </span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">new</span></span><span style="font-size:x-small">
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">UnityContainer</span></span><span style="font-size:x-small">()</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">IStockQuoteService</span></span><span style="font-size:x-small">,
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">RandomStockQuoteService</span></span><span style="font-size:x-small">&gt;();</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">this</span></span><span style="font-size:x-small">.unityContainer
+ = container;</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">this</span></span><span style="font-size:x-small">.model =
+</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">this</span></span><span style="font-size:x-small">.unityContainer.Resolve&lt;</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">IStockQuoteService</span></span><span style="font-size:x-small">&gt;();
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//Use TestCleanup to run code after each test has run</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//[TestCleanup()]</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//public void MyTestCleanup()</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//{</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//}</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">//</span></span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">
+<p>#endregion</p>
+<p>&nbsp;</p>
+</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">///</span></span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">
+</span></span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">&lt;summary&gt;</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">///</span></span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">A test for Logger</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">///&lt;/summary&gt;</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">// TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">// http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">// whether you are testing a page, web service, or a WCF service.</span></span><span style="font-size:x-small">
+<p>[</p>
+<p>&nbsp;</p>
+<p>{</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">TestMethod</span></span><span style="font-size:x-small">()]</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">public</span></span><span style="font-size:x-small">
+</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">void</span></span><span style="font-size:x-small"> LoggerTest()</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">ILogger</span></span><span style="font-size:x-small">
+ expected = </span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">null</span></span><span style="font-size:x-small">;
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">// TODO: Initialize to an appropriate value</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+<p>model.Logger = expected;</p>
+<p>actual = target.Logger;</p>
+<p>&nbsp;</p>
+<p>}</p>
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">ILogger</span></span><span style="font-size:x-small"> actual;</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">Assert</span></span><span style="font-size:x-small">.AreEqual(expected,
+ actual);</span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">///</span></span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">
+</span></span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">&lt;summary&gt;</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">///</span></span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">A test for GenerateRandomQuote</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">///&lt;/summary&gt;</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">// TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">// http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">// whether you are testing a page, web service, or a WCF service.</span></span><span style="font-size:x-small">
+<p>[</p>
+<p>[</p>
+<p>&nbsp;</p>
+<p>{</p>
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">TestMethod</span></span><span style="font-size:x-small">()]</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">DeploymentItem</span></span><span style="font-size:x-small">(</span><span style="font-size:x-small; color:#a31515"><span style="font-size:x-small; color:#a31515">&quot;StocksTicker.dll&quot;</span></span><span style="font-size:x-small">)]</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">public</span></span><span style="font-size:x-small">
+</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">void</span></span><span style="font-size:x-small"> GenerateRandomQuoteTest()</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">RandomStockQuoteService_Accessor</span></span><span style="font-size:x-small">
+ target = </span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">new</span></span><span style="font-size:x-small">
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">RandomStockQuoteService_Accessor</span></span><span style="font-size:x-small">();
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">// TODO: Initialize to an appropriate value</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">string</span></span><span style="font-size:x-small"> symbol =
+</span><span style="font-size:x-small; color:#a31515"><span style="font-size:x-small; color:#a31515">&quot;GE&quot;</span></span><span style="font-size:x-small">;
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">// TODO: Initialize to an appropriate value</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">StockQuote</span></span><span style="font-size:x-small"> expected =
+</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">null</span></span><span style="font-size:x-small">;
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">// TODO: Initialize to an appropriate value</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+<p>actual = target.GenerateRandomQuote(symbol);</p>
+<p>&nbsp;</p>
+<p>}</p>
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">StockQuote</span></span><span style="font-size:x-small"> actual;</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">Assert</span></span><span style="font-size:x-small">.AreEqual(expected,
+ actual);</span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">///</span></span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">
+</span></span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">&lt;summary&gt;</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">///</span></span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">A test for GetQuotes</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#808080"><span style="font-size:x-small; color:#808080">///&lt;/summary&gt;</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">// TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">// http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">// whether you are testing a page, web service, or a WCF service.</span></span><span style="font-size:x-small">
+<p>[</p>
+<p>&nbsp;</p>
+<p>{</p>
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">TestMethod</span></span><span style="font-size:x-small">()]</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">public</span></span><span style="font-size:x-small">
+</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">void</span></span><span style="font-size:x-small"> GetQuotesTest()</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">RandomStockQuoteService</span></span><span style="font-size:x-small">
+ target = </span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">new</span></span><span style="font-size:x-small">
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">RandomStockQuoteService</span></span><span style="font-size:x-small">();
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">// TODO: Initialize to an appropriate value</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">IEnumerable</span></span><span style="font-size:x-small">&lt;</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">string</span></span><span style="font-size:x-small">&gt;
+ symbols = </span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">null</span></span><span style="font-size:x-small">;
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">// TODO: Initialize to an appropriate value</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">IDictionary</span></span><span style="font-size:x-small">&lt;</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">string</span></span><span style="font-size:x-small">,
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">StockQuote</span></span><span style="font-size:x-small">&gt; expected =
+</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">null</span></span><span style="font-size:x-small">;
+</span><span style="font-size:x-small; color:#008000"><span style="font-size:x-small; color:#008000">// TODO: Initialize to an appropriate value</span></span><span style="font-size:x-small">
+<p>&nbsp;</p>
+<p>actual = target.GetQuotes(symbols);</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">IDictionary</span></span><span style="font-size:x-small">&lt;</span><span style="font-size:x-small; color:#0000ff"><span style="font-size:x-small; color:#0000ff">string</span></span><span style="font-size:x-small">,
+</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">StockQuote</span></span><span style="font-size:x-small">&gt; actual;</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">Assert</span></span><span style="font-size:x-small">.AreEqual(expected,
+ actual);</span><span style="font-size:x-small; color:#2b91af"><span style="font-size:x-small; color:#2b91af">Assert</span></span><span style="font-size:x-small">.Inconclusive(</span><span style="font-size:x-small; color:#a31515"><span style="font-size:x-small; color:#a31515">&quot;Verify
+ the correctness of this test method.&quot;</span></span><span style="font-size:x-small">);</span>
+<p></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_241043" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="241584">
+    <td id="PostDetailsCell_241584" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post241584"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/3/2009 4:50:12 AM" LocalTimeTicks="1254570612">Oct 3, 2009 at 4:50 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_241584" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="It&#39;s&#32;hard&#32;to&#32;tell&#32;-&#32;your&#32;code&#32;posting&#32;got&#32;seriously&#32;trashed.&#32;Could&#32;you&#32;post&#32;a&#32;smaller&#32;sample,&#32;without&#32;all&#32;the&#32;autogenerated&#32;comments&#63;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;">
+        
+<p>It's hard to tell - your code posting got seriously trashed. Could you post a smaller sample, without all the autogenerated comments?</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_241584" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="242169">
+    <td id="PostDetailsCell_242169" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post242169"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/edeuser">edeuser</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/5/2009 1:44:53 PM" LocalTimeTicks="1254775493">Oct 5, 2009 at 1:44 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_242169" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;wrote&#32;this&#32;symbol&#32;test&#32;to&#32;test&#32;for&#32;not&#32;null&#32;&#91;TestMethod&#40;&#41;&#93;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;void&#32;GetQuotesTest_NotNull_Success&#40;&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;container.RegisterType&#38;lt&#59;IStockQuoteService,&#32;RandomStockQuoteService&#38;gt&#59;&#40;new&#32;InjectionMember&#91;&#93;&#32;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;container.RegisterType&#38;lt&#59;ILogger,NullLogger&#38;gt&#59;&#40;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;var&#32;stockQuoteService&#32;&#61;&#32;container.Resolve&#38;lt&#59;IStockQuoteService&#38;gt&#59;&#40;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;var&#32;symbols&#32;&#61;&#32;new&#32;List&#38;lt&#59;string&#38;gt&#59;&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;symbols.Add&#40;&#38;quot&#59;GE&#38;quot&#59;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;IDictionary&#38;lt&#59;string,&#32;StockQuote&#38;gt&#59;&#32;actual&#32;&#61;&#32;stockQuoteService.GetQuotes&#40;symbols&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Assert.IsNotNull&#40;actual&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;I&#32;am&#32;looking&#32;for&#32;more&#32;on&#32;how&#32;to&#32;using&#32;unity&#32;for&#32;the&#32;build&#32;up&#32;with&#32;the&#32;tests.&#32;&#38;nbsp&#59;&#32;Your&#32;help&#32;is&#32;appreciated.">
+        
+<p>I wrote this symbol test to test for not null</p>
+<p>[TestMethod()]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void GetQuotesTest_NotNull_Success()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IUnityContainer container = new UnityContainer();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; container.RegisterType&lt;IStockQuoteService, RandomStockQuoteService&gt;(new InjectionMember[] );<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; container.RegisterType&lt;ILogger,NullLogger&gt;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var stockQuoteService = container.Resolve&lt;IStockQuoteService&gt;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var symbols = new List&lt;string&gt;();
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; symbols.Add(&quot;GE&quot;);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IDictionary&lt;string, StockQuote&gt; actual = stockQuoteService.GetQuotes(symbols);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Assert.IsNotNull(actual)
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+<p>I am looking for more on how to using unity for the build up with the tests.</p>
+<p>&nbsp;</p>
+<p>Your help is appreciated.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_242169" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f70751">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="3f96ea24-c9f5-47f2-9934-8c9edca9e18f">
+    <script class="options" defer="defer" id="3f96ea24-c9f5-47f2-9934-8c9edca9e18f" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_f7459451-d22d-401e-9194-af64c3a7f1fc">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_ffd0449d-1289-49db-bdf6-4a33a38f379e">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_f7459451-d22d-401e-9194-af64c3a7f1fc" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_ffd0449d-1289-49db-bdf6-4a33a38f379e" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/70751';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

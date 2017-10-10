@@ -1,0 +1,1206 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - How to provide a ParameterOverride when Constructor parameter is of System.Type</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/405331?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/405331?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="TQi0EaCty-EgOvjrqvhDhj1Y6TDcqQg15oBP6-Yb761CT6Zg6h5wnfBTvZOMazv-_nzD7mZCdv_UqeTLfhg_PwUlttVk2oaZBqbDzdwpKrVhwqQmChEqT-dxDNGTmivqszgY3Q2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2cdb265d7-6f56-43c4-a4cb-1d8d0fa9679b" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:26:02 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f405331" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="5cd886ad-6bc6-4979-bb24-f119d8fdd543">
+                
+                    <script class="options" defer="defer" id="5cd886ad-6bc6-4979-bb24-f119d8fdd543" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="1a0ab34c-e7b4-41aa-8d20-f52e70c7ce30">
+                
+                    <script class="options" defer="defer" id="1a0ab34c-e7b4-41aa-8d20-f52e70c7ce30" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                How to provide a ParameterOverride when Constructor parameter is of System.Type
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:405331]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="904b7dc3-1752-43ba-9bd0-c1aa8ca15372">
+    <script class="options" defer="defer" id="904b7dc3-1752-43ba-9bd0-c1aa8ca15372" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/405331","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="950356">
+    <td id="PostDetailsCell_950356" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post950356"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/DrDave">DrDave</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/3/2012 6:53:37 AM" LocalTimeTicks="1354546417">Dec 3, 2012 at 6:53 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_950356" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#39;m&#32;attempting&#32;to&#32;register&#32;a&#32;class&#32;whose&#32;constructor&#32;has&#32;a&#32;single&#32;parameter&#32;of&#32;System.Type,&#32;e.g.&#32;public&#32;class&#32;Something&#32;&#123;&#32;public&#32;Something&#40;Type&#32;x&#41;&#32;&#123;&#32;...&#125;&#32;...&#125;&#32;My&#32;latest&#32;attempt&#32;to&#32;register&#32;the&#32;class&#38;nbsp&#59;looks&#32;like&#32;&#32;Container.RegisterType&#40;typeof&#40;Something&#41;,&#32;&#38;quot&#59;Default&#38;quot&#59;,&#32;new&#32;InjectionConstructor&#40;new&#32;InjectionParameter&#38;lt&#59;Type&#38;gt&#59;&#40;typeof&#40;object&#41;&#41;&#41;&#41;&#59;&#32;&#32;&#32;&#32;And&#32;my&#32;latest&#32;attempt&#32;to&#32;resolve&#32;it&#32;&#32;&#32;&#38;nbsp&#59;&#32;&#32;&#32;&#32;&#38;nbsp&#59;&#32;&#32;&#32;&#32;&#32;&#32;&#38;nbsp&#59;&#32;&#32;&#32;&#32;var&#32;y&#32;&#61;&#32;Container.Resolve&#40;typeof&#40;Something&#41;,&#32;&#38;quot&#59;Default&#38;quot&#59;,new&#32;ResolverOverride&#91;&#93;&#32;&#123;&#32;new&#32;ParameterOverride&#40;&#38;quot&#59;x&#38;quot&#59;,&#32;impl&#41;&#32;&#125;&#41;&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#32;where&#32;impl&#32;is&#32;a&#32;Type&#32;Regardless&#32;of&#32;the&#32;permutations&#32;I&#39;ve&#32;tried,&#32;the&#32;result&#32;is&#32;an&#32;exception&#38;nbsp&#59;&#38;quot&#59;Unable&#32;to&#32;case&#32;&#38;quot&#59;impl&#38;quot&#59;&#32;to&#32;System.Type.&#38;quot&#59;&#32;Short&#32;of&#32;debugging&#32;through&#32;Unity,&#32;I&#39;m&#32;at&#32;a&#32;loss&#32;on&#32;the&#32;formulation&#32;of&#32;the&#32;correct&#32;syntax.&#32;Any&#32;help&#32;appreciated.&#32;&#38;nbsp&#59;&#32;">
+        
+<p>I'm attempting to register a class whose constructor has a single parameter of System.Type, e.g.</p>
+<p>public class Something { public Something(Type x) { ...} ...}</p>
+<p>My latest attempt to register the class&nbsp;looks like</p>
+<p><span style="font-family:Consolas"><span style="font-family:Consolas"><span style="font-family:Consolas"><span style="font-family:Consolas"><span style="font-family:Consolas"><font face="Consolas"></p>
+<p>Container.RegisterType(<span style="font-family:Consolas; color:#0000ff"><span style="font-family:Consolas; color:#0000ff">typeof</span></span><span style="font-family:Consolas">(</span><span style="font-family:Consolas; color:#2b91af"><span style="font-family:Consolas; color:#2b91af">Something</span></span><span style="font-family:Consolas">),
+</span><span style="font-family:Consolas; color:#a31515"><span style="font-family:Consolas; color:#a31515">&quot;Default&quot;</span></span><span style="font-family:Consolas">,</span></p>
+</font></span><span style="font-family:Consolas"><span style="font-family:Consolas; color:#0000ff"><span style="font-family:Consolas; color:#0000ff">new</span></span><span style="font-family:Consolas">
+</span><span style="font-family:Consolas; color:#2b91af"><span style="font-family:Consolas; color:#2b91af">InjectionConstructor</span></span><span style="font-family:Consolas">(</span><span style="font-family:Consolas; color:#0000ff"><span style="font-family:Consolas; color:#0000ff">new</span></span><span style="font-family:Consolas">
+</span><span style="font-family:Consolas; color:#2b91af"><span style="font-family:Consolas; color:#2b91af">InjectionParameter</span></span><span style="font-family:Consolas">&lt;</span><span style="font-family:Consolas; color:#2b91af"><span style="font-family:Consolas; color:#2b91af">Type</span></span><span style="font-family:Consolas">&gt;(</span><span style="font-family:Consolas; color:#0000ff"><span style="font-family:Consolas; color:#0000ff">typeof</span></span><span style="font-family:Consolas">(</span><span style="font-family:Consolas; color:#0000ff"><span style="font-family:Consolas; color:#0000ff">object</span></span><span style="font-family:Consolas">))));
+</span></span></span></span></span></span>
+<p></p>
+<p></p>
+<p>And my latest attempt to resolve it</p>
+<p></p>
+<p></p>
+<p>&nbsp;</p>
+<p></p>
+<p></p>
+<p></p>
+<p>&nbsp;</p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p>&nbsp;</p>
+<p></p>
+<p></p>
+<p></p>
+<p><span style="font-family:Consolas"><span style="font-family:Consolas">var y = Container.Resolve(<span style="font-family:Consolas; color:#0000ff"><span style="font-family:Consolas; color:#0000ff">typeof</span></span><span style="font-family:Consolas">(</span><span style="font-family:Consolas; color:#2b91af"><span style="font-family:Consolas; color:#2b91af">Something</span></span><span style="font-family:Consolas">),
+</span></span></span><span style="font-family:Consolas"><span style="font-family:Consolas; color:#a31515"><span style="font-family:Consolas; color:#a31515">&quot;Default&quot;</span></span><span style="font-family:Consolas">,</span></span><span style="font-family:Consolas"><span style="font-family:Consolas; color:#0000ff"><span style="font-family:Consolas; color:#0000ff">new</span></span><span style="font-family:Consolas">
+</span><span style="font-family:Consolas; color:#2b91af"><span style="font-family:Consolas; color:#2b91af">ResolverOverride</span></span><span style="font-family:Consolas">[] {
+</span><span style="font-family:Consolas; color:#0000ff"><span style="font-family:Consolas; color:#0000ff">new</span></span><span style="font-family:Consolas">
+</span><span style="font-family:Consolas; color:#2b91af"><span style="font-family:Consolas; color:#2b91af">ParameterOverride</span></span><span style="font-family:Consolas">(</span><span style="font-family:Consolas; color:#a31515"><span style="font-family:Consolas; color:#a31515">&quot;x&quot;</span></span><span style="font-family:Consolas">,
+ impl) });&nbsp; // where impl is a Type</span></span></p>
+<p><span style="font-family:Consolas"><span style="font-family:Consolas">Regardless of the permutations I've tried, the result is an exception&nbsp;&quot;Unable to case &quot;impl&quot; to System.Type.&quot;</span></span></p>
+<p><span style="font-family:Consolas"><span style="font-family:Consolas">Short of debugging through Unity, I'm at a loss on the formulation of the correct syntax. Any help appreciated.</span></span></p>
+<p><span style="font-family:Consolas"><span style="font-family:Consolas">&nbsp;</span></span></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_950356" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="951862">
+    <td id="PostDetailsCell_951862" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post951862"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/rslaney">rslaney</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/5/2012 7:04:15 PM" LocalTimeTicks="1354763055">Dec 5, 2012 at 7:04 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_951862" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#32;remember&#32;a&#32;similar&#32;issue&#32;being&#32;raised&#32;on&#32;the&#32;forums&#32;&#40;&#32;but&#32;for&#32;the&#32;life&#32;of&#32;me&#32;cannot&#32;find&#32;it&#32;&#41;.&#32;Unity&#32;has&#32;a&#32;bit&#32;of&#32;magic&#32;that&#32;if&#32;you&#32;pass&#32;a&#32;Type&#32;as&#32;a&#32;parameter&#32;it&#32;assume&#32;that&#32;you&#32;want&#32;to&#32;create&#32;an&#32;instance&#32;of&#32;the&#32;type,&#32;not&#32;the&#32;actual&#32;type&#32;itself.&#32;&#38;nbsp&#59;&#32;Hence&#32;your&#32;error...&#32;the&#32;instance&#32;of&#32;the&#32;Type&#32;referred&#32;to&#32;by&#32;impl&#32;can&#39;t&#32;be&#32;cast&#32;to&#32;System.Type&#32;&#38;nbsp&#59;&#32;If&#32;someone&#32;can&#32;find&#32;the&#32;forum&#32;post&#32;then&#32;it&#32;might&#32;also&#32;contain&#32;the&#32;resolution,&#32;but&#32;I&#32;don&#39;t&#32;think&#32;you&#32;can&#32;work&#32;around&#32;this&#32;behaviour.&#32;&#38;nbsp&#59;&#32;Cheers...&#32;">
+        
+<p>I remember a similar issue being raised on the forums ( but for the life of me cannot find it ).</p>
+<p>Unity has a bit of magic that if you pass a Type as a parameter it assume that you want to create an instance of the type, not the actual type itself.</p>
+<p>&nbsp;</p>
+<p>Hence your error... the <strong>instance</strong> of the Type referred to by impl can't be cast to System.Type</p>
+<p>&nbsp;</p>
+<p>If someone can find the forum post then it might also contain the resolution, but I don't think you can work around this behaviour.</p>
+<p>&nbsp;</p>
+<p>Cheers...</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_951862" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="951876">
+    <td id="PostDetailsCell_951876" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post951876"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/5/2012 7:26:45 PM" LocalTimeTicks="1354764405">Dec 5, 2012 at 7:26 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="12/5/2012 7:28:27 PM" LocalTimeTicks="1354764507">Dec 5, 2012 at 7:28 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_951876" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Based&#32;on&#32;the&#32;posted&#32;code&#32;you&#32;don&#39;t&#32;actually&#32;need&#32;to&#32;specify&#32;the&#32;InjectionConstructor&#32;&#40;or&#32;even&#32;call&#32;RegisterType&#41;.&#32;&#38;nbsp&#59;However,&#32;I&#39;ll&#32;assume&#32;that&#32;this&#32;is&#32;just&#32;a&#32;simplified&#32;example&#32;and&#32;you&#32;actually&#32;want&#32;to&#32;differentiate&#32;between&#32;multiple&#32;constructors.&#32;Here&#32;is&#32;the&#32;code&#32;to&#32;do&#32;what&#32;you&#32;want&#58;&#32;&#32;&#32;public&#32;class&#32;Something&#32;&#123;&#32;public&#32;Something&#40;Type&#32;x&#41;&#32;&#123;&#32;Console.WriteLine&#40;&#38;quot&#59;Injected&#32;type&#58;&#32;&#38;quot&#59;&#32;&#38;&#35;43&#59;&#32;x.Name&#41;&#59;&#32;&#125;&#32;&#125;&#32;class&#32;Program&#32;&#123;&#32;static&#32;void&#32;Main&#40;string&#91;&#93;&#32;args&#41;&#32;&#123;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.RegisterType&#40;typeof&#40;Something&#41;,&#32;&#38;quot&#59;Default&#38;quot&#59;,&#32;new&#32;InjectionConstructor&#40;typeof&#40;Type&#41;&#41;&#41;&#59;&#32;Type&#32;impl&#32;&#61;&#32;typeof&#40;string&#41;&#59;&#32;var&#32;y&#32;&#61;&#32;container.Resolve&#40;typeof&#40;Something&#41;,&#32;&#38;quot&#59;Default&#38;quot&#59;,&#32;new&#32;DependencyOverride&#40;typeof&#40;Type&#41;,&#32;new&#32;InjectionParameter&#40;impl&#41;&#41;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;Resolving&#32;Objects&#32;by&#32;Using&#32;Overrides&#38;nbsp&#59;does&#32;a&#32;good&#32;job&#32;discussing&#32;this&#32;topic.&#32;--&#32;Randy&#32;Levy&#32;Enterprise&#32;Library&#32;support&#32;engineer&#32;entlib.support&#64;live.com&#38;nbsp&#59;&#32;">
+        
+<p>Based on the posted code you don't actually need to specify the InjectionConstructor (or even call RegisterType). &nbsp;However, I'll assume that this is just a simplified example and you actually want to differentiate between multiple constructors.</p>
+<p>Here is the code to do what you want:</p>
+<div style="color:black; background-color:white">
+<pre>    <span style="color:blue">public</span> <span style="color:blue">class</span> Something
+    {
+        <span style="color:blue">public</span> Something(Type x)
+        {
+            Console.WriteLine(<span style="color:#a31515">&quot;Injected type: &quot;</span> &#43; x.Name);
+        }
+    }
+
+    <span style="color:blue">class</span> Program
+    {
+        <span style="color:blue">static</span> <span style="color:blue">void</span> Main(<span style="color:blue">string</span>[] args)
+        {
+            IUnityContainer container = <span style="color:blue">new</span> UnityContainer();
+
+            container.RegisterType(<span style="color:blue">typeof</span>(Something), <span style="color:#a31515">&quot;Default&quot;</span>,
+                                        <span style="color:blue">new</span> InjectionConstructor(<span style="color:blue">typeof</span>(Type)));
+
+            Type impl = <span style="color:blue">typeof</span>(<span style="color:blue">string</span>);
+            <span style="color:blue">var</span> y = container.Resolve(<span style="color:blue">typeof</span>(Something), <span style="color:#a31515">&quot;Default&quot;</span>, 
+                <span style="color:blue">new</span> DependencyOverride(<span style="color:blue">typeof</span>(Type), 
+                        <span style="color:blue">new</span> InjectionParameter(impl)));
+        }
+    }</pre>
+</div>
+<p><a href="http://msdn.microsoft.com/en-us/library/ff660920(v=pandp.20).aspx" target="_blank" rel="nofollow">Resolving Objects by Using Overrides</a>&nbsp;does a good job discussing this topic.</p>
+<p>--<br>
+Randy Levy<br>
+Enterprise Library support engineer<br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">entlib.support@live.com</a>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_951876" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="951921">
+    <td id="PostDetailsCell_951921" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post951921"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/DrDave">DrDave</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/5/2012 8:43:09 PM" LocalTimeTicks="1354768989">Dec 5, 2012 at 8:43 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_951921" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Thank&#32;you.&#32;While&#32;I&#39;ve&#32;read&#32;the&#32;overview&#32;&#40;multiple&#32;times&#41;,&#32;I&#39;m&#32;still&#32;getting&#32;Unity&#32;under&#32;my&#32;belt&#32;and&#32;the&#32;subtlety&#32;between&#32;ParameterOverride&#32;and&#32;DependencyOverride&#32;I&#32;still&#32;find&#32;confusing.&#32;">
+        
+<p>Thank you. While I've read the overview (multiple times), I'm still getting Unity under my belt and the subtlety between ParameterOverride and DependencyOverride I still find confusing.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_951921" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="952444">
+    <td id="PostDetailsCell_952444" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post952444"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/6/2012 6:15:40 PM" LocalTimeTicks="1354846540">Dec 6, 2012 at 6:15 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="1/11/2013 12:47:50 AM" LocalTimeTicks="1357894070">Jan 11, 2013 at 12:47 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_952444" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;It&#32;is&#32;a&#32;bit&#32;arcane.&#32;&#38;nbsp&#59;Your&#32;original&#32;approach&#32;with&#32;ParameterOverride&#32;is&#32;usually&#32;sufficient&#32;but&#32;because&#32;of&#32;the&#32;Type&#32;parameter&#32;it&#32;causes&#32;issues&#32;as&#32;per&#32;&#64;rslaney&#39;s&#32;post.&#32;Basically,&#32;when&#32;the&#32;second&#32;argument&#32;to&#32;ParameterOverride&#32;is&#32;a&#32;Type&#32;then&#32;Unity&#32;tries&#32;to&#32;create&#32;an&#32;instance&#32;of&#32;the&#32;type.&#32;&#38;nbsp&#59;So,&#32;let&#39;s&#32;change&#32;the&#32;example&#32;so&#32;that&#32;the&#32;constructor&#32;accepts&#32;a&#32;string.&#32;&#38;nbsp&#59;&#32;&#32;&#32;public&#32;class&#32;Something&#32;&#123;&#32;public&#32;Something&#40;string&#32;x&#41;&#32;&#123;&#32;Console.WriteLine&#40;&#38;quot&#59;Injected&#32;string&#58;&#32;&#38;quot&#59;&#32;&#38;&#35;43&#59;&#32;x&#41;&#59;&#32;&#125;&#32;&#125;&#32;class&#32;Program&#32;&#123;&#32;static&#32;void&#32;Main&#40;string&#91;&#93;&#32;args&#41;&#32;&#123;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;&#47;&#47;&#32;Register&#32;default&#32;string&#32;instance&#32;&#32;string&#32;stringValue&#32;&#61;&#32;&#38;quot&#59;The&#32;quick&#32;brown&#32;fox...&#38;quot&#59;&#59;&#32;container.RegisterInstance&#38;lt&#59;string&#38;gt&#59;&#40;stringValue&#41;&#59;&#32;Type&#32;impl&#32;&#61;&#32;typeof&#40;string&#41;&#59;&#32;&#47;&#47;&#32;impl&#32;which&#32;is&#32;System.Type&#32;of&#32;type&#32;System.String&#32;is&#32;now&#32;resolved&#32;from&#32;the&#32;container&#32;&#47;&#47;&#32;Outputs&#58;&#32;The&#32;quick&#32;brown&#32;fox...&#32;var&#32;x&#32;&#61;&#32;container.Resolve&#38;lt&#59;Something&#38;gt&#59;&#40;new&#32;ParameterOverride&#40;&#38;quot&#59;x&#38;quot&#59;,&#32;impl&#41;&#41;&#59;&#32;&#47;&#47;&#32;But&#32;if&#32;we&#32;pass&#32;in&#32;a&#32;string&#32;we&#32;&#42;can&#42;&#32;override&#32;the&#32;value&#32;&#47;&#47;&#32;Outputs&#58;&#32;...jumps&#32;over&#32;the&#32;lazy&#32;dog.&#32;var&#32;y&#32;&#61;&#32;container.Resolve&#38;lt&#59;Something&#38;gt&#59;&#40;new&#32;ParameterOverride&#40;&#38;quot&#59;x&#38;quot&#59;,&#32;&#38;quot&#59;...jumps&#32;over&#32;the&#32;lazy&#32;dog.&#38;quot&#59;&#41;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;&#38;nbsp&#59;&#32;Now&#32;when&#32;we&#32;pass&#32;in&#32;the&#32;Type&#32;&#40;impl&#32;variable&#41;&#32;Unity&#32;will&#32;resolve&#32;the&#32;string&#32;type&#32;and&#32;inject&#32;that&#32;into&#32;the&#32;constructor.&#32;&#38;nbsp&#59;If&#32;we&#32;hadn&#39;t&#32;registered&#32;the&#32;string&#32;Unity&#32;would&#32;have&#32;thrown&#32;because&#32;it&#32;would&#32;not&#32;have&#32;been&#32;able&#32;to&#32;instantiate&#32;a&#32;System.String.&#32;Hope&#32;that&#32;helps&#32;clarify.&#32;&#32;&#32;&#32;&#32;--&#32;Randy&#32;Levy&#32;Enterprise&#32;Library&#32;support&#32;engineer&#32;entlib.support&#64;live.com&#38;nbsp&#59;&#32;&#32;&#38;nbsp&#59;&#32;&#32;&#32;&#32;">
+        
+<p>It is a bit arcane. &nbsp;Your original approach with ParameterOverride is usually sufficient but because of the Type parameter it causes issues as per @<a href="http://www.codeplex.com/site/users/view/rslaney" rel="nofollow">rslaney</a>'s post.</p>
+<p>Basically, when the second argument to ParameterOverride is a Type then Unity tries to create an instance of the type. &nbsp;So, let's change the example so that the constructor accepts a string.</p>
+<p>&nbsp;</p>
+<div style="color:black; background-color:white">
+<pre>    <span style="color:blue">public</span> <span style="color:blue">class</span> Something
+    {
+        <span style="color:blue">public</span> Something(<span style="color:blue">string</span> x)
+        {
+            Console.WriteLine(<span style="color:#a31515">&quot;Injected string: &quot;</span> &#43; x);
+        }
+    }
+
+    <span style="color:blue">class</span> Program
+    {
+        <span style="color:blue">static</span> <span style="color:blue">void</span> Main(<span style="color:blue">string</span>[] args)
+        {
+            IUnityContainer container = <span style="color:blue">new</span> UnityContainer();
+
+            <span style="color:green">// Register default string instance </span>
+            <span style="color:blue">string</span> stringValue = <span style="color:#a31515">&quot;The quick brown fox...&quot;</span>;
+            container.RegisterInstance&lt;<span style="color:blue">string</span>&gt;(stringValue);
+            
+            Type impl = <span style="color:blue">typeof</span>(<span style="color:blue">string</span>);
+
+            <span style="color:green">// impl which is System.Type of type System.String is now resolved from the container</span>
+            <span style="color:green">// Outputs: The quick brown fox...</span>
+            <span style="color:blue">var</span> x = container.Resolve&lt;Something&gt;(<span style="color:blue">new</span> ParameterOverride(<span style="color:#a31515">&quot;x&quot;</span>, impl));
+
+            <span style="color:green">// But if we pass in a string we *can* override the value</span>
+            <span style="color:green">// Outputs: ...jumps over the lazy dog.</span>
+            <span style="color:blue">var</span> y = container.Resolve&lt;Something&gt;(<span style="color:blue">new</span> ParameterOverride(<span style="color:#a31515">&quot;x&quot;</span>, <span style="color:#a31515">&quot;...jumps over the lazy dog.&quot;</span>));
+        }
+    }
+</pre>
+</div>
+<p>&nbsp;</p>
+<p>Now when we pass in the Type (impl variable) Unity will resolve the string type and inject that into the constructor. &nbsp;If we hadn't registered the string Unity would have thrown because it would not have been able to instantiate a System.String.</p>
+<p>Hope that helps clarify.</p>
+<table cellspacing="0" cellpadding="0">
+<tbody>
+<tr id="PostPanel">
+<td id="PostContent_951876">
+<p>--<br>
+Randy Levy<br>
+Enterprise Library support engineer<br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">entlib.support@live.com</a>&nbsp;</p>
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_952444" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="954619">
+    <td id="PostDetailsCell_954619" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post954619"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/DrDave">DrDave</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/11/2012 2:37:36 PM" LocalTimeTicks="1355265456">Dec 11, 2012 at 2:37 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_954619" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;&#32;Your&#32;samples&#32;worked&#32;well.&#32;I&#39;ve&#32;encountered&#32;another&#32;peculiarity&#32;for&#32;which&#32;I&#39;ve&#32;found&#32;no&#32;circumvention.&#32;If&#32;a&#32;class&#32;has&#32;a&#32;constructor&#32;with&#32;a&#32;single&#32;parameter&#32;of&#32;System.Object&#32;and&#32;another&#32;with&#32;a&#32;single&#32;parameter&#32;of&#32;System.Type,&#32;I&#32;can&#32;configure&#32;both,&#32;but&#32;again&#32;when&#32;I&#32;try&#32;to&#32;resolve,&#32;Unity&#32;faults&#32;with&#32;a&#32;&#39;ResolutionFailedException&#39;.&#32;&#32;&#32;public&#32;interface&#32;ISomeEntity&#32;&#32;&#123;&#32;string&#32;Info&#32;&#123;&#32;get&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;X&#32;&#58;&#32;ISomeEntity&#32;&#32;&#123;&#32;private&#32;string&#32;Id&#32;&#61;&#32;&#38;quot&#59;HiDave&#38;quot&#59;&#59;&#32;public&#32;string&#32;Info&#32;&#123;&#32;get&#32;&#123;&#32;return&#32;Id&#59;&#32;&#125;&#32;&#125;&#32;&#36;B&#33;&#33;&#40;B&#32;public&#32;X&#40;object&#32;info&#41;&#32;&#123;&#32;Id&#32;&#61;&#32;&#40;&#40;int&#41;info&#41;.ToString&#40;&#41;&#59;&#32;Console.WriteLine&#40;&#38;quot&#59;Object&#32;constructor&#58;&#32;&#38;quot&#59;&#32;&#38;&#35;43&#59;&#32;Info&#41;&#59;&#32;&#125;&#32;&#47;&#47;public&#32;X&#40;Type&#32;info&#41;&#32;&#32;&#47;&#47;&#123;&#32;&#32;&#47;&#47;&#32;Id&#32;&#61;&#32;info.Name&#59;&#32;&#32;&#47;&#47;&#32;Console.WriteLine&#40;&#38;quot&#59;Type&#32;Constructor&#58;&#32;&#38;quot&#59;&#32;&#38;&#35;43&#59;&#32;Info&#41;&#59;&#32;&#32;&#47;&#47;&#125;&#32;&#32;&#125;&#32;internal&#32;class&#32;MyTest&#32;&#32;&#123;&#32;public&#32;void&#32;DoIt&#40;&#41;&#32;&#123;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;&#36;B&#33;&#33;&#40;B&#32;container.RegisterType&#38;lt&#59;ISomeEntity,&#32;X&#38;gt&#59;&#40;&#38;quot&#59;asObj&#38;quot&#59;,&#32;new&#32;InjectionConstructor&#40;typeof&#40;object&#41;&#41;&#41;&#59;&#32;&#47;&#47;container.RegisterType&#38;lt&#59;ISomeEntity,&#32;X&#38;gt&#59;&#40;&#38;quot&#59;asType&#38;quot&#59;,&#32;&#32;&#47;&#47;&#32;new&#32;InjectionConstructor&#40;typeof&#40;Type&#41;&#41;&#41;&#59;&#32;&#32;var&#32;u&#32;&#61;&#32;container.Resolve&#38;lt&#59;ISomeEntity&#38;gt&#59;&#40;&#38;quot&#59;asObj&#38;quot&#59;,&#32;new&#32;DependencyOverride&#40;typeof&#40;object&#41;,&#32;new&#32;InjectionParameter&#40;492&#41;&#41;&#41;&#59;&#32;&#47;&#47;Type&#32;xType&#32;&#61;&#32;typeof&#40;X&#41;&#59;&#32;&#32;&#47;&#47;var&#32;v&#32;&#61;&#32;container.Resolve&#38;lt&#59;ISomeEntity&#38;gt&#59;&#40;&#38;quot&#59;asType&#38;quot&#59;,&#32;&#32;&#47;&#47;&#32;new&#32;DependencyOverride&#40;typeof&#40;Type&#41;,&#32;new&#32;InjectionParameter&#40;xType&#41;&#41;&#41;&#59;&#32;&#32;&#32;&#125;&#32;&#125;&#32;&#32;In&#32;this&#32;sample&#32;you&#32;can&#32;Resolve&#32;successfully&#32;with&#32;either&#32;constructor&#47;registration&#47;resolve&#32;triplet,&#32;but&#32;if&#32;you&#32;add&#32;both&#32;constructors&#32;and&#32;both&#32;registrations,&#32;then&#32;the&#32;second&#32;resolve&#32;will&#32;fault.&#32;&#32;Is&#32;this&#32;expected&#63;&#32;&#32;&#32;&#32;&#32;David&#32;John&#32;Killian&#32;Chief&#32;Software&#32;Product&#32;Architect,&#32;System&#32;and&#32;Product&#32;Integration&#32;Services,&#32;ITSG&#32;FUJITSU&#32;AMERICA&#32;&#32;Office&#58;&#32;&#40;919&#41;&#32;556-8171&#32;&#32;Mobile&#58;&#32;&#40;919&#41;&#32;608-1509&#32;&#32;E-mail&#58;&#32;dave.killian&#64;us.fujitsu.com&#32;&#32;&#32;&#32;">
+        
+<div style="font-family:Tahoma; direction:ltr; color:#000000; font-size:x-small">
+<div dir="ltr"><font color="#000000" size="2" face="Tahoma">Your samples worked well. I've encountered another peculiarity for which I've found no circumvention. If a class has a constructor with a single parameter of System.Object and another with a single
+ parameter of System.Type, I can configure both, but again when I try to resolve, Unity faults with a 'ResolutionFailedException'.</font></div>
+<div dir="ltr"><font face="tahoma"></font></div>
+<div dir="ltr"><font face="Consolas">
+<p></font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">public</font></font><font face="Consolas">
+</font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">interface</font></font><font face="Consolas">
+</font><font color="#2b91af" face="Consolas"><font color="#2b91af" face="Consolas">ISomeEntity</p>
+</font></font><font face="Consolas">
+<p>{</p>
+<p></font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">string</font></font><font face="Consolas"> Info {
+</font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">get</font></font><font face="Consolas">; }</p>
+<p>}</p>
+<p></font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">public</font></font><font face="Consolas">
+</font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">class</font></font><font face="Consolas">
+</font><font color="#2b91af" face="Consolas"><font color="#2b91af" face="Consolas">X</font></font><font face="Consolas"> :
+</font><font color="#2b91af" face="Consolas"><font color="#2b91af" face="Consolas">ISomeEntity</p>
+</font></font><font face="Consolas">
+<p>{</p>
+<p></font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">private</font></font><font face="Consolas">
+</font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">string</font></font><font face="Consolas"> Id =
+</font><font color="#a31515" face="Consolas"><font color="#a31515" face="Consolas">&quot;HiDave&quot;</font></font><font face="Consolas">;</p>
+<p></font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">public</font></font><font face="Consolas">
+</font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">string</font></font><font face="Consolas"> Info {
+</font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">get</font></font><font face="Consolas"> {
+</font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">return</font></font><font face="Consolas"> Id; } }</p>
+<p>$B!!(B</p>
+<p></font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">public</font></font><font face="Consolas"> X(</font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">object</font></font><font face="Consolas">
+ info)</p>
+<p>{</p>
+<p>Id = ((</font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">int</font></font><font face="Consolas">)info).ToString();</p>
+<p></font><font color="#2b91af" face="Consolas"><font color="#2b91af" face="Consolas">Console</font></font><font face="Consolas">.WriteLine(</font><font color="#a31515" face="Consolas"><font color="#a31515" face="Consolas">&quot;Object constructor: &quot;</font></font><font face="Consolas">
+ &#43; Info);</p>
+<p>}</p>
+<p></font><font color="#008000" face="Consolas"><font color="#008000" face="Consolas">//public X(Type info)</p>
+</font></font><font face="Consolas">
+<p></font><font color="#008000" face="Consolas"><font color="#008000" face="Consolas">//{</p>
+</font></font><font face="Consolas">
+<p></font><font color="#008000" face="Consolas"><font color="#008000" face="Consolas">// Id = info.Name;</p>
+</font></font><font face="Consolas">
+<p></font><font color="#008000" face="Consolas"><font color="#008000" face="Consolas">// Console.WriteLine(&quot;Type Constructor: &quot; &#43; Info);</p>
+</font></font><font face="Consolas">
+<p></font><font color="#008000" face="Consolas"><font color="#008000" face="Consolas">//}</p>
+</font></font><font face="Consolas">
+<p>}</p>
+<p></font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">internal</font></font><font face="Consolas">
+</font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">class</font></font><font face="Consolas">
+</font><font color="#2b91af" face="Consolas"><font color="#2b91af" face="Consolas">MyTest</p>
+</font></font><font face="Consolas">
+<p>{</p>
+<p></font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">public</font></font><font face="Consolas">
+</font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">void</font></font><font face="Consolas"> DoIt()</p>
+<p>{</p>
+<p></font><font color="#2b91af" face="Consolas"><font color="#2b91af" face="Consolas">IUnityContainer</font></font><font face="Consolas"> container =
+</font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">new</font></font><font face="Consolas">
+</font><font color="#2b91af" face="Consolas"><font color="#2b91af" face="Consolas">UnityContainer</font></font><font face="Consolas">();</p>
+<p>$B!!(B</p>
+<p>container.RegisterType&lt;</font><font color="#2b91af" face="Consolas"><font color="#2b91af" face="Consolas">ISomeEntity</font></font><font face="Consolas">,
+</font><font color="#2b91af" face="Consolas"><font color="#2b91af" face="Consolas">X</font></font><font face="Consolas">&gt;(</font><font color="#a31515" face="Consolas"><font color="#a31515" face="Consolas">&quot;asObj&quot;</font></font><font face="Consolas">,</p>
+<p></font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">new</font></font><font face="Consolas">
+</font><font color="#2b91af" face="Consolas"><font color="#2b91af" face="Consolas">InjectionConstructor</font></font><font face="Consolas">(</font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">typeof</font></font><font face="Consolas">(</font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">object</font></font><font face="Consolas">)));</p>
+<p></font><font color="#008000" face="Consolas"><font color="#008000" face="Consolas">//container.RegisterType&lt;ISomeEntity, X&gt;(&quot;asType&quot;,</p>
+</font></font><font face="Consolas">
+<p></font><font color="#008000" face="Consolas"><font color="#008000" face="Consolas">// new InjectionConstructor(typeof(Type)));</p>
+</font></font><font face="Consolas">
+<p></font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">var</font></font><font face="Consolas"> u = container.Resolve&lt;</font><font color="#2b91af" face="Consolas"><font color="#2b91af" face="Consolas">ISomeEntity</font></font><font face="Consolas">&gt;(</font><font color="#a31515" face="Consolas"><font color="#a31515" face="Consolas">&quot;asObj&quot;</font></font><font face="Consolas">,</p>
+<p></font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">new</font></font><font face="Consolas">
+</font><font color="#2b91af" face="Consolas"><font color="#2b91af" face="Consolas">DependencyOverride</font></font><font face="Consolas">(</font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">typeof</font></font><font face="Consolas">(</font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">object</font></font><font face="Consolas">),</p>
+<p></font><font color="#0000ff" face="Consolas"><font color="#0000ff" face="Consolas">new</font></font><font face="Consolas">
+</font><font color="#2b91af" face="Consolas"><font color="#2b91af" face="Consolas">InjectionParameter</font></font><font face="Consolas">(492)));</p>
+<p></font><font color="#008000" face="Consolas"><font color="#008000" face="Consolas">//Type xType = typeof(X);</p>
+</font></font><font face="Consolas">
+<p></font><font color="#008000" face="Consolas"><font color="#008000" face="Consolas">//var v = container.Resolve&lt;ISomeEntity&gt;(&quot;asType&quot;,</p>
+</font></font><font face="Consolas">
+<p></font><font color="#008000" face="Consolas"><font color="#008000" face="Consolas">// new DependencyOverride(typeof(Type), new InjectionParameter(xType)));</p>
+</font></font><font face="Consolas">
+<p></p>
+<p>}</p>
+<p>}</p>
+<p><font face="consolas"></font></p>
+<p><font face="consolas">In this sample you can Resolve successfully with either constructor/registration/resolve triplet, but if you add both constructors and both registrations, then the second resolve will fault.</font></p>
+<p><font face="consolas"></font></p>
+<p><font face="consolas">Is this expected?</font></p>
+<p><font face="consolas"></font></p>
+</font></div>
+<div><font size="2" face="Tahoma">
+<div><font color="#000000" size="2" face="Arial">
+<div><b><span style="font-family:'Arial','sans-serif'; color:black; font-size:10pt">David John Killian</span></b><span style="font-family:'Arial','sans-serif'; color:black; font-size:10pt"></span></div>
+<div><span style="font-family:'Arial','sans-serif'; color:black; font-size:10pt">Chief Software Product Architect, System and Product Integration Services, ITSG</span></div>
+<div><u><span style="font-family:'Arial','sans-serif'; color:black; font-size:10pt"><a href="http://usa77mail/exchweb/bin/redir.asp?URL=http://solutions.us.fujitsu.com/" target="_blank" rel="nofollow"><span style="color:blue">FUJITSU AMERICA</span></a>
+</span></u><span style="font-family:'Arial','sans-serif'; color:black; font-size:10pt"></span></div>
+<div><span style="font-family:'Arial','sans-serif'; color:black; font-size:10pt">Office: (919) 556-8171
+</span></div>
+<div><span style="font-family:'Arial','sans-serif'; color:black; font-size:10pt">Mobile: (919) 608-1509
+</span></div>
+<div><span style="font-size:10pt">E-mail: <u><span style="color:blue">dave.killian@us.fujitsu.com</span></u></span></div>
+</font></div>
+</font></div>
+</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_954619" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="954894">
+    <td id="PostDetailsCell_954894" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post954894"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/12/2012 5:11:28 AM" LocalTimeTicks="1355317888">Dec 12, 2012 at 5:11 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="1/11/2013 12:52:13 AM" LocalTimeTicks="1357894333">Jan 11, 2013 at 12:52 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_954894" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;You&#32;are&#32;poking&#32;around&#32;in&#32;the&#32;corners&#32;here.&#32;&#38;nbsp&#59;&#58;&#41;&#32;I&#39;ve&#32;&#38;quot&#59;corrected&#38;quot&#59;&#32;the&#32;code&#32;for&#32;you&#58;&#32;&#32;&#32;public&#32;interface&#32;ISomeEntity&#32;&#123;&#32;string&#32;Info&#32;&#123;&#32;get&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;X&#32;&#58;&#32;ISomeEntity&#32;&#123;&#32;private&#32;string&#32;Id&#32;&#61;&#32;&#38;quot&#59;HiDave&#38;quot&#59;&#59;&#32;public&#32;string&#32;Info&#32;&#123;&#32;get&#32;&#123;&#32;return&#32;Id&#59;&#32;&#125;&#32;&#125;&#32;public&#32;X&#40;Type&#32;info&#41;&#32;&#123;&#32;Id&#32;&#61;&#32;info.Name&#59;&#32;Console.WriteLine&#40;&#38;quot&#59;Type&#32;Constructor&#58;&#32;&#38;quot&#59;&#32;&#38;&#35;43&#59;&#32;Info&#41;&#59;&#32;&#125;&#32;public&#32;X&#40;object&#32;info&#41;&#32;&#123;&#32;Id&#32;&#61;&#32;&#40;&#40;int&#41;info&#41;.ToString&#40;&#41;&#59;&#32;Console.WriteLine&#40;&#38;quot&#59;Object&#32;constructor&#58;&#32;&#38;quot&#59;&#32;&#38;&#35;43&#59;&#32;Info&#41;&#59;&#32;&#125;&#32;&#125;&#32;internal&#32;class&#32;MyTest&#32;&#123;&#32;public&#32;void&#32;DoIt&#40;&#41;&#32;&#123;&#32;X&#32;x&#32;&#61;&#32;new&#32;X&#40;typeof&#40;X&#41;&#41;&#59;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;ISomeEntity,&#32;X&#38;gt&#59;&#40;&#38;quot&#59;asObj&#38;quot&#59;,&#32;new&#32;InjectionConstructor&#40;typeof&#40;object&#41;&#41;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;ISomeEntity,&#32;X&#38;gt&#59;&#40;&#38;quot&#59;asType&#38;quot&#59;,&#32;new&#32;InjectionConstructor&#40;typeof&#40;Type&#41;&#41;&#41;&#59;&#32;var&#32;u&#32;&#61;&#32;container.Resolve&#38;lt&#59;ISomeEntity&#38;gt&#59;&#40;&#38;quot&#59;asObj&#38;quot&#59;,&#32;new&#32;DependencyOverride&#40;typeof&#40;object&#41;,&#32;new&#32;InjectionParameter&#40;492&#41;&#41;&#41;&#59;&#32;Type&#32;xType&#32;&#61;&#32;typeof&#40;X&#41;&#59;&#32;var&#32;v&#32;&#61;&#32;container.Resolve&#38;lt&#59;ISomeEntity&#38;gt&#59;&#40;&#38;quot&#59;asType&#38;quot&#59;,&#32;new&#32;DependencyOverride&#40;typeof&#40;Type&#41;,&#32;new&#32;InjectionParameter&#40;xType&#41;&#41;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;Do&#32;you&#32;see&#32;the&#32;difference&#63;&#32;&#38;nbsp&#59;The&#32;only&#32;change&#32;&#40;should&#32;be&#41;&#32;in&#32;the&#32;order&#32;of&#32;the&#32;constructors.&#32;&#38;nbsp&#59;So,&#32;in&#32;this&#32;case&#32;order&#32;matters.&#32;&#38;nbsp&#59;In&#32;the&#32;original&#32;code&#32;the&#32;incorrect&#32;constructor&#32;was&#32;being&#32;selected&#32;and&#32;Unity&#32;was&#32;trying&#32;&#40;and&#32;failing&#41;&#32;to&#32;instantiate&#32;a&#32;Type&#32;instance.&#32;The&#32;issue&#32;is&#32;that&#32;even&#32;though&#32;an&#32;InjectionConstructor&#32;is&#32;specified&#32;the&#32;correct&#32;constructor&#32;must&#32;still&#32;be&#32;selected.&#32;&#38;nbsp&#59;Currently&#32;the&#32;matching&#32;logic&#32;runs&#32;through&#32;all&#32;of&#32;the&#32;constructors&#32;in&#32;order&#32;and&#32;then&#32;checks&#32;&#40;assuming&#32;the&#32;number&#32;of&#32;parameters&#32;are&#32;the&#32;same&#41;&#32;if&#32;the&#32;the&#32;constructor&#32;parameter&#32;type&#38;nbsp&#59;IsAssignableFrom&#40;&#41;&#32;the&#32;InjectionConstructor&#32;type.&#32;&#38;nbsp&#59;So&#32;if&#32;you&#32;use&#32;object&#32;as&#32;the&#32;first&#32;constructor&#32;then&#32;this&#32;will&#32;always&#32;match&#32;&#40;given&#32;the&#32;same&#32;number&#32;of&#32;arguments&#41;.&#32;So&#32;there&#32;are&#32;a&#32;few&#32;workarounds&#32;&#40;roughly&#32;in&#32;reverse&#32;order&#32;of&#32;preference,&#32;IMO&#41;&#32;&#58;&#38;nbsp&#59;&#32;&#32;Change&#32;the&#32;order&#32;of&#32;the&#32;constructors&#32;in&#32;the&#32;class&#32;so&#32;that&#32;the&#32;object&#32;constructor&#32;is&#32;last&#32;Add&#32;an&#32;extra&#32;parameter&#40;s&#41;&#32;to&#32;the&#32;object&#32;constructor&#32;so&#32;it&#32;does&#32;not&#32;get&#32;selected&#32;based&#32;on&#32;the&#32;number&#32;of&#32;parameters&#32;Try&#32;not&#32;to&#32;use&#32;object&#32;as&#32;a&#32;constructor&#32;parameter&#32;type&#32;especially&#32;in&#32;tandem&#32;with&#32;overloads&#32;&#32;I&#39;m&#32;not&#32;sure&#32;if&#32;the&#32;Unity&#32;behavior&#32;is&#32;by&#32;design&#32;or&#32;not.&#32;&#38;nbsp&#59;A&#32;fix&#32;could&#32;be&#32;to&#32;first&#32;check&#32;the&#32;explicit&#32;type&#32;matches&#32;before&#32;checking&#32;IsAssignableFrom&#32;&#40;this&#32;is&#32;how&#32;open&#32;generics&#32;are&#32;checked&#41;.&#32;&#38;nbsp&#59;That&#32;would&#32;be&#32;a&#32;bit&#32;of&#32;a&#32;performance&#32;hit&#32;&#40;and&#32;maybe&#32;there&#32;are&#32;some&#32;gotchas&#32;I&#39;m&#32;not&#32;seeing&#32;in&#32;that&#32;approach&#41;.&#38;nbsp&#59;&#32;--&#32;Randy&#32;Levy&#32;Enterprise&#32;Library&#32;support&#32;engineer&#32;entlib.support&#64;live.com&#38;nbsp&#59;&#32;">
+        
+<p>You are poking around in the corners here. &nbsp;:)</p>
+<p>I've &quot;corrected&quot; the code for you:</p>
+<div style="color:black; background-color:white">
+<pre>    <span style="color:blue">public</span> <span style="color:blue">interface</span> ISomeEntity
+    {
+
+        <span style="color:blue">string</span> Info { <span style="color:blue">get</span>; }
+
+    }
+
+    <span style="color:blue">public</span> <span style="color:blue">class</span> X : ISomeEntity
+    {
+
+        <span style="color:blue">private</span> <span style="color:blue">string</span> Id = <span style="color:#a31515">&quot;HiDave&quot;</span>;
+
+        <span style="color:blue">public</span> <span style="color:blue">string</span> Info { <span style="color:blue">get</span> { <span style="color:blue">return</span> Id; } }
+
+        <span style="color:blue">public</span> X(Type info)
+        {
+
+            Id = info.Name;
+
+            Console.WriteLine(<span style="color:#a31515">&quot;Type Constructor: &quot;</span> &#43; Info);
+        }
+
+        <span style="color:blue">public</span> X(<span style="color:blue">object</span> info)
+        {
+            Id = ((<span style="color:blue">int</span>)info).ToString();
+
+            Console.WriteLine(<span style="color:#a31515">&quot;Object constructor: &quot;</span> &#43; Info);
+        }
+    }
+
+    <span style="color:blue">internal</span> <span style="color:blue">class</span> MyTest
+    {
+
+        <span style="color:blue">public</span> <span style="color:blue">void</span> DoIt()
+        {
+            X x = <span style="color:blue">new</span> X(<span style="color:blue">typeof</span>(X));
+            
+            IUnityContainer container = <span style="color:blue">new</span> UnityContainer();
+
+
+            container.RegisterType&lt;ISomeEntity, X&gt;(<span style="color:#a31515">&quot;asObj&quot;</span>,
+
+            <span style="color:blue">new</span> InjectionConstructor(<span style="color:blue">typeof</span>(<span style="color:blue">object</span>)));
+
+            container.RegisterType&lt;ISomeEntity, X&gt;(<span style="color:#a31515">&quot;asType&quot;</span>,
+
+             <span style="color:blue">new</span> InjectionConstructor(<span style="color:blue">typeof</span>(Type)));
+
+            <span style="color:blue">var</span> u = container.Resolve&lt;ISomeEntity&gt;(<span style="color:#a31515">&quot;asObj&quot;</span>,
+
+            <span style="color:blue">new</span> DependencyOverride(<span style="color:blue">typeof</span>(<span style="color:blue">object</span>),
+
+            <span style="color:blue">new</span> InjectionParameter(492)));
+
+            Type xType = <span style="color:blue">typeof</span>(X);
+
+            <span style="color:blue">var</span> v = container.Resolve&lt;ISomeEntity&gt;(<span style="color:#a31515">&quot;asType&quot;</span>,
+
+             <span style="color:blue">new</span> DependencyOverride(<span style="color:blue">typeof</span>(Type), <span style="color:blue">new</span> InjectionParameter(xType)));
+
+        }
+
+    }
+</pre>
+</div>
+<p>Do you see the difference? &nbsp;The only change (should be) in the order of the constructors. &nbsp;So, in this case order matters. &nbsp;In the original code the incorrect constructor was being selected and Unity was trying (and failing) to instantiate
+ a Type instance.</p>
+<p>The issue is that even though an InjectionConstructor is specified the correct constructor must still be selected. &nbsp;Currently the matching logic runs through all of the constructors in order and then checks (assuming the number of parameters are the
+ same) if the the constructor parameter type&nbsp;IsAssignableFrom() the InjectionConstructor type. &nbsp;So if you use object as the first constructor then this will always match (given the same number of arguments).</p>
+<p>So there are a few workarounds (roughly in reverse order of preference, IMO) :&nbsp;</p>
+<ul>
+<li><span style="text-decoration:line-through">Change the order of the constructors in the class so that the object constructor is last</span>
+</li><li>Add an extra parameter(s) to the object constructor so it does not get selected based on the number of parameters
+</li><li>Try not to use object as a constructor parameter type especially in tandem with overloads
+</li></ul>
+<p>I'm not sure if the Unity behavior is by design or not. &nbsp;A fix could be to first check the explicit type matches before checking IsAssignableFrom (this is how open generics are checked). &nbsp;That would be a bit of a performance hit (and maybe there
+ are some gotchas I'm not seeing in that approach).&nbsp;</p>
+<p>--<br>
+Randy Levy<br>
+Enterprise Library support engineer<br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">entlib.support@live.com</a>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_954894" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="955037">
+    <td id="PostDetailsCell_955037" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post955037"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/DrDave">DrDave</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/12/2012 10:22:26 AM" LocalTimeTicks="1355336546">Dec 12, 2012 at 10:22 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_955037" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;&#32;&#32;Thanks&#32;again&#32;for&#32;the&#32;quick&#32;response.&#32;I&#32;had&#32;already&#32;implemented&#32;the&#32;&#39;extra&#32;&#40;unused&#41;&#32;constructor&#32;parameter&#39;&#32;workaround&#32;by&#32;the&#32;time&#32;I&#32;got&#32;this.&#32;Since&#32;I&#39;m&#32;constrained&#32;at&#32;this&#32;time&#32;from&#32;modifying&#32;the&#32;target&#32;class&#32;&#40;the&#32;one&#32;with&#32;the&#32;object&#32;constructor&#41;,&#32;I&#39;ll&#32;probably&#32;stay&#32;with&#32;that&#32;solution&#59;&#32;order&#32;dependent&#32;constructors&#32;sounds&#32;like&#32;a&#32;maintenance&#32;nightmare.&#32;&#32;&#32;&#32;David&#32;John&#32;Killian&#32;Chief&#32;Software&#32;Product&#32;Architect,&#32;System&#32;and&#32;Product&#32;Integration&#32;Services,&#32;ITSG&#32;FUJITSU&#32;AMERICA&#32;&#32;Office&#58;&#32;&#40;919&#41;&#32;556-8171&#32;&#32;Mobile&#58;&#32;&#40;919&#41;&#32;608-1509&#32;&#32;E-mail&#58;&#32;dave.killian&#64;us.fujitsu.com&#32;&#32;&#32;&#32;">
+        
+<div style="font-family:Tahoma; direction:ltr; color:#000000; font-size:x-small">
+<div></div>
+<div dir="ltr"><font color="#000000" size="2" face="Tahoma">Thanks again for the quick response. I had already implemented the 'extra (unused) constructor parameter' workaround by the time I got this. Since I'm constrained at this time from modifying the target
+ class (the one with the object constructor), I'll probably stay with that solution; order dependent constructors sounds like a maintenance nightmare.</font></div>
+<div dir="ltr"></div>
+<div><font size="2" face="Tahoma">
+<div><font color="#000000" size="2" face="Arial">
+<div><b><span style="font-family:'Arial','sans-serif'; color:black; font-size:10pt">David John Killian</span></b><span style="font-family:'Arial','sans-serif'; color:black; font-size:10pt"></span></div>
+<div><span style="font-family:'Arial','sans-serif'; color:black; font-size:10pt">Chief Software Product Architect, System and Product Integration Services, ITSG</span></div>
+<div><u><span style="font-family:'Arial','sans-serif'; color:black; font-size:10pt"><a href="http://usa77mail/exchweb/bin/redir.asp?URL=http://solutions.us.fujitsu.com/" target="_blank" rel="nofollow"><span style="color:blue">FUJITSU AMERICA</span></a>
+</span></u><span style="font-family:'Arial','sans-serif'; color:black; font-size:10pt"></span></div>
+<div><span style="font-family:'Arial','sans-serif'; color:black; font-size:10pt">Office: (919) 556-8171
+</span></div>
+<div><span style="font-family:'Arial','sans-serif'; color:black; font-size:10pt">Mobile: (919) 608-1509
+</span></div>
+<div><span style="font-size:10pt">E-mail: <u><span style="color:blue">dave.killian@us.fujitsu.com</span></u></span></div>
+</font></div>
+</font></div>
+</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_955037" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="955092">
+    <td id="PostDetailsCell_955092" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post955092"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="12/12/2012 1:04:13 PM" LocalTimeTicks="1355346253">Dec 12, 2012 at 1:04 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_955092" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;&#38;gt&#59;&#32;order&#32;dependent&#32;constructors&#32;sounds&#32;like&#32;a&#32;maintenance&#32;nightmare.&#32;Yes,&#32;I&#32;agree.&#32;&#38;nbsp&#59;But&#32;it&#39;s&#32;worse&#32;than&#32;that&#58;&#32;it&#32;depends&#32;on&#32;the&#32;implementation&#32;of&#32;Type.GetConstructors&#40;&#41;.&#32;&#38;nbsp&#59;In&#32;the&#32;case&#32;we&#32;were&#32;looking&#32;at&#32;it&#32;was&#32;returning&#32;the&#32;constructors&#32;in&#32;the&#32;order&#32;they&#32;were&#32;defined&#32;in&#32;the&#32;class&#32;&#40;but&#32;what&#32;about&#32;other&#32;scenarios&#32;such&#32;as&#32;partial&#32;classes&#32;etc.&#63;&#41;.&#32;&#38;nbsp&#59;Actually,&#32;the&#38;nbsp&#59;Type.GetConstructors&#32;Method&#38;nbsp&#59;explicitly&#32;calls&#32;this&#32;out&#58;&#32;&#32;The&#32;GetConstructors&#32;method&#32;does&#32;not&#32;return&#32;constructors&#32;in&#32;a&#32;particular&#32;order,&#32;such&#32;as&#32;declaration&#32;order.&#32;Your&#32;code&#32;must&#32;not&#32;depend&#32;on&#32;the&#32;order&#32;in&#32;which&#32;constructors&#32;are&#32;returned,&#32;because&#32;that&#32;order&#32;varies.&#32;&#32;So&#32;let&#39;s&#32;remove&#32;that&#32;as&#32;a&#32;viable&#32;option.&#32;--&#32;Randy&#32;Levy&#32;Enterprise&#32;Library&#32;support&#32;engineer&#32;entlib.support&#64;live.com&#38;nbsp&#59;&#32;">
+        
+<p><em>&gt; order dependent constructors sounds like a maintenance nightmare.</em></p>
+<p>Yes, I agree. &nbsp;But it's worse than that: it depends on the implementation of Type.GetConstructors(). &nbsp;In the case we were looking at it was returning the constructors in the order they were defined in the class (but what about other scenarios such
+ as partial classes etc.?). &nbsp;Actually, the&nbsp;<a href="http://msdn.microsoft.com/en-us/library/system.type.getconstructors.aspx" target="_blank" rel="nofollow">Type.GetConstructors Method</a>&nbsp;explicitly calls this out:</p>
+<p></p>
+<pre>The GetConstructors method does not return constructors in a particular order, such as declaration order. Your code must not depend on the order in which constructors are returned, because that order varies.</pre>
+<p></p>
+<p>So let's remove that as a viable option.</p>
+<p><span>--</span><br>
+<span>Randy Levy</span><br>
+<span>Enterprise Library support engineer</span><br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">entlib.support@live.com</a><span>&nbsp;</span></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_955092" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f405331">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="b0e488fe-79ec-4fda-bfa6-6dbefc6f3743">
+    <script class="options" defer="defer" id="b0e488fe-79ec-4fda-bfa6-6dbefc6f3743" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_1a49b37b-580f-4110-a5e2-532ec2dd19ee">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_ee6b643a-7acc-4dd8-a53d-24eb6c37fcd5">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_1a49b37b-580f-4110-a5e2-532ec2dd19ee" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_ee6b643a-7acc-4dd8-a53d-24eb6c37fcd5" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/405331';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

@@ -1,0 +1,692 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Incorrect error message when using constructor params&#63;</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/232863?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/232863?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="OEzm1qS7UGGiMWd_DX_P41PAvm7XEOMs9lqKgeO4xBxf3AZ2YvQkX9NAU1LmgtSCd7I_N21ZTZNQYT5fVTxkVWrpZiyk07WiJtOaTb7hVFJ-9vmE71zhPMB4AFGDV_dMRpNLtg2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken237494a84-4925-4b64-8ca0-aa66d4f923c6" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:27:06 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f232863" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="3fc6aa4a-85aa-4844-8d64-485116b81015">
+                
+                    <script class="options" defer="defer" id="3fc6aa4a-85aa-4844-8d64-485116b81015" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="c1f52d96-d5eb-4803-83ff-6e2047ed8717">
+                
+                    <script class="options" defer="defer" id="c1f52d96-d5eb-4803-83ff-6e2047ed8717" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Incorrect error message when using constructor params&#63;
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:232863]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="98a32e82-fc12-4a3f-9ef3-7537b42efe95">
+    <script class="options" defer="defer" id="98a32e82-fc12-4a3f-9ef3-7537b42efe95" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/232863","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="514833">
+    <td id="PostDetailsCell_514833" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post514833"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ssg31415926">ssg31415926</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/30/2010 5:34:39 AM" LocalTimeTicks="1288442079">Oct 30, 2010 at 5:34 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_514833" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#32;think&#32;I&#39;ve&#32;spotted&#32;a&#32;dodgy&#32;error&#32;message&#32;when&#32;you&#39;re&#32;specifying&#32;constructor&#32;parameters&#32;in&#32;configuration.&#38;nbsp&#59;&#32;I&#39;ve&#32;repro&#39;d&#32;it&#32;in&#32;a&#32;separate&#32;project&#32;which&#32;I&#32;can&#32;post&#32;if&#32;it&#32;helps.&#32;I&#32;came&#32;across&#32;it&#32;whilst&#32;playing&#32;with&#32;named&#32;registrations&#32;&#40;which&#32;I&#39;d&#32;not&#32;used&#32;up&#32;to&#32;this&#32;point&#41;.&#38;nbsp&#59;&#32;The&#32;situation&#32;is&#32;that&#32;you&#39;re&#32;resolving&#32;something&#32;like&#32;this&#58;&#32;&#32;public&#32;Widget&#40;IFlange&#32;flange,&#32;ISprocket&#32;sprocket&#41;&#32;&#32;&#40;this&#32;is&#32;the&#32;only&#32;defined&#32;.ctor&#41;&#32;and&#32;the&#32;registrations&#32;for&#32;the&#38;nbsp&#59;dependencies&#32;are,&#32;say&#58;&#32;&#32;&#32;&#38;lt&#59;register&#32;type&#61;&#38;quot&#59;IFlange&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;Flange&#38;quot&#59;&#32;name&#61;&#38;quot&#59;superFlange&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;register&#32;type&#61;&#38;quot&#59;ISprocket&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;Sprocket&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#32;&#32;If&#32;you&#32;they&#32;register&#32;the&#32;IWidget&#32;as&#58;&#32;&#32;&#32;&#38;lt&#59;register&#32;type&#61;&#38;quot&#59;IWidget&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;Widget&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;flange&#38;quot&#59;&#32;type&#61;&#38;quot&#59;IFlange&#38;quot&#59;&#32;dependencyName&#61;&#38;quot&#59;superFlange&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#32;&#38;lt&#59;&#47;register&#38;gt&#59;&#32;&#32;&#32;You&#32;get&#32;as&#32;InvalidOperationException&#58;&#32;&#38;quot&#59;Configuration&#32;is&#32;incorrect,&#32;the&#32;type&#32;DependencyInjection1.Widget&#32;does&#32;not&#32;have&#32;a&#32;constructor&#32;that&#32;takes&#32;parameters&#32;named&#32;flange.&#38;quot&#59;&#38;nbsp&#59;&#32;But&#32;as&#32;you&#32;can&#32;see,&#32;this&#32;is&#32;not&#32;true.&#38;nbsp&#59;&#32;It&#32;does.&#38;nbsp&#59;&#32;It&#39;s&#32;just&#32;that&#32;another&#32;parameter&#32;is&#32;required.&#38;nbsp&#59;&#32;If&#32;it&#32;said&#32;&#38;quot&#59;&#91;...&#93;&#32;does&#32;not&#32;have&#32;a&#32;constructor&#32;that&#32;&#32;only&#32;takes&#32;parameters&#32;named&#32;flange.&#38;quot&#59;&#32;it&#32;would&#32;not&#32;only&#32;be&#32;true&#32;but&#32;it&#32;would&#32;imply&#32;that&#32;I&#32;should&#32;be&#32;specifying&#32;more&#32;parameters&#32;in&#32;my&#32;config.&#32;My&#32;early&#32;experience&#32;of&#32;Unity&#32;was&#32;that&#32;if&#32;something&#32;wasn&#39;t&#32;specified,&#32;it&#32;took&#32;the&#32;obvious&#32;route.&#38;nbsp&#59;&#32;If&#32;I&#32;have&#32;a&#32;Widget&#32;class&#32;in&#32;my&#32;project&#32;and&#32;it&#39;s&#32;not&#32;been&#32;registered&#32;but&#32;I&#32;ask&#32;Unity&#32;to&#32;get&#32;me&#32;an&#32;instance&#32;it,&#32;it&#32;does.&#38;nbsp&#59;&#32;Since&#32;I&#39;d&#32;already&#32;told&#32;Unity&#32;how&#32;to&#32;resolve&#32;ISprockets,&#32;I&#32;didn&#39;t&#32;expect&#32;to&#32;have&#32;to&#32;do&#32;it&#32;again.&#38;nbsp&#59;&#32;I&#39;m&#32;sure&#32;it&#39;s&#32;in&#32;the&#32;documentation&#32;but&#32;as&#32;Cwalina&#47;Abrams&#32;&#91;1&#93;&#32;said&#32;&#38;quot&#59;many&#32;developers&#32;expect&#32;to&#32;learn&#32;the&#32;basics&#32;of&#32;new&#32;frameworks&#32;very&#32;quickly.&#38;nbsp&#59;&#32;They&#32;want&#32;to&#32;do&#32;it&#32;by&#32;experimenting&#32;with&#32;parts&#32;of&#32;the&#32;framework...&#38;quot&#59;&#32;Anyway,&#32;I&#32;didn&#39;t&#32;raise&#32;it&#32;in&#32;the&#32;Issue&#32;Tracker&#32;as&#32;there&#39;s&#32;always&#32;the&#32;possibility&#32;that&#32;it&#32;should&#39;ve&#32;worked&#32;and&#32;I&#32;did&#32;something&#32;wrong.&#38;nbsp&#59;&#32;Again.&#32;&#38;nbsp&#59;&#32;&#91;1&#93;&#32;Framework&#32;Design&#32;Guidelines,&#32;2009,&#32;Microsoft&#32;Corporation&#32;&#40;Section&#32;2.2.2&#32;-&#32;can&#39;t&#32;give&#32;page&#32;reference,&#32;read&#32;it&#32;on&#32;Kindle&#41;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;">
+        
+<p>I think I've spotted a dodgy error message when you're specifying constructor parameters in configuration.&nbsp; I've repro'd it in a separate project which I can post if it helps.</p>
+<p>I came across it whilst playing with named registrations (which I'd not used up to this point).&nbsp; The situation is that you're resolving something like this:</p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">public</span> Widget(IFlange flange, ISprocket sprocket)</pre>
+</div>
+<p>(this is the only defined .ctor) and the registrations for the&nbsp;dependencies are, say:</p>
+<div style="color:black; background-color:white">
+<pre>  <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">IFlange</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Flange</span><span style="color:black">&quot;</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">superFlange</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+  <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ISprocket</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Sprocket</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+</pre>
+</div>
+<p>If you they register the IWidget as:</p>
+<div style="color:black; background-color:white">
+<pre>      <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">IWidget</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Widget</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+          <span style="color:blue">&lt;</span><span style="color:#a31515">param</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">flange</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">IFlange</span><span style="color:black">&quot;</span> <span style="color:red">dependencyName</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">superFlange</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+        <span style="color:blue">&lt;/</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;/</span><span style="color:#a31515">register</span><span style="color:blue">&gt;</span>
+</pre>
+</div>
+<p>You get as InvalidOperationException: &quot;Configuration is incorrect, the type DependencyInjection1.Widget does not have a constructor that takes parameters named flange.&quot;&nbsp; But as you can see, this is not true.&nbsp; It does.&nbsp; It's just
+ that another parameter is required.&nbsp; If it said &quot;[...] does not have a constructor that
+<strong>only</strong> takes parameters named flange.&quot; it would not only be true but it would imply that I should be specifying more parameters in my config.</p>
+<p>My early experience of Unity was that if something wasn't specified, it took the obvious route.&nbsp; If I have a Widget class in my project and it's not been registered but I ask Unity to get me an instance it, it does.&nbsp; Since I'd already told Unity
+ how to resolve ISprockets, I didn't expect to have to do it again.&nbsp; I'm sure it's in the documentation but as Cwalina/Abrams [1] said &quot;many developers expect to learn the basics of new frameworks very quickly.&nbsp; They want to do it by experimenting
+ with parts of the framework...&quot;</p>
+<p>Anyway, I didn't raise it in the Issue Tracker as there's always the possibility that it should've worked and I did something wrong.&nbsp; Again.</p>
+<p>&nbsp;</p>
+<p>[1] Framework Design Guidelines, 2009, Microsoft Corporation (Section 2.2.2 - can't give page reference, read it on Kindle)</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_514833" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="514956">
+    <td id="PostDetailsCell_514956" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post514956"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/30/2010 7:13:03 PM" LocalTimeTicks="1288491183">Oct 30, 2010 at 7:13 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_514956" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Well,&#32;we&#32;could&#32;make&#32;the&#32;error&#32;message&#32;more&#32;explicit.&#32;But&#32;your&#32;comments&#32;about&#32;inconsistency&#32;aren&#39;t&#32;really&#32;true.&#32;Unity&#32;doesn&#39;t&#32;guess.&#32;It&#32;uses&#32;some&#32;very&#32;simple&#32;strategies&#58;&#32;If&#32;you&#32;configure&#32;a&#32;constructor,&#32;it&#32;looks&#32;for&#32;exactly&#32;and&#32;only&#32;what&#32;you&#32;told&#32;it.&#32;If&#32;it&#32;doesn&#39;t&#32;match,&#32;you&#32;get&#32;an&#32;error.&#32;If&#32;you&#32;don&#39;t&#32;configure&#32;a&#32;constructor,&#32;it&#32;picks&#32;the&#32;one&#32;with&#32;the&#32;most&#32;parameters.&#32;If&#32;there&#32;are&#32;multiple&#32;possible&#32;ones,&#32;you&#32;get&#32;an&#32;error.&#32;The&#32;problem&#32;with&#32;the&#32;behavior&#32;that&#32;you&#39;re&#32;proposing&#32;is,&#32;what&#32;if&#32;there&#32;are&#32;multiple&#32;constructors&#32;taking&#32;a&#32;parameter&#32;named&#32;&#38;quot&#59;flange&#38;quot&#59;&#63;&#32;What&#32;algorithm&#32;should&#32;we&#32;pick&#32;to&#32;choose&#63;&#32;Also&#32;consider&#32;the&#32;performance&#32;implications&#32;here,&#32;since&#32;reflecting&#32;over&#32;things&#32;takes&#32;time.&#32;I&#32;agree&#32;we&#32;could&#32;improve&#32;the&#32;error&#32;message&#32;here,&#32;but&#32;I&#32;disagree&#32;that&#32;it&#39;s&#32;being&#32;inconsistent.&#32;&#38;nbsp&#59;&#32;">
+        
+<p>Well, we could make the error message more explicit. But your comments about inconsistency aren't really true. Unity doesn't guess. It uses some very simple strategies:</p>
+<p>If you configure a constructor, it looks for exactly and only what you told it. If it doesn't match, you get an error.</p>
+<p>If you don't configure a constructor, it picks the one with the most parameters. If there are multiple possible ones, you get an error.</p>
+<p>The problem with the behavior that you're proposing is, what if there are multiple constructors taking a parameter named &quot;flange&quot;? What algorithm should we pick to choose? Also consider the performance implications here, since reflecting over things
+ takes time.</p>
+<p>I agree we could improve the error message here, but I disagree that it's being inconsistent.</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_514956" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f232863">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="8436250f-af04-4011-b9bc-a7da370131c0">
+    <script class="options" defer="defer" id="8436250f-af04-4011-b9bc-a7da370131c0" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_d65db565-b7ef-46eb-9e76-46abd7b6362e">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_d8df9fa7-28d3-4b2d-b712-454e7f40c5ee">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_d65db565-b7ef-46eb-9e76-46abd7b6362e" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_d8df9fa7-28d3-4b2d-b712-454e7f40c5ee" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/232863';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

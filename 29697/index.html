@@ -1,0 +1,1344 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - How to apply DI in this situation</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/29697?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/29697?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="ayEX5WVehj80obLkTPlCa9llAB9Jxs0TLX1bIjXlaa7U5ON5vdczDNHrzTHoc7gZvBGksbqUrMl7BPgzmu3BHxtf-c18OHDcKDyYvwoWwlgtLdo-SBRaBRgvSvs0z_gYeN52-w2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2ecd75857-6153-4c4d-ad9b-c1f512c606da" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:28:42 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f29697" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="2aa4cf66-1280-4453-9ec3-9fe1048d3e88">
+                
+                    <script class="options" defer="defer" id="2aa4cf66-1280-4453-9ec3-9fe1048d3e88" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="c4de6c84-83db-42cd-b66e-3e951be35edf">
+                
+                    <script class="options" defer="defer" id="c4de6c84-83db-42cd-b66e-3e951be35edf" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                How to apply DI in this situation
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:29697]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="19799d27-0fb8-420a-95cf-c71695bb1d94">
+    <script class="options" defer="defer" id="19799d27-0fb8-420a-95cf-c71695bb1d94" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/29697","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="99020">
+    <td id="PostDetailsCell_99020" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post99020"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Almas">Almas</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/16/2008 8:06:04 AM" LocalTimeTicks="1213628764">Jun 16, 2008 at 8:06 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_99020" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi&#32;guys,&#32;&#32;I&#32;have&#32;a&#32;question&#32;about&#32;applying&#32;of&#32;DI&#32;in&#32;this&#32;case.&#32;&#32;I&#32;wrote&#32;a&#32;class&#32;and&#32;want&#32;to&#32;create&#32;an&#32;object&#32;in&#32;its&#32;some&#32;method&#32;using&#32;container.&#32;&#32;class&#32;ClassA&#32;&#123;&#32;&#38;nbsp&#59;&#32;public&#32;ClassA&#40;&#41;&#32;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#32;&#125;&#32;&#32;&#38;nbsp&#59;&#32;public&#32;void&#32;SomeMethod&#40;&#41;&#32;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#32;want&#32;to&#32;create&#32;an&#32;instance&#32;of&#32;classB&#32;here&#32;using&#32;container&#32;&#38;nbsp&#59;&#32;&#125;&#32;&#125;&#32;&#32;class&#32;ClassB&#32;&#58;&#32;IDisposable&#32;&#123;&#32;&#125;&#32;&#32;I&#32;could&#32;find&#32;only&#32;two&#32;solutions&#32;how&#32;to&#32;implement&#32;it.&#32;&#32;&#47;&#47;&#32;1&#32;&#32;class&#32;ClassA&#32;&#123;&#32;&#38;nbsp&#59;&#32;private&#32;IUnityContainer&#32;container&#59;&#32;&#38;nbsp&#59;&#32;public&#32;SomeClass&#40;IUnityContainer&#32;container&#59;&#32;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;this.container&#32;&#61;&#32;container&#59;&#32;&#38;nbsp&#59;&#32;&#125;&#32;&#32;&#38;nbsp&#59;&#32;public&#32;void&#32;SomeMethod&#40;&#41;&#32;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;using&#32;&#40;var&#32;b&#32;&#61;&#32;container.ResolveInstance&#40;typeof&#40;classB&#41;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#32;&#125;&#32;&#125;&#32;&#32;In&#32;that&#32;case&#32;i&#32;should&#32;inject&#32;container,&#32;but&#32;it&#39;s&#32;anti-pattern&#32;according&#32;to&#32;the&#32;documentation&#32;of&#32;PicoContainer&#32;&#32;http&#58;&#47;&#47;www.picocontainer.org&#47;container-dependency-antipattern.html&#32;&#32;&#47;&#47;&#32;2&#32;class&#32;ClassA&#32;&#123;&#32;&#38;nbsp&#59;&#32;private&#32;IClassBFactory&#32;factory&#59;&#32;&#38;nbsp&#59;&#32;&#32;&#38;nbsp&#59;&#32;public&#32;SomeClass&#40;IClassBFactory&#32;factory&#41;&#32;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;this.factory&#32;&#61;&#32;factory&#59;&#32;&#38;nbsp&#59;&#32;&#125;&#32;&#32;&#38;nbsp&#59;&#32;public&#32;void&#32;SomeMethod&#40;&#41;&#32;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;using&#32;&#40;var&#32;b&#32;&#61;&#32;factory.CreateInstance&#40;&#41;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#32;&#125;&#32;&#125;&#32;&#32;In&#32;that&#32;case&#32;i&#32;can&#32;inject&#32;class&#32;factory&#32;for&#32;class&#32;B.&#32;But&#32;i&#32;want&#32;to&#32;use&#32;a&#32;container&#32;to&#32;create&#32;instances,&#32;not&#32;factory.&#32;&#32;So&#32;both&#32;my&#32;solutions&#32;have&#32;limitations.&#32;&#32;And&#32;I&#39;d&#32;like&#32;to&#32;know&#32;what&#32;will&#32;be&#32;the&#32;most&#32;correct&#32;solving&#32;of&#32;this&#32;problem.&#32;&#32;Thank&#32;you&#32;in&#32;advance.&#32;&#32;">
+        <span style="font-size:10pt; font-family:'Arial','sans-serif'">Hi guys,<br>
+<br>
+I have a question about applying of DI in this case.<br>
+<br>
+I wrote a class and want to create an object in its some method using container.<br>
+<br>
+class ClassA<br>
+{<br>
+&nbsp; public ClassA()<br>
+&nbsp; {<br>
+&nbsp; }<br>
+<br>
+&nbsp; public void SomeMethod()<br>
+&nbsp; {<br>
+&nbsp;&nbsp;&nbsp; // want to create an instance of classB here using container<br>
+&nbsp; }<br>
+}<br>
+<br>
+class ClassB : IDisposable<br>
+{<br>
+}<br>
+<br>
+I could find only two solutions how to implement it.<br>
+<br>
+// 1 <br>
+class ClassA<br>
+{<br>
+&nbsp; private IUnityContainer container;<br>
+&nbsp; public SomeClass(IUnityContainer container;<br>
+&nbsp; {<br>
+&nbsp;&nbsp;&nbsp; this.</span><span style="font-size:10pt; font-family:'Arial','sans-serif'">container</span><span style="font-size:10pt; font-family:'Arial','sans-serif'"> =
+</span><span style="font-size:10pt; font-family:'Arial','sans-serif'">container</span><span style="font-size:10pt; font-family:'Arial','sans-serif'">;<br>
+&nbsp; }<br>
+<br>
+&nbsp; public void SomeMethod()<br>
+&nbsp; {&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; using (var b = </span><span style="font-size:10pt; font-family:'Arial','sans-serif'">container</span><span style="font-size:10pt; font-family:'Arial','sans-serif'">.ResolveInstance(typeof(classB))<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp; }<br>
+}<br>
+<br>
+In that case i should inject container, but it's anti-pattern according to the documentation of PicoContainer
+<br>
+http://www.picocontainer.org/container-dependency-antipattern.html<br>
+<br>
+// 2<br>
+class ClassA<br>
+{<br>
+&nbsp; private IClassBFactory factory;<br>
+&nbsp; <br>
+&nbsp; public SomeClass(IClassBFactory factory)<br>
+&nbsp; {<br>
+&nbsp;&nbsp;&nbsp; this.factory = factory;<br>
+&nbsp; }<br>
+<br>
+&nbsp; public void SomeMethod()<br>
+&nbsp; {&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; using (var b = factory.CreateInstance())<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp; }<br>
+}<br>
+<br>
+In that case i can inject class factory for class B. But i want to use a container to create instances, not factory.<br>
+<br>
+So both my solutions have limitations. <br>
+And I'd like to know what will be the most correct solving of this problem.<br>
+<br>
+Thank you in advance.<br>
+</span>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_99020" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="99490">
+    <td id="PostDetailsCell_99490" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post99490"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/RayHenry">RayHenry</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/18/2008 12:09:47 PM" LocalTimeTicks="1213816187">Jun 18, 2008 at 12:09 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_99490" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Inject&#32;the&#32;Factory&#32;in&#32;the&#32;A&#32;constructor&#58;&#32;&#32;using&#32;System&#59;&#32;using&#32;System.Collections.Generic&#59;&#32;using&#32;System.Linq&#59;&#32;using&#32;System.Text&#59;&#32;using&#32;Microsoft.Practices.Unity&#59;&#32;namespace&#32;DI&#32;&#123;&#32;public&#32;class&#32;A&#32;&#123;&#32;Factory&#38;lt&#59;B&#38;gt&#59;&#32;Bfactory&#59;&#32;public&#32;A&#40;Factory&#38;lt&#59;B&#38;gt&#59;&#32;f&#41;&#32;&#123;&#32;Bfactory&#32;&#61;&#32;f&#59;&#32;&#125;&#32;public&#32;void&#32;SomeMethod&#40;&#41;&#32;&#123;&#32;B&#32;b&#32;&#61;&#32;Bfactory.Create&#40;&#41;&#59;&#32;Console.WriteLine&#40;b.ToString&#40;&#41;&#41;&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;B&#32;&#123;&#32;&#125;&#32;public&#32;class&#32;Factory&#38;lt&#59;T&#38;gt&#59;&#32;where&#32;T&#32;&#58;&#32;new&#40;&#41;&#32;&#123;&#32;public&#32;T&#32;Create&#40;&#41;&#32;&#123;&#32;return&#32;new&#32;T&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;class&#32;Program&#32;&#123;&#32;static&#32;void&#32;Main&#40;string&#91;&#93;&#32;args&#41;&#32;&#123;&#32;UnityContainer&#32;unity&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;A&#32;a&#32;&#61;&#32;unity.Resolve&#38;lt&#59;A&#38;gt&#59;&#40;&#41;&#59;&#32;a.SomeMethod&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#125;&#32;&#32;&#32;">
+        Inject the Factory in the A constructor:<br>
+<br>
+<pre>using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using Microsoft.Practices.Unity;
+
+namespace DI
+{
+    public class A
+    {
+        Factory&lt;B&gt; Bfactory;
+
+        public A(Factory&lt;B&gt; f) { Bfactory = f; }
+
+        public void SomeMethod()
+        {
+            B b = Bfactory.Create();
+            Console.WriteLine(b.ToString());
+        }
+    }
+
+    public class B
+    {
+    }
+
+    public class Factory&lt;T&gt; where T : new()
+    {
+        public T Create() { return new T(); }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            UnityContainer unity = new UnityContainer();
+            A a = unity.Resolve&lt;A&gt;();
+            a.SomeMethod();
+        }
+    }
+}
+</pre>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_99490" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="99504">
+    <td id="PostDetailsCell_99504" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post99504"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Almas">Almas</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/18/2008 2:30:40 PM" LocalTimeTicks="1213824640">Jun 18, 2008 at 2:30 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_99504" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="It&#32;seems&#32;that&#32;you&#32;reproduced&#32;my&#32;case&#32;2.&#32;But&#32;i&#32;want&#32;to&#32;use&#32;a&#32;container&#32;to&#32;create&#32;instances,&#32;not&#32;factory.&#32;">
+        It seems that you reproduced my case 2. <span style="font-size:10pt; font-family:'Arial','sans-serif'">
+But i want to use a container to create instances, not factory.</span> 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_99504" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="99530">
+    <td id="PostDetailsCell_99530" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post99530"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/DavidHayden">DavidHayden</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/18/2008 3:43:31 PM" LocalTimeTicks="1213829011">Jun 18, 2008 at 3:43 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_99530" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="The&#32;correct&#32;solution&#32;would&#32;be&#32;to&#32;inject&#32;the&#32;dependency&#32;into&#32;the&#32;object.&#32;This&#32;would&#32;avoid&#32;you&#32;having&#32;to&#32;inject&#32;the&#32;container&#32;or&#32;factory.&#32;&#32;The&#32;very&#32;notion&#32;of&#32;having&#32;the&#32;object&#32;instantiate&#32;a&#32;dependency&#32;in&#32;a&#32;method&#32;is&#32;also&#32;an&#32;anti-pattern&#32;when&#32;doing&#32;DI,&#32;so&#32;your&#32;solutions&#32;won&#39;t&#32;be&#32;ideal&#32;either.&#32;&#32;It&#32;sounds&#32;like&#32;you&#32;are&#32;trying&#32;to&#32;lazy-load&#32;a&#32;dependency,&#32;but&#32;I&#32;don&#39;t&#32;know&#32;why.&#32;Perhaps&#32;it&#32;is&#32;very&#32;expensive&#32;to&#32;create&#32;the&#32;dependency&#38;nbsp&#59;that&#32;may&#38;nbsp&#59;be&#32;optionally&#32;used&#32;by&#32;the&#32;object&#63;&#32;&#32;If&#32;this&#32;is&#32;the&#32;case,&#32;the&#32;anti-pattern&#32;way&#32;would&#32;be&#32;to&#32;inject&#32;the&#32;container.&#32;Depending&#32;on&#32;the&#32;amount&#32;of&#32;effort,&#32;I&#32;would&#32;personally&#32;register&#32;an&#32;inexpensive&#38;nbsp&#59;proxy&#32;for&#32;the&#32;real&#32;service&#32;in&#32;the&#32;container&#32;that&#32;only&#32;instantiates&#32;the&#32;underlying&#32;expensive&#32;service&#32;if&#32;necessary.&#32;The&#32;beauty&#32;of&#32;this&#32;scenario&#32;is&#32;that&#32;injection&#32;occurs&#32;like&#32;normal&#32;and&#32;the&#32;application&#32;is&#32;none-the-wiser&#32;that&#32;it&#32;is&#32;using&#32;a&#32;proxy.&#32;&#32;Hope&#32;this&#32;helps,&#32;&#32;Dave&#32;&#32;&#32;David&#32;Hayden&#32;Microsoft&#32;MVP&#32;C&#35;&#32;http&#58;&#47;&#47;www.davidhayden.com&#47;&#32;">
+        The correct solution would be to inject the dependency into the object. This would avoid you having to inject the container or factory.<br>
+<br>
+The very notion of having the object instantiate a dependency in a method is also an anti-pattern when doing DI, so your solutions won't be ideal either.<br>
+<br>
+It sounds like you are trying to lazy-load a dependency, but I don't know why. Perhaps it is very expensive to create the dependency&nbsp;that may&nbsp;be optionally used by the object?<br>
+<br>
+If this is the case, the anti-pattern way would be to inject the container. Depending on the amount of effort, I would personally register an inexpensive&nbsp;proxy for the real service in the container that only instantiates the underlying expensive service
+ if necessary. The beauty of this scenario is that injection occurs like normal and the application is none-the-wiser that it is using a proxy.<br>
+<br>
+Hope this helps,<br>
+<br>
+Dave<br>
+<br>
+<br>
+David Hayden<br>
+Microsoft MVP C#<br>
+<a href="http://www.davidhayden.com/" rel="nofollow">http://www.davidhayden.com/</a><br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_99530" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="99637">
+    <td id="PostDetailsCell_99637" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post99637"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Almas">Almas</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/18/2008 9:57:12 PM" LocalTimeTicks="1213851432">Jun 18, 2008 at 9:57 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_99637" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;think&#32;that&#32;dependency&#32;injection&#32;should&#32;not&#32;be&#32;restricted&#32;only&#32;by&#32;the&#32;injection&#32;at&#32;the&#32;object&#32;creation&#32;time.&#32;&#32;Some&#32;objects&#32;that&#32;should&#32;be&#32;injected&#32;can&#32;be&#32;expensive&#32;resources&#38;nbsp&#59;&#40;e.g.&#32;db&#32;connection&#32;or&#32;transaction&#41;,&#32;so&#32;they&#32;should&#32;be&#32;created&#32;at&#32;the&#32;time&#32;when&#32;they&#32;are&#32;really&#32;needed&#32;&#40;in&#32;some&#32;method&#32;that&#32;can&#32;be&#32;executed&#32;much&#32;later&#32;that&#32;the&#32;object&#32;created&#41;.&#32;However&#32;in&#32;that&#32;case&#32;dependencies&#32;are&#32;not&#32;&#38;quot&#59;injected&#38;quot&#59;&#32;but&#32;my&#32;object&#32;asks&#32;container&#32;about&#32;them,&#32;so&#32;container&#32;looks&#32;like&#32;service&#32;locator.&#32;&#32;Guys&#38;nbsp&#59;from&#32;PicoContainer&#32;forum&#32;&#40;http&#58;&#47;&#47;www.nabble.com&#47;forum&#47;ViewPost.jtp&#63;post&#61;17859690&#38;amp&#59;framed&#61;y&#41;&#38;nbsp&#59;recommended&#32;me&#32;the&#32;following&#32;scheme&#58;&#32;&#32;class&#32;Main&#32;implements&#32;ServiceLocator&#32;&#32;&#123;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;PicoContainer&#32;pico&#59;&#38;nbsp&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;Main&#40;&#41;&#32;&#32;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;pico&#32;&#61;&#32;new&#32;DefaultPicoContainer&#40;&#41;&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;pico.registerInstance&#40;this&#41;&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#32;implement&#32;ServiceLocator.getClassBInstance&#40;&#41;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;ClassB&#32;getClassBInstance&#40;&#41;&#32;&#32;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;return&#32;&#40;ClassB&#41;pico.getInstance&#40;ClassB.class&#41;&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#32;&#125;&#32;&#32;&#32;class&#32;classA&#32;&#32;&#123;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;ServiceLocator&#32;locator&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;classA&#40;ServiceLocator&#32;locator&#41;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;this.locator&#32;&#61;&#32;locator&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#32;&#125;&#32;&#32;&#32;&#32;">
+        I think that dependency injection should not be restricted only by the injection at the object creation time.
+<br>
+Some objects that should be injected can be expensive resources&nbsp;(e.g. db connection or transaction), so they should be created at the time when they are really needed (in some method that can be executed much later that the object created). However in
+ that case dependencies are not &quot;injected&quot; but my object asks container about them, so container looks like service locator.<br>
+<br>
+Guys&nbsp;from PicoContainer forum (<a href="http://www.nabble.com/forum/ViewPost.jtp?post=17859690&framed=y" rel="nofollow">http://www.nabble.com/forum/ViewPost.jtp?post=17859690&amp;framed=y</a>)&nbsp;recommended me the following scheme:<br>
+<br>
+<span>class Main implements ServiceLocator <br>
+{&nbsp;<br>
+</span>&nbsp; PicoContainer pico;&nbsp;<br>
+<br>
+&nbsp;&nbsp;Main() <br>
+&nbsp; {&nbsp;<br>
+<span>&nbsp;&nbsp;&nbsp;&nbsp; pico = new DefaultPicoContainer();&nbsp;</span><br>
+<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pico.registerInstance(this);&nbsp;<br>
+</span>&nbsp; }<br>
+<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
+<span>&nbsp;&nbsp; // implement ServiceLocator.getClassBInstance()&nbsp;</span><br>
+<span>&nbsp;&nbsp;&nbsp;ClassB getClassBInstance() <br>
+&nbsp; {&nbsp;</span><br>
+<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return (ClassB)pico.getInstance(ClassB.class);&nbsp;</span><br>
+<span>&nbsp;&nbsp;} </span><br>
+<span>} </span><br>
+<br>
+<span>class classA <br>
+{&nbsp;</span><br>
+<span>&nbsp;&nbsp;&nbsp;ServiceLocator locator;&nbsp;</span><br>
+<span>&nbsp;&nbsp;&nbsp;<br>
+&nbsp; classA(ServiceLocator locator)&nbsp;<br>
+&nbsp;&nbsp;{&nbsp;</span><br>
+<span>&nbsp;&nbsp;&nbsp;&nbsp;this.locator = locator;&nbsp;</span><br>
+<span>&nbsp;&nbsp;} </span><br>
+<span>} </span><br>
+<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_99637" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="99647">
+    <td id="PostDetailsCell_99647" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post99647"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/18/2008 11:01:57 PM" LocalTimeTicks="1213855317">Jun 18, 2008 at 11:01 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_99647" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="That&#39;s&#32;really&#32;not&#32;that&#32;different&#32;than&#32;injecting&#32;the&#32;container.&#32;I&#32;think&#32;the&#32;major&#32;difference&#32;is&#32;to&#32;not&#32;take&#32;a&#32;hard&#32;dependency&#32;on&#32;one&#32;particular&#32;container,&#32;but&#32;instead&#32;on&#32;a&#32;separate&#32;interface&#32;that&#32;could&#32;theoretically&#32;be&#32;implemented&#32;by&#32;multiple&#32;containers&#32;&#40;or&#32;just&#32;a&#32;standalone&#32;object&#41;.&#32;&#32;.NET&#32;already&#32;has&#32;an&#32;interface&#32;like&#32;ServiceLocator&#32;-&#32;it&#39;s&#32;System.IServiceProvider.&#32;It&#39;d&#32;be&#32;pretty&#32;simple&#32;to&#32;build&#32;an&#32;implementation&#32;of&#32;IServiceProvider&#32;that&#32;calls&#32;into&#32;a&#32;container.&#32;&#32;-Chris&#32;">
+        That's really not that different than injecting the container. I think the major difference is to not take a hard dependency on one particular container, but instead on a separate interface that could theoretically be implemented by multiple containers
+ (or just a standalone object).<br>
+<br>
+.NET already has an interface like ServiceLocator - it's System.IServiceProvider. It'd be pretty simple to build an implementation of IServiceProvider that calls into a container.<br>
+<br>
+-Chris<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_99647" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="99677">
+    <td id="PostDetailsCell_99677" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post99677"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/RayHenry">RayHenry</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/19/2008 3:37:28 AM" LocalTimeTicks="1213871848">Jun 19, 2008 at 3:37 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="6/19/2008 9:16:51 AM" LocalTimeTicks="1213892211">Jun 19, 2008 at 9:16 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_99677" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Almas,&#32;&#32;I&#32;agree&#32;with&#32;Chris.&#32;You&#32;can&#39;t&#32;have&#32;the&#32;Container&#32;create&#32;the&#38;nbsp&#59;object&#32;because&#32;you&#32;then&#32;have&#32;a&#32;hard&#32;dependency.&#32;&#32;&#32;If&#32;you&#32;need&#32;to&#32;create&#32;a&#32;new&#32;object&#32;in&#32;SomeMethod&#40;&#41;&#32;and&#32;not&#32;at&#32;construction&#32;time,&#32;then&#32;I&#32;think&#32;injecting&#32;the&#32;Factory&#32;is&#32;the&#32;answer.&#32;I&#39;m&#32;not&#32;sure&#32;why&#32;you&#32;don&#39;t&#32;want&#32;to&#32;use&#32;a&#32;Factory.&#32;&#32;Ray&#32;http&#58;&#47;&#47;initializecomponent.blogspot.com&#32;">
+        Almas,<br>
+<br>
+I agree with Chris. You can't have the Container create the&nbsp;object because you then have a hard dependency.
+<br>
+<br>
+If you need to create a new object in SomeMethod() and not at construction time, then I think injecting the Factory is the answer. I'm not sure why you don't want to use a Factory.<br>
+<br>
+Ray<br>
+<a href="http://initializecomponent.blogspot.com" rel="nofollow">http://initializecomponent.blogspot.com</a>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_99677" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="99704">
+    <td id="PostDetailsCell_99704" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post99704"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Almas">Almas</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/19/2008 7:32:50 AM" LocalTimeTicks="1213885970">Jun 19, 2008 at 7:32 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_99704" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Because&#32;i&#32;guess&#32;that&#32;implementing&#32;of&#32;factory&#32;is&#32;almost&#32;duplicating&#32;of&#32;container&#32;functionality.&#32;Container&#32;is&#32;also&#32;worked&#32;as&#32;class&#32;factory.&#32;But&#32;maybe&#32;i&#39;m&#32;wrong&#32;...&#32;">
+        Because i guess that implementing of factory is almost duplicating of container functionality. Container is also worked as class factory.<br>
+But maybe i'm wrong ...<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_99704" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="99711">
+    <td id="PostDetailsCell_99711" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post99711"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/RayHenry">RayHenry</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/19/2008 8:47:40 AM" LocalTimeTicks="1213890460">Jun 19, 2008 at 8:47 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_99711" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="The&#32;point&#32;is&#32;that&#32;if&#32;you&#32;reference&#32;Unity&#32;in&#32;your&#32;component&#32;you&#32;are&#32;introducing&#32;a&#32;dependency&#32;on&#32;Unity.&#32;You&#32;use&#32;an&#32;IoC&#32;container&#32;to&#32;minimize&#32;dependencies&#32;and&#32;make&#32;it&#32;easier&#32;to&#32;reuse&#32;your&#32;components.&#32;You&#32;don&#39;t&#32;want&#32;to&#32;inadvertently&#32;introduce&#32;a&#32;dependency&#32;on&#32;Unity.&#32;">
+        The point is that if you reference Unity in your component you are introducing a dependency on Unity. You use an IoC container to minimize dependencies and make it easier to reuse your components. You don't want to inadvertently introduce a dependency
+ on Unity. 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_99711" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="125429">
+    <td id="PostDetailsCell_125429" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post125429"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/rroman81">rroman81</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/15/2008 9:47:57 PM" LocalTimeTicks="1224132477">Oct 15, 2008 at 9:47 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_125429" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Our&#32;shop&#32;is&#32;trying&#32;to&#32;leap&#32;towards&#32;TDD.&#32;So,&#32;we&#32;ran&#32;into&#32;the&#32;same&#32;issue&#32;real&#32;quick.&#32;How&#32;do&#32;you&#32;avoid&#32;object&#32;instantiation&#32;directly&#32;within&#32;methods&#63;&#32;Factory&#32;or&#32;Unity&#63;&#32;Not&#32;all&#32;dependencies&#32;can&#32;be&#32;explicitly&#32;parameterized&#32;in&#32;constructor.&#32;">
+        Our shop is trying to leap towards TDD. &nbsp;So, we ran into the same issue real quick. &nbsp;How do you avoid object instantiation directly within methods? &nbsp;Factory or Unity? Not all dependencies can be explicitly parameterized in constructor.
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_125429" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="125443">
+    <td id="PostDetailsCell_125443" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post125443"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/RayHenry">RayHenry</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/15/2008 10:43:52 PM" LocalTimeTicks="1224135832">Oct 15, 2008 at 10:43 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_125443" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Our&#32;shop&#32;is&#32;trying&#32;to&#32;leap&#32;towards&#32;TDD.&#32;&#38;nbsp&#59;So,&#32;we&#32;ran&#32;into&#32;the&#32;same&#32;issue&#32;real&#32;quick.&#32;&#38;nbsp&#59;How&#32;do&#32;you&#32;avoid&#32;object&#32;instantiation&#32;directly&#32;within&#32;methods&#63;&#32;&#38;nbsp&#59;Factory&#32;or&#32;Unity&#63;&#32;Not&#32;all&#32;dependencies&#32;can&#32;be&#32;explicitly&#32;parameterized&#32;in&#32;constructor.&#32;&#32;&#32;I&#32;would&#32;use&#32;a&#32;Factory.&#32;You&#32;can&#32;pass&#32;in&#32;a&#32;mock&#32;factory&#32;in&#32;your&#32;unit&#32;tests.&#32;">
+        
+<blockquote dir="ltr" style="margin-right:0px">
+<p class="radEditorContent" id="ctl00_ctl00_MasterContent_TabContentPanel_Content_PostRepeater_ctl18_BodyDiv" dir="ltr" style="margin-right:0px">
+<em>Our shop is trying to leap towards TDD. &nbsp;So, we ran into the same issue real quick. &nbsp;How do you avoid object instantiation directly within methods? &nbsp;Factory or Unity? Not all dependencies can be explicitly parameterized in constructor.</em>
+<br>
+</p>
+</blockquote>
+I would use a Factory. You can pass in a mock factory in your unit tests. 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_125443" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="125470">
+    <td id="PostDetailsCell_125470" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post125470"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/16/2008 1:29:27 AM" LocalTimeTicks="1224145767">Oct 16, 2008 at 1:29 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_125470" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;look&#32;at&#32;it&#32;this&#32;way&#58;&#32;DI&#32;containers&#32;are&#32;for&#32;resolving&#32;services,&#32;not&#32;for&#32;resolving&#32;entities.&#32;So&#32;for&#32;example,&#32;you&#39;d&#32;get&#32;an&#32;ICustomerRepository&#32;out&#32;of&#32;the&#32;DI&#32;container.&#32;You&#32;would&#32;NOT&#32;get&#32;a&#32;Customer&#32;directly&#32;out&#32;of&#32;the&#32;container.&#32;&#32;The&#32;goal&#32;isn&#39;t&#32;to&#32;avoid&#32;new&#32;inside&#32;your&#32;object&#32;per&#32;se,&#32;it&#39;s&#32;about&#32;avoiding&#32;poor&#32;coupling.&#32;And&#32;if&#32;you&#39;ve&#32;got&#32;something&#32;that&#32;you&#32;need&#32;a&#32;new&#32;instance&#32;every&#32;time,&#32;and&#32;you&#32;need&#32;parameters&#32;that&#32;vary&#32;from&#32;instance&#32;to&#32;instance,&#32;a&#32;special&#32;case&#32;factory&#32;is&#32;the&#32;way&#32;to&#32;go.&#32;You&#39;d&#32;resolve&#32;the&#32;factory&#32;from&#32;the&#32;container&#32;and&#32;then&#32;call&#32;the&#32;factories&#32;to&#32;get&#32;your&#32;instances.&#32;&#32;">
+        I look at it this way: DI containers are for resolving services, not for resolving entities. So for example, you'd get an ICustomerRepository out of the DI container. You would NOT get a Customer directly out of the container.<br>
+<br>
+The goal isn't to avoid new inside your object per se, it's about avoiding poor coupling. And if you've got something that you need a new instance every time, and you need parameters that vary from instance to instance, a special case factory is the way to
+ go. You'd resolve the factory from the container and then call the factories to get your instances.<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_125470" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="133553">
+    <td id="PostDetailsCell_133553" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post133553"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/craigb">craigb</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/19/2008 3:31:57 AM" LocalTimeTicks="1227094317">Nov 19, 2008 at 3:31 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_133553" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="What&#32;is&#32;the&#32;best&#32;practice&#32;for&#32;implementing&#32;a&#32;factory&#32;of&#32;objects&#32;that&#32;are&#32;&#40;currently&#41;&#32;instantiated&#32;through&#32;dependency&#32;injection&#63;&#32;It&#32;seems&#32;logical&#32;to&#32;hand&#32;the&#32;factory&#32;an&#32;instance&#32;of&#32;Unity&#32;and&#32;resolve&#32;objects&#32;from&#32;there,&#32;but&#32;according&#32;to&#32;this&#32;discussion&#32;it&#39;s&#32;anti-pattern.&#32;As&#32;an&#32;example,&#32;I&#32;want&#32;to&#32;make&#32;a&#32;pizza&#32;factory&#32;like&#32;this&#58;&#32;&#32;&#47;&#47;&#32;Pizza.cs&#32;namespace&#32;UnityTests&#32;&#123;&#32;public&#32;enum&#32;PizzaTopping&#32;&#123;&#32;Cheese,&#32;Pepperoni,&#32;Olive,&#32;Mushroom,&#32;BellPepper,&#32;Sausage&#32;&#125;&#32;public&#32;class&#32;Pizza&#32;&#123;&#32;PizzaTopping&#91;&#93;&#32;m_toppings&#59;&#32;public&#32;Pizza&#40;params&#32;PizzaTopping&#91;&#93;&#32;toppings&#41;&#32;&#123;&#32;m_toppings&#32;&#61;&#32;toppings&#59;&#32;&#125;&#32;public&#32;Pizza&#40;PizzaTopping&#32;topping1,&#32;PizzaTopping&#32;topping2,&#32;PizzaTopping&#32;topping3&#41;&#32;&#123;&#32;m_toppings&#32;&#61;&#32;new&#32;PizzaTopping&#91;&#93;&#32;&#123;&#32;topping1,&#32;topping2,&#32;topping3&#32;&#125;&#59;&#32;&#125;&#32;public&#32;Pizza&#40;PizzaTopping&#32;topping1,&#32;PizzaTopping&#32;topping2&#41;&#32;&#123;&#32;m_toppings&#32;&#61;&#32;new&#32;PizzaTopping&#91;&#93;&#32;&#123;&#32;topping1,&#32;topping2&#32;&#125;&#59;&#32;&#125;&#32;public&#32;override&#32;string&#32;ToString&#40;&#41;&#32;&#123;&#32;string&#32;pizza&#32;&#61;&#32;&#38;quot&#59;&#123;&#32;&#38;quot&#59;&#59;&#32;foreach&#32;&#40;PizzaTopping&#32;topping&#32;in&#32;m_toppings&#41;&#32;&#123;&#32;pizza&#32;&#43;&#61;&#32;Enum.GetName&#40;typeof&#40;PizzaTopping&#41;,&#32;topping&#41;&#32;&#43;&#32;&#38;quot&#59;&#32;&#38;quot&#59;&#59;&#32;&#125;&#32;return&#32;pizza&#32;&#43;&#32;&#38;quot&#59;&#32;&#125;&#38;quot&#59;&#59;&#32;&#125;&#32;&#125;&#32;&#125;&#32;&#47;&#47;&#32;PizzaFactory.cs&#32;namespace&#32;UnityTests&#32;&#123;&#32;public&#32;class&#32;PizzaFactory&#32;&#123;&#32;public&#32;IUnityContainer&#32;ConfiguredContainer&#32;&#123;&#32;get&#59;&#32;private&#32;set&#59;&#32;&#125;&#32;public&#32;PizzaFactory&#40;IUnityContainer&#32;container&#41;&#32;&#123;&#32;ConfiguredContainer&#32;&#61;&#32;container&#59;&#32;&#125;&#32;public&#32;Pizza&#32;Create&#40;string&#32;pizzaType&#41;&#32;&#123;&#32;try&#32;&#123;&#32;return&#32;ConfiguredContainer.Resolve&#38;lt&#59;pizza&#32;&#47;&#38;gt&#59;&#40;pizzaType&#41;&#59;&#32;&#125;&#32;catch&#32;&#123;&#32;Console.WriteLine&#40;&#38;quot&#59;We&#32;don&#39;t&#32;have&#32;that.&#32;Cheese&#32;pizza&#32;for&#32;you&#33;&#38;quot&#59;&#41;&#59;&#32;return&#32;new&#32;Pizza&#40;PizzaTopping.Cheese&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#125;&#32;&#125;&#32;But&#32;I&#32;shouldn&#39;t&#32;do&#32;this&#32;because&#32;it&#39;s&#32;anti-pattern&#32;&#40;and&#32;I&#32;can&#39;t&#32;configure&#32;Unity&#32;to&#32;play&#32;along&#41;.&#32;What&#32;should&#32;I&#32;be&#32;doing&#32;instead&#63;&#32;I&#32;guess&#32;I&#39;m&#32;basically&#32;pushing&#32;the&#32;factory&#39;s&#32;list&#32;of&#32;valid&#32;pizzas&#32;to&#32;Unity&#39;s&#32;configuration,&#32;but&#32;otherwise&#32;I&#32;need&#32;to&#32;either&#32;configure&#32;the&#32;PizzaFactory&#32;without&#32;Unity&#32;or&#32;I&#32;have&#32;to&#32;hard-code&#32;the&#32;options.&#32;Do&#32;you&#32;guys&#32;see&#32;a&#32;better&#32;way&#63;&#32;">
+        What is the best practice for implementing a factory of objects that are (currently) instantiated through dependency injection?&nbsp; It seems logical to hand the factory an instance of Unity and resolve objects from there, but according to this discussion
+ it's anti-pattern.&nbsp; As an example, I want to make a pizza factory like this:<br>
+<br>
+//&nbsp;Pizza.cs
+<pre>namespace UnityTests
+{
+    public enum PizzaTopping
+    {
+        Cheese,
+        Pepperoni,
+        Olive,
+        Mushroom,
+        BellPepper,
+        Sausage
+    }
+
+    public class Pizza
+    {
+        PizzaTopping[] m_toppings;
+
+        public Pizza(params PizzaTopping[] toppings)
+        {
+            m_toppings = toppings;
+        }
+
+        public Pizza(PizzaTopping topping1, PizzaTopping topping2, PizzaTopping topping3)
+        {
+            m_toppings = new PizzaTopping[] { topping1, topping2, topping3 };
+        }
+
+        public Pizza(PizzaTopping topping1, PizzaTopping topping2)
+        {
+            m_toppings = new PizzaTopping[] { topping1, topping2 };
+        }
+
+        public override string ToString()
+        {
+            string pizza = &quot;{ &quot;;
+            foreach (PizzaTopping topping in m_toppings)
+            {
+                pizza &#43;= Enum.GetName(typeof(PizzaTopping), topping) &#43; &quot; &quot;;
+            }
+            return pizza &#43; &quot; }&quot;;
+        }
+    }
+}</pre>
+// PizzaFactory.cs
+<pre>namespace UnityTests
+{
+    public class PizzaFactory
+    {
+        public IUnityContainer ConfiguredContainer { get; private set; }
+
+        public PizzaFactory(IUnityContainer container)
+        {
+            ConfiguredContainer = container;
+        }
+
+        public Pizza Create(string pizzaType)
+        {
+            try
+            {
+                return ConfiguredContainer.Resolve&lt;pizza /&gt;(pizzaType);
+            }
+            catch
+            {
+                Console.WriteLine(&quot;We don't have that.  Cheese pizza for you!&quot;);
+                return new Pizza(PizzaTopping.Cheese);
+            }
+        }
+    }
+}</pre>
+But I shouldn't do this because it's anti-pattern (and I can't configure Unity to play along).&nbsp; What should I be doing instead?&nbsp; I guess I'm basically pushing the factory's list of valid&nbsp;pizzas&nbsp;to Unity's configuration, but otherwise I need to either configure
+ the PizzaFactory without Unity or I have to hard-code the options.&nbsp; Do you guys see a better way?
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_133553" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="133854">
+    <td id="PostDetailsCell_133854" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post133854"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/20/2008 6:54:51 AM" LocalTimeTicks="1227192891">Nov 20, 2008 at 6:54 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_133854" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="My&#32;suggestion&#32;would&#32;be&#32;to&#32;create&#32;2&#32;instances&#32;of&#32;IUnityContainer.&#32;For&#32;example,&#32;mainContainer&#32;and&#32;pizzaContainer.&#32;pizzaContainer&#32;will&#32;contain&#32;the&#32;registration&#32;for&#32;the&#32;Pizza&#32;class.&#32;The&#32;mainContainer&#32;will&#32;in&#32;turn&#32;contain&#32;a&#32;the&#32;registration&#32;for&#32;PizzaFactory&#32;and&#32;a&#32;registered&#32;instance&#32;of&#32;an&#32;IUnityContainer&#32;which&#32;is&#32;the&#32;pizzaContainer.&#32;IUnityContainer&#32;mainContainer&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#32;IUnityContainer&#32;pizzaContainer&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#32;pizzaContainer.RegisterType&#38;lt&#59;&#32;&#32;Pizza&#38;gt&#59;&#40;&#41;&#59;&#32;--&#32;pass&#32;injection&#32;members&#32;here&#32;&#38;nbsp&#59;&#32;mainContainer.RegisterInstance&#38;lt&#59;&#32;&#32;IUnityContainer&#38;gt&#59;&#40;pizzaContainer&#41;&#59;&#32;&#38;nbsp&#59;&#32;mainContainer.RegisterType&#38;lt&#59;&#32;&#32;PizzaFactory&#38;gt&#59;&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#32;&#32;&#32;&#32;Sarah&#32;Urmeneta&#32;&#32;Global&#32;Technology&#32;&#38;amp&#59;&#32;Solutions&#32;Avanade,&#32;Inc.&#32;entlib.support&#64;avanade.com&#32;&#32;&#32;&#38;nbsp&#59;&#32;&#32;">
+        My suggestion would be to create 2 instances of IUnityContainer.&nbsp; For example, mainContainer and pizzaContainer.&nbsp; pizzaContainer will contain the registration for the Pizza class.&nbsp; The mainContainer will in turn contain a the registration for PizzaFactory
+ and a&nbsp;registered instance of an IUnityContainer which is the pizzaContainer.&nbsp;
+<p><span style="font-size:13px; color:#2b91af">IUnityContainer </span><span style="font-size:13px">mainContainer =
+</span><span style="font-size:13px; color:#0000ff">new</span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#2b91af">UnityContainer</span><span style="font-size:13px">();
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#2b91af">IUnityContainer</span><span style="font-size:13px"> pizzaContainer =
+</span><span style="font-size:13px; color:#0000ff">new</span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#2b91af">UnityContainer</span><span style="font-size:13px">();
+</p>
+<p>&nbsp;</p>
+<p>pizzaContainer.RegisterType&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#2b91af">Pizza</span><span style="font-size:13px">&gt;(); -- pass injection members here
+</p>
+<p>&nbsp;</p>
+<p>mainContainer.RegisterInstance&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#2b91af">IUnityContainer</span><span style="font-size:13px">&gt;(pizzaContainer);
+</p>
+<p>&nbsp;</p>
+<p>mainContainer.RegisterType&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#2b91af">PizzaFactory</span><span style="font-size:13px">&gt;();
+</p>
+<p>&nbsp;</p>
+</span>
+<p></p>
+<br>
+<br>
+<strong>Sarah Urmeneta<br>
+</strong>
+<p><em>Global Technology &amp; Solutions<br>
+Avanade, Inc.<br>
+<span style="font-size:13px; color:#2b91af"><a href="mailto:entlib.support@avanade.com" rel="nofollow"><span style="color:#3e62a6">entlib.support@avanade.com</span></a>
+</span></em></p>
+<p><span style="font-size:13px"></p>
+<p>&nbsp;</p>
+</span>
+<p></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_133854" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="133934">
+    <td id="PostDetailsCell_133934" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post133934"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/RayHenry">RayHenry</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/20/2008 2:30:37 PM" LocalTimeTicks="1227220237">Nov 20, 2008 at 2:30 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_133934" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Craig,&#32;&#32;I&#32;wouldn&#39;t&#32;consider&#32;your&#32;implementation&#32;an&#32;anti-pattern&#32;at&#32;all.&#32;What&#32;you&#39;ve&#32;done&#32;is&#32;decouple&#32;your&#32;application&#32;from&#32;the&#32;Unity&#32;container&#32;through&#32;the&#32;use&#32;of&#32;PizzaFactory.&#32;Once&#32;your&#32;configuration&#32;code&#32;initializes&#32;the&#32;container,&#32;the&#32;app&#32;doesn&#39;t&#32;know&#32;anything&#32;about&#32;Unity,&#32;it&#32;is&#32;using&#32;PizzaFactory.&#32;If&#32;you&#32;ever&#32;want&#32;to&#32;switch&#32;containers,&#32;you&#32;only&#32;will&#32;need&#32;to&#32;change&#32;your&#32;configuration&#32;code&#32;and&#32;the&#32;PizzaFactory.&#32;&#32;&#32;Ray&#32;http&#58;&#47;&#47;initializecomponent.blogspot.com&#32;">
+        Craig,<br>
+<br>
+I wouldn't consider your implementation an anti-pattern at all. What you've done is decouple your application from the Unity container through the use of PizzaFactory. Once your configuration code initializes the container, the app doesn't know anything about
+ Unity, it is using PizzaFactory. If you ever want to switch containers, you only will need to change your configuration code and the PizzaFactory.
+<br>
+<br>
+Ray<br>
+<a href="http://initializecomponent.blogspot.com" rel="nofollow">http://initializecomponent.blogspot.com</a>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_133934" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f29697">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="3e4763af-2653-4328-abef-856a115d6735">
+    <script class="options" defer="defer" id="3e4763af-2653-4328-abef-856a115d6735" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_b06dadea-0cee-4313-b627-b2ff762e2f70">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_da6e1b3d-2718-4322-9d12-21c552f34992">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_b06dadea-0cee-4313-b627-b2ff762e2f70" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_da6e1b3d-2718-4322-9d12-21c552f34992" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/29697';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

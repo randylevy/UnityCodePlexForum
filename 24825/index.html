@@ -1,0 +1,915 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Object creation and WCF</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/24825?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/24825?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="4KL8xK7cxV6buJPlc0-xin6Al0W4C0q5-LLh3EKec8f3G_OUHFdEXPwCmIbHPg5Eud8yQ1R0cwK-FXsIbP1GabMNUfjoi9BTKEGJtudLeCEbCrgGrGphJKml9CIgG6dcLqfbdQ2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2a908ed88-eace-4c05-b614-1cc7aebd5e98" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:29:14 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f24825" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="faa5d395-8d2d-4221-b305-1c25c29e1fd0">
+                
+                    <script class="options" defer="defer" id="faa5d395-8d2d-4221-b305-1c25c29e1fd0" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="6a8a2bb9-8747-467a-a9d9-36e0b9df1fa4">
+                
+                    <script class="options" defer="defer" id="6a8a2bb9-8747-467a-a9d9-36e0b9df1fa4" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Object creation and WCF
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:24825]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="2fa792a6-d37f-49c2-b85d-f7eb5d18b9a2">
+    <script class="options" defer="defer" id="2fa792a6-d37f-49c2-b85d-f7eb5d18b9a2" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/24825","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="83204">
+    <td id="PostDetailsCell_83204" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post83204"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/fradax">fradax</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/27/2008 11:57:02 AM" LocalTimeTicks="1206644222">Mar 27, 2008 at 11:57 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_83204" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Hi,I&#32;was&#32;building&#32;a&#32;simple&#32;ObjectBuilder&#32;project&#32;in&#32;which&#32;object&#32;instances&#32;were&#32;created&#32;either&#32;by&#32;loading&#32;a&#32;type&#32;from&#32;a&#32;local&#32;assembly&#32;or&#32;from&#32;a&#32;wcf&#32;proxy&#32;by&#32;using&#32;the&#32;ChannelFactory&#38;lt&#59;T&#38;gt&#59;&#32;method.&#32;And&#32;then&#32;I&#32;discovered&#32;IoC&#32;containers&#58;&#32;Windsor,&#32;Spring.Net,&#32;StructureMap,&#32;...&#32;As&#32;always,&#32;I&#32;re-invented&#32;the&#32;wheel&#33;&#32;&#59;-&#41;My&#32;question&#32;is&#58;&#32;in&#32;Unity,&#32;can&#32;I&#32;create&#32;a&#32;new&#32;object&#32;which&#32;is&#32;a&#32;wcf&#32;proxy&#32;returned&#32;by&#32;the&#32;ChannelFactory&#38;lt&#59;T&#38;gt&#59;&#32;method&#63;&#32;This&#32;way,&#32;my&#32;application&#32;as&#32;usual&#32;does&#32;not&#32;know&#32;how&#32;the&#32;object&#32;is&#32;created,&#32;but&#32;also&#32;where&#32;is&#32;created&#33;Thanks,&#32;you&#39;re&#32;great&#33;&#32;&#59;-&#41;David">
+        Hi,<br>
+I was building a simple ObjectBuilder project in which object instances were created either by loading a type from a local assembly or from a wcf proxy by using the ChannelFactory&lt;T&gt; method. And then I discovered IoC containers: Windsor, Spring.Net, StructureMap,
+ ... As always, I re-invented the wheel! ;-)<br>
+My question is: in Unity, can I create a new object which is a wcf proxy returned by the ChannelFactory&lt;T&gt; method? This way, my application as usual does not know how the object is created, but also where is created!<br>
+<br>
+Thanks, you're great! ;-)<br>
+David<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_83204" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="83251">
+    <td id="PostDetailsCell_83251" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post83251"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/francois_tanguay">francois_tanguay</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/27/2008 3:17:59 PM" LocalTimeTicks="1206656279">Mar 27, 2008 at 3:17 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_83251" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;You&#32;should&#32;have&#32;a&#32;look&#32;at&#32;StaticFactoryExtension.&#32;It&#32;is&#32;an&#32;easy&#32;way&#32;to&#32;provide&#32;alternative&#32;creation&#32;strategies&#32;for&#32;a&#32;given&#32;type.&#32;container.Configure&#38;lt&#59;StaticFactoryExtension&#38;gt&#59;&#40;&#41;.RegisterFactory&#38;lt&#59;IWCFService&#38;gt&#59;&#40;container&#32;&#61;&#38;gt&#59;&#32;channelFactory.CreateChannel&#40;endPoint&#41;&#41;&#59;&#32;">
+        You should have a look at StaticFactoryExtension. <br>
+<br>
+It is an easy way to provide alternative creation strategies for a given type.<br>
+<br>
+<pre style="background-color:#ECECEC; border:dashed .1em #3E62A6; font-family:Consolas,Courier New,Courier,Monospace; font-size:1em; margin-top:0; padding:.5em; height:auto; overflow:auto; overflow-x:auto; overflow-y:auto">
+container.Configure&lt;StaticFactoryExtension&gt;().RegisterFactory&lt;IWCFService&gt;(container =&gt; channelFactory.CreateChannel(endPoint));
+</pre>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_83251" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="83255">
+    <td id="PostDetailsCell_83255" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post83255"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/pbolduc">pbolduc</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/27/2008 3:28:37 PM" LocalTimeTicks="1206656917">Mar 27, 2008 at 3:28 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="3/27/2008 3:30:06 PM" LocalTimeTicks="1206657006">Mar 27, 2008 at 3:30 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_83255" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="My&#32;initial&#32;thoughts&#32;would&#32;create&#32;a&#32;wrapper&#32;class&#32;around&#32;your&#32;proxy.&#32;IBeerService&#32;below&#32;is&#32;your&#32;service&#32;contract.&#32;I&#32;just&#32;created&#32;a&#32;dummy&#32;interface&#32;so&#32;I&#32;could&#32;validate&#47;supply&#32;complete&#32;example.&#32;Does&#32;anyone&#32;else&#32;have&#32;another&#32;solution&#63;&#32;&#40;PS&#32;Just&#32;saw&#32;francois_tanguay&#39;s&#32;response,&#32;that&#32;looks&#32;cool.&#41;&#32;using&#32;System.ServiceModel&#59;&#32;using&#32;Microsoft.Practices.Unity&#59;&#32;namespace&#32;Sample&#32;&#123;&#32;public&#32;interface&#32;IBeerService&#32;&#123;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Orders&#32;the&#32;specified&#32;quantity&#32;of&#32;beer.&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#34;quantity&#34;&#38;gt&#59;The&#32;quantity.&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;returns&#38;gt&#59;The&#32;price&#32;of&#32;the&#32;beer.&#38;lt&#59;&#47;returns&#38;gt&#59;&#32;double&#32;Order&#40;int&#32;quantity&#41;&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Drinks&#32;the&#32;specified&#32;quantity&#32;of&#32;beer.&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#34;quantity&#34;&#38;gt&#59;The&#32;quantity.&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;returns&#38;gt&#59;&#38;lt&#59;c&#38;gt&#59;true&#38;lt&#59;&#47;c&#38;gt&#59;&#32;if&#32;can&#32;drink&#32;more,&#32;otherwise&#32;&#38;lt&#59;c&#38;gt&#59;false&#38;lt&#59;&#47;c&#38;gt&#59;.&#38;lt&#59;&#47;returns&#38;gt&#59;&#32;bool&#32;Drink&#40;int&#32;quantity&#41;&#59;&#32;&#125;&#32;public&#32;class&#32;WcfBeerService&#32;&#58;&#32;IBeerService&#32;&#123;&#32;private&#32;IBeerService&#32;proxy&#59;&#32;&#91;InjectionConstructor&#93;&#32;public&#32;WcfBeerService&#40;&#41;&#32;&#123;&#32;ChannelFactory&#38;lt&#59;IBeerService&#38;gt&#59;&#32;factory&#32;&#61;&#32;new&#32;ChannelFactory&#38;lt&#59;IBeerService&#38;gt&#59;&#40;&#34;IBeerService_Endpoint&#34;&#41;&#59;&#32;proxy&#32;&#61;&#32;factory.CreateChannel&#40;&#41;&#59;&#32;&#125;&#32;&#35;region&#32;IBeerService&#32;Members&#32;public&#32;double&#32;Order&#40;int&#32;quantity&#41;&#32;&#123;&#32;return&#32;proxy.Order&#40;quantity&#41;&#59;&#32;&#125;&#32;public&#32;bool&#32;Drink&#40;int&#32;quantity&#41;&#32;&#123;&#32;return&#32;proxy.Drink&#40;quantity&#41;&#59;&#32;&#125;&#32;&#35;endregion&#32;&#125;&#32;&#125;&#32;My&#32;question&#32;is&#58;&#32;in&#32;Unity,&#32;can&#32;I&#32;create&#32;a&#32;new&#32;object&#32;which&#32;is&#32;a&#32;wcf&#32;proxy&#32;returned&#32;by&#32;the&#32;ChannelFactory&#38;lt&#59;T&#38;gt&#59;&#32;method&#63;&#32;This&#32;way,&#32;my&#32;application&#32;as&#32;usual&#32;does&#32;not&#32;know&#32;how&#32;the&#32;object&#32;is&#32;created,&#32;but&#32;also&#32;where&#32;is&#32;created&#33;">
+        <br>
+My initial thoughts would create a wrapper class around your proxy. <i>IBeerService</i> below is your service contract. I just created a dummy interface so I could validate/supply complete example. Does anyone else have another solution? (PS Just saw francois_tanguay's
+ response, that looks cool.)<br>
+<br>
+<pre style="background-color:#ECECEC; border:dashed .1em #3E62A6; font-family:Consolas,Courier New,Courier,Monospace; font-size:1em; margin-top:0; padding:.5em; height:auto; overflow:auto; overflow-x:auto; overflow-y:auto">
+using System.ServiceModel;
+using Microsoft.Practices.Unity;
+ 
+namespace Sample
+{
+    public interface IBeerService
+    {
+        /// &lt;summary&gt;
+        /// Orders the specified quantity of beer.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;quantity&quot;&gt;The quantity.&lt;/param&gt;
+        /// &lt;returns&gt;The price of the beer.&lt;/returns&gt;
+        double Order(int quantity);
+ 
+        /// &lt;summary&gt;
+        /// Drinks the specified quantity of beer.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;quantity&quot;&gt;The quantity.&lt;/param&gt;
+        /// &lt;returns&gt;&lt;c&gt;true&lt;/c&gt; if can drink more, otherwise &lt;c&gt;false&lt;/c&gt;.&lt;/returns&gt;
+        bool Drink(int quantity);
+    }
+ 
+    public class WcfBeerService : IBeerService
+    {
+        private IBeerService proxy;
+ 
+        [InjectionConstructor]
+        public WcfBeerService()
+        {
+            ChannelFactory&lt;IBeerService&gt; factory = new ChannelFactory&lt;IBeerService&gt;(&quot;IBeerService_Endpoint&quot;);
+            proxy = factory.CreateChannel();
+        }
+ 
+        #region IBeerService Members
+        public double Order(int quantity) { return proxy.Order(quantity); }
+        public bool Drink(int quantity) { return proxy.Drink(quantity); }
+        #endregion
+    }
+}
+</pre>
+<br>
+<br>
+<div style="border:dotted .1em #aaa; border-left:none; border-right:none; font-style:italic; margin:1em 0em 2.5em 3em; padding:.2em">
+<br>
+My question is: in Unity, can I create a new object which is a wcf proxy returned by the ChannelFactory&lt;T&gt; method? This way, my application as usual does not know how the object is created, but also where is created!<br>
+<br>
+</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_83255" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="83261">
+    <td id="PostDetailsCell_83261" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post83261"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/alexanderQX">alexanderQX</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/27/2008 3:59:36 PM" LocalTimeTicks="1206658776">Mar 27, 2008 at 3:59 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_83261" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;If&#32;you&#32;are&#32;interested&#32;in&#32;building&#32;more&#32;stable&#32;extension&#32;of&#32;unity&#32;with&#32;proper&#32;strategy&#32;and&#32;supporting&#32;policy&#32;which&#32;would&#32;return&#32;wcf&#32;proxy,&#32;you&#32;may&#32;want&#32;to&#32;take&#32;a&#32;look&#32;of&#32;how&#32;WCF&#32;can&#32;be&#32;integrated&#32;to&#32;PIAB&#32;in&#32;following&#32;articles&#32;below&#58;&#32;Tom&#32;Hollander&#32;discusses&#32;about&#32;&#8220;Invoking&#32;the&#32;Policy&#32;Injection&#32;Application&#32;Block&#32;at&#32;WCF&#32;Service&#32;Boundaries&#8221;&#32;he&#32;highlights&#32;the&#32;areas&#32;of&#32;policy&#32;that&#32;must&#32;be&#32;created.&#32;http&#58;&#47;&#47;blogs.msdn.com&#47;tomholl&#47;archive&#47;2007&#47;12&#47;02&#47;invoking-the-policy-injection-application-block-at-wcf-service-boundaries.aspxThis&#32;same&#32;topic&#32;is&#32;furthermore&#32;discussed&#32;on&#32;MSDN&#32;magazine&#32;article&#58;&#32;PIAB&#32;and&#32;WCF&#32;-Integrating&#32;the&#32;Policy&#32;Injection&#32;Application&#32;Block&#32;with&#32;WCF&#32;Services.http&#58;&#47;&#47;msdn2.microsoft.com&#47;en-us&#47;magazine&#47;cc136759.aspxRegards,Alexander">
+        If you are interested in building more stable extension of unity with proper strategy and supporting policy which would return wcf proxy, you may want to take a look of how WCF can be integrated to PIAB in following articles below:
+<br>
+<br>
+Tom Hollander discusses about â€œInvoking the Policy Injection Application Block at WCF Service Boundariesâ€ he highlights the areas of policy that must be created.
+<br>
+<br>
+<a href="http://blogs.msdn.com/tomholl/archive/2007/12/02/invoking-the-policy-injection-application-block-at-wcf-service-boundaries.aspx" rel="nofollow">http://blogs.msdn.com/tomholl/archive/2007/12/02/invoking-the-policy-injection-application-block-at-wcf-service-boundaries.aspx<span style="font-family:Consolas,Courier New,Courier,Monospace"></span></a><br>
+<br>
+This same topic is furthermore discussed on MSDN magazine article: PIAB and WCF -Integrating the Policy Injection Application Block with WCF Services.<br>
+<br>
+<a href="http://msdn2.microsoft.com/en-us/magazine/cc136759.aspx" rel="nofollow">http://msdn2.microsoft.com/en-us/magazine/cc136759.aspx<span style="font-family:Consolas,Courier New,Courier,Monospace"></span></a><br>
+<br>
+Regards,<br>
+Alexander<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_83261" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="83273">
+    <td id="PostDetailsCell_83273" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post83273"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/fradax">fradax</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/27/2008 5:03:18 PM" LocalTimeTicks="1206662598">Mar 27, 2008 at 5:03 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_83273" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Well,&#32;thanks&#32;a&#32;lot&#32;to&#32;everyone.&#32;I&#39;ll&#32;read&#32;the&#32;material&#32;suggested&#32;and,&#32;well,&#32;of&#32;course&#32;the&#32;final&#32;answer&#32;is&#32;that&#32;Unity&#32;can&#32;do&#32;this,&#32;so&#32;I&#39;ll&#32;use&#32;it&#33;&#32;&#59;-&#41;By&#32;the&#32;way,&#32;suppose&#32;you&#32;have&#32;20&#32;interfaces&#32;in&#32;an&#32;assembly&#32;and&#32;20&#32;classes&#32;in&#32;another&#32;assembly&#32;that&#32;implements&#32;those&#32;20&#32;interfaces.&#32;Suppose&#32;also&#32;that&#32;the&#32;naming&#32;convention&#32;is&#32;&#34;smart&#34;&#58;&#32;all&#32;the&#32;interfaces&#32;are&#32;named&#32;IMyEntityNameDataLayer&#32;and&#32;all&#32;the&#32;classes&#32;are&#32;named&#32;MyEntityDataLayer.&#32;In&#32;Unity&#32;I&#32;think&#32;I&#39;ll&#32;have&#32;to&#32;make&#32;a&#32;configuration&#32;file,&#32;list&#32;every&#32;interface&#32;and&#32;for&#32;each&#32;one&#32;define&#32;the&#32;class&#32;that&#32;implements&#32;it&#59;&#32;is&#32;there&#32;a&#32;way&#32;to&#32;define&#32;a&#32;mapping&#32;rule,&#32;for&#32;example&#32;using&#32;a&#32;regular&#32;expression&#63;&#32;In&#32;this&#32;way,&#32;I&#32;could&#32;say&#32;something&#32;like&#32;this&#58;&#32;&#34;For&#32;every&#32;interface&#32;in&#32;assembly&#32;X,&#32;load&#32;the&#32;corresponding&#32;type&#32;in&#32;assembly&#32;Y&#34;&#59;&#32;of&#32;course&#32;&#34;corresponding&#34;&#32;means&#32;some&#32;kind&#32;of&#32;regular&#32;expression&#32;replacement...Thanks&#32;again&#32;for&#32;support.David">
+        Well, thanks a lot to everyone. I'll read the material suggested and, well, of course the final answer is that Unity can do this, so I'll use it! ;-)<br>
+By the way, suppose you have 20 interfaces in an assembly and 20 classes in another assembly that implements those 20 interfaces. Suppose also that the naming convention is &quot;smart&quot;: all the interfaces are named IMyEntityNameDataLayer and all the classes are
+ named MyEntityDataLayer. In Unity I think I'll have to make a configuration file, list every interface and for each one define the class that implements it; is there a way to define a mapping rule, for example using a regular expression? In this way, I could
+ say something like this: &quot;For every interface in assembly X, load the corresponding type in assembly Y&quot;; of course &quot;corresponding&quot; means some kind of regular expression replacement...<br>
+<br>
+Thanks again for support.<br>
+David<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_83273" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="83277">
+    <td id="PostDetailsCell_83277" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post83277"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/francois_tanguay">francois_tanguay</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/27/2008 5:13:33 PM" LocalTimeTicks="1206663213">Mar 27, 2008 at 5:13 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_83277" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Just&#32;do&#32;exactly&#32;what&#32;you&#39;re&#32;saying&#33;Something&#32;like&#58;&#32;foreach&#32;&#40;Type&#32;type&#32;in&#32;assembly.GetTypes&#40;&#41;&#41;&#32;&#123;&#32;foreach&#32;&#40;Type&#32;interfaceType&#32;in&#32;type.GetInterfaces&#40;&#41;&#41;&#32;&#123;&#32;container.RegisterType&#40;interfaceType,&#32;type&#41;&#59;&#32;&#125;&#32;&#125;&#32;">
+        Just do exactly what you're saying!<br>
+<br>
+Something like:<br>
+<pre style="background-color:#ECECEC; border:dashed .1em #3E62A6; font-family:Consolas,Courier New,Courier,Monospace; font-size:1em; margin-top:0; padding:.5em; height:auto; overflow:auto; overflow-x:auto; overflow-y:auto">
+foreach (Type type in assembly.GetTypes())
+{
+  foreach (Type interfaceType in type.GetInterfaces())
+  {
+    container.RegisterType(interfaceType, type);
+  }
+}
+</pre>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_83277" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="83617">
+    <td id="PostDetailsCell_83617" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post83617"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/pbolduc">pbolduc</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/28/2008 10:54:27 PM" LocalTimeTicks="1206770067">Mar 28, 2008 at 10:54 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_83617" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#32;thought&#32;my&#32;solution&#32;was&#32;a&#32;bit&#32;naive.&#32;Thanks&#32;for&#32;the&#32;feedback.alexanderQX&#32;wrote&#58;If&#32;you&#32;are&#32;interested&#32;in&#32;building&#32;more&#32;stable&#32;extension&#32;of&#32;unity&#32;with&#32;proper&#32;strategy&#32;and&#32;supporting&#32;policy&#32;which&#32;would&#32;return&#32;wcf&#32;proxy,&#32;you&#32;may&#32;want&#32;to&#32;take&#32;a&#32;look&#32;of&#32;how&#32;WCF&#32;can&#32;be&#32;integrated&#32;to&#32;PIAB&#32;in&#32;following&#32;articles&#32;below&#58;&#32;Tom&#32;Hollander&#32;discusses&#32;about&#32;&#8220;Invoking&#32;the&#32;Policy&#32;Injection&#32;Application&#32;Block&#32;at&#32;WCF&#32;Service&#32;Boundaries&#8221;&#32;he&#32;highlights&#32;the&#32;areas&#32;of&#32;policy&#32;that&#32;must&#32;be&#32;created.&#32;http&#58;&#47;&#47;blogs.msdn.com&#47;tomholl&#47;archive&#47;2007&#47;12&#47;02&#47;invoking-the-policy-injection-application-block-at-wcf-service-boundaries.aspxThis&#32;same&#32;topic&#32;is&#32;furthermore&#32;discussed&#32;on&#32;MSDN&#32;magazine&#32;article&#58;&#32;PIAB&#32;and&#32;WCF&#32;-Integrating&#32;the&#32;Policy&#32;Injection&#32;Application&#32;Block&#32;with&#32;WCF&#32;Services.http&#58;&#47;&#47;msdn2.microsoft.com&#47;en-us&#47;magazine&#47;cc136759.aspxRegards,Alexander">
+        I thought my solution was a bit naive. Thanks for the feedback.<br>
+<br>
+<div style="border:dotted .1em #aaa; border-left:none; border-right:none; font-style:italic; margin:1em 0em 2.5em 3em; padding:.2em">
+<br>
+alexanderQX wrote:<br>
+If you are interested in building more stable extension of unity with proper strategy and supporting policy which would return wcf proxy, you may want to take a look of how WCF can be integrated to PIAB in following articles below:
+<br>
+<br>
+Tom Hollander discusses about â€œInvoking the Policy Injection Application Block at WCF Service Boundariesâ€ he highlights the areas of policy that must be created.
+<br>
+<br>
+<a href="http://blogs.msdn.com/tomholl/archive/2007/12/02/invoking-the-policy-injection-application-block-at-wcf-service-boundaries.aspx" rel="nofollow">http://blogs.msdn.com/tomholl/archive/2007/12/02/invoking-the-policy-injection-application-block-at-wcf-service-boundaries.aspx<span style="font-family:Consolas,Courier New,Courier,Monospace"></span></a><br>
+<br>
+This same topic is furthermore discussed on MSDN magazine article: PIAB and WCF -Integrating the Policy Injection Application Block with WCF Services.<br>
+<br>
+<a href="http://msdn2.microsoft.com/en-us/magazine/cc136759.aspx" rel="nofollow">http://msdn2.microsoft.com/en-us/magazine/cc136759.aspx<span style="font-family:Consolas,Courier New,Courier,Monospace"></span></a><br>
+<br>
+Regards,<br>
+Alexander<br>
+<br>
+<br>
+</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_83617" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f24825">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="da26d933-4e89-486b-bc07-c10031acc5a2">
+    <script class="options" defer="defer" id="da26d933-4e89-486b-bc07-c10031acc5a2" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_40eeb67d-ff55-4b9c-b83b-1729f8b1e072">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_475b4953-28b2-4115-b921-b8c37bc939d0">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_40eeb67d-ff55-4b9c-b83b-1729f8b1e072" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_475b4953-28b2-4115-b921-b8c37bc939d0" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/24825';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

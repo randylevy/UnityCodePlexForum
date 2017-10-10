@@ -1,0 +1,1167 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Generic Decorator Chain Resolution Problem </title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/27231?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/27231?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="H0Emf61SQqhmurtpbJqovoYICu2CRwndWrkxGWqfS9LiSl1HTmWsBbaNZlqo5u0bXXosnzOs_t-adZm57MVwtE-0Mf8U6Nc4bdCrprHJftjnwG9NVa2GNzhSmwh0J53V96WyEg2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken217a2e7f7-0d5d-4f4f-928d-4cd9b714f7ed" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:27:50 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f27231" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="db2818a3-106b-477d-8c0a-0648ef994c54">
+                
+                    <script class="options" defer="defer" id="db2818a3-106b-477d-8c0a-0648ef994c54" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="3dbe6d69-8da9-4afa-a86d-6c61fcd27d37">
+                
+                    <script class="options" defer="defer" id="3dbe6d69-8da9-4afa-a86d-6c61fcd27d37" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Generic Decorator Chain Resolution Problem 
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:27231]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="03390578-a753-45c1-b74d-23bb9471df5a">
+    <script class="options" defer="defer" id="03390578-a753-45c1-b74d-23bb9471df5a" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/27231","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="90850">
+    <td id="PostDetailsCell_90850" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post90850"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/swalkertdci">swalkertdci</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/6/2008 8:52:27 PM" LocalTimeTicks="1210132347">May 6, 2008 at 8:52 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_90850" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#32;saw&#32;&#38;lt&#59;a&#32;href&#61;&#34;http&#58;&#47;&#47;www.codeplex.com&#47;unity&#47;Thread&#47;View.aspx&#63;ThreadId&#61;24015&#34;&#38;gt&#59;this&#38;lt&#59;&#47;a&#38;gt&#59;&#32;post&#32;a&#32;while&#32;back&#32;about&#32;decorator&#32;chains&#32;and&#32;I&#32;have&#32;tried&#32;to&#32;follow&#32;it&#32;to&#32;implement&#32;similar&#32;functionality&#32;around&#32;some&#32;generic&#32;classes&#32;but&#32;am&#32;receiving&#32;an&#32;error&#32;when&#32;trying&#32;to&#32;load&#32;the&#32;configuration&#32;for&#32;the&#32;container.&#32;Example&#58;public&#32;interface&#32;IRepository&#38;lt&#59;T,&#32;TID&#38;gt&#59;&#123;&#32;T&#32;Get&#40;TID&#32;id&#41;&#59;&#125;public&#32;class&#32;RepositoryBase&#38;lt&#59;T,&#32;TID&#38;gt&#59;&#32;&#58;&#32;IRepository&#38;lt&#59;T,&#32;TID&#38;gt&#59;&#123;&#32;public&#32;T&#32;Get&#40;TID&#32;id&#41;&#59;&#32;&#125;&#32;&#47;&#47;&#32;do&#32;some&#32;stuff&#32;&#125;&#125;public&#32;class&#32;LoggingRepositoryDecorator&#38;lt&#59;T,&#32;TID&#38;gt&#59;&#32;&#58;&#32;IRepository&#38;lt&#59;T,&#32;TID&#38;gt&#59;&#123;&#32;private&#32;IRepository&#38;lt&#59;T,&#32;TID&#38;gt&#59;&#32;_inner&#59;&#32;public&#32;LoggingRepository&#40;IRepository&#38;lt&#59;T,TID&#38;gt&#59;&#32;inner&#41;&#32;&#123;&#32;_inner&#32;&#61;&#32;inner&#59;&#32;&#125;&#32;public&#32;T&#32;Get&#40;TID&#41;&#32;&#123;&#32;Debug.Writeline&#40;&#34;Get&#32;Called&#34;&#41;&#59;&#32;return&#32;_inner.Get&#40;TID&#41;&#59;&#32;&#125;&#125;My&#32;config&#32;file&#32;looks&#32;like&#32;this&#58;&#32;&#38;lt&#59;unity&#38;gt&#59;&#32;&#38;lt&#59;typeAliases&#38;gt&#59;&#32;&#38;lt&#59;&#47;typeAliases&#38;gt&#59;&#32;&#38;lt&#59;containers&#38;gt&#59;&#32;&#38;lt&#59;container&#32;name&#61;&#34;baseContainer&#34;&#38;gt&#59;&#32;&#38;lt&#59;types&#38;gt&#59;&#32;&#38;lt&#59;&#33;--&#32;Type&#32;mapping&#32;with&#32;no&#32;lifetime&#32;&#8211;&#32;defaults&#32;to&#32;&#34;transient&#34;&#32;--&#38;gt&#59;&#32;&#38;lt&#59;type&#32;type&#61;&#34;Core.Interfaces.IRepository&#96;2,&#32;Core.Interfaces&#34;&#32;mapTo&#61;&#34;Core.Model.LoggingRepositoryDecorator&#96;2,&#32;Core.Model&#34;&#32;name&#61;&#34;logging-decorator&#34;&#38;gt&#59;&#32;&#38;lt&#59;typeConfig&#32;extensionType&#61;&#34;Microsoft.Practices.Unity.Configuration.TypeInjectionElement,&#32;Microsoft.Practices.Unity.Configuration&#34;&#38;gt&#59;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#34;inner&#34;&#32;parameterType&#61;&#34;Core.Interfaces.IRepository&#96;2,&#32;Core.Interfaces&#34;&#38;gt&#59;&#32;&#38;lt&#59;dependency&#32;name&#61;&#34;generic-repository&#34;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#32;&#38;lt&#59;&#47;typeConfig&#38;gt&#59;&#32;&#38;lt&#59;&#47;type&#38;gt&#59;&#32;&#38;lt&#59;type&#32;type&#61;&#34;Core.Interfaces.IRepository&#96;2,&#32;Core.Interfaces&#34;&#32;mapTo&#61;&#34;Core.Model.RepositoryBase&#96;2,&#32;Core.Model&#34;&#32;name&#61;&#34;generic-repository&#34;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;types&#38;gt&#59;&#32;&#38;lt&#59;instances&#38;gt&#59;&#32;&#38;lt&#59;&#47;instances&#38;gt&#59;&#32;&#38;lt&#59;&#47;container&#38;gt&#59;&#32;&#32;&#38;lt&#59;&#47;containers&#38;gt&#59;&#32;&#38;lt&#59;&#47;unity&#38;gt&#59;Now&#32;whenever&#32;I&#32;try&#32;to&#32;configure&#32;the&#32;container&#32;I&#32;get&#32;the&#32;following&#32;error&#32;message&#58;&#34;The&#32;type&#32;Core.Model.LoggingRepositoryDecorator&#96;2&#32;does&#32;not&#32;have&#32;a&#32;constructor&#32;that&#32;takes&#32;the&#32;parameters&#32;&#40;IRepository&#96;2&#41;.&#34;&#32;It&#32;appears&#32;from&#32;stepping&#32;through&#32;the&#32;source&#32;that&#32;this&#32;is&#32;failing&#32;on&#32;line&#32;68&#32;of&#32;InjectionConstructor.cs62&#32;private&#32;ConstructorInfo&#32;FindConstructor&#40;Type&#32;typeToCreate&#41;63&#32;&#123;64&#32;Type&#91;&#93;&#32;parameterTypes&#32;&#61;&#32;Sequence.ToArray&#40;65&#32;Sequence.Map&#38;lt&#59;InjectionParameterValue,&#32;Type&#38;gt&#59;&#40;parameterValues,66&#32;delegate&#40;InjectionParameterValue&#32;parameter&#41;&#32;&#123;&#32;return&#32;parameter.ParameterType&#59;&#32;&#125;&#41;&#41;&#59;6768&#32;ConstructorInfo&#32;ctor&#32;&#61;&#32;typeToCreate.GetConstructor&#40;parameterTypes&#41;&#59;I&#32;didn&#39;t&#32;see&#32;anything&#32;blatantly&#32;wrong&#32;with&#32;the&#32;values&#32;of&#32;this&#32;function&#32;when&#32;it&#32;was&#32;called,&#32;but&#32;the&#32;GetConstructor&#32;is&#32;returning&#32;a&#32;null&#32;instance.&#32;From&#32;the&#32;code&#32;above,&#32;the&#32;LoggingRepositoryDecorator&#32;does&#32;clearly&#32;have&#32;a&#32;constructor&#32;that&#32;takes&#32;an&#32;IRepository&#96;2&#32;parameter&#32;named&#32;&#34;inner&#34;,&#32;so&#32;I&#32;don&#39;t&#32;know&#32;why&#32;this&#32;is&#32;failing.&#32;Is&#32;this&#32;some&#32;kind&#32;of&#32;limitation&#32;on&#32;the&#32;unity&#32;container&#32;itself,&#32;or&#32;something&#32;I&#32;am&#32;doing&#32;wrong&#32;in&#32;the&#32;configuration&#32;or&#32;otherwise&#63;">
+        I saw &lt;a href=&quot;http://www.codeplex.com/unity/Thread/View.aspx?ThreadId=24015&quot;&gt;this&lt;/a&gt; post a while back about decorator chains and I have tried to follow it to implement similar functionality around some generic classes but am receiving an
+ error when trying to load the configuration for the container. <br>
+<br>
+Example:<br>
+<br>
+public interface IRepository&lt;T, TID&gt;<br>
+{<br>
+T Get(TID id);<br>
+}<br>
+<br>
+public class RepositoryBase&lt;T, TID&gt; : IRepository&lt;T, TID&gt;<br>
+{<br>
+public T Get(TID id);<br>
+}<br>
+// do some stuff<br>
+}<br>
+}<br>
+<br>
+public class LoggingRepositoryDecorator&lt;T, TID&gt; : IRepository&lt;T, TID&gt;<br>
+{<br>
+private IRepository&lt;T, TID&gt; _inner;<br>
+<br>
+public LoggingRepository(IRepository&lt;T,TID&gt; inner)<br>
+{<br>
+_inner = inner;<br>
+}<br>
+<br>
+public T Get(TID)<br>
+{<br>
+Debug.Writeline(&quot;Get Called&quot;);<br>
+return _inner.Get(TID);<br>
+}<br>
+}<br>
+<br>
+My config file looks like this:<br>
+<br>
+&lt;unity&gt;<br>
+&lt;typeAliases&gt;<br>
+&lt;/typeAliases&gt;<br>
+<br>
+&lt;containers&gt;<br>
+&lt;container name=&quot;baseContainer&quot;&gt;<br>
+&lt;types&gt;<br>
+&lt;!-- Type mapping with no lifetime â€“ defaults to &quot;transient&quot; --&gt;<br>
+&lt;type type=&quot;Core.Interfaces.IRepository`2, Core.Interfaces&quot; mapTo=&quot;Core.Model.LoggingRepositoryDecorator`2, Core.Model&quot; name=&quot;logging-decorator&quot;&gt;<br>
+&lt;typeConfig extensionType=&quot;Microsoft.Practices.Unity.Configuration.TypeInjectionElement,<br>
+Microsoft.Practices.Unity.Configuration&quot;&gt;<br>
+&lt;constructor&gt;<br>
+&lt;param name=&quot;inner&quot; parameterType=&quot;Core.Interfaces.IRepository`2, Core.Interfaces&quot;&gt;<br>
+&lt;dependency name=&quot;generic-repository&quot;/&gt;<br>
+&lt;/param&gt;<br>
+&lt;/constructor&gt;<br>
+&lt;/typeConfig&gt;<br>
+&lt;/type&gt;<br>
+&lt;type type=&quot;Core.Interfaces.IRepository`2, Core.Interfaces&quot; mapTo=&quot;Core.Model.RepositoryBase`2, Core.Model&quot; name=&quot;generic-repository&quot;/&gt;<br>
+&lt;/types&gt;<br>
+&lt;instances&gt;<br>
+&lt;/instances&gt;<br>
+&lt;/container&gt; <br>
+&lt;/containers&gt;<br>
+&lt;/unity&gt;<br>
+<br>
+Now whenever I try to configure the container I get the following error message:<br>
+<br>
+&quot;The type Core.Model.LoggingRepositoryDecorator`2 does not have a constructor that takes the parameters (IRepository`2).&quot;
+<br>
+<br>
+It appears from stepping through the source that this is failing on line 68 of InjectionConstructor.cs<br>
+<br>
+62 private ConstructorInfo FindConstructor(Type typeToCreate)<br>
+63 {<br>
+64 Type[] parameterTypes = Sequence.ToArray(<br>
+65 Sequence.Map&lt;InjectionParameterValue, Type&gt;(parameterValues,<br>
+66 delegate(InjectionParameterValue parameter) { return parameter.ParameterType; }));<br>
+67<br>
+68 ConstructorInfo ctor = typeToCreate.GetConstructor(parameterTypes);<br>
+<br>
+I didn't see anything blatantly wrong with the values of this function when it was called, but the GetConstructor is returning a null instance.
+<br>
+<br>
+From the code above, the LoggingRepositoryDecorator does clearly have a constructor that takes an IRepository`2 parameter named &quot;inner&quot;, so I don't know why this is failing. Is this some kind of limitation on the unity container itself, or something I am doing
+ wrong in the configuration or otherwise?<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_90850" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="91351">
+    <td id="PostDetailsCell_91351" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post91351"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/8/2008 11:04:46 PM" LocalTimeTicks="1210313086">May 8, 2008 at 11:04 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_91351" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Sorry&#32;it&#32;took&#32;so&#32;long&#32;to&#32;get&#32;back&#32;to&#32;you,&#32;busy,&#32;busy&#32;busy.I&#39;ve&#32;repro&#39;ed&#32;the&#32;issue&#59;&#32;I&#39;ll&#32;let&#32;you&#32;know&#32;when&#32;I&#32;have&#32;more&#32;information.">
+        Sorry it took so long to get back to you, busy, busy busy.<br>
+<br>
+I've repro'ed the issue; I'll let you know when I have more information.<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_91351" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="91539">
+    <td id="PostDetailsCell_91539" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post91539"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/mvalenty">mvalenty</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/9/2008 5:56:35 PM" LocalTimeTicks="1210380995">May 9, 2008 at 5:56 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_91539" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;When&#32;specifying&#32;the&#32;constructor&#32;parameters,&#32;I&#32;had&#32;use&#32;the&#32;fully&#32;qualified&#32;type&#32;name&#32;for&#32;generics.&#32;So&#32;instead&#32;of&#58;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#34;inner&#34;&#32;parameterType&#61;&#34;Core.Interfaces.IRepository&#96;1,&#32;Core.Interfaces&#34;&#38;gt&#59;&#32;&#38;lt&#59;dependency&#32;name&#61;&#34;generic-repository&#34;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#32;I&#32;had&#32;to&#32;use&#58;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#34;inner&#34;&#32;parameterType&#61;&#34;Core.Interfaces.IRepository&#96;1&#91;&#91;GenParamType,&#32;GenParamTypeAssembly&#93;&#93;,&#32;Core.Interfaces&#34;&#38;gt&#59;&#32;&#38;lt&#59;dependency&#32;name&#61;&#34;generic-repository&#34;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#32;I&#32;don&#39;t&#32;know&#32;if&#32;this&#32;is&#32;by&#32;design,&#32;but&#32;it&#32;should&#32;at&#32;least&#32;enable&#32;you&#32;to&#32;move&#32;forward.&#32;I&#32;haven&#39;t&#32;tested&#32;your&#32;example,&#32;I&#39;m&#32;just&#32;going&#32;off&#32;of&#32;memory&#32;which&#32;is&#32;pretty&#32;shot&#32;these&#32;days...">
+        When specifying the constructor parameters, I had use the fully qualified type name for generics. So instead of:<br>
+<br>
+<pre style="background-color:#ECECEC; border:dashed .1em #3E62A6; font-family:Consolas,Courier New,Courier,Monospace; font-size:1em; margin-top:0; padding:.5em; height:auto; overflow:auto; overflow-x:auto; overflow-y:auto">
+&lt;constructor&gt;
+    &lt;param name=&quot;inner&quot; parameterType=&quot;Core.Interfaces.IRepository`1, Core.Interfaces&quot;&gt;
+        &lt;dependency name=&quot;generic-repository&quot;/&gt;
+    &lt;/param&gt;
+&lt;/constructor&gt;
+</pre>
+I had to use:<br>
+<br>
+<pre style="background-color:#ECECEC; border:dashed .1em #3E62A6; font-family:Consolas,Courier New,Courier,Monospace; font-size:1em; margin-top:0; padding:.5em; height:auto; overflow:auto; overflow-x:auto; overflow-y:auto">
+&lt;constructor&gt;
+    &lt;param name=&quot;inner&quot; parameterType=&quot;Core.Interfaces.IRepository`1[[GenParamType, GenParamTypeAssembly]], Core.Interfaces&quot;&gt;
+        &lt;dependency name=&quot;generic-repository&quot;/&gt;
+    &lt;/param&gt;
+&lt;/constructor&gt;
+</pre>
+<br>
+I don't know if this is by design, but it should at least enable you to move forward. I haven't tested your example, I'm just going off of memory which is pretty shot these days...<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_91539" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="92148">
+    <td id="PostDetailsCell_92148" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post92148"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/swalkertdci">swalkertdci</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/13/2008 12:52:08 PM" LocalTimeTicks="1210708328">May 13, 2008 at 12:52 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_92148" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="mvalenty,&#32;&#32;I&#32;think&#32;you&#32;are&#32;missing&#32;the&#32;point&#32;here.&#32;Having&#32;to&#32;specify&#32;the&#32;generic&#32;type&#32;parameters&#32;in&#32;the&#32;config&#32;file&#32;defeats&#32;the&#32;whole&#32;purpose&#32;of&#32;what&#32;I&#39;m&#32;trying&#32;to&#32;accomplish.&#32;I&#32;want&#32;to&#32;be&#32;able&#32;to&#32;do&#32;a&#32;Container.Resolve&#38;lt&#59;IRepository&#38;lt&#59;Order,&#32;string&#38;gt&#59;&#38;gt&#59;&#40;&#41;&#32;or&#32;a&#32;Container.Resolve&#38;lt&#59;IRepository&#38;lt&#59;Customer,&#32;string&#38;gt&#59;&#38;gt&#59;&#40;&#41;&#32;or&#32;any&#32;other&#32;combination&#32;of&#32;generic&#32;type&#32;parameters&#32;and&#32;have&#32;the&#32;container&#32;figure&#32;out&#32;how&#32;to&#32;build&#32;up&#32;the&#32;proper&#32;decorator&#32;chain&#32;that&#32;includes&#32;logging&#32;and&#32;whatever&#32;other&#32;repository&#32;decorators&#32;I&#32;may&#32;have&#32;registered.&#32;&#32;&#32;Windsor&#32;does&#32;this&#32;very&#32;easily,&#32;and&#32;I&#32;believe&#32;the&#32;intent&#32;was&#32;for&#32;Unity&#32;to&#32;support&#32;this,&#32;there&#32;just&#32;appears&#32;to&#32;possibly&#32;be&#32;a&#32;bug&#32;in&#32;the&#32;code&#32;somewhere.&#32;">
+        mvalenty,<br>
+<br>
+I think you are missing the point here. Having to specify the generic type parameters in the config file defeats the whole purpose of what I'm trying to accomplish. I want to be able to do a Container.Resolve&lt;IRepository&lt;Order, string&gt;&gt;() or a Container.Resolve&lt;IRepository&lt;Customer,
+ string&gt;&gt;() or any other combination of generic type parameters and have the container figure out how to build up the proper decorator chain that includes logging and whatever other repository decorators I may have registered.
+<br>
+<br>
+Windsor does this very easily, and I believe the intent was for Unity to support this, there just appears to possibly be a bug in the code somewhere.
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_92148" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="93367">
+    <td id="PostDetailsCell_93367" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post93367"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/swalkertdci">swalkertdci</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/19/2008 12:53:05 PM" LocalTimeTicks="1211226785">May 19, 2008 at 12:53 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_93367" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Chris,&#32;&#32;I&#32;know&#32;you&#32;are&#32;busy,&#32;but&#32;has&#32;there&#32;been&#32;any&#32;progress&#32;on&#32;this&#32;issue&#63;&#32;&#32;Thanks,&#32;">
+        Chris,<br>
+<br>
+I know you are busy, but has there been any progress on this issue?<br>
+<br>
+Thanks,<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_93367" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="93469">
+    <td id="PostDetailsCell_93469" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post93469"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/19/2008 8:09:41 PM" LocalTimeTicks="1211252981">May 19, 2008 at 8:09 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_93469" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;&#32;swalkertdci&#32;wrote&#58;&#32;Chris,&#32;&#32;I&#32;know&#32;you&#32;are&#32;busy,&#32;but&#32;has&#32;there&#32;been&#32;any&#32;progress&#32;on&#32;this&#32;issue&#63;&#32;&#32;Thanks,&#32;&#32;&#32;&#32;I&#32;have&#32;absolutely&#32;confirmed&#32;that&#32;it&#39;s&#32;a&#32;bug.&#32;Unfortunately,&#32;I&#32;don&#39;t&#32;have&#32;a&#32;fix&#32;yet.&#32;The&#32;fundamental&#32;issue&#32;is&#32;that&#32;when&#32;you&#32;call&#32;GetConstructor&#32;on&#32;a&#32;generic&#32;type,&#32;if&#32;the&#32;constructor&#32;you&#39;re&#32;asking&#32;for&#32;has&#32;any&#32;generic&#32;parameters&#32;it&#32;will&#32;not&#32;be&#32;returned.&#32;&#32;The&#32;workaround&#32;is&#32;to&#32;call&#32;GetConstructors&#32;and&#32;go&#32;through&#32;all&#32;of&#32;them,&#32;looking&#32;for&#32;the&#32;right&#32;one.&#32;Unfortunately,&#32;the&#32;&#38;quot&#59;right&#38;quot&#59;&#32;one&#32;is&#32;a&#32;lot&#32;harder&#32;to&#32;define&#32;than&#32;you&#32;might&#32;think&#32;in&#32;the&#32;presence&#32;of&#32;generics&#32;and&#32;inheritance.&#32;So&#32;I&#39;m&#32;still&#32;working&#32;out&#32;what&#32;the&#32;correct&#32;logic&#32;needs&#32;to&#32;be.&#32;&#32;-Chris&#32;&#32;">
+        <br>
+<div style="border-style:dotted none; border-width:0.1em medium; margin:1em 0em 2.5em 3em; padding:0.2em; font-style:italic">
+<br>
+swalkertdci wrote:<br>
+Chris,<br>
+<br>
+I know you are busy, but has there been any progress on this issue?<br>
+<br>
+Thanks,<br>
+<br>
+<br>
+</div>
+I have absolutely confirmed that it's a bug. Unfortunately, I don't have a fix yet. The fundamental issue is that when you call GetConstructor on a generic type, if the constructor you're asking for has any generic parameters it will not be returned.<br>
+<br>
+The workaround is to call GetConstructors and go through all of them, looking for the right one. Unfortunately, the &quot;right&quot; one is a lot harder to define than you might think in the presence of generics and inheritance. So I'm still working out what
+ the correct logic needs to be.<br>
+<br>
+-Chris<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_93469" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="100839">
+    <td id="PostDetailsCell_100839" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post100839"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/swalkertdci">swalkertdci</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/25/2008 6:04:33 PM" LocalTimeTicks="1214442273">Jun 25, 2008 at 6:04 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_100839" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="It&#39;s&#32;been&#32;over&#32;a&#32;month&#32;since&#32;your&#32;last&#32;update.&#38;nbsp&#59;&#32;Has&#32;this&#32;been&#32;fixed&#32;yet&#63;&#32;&#32;ctavares&#32;wrote&#58;&#32;&#32;&#32;swalkertdci&#32;wrote&#58;&#32;Chris,&#32;&#32;I&#32;know&#32;you&#32;are&#32;busy,&#32;but&#32;has&#32;there&#32;been&#32;any&#32;progress&#32;on&#32;this&#32;issue&#63;&#32;&#32;Thanks,&#32;&#32;&#32;&#32;I&#32;have&#32;absolutely&#32;confirmed&#32;that&#32;it&#39;s&#32;a&#32;bug.&#32;Unfortunately,&#32;I&#32;don&#39;t&#32;have&#32;a&#32;fix&#32;yet.&#32;The&#32;fundamental&#32;issue&#32;is&#32;that&#32;when&#32;you&#32;call&#32;GetConstructor&#32;on&#32;a&#32;generic&#32;type,&#32;if&#32;the&#32;constructor&#32;you&#39;re&#32;asking&#32;for&#32;has&#32;any&#32;generic&#32;parameters&#32;it&#32;will&#32;not&#32;be&#32;returned.&#32;&#32;The&#32;workaround&#32;is&#32;to&#32;call&#32;GetConstructors&#32;and&#32;go&#32;through&#32;all&#32;of&#32;them,&#32;looking&#32;for&#32;the&#32;right&#32;one.&#32;Unfortunately,&#32;the&#32;&#38;quot&#59;right&#38;quot&#59;&#32;one&#32;is&#32;a&#32;lot&#32;harder&#32;to&#32;define&#32;than&#32;you&#32;might&#32;think&#32;in&#32;the&#32;presence&#32;of&#32;generics&#32;and&#32;inheritance.&#32;So&#32;I&#39;m&#32;still&#32;working&#32;out&#32;what&#32;the&#32;correct&#32;logic&#32;needs&#32;to&#32;be.&#32;&#32;-Chris&#32;&#32;&#32;&#32;&#32;&#32;">
+        It's been over a month since your last update.&nbsp; Has this been fixed yet?<br>
+<div style="border-right:medium none; padding-right:0.2em; border-top:#aaa 0.1em dotted; padding-left:0.2em; padding-bottom:0.2em; margin:1em 0em 2.5em 3em; border-left:medium none; padding-top:0.2em; border-bottom:#aaa 0.1em dotted; font-style:italic">
+<br>
+ctavares wrote:<br>
+<br>
+<div style="border-right:medium none; padding-right:0.2em; border-top:rgb(170,170,170) 0.1em dotted; padding-left:0.2em; padding-bottom:0.2em; margin:1em 0em 2.5em 3em; border-left:medium none; padding-top:0.2em; border-bottom:0.1em dotted; font-style:italic">
+<br>
+swalkertdci wrote:<br>
+Chris,<br>
+<br>
+I know you are busy, but has there been any progress on this issue?<br>
+<br>
+Thanks,<br>
+<br>
+<br>
+</div>
+I have absolutely confirmed that it's a bug. Unfortunately, I don't have a fix yet. The fundamental issue is that when you call GetConstructor on a generic type, if the constructor you're asking for has any generic parameters it will not be returned.<br>
+<br>
+The workaround is to call GetConstructors and go through all of them, looking for the right one. Unfortunately, the &quot;right&quot; one is a lot harder to define than you might think in the presence of generics and inheritance. So I'm still working out what
+ the correct logic needs to be.<br>
+<br>
+-Chris<br>
+<br>
+<br>
+<br>
+</div>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_100839" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="100868">
+    <td id="PostDetailsCell_100868" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post100868"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/25/2008 8:07:20 PM" LocalTimeTicks="1214449640">Jun 25, 2008 at 8:07 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_100868" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Funny&#32;you&#32;should&#32;ask.&#32;I&#32;got&#32;a&#32;preliminary&#32;solution&#32;working&#32;last&#32;night.&#32;It&#39;s&#32;a&#32;bit&#32;ugly,&#32;and&#32;requires&#32;some&#32;core&#32;changes,&#32;so&#32;it&#39;s&#32;not&#32;just&#32;a&#32;simple&#32;extension&#32;unfortunately.&#32;&#32;I&#39;m&#32;going&#32;to&#32;clean&#32;it&#32;up&#32;an&#32;bit&#32;and&#32;hopefully&#32;can&#32;release&#32;it&#32;as&#32;a&#32;source&#32;patch&#32;before&#32;rolling&#32;it&#32;into&#32;the&#32;next&#32;full&#32;release.&#32;&#32;">
+        Funny you should ask. I got a preliminary solution working last night. It's a bit ugly, and requires some core changes, so it's not just a simple extension unfortunately.<br>
+<br>
+I'm going to clean it up an bit and hopefully can release it as a source patch before rolling it into the next full release.<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_100868" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="105624">
+    <td id="PostDetailsCell_105624" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post105624"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/swalkertdci">swalkertdci</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/18/2008 1:11:15 PM" LocalTimeTicks="1216411875">Jul 18, 2008 at 1:11 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_105624" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#38;nbsp&#59;I&#32;was&#32;just&#32;trying&#32;v1.1&#32;against&#32;my&#32;existing&#32;test&#32;project&#32;for&#32;this&#32;bug&#32;and&#32;it&#32;was&#32;still&#32;giving&#32;me&#32;the&#32;same&#32;error.&#32;&#32;Did&#32;this&#32;bug&#32;fix&#32;make&#32;it&#32;into&#32;the&#32;v1.1&#32;release,&#32;or&#32;am&#32;I&#32;just&#32;doing&#32;something&#32;stupid&#63;&#32;">
+        &nbsp;I was just trying v1.1 against my existing test project for this bug and it was still giving me the same error.<br>
+<br>
+Did this bug fix make it into the v1.1 release, or am I just doing something stupid?<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_105624" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="105672">
+    <td id="PostDetailsCell_105672" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post105672"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/18/2008 4:37:09 PM" LocalTimeTicks="1216424229">Jul 18, 2008 at 4:37 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_105672" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="No,&#32;the&#32;bug&#32;fix&#32;isn&#39;t&#32;in&#32;the&#32;1.1&#32;release.&#32;It&#39;s&#32;in&#32;our&#32;current&#32;&#40;internal&#41;&#32;bits.&#32;I&#39;m&#32;waiting&#32;on&#32;a&#32;bunch&#32;of&#32;people&#32;to&#32;get&#32;back&#32;from&#32;vacation&#32;to&#32;figure&#32;out&#32;how&#32;to&#32;release&#32;the&#32;patch,&#32;or&#32;if&#32;we&#32;just&#32;wait&#32;for&#32;v1.2.&#32;&#32;">
+        No, the bug fix isn't in the 1.1 release. It's in our current (internal) bits. I'm waiting on a bunch of people to get back from vacation to figure out how to release the patch, or if we just wait for v1.2.<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_105672" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="111914">
+    <td id="PostDetailsCell_111914" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post111914"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/19/2008 12:15:18 AM" LocalTimeTicks="1219130118">Aug 19, 2008 at 12:15 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_111914" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="The&#32;code&#32;with&#32;the&#32;bug&#32;fix&#32;in&#32;has&#32;just&#32;been&#32;posted&#32;in&#32;Codeplex&#32;source&#32;control.&#32;Please&#32;check&#32;it&#32;out,&#32;bang&#32;on&#32;it,&#32;and&#32;let&#32;us&#32;know.&#32;This&#32;is&#32;a&#32;bi-weekly&#32;drop,&#32;so&#32;no&#32;promises&#32;&#40;yet&#41;&#32;on&#32;quality.&#32;&#32;">
+        The code with the bug fix in has just been posted in Codeplex source control. Please check it out, bang on it, and let us know. This is a bi-weekly drop, so no promises (yet) on quality.<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_111914" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="254915">
+    <td id="PostDetailsCell_254915" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post254915"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/twistur">twistur</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/9/2009 5:43:16 AM" LocalTimeTicks="1257774196">Nov 9, 2009 at 5:43 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="11/11/2009 2:36:30 AM" LocalTimeTicks="1257935790">Nov 11, 2009 at 2:36 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_254915" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;think&#32;I&#32;have&#32;a&#32;similar&#32;situation&#32;with&#32;the&#32;following&#32;codes&#32;public&#32;class&#32;PositionRepository&#32;&#58;&#32;ICheckValue&#38;lt&#59;int,IPosition&#38;gt&#59;&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;...&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#32;My&#32;config&#32;looks&#32;like&#32;the&#32;following&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;type&#32;name&#61;&#38;quot&#59;positionRepository&#38;quot&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;type&#32;&#61;&#38;quot&#59;Abstraction.ICheckValue,&#32;Abstraction&#38;quot&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;mapTo&#61;&#38;quot&#59;Implementation1.PositionRepository,&#32;Implementation1&#38;quot&#59;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;typeConfig&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;constructor&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;idType&#38;quot&#59;&#32;parameterTypeName&#61;&#38;quot&#59;TId&#38;quot&#59;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;dependency&#47;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;entityType&#38;quot&#59;&#32;parameterTypeName&#61;&#38;quot&#59;TEntity&#38;quot&#59;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;dependency&#47;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;&#47;param&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;&#47;typeConfig&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;lt&#59;&#47;type&#38;gt&#59;&#32;And&#32;I&#32;keep&#32;on&#32;getting&#32;this&#32;exception&#32;message&#58;&#32;The&#32;configuration&#32;file&#32;must&#32;include&#32;a&#32;value&#32;for&#32;one&#32;of&#32;&#38;quot&#59;parameterType&#38;quot&#59;&#32;and&#32;&#38;quot&#59;genericParameterName&#38;quot&#59;&#32;for&#32;the&#32;property&#32;or&#32;parameter&#32;named&#32;&#38;quot&#59;idType&#38;quot&#59;.&#32;What&#32;exactly&#32;is&#32;going&#32;on&#32;here&#32;and&#32;why&#32;does&#32;it&#32;insist&#32;on&#32;a&#32;value&#32;for&#32;the&#32;&#38;quot&#59;idType&#38;quot&#59;&#63;">
+        
+<p>I think I have a similar situation with the following codes</p>
+<p>public class PositionRepository : ICheckValue&lt;int,IPosition&gt;</p>
+<p>{&nbsp;&nbsp;&nbsp; ...&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;</p>
+<p>My config looks like the following:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;type name=&quot;positionRepository&quot;<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; type =&quot;Abstraction.ICheckValue, Abstraction&quot;<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; mapTo=&quot;Implementation1.PositionRepository, Implementation1&quot;&gt;<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&lt;typeConfig&gt;<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&lt;constructor&gt;<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&lt;param name=&quot;idType&quot; parameterTypeName=&quot;TId&quot;&gt;<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&lt;dependency/&gt;<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&lt;/param&gt;<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&lt;param name=&quot;entityType&quot; parameterTypeName=&quot;TEntity&quot;&gt;<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&lt;dependency/&gt;<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&lt;/param&gt;<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&lt;/constructor&gt;<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&lt;/typeConfig&gt;<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&lt;/type&gt;</p>
+<p>And I keep on getting this exception message:</p>
+<p><em>The configuration file must include a value for one of &quot;parameterType&quot; and &quot;genericParameterName&quot; for the property or parameter named &quot;idType&quot;.</em></p>
+<p>What exactly is going on here and why does it insist on a value for the &quot;idType&quot;?</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_254915" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="276036">
+    <td id="PostDetailsCell_276036" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post276036"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/12/2010 6:49:36 AM" LocalTimeTicks="1263307776">Jan 12, 2010 at 6:49 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_276036" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="No,&#32;you&#32;just&#32;have&#32;a&#32;syntax&#32;error.&#32;The&#32;error&#32;message&#32;is&#58;&#32;&#38;quot&#59;The&#32;configuration&#32;file&#32;must&#32;include&#32;a&#32;value&#32;for&#32;one&#32;of&#32;&#38;quot&#59;parameterType&#38;quot&#59;&#32;and&#32;&#38;quot&#59;genericParameterName&#38;quot&#59;&#32;for&#32;the&#32;property&#32;or&#32;parameter&#32;named&#32;&#38;quot&#59;idType&#38;quot&#59;.&#38;quot&#59;&#32;&#38;nbsp&#59;&#32;But&#32;looking&#32;at&#32;your&#32;config&#32;file,&#32;you&#39;ve&#32;got&#58;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;idType&#38;quot&#59;&#32;parameterTypeName&#61;&#38;quot&#59;TId&#38;quot&#59;&#38;gt&#59;&#32;parameterTypeName&#32;isn&#39;t&#32;a&#32;valid&#32;attribute&#32;for&#32;the&#32;&#38;lt&#59;param&#38;gt&#59;&#32;tag,&#32;it&#32;needs&#32;to&#32;be&#32;either&#32;parameterType&#32;or&#32;genericParameterName.&#32;&#38;nbsp&#59;">
+        
+<p>No, you just have a syntax error. The error message is:</p>
+<p>&quot;<em>The configuration file must include a value for one of &quot;parameterType&quot; and &quot;genericParameterName&quot; for the property or parameter named &quot;idType&quot;.&quot;</em></p>
+<p>&nbsp;</p>
+<p>But looking at your config file, you've got:</p>
+<p>&lt;param name=&quot;idType&quot; parameterTypeName=&quot;TId&quot;&gt;</p>
+<p>parameterTypeName isn't a valid attribute for the &lt;param&gt; tag, it needs to be either parameterType or genericParameterName.</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_276036" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f27231">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="1da0b08c-9881-48bb-831e-12425601527a">
+    <script class="options" defer="defer" id="1da0b08c-9881-48bb-831e-12425601527a" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_35475810-bcc5-47cd-991e-2cd130cdf32a">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_6d1f2aa3-e57e-4e3e-bd15-3fe7641b017e">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_35475810-bcc5-47cd-991e-2cd130cdf32a" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_6d1f2aa3-e57e-4e3e-bd15-3fe7641b017e" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/27231';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

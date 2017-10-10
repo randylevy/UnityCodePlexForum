@@ -1,0 +1,1208 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Error injecting LogWriter</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/80139?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/80139?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="H2FHaC64yZ8JYqotW_W56iTOUuJlq_s4Gv7VXxosKnSmut54rPFCWww-GP3WX9EZAmdh79QlKl5fPnIytKmkfnAXQI9t6OmLtFscLTtP7ch3LQtFQ2ozq-2hxb-9djf0zrHaxg2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2bfe6d522-667d-4253-a81a-5a95a62c83c9" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:27:50 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f80139" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="33a4a231-0327-41b0-bad3-d66990790c5c">
+                
+                    <script class="options" defer="defer" id="33a4a231-0327-41b0-bad3-d66990790c5c" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="207d5049-f0a6-4035-9e7c-5c658ab2fe57">
+                
+                    <script class="options" defer="defer" id="207d5049-f0a6-4035-9e7c-5c658ab2fe57" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Error injecting LogWriter
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:80139]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="9a8a424b-5cb9-4a73-b062-da6c30e86df4">
+    <script class="options" defer="defer" id="9a8a424b-5cb9-4a73-b062-da6c30e86df4" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/80139","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="274629">
+    <td id="PostDetailsCell_274629" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post274629"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/irahc78">irahc78</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/8/2010 5:10:30 AM" LocalTimeTicks="1262956230">Jan 8, 2010 at 5:10 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_274629" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#38;nbsp&#59;&#32;Hi&#32;All,&#32;I&#32;have&#32;a&#32;Windows&#32;Forms&#32;application&#32;which&#32;perform&#32;CRUD&#32;operations&#32;to&#32;a&#32;database.&#32;Nothing&#32;fancy,&#32;very&#32;simple.&#32;To&#32;enable&#32;logging,&#32;i&#32;am&#32;using&#32;Logging&#32;Application&#32;block&#32;in&#32;conjunction&#32;with&#32;Unity.&#32;I&#32;have&#32;a&#32;class&#32;named&#32;ServiceLocator.vb,&#32;which&#32;initializes&#32;the&#32;container&#32;with&#32;the&#32;dependent&#32;objects.&#32;I&#32;have&#32;two&#32;client&#32;objects,&#32;Form1.vb&#32;and&#32;Form2.vb&#32;that&#32;act&#32;as&#32;user&#32;interfaces.&#32;Everything&#32;worked&#32;as&#32;i&#32;expected.&#32;&#38;nbsp&#59;&#32;I&#32;eventually&#32;had&#32;to&#32;convert&#32;my&#32;Form1.vb&#32;and&#32;Form2.vb&#32;into&#32;two&#32;Windows&#32;Service&#32;components,&#32;where&#32;the&#32;user&#32;interface&#32;is&#32;replaced&#32;with&#32;other&#32;form&#32;of&#32;input.&#32;So,&#32;this&#32;is&#32;what&#32;i&#32;did.&#32;I&#32;put&#32;the&#32;forms&#32;into&#32;two&#32;independent&#32;windows&#32;service&#32;projects.&#32;To&#32;the&#32;Windows&#32;service&#32;projects&#32;i&#32;included&#32;Core&#32;&#40;which&#32;is&#32;my&#32;original&#32;project&#41;&#32;as&#32;a&#32;reference.&#32;When&#32;i&#32;try&#32;to&#32;run&#32;this,&#32;i&#32;get&#32;errors&#32;that&#32;i&#32;cant&#32;seem&#32;to&#32;understand.&#32;the&#32;details&#32;are&#32;below.&#32;&#38;nbsp&#59;&#32;Dim&#32;batch&#32;As&#32;Batch&#32;&#61;&#32;Core.ServiceLocator.Container.Resolve&#40;Of&#32;IData&#41;&#40;Constants.BATCH&#41;&#32;Error&#32;i&#32;get&#32;here&#32;is&#32;-&#32;Resolution&#32;of&#32;the&#32;dependency&#32;failed,&#32;type&#32;&#61;&#32;&#38;quot&#59;Core.IData&#38;quot&#59;,&#32;name&#32;&#61;&#32;&#38;quot&#59;BATCH&#38;quot&#59;.&#32;Exception&#32;message&#32;is&#58;&#32;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;Core.Batch,&#32;BATCH&#93;&#41;&#32;failed&#58;&#32;The&#32;parameter&#32;logWriter&#32;could&#32;not&#32;be&#32;resolved&#32;when&#32;attempting&#32;to&#32;call&#32;constructor&#32;Core.Batch&#40;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter&#32;logWriter&#41;.&#32;&#40;Strategy&#32;type&#32;BuildPlanStrategy,&#32;index&#32;3&#41;&#32;&#38;nbsp&#59;&#32;I&#32;believe&#32;i&#32;am&#32;missing&#32;something&#32;very&#32;basic.&#32;Could&#32;someone&#32;please&#32;highlight&#63;&#32;&#38;nbsp&#59;&#32;thanks,&#32;Hari.&#32;&#32;Hi&#32;All,&#32;I&#32;have&#32;a&#32;Windows&#32;Forms&#32;application&#32;which&#32;perform&#32;CRUD&#32;operations&#32;to&#32;a&#32;database.&#32;Nothing&#32;fancy,&#32;very&#32;simple.&#32;To&#32;enable&#32;logging,&#32;i&#32;am&#32;using&#32;Logging&#32;Application&#32;block&#32;in&#32;conjunction&#32;with&#32;Unity.&#32;I&#32;have&#32;a&#32;class&#32;named&#32;ServiceLocator.vb,&#32;which&#32;initializes&#32;the&#32;container&#32;with&#32;the&#32;dependent&#32;objects.&#32;I&#32;have&#32;two&#32;client&#32;objects,&#32;Form1.vb&#32;and&#32;Form2.vb&#32;that&#32;act&#32;as&#32;user&#32;interfaces.&#32;Everything&#32;worked&#32;as&#32;i&#32;expected.&#32;I&#32;eventually&#32;had&#32;to&#32;convert&#32;my&#32;Form1.vb&#32;and&#32;Form2.vb&#32;into&#32;two&#32;Windows&#32;Service&#32;components,&#32;where&#32;the&#32;user&#32;interface&#32;is&#32;replaced&#32;with&#32;other&#32;form&#32;of&#32;input.&#32;So,&#32;this&#32;is&#32;what&#32;i&#32;did.&#32;I&#32;put&#32;the&#32;forms&#32;into&#32;two&#32;independent&#32;windows&#32;service&#32;projects.&#32;To&#32;the&#32;Windows&#32;service&#32;projects&#32;i&#32;included&#32;Core&#32;&#40;which&#32;is&#32;my&#32;original&#32;project&#41;&#32;as&#32;a&#32;reference.&#32;When&#32;i&#32;try&#32;to&#32;run&#32;this,&#32;i&#32;get&#32;errors&#32;that&#32;i&#32;cant&#32;seem&#32;to&#32;understand.&#32;the&#32;details&#32;are&#32;below.&#32;Dim&#32;batch&#32;As&#32;Batch&#32;&#61;&#32;Core.ServiceLocator.Container.Resolve&#40;Of&#32;IData&#41;&#40;Constants.BATCH&#41;&#32;Error&#32;i&#32;get&#32;here&#32;is&#32;-&#32;Resolution&#32;of&#32;the&#32;dependency&#32;failed,&#32;type&#32;&#61;&#32;&#38;quot&#59;Core.IData&#38;quot&#59;,&#32;name&#32;&#61;&#32;&#38;quot&#59;BATCH&#38;quot&#59;.&#32;Exception&#32;message&#32;is&#58;&#32;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;Core.Batch,&#32;BATCH&#93;&#41;&#32;failed&#58;&#32;The&#32;parameter&#32;logWriter&#32;could&#32;not&#32;be&#32;resolved&#32;when&#32;attempting&#32;to&#32;call&#32;constructor&#32;Core.Batch&#40;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter&#32;logWriter&#41;.&#32;&#40;Strategy&#32;type&#32;BuildPlanStrategy,&#32;index&#32;3&#41;&#32;I&#32;believe&#32;i&#32;am&#32;missing&#32;something&#32;very&#32;basic.&#32;Could&#32;someone&#32;please&#32;highlight&#63;&#32;thanks,&#32;Hari.&#32;&#32;&#38;nbsp&#59;">
+        
+<p>&nbsp;</p>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+Hi All,</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+I have a Windows Forms application which perform CRUD operations to a database. Nothing fancy, very simple. To enable logging, i am using Logging Application block in conjunction with Unity.</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+I have a class named ServiceLocator.vb, which initializes the container with the dependent objects. I have two client objects, Form1.vb and Form2.vb that act as user interfaces. Everything worked as i expected.</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+I eventually had to convert my Form1.vb and Form2.vb into two Windows Service components, where the user interface is replaced with other form of input.</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+So, this is what i did. I put the forms into two independent windows service projects.</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+To the Windows service projects i included Core (which is my original project) as a reference.</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+When i try to run this, i get errors that i cant seem to understand. the details are below.</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+Dim batch As Batch = Core.ServiceLocator.Container.Resolve(Of IData)(Constants.BATCH)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+Error i get here is -</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+Resolution of the dependency failed, type = &quot;Core.IData&quot;, name = &quot;BATCH&quot;. Exception message is: The current build operation (build key Build Key[Core.Batch, BATCH]) failed: The parameter logWriter could not be resolved when attempting to
+ call constructor Core.Batch(Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter logWriter). (Strategy type BuildPlanStrategy, index 3)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+I believe i am missing something very basic. Could someone please highlight?</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+thanks, Hari.</div>
+<p></p>
+<p>Hi All,</p>
+<p>I have a Windows Forms application which perform CRUD operations to a database. Nothing fancy, very simple. To enable logging, i am using Logging Application block in conjunction with Unity.</p>
+<p>I have a class named ServiceLocator.vb, which initializes the container with the dependent objects. I have two client objects, Form1.vb and Form2.vb that act as user interfaces. Everything worked as i expected.</p>
+<p>I eventually had to convert my Form1.vb and Form2.vb into two Windows Service components, where the user interface is replaced with other form of input.</p>
+<p>So, this is what i did. I put the forms into two independent windows service projects.</p>
+<p>To the Windows service projects i included Core (which is my original project) as a reference.</p>
+<p>When i try to run this, i get errors that i cant seem to understand. the details are below.</p>
+<p>Dim batch As Batch = Core.ServiceLocator.Container.Resolve(Of IData)(Constants.BATCH)</p>
+<p>Error i get here is -</p>
+<p>Resolution of the dependency failed, type = &quot;Core.IData&quot;, name = &quot;BATCH&quot;. Exception message is: The current build operation (build key Build Key[Core.Batch, BATCH]) failed: The parameter logWriter could not be resolved when attempting
+ to call constructor Core.Batch(Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter logWriter). (Strategy type BuildPlanStrategy, index 3)</p>
+<p>I believe i am missing something very basic. Could someone please highlight?</p>
+<p>thanks, Hari.</p>
+<p></p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_274629" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="274647">
+    <td id="PostDetailsCell_274647" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post274647"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/8/2010 6:47:26 AM" LocalTimeTicks="1262962046">Jan 8, 2010 at 6:47 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_274647" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Typically&#32;with&#32;Unity&#32;1.2&#32;&#38;amp&#59;&#32;earlier,&#32;the&#32;real&#32;error&#32;is&#32;buried&#32;further&#32;down&#32;in&#32;the&#32;error&#32;message.&#32;If&#32;you&#32;could&#32;post&#32;the&#32;entire&#32;exception&#32;message&#32;&#38;amp&#59;&#32;stack&#32;track,&#32;I&#32;can&#32;probably&#32;figure&#32;out&#32;what&#39;s&#32;happening&#32;pretty&#32;quickly.&#32;&#38;nbsp&#59;">
+        
+<p>Typically with Unity 1.2 &amp; earlier, the real error is buried further down in the error message. If you could post the entire exception message &amp; stack track, I can probably figure out what's happening pretty quickly.</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_274647" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="275681">
+    <td id="PostDetailsCell_275681" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post275681"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/irahc78">irahc78</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/11/2010 1:30:19 PM" LocalTimeTicks="1263245419">Jan 11, 2010 at 1:30 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_275681" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="hey,&#32;thanks&#32;for&#32;the&#32;post.&#32;here&#32;is&#32;the&#32;detail&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;Microsoft.Practices.Unity.ResolutionFailedException&#32;was&#32;unhandled&#32;&#38;nbsp&#59;&#38;nbsp&#59;Message&#61;&#38;quot&#59;Resolution&#32;of&#32;the&#32;dependency&#32;failed,&#32;type&#32;&#61;&#32;&#38;quot&#59;Core.IData&#38;quot&#59;,&#32;name&#32;&#61;&#32;&#38;quot&#59;BATCH&#38;quot&#59;.&#32;Exception&#32;message&#32;is&#58;&#32;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;Core.Batch,&#32;BATCH&#93;&#41;&#32;failed&#58;&#32;The&#32;parameter&#32;logWriter&#32;could&#32;not&#32;be&#32;resolved&#32;when&#32;attempting&#32;to&#32;call&#32;constructor&#32;Core.Batch&#40;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter&#32;logWriter&#41;.&#32;&#40;Strategy&#32;type&#32;BuildPlanStrategy,&#32;index&#32;3&#41;&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;NameRequested&#61;&#38;quot&#59;BATCH&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;Source&#61;&#38;quot&#59;Microsoft.Practices.Unity&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;TypeRequested&#61;&#38;quot&#59;IData&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;StackTrace&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.UnityContainer.DoBuildUp&#40;Type&#32;t,&#32;Object&#32;existing,&#32;String&#32;name&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.UnityContainer.DoBuildUp&#40;Type&#32;t,&#32;String&#32;name&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.UnityContainer.Resolve&#40;Type&#32;t,&#32;String&#32;name&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.UnityContainerBase.Resolve&#91;T&#93;&#40;String&#32;name&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;TestingApp.Form1.Form1_Load&#40;Object&#32;sender,&#32;EventArgs&#32;e&#41;&#32;in&#32;D&#58;&#92;Ithos-Files&#92;Projects&#92;Content_ingestion_system&#92;TestingApp&#92;Clients&#92;Form1.vb&#58;line&#32;48&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.EventHandler.Invoke&#40;Object&#32;sender,&#32;EventArgs&#32;e&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Form.OnLoad&#40;EventArgs&#32;e&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Form.OnCreateControl&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Control.CreateControl&#40;Boolean&#32;fIgnoreVisible&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Control.CreateControl&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Control.WmShowWindow&#40;Message&#38;amp&#59;&#32;m&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Control.WndProc&#40;Message&#38;amp&#59;&#32;m&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.ScrollableControl.WndProc&#40;Message&#38;amp&#59;&#32;m&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.ContainerControl.WndProc&#40;Message&#38;amp&#59;&#32;m&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Form.WmShowWindow&#40;Message&#38;amp&#59;&#32;m&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Form.WndProc&#40;Message&#38;amp&#59;&#32;m&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Control.ControlNativeWindow.OnMessage&#40;Message&#38;amp&#59;&#32;m&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Control.ControlNativeWindow.WndProc&#40;Message&#38;amp&#59;&#32;m&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.NativeWindow.DebuggableCallback&#40;IntPtr&#32;hWnd,&#32;Int32&#32;msg,&#32;IntPtr&#32;wparam,&#32;IntPtr&#32;lparam&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.SafeNativeMethods.ShowWindow&#40;HandleRef&#32;hWnd,&#32;Int32&#32;nCmdShow&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Control.SetVisibleCore&#40;Boolean&#32;value&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Form.SetVisibleCore&#40;Boolean&#32;value&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Control.set_Visible&#40;Boolean&#32;value&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Application.ThreadContext.RunMessageLoopInner&#40;Int32&#32;reason,&#32;ApplicationContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Application.ThreadContext.RunMessageLoop&#40;Int32&#32;reason,&#32;ApplicationContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Application.Run&#40;ApplicationContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.VisualBasic.ApplicationServices.WindowsFormsApplicationBase.OnRun&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.VisualBasic.ApplicationServices.WindowsFormsApplicationBase.DoApplicationModel&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.VisualBasic.ApplicationServices.WindowsFormsApplicationBase.Run&#40;String&#91;&#93;&#32;commandLine&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;TestingApp.My.MyApplication.Main&#40;String&#91;&#93;&#32;Args&#41;&#32;in&#32;17d14f5c-a337-4978-8281-53493378c1071.vb&#58;line&#32;81&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.AppDomain._nExecuteAssembly&#40;Assembly&#32;assembly,&#32;String&#91;&#93;&#32;args&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.AppDomain.ExecuteAssembly&#40;String&#32;assemblyFile,&#32;Evidence&#32;assemblySecurity,&#32;String&#91;&#93;&#32;args&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.VisualStudio.HostingProcess.HostProc.RunUsersAssembly&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Threading.ThreadHelper.ThreadStart_Context&#40;Object&#32;state&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Threading.ExecutionContext.Run&#40;ExecutionContext&#32;executionContext,&#32;ContextCallback&#32;callback,&#32;Object&#32;state&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Threading.ThreadHelper.ThreadStart&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;InnerException&#58;&#32;Microsoft.Practices.ObjectBuilder2.BuildFailedException&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;BuildKey&#61;&#38;quot&#59;Build&#32;Key&#91;Core.Batch,&#32;BATCH&#93;&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;ExecutingStrategyIndex&#61;3&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;ExecutingStrategyTypeName&#61;&#38;quot&#59;BuildPlanStrategy&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;Message&#61;&#38;quot&#59;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;Core.Batch,&#32;BATCH&#93;&#41;&#32;failed&#58;&#32;The&#32;parameter&#32;logWriter&#32;could&#32;not&#32;be&#32;resolved&#32;when&#32;attempting&#32;to&#32;call&#32;constructor&#32;Core.Batch&#40;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter&#32;logWriter&#41;.&#32;&#40;Strategy&#32;type&#32;BuildPlanStrategy,&#32;index&#32;3&#41;&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;Source&#61;&#38;quot&#59;Microsoft.Practices.ObjectBuilder2&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;StackTrace&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;at&#32;Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;at&#32;Microsoft.Practices.ObjectBuilder2.Builder.BuildUp&#40;IReadWriteLocator&#32;locator,&#32;ILifetimeContainer&#32;lifetime,&#32;IPolicyList&#32;policies,&#32;IStrategyChain&#32;strategies,&#32;Object&#32;buildKey,&#32;Object&#32;existing&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;at&#32;Microsoft.Practices.Unity.UnityContainer.DoBuildUp&#40;Type&#32;t,&#32;Object&#32;existing,&#32;String&#32;name&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;InnerException&#58;&#32;System.InvalidOperationException&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;Message&#61;&#38;quot&#59;The&#32;parameter&#32;logWriter&#32;could&#32;not&#32;be&#32;resolved&#32;when&#32;attempting&#32;to&#32;call&#32;constructor&#32;Core.Batch&#40;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter&#32;logWriter&#41;.&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;Source&#61;&#38;quot&#59;Microsoft.Practices.ObjectBuilder2&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;StackTrace&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForResolutionFailed&#40;Exception&#32;inner,&#32;String&#32;parameterName,&#32;String&#32;constructorSignature,&#32;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;BuildUp_Core.Batch&#40;IBuilderContext&#32;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;InnerException&#58;&#32;Microsoft.Practices.ObjectBuilder2.BuildFailedException&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;BuildKey&#61;&#38;quot&#59;Build&#32;Key&#91;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter,&#32;null&#93;&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;ExecutingStrategyIndex&#61;3&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;ExecutingStrategyTypeName&#61;&#38;quot&#59;BuildPlanStrategy&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;Message&#61;&#38;quot&#59;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter,&#32;null&#93;&#41;&#32;failed&#58;&#32;The&#32;parameter&#32;filters&#32;could&#32;not&#32;be&#32;resolved&#32;when&#32;attempting&#32;to&#32;call&#32;constructor&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter&#40;System.Collections.Generic.ICollection&#96;1&#91;&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;4.1.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#93;&#93;&#32;filters,&#32;System.Collections.Generic.IDictionary&#96;2&#91;&#91;System.String,&#32;mscorlib,&#32;Version&#61;2.0.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;b77a5c561934e089&#93;,&#91;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;4.1.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#93;&#93;&#32;traceSources,&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource&#32;allEventsTraceSource,&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource&#32;notProcessedTraceSource,&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource&#32;errorsTraceSource,&#32;System.String&#32;defaultCategory,&#32;System.Boolean&#32;tracingEnabled,&#32;System.Boolean&#32;logWarningsWhenNoCategoriesMatch,&#32;System.Boolean&#32;revertImpersonation&#41;.&#32;&#40;Strategy&#32;type&#32;BuildPlanStrategy,&#32;index&#32;3&#41;&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;Source&#61;&#38;quot&#59;Microsoft.Practices.ObjectBuilder2&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;StackTrace&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;at&#32;Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;at&#32;Microsoft.Practices.Unity.ObjectBuilder.NamedTypeDependencyResolverPolicy.Resolve&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;at&#32;BuildUp_Core.Batch&#40;IBuilderContext&#32;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;InnerException&#58;&#32;System.InvalidOperationException&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;Message&#61;&#38;quot&#59;The&#32;parameter&#32;filters&#32;could&#32;not&#32;be&#32;resolved&#32;when&#32;attempting&#32;to&#32;call&#32;constructor&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter&#40;System.Collections.Generic.ICollection&#96;1&#91;&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;4.1.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#93;&#93;&#32;filters,&#32;System.Collections.Generic.IDictionary&#96;2&#91;&#91;System.String,&#32;mscorlib,&#32;Version&#61;2.0.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;b77a5c561934e089&#93;,&#91;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;4.1.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#93;&#93;&#32;traceSources,&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource&#32;allEventsTraceSource,&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource&#32;notProcessedTraceSource,&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource&#32;errorsTraceSource,&#32;System.String&#32;defaultCategory,&#32;System.Boolean&#32;tracingEnabled,&#32;System.Boolean&#32;logWarningsWhenNoCategoriesMatch,&#32;System.Boolean&#32;revertImpersonation&#41;.&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;Source&#61;&#38;quot&#59;Microsoft.Practices.ObjectBuilder2&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;StackTrace&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForResolutionFailed&#40;Exception&#32;inner,&#32;String&#32;parameterName,&#32;String&#32;constructorSignature,&#32;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;BuildUp_Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter&#40;IBuilderContext&#32;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;InnerException&#58;&#32;Microsoft.Practices.ObjectBuilder2.BuildFailedException&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;BuildKey&#61;&#38;quot&#59;Build&#32;Key&#91;System.Collections.Generic.ICollection&#96;1&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter&#93;,&#32;null&#93;&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;ExecutingStrategyIndex&#61;3&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;ExecutingStrategyTypeName&#61;&#38;quot&#59;BuildPlanStrategy&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;Message&#61;&#38;quot&#59;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;System.Collections.Generic.ICollection&#96;1&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter&#93;,&#32;null&#93;&#41;&#32;failed&#58;&#32;The&#32;current&#32;type,&#32;System.Collections.Generic.ICollection&#96;1&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter&#93;,&#32;is&#32;an&#32;interface&#32;and&#32;cannot&#32;be&#32;constructed.&#32;Are&#32;you&#32;missing&#32;a&#32;type&#32;mapping&#63;&#32;&#40;Strategy&#32;type&#32;BuildPlanStrategy,&#32;index&#32;3&#41;&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;Source&#61;&#38;quot&#59;Microsoft.Practices.ObjectBuilder2&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;StackTrace&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;at&#32;Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;at&#32;Microsoft.Practices.Unity.ObjectBuilder.NamedTypeDependencyResolverPolicy.Resolve&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;at&#32;BuildUp_Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter&#40;IBuilderContext&#32;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;InnerException&#58;&#32;System.InvalidOperationException&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;Message&#61;&#38;quot&#59;The&#32;current&#32;type,&#32;System.Collections.Generic.ICollection&#96;1&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter&#93;,&#32;is&#32;an&#32;interface&#32;and&#32;cannot&#32;be&#32;constructed.&#32;Are&#32;you&#32;missing&#32;a&#32;type&#32;mapping&#63;&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;Source&#61;&#38;quot&#59;Microsoft.Practices.ObjectBuilder2&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;StackTrace&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForAttemptingToConstructInterface&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;BuildUp_System.Collections.Generic.ICollection&#96;1&#91;&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;4.1.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#93;&#93;&#40;IBuilderContext&#32;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;InnerException&#58;&#38;nbsp&#59;&#32;&#32;Microsoft.Practices.Unity.ResolutionFailedException&#32;was&#32;unhandled&#32;&#38;nbsp&#59;&#38;nbsp&#59;Message&#61;&#38;quot&#59;Resolution&#32;of&#32;the&#32;dependency&#32;failed,&#32;type&#32;&#61;&#32;&#38;quot&#59;Core.IData&#38;quot&#59;,&#32;name&#32;&#61;&#32;&#38;quot&#59;BATCH&#38;quot&#59;.&#32;Exception&#32;message&#32;is&#58;&#32;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;Core.Batch,&#32;BATCH&#93;&#41;&#32;failed&#58;&#32;The&#32;parameter&#32;logWriter&#32;could&#32;not&#32;be&#32;resolved&#32;when&#32;attempting&#32;to&#32;call&#32;constructor&#32;Core.Batch&#40;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter&#32;logWriter&#41;.&#32;&#40;Strategy&#32;type&#32;BuildPlanStrategy,&#32;index&#32;3&#41;&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;NameRequested&#61;&#38;quot&#59;BATCH&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;Source&#61;&#38;quot&#59;Microsoft.Practices.Unity&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;TypeRequested&#61;&#38;quot&#59;IData&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;StackTrace&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.UnityContainer.DoBuildUp&#40;Type&#32;t,&#32;Object&#32;existing,&#32;String&#32;name&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.UnityContainer.DoBuildUp&#40;Type&#32;t,&#32;String&#32;name&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.UnityContainer.Resolve&#40;Type&#32;t,&#32;String&#32;name&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.UnityContainerBase.Resolve&#91;T&#93;&#40;String&#32;name&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;TestingApp.Form1.Form1_Load&#40;Object&#32;sender,&#32;EventArgs&#32;e&#41;&#32;in&#32;D&#58;&#92;Ithos-Files&#92;Projects&#92;Content_ingestion_system&#92;TestingApp&#92;Clients&#92;Form1.vb&#58;line&#32;48&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.EventHandler.Invoke&#40;Object&#32;sender,&#32;EventArgs&#32;e&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Form.OnLoad&#40;EventArgs&#32;e&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Form.OnCreateControl&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Control.CreateControl&#40;Boolean&#32;fIgnoreVisible&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Control.CreateControl&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Control.WmShowWindow&#40;Message&#38;amp&#59;&#32;m&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Control.WndProc&#40;Message&#38;amp&#59;&#32;m&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.ScrollableControl.WndProc&#40;Message&#38;amp&#59;&#32;m&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.ContainerControl.WndProc&#40;Message&#38;amp&#59;&#32;m&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Form.WmShowWindow&#40;Message&#38;amp&#59;&#32;m&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Form.WndProc&#40;Message&#38;amp&#59;&#32;m&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Control.ControlNativeWindow.OnMessage&#40;Message&#38;amp&#59;&#32;m&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Control.ControlNativeWindow.WndProc&#40;Message&#38;amp&#59;&#32;m&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.NativeWindow.DebuggableCallback&#40;IntPtr&#32;hWnd,&#32;Int32&#32;msg,&#32;IntPtr&#32;wparam,&#32;IntPtr&#32;lparam&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.SafeNativeMethods.ShowWindow&#40;HandleRef&#32;hWnd,&#32;Int32&#32;nCmdShow&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Control.SetVisibleCore&#40;Boolean&#32;value&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Form.SetVisibleCore&#40;Boolean&#32;value&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Control.set_Visible&#40;Boolean&#32;value&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Application.ThreadContext.RunMessageLoopInner&#40;Int32&#32;reason,&#32;ApplicationContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Application.ThreadContext.RunMessageLoop&#40;Int32&#32;reason,&#32;ApplicationContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Windows.Forms.Application.Run&#40;ApplicationContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.VisualBasic.ApplicationServices.WindowsFormsApplicationBase.OnRun&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.VisualBasic.ApplicationServices.WindowsFormsApplicationBase.DoApplicationModel&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.VisualBasic.ApplicationServices.WindowsFormsApplicationBase.Run&#40;String&#91;&#93;&#32;commandLine&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;TestingApp.My.MyApplication.Main&#40;String&#91;&#93;&#32;Args&#41;&#32;in&#32;17d14f5c-a337-4978-8281-53493378c1071.vb&#58;line&#32;81&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.AppDomain._nExecuteAssembly&#40;Assembly&#32;assembly,&#32;String&#91;&#93;&#32;args&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.AppDomain.ExecuteAssembly&#40;String&#32;assemblyFile,&#32;Evidence&#32;assemblySecurity,&#32;String&#91;&#93;&#32;args&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.VisualStudio.HostingProcess.HostProc.RunUsersAssembly&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Threading.ThreadHelper.ThreadStart_Context&#40;Object&#32;state&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Threading.ExecutionContext.Run&#40;ExecutionContext&#32;executionContext,&#32;ContextCallback&#32;callback,&#32;Object&#32;state&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;System.Threading.ThreadHelper.ThreadStart&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;InnerException&#58;&#32;Microsoft.Practices.ObjectBuilder2.BuildFailedException&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;BuildKey&#61;&#38;quot&#59;Build&#32;Key&#91;Core.Batch,&#32;BATCH&#93;&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;ExecutingStrategyIndex&#61;3&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;ExecutingStrategyTypeName&#61;&#38;quot&#59;BuildPlanStrategy&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;Message&#61;&#38;quot&#59;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;Core.Batch,&#32;BATCH&#93;&#41;&#32;failed&#58;&#32;The&#32;parameter&#32;logWriter&#32;could&#32;not&#32;be&#32;resolved&#32;when&#32;attempting&#32;to&#32;call&#32;constructor&#32;Core.Batch&#40;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter&#32;logWriter&#41;.&#32;&#40;Strategy&#32;type&#32;BuildPlanStrategy,&#32;index&#32;3&#41;&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;Source&#61;&#38;quot&#59;Microsoft.Practices.ObjectBuilder2&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;StackTrace&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;at&#32;Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;at&#32;Microsoft.Practices.ObjectBuilder2.Builder.BuildUp&#40;IReadWriteLocator&#32;locator,&#32;ILifetimeContainer&#32;lifetime,&#32;IPolicyList&#32;policies,&#32;IStrategyChain&#32;strategies,&#32;Object&#32;buildKey,&#32;Object&#32;existing&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;at&#32;Microsoft.Practices.Unity.UnityContainer.DoBuildUp&#40;Type&#32;t,&#32;Object&#32;existing,&#32;String&#32;name&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;InnerException&#58;&#32;System.InvalidOperationException&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;Message&#61;&#38;quot&#59;The&#32;parameter&#32;logWriter&#32;could&#32;not&#32;be&#32;resolved&#32;when&#32;attempting&#32;to&#32;call&#32;constructor&#32;Core.Batch&#40;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter&#32;logWriter&#41;.&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;Source&#61;&#38;quot&#59;Microsoft.Practices.ObjectBuilder2&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;StackTrace&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForResolutionFailed&#40;Exception&#32;inner,&#32;String&#32;parameterName,&#32;String&#32;constructorSignature,&#32;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;BuildUp_Core.Batch&#40;IBuilderContext&#32;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;InnerException&#58;&#32;Microsoft.Practices.ObjectBuilder2.BuildFailedException&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;BuildKey&#61;&#38;quot&#59;Build&#32;Key&#91;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter,&#32;null&#93;&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;ExecutingStrategyIndex&#61;3&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;ExecutingStrategyTypeName&#61;&#38;quot&#59;BuildPlanStrategy&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;Message&#61;&#38;quot&#59;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter,&#32;null&#93;&#41;&#32;failed&#58;&#32;The&#32;parameter&#32;filters&#32;could&#32;not&#32;be&#32;resolved&#32;when&#32;attempting&#32;to&#32;call&#32;constructor&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter&#40;System.Collections.Generic.ICollection&#96;1&#91;&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;4.1.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#93;&#93;&#32;filters,&#32;System.Collections.Generic.IDictionary&#96;2&#91;&#91;System.String,&#32;mscorlib,&#32;Version&#61;2.0.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;b77a5c561934e089&#93;,&#91;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;4.1.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#93;&#93;&#32;traceSources,&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource&#32;allEventsTraceSource,&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource&#32;notProcessedTraceSource,&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource&#32;errorsTraceSource,&#32;System.String&#32;defaultCategory,&#32;System.Boolean&#32;tracingEnabled,&#32;System.Boolean&#32;logWarningsWhenNoCategoriesMatch,&#32;System.Boolean&#32;revertImpersonation&#41;.&#32;&#40;Strategy&#32;type&#32;BuildPlanStrategy,&#32;index&#32;3&#41;&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;Source&#61;&#38;quot&#59;Microsoft.Practices.ObjectBuilder2&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;StackTrace&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;at&#32;Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;at&#32;Microsoft.Practices.Unity.ObjectBuilder.NamedTypeDependencyResolverPolicy.Resolve&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;at&#32;BuildUp_Core.Batch&#40;IBuilderContext&#32;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;InnerException&#58;&#32;System.InvalidOperationException&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;Message&#61;&#38;quot&#59;The&#32;parameter&#32;filters&#32;could&#32;not&#32;be&#32;resolved&#32;when&#32;attempting&#32;to&#32;call&#32;constructor&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter&#40;System.Collections.Generic.ICollection&#96;1&#91;&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;4.1.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#93;&#93;&#32;filters,&#32;System.Collections.Generic.IDictionary&#96;2&#91;&#91;System.String,&#32;mscorlib,&#32;Version&#61;2.0.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;b77a5c561934e089&#93;,&#91;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;4.1.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#93;&#93;&#32;traceSources,&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource&#32;allEventsTraceSource,&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource&#32;notProcessedTraceSource,&#32;Microsoft.Practices.EnterpriseLibrary.Logging.LogSource&#32;errorsTraceSource,&#32;System.String&#32;defaultCategory,&#32;System.Boolean&#32;tracingEnabled,&#32;System.Boolean&#32;logWarningsWhenNoCategoriesMatch,&#32;System.Boolean&#32;revertImpersonation&#41;.&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;Source&#61;&#38;quot&#59;Microsoft.Practices.ObjectBuilder2&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;StackTrace&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForResolutionFailed&#40;Exception&#32;inner,&#32;String&#32;parameterName,&#32;String&#32;constructorSignature,&#32;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;BuildUp_Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter&#40;IBuilderContext&#32;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;InnerException&#58;&#32;Microsoft.Practices.ObjectBuilder2.BuildFailedException&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;BuildKey&#61;&#38;quot&#59;Build&#32;Key&#91;System.Collections.Generic.ICollection&#96;1&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter&#93;,&#32;null&#93;&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;ExecutingStrategyIndex&#61;3&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;ExecutingStrategyTypeName&#61;&#38;quot&#59;BuildPlanStrategy&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;Message&#61;&#38;quot&#59;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;System.Collections.Generic.ICollection&#96;1&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter&#93;,&#32;null&#93;&#41;&#32;failed&#58;&#32;The&#32;current&#32;type,&#32;System.Collections.Generic.ICollection&#96;1&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter&#93;,&#32;is&#32;an&#32;interface&#32;and&#32;cannot&#32;be&#32;constructed.&#32;Are&#32;you&#32;missing&#32;a&#32;type&#32;mapping&#63;&#32;&#40;Strategy&#32;type&#32;BuildPlanStrategy,&#32;index&#32;3&#41;&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;Source&#61;&#38;quot&#59;Microsoft.Practices.ObjectBuilder2&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;StackTrace&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;at&#32;Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;at&#32;Microsoft.Practices.Unity.ObjectBuilder.NamedTypeDependencyResolverPolicy.Resolve&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;at&#32;BuildUp_Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter&#40;IBuilderContext&#32;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;InnerException&#58;&#32;System.InvalidOperationException&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;Message&#61;&#38;quot&#59;The&#32;current&#32;type,&#32;System.Collections.Generic.ICollection&#96;1&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter&#93;,&#32;is&#32;an&#32;interface&#32;and&#32;cannot&#32;be&#32;constructed.&#32;Are&#32;you&#32;missing&#32;a&#32;type&#32;mapping&#63;&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;Source&#61;&#38;quot&#59;Microsoft.Practices.ObjectBuilder2&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;StackTrace&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForAttemptingToConstructInterface&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;BuildUp_System.Collections.Generic.ICollection&#96;1&#91;&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;4.1.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#93;&#93;&#40;IBuilderContext&#32;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;InnerException&#58;&#38;nbsp&#59;&#32;&#32;&#32;&#38;nbsp&#59;">
+        
+<p>hey, thanks for the post. here is the detail</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+Microsoft.Practices.Unity.ResolutionFailedException was unhandled</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp;Message=&quot;Resolution of the dependency failed, type = &quot;Core.IData&quot;, name = &quot;BATCH&quot;. Exception message is: The current build operation (build key Build Key[Core.Batch, BATCH]) failed: The parameter logWriter could not be resolved
+ when attempting to call constructor Core.Batch(Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter logWriter). (Strategy type BuildPlanStrategy, index 3)&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp;NameRequested=&quot;BATCH&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp;Source=&quot;Microsoft.Practices.Unity&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp;TypeRequested=&quot;IData&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp;StackTrace:</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, String name)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at Microsoft.Practices.Unity.UnityContainer.Resolve(Type t, String name)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at Microsoft.Practices.Unity.UnityContainerBase.Resolve[T](String name)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at TestingApp.Form1.Form1_Load(Object sender, EventArgs e) in D:\Ithos-Files\Projects\Content_ingestion_system\TestingApp\Clients\Form1.vb:line 48</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.EventHandler.Invoke(Object sender, EventArgs e)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Form.OnLoad(EventArgs e)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Form.OnCreateControl()</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Control.CreateControl(Boolean fIgnoreVisible)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Control.CreateControl()</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Control.WmShowWindow(Message&amp; m)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Control.WndProc(Message&amp; m)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.ScrollableControl.WndProc(Message&amp; m)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.ContainerControl.WndProc(Message&amp; m)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Form.WmShowWindow(Message&amp; m)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Form.WndProc(Message&amp; m)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Control.ControlNativeWindow.OnMessage(Message&amp; m)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Control.ControlNativeWindow.WndProc(Message&amp; m)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.NativeWindow.DebuggableCallback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.SafeNativeMethods.ShowWindow(HandleRef hWnd, Int32 nCmdShow)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Control.SetVisibleCore(Boolean value)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Form.SetVisibleCore(Boolean value)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Control.set_Visible(Boolean value)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Application.ThreadContext.RunMessageLoopInner(Int32 reason, ApplicationContext context)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Application.ThreadContext.RunMessageLoop(Int32 reason, ApplicationContext context)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Application.Run(ApplicationContext context)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at Microsoft.VisualBasic.ApplicationServices.WindowsFormsApplicationBase.OnRun()</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at Microsoft.VisualBasic.ApplicationServices.WindowsFormsApplicationBase.DoApplicationModel()</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at Microsoft.VisualBasic.ApplicationServices.WindowsFormsApplicationBase.Run(String[] commandLine)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at TestingApp.My.MyApplication.Main(String[] Args) in 17d14f5c-a337-4978-8281-53493378c1071.vb:line 81</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.AppDomain._nExecuteAssembly(Assembly assembly, String[] args)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.AppDomain.ExecuteAssembly(String assemblyFile, Evidence assemblySecurity, String[] args)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at Microsoft.VisualStudio.HostingProcess.HostProc.RunUsersAssembly()</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Threading.ThreadHelper.ThreadStart_Context(Object state)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; at System.Threading.ThreadHelper.ThreadStart()</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp;InnerException: Microsoft.Practices.ObjectBuilder2.BuildFailedException</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; BuildKey=&quot;Build Key[Core.Batch, BATCH]&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; ExecutingStrategyIndex=3</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; ExecutingStrategyTypeName=&quot;BuildPlanStrategy&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; Message=&quot;The current build operation (build key Build Key[Core.Batch, BATCH]) failed: The parameter logWriter could not be resolved when attempting to call constructor Core.Batch(Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter
+ logWriter). (Strategy type BuildPlanStrategy, index 3)&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; Source=&quot;Microsoft.Practices.ObjectBuilder2&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; StackTrace:</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;at Microsoft.Practices.ObjectBuilder2.Builder.BuildUp(IReadWriteLocator locator, ILifetimeContainer lifetime, IPolicyList policies, IStrategyChain strategies, Object buildKey, Object existing)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;at Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; InnerException: System.InvalidOperationException</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Message=&quot;The parameter logWriter could not be resolved when attempting to call constructor Core.Batch(Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter logWriter).&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Source=&quot;Microsoft.Practices.ObjectBuilder2&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;StackTrace:</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForResolutionFailed(Exception inner, String parameterName, String constructorSignature, IBuilderContext context)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at BuildUp_Core.Batch(IBuilderContext )</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;InnerException: Microsoft.Practices.ObjectBuilder2.BuildFailedException</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BuildKey=&quot;Build Key[Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter, null]&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ExecutingStrategyIndex=3</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ExecutingStrategyTypeName=&quot;BuildPlanStrategy&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Message=&quot;The current build operation (build key Build Key[Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter, null]) failed: The parameter filters could not be resolved when attempting
+ to call constructor Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter(System.Collections.Generic.ICollection`1[[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter, Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral,
+ PublicKeyToken=31bf3856ad364e35]] filters, System.Collections.Generic.IDictionary`2[[System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, Microsoft.Practices.EnterpriseLibrary.Logging,
+ Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]] traceSources, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource allEventsTraceSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource notProcessedTraceSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource
+ errorsTraceSource, System.String defaultCategory, System.Boolean tracingEnabled, System.Boolean logWarningsWhenNoCategoriesMatch, System.Boolean revertImpersonation). (Strategy type BuildPlanStrategy, index 3)&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Source=&quot;Microsoft.Practices.ObjectBuilder2&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; StackTrace:</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;at Microsoft.Practices.Unity.ObjectBuilder.NamedTypeDependencyResolverPolicy.Resolve(IBuilderContext context)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;at BuildUp_Core.Batch(IBuilderContext )</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; InnerException: System.InvalidOperationException</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Message=&quot;The parameter filters could not be resolved when attempting to call constructor Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter(System.Collections.Generic.ICollection`1[[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter,
+ Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]] filters, System.Collections.Generic.IDictionary`2[[System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[Microsoft.Practices.EnterpriseLibrary.Logging.LogSource,
+ Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]] traceSources, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource allEventsTraceSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource
+ notProcessedTraceSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource errorsTraceSource, System.String defaultCategory, System.Boolean tracingEnabled, System.Boolean logWarningsWhenNoCategoriesMatch, System.Boolean revertImpersonation).&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Source=&quot;Microsoft.Practices.ObjectBuilder2&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;StackTrace:</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForResolutionFailed(Exception inner, String parameterName, String constructorSignature,
+ IBuilderContext context)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at BuildUp_Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter(IBuilderContext )</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;InnerException: Microsoft.Practices.ObjectBuilder2.BuildFailedException</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BuildKey=&quot;Build Key[System.Collections.Generic.ICollection`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter], null]&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ExecutingStrategyIndex=3</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ExecutingStrategyTypeName=&quot;BuildPlanStrategy&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Message=&quot;The current build operation (build key Build Key[System.Collections.Generic.ICollection`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter],
+ null]) failed: The current type, System.Collections.Generic.ICollection`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter], is an interface and cannot be constructed. Are you missing a type mapping? (Strategy type BuildPlanStrategy, index
+ 3)&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Source=&quot;Microsoft.Practices.ObjectBuilder2&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; StackTrace:</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;at Microsoft.Practices.Unity.ObjectBuilder.NamedTypeDependencyResolverPolicy.Resolve(IBuilderContext context)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;at BuildUp_Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter(IBuilderContext )</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; InnerException: System.InvalidOperationException</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Message=&quot;The current type, System.Collections.Generic.ICollection`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter],
+ is an interface and cannot be constructed. Are you missing a type mapping?&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Source=&quot;Microsoft.Practices.ObjectBuilder2&quot;</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;StackTrace:</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForAttemptingToConstructInterface(IBuilderContext
+ context)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at BuildUp_System.Collections.Generic.ICollection`1[[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter, Microsoft.Practices.EnterpriseLibrary.Logging,
+ Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]](IBuilderContext )</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)</div>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow-x:hidden; overflow-y:hidden">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;InnerException:&nbsp;</div>
+<p></p>
+<p>Microsoft.Practices.Unity.ResolutionFailedException was unhandled</p>
+<p>&nbsp;&nbsp;Message=&quot;Resolution of the dependency failed, type = &quot;Core.IData&quot;, name = &quot;BATCH&quot;. Exception message is: The current build operation (build key Build Key[Core.Batch, BATCH]) failed: The parameter logWriter could not be
+ resolved when attempting to call constructor Core.Batch(Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter logWriter). (Strategy type BuildPlanStrategy, index 3)&quot;</p>
+<p>&nbsp;&nbsp;NameRequested=&quot;BATCH&quot;</p>
+<p>&nbsp;&nbsp;Source=&quot;Microsoft.Practices.Unity&quot;</p>
+<p>&nbsp;&nbsp;TypeRequested=&quot;IData&quot;</p>
+<p>&nbsp;&nbsp;StackTrace:</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, String name)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at Microsoft.Practices.Unity.UnityContainer.Resolve(Type t, String name)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at Microsoft.Practices.Unity.UnityContainerBase.Resolve[T](String name)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at TestingApp.Form1.Form1_Load(Object sender, EventArgs e) in D:\Ithos-Files\Projects\Content_ingestion_system\TestingApp\Clients\Form1.vb:line 48</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.EventHandler.Invoke(Object sender, EventArgs e)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Form.OnLoad(EventArgs e)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Form.OnCreateControl()</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Control.CreateControl(Boolean fIgnoreVisible)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Control.CreateControl()</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Control.WmShowWindow(Message&amp; m)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Control.WndProc(Message&amp; m)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.ScrollableControl.WndProc(Message&amp; m)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.ContainerControl.WndProc(Message&amp; m)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Form.WmShowWindow(Message&amp; m)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Form.WndProc(Message&amp; m)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Control.ControlNativeWindow.OnMessage(Message&amp; m)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Control.ControlNativeWindow.WndProc(Message&amp; m)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.NativeWindow.DebuggableCallback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.SafeNativeMethods.ShowWindow(HandleRef hWnd, Int32 nCmdShow)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Control.SetVisibleCore(Boolean value)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Form.SetVisibleCore(Boolean value)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Control.set_Visible(Boolean value)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Application.ThreadContext.RunMessageLoopInner(Int32 reason, ApplicationContext context)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Application.ThreadContext.RunMessageLoop(Int32 reason, ApplicationContext context)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Windows.Forms.Application.Run(ApplicationContext context)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at Microsoft.VisualBasic.ApplicationServices.WindowsFormsApplicationBase.OnRun()</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at Microsoft.VisualBasic.ApplicationServices.WindowsFormsApplicationBase.DoApplicationModel()</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at Microsoft.VisualBasic.ApplicationServices.WindowsFormsApplicationBase.Run(String[] commandLine)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at TestingApp.My.MyApplication.Main(String[] Args) in 17d14f5c-a337-4978-8281-53493378c1071.vb:line 81</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.AppDomain._nExecuteAssembly(Assembly assembly, String[] args)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.AppDomain.ExecuteAssembly(String assemblyFile, Evidence assemblySecurity, String[] args)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at Microsoft.VisualStudio.HostingProcess.HostProc.RunUsersAssembly()</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Threading.ThreadHelper.ThreadStart_Context(Object state)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; at System.Threading.ThreadHelper.ThreadStart()</p>
+<p>&nbsp;&nbsp;InnerException: Microsoft.Practices.ObjectBuilder2.BuildFailedException</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; BuildKey=&quot;Build Key[Core.Batch, BATCH]&quot;</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; ExecutingStrategyIndex=3</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; ExecutingStrategyTypeName=&quot;BuildPlanStrategy&quot;</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; Message=&quot;The current build operation (build key Build Key[Core.Batch, BATCH]) failed: The parameter logWriter could not be resolved when attempting to call constructor Core.Batch(Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter
+ logWriter). (Strategy type BuildPlanStrategy, index 3)&quot;</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; Source=&quot;Microsoft.Practices.ObjectBuilder2&quot;</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; StackTrace:</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;at Microsoft.Practices.ObjectBuilder2.Builder.BuildUp(IReadWriteLocator locator, ILifetimeContainer lifetime, IPolicyList policies, IStrategyChain strategies, Object buildKey, Object existing)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;at Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; InnerException: System.InvalidOperationException</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Message=&quot;The parameter logWriter could not be resolved when attempting to call constructor Core.Batch(Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter logWriter).&quot;</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Source=&quot;Microsoft.Practices.ObjectBuilder2&quot;</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;StackTrace:</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForResolutionFailed(Exception inner, String parameterName, String constructorSignature, IBuilderContext context)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at BuildUp_Core.Batch(IBuilderContext )</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;InnerException: Microsoft.Practices.ObjectBuilder2.BuildFailedException</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BuildKey=&quot;Build Key[Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter, null]&quot;</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ExecutingStrategyIndex=3</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ExecutingStrategyTypeName=&quot;BuildPlanStrategy&quot;</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Message=&quot;The current build operation (build key Build Key[Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter, null]) failed: The parameter filters could not be resolved when attempting
+ to call constructor Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter(System.Collections.Generic.ICollection`1[[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter, Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral,
+ PublicKeyToken=31bf3856ad364e35]] filters, System.Collections.Generic.IDictionary`2[[System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, Microsoft.Practices.EnterpriseLibrary.Logging,
+ Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]] traceSources, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource allEventsTraceSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource notProcessedTraceSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource
+ errorsTraceSource, System.String defaultCategory, System.Boolean tracingEnabled, System.Boolean logWarningsWhenNoCategoriesMatch, System.Boolean revertImpersonation). (Strategy type BuildPlanStrategy, index 3)&quot;</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Source=&quot;Microsoft.Practices.ObjectBuilder2&quot;</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; StackTrace:</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;at Microsoft.Practices.Unity.ObjectBuilder.NamedTypeDependencyResolverPolicy.Resolve(IBuilderContext context)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;at BuildUp_Core.Batch(IBuilderContext )</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; InnerException: System.InvalidOperationException</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Message=&quot;The parameter filters could not be resolved when attempting to call constructor Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter(System.Collections.Generic.ICollection`1[[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter,
+ Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]] filters, System.Collections.Generic.IDictionary`2[[System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[Microsoft.Practices.EnterpriseLibrary.Logging.LogSource,
+ Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]] traceSources, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource allEventsTraceSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource
+ notProcessedTraceSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource errorsTraceSource, System.String defaultCategory, System.Boolean tracingEnabled, System.Boolean logWarningsWhenNoCategoriesMatch, System.Boolean revertImpersonation).&quot;</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Source=&quot;Microsoft.Practices.ObjectBuilder2&quot;</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;StackTrace:</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForResolutionFailed(Exception inner, String parameterName, String constructorSignature,
+ IBuilderContext context)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at BuildUp_Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter(IBuilderContext )</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;InnerException: Microsoft.Practices.ObjectBuilder2.BuildFailedException</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BuildKey=&quot;Build Key[System.Collections.Generic.ICollection`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter], null]&quot;</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ExecutingStrategyIndex=3</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ExecutingStrategyTypeName=&quot;BuildPlanStrategy&quot;</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Message=&quot;The current build operation (build key Build Key[System.Collections.Generic.ICollection`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter],
+ null]) failed: The current type, System.Collections.Generic.ICollection`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter], is an interface and cannot be constructed. Are you missing a type mapping? (Strategy type BuildPlanStrategy, index
+ 3)&quot;</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Source=&quot;Microsoft.Practices.ObjectBuilder2&quot;</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; StackTrace:</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;at Microsoft.Practices.Unity.ObjectBuilder.NamedTypeDependencyResolverPolicy.Resolve(IBuilderContext context)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;at BuildUp_Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter(IBuilderContext )</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; InnerException: System.InvalidOperationException</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Message=&quot;The current type, System.Collections.Generic.ICollection`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter],
+ is an interface and cannot be constructed. Are you missing a type mapping?&quot;</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Source=&quot;Microsoft.Practices.ObjectBuilder2&quot;</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;StackTrace:</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForAttemptingToConstructInterface(IBuilderContext
+ context)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at BuildUp_System.Collections.Generic.ICollection`1[[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter, Microsoft.Practices.EnterpriseLibrary.Logging,
+ Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]](IBuilderContext )</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;InnerException:&nbsp;</p>
+<div></div>
+<p></p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_275681" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="276004">
+    <td id="PostDetailsCell_276004" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post276004"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/12/2010 4:51:35 AM" LocalTimeTicks="1263300695">Jan 12, 2010 at 4:51 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_276004" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="My&#32;initial&#32;guess&#32;based&#32;on&#32;the&#32;fundamental&#32;cause,&#32;which&#32;is&#32;here&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;Message&#61;&#38;quot&#59;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;System.Collections.Generic.ICollection&#96;1&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter&#93;,&#32;null&#93;&#41;&#32;failed&#58;&#32;The&#32;current&#32;type,&#32;System.Collections.Generic.ICollection&#96;1&#91;Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter&#93;,&#32;is&#32;an&#32;interface&#32;and&#32;cannot&#32;be&#32;constructed.&#32;Are&#32;you&#32;missing&#32;a&#32;type&#32;mapping&#63;&#32;&#40;Strategy&#32;type&#32;BuildPlanStrategy,&#32;index&#32;3&#41;&#38;quot&#59;&#32;is&#32;that&#32;the&#32;container&#32;isn&#39;t&#32;configured&#32;with&#32;the&#32;right&#32;Enterprise&#32;Library&#32;extensions&#32;to&#32;properly&#32;resolve&#32;a&#32;LogWriter.&#32;Either&#32;that,&#32;or&#32;it&#39;s&#32;not&#32;finding&#32;the&#32;correct&#32;config&#32;file.&#32;Does&#32;you&#32;app&#32;work&#32;if&#32;you&#32;get&#32;LogWriter&#32;objects&#32;directly&#32;through&#32;a&#32;LogWriterFactory&#63;&#32;That&#39;d&#32;be&#32;a&#32;quick&#32;way&#32;to&#32;tell&#32;if&#32;it&#39;s&#32;finding&#32;the&#32;right&#32;config&#32;file&#32;or&#32;not.">
+        
+<p>My initial guess based on the fundamental cause, which is here:</p>
+<p>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Message=&quot;The current build operation (build key Build Key[System.Collections.Generic.ICollection`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter],
+ null]) failed: The current type, System.Collections.Generic.ICollection`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter], is an interface and cannot be constructed. Are you missing a type mapping? (Strategy type BuildPlanStrategy, index
+ 3)&quot;</p>
+<p>is that the container isn't configured with the right Enterprise Library extensions to properly resolve a LogWriter. Either that, or it's not finding the correct config file.</p>
+<p>Does you app work if you get LogWriter objects directly through a LogWriterFactory? That'd be a quick way to tell if it's finding the right config file or not.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_276004" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="276041">
+    <td id="PostDetailsCell_276041" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post276041"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/irahc78">irahc78</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/12/2010 7:17:30 AM" LocalTimeTicks="1263309450">Jan 12, 2010 at 7:17 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_276041" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hey,&#32;thanks&#32;for&#32;taking&#32;the&#32;time.&#32;As&#32;i&#32;mentioned&#32;initially,&#32;when&#32;i&#32;have&#32;my&#32;client&#32;components&#32;&#40;form1.vb&#32;and&#32;form2.vb&#41;&#32;in&#32;the&#32;same&#32;application&#32;as&#32;the&#32;rest&#32;of&#32;the&#32;business&#32;logic&#32;components&#32;that&#32;use&#32;Enterprise&#32;Libraries,&#32;it&#32;indeed&#32;works.&#32;The&#32;issue&#32;arises&#32;when&#32;i&#32;extract&#32;the&#32;forms&#32;into&#32;a&#32;separate&#32;project.&#38;nbsp&#59;&#32;Once&#32;i&#32;moved&#32;the&#32;form&#32;into&#32;a&#32;separate&#32;project&#32;this&#32;is&#32;what&#32;i&#32;did&#32;Dim&#32;batch&#32;As&#32;Batch&#32;&#61;&#32;Core.ServiceLocator.Container.Resolve&#40;Of&#32;IData&#41;&#40;Constants.BATCH&#41;&#32;Core&#32;is&#32;the&#32;name&#32;of&#32;Class&#32;library.&#32;when&#32;you&#32;say&#32;&#39;finding&#32;the&#32;config&#32;file&#39;&#32;-&#32;which&#32;project&#32;should&#32;host&#32;the&#32;config&#32;file&#63;&#32;The&#32;client&#32;tool&#32;or&#32;the&#32;class&#32;library&#63;">
+        
+<p>Hey, thanks for taking the time.</p>
+<p>As i mentioned initially, when i have my client components (form1.vb and form2.vb) in the same application as the rest of the business logic components that use Enterprise Libraries, it indeed works. The issue arises when i extract the forms into a separate
+ project.&nbsp;</p>
+<p>Once i moved the form into a separate project this is what i did</p>
+<p>Dim batch As Batch = Core.ServiceLocator.Container.Resolve(Of IData)(Constants.BATCH)</p>
+<p>Core is the name of Class library.</p>
+<p>when you say 'finding the config file' - which project should host the config file? The client tool or the class library?</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_276041" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="276245">
+    <td id="PostDetailsCell_276245" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post276245"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/12/2010 3:39:21 PM" LocalTimeTicks="1263339561">Jan 12, 2010 at 3:39 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_276245" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="The&#32;config&#32;file&#32;must&#32;be&#32;the&#32;one&#32;for&#32;the&#32;executable&#32;-&#32;libraries&#32;don&#39;t&#32;get&#32;config&#32;files.&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;">
+        
+<p>The config file must be the one for the executable - libraries don't get config files.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_276245" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="276590">
+    <td id="PostDetailsCell_276590" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post276590"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/irahc78">irahc78</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/13/2010 8:19:44 AM" LocalTimeTicks="1263399584">Jan 13, 2010 at 8:19 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_276590" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi&#32;there,&#32;Thanks&#32;for&#32;the&#32;tip.&#32;It&#32;worked&#32;like&#32;a&#32;charm.&#32;Your&#39;re&#32;help&#32;is&#32;unparalleled.&#32;In&#32;hindsight,&#32;this&#32;may&#32;look&#32;obvious,&#32;but&#32;i&#32;surely&#32;didnt&#32;figure&#32;it.&#32;Thanks&#32;again.&#32;cheers,&#32;Hari">
+        
+<p>Hi there,</p>
+<p>Thanks for the tip. It worked like a charm. Your're help is unparalleled.</p>
+<p>In hindsight, this may look obvious, but i surely didnt figure it. Thanks again.</p>
+<p>cheers, Hari</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_276590" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f80139">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="5ccfca83-1a25-4226-8de1-43ed1d81cf29">
+    <script class="options" defer="defer" id="5ccfca83-1a25-4226-8de1-43ed1d81cf29" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_53ca0a8d-0da5-45b8-8ec4-e24395383e70">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_f685dbd3-e8bb-4952-8e29-e440b9a23e01">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_53ca0a8d-0da5-45b8-8ec4-e24395383e70" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_f685dbd3-e8bb-4952-8e29-e440b9a23e01" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/80139';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

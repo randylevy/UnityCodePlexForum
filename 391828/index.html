@@ -1,0 +1,969 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Unity in unittesting project</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/391828?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/391828?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="xuxWhhLDdiOS2NwOg_oJDSDgDSqSxfyzXn_ManKEOL57ZuyZ4WralgLlaR_qJBX8Qdb38ATu-5r6qRVhfTdVhFoJ8C8TFtEsHNa7QfzXhsDkPyvEYYFNE5utvxZa9fk4wKCIBg2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2832c2ea0-9c9c-4fd8-ba13-b2de5157378c" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:26:07 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f391828" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="464a7d25-07fd-472b-af86-ee013b561c6b">
+                
+                    <script class="options" defer="defer" id="464a7d25-07fd-472b-af86-ee013b561c6b" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="d05f4302-dbef-4c1a-9ec3-901472a64eff">
+                
+                    <script class="options" defer="defer" id="d05f4302-dbef-4c1a-9ec3-901472a64eff" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Unity in unittesting project
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:391828]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="4d1f0e2a-a4b2-48f6-91c9-b82ed3a18618">
+    <script class="options" defer="defer" id="4d1f0e2a-a4b2-48f6-91c9-b82ed3a18618" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/391828","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="899817">
+    <td id="PostDetailsCell_899817" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post899817"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jwijnker">jwijnker</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/16/2012 8:29:20 AM" LocalTimeTicks="1345130960">Aug 16, 2012 at 8:29 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_899817" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Is&#32;it&#32;possible&#32;to&#32;use&#32;a&#32;unity.config&#32;file&#32;in&#32;a&#32;UnitTest&#32;project&#63;&#32;I&#32;have&#32;some&#32;existing&#32;code&#32;which&#32;uses&#32;a&#32;lot&#32;of&#32;IoC,&#32;now&#38;nbsp&#59;I&#32;like&#32;to&#32;do&#32;some&#32;more&#32;testing&#32;the&#32;code.&#32;Therefore&#32;i&#39;ve&#32;setup&#32;some&#32;test-projects&#32;and&#32;now&#38;nbsp&#59;I&#32;have&#32;to&#32;configure&#32;Unity&#32;in&#32;the&#32;testproject.&#32;For&#32;some&#32;reason,&#38;nbsp&#59;I&#32;can&#39;t&#32;use&#32;Unity&#32;in&#32;the&#32;testproject,&#32;because&#32;the&#32;Unity.config&#32;file&#32;doesn&#39;t&#32;seems&#32;to&#32;get&#32;loaded.&#32;Can&#32;some&#32;point&#32;me&#32;the&#32;right&#32;direction&#63;&#63;&#32;">
+        
+<p>Is it possible to use a unity.config file in a UnitTest project?</p>
+<p>I have some existing code which uses a lot of IoC, now&nbsp;I like to do some more testing the code. Therefore i've setup some test-projects and now&nbsp;I have to configure Unity in the testproject.<br>
+For some reason,&nbsp;I can't use Unity in the testproject, because the Unity.config file doesn't seems to get loaded.</p>
+<p>Can some point me the right direction??</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_899817" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="899951">
+    <td id="PostDetailsCell_899951" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post899951"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/16/2012 3:07:02 PM" LocalTimeTicks="1345154822">Aug 16, 2012 at 3:07 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_899951" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Yes,&#32;you&#32;can&#32;use&#32;a&#32;Unity.config&#32;file&#32;in&#32;a&#32;test&#32;project.&#32;&#38;nbsp&#59;Although&#32;in&#32;a&#32;test&#32;project&#32;you&#32;might&#32;want&#32;to&#32;configure&#32;the&#32;container&#32;programmatically&#32;because&#32;it&#32;allows&#32;you&#32;to&#32;more&#32;easily&#32;recreate&#32;various&#32;scenarios.&#32;If&#32;you&#32;want&#32;to&#32;use&#32;a&#32;config&#32;file&#32;you&#32;can&#32;place&#32;your&#32;unity&#32;configuration&#32;in&#32;app.config&#32;for&#32;the&#32;test&#32;project&#32;or&#32;you&#32;can&#32;manually&#32;load&#32;a&#32;configuration&#32;file&#32;from&#32;another&#32;location&#58;&#32;&#32;var&#32;fileMap&#32;&#61;&#32;new&#32;ExeConfigurationFileMap&#32;&#123;&#32;ExeConfigFilename&#32;&#61;&#32;fileName&#125;&#59;&#32;System.Configuration.Configuration&#32;configuration&#32;&#61;&#32;ConfigurationManager.OpenMappedExeConfiguration&#40;fileMap,&#32;ConfigurationUserLevel.None&#41;&#59;&#32;var&#32;unitySection&#32;&#61;&#32;configuration.GetSection&#40;UnityConfigurationSection.SectionName&#41;&#32;as&#32;UnityConfigurationSection&#59;&#32;var&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;.LoadConfiguration&#40;unitySection&#41;&#59;&#32;&#32;If&#32;you&#32;are&#32;using&#32;Visual&#32;Studio&#39;s&#32;unit&#32;testing&#32;then&#32;you&#32;could&#32;also&#32;use&#32;the&#32;deployment&#32;functionality&#32;to&#32;deploy&#32;the&#32;files&#32;you&#32;need&#32;and&#32;you&#32;could&#32;then&#32;load&#32;them&#58;&#32;&#32;&#91;TestClass&#93;&#32;public&#32;class&#32;CacheTestFixture&#32;&#123;&#32;private&#32;IUnityContainer&#32;container&#59;&#32;&#47;&#47;&#32;Also&#32;could&#32;initialize&#32;one&#32;container&#32;for&#32;the&#32;entire&#32;test&#32;&#47;&#47;&#32;&#91;Microsoft.VisualStudio.TestTools.UnitTesting.TestInitialize&#93;&#32;public&#32;void&#32;SetUp&#40;string&#32;fileName&#41;&#32;&#123;&#32;var&#32;fileMap&#32;&#61;&#32;new&#32;ExeConfigurationFileMap&#32;&#123;&#32;ExeConfigFilename&#32;&#61;&#32;fileName&#125;&#59;&#32;System.Configuration.Configuration&#32;configuration&#32;&#61;&#32;ConfigurationManager.OpenMappedExeConfiguration&#40;fileMap,&#32;ConfigurationUserLevel.None&#41;&#59;&#32;var&#32;unitySection&#32;&#61;&#32;configuration.GetSection&#40;UnityConfigurationSection.SectionName&#41;&#32;as&#32;UnityConfigurationSection&#59;&#32;var&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;.LoadConfiguration&#40;unitySection&#41;&#59;&#32;&#125;&#32;&#91;TestMethod&#93;&#32;&#91;DeploymentItem&#40;&#34;C&#58;&#92;&#92;Config&#92;&#92;Unity.Config&#34;&#41;&#93;&#32;public&#32;void&#32;RetrieveCachedValueThroughSameInstance&#40;&#41;&#32;&#123;&#32;SetUp&#40;&#34;Unity.config&#34;&#41;&#59;&#32;var&#32;empBiz&#32;&#61;&#32;container.Resolve&#38;lt&#59;IEmployeeBiz&#38;gt&#59;&#40;&#41;&#59;&#32;string&#32;a&#32;&#61;&#32;empBiz.ListAllInSet&#40;&#41;&#59;&#32;string&#32;c&#32;&#61;&#32;empBiz.ListAllInSetFacade&#40;&#41;&#59;&#32;Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual&#40;a,&#32;c&#41;&#59;&#32;&#125;&#32;&#91;TestMethod&#93;&#32;&#91;DeploymentItem&#40;&#34;C&#58;&#92;&#92;Config&#92;&#92;Unity_bad.Config&#34;&#41;&#93;&#32;&#91;ExpectedException&#40;typeof&#40;InvalidOperationException&#41;&#41;&#93;&#32;public&#32;void&#32;RetrieveCachedValueInvalidConfigType&#40;&#41;&#32;&#123;&#32;SetUp&#40;&#34;Unity_bad.config&#34;&#41;&#59;&#32;var&#32;empBiz&#32;&#61;&#32;container.Resolve&#38;lt&#59;IEmployeeBiz&#38;gt&#59;&#40;&#41;&#59;&#32;string&#32;a&#32;&#61;&#32;empBiz.ListAllInSet&#40;&#41;&#59;&#32;string&#32;c&#32;&#61;&#32;empBiz.ListAllInSetFacade&#40;&#41;&#59;&#32;Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual&#40;a,&#32;c&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;Although&#32;usually&#32;you&#32;would&#32;have&#32;only&#32;one&#32;config&#32;for&#32;the&#32;entire&#32;test.&#32;--Randy&#32;LevyEnterprise&#32;Library&#32;support&#32;engineerentlib.support&#64;live.com&#38;nbsp&#59;">
+        
+<p>Yes, you can use a Unity.config file in a test project. &nbsp;Although in a test project you might want to configure the container programmatically because it allows you to more easily recreate various scenarios.</p>
+<p>If you want to use a config file you can place your unity configuration in app.config for the test project or you can manually load a configuration file from another location:</p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">var</span> fileMap = <span style="color:blue">new</span> ExeConfigurationFileMap { ExeConfigFilename = fileName};
+System.Configuration.Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None);
+
+<span style="color:blue">var</span> unitySection = configuration.GetSection(UnityConfigurationSection.SectionName) <span style="color:blue">as</span> UnityConfigurationSection;
+<span style="color:blue">var</span> container = <span style="color:blue">new</span> UnityContainer().LoadConfiguration(unitySection);</pre>
+</div>
+<p>If you are using Visual Studio's unit testing then you could also use the deployment functionality to deploy the files you need and you could then load them:</p>
+<div style="color:black; background-color:white">
+<pre>[TestClass]
+<span style="color:blue">public</span> <span style="color:blue">class</span> CacheTestFixture
+{
+    <span style="color:blue">private</span> IUnityContainer container;
+
+<span style="color:green">//        Also could initialize one container for the entire test</span>
+<span style="color:green">//        [Microsoft.VisualStudio.TestTools.UnitTesting.TestInitialize]</span>
+    <span style="color:blue">public</span> <span style="color:blue">void</span> SetUp(<span style="color:blue">string</span> fileName)
+    {
+        <span style="color:blue">var</span> fileMap = <span style="color:blue">new</span> ExeConfigurationFileMap { ExeConfigFilename = fileName};
+        System.Configuration.Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None);
+
+        <span style="color:blue">var</span> unitySection = configuration.GetSection(UnityConfigurationSection.SectionName) <span style="color:blue">as</span> UnityConfigurationSection;
+        <span style="color:blue">var</span> container = <span style="color:blue">new</span> UnityContainer().LoadConfiguration(unitySection);
+    }
+
+    [TestMethod]
+    [DeploymentItem(<span style="color:#a31515">&quot;C:\\Config\\Unity.Config&quot;</span>)]
+    <span style="color:blue">public</span> <span style="color:blue">void</span> RetrieveCachedValueThroughSameInstance()
+    {
+        SetUp(<span style="color:#a31515">&quot;Unity.config&quot;</span>);
+        <span style="color:blue">var</span> empBiz = container.Resolve&lt;IEmployeeBiz&gt;();
+
+        <span style="color:blue">string</span> a = empBiz.ListAllInSet();
+        <span style="color:blue">string</span> c = empBiz.ListAllInSetFacade();
+
+        Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(a, c);
+    }
+
+    [TestMethod]
+    [DeploymentItem(<span style="color:#a31515">&quot;C:\\Config\\Unity_bad.Config&quot;</span>)]
+    [ExpectedException(<span style="color:blue">typeof</span>(InvalidOperationException))]
+    <span style="color:blue">public</span> <span style="color:blue">void</span> RetrieveCachedValueInvalidConfigType()
+    {
+        SetUp(<span style="color:#a31515">&quot;Unity_bad.config&quot;</span>);
+        <span style="color:blue">var</span> empBiz = container.Resolve&lt;IEmployeeBiz&gt;();
+
+        <span style="color:blue">string</span> a = empBiz.ListAllInSet();
+        <span style="color:blue">string</span> c = empBiz.ListAllInSetFacade();
+
+        Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(a, c);
+    }
+}
+</pre>
+</div>
+<p>Although usually you would have only one config for the entire test.</p>
+<p>--<br>
+Randy Levy<br>
+Enterprise Library support engineer<br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">entlib.support@live.com</a>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_899951" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="900532">
+    <td id="PostDetailsCell_900532" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post900532"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jwijnker">jwijnker</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/17/2012 10:34:42 AM" LocalTimeTicks="1345224882">Aug 17, 2012 at 10:34 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_900532" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Randy,&#32;thanks&#32;for&#32;your&#32;reply.&#32;It&#32;helped&#32;me&#32;a&#32;lot&#32;in&#32;setting&#32;up&#32;the&#32;test-project&#32;using&#32;unity.&#32;Unfortunatly&#32;it&#32;brought&#32;an&#32;other&#32;problem&#58;In&#32;the&#32;testproject&#32;I&#32;have&#32;a&#32;app.config&#32;which&#32;refers&#32;to&#32;the&#32;Unity.config&#32;file.If&#32;I&#32;try&#38;nbsp&#59;to&#32;load&#32;the&#32;Unity.Config&#32;file&#58;&#32;&#34;&#91;DeploymentItem&#40;&#34;&#47;Unity.Config&#34;&#41;&#93;&#34;&#38;nbsp&#59;I&#32;get&#32;the&#32;error&#58;&#32;&#34;Configuration&#32;file&#32;Unity.Config&#32;does&#32;not&#32;have&#32;root&#32;&#38;lt&#59;configuration&#38;gt&#59;&#32;tag&#32;&#40;C&#58;....&#34;.&#32;I&#32;understand&#32;this&#32;exception,&#32;and&#32;what&#32;caused&#32;it.In&#32;the&#32;App.Config&#32;I&#32;use&#58;&#32;&#34;&#38;lt&#59;configSections&#38;gt&#59;&#38;nbsp&#59;&#38;lt&#59;section&#32;name&#61;&#34;unity&#34;&#32;type&#61;&#34;Microsoft.Practices.Unity.Configuration.UnityConfigurationSection,&#32;Microsoft.Practices.Unity.Configuration&#34;&#32;&#47;&#38;gt&#59;&#38;lt&#59;&#47;configSections&#38;gt&#59;&#32;&#38;lt&#59;unity&#32;configSource&#61;&#34;Unity.config&#34;&#32;&#47;&#38;gt&#59;&#34;&#32;So&#32;the&#32;App.Config&#32;is&#32;loading&#32;the&#32;Unity.Config&#32;on&#32;&#39;demand&#39;.&#32;How&#32;can&#32;I&#32;let&#32;the&#32;Testproject&#32;copy&#32;the&#32;Unity.Config&#32;file&#32;with&#32;the&#32;App.Config&#32;file&#32;to&#32;the&#32;&#47;Out&#32;-&#32;folder&#63;&#32;&#38;nbsp&#59;">
+        
+<p>Randy,</p>
+<p>thanks for your reply. It helped me a lot in setting up the test-project using unity.</p>
+<p><br>
+Unfortunatly it brought an other problem:<br>
+In the testproject I have a app.config which refers to the Unity.config file.<br>
+If I try&nbsp;to load the Unity.Config file: &quot;<span style="font-family:Consolas; font-size:x-small"><span style="font-family:Consolas; font-size:x-small"><span style="font-family:Consolas; font-size:x-small">[</span></span></span><span style="font-family:Consolas; color:#2b91af; font-size:x-small"><span style="font-family:Consolas; color:#2b91af; font-size:x-small"><span style="font-family:Consolas; color:#2b91af; font-size:x-small">DeploymentItem</span></span></span><span style="font-family:Consolas; font-size:x-small"><span style="font-family:Consolas; font-size:x-small">(</span></span><span style="font-family:Consolas; color:#a31515; font-size:x-small"><span style="font-family:Consolas; color:#a31515; font-size:x-small"><span style="font-family:Consolas; color:#a31515; font-size:x-small">&quot;/Unity.Config&quot;</span></span></span><span style="font-family:Consolas; font-size:x-small"><span style="font-family:Consolas; font-size:x-small">)]</span></span>&quot;&nbsp;I
+ get the error: &quot;Configuration file Unity.Config does not have root &lt;configuration&gt; tag (C:....&quot;. I understand this exception, and what caused it.<br>
+In the App.Config I use: &quot;<br>
+<span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small">&lt;</span></span></span></span><span style="font-family:Consolas; color:#a31515; font-size:x-small"><span style="font-family:Consolas; color:#a31515; font-size:x-small"><span style="font-family:Consolas; color:#a31515; font-size:x-small">configSections</span></span></span><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small">&gt;<br>
+<span style="font-family:Consolas; color:#0000ff; font-size:x-small">&nbsp;&lt;</span></span></span></span><span style="font-family:Consolas; color:#a31515; font-size:x-small"><span style="font-family:Consolas; color:#a31515; font-size:x-small"><span style="font-family:Consolas; color:#a31515; font-size:x-small">section</span></span></span><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small">
+</span></span></span><span style="font-family:Consolas; color:#ff0000; font-size:x-small"><span style="font-family:Consolas; color:#ff0000; font-size:x-small"><span style="font-family:Consolas; color:#ff0000; font-size:x-small">name</span></span></span><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small">=</span></span></span><span style="font-family:Consolas; font-size:x-small"><span style="font-family:Consolas; font-size:x-small">&quot;</span></span><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small">unity</span></span></span><span style="font-family:Consolas; font-size:x-small"><span style="font-family:Consolas; font-size:x-small">&quot;</span></span><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small">
+</span></span></span><span style="font-family:Consolas; color:#ff0000; font-size:x-small"><span style="font-family:Consolas; color:#ff0000; font-size:x-small"><span style="font-family:Consolas; color:#ff0000; font-size:x-small">type</span></span></span><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small">=</span></span></span><span style="font-family:Consolas; font-size:x-small"><span style="font-family:Consolas; font-size:x-small">&quot;</span></span><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small">Microsoft.Practices.Unity.Configuration.UnityConfigurationSection,
+ Microsoft.Practices.Unity.Configuration</span></span></span><span style="font-family:Consolas; font-size:x-small"><span style="font-family:Consolas; font-size:x-small">&quot;</span></span><span style="font-family:Consolas; color:#0000ff; font-size:x-small">
+<span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small">/&gt;<br>
+<span style="font-family:Consolas; color:#0000ff; font-size:x-small">&lt;/</span></span></span></span><span style="font-family:Consolas; color:#a31515; font-size:x-small"><span style="font-family:Consolas; color:#a31515; font-size:x-small"><span style="font-family:Consolas; color:#a31515; font-size:x-small">configSections</span></span></span><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small">&gt;</span></span></span></p>
+<p><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small">&lt;</span></span><span style="font-family:Consolas; color:#a31515; font-size:x-small"><span style="font-family:Consolas; color:#a31515; font-size:x-small"><span style="font-family:Consolas; color:#a31515; font-size:x-small">unity</span></span></span><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small">
+</span></span></span><span style="font-family:Consolas; color:#ff0000; font-size:x-small"><span style="font-family:Consolas; color:#ff0000; font-size:x-small"><span style="font-family:Consolas; color:#ff0000; font-size:x-small">configSource</span></span></span><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small">=</span></span></span><span style="font-family:Consolas; font-size:x-small"><span style="font-family:Consolas; font-size:x-small">&quot;</span></span><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small">Unity.config</span></span></span><span style="font-family:Consolas; font-size:x-small"><span style="font-family:Consolas; font-size:x-small">&quot;
+</span></span><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small"><span style="font-family:Consolas; color:#0000ff; font-size:x-small">/&gt;</span></span></span></span></span>&quot;</p>
+<p>So the App.Config is loading the Unity.Config on 'demand'.</p>
+<p>How can I let the Testproject copy the Unity.Config file with the App.Config file to the /Out - folder?</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_900532" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="901204">
+    <td id="PostDetailsCell_901204" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post901204"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/19/2012 12:52:46 AM" LocalTimeTicks="1345362766">Aug 19, 2012 at 12:52 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="8/19/2012 2:23:53 PM" LocalTimeTicks="1345411433">Aug 19, 2012 at 2:23 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_901204" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;If&#32;you&#32;are&#32;using&#32;a&#32;configSource,&#32;then&#32;you&#32;could&#32;just&#32;add&#32;an&#32;app.config&#32;to&#32;your&#32;test&#32;project&#32;&#40;app.config&#32;will&#32;automatically&#32;be&#32;deployed&#32;to&#32;the&#32;output&#32;folder&#41;&#58;&#32;&#32;&#38;lt&#59;&#63;xml&#32;version&#61;&#38;quot&#59;1.0&#38;quot&#59;&#32;encoding&#61;&#38;quot&#59;utf-8&#38;quot&#59;&#32;&#63;&#38;gt&#59;&#32;&#38;lt&#59;configuration&#38;gt&#59;&#32;&#38;lt&#59;configSections&#38;gt&#59;&#32;&#38;lt&#59;section&#32;name&#61;&#38;quot&#59;unity&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Microsoft.Practices.Unity.Configuration.UnityConfigurationSection,&#32;Microsoft.Practices.Unity.Configuration&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;configSections&#38;gt&#59;&#32;&#38;lt&#59;unity&#32;configSource&#61;&#38;quot&#59;Unity.config&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;configuration&#38;gt&#59;&#32;&#32;Then&#32;specify&#32;Unity.config&#32;as&#32;a&#32;deployment&#32;item&#32;&#40;this&#32;will&#32;deploy&#32;the&#32;file&#32;to&#32;the&#32;output&#32;folder&#41;&#32;and&#32;create&#32;a&#32;container&#32;in&#32;the&#32;test&#32;method&#58;&#32;&#32;&#32;&#91;TestMethod&#93;&#32;&#91;DeploymentItem&#40;&#38;quot&#59;C&#58;&#92;&#92;EntLib&#92;&#92;Config&#92;&#92;Unity.Config&#38;quot&#59;&#41;&#93;&#32;public&#32;void&#32;RetrieveCachedValueThroughSameInstance&#40;&#41;&#32;&#123;&#32;var&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;.LoadConfiguration&#40;&#41;&#59;&#32;var&#32;empBiz&#32;&#61;&#32;container.Resolve&#38;lt&#59;IEmployeeBiz&#38;gt&#59;&#40;&#41;&#59;&#32;string&#32;a&#32;&#61;&#32;empBiz.ListAllInSet&#40;&#41;&#59;&#32;string&#32;c&#32;&#61;&#32;empBiz.ListAllInSetFacade&#40;&#41;&#59;&#32;Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual&#40;a,&#32;c&#41;&#59;&#32;&#125;&#32;&#32;&#32;&#38;nbsp&#59;&#32;Alternatively,&#32;you&#32;could&#32;add&#32;the&#32;Unity.Config&#32;as&#32;well&#32;as&#32;the&#32;app.config&#32;files&#32;to&#32;the&#32;Test&#32;Settings-&#38;gt&#59;Deployment,&#32;files&#32;list&#32;and&#32;they&#32;both&#32;should&#32;be&#32;copied&#32;to&#32;the&#32;output&#32;folder.&#32;--&#32;Randy&#32;Levy&#32;Enterprise&#32;Library&#32;support&#32;engineer&#32;entlib.support&#64;live.com&#38;nbsp&#59;&#32;">
+        
+<p>If you are using a configSource, then you could just add an app.config to your test project (app.config will automatically be deployed to the output folder):</p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">&lt;?</span><span style="color:#a31515">xml</span> <span style="color:red">version</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">1.0</span><span style="color:black">&quot;</span> <span style="color:red">encoding</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">utf-8</span><span style="color:black">&quot;</span> <span style="color:blue">?&gt;</span>
+<span style="color:blue">&lt;</span><span style="color:#a31515">configuration</span><span style="color:blue">&gt;</span>
+  <span style="color:blue">&lt;</span><span style="color:#a31515">configSections</span><span style="color:blue">&gt;</span>
+    <span style="color:blue">&lt;</span><span style="color:#a31515">section</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">unity</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Microsoft.Practices.Unity.Configuration.UnityConfigurationSection, Microsoft.Practices.Unity.Configuration</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+  <span style="color:blue">&lt;/</span><span style="color:#a31515">configSections</span><span style="color:blue">&gt;</span>
+
+  <span style="color:blue">&lt;</span><span style="color:#a31515">unity</span> <span style="color:red">configSource</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Unity.config</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+
+<span style="color:blue">&lt;/</span><span style="color:#a31515">configuration</span><span style="color:blue">&gt;</span></pre>
+</div>
+<p>Then specify Unity.config as a deployment item (this will deploy the file to the output folder) and create a container in the test method:</p>
+<div style="color:black; background-color:white">
+<pre>    [TestMethod]
+    [DeploymentItem(<span style="color:#a31515">&quot;C:\\EntLib\\Config\\Unity.Config&quot;</span>)]
+    <span style="color:blue">public</span> <span style="color:blue">void</span> RetrieveCachedValueThroughSameInstance()
+    {
+        <span style="color:blue">var</span> container = <span style="color:blue">new</span> UnityContainer().LoadConfiguration();
+        <span style="color:blue">var</span> empBiz = container.Resolve&lt;IEmployeeBiz&gt;();
+
+        <span style="color:blue">string</span> a = empBiz.ListAllInSet();
+        <span style="color:blue">string</span> c = empBiz.ListAllInSetFacade();
+
+        Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(a, c);
+    }
+
+</pre>
+</div>
+<p>&nbsp;</p>
+<p>Alternatively, you could add the Unity.Config as well as the app.config files to the Test Settings-&gt;Deployment, files list and they both should be copied to the output folder.</p>
+<p><span>--</span><br>
+<span>Randy Levy</span><br>
+<span>Enterprise Library support engineer</span><br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">entlib.support@live.com</a><span>&nbsp;</span></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_901204" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="901439">
+    <td id="PostDetailsCell_901439" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post901439"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jwijnker">jwijnker</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/20/2012 7:42:02 AM" LocalTimeTicks="1345473722">Aug 20, 2012 at 7:42 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_901439" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;monitored&#32;the&#32;output&#32;and&#32;found&#32;that&#32;the&#32;app.config&#32;and&#32;unity.config&#32;file&#32;are&#32;both&#32;copied.&#32;But&#32;when&#32;I&#32;start&#32;testing,&#32;I&#32;get&#32;an&#32;error&#58;&#32;Unity.config-file&#32;is&#32;not&#32;found&#32;in&#32;c&#58;&#92;&#38;lt&#59;user&#38;gt&#59;&#92;...&#92;AppData&#92;Temp&#92;..&#32;So&#32;the&#32;testproject&#32;is&#32;not&#32;looking&#32;in&#32;the&#32;output&#32;folder,&#32;but&#32;in&#32;the&#32;.Net&#32;runtime&#32;folder.&#32;How&#32;can&#32;i&#32;change&#32;this&#63;">
+        
+<p>I monitored the output and found that the app.config and unity.config file are both copied. But when I start testing, I get an error: Unity.config-file is not found in c:\&lt;user&gt;\...\AppData\Temp\.. So the testproject is not looking in the output folder,
+ but in the .Net runtime folder. How can i change this?</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_901439" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="901746">
+    <td id="PostDetailsCell_901746" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post901746"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/21/2012 12:28:56 AM" LocalTimeTicks="1345534136">Aug 21, 2012 at 12:28 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_901746" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;would&#32;think&#32;that&#32;DeploymentItemAttribute&#38;nbsp&#59;would&#32;have&#32;copied&#32;to&#32;the&#32;directory&#32;where&#32;the&#32;tests&#32;will&#32;execute.&#32;&#38;nbsp&#59;I&#39;m&#32;curious&#32;if,&#32;in&#32;&#38;nbsp&#59;Local.testsettings,&#32;the&#32;&#34;Enable&#32;Deployment&#34;&#38;nbsp&#59;is&#32;checked&#63;&#32;--Randy&#32;LevyEnterprise&#32;Library&#32;support&#32;engineerentlib.support&#64;live.com&#38;nbsp&#59;">
+        
+<p>I would think that <a href="http://msdn.microsoft.com/en-us/library/microsoft.visualstudio.testtools.unittesting.deploymentitemattribute(v=vs.80).aspx" target="_blank" rel="nofollow">
+DeploymentItemAttribute</a>&nbsp;would have copied to the directory where the tests will execute. &nbsp;I'm curious if, in
+<span>&nbsp;Local.testsettings, the &quot;Enable Deployment&quot;</span>&nbsp;is checked?</p>
+<p><span>--</span><br>
+<span>Randy Levy</span><br>
+<span>Enterprise Library support engineer</span><br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">entlib.support@live.com</a><span>&nbsp;</span></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_901746" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="902447">
+    <td id="PostDetailsCell_902447" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post902447"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jwijnker">jwijnker</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/22/2012 9:38:41 AM" LocalTimeTicks="1345653521">Aug 22, 2012 at 9:38 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_902447" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="The&#32;&#34;Enable&#32;Deployment&#34;&#32;is&#32;checked&#33;&#32;Thats&#32;also&#32;the&#32;location&#32;where&#32;i&#39;ve&#32;set&#32;the&#32;unity.config&#32;file&#32;to&#32;deploy.The&#32;testproject&#32;only&#32;referers&#32;to&#32;the&#32;.NET&#32;folder&#32;to&#32;lookup&#32;for&#32;the&#32;unity.config&#32;file&#32;instead&#32;of&#32;the&#32;testproject&#32;Out&#32;folder.&#32;Is&#32;there&#32;an&#32;option&#32;to&#32;set&#32;the&#32;execution&#32;path&#32;for&#32;the&#32;testproject&#63;&#32;&#40;The&#32;testproject&#32;runs&#32;fine,&#32;but&#32;maybe&#32;it&#32;helps&#32;to&#32;locate&#32;the&#32;unity.config&#32;file&#41;&#32;For&#32;now&#32;i&#39;ve&#32;pasted&#32;the&#32;contents&#32;of&#32;the&#32;Unity.config&#32;file&#32;in&#32;the&#32;Unity-section&#32;in&#32;the&#32;app.config&#32;file,&#32;but&#32;i&#39;d&#32;hoped&#32;i&#32;can&#32;use&#32;the&#32;Unity.config&#32;file&#32;itself.">
+        
+<p>The &quot;Enable Deployment&quot; is checked! Thats also the location where i've set the unity.config file to deploy.<br>
+The testproject only referers to the .NET folder to lookup for the unity.config file instead of the testproject Out folder.</p>
+<p>Is there an option to set the execution path for the testproject? (The testproject runs fine, but maybe it helps to locate the unity.config file)</p>
+<p>For now i've pasted the contents of the Unity.config file in the Unity-section in the app.config file, but i'd hoped i can use the Unity.config file itself.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_902447" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="902786">
+    <td id="PostDetailsCell_902786" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post902786"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="8/23/2012 3:40:58 AM" LocalTimeTicks="1345718458">Aug 23, 2012 at 3:40 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_902786" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Everything&#32;works&#32;fine&#32;on&#32;my&#32;end&#32;so&#32;it&#39;s&#32;probably&#32;some&#32;settings,&#32;configuration,&#32;or&#32;environment.&#32;&#38;nbsp&#59;Can&#32;you&#32;create&#32;a&#32;small&#32;sample&#32;so&#32;I&#32;can&#32;see&#32;the&#32;behavior&#32;you&#32;are&#32;seeing&#63;&#32;--Randy&#32;LevyEnterprise&#32;Library&#32;support&#32;engineerentlib.support&#64;live.com&#38;nbsp&#59;">
+        
+<p>Everything works fine on my end so it's probably some settings, configuration, or environment. &nbsp;Can you create a small sample so I can see the behavior you are seeing?</p>
+<p><span>--</span><br>
+<span>Randy Levy</span><br>
+<span>Enterprise Library support engineer</span><br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">entlib.support@live.com</a><span>&nbsp;</span></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_902786" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f391828">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="72b46059-78b7-479f-9f19-04dc4e5a6f10">
+    <script class="options" defer="defer" id="72b46059-78b7-479f-9f19-04dc4e5a6f10" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_a85c1fe2-c470-4080-b4e5-0cb9a0e98e23">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_0ce3da2f-014e-466a-959b-543da45305c8">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_a85c1fe2-c470-4080-b4e5-0cb9a0e98e23" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_0ce3da2f-014e-466a-959b-543da45305c8" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/391828';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

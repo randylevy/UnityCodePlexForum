@@ -1,0 +1,1087 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - How to determine if object is held by the container&#63;</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/253793?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/253793?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="vx6-iA-9bm0eu7UeEztZpoR2vkpiKGq0HmQT1EvXR-OW_vnwCSsySShDyz6maclhIuPM9nApVLx43vzwBvOmTTy1c3JQsi4RAHjAZZcGlhP3zqYib3nkvtRVsA1wM_usB5RqEA2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken273eef2f5-1be1-435b-af91-cb6900605d06" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:26:44 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f253793" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="186bafa0-49f8-4fad-932a-c2382f4afb96">
+                
+                    <script class="options" defer="defer" id="186bafa0-49f8-4fad-932a-c2382f4afb96" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="b47641aa-8165-427c-a34c-d5264943b8ee">
+                
+                    <script class="options" defer="defer" id="b47641aa-8165-427c-a34c-d5264943b8ee" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                How to determine if object is held by the container&#63;
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:253793]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="a3d7f22c-0f08-401a-8e08-5c0fa37ad122">
+    <script class="options" defer="defer" id="a3d7f22c-0f08-401a-8e08-5c0fa37ad122" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/253793","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="596861">
+    <td id="PostDetailsCell_596861" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post596861"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Automize">Automize</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/13/2011 10:00:43 PM" LocalTimeTicks="1302757243">Apr 13, 2011 at 10:00 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_596861" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#39;m&#32;trying&#32;to&#32;determine&#32;how&#32;to&#32;write&#32;an&#32;extension&#32;method&#32;for&#32;unity&#32;that&#32;would&#32;allow&#32;me&#32;to&#32;determine&#32;if&#32;an&#32;object&#32;is&#32;held&#32;by&#32;a&#32;container&#32;&#40;ideally,&#32;regardless&#32;of&#32;which&#32;lifetime&#32;manager&#32;was&#32;used,&#32;but&#32;if&#32;the&#32;implementation&#32;had&#32;to&#32;be&#32;specific&#32;to&#32;a&#32;certain&#32;type&#32;of&#32;lifetime&#32;manager&#32;such&#32;as&#32;ContainerControlledLifetimeManager&#32;that&#32;would&#32;be&#32;OK&#41;.&#32;The&#32;reason&#32;I&#32;need&#32;this&#32;is&#32;I&#32;need&#32;to&#32;conditionally&#32;perform&#32;some&#32;operations&#32;on&#32;objects&#32;that&#32;are&#32;more&#32;expensive&#32;to&#32;create,&#32;but&#32;only&#32;if&#32;they&#32;were&#32;created&#32;&#40;below&#32;is&#32;an&#32;example&#41;.&#32;Thanks,&#32;Todd&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;var&#38;nbsp&#59;container&#38;nbsp&#59;&#61;&#38;nbsp&#59;new&#38;nbsp&#59;UnityContainer&#40;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;container.RegisterType&#38;lt&#59;UserSession&#38;gt&#59;&#40;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;new&#38;nbsp&#59;ContainerControlledLifetimeManager&#40;&#41;,&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;new&#38;nbsp&#59;InjectionFactory&#40;c&#38;nbsp&#59;&#61;&#38;gt&#59;&#38;nbsp&#59;c.Resolve&#38;lt&#59;ISessionManager&#38;gt&#59;&#40;&#41;.StartUserSession&#40;&#41;&#38;nbsp&#59;&#41;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;...&#38;nbsp&#59;Later&#38;nbsp&#59;...&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;if&#40;&#38;nbsp&#59;container.IsHeldByContainer&#38;lt&#59;UserSession&#38;gt&#59;&#40;&#41;&#38;nbsp&#59;&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;container.Resolve&#38;lt&#59;ISessionManager&#38;gt&#59;&#40;&#41;.EndUserSession&#40;container.Resolve&#38;lt&#59;UserSession&#38;gt&#59;&#40;&#41;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#125;&#32;&#32;&#32;&#32;">
+        
+<p>I'm trying to determine how to write an extension method for unity that would allow me to determine if an object is held by a container (ideally, regardless of which lifetime manager was used, but if the implementation had to be specific to a certain type
+ of lifetime manager such as ContainerControlledLifetimeManager that would be OK).</p>
+<p>The reason I need this is I need to conditionally perform some operations on objects that are more expensive to create, but only if they were created (below is an example).</p>
+<p>Thanks, Todd</p>
+<pre style="font-family:Consolas; font-size:13px; color:black; background:none repeat scroll 0% 0% white"><pre style="font-family:Consolas; font-size:13px; color:black; background:none repeat scroll 0% 0% white"><pre style="font-family:Consolas; font-size:13px; color:black; background:none repeat scroll 0% 0% white"><pre style="font-family:Consolas; font-size:13px; color:black; background:none repeat scroll 0% 0% white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">var</span>&nbsp;container&nbsp;=&nbsp;<span style="color:blue">new</span>&nbsp;<span style="color:#2b91af">UnityContainer</span>();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;container.RegisterType&lt;UserSession&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">new</span>&nbsp;<span style="color:#2b91af">ContainerControlledLifetimeManager</span>(),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">new</span>&nbsp;<span style="color:#2b91af">InjectionFactory</span>(c&nbsp;=&gt;&nbsp;c.Resolve&lt;ISessionManager&gt;().StartUserSession()&nbsp;));<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...&nbsp;Later&nbsp;...&nbsp;<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">if</span>(&nbsp;container.IsHeldByContainer&lt;UserSession&gt;()&nbsp;)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;container.Resolve&lt;ISessionManager&gt;().EndUserSession(container.Resolve&lt;UserSession&gt;());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br></pre>
+</pre>
+</pre>
+</pre>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_596861" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="596925">
+    <td id="PostDetailsCell_596925" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post596925"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/14/2011 1:10:35 AM" LocalTimeTicks="1302768635">Apr 14, 2011 at 1:10 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_596925" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="You&#32;would&#32;need&#32;to&#32;subscribe&#32;to&#32;the&#32;Registering&#32;events&#32;so&#32;you&#32;can&#32;keep&#32;track&#32;of&#32;the&#32;types&#32;that&#32;are&#38;nbsp&#59;getting&#32;registered.&#38;nbsp&#59;&#32;A&#32;sample&#32;code&#32;was&#32;posted&#32;in&#32;this&#32;thread.&#32;If&#32;you&#32;upgrade&#32;to&#32;Unity&#32;2.0,&#32;this&#32;can&#32;be&#32;easily&#32;accomplished&#32;using&#32;the&#32;IsRegistered&#32;method&#32;of&#32;the&#32;UnityContainer&#32;class.&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>You would need to subscribe to the Registering events so you can keep track of the types that are&nbsp;getting registered.&nbsp; A sample code was posted in this
+<a href="http://unity.codeplex.com/discussions/24543" rel="nofollow">thread</a>.</p>
+<p>If you upgrade to Unity 2.0, this can be easily accomplished using the IsRegistered method of the UnityContainer class.&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong><em>Sarah Urmeneta</em></strong><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_596925" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="596932">
+    <td id="PostDetailsCell_596932" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post596932"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Automize">Automize</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/14/2011 1:52:42 AM" LocalTimeTicks="1302771162">Apr 14, 2011 at 1:52 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_596932" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;am&#32;using&#32;unity&#32;2.0,&#32;but&#32;what&#32;I&#39;m&#32;trying&#32;to&#32;check&#32;here&#32;is&#32;if&#32;an&#32;object&#32;of&#32;the&#32;specified&#32;type&#32;is&#32;held&#32;by&#32;the&#32;container.&#38;nbsp&#59;&#32;IsRegistered&#40;&#41;&#32;only&#32;tells&#32;you&#32;if&#32;there&#32;is&#32;a&#32;type&#32;registration.">
+        
+<p>I am using unity 2.0, but what I'm trying to check here is if an object of the specified type is held by the container.&nbsp; IsRegistered() only tells you if there is a type registration.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_596932" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="596940">
+    <td id="PostDetailsCell_596940" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post596940"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/14/2011 2:14:09 AM" LocalTimeTicks="1302772449">Apr 14, 2011 at 2:14 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_596940" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#39;m&#32;confused,&#32;what&#32;do&#32;you&#32;exactly&#32;mean&#32;&#34;held&#32;by&#32;the&#32;container&#34;&#63;&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>I'm confused, what do you exactly mean &quot;held by the container&quot;?</p>
+<p>&nbsp;</p>
+<p><strong><em>Sarah Urmeneta</em></strong><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_596940" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="596946">
+    <td id="PostDetailsCell_596946" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post596946"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Automize">Automize</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/14/2011 2:25:44 AM" LocalTimeTicks="1302773144">Apr 14, 2011 at 2:25 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_596946" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="An&#32;object&#32;instance&#32;instance&#32;is&#32;held&#32;by&#32;the&#32;container&#32;&#40;meaning&#32;the&#32;underlying&#32;lifetime&#32;manager&#32;for&#32;the&#32;type&#32;registered&#41;.&#38;nbsp&#59;&#32;As&#32;in,&#32;the&#32;following&#32;unit&#32;test&#32;passes&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;var&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;container.RegisterType&#38;lt&#59;UserSession&#38;gt&#59;&#40;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;new&#32;ContainerControlledLifetimeManager&#40;&#41;,&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;new&#32;InjectionFactory&#40;c&#32;&#61;&#38;gt&#59;&#32;c.Resolve&#38;lt&#59;ISessionManager&#38;gt&#59;&#40;&#41;.StartUserSession&#40;&#41;&#32;&#41;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;Assert.IsFalse&#40;&#32;container.IsHeldByContainer&#38;lt&#59;UserSession&#38;gt&#59;&#40;&#41;&#38;nbsp&#59;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;container.Resolve&#38;lt&#59;UserSession&#38;gt&#59;&#40;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Assert.IsTrue&#40;&#32;container.IsHeldByContainer&#38;lt&#59;UserSession&#38;gt&#59;&#40;&#41;&#32;&#41;&#59;">
+        
+<p>An object instance instance is held by the container (meaning the underlying lifetime manager for the type registered).&nbsp; As in, the following unit test passes:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">
+var</span> container = <span style="color:blue">new</span> <span style="color:#2b91af">
+UnityContainer</span>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; container.RegisterType&lt;UserSession&gt;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="color:blue">new</span> <span style="color:#2b91af">ContainerControlledLifetimeManager</span>(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="color:blue">new</span> <span style="color:#2b91af">InjectionFactory</span>(c =&gt; c.Resolve&lt;ISessionManager&gt;().StartUserSession() ));<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Assert.IsFalse( container.IsHeldByContainer&lt;UserSession&gt;()&nbsp;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; container.Resolve&lt;UserSession&gt;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Assert.IsTrue( container.IsHeldByContainer&lt;UserSession&gt;() );</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_596946" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="596951">
+    <td id="PostDetailsCell_596951" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post596951"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/14/2011 2:42:09 AM" LocalTimeTicks="1302774129">Apr 14, 2011 at 2:42 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_596951" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;see,&#32;you&#32;mean&#32;the&#32;instance&#32;is&#32;already&#32;created&#32;by&#32;the&#32;container&#63;&#32;&#38;nbsp&#59;In&#32;your&#32;first&#32;assert,&#32;the&#32;UserSession&#32;isn&#39;t&#32;held&#32;by&#32;the&#32;container&#32;yet&#32;since&#32;there&#39;s&#32;no&#32;existing&#32;instance&#32;yet&#32;of&#32;the&#32;UserSession&#32;since&#32;it&#39;s&#32;the&#32;first&#32;time&#32;that&#32;that&#32;type&#32;will&#32;be&#32;resolved.&#38;nbsp&#59;&#32;And&#32;then&#32;in&#32;the&#32;second&#32;assert,&#32;it&#32;says&#32;the&#32;UserSession&#32;is&#32;held&#32;by&#32;the&#32;container&#32;since&#32;it&#32;was&#32;previously&#32;resolved&#32;and&#32;that&#32;instance&#32;was&#32;kept&#32;by&#32;the&#32;container&#32;due&#32;to&#32;the&#32;use&#32;of&#32;ContainerControlledLifetimeManager.&#38;nbsp&#59;&#32;Am&#32;I&#32;right&#63;&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>I see, you mean the instance is already created by the container? &nbsp;In your first assert, the UserSession isn't held by the container yet since there's no existing instance yet of the UserSession since it's the first time that that type will be resolved.&nbsp;
+ And then in the second assert, it says the UserSession is held by the container since it was previously resolved and that instance was kept by the container due to the use of ContainerControlledLifetimeManager.&nbsp; Am I right?</p>
+<p>&nbsp;</p>
+<p><strong><em>Sarah Urmeneta</em></strong><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_596951" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="596955">
+    <td id="PostDetailsCell_596955" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post596955"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Automize">Automize</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/14/2011 2:45:55 AM" LocalTimeTicks="1302774355">Apr 14, 2011 at 2:45 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_596955" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Right,&#32;so&#32;if&#32;the&#32;default&#32;TransientLifetimeManager&#32;was&#32;used,&#32;such&#32;a&#32;method&#32;would&#32;always&#32;return&#32;false&#58;&#32;var&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;container.RegisterType&#38;lt&#59;UserSession&#38;gt&#59;&#40;&#41;&#59;Assert.IsFalse&#40;&#32;container.IsHeldByContainer&#38;lt&#59;UserSession&#38;gt&#59;&#40;&#41;&#32;&#41;&#59;container.Resolve&#38;lt&#59;UserSession&#38;gt&#59;&#40;&#41;&#59;Assert.IsFalse&#40;&#32;container.IsHeldByContainer&#38;lt&#59;UserSession&#38;gt&#59;&#40;&#41;&#32;&#41;&#59;">
+        
+<p>Right, so if the default TransientLifetimeManager was used, such a method would always return false:</p>
+<p><span style="color:blue">var</span> container = <span style="color:blue">new</span>
+<span style="color:#2b91af">UnityContainer</span>();<br>
+container.RegisterType&lt;UserSession&gt;();<br>
+Assert.IsFalse( container.IsHeldByContainer&lt;UserSession&gt;() );<br>
+container.Resolve&lt;UserSession&gt;();<br>
+Assert.IsFalse( container.IsHeldByContainer&lt;UserSession&gt;() );</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_596955" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="596958">
+    <td id="PostDetailsCell_596958" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post596958"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/14/2011 2:57:59 AM" LocalTimeTicks="1302775079">Apr 14, 2011 at 2:57 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_596958" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Ok.&#38;nbsp&#59;&#32;I&#39;ll&#32;investigate&#32;how&#32;you&#32;can&#32;implement&#32;this&#32;functionality&#32;and&#32;get&#32;back&#32;to&#32;you.&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>Ok.&nbsp; I'll investigate how you can implement this functionality and get back to you.</p>
+<p>&nbsp;</p>
+<p><strong><em>Sarah Urmeneta</em></strong><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_596958" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="597576">
+    <td id="PostDetailsCell_597576" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post597576"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/15/2011 12:05:33 AM" LocalTimeTicks="1302851133">Apr 15, 2011 at 12:05 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="4/15/2011 1:23:30 AM" LocalTimeTicks="1302855810">Apr 15, 2011 at 1:23 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_597576" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="So&#32;the&#32;key&#32;is&#32;to&#32;get&#32;the&#32;ILifetimePolicy&#32;of&#32;the&#32;object&#32;and&#32;call&#32;the&#32;GetValue&#32;method&#58;&#32;&#32;public&#32;static&#32;class&#32;CustomExtensionContainerExtension&#32;&#123;&#32;public&#32;static&#32;bool&#63;&#32;IsHeldByContainer&#38;lt&#59;T&#38;gt&#59;&#40;this&#32;IUnityContainer&#32;container&#41;&#32;&#123;&#32;return&#32;IsHeldByContainer&#38;lt&#59;T&#38;gt&#59;&#40;container,&#32;null&#41;&#59;&#32;&#125;&#32;public&#32;static&#32;bool&#63;&#32;IsHeldByContainer&#38;lt&#59;T&#38;gt&#59;&#40;this&#32;IUnityContainer&#32;container,&#32;string&#32;name&#41;&#32;&#123;&#32;var&#32;extension&#32;&#61;&#32;container.Configure&#38;lt&#59;CustomExtension&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;if&#32;&#40;extension&#32;&#61;&#61;&#32;null&#41;&#32;return&#32;null&#59;&#32;&#47;&#47;consider&#32;to&#32;either&#32;return&#32;null&#32;or&#32;throw&#32;an&#32;exception&#32;&#32;&#32;return&#32;extension.InstanceExists&#40;typeof&#40;T&#41;,&#32;name&#41;&#59;&#32;&#32;&#125;&#32;&#32;&#125;&#32;&#32;public&#32;class&#32;CustomExtension&#32;&#58;&#32;UnityContainerExtension&#32;&#32;&#123;&#32;&#32;&#32;protected&#32;override&#32;void&#32;Initialize&#40;&#41;&#32;&#123;&#32;&#125;&#32;&#32;&#32;&#32;&#32;public&#32;bool&#32;InstanceExists&#40;Type&#32;typeToCheck,&#32;string&#32;name&#41;&#32;&#32;&#32;&#123;&#32;&#32;&#32;&#32;var&#32;key&#32;&#61;&#32;new&#32;NamedTypeBuildKey&#40;typeToCheck,&#32;name&#41;&#59;&#32;&#32;&#32;var&#32;policy&#32;&#61;&#32;Context.Policies.Get&#38;lt&#59;ILifetimePolicy&#38;gt&#59;&#40;key&#41;&#59;&#32;&#32;&#32;if&#32;&#40;policy&#32;&#61;&#61;&#32;null&#41;&#32;return&#32;false&#59;&#32;&#32;&#32;var&#32;value&#32;&#61;&#32;policy.GetValue&#40;&#41;&#59;&#32;&#32;&#32;return&#32;value&#32;&#33;&#61;&#32;null&#59;&#32;&#32;&#32;&#32;&#125;&#32;&#32;&#125;&#32;&#32;This&#32;is&#32;how&#38;nbsp&#59;&#32;you&#32;can&#32;use&#32;it&#32;then&#58;&#32;&#32;var&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.AddNewExtension&#38;lt&#59;CustomExtension&#38;gt&#59;&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;UserSession&#38;gt&#59;&#40;new&#32;ContainerControlledLifetimeManager&#40;&#41;&#41;&#59;&#32;Console.WriteLine&#40;container.IsHeldByContainer&#38;lt&#59;UserSession&#38;gt&#59;&#40;&#41;&#41;&#59;&#32;container.Resolve&#38;lt&#59;UserSession&#38;gt&#59;&#40;&#41;&#59;&#32;Console.WriteLine&#40;container.IsHeldByContainer&#38;lt&#59;UserSession&#38;gt&#59;&#40;&#41;&#41;&#59;&#32;&#32;&#32;Hope&#32;this&#32;helps.&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>So the key is to get the ILifetimePolicy of the object and call the GetValue method:</p>
+<div style="background-color:white; color:black">
+<pre><span style="color:blue">public</span> <span style="color:blue">static</span> <span style="color:blue">class</span> CustomExtensionContainerExtension
+    {
+        <span style="color:blue">public</span> <span style="color:blue">static</span> <span style="color:blue">bool</span>? IsHeldByContainer&lt;T&gt;(<span style="color:blue">this</span> IUnityContainer container)
+        {
+            <span style="color:blue">return</span> IsHeldByContainer&lt;T&gt;(container, <span style="color:blue">null</span>);
+        }
+ 
+        <span style="color:blue">public</span> <span style="color:blue">static</span> <span style="color:blue">bool</span>? IsHeldByContainer&lt;T&gt;(<span style="color:blue">this</span> IUnityContainer container, <span style="color:blue">string</span> name)
+        {
+            <span style="color:blue">var</span> extension = container.Configure&lt;CustomExtension&gt;();
+ 
+<span style="color:blue"><pre>           if (extension == null) return null; //consider to either return null or throw an exception </pre>
+</span> <span style="color:blue">return</span> extension.InstanceExists(<span style="color:blue">typeof</span>(T), name);</pre>
+<pre>        }     </pre>
+<pre>}       </pre>
+<pre><span style="color:blue">public</span> <span style="color:blue">class</span> CustomExtension : UnityContainerExtension     </pre>
+<pre>{         </pre>
+<pre>        <span style="color:blue">protected</span> <span style="color:blue">override</span> <span style="color:blue">void</span> Initialize() { }           </pre>
+<pre>        </pre>
+<pre>        <span style="color:blue">public</span> <span style="color:blue">bool</span> InstanceExists(Type typeToCheck, <span style="color:blue">string</span> name)         </pre>
+<pre>        {            <strong> </strong></pre>
+<pre><strong>		<span style="color:blue">var</span> key = <span style="color:blue">new</span> NamedTypeBuildKey(typeToCheck, name);             </strong></pre>
+<pre><strong>		<span style="color:blue">var</span> policy = Context.Policies.Get&lt;ILifetimePolicy&gt;(key);             </strong></pre>
+<pre><strong>		<span style="color:blue">if</span> (policy == <span style="color:blue">null</span>) <span style="color:blue">return</span> <span style="color:blue">false</span>;             </strong></pre>
+<pre><strong>		<span style="color:blue">var</span> value = policy.GetValue();             </strong></pre>
+<pre><strong>		<span style="color:blue">return</span> value != <span style="color:blue">null</span>; </strong> </pre>
+<pre>	}     </pre>
+<pre>}</pre>
+</div>
+<p>This is how&nbsp; you can use it then:</p>
+<div style="background-color:white; color:black">
+<pre><span style="color:blue">var</span> container = <span style="color:blue">new</span> UnityContainer();
+container.AddNewExtension&lt;CustomExtension&gt;();
+ 
+container.RegisterType&lt;UserSession&gt;(<span style="color:blue">new</span> ContainerControlledLifetimeManager());
+ 
+Console.WriteLine(container.IsHeldByContainer&lt;UserSession&gt;());
+ 
+container.Resolve&lt;UserSession&gt;();
+ 
+Console.WriteLine(container.IsHeldByContainer&lt;UserSession&gt;());
+
+</pre>
+</div>
+<p>Hope this helps.</p>
+<p><strong><em>Sarah Urmeneta</em></strong><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_597576" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="598071">
+    <td id="PostDetailsCell_598071" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post598071"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Automize">Automize</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/15/2011 5:09:54 PM" LocalTimeTicks="1302912594">Apr 15, 2011 at 5:09 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_598071" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="This&#32;doesn&#39;t&#32;seem&#32;to&#32;work&#32;for&#32;interface&#32;registrations...&#32;how&#32;would&#32;I&#32;get&#32;this&#32;to&#32;work&#63;&#32;var&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;container.RegisterType&#38;lt&#59;IUserSession,&#32;UserSession&#38;gt&#59;&#40;new&#32;ContainerControlledLifetimeManager&#40;&#41;&#41;&#59;Assert.IsFalse&#40;&#32;container.IsHeldByContainer&#38;lt&#59;IUserSession&#38;gt&#59;&#40;&#41;&#32;&#41;&#59;container.Resolve&#38;lt&#59;IUserSession&#38;gt&#59;&#40;&#41;&#59;Assert.IsTrue&#40;&#32;container.IsHeldByContainer&#38;lt&#59;IUserSession&#38;gt&#59;&#40;&#41;&#32;&#41;&#59;">
+        
+<p><span style="color:blue"><span style="color:#000000">This doesn't seem to work for interface registrations... how would I get this to work?</span></span></p>
+<p><span style="color:blue">var</span> container = <span style="color:blue">new</span>
+<span style="color:#2b91af">UnityContainer</span>();<br>
+container.RegisterType&lt;IUserSession, UserSession&gt;(new ContainerControlledLifetimeManager());<br>
+Assert.IsFalse( container.IsHeldByContainer&lt;IUserSession&gt;() );<br>
+container.Resolve&lt;IUserSession&gt;();<br>
+Assert.IsTrue( container.IsHeldByContainer&lt;IUserSession&gt;() );</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_598071" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="598789">
+    <td id="PostDetailsCell_598789" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post598789"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/18/2011 12:28:51 AM" LocalTimeTicks="1303111731">Apr 18, 2011 at 12:28 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_598789" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;didn&#39;t&#32;check&#32;for&#32;interfaces,&#32;sorry&#32;about&#32;that.&#38;nbsp&#59;&#32;You&#32;can&#32;modify&#32;the&#32;InstanceExists&#32;method&#32;to&#58;&#32;&#32;public&#32;bool&#32;InstanceExists&#40;Type&#32;typeToIntercept,&#32;string&#32;name&#41;&#32;&#123;&#32;var&#32;key&#32;&#61;&#32;new&#32;NamedTypeBuildKey&#40;typeToIntercept,&#32;name&#41;&#59;&#32;ILifetimePolicy&#32;policy&#32;&#61;&#32;Context.Policies.Get&#38;lt&#59;ILifetimePolicy&#38;gt&#59;&#40;key&#41;&#59;&#32;if&#32;&#40;policy&#32;&#61;&#61;&#32;null&#41;&#32;&#123;&#32;var&#32;buildKeyMapping&#32;&#61;&#32;Context.Policies.Get&#38;lt&#59;IBuildKeyMappingPolicy&#38;gt&#59;&#40;key&#41;&#59;&#32;var&#32;actualKey&#32;&#61;&#32;buildKeyMapping.Map&#40;key,&#32;null&#41;&#59;&#32;policy&#32;&#61;&#32;Context.Policies.Get&#38;lt&#59;ILifetimePolicy&#38;gt&#59;&#40;actualKey&#41;&#59;&#32;&#125;&#32;if&#32;&#40;policy&#32;&#61;&#61;&#32;null&#41;&#32;&#123;&#32;return&#32;false&#59;&#32;&#125;&#32;object&#32;value&#32;&#61;&#32;policy.GetValue&#40;&#41;&#59;&#32;return&#32;value&#32;&#33;&#61;&#32;null&#59;&#32;&#125;&#32;&#32;&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>I didn't check for interfaces, sorry about that.&nbsp; You can modify the InstanceExists method to:</p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">public</span> <span style="color:blue">bool</span> InstanceExists(Type typeToIntercept, <span style="color:blue">string</span> name)
+{
+            <span style="color:blue">var</span> key = <span style="color:blue">new</span> NamedTypeBuildKey(typeToIntercept, name);
+            ILifetimePolicy policy = Context.Policies.Get&lt;ILifetimePolicy&gt;(key);
+            <span style="color:blue">if</span> (policy == <span style="color:blue">null</span>)
+            {
+                <span style="color:blue">var</span> buildKeyMapping = Context.Policies.Get&lt;IBuildKeyMappingPolicy&gt;(key);
+                <span style="color:blue">var</span> actualKey = buildKeyMapping.Map(key, <span style="color:blue">null</span>);
+                policy = Context.Policies.Get&lt;ILifetimePolicy&gt;(actualKey);
+            }
+            <span style="color:blue">if</span> (policy == <span style="color:blue">null</span>)
+            {
+                <span style="color:blue">return</span> <span style="color:blue">false</span>;
+            }
+            <span style="color:blue">object</span> value = policy.GetValue();
+            <span style="color:blue">return</span> value != <span style="color:blue">null</span>;
+}
+</pre>
+</div>
+<p><strong><em>&nbsp;</em></strong></p>
+<p><strong><em>Sarah Urmeneta</em></strong><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_598789" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="599199">
+    <td id="PostDetailsCell_599199" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post599199"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Automize">Automize</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/18/2011 4:11:28 PM" LocalTimeTicks="1303168288">Apr 18, 2011 at 4:11 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_599199" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="So&#32;far&#32;so&#32;good&#32;-&#32;thanks&#32;for&#32;the&#32;help&#33;">
+        
+<p>So far so good - thanks for the help!</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_599199" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f253793">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="5342d089-25af-40b4-a7aa-4fb208f77bef">
+    <script class="options" defer="defer" id="5342d089-25af-40b4-a7aa-4fb208f77bef" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_14945d77-ff5f-49dd-a4d5-cb987db33af5">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_0c9c206d-06de-4368-8338-7d38ef462f77">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_14945d77-ff5f-49dd-a4d5-cb987db33af5" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_0c9c206d-06de-4368-8338-7d38ef462f77" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/253793';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

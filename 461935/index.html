@@ -1,0 +1,875 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Unity 2.0 and LogCallHandler</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/461935?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/461935?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="m6J8nP5LBxmXOudOxP_eFt_4PEPqgZXUv5ay3OJd5uqCTGG51vZOOsz_q0K4vIosjzUnnArSKa07n7Cn7oslyeRugyFLc9MAYXM7ER7E6XReZ20JpkLEgLRKVYyVQle9218Oeg2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken245995db7-02f5-4e53-a0e4-b9abd07b9a2a" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:25:48 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f461935" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="982a605b-f371-4573-a842-57a91db6645b">
+                
+                    <script class="options" defer="defer" id="982a605b-f371-4573-a842-57a91db6645b" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="9dc0f489-08c9-431b-aede-816dd5e6225d">
+                
+                    <script class="options" defer="defer" id="9dc0f489-08c9-431b-aede-816dd5e6225d" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Unity 2.0 and LogCallHandler
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:461935]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="00edc7e3-b9ab-46e2-b47d-3dca5aa9c9a1">
+    <script class="options" defer="defer" id="00edc7e3-b9ab-46e2-b47d-3dca5aa9c9a1" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/461935","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="1106567">
+    <td id="PostDetailsCell_1106567" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1106567"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jbx">jbx</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/11/2013 7:31:47 PM" LocalTimeTicks="1381545107">Oct 11, 2013 at 7:31 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1106567" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="I&#32;am&#32;having&#32;issues&#32;getting&#32;my&#32;methods&#32;intercepted&#32;and&#32;at&#32;the&#32;same&#32;time&#32;writing&#32;logs.&#32;I&#32;am&#32;using&#32;Enterprise&#32;Library&#32;5.0.&#32;I&#32;tried&#32;modify&#32;the&#32;HOL,&#32;Lab&#32;4&#32;config&#32;file.&#32;Please&#32;advice&#32;where&#32;have&#32;I&#32;gone&#32;wrong&#63;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#13;&#10;&#60;&#63;xml&#32;version&#61;&#34;1.0&#34;&#32;encoding&#61;&#34;utf-8&#34;&#63;&#62;&#13;&#10;&#60;configuration&#62;&#13;&#10;&#32;&#32;&#60;configSections&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#60;section&#32;name&#61;&#34;loggingConfiguration&#34;&#32;type&#61;&#34;Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LoggingSettings,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#34;&#32;requirePermission&#61;&#34;true&#34;&#32;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#60;section&#32;name&#61;&#34;unity&#34;&#32;type&#61;&#34;Microsoft.Practices.Unity.Configuration.UnityConfigurationSection,&#32;Microsoft.Practices.Unity.Configuration,&#32;Version&#61;2.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#34;&#47;&#62;&#13;&#10;&#32;&#32;&#60;&#47;configSections&#62;&#13;&#10;&#13;&#10;&#32;&#32;&#60;loggingConfiguration&#32;name&#61;&#34;&#34;&#32;tracingEnabled&#61;&#34;true&#34;&#32;defaultCategory&#61;&#34;General&#34;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#60;listeners&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;add&#32;name&#61;&#34;Rolling&#32;Flat&#32;File&#32;Trace&#32;Listener&#34;&#32;type&#61;&#34;Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollingFlatFileTraceListener,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#34;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;listenerDataType&#61;&#34;Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.RollingFlatFileTraceListenerData,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#34;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fileName&#61;&#34;rolling.log&#34;&#32;formatter&#61;&#34;Text&#32;Formatter&#34;&#32;rollFileExistsBehavior&#61;&#34;Increment&#34;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rollInterval&#61;&#34;Week&#34;&#32;traceOutputOptions&#61;&#34;Callstack&#34;&#32;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#60;&#47;listeners&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#60;formatters&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;add&#32;type&#61;&#34;Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.TextFormatter,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#34;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;template&#61;&#34;Timestamp&#58;&#32;&#123;timestamp&#40;local&#41;&#125;&#123;newline&#125;&#38;&#35;xA&#59;Message&#58;&#32;&#123;message&#125;&#123;newline&#125;&#38;&#35;xA&#59;Category&#58;&#32;&#123;category&#125;&#123;newline&#125;&#38;&#35;xA&#59;Priority&#58;&#32;&#123;priority&#125;&#123;newline&#125;&#38;&#35;xA&#59;EventId&#58;&#32;&#123;eventid&#125;&#123;newline&#125;&#38;&#35;xA&#59;Severity&#58;&#32;&#123;severity&#125;&#123;newline&#125;&#38;&#35;xA&#59;Title&#58;&#123;title&#125;&#123;newline&#125;&#38;&#35;xA&#59;Machine&#58;&#32;&#123;localMachine&#125;&#123;newline&#125;&#38;&#35;xA&#59;App&#32;Domain&#58;&#32;&#123;localAppDomain&#125;&#123;newline&#125;&#38;&#35;xA&#59;ProcessId&#58;&#32;&#123;localProcessId&#125;&#123;newline&#125;&#38;&#35;xA&#59;Process&#32;Name&#58;&#32;&#123;localProcessName&#125;&#123;newline&#125;&#38;&#35;xA&#59;Thread&#32;Name&#58;&#32;&#123;threadName&#125;&#123;newline&#125;&#38;&#35;xA&#59;Win32&#32;ThreadId&#58;&#123;win32ThreadId&#125;&#123;newline&#125;&#38;&#35;xA&#59;Extended&#32;Properties&#58;&#32;&#123;dictionary&#40;&#123;key&#125;&#32;-&#32;&#123;value&#125;&#123;newline&#125;&#41;&#125;&#34;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;name&#61;&#34;Text&#32;Formatter&#34;&#32;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#60;&#47;formatters&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#60;categorySources&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;add&#32;switchValue&#61;&#34;All&#34;&#32;name&#61;&#34;General&#34;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;listeners&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;add&#32;name&#61;&#34;Rolling&#32;Flat&#32;File&#32;Trace&#32;Listener&#34;&#32;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;listeners&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;add&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;add&#32;switchValue&#61;&#34;All&#34;&#32;name&#61;&#34;Failure&#34;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;listeners&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;add&#32;name&#61;&#34;Rolling&#32;Flat&#32;File&#32;Trace&#32;Listener&#34;&#32;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;listeners&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;add&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;add&#32;switchValue&#61;&#34;All&#34;&#32;name&#61;&#34;Success&#34;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;listeners&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;add&#32;name&#61;&#34;Rolling&#32;Flat&#32;File&#32;Trace&#32;Listener&#34;&#32;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;listeners&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;add&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#60;&#47;categorySources&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#60;specialSources&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;allEvents&#32;switchValue&#61;&#34;All&#34;&#32;name&#61;&#34;All&#32;Events&#34;&#32;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;notProcessed&#32;switchValue&#61;&#34;All&#34;&#32;name&#61;&#34;Unprocessed&#32;Category&#34;&#32;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;errors&#32;switchValue&#61;&#34;All&#34;&#32;name&#61;&#34;Logging&#32;Errors&#32;&#38;amp&#59;&#32;Warnings&#34;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;listeners&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;add&#32;name&#61;&#34;Rolling&#32;Flat&#32;File&#32;Trace&#32;Listener&#34;&#32;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;listeners&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;errors&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#60;&#47;specialSources&#62;&#13;&#10;&#32;&#32;&#60;&#47;loggingConfiguration&#62;&#13;&#10;&#32;&#32;&#60;appSettings&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#60;add&#32;key&#61;&#34;User&#58;Alice&#34;&#32;value&#61;&#34;Teller&#34;&#32;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#60;add&#32;key&#61;&#34;User&#58;Bob&#34;&#32;value&#61;&#34;Assistant&#34;&#32;&#47;&#62;&#13;&#10;&#32;&#32;&#60;&#47;appSettings&#62;&#13;&#10;&#32;&#32;&#60;unity&#32;xmlns&#61;&#34;http&#58;&#47;&#47;schemas.microsoft.com&#47;practices&#47;2010&#47;unity&#34;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#60;assembly&#32;name&#61;&#34;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#34;&#32;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#60;assembly&#32;name&#61;&#34;InterceptionHOL&#34;&#47;&#62;&#32;&#32;&#32;&#32;&#13;&#10;&#32;&#32;&#32;&#32;&#60;namespace&#32;name&#61;&#34;InterceptionHOL&#34;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#60;namespace&#32;name&#61;&#34;InterceptionHOL.BusinessLogic&#34;&#47;&#62;&#32;&#32;&#32;&#32;&#13;&#10;&#32;&#32;&#32;&#32;&#60;namespace&#32;name&#61;&#34;Microsoft.Practices.EnterpriseLibrary.Logging&#34;&#32;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#60;namespace&#32;name&#61;&#34;Microsoft.Practices.EnterpriseLibrary.Logging.PolicyInjection&#34;&#32;&#47;&#62;&#32;&#32;&#32;&#32;&#13;&#10;&#32;&#32;&#32;&#32;&#60;namespace&#32;name&#61;&#34;System.Diagnostics&#34;&#47;&#62;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;&#60;sectionExtension&#32;type&#61;&#34;Microsoft.Practices.Unity.InterceptionExtension.Configuration.InterceptionConfigurationExtension,&#32;Microsoft.Practices.Unity.Interception.Configuration&#34;&#47;&#62;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;&#60;container&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;extension&#32;type&#61;&#34;Interception&#34;&#47;&#62;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;register&#32;type&#61;&#34;IBankAccount&#34;&#32;mapTo&#61;&#34;BankAccount&#34;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;interceptor&#32;type&#61;&#34;InterfaceInterceptor&#34;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#33;--&#60;interceptionBehavior&#32;type&#61;&#34;TraceBehavior&#34;&#47;&#62;--&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;register&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;interception&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;policy&#32;name&#61;&#34;method&#32;policy&#34;&#62;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;matchingRule&#32;name&#61;&#34;rule1&#34;&#32;type&#61;&#34;NamespaceMatchingRule&#34;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;constructor&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;param&#32;name&#61;&#34;namespaceName&#34;&#32;value&#61;&#34;InterceptionHOL.&#42;&#34;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;constructor&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;matchingRule&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;callHandler&#32;name&#61;&#34;LogCallHandler&#34;&#32;type&#61;&#34;Microsoft.Practices.EnterpriseLibrary.Logging.PolicyInjection.LogCallHandler,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#34;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;constructor&#62;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;param&#32;name&#61;&#34;logWriter&#34;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;constructor&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;property&#32;name&#61;&#34;BeforeMessage&#34;&#32;value&#61;&#34;Invoking&#32;method&#34;&#32;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;property&#32;name&#61;&#34;AfterMessage&#34;&#32;value&#61;&#34;Method&#32;completed&#34;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;property&#32;name&#61;&#34;IncludeParameters&#34;&#32;value&#61;&#34;true&#34;&#47;&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;callHandler&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;policy&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;interception&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#60;&#47;container&#62;&#13;&#10;&#32;&#32;&#60;&#47;unity&#62;&#13;&#10;&#60;&#47;configuration&#62;&#13;&#10;&#13;&#10;&#96;&#96;&#96;">
+        <div class="markDownOutput ">I am having issues getting my methods intercepted and at the same time writing logs. I am using Enterprise Library 5.0. I tried modify the HOL, Lab 4 config file. Please advice where have I gone wrong?<br>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;configuration&gt;
+  &lt;configSections&gt;
+    &lt;section name=&quot;loggingConfiguration&quot; type=&quot;Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LoggingSettings, Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35&quot; requirePermission=&quot;true&quot; /&gt;
+    &lt;section name=&quot;unity&quot; type=&quot;Microsoft.Practices.Unity.Configuration.UnityConfigurationSection, Microsoft.Practices.Unity.Configuration, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35&quot;/&gt;
+  &lt;/configSections&gt;
+
+  &lt;loggingConfiguration name=&quot;&quot; tracingEnabled=&quot;true&quot; defaultCategory=&quot;General&quot;&gt;
+    &lt;listeners&gt;
+      &lt;add name=&quot;Rolling Flat File Trace Listener&quot; type=&quot;Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollingFlatFileTraceListener, Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35&quot;
+        listenerDataType=&quot;Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.RollingFlatFileTraceListenerData, Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35&quot;
+        fileName=&quot;rolling.log&quot; formatter=&quot;Text Formatter&quot; rollFileExistsBehavior=&quot;Increment&quot;
+        rollInterval=&quot;Week&quot; traceOutputOptions=&quot;Callstack&quot; /&gt;
+    &lt;/listeners&gt;
+    &lt;formatters&gt;
+      &lt;add type=&quot;Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.TextFormatter, Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35&quot;
+        template=&quot;Timestamp: {timestamp(local)}{newline}&amp;#xA;Message: {message}{newline}&amp;#xA;Category: {category}{newline}&amp;#xA;Priority: {priority}{newline}&amp;#xA;EventId: {eventid}{newline}&amp;#xA;Severity: {severity}{newline}&amp;#xA;Title:{title}{newline}&amp;#xA;Machine: {localMachine}{newline}&amp;#xA;App Domain: {localAppDomain}{newline}&amp;#xA;ProcessId: {localProcessId}{newline}&amp;#xA;Process Name: {localProcessName}{newline}&amp;#xA;Thread Name: {threadName}{newline}&amp;#xA;Win32 ThreadId:{win32ThreadId}{newline}&amp;#xA;Extended Properties: {dictionary({key} - {value}{newline})}&quot;
+        name=&quot;Text Formatter&quot; /&gt;
+    &lt;/formatters&gt;
+    &lt;categorySources&gt;
+      &lt;add switchValue=&quot;All&quot; name=&quot;General&quot;&gt;
+        &lt;listeners&gt;
+          &lt;add name=&quot;Rolling Flat File Trace Listener&quot; /&gt;
+        &lt;/listeners&gt;
+      &lt;/add&gt;
+      &lt;add switchValue=&quot;All&quot; name=&quot;Failure&quot;&gt;
+        &lt;listeners&gt;
+          &lt;add name=&quot;Rolling Flat File Trace Listener&quot; /&gt;
+        &lt;/listeners&gt;
+      &lt;/add&gt;
+      &lt;add switchValue=&quot;All&quot; name=&quot;Success&quot;&gt;
+        &lt;listeners&gt;
+          &lt;add name=&quot;Rolling Flat File Trace Listener&quot; /&gt;
+        &lt;/listeners&gt;
+      &lt;/add&gt;
+    &lt;/categorySources&gt;
+    &lt;specialSources&gt;
+      &lt;allEvents switchValue=&quot;All&quot; name=&quot;All Events&quot; /&gt;
+      &lt;notProcessed switchValue=&quot;All&quot; name=&quot;Unprocessed Category&quot; /&gt;
+      &lt;errors switchValue=&quot;All&quot; name=&quot;Logging Errors &amp;amp; Warnings&quot;&gt;
+        &lt;listeners&gt;
+          &lt;add name=&quot;Rolling Flat File Trace Listener&quot; /&gt;
+        &lt;/listeners&gt;
+      &lt;/errors&gt;
+    &lt;/specialSources&gt;
+  &lt;/loggingConfiguration&gt;
+  &lt;appSettings&gt;
+    &lt;add key=&quot;User:Alice&quot; value=&quot;Teller&quot; /&gt;
+    &lt;add key=&quot;User:Bob&quot; value=&quot;Assistant&quot; /&gt;
+  &lt;/appSettings&gt;
+  &lt;unity xmlns=&quot;http://schemas.microsoft.com/practices/2010/unity&quot;&gt;
+    &lt;assembly name=&quot;Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35&quot; /&gt;
+    &lt;assembly name=&quot;InterceptionHOL&quot;/&gt;    
+    &lt;namespace name=&quot;InterceptionHOL&quot;/&gt;
+    &lt;namespace name=&quot;InterceptionHOL.BusinessLogic&quot;/&gt;    
+    &lt;namespace name=&quot;Microsoft.Practices.EnterpriseLibrary.Logging&quot; /&gt;
+    &lt;namespace name=&quot;Microsoft.Practices.EnterpriseLibrary.Logging.PolicyInjection&quot; /&gt;    
+    &lt;namespace name=&quot;System.Diagnostics&quot;/&gt;
+
+    &lt;sectionExtension type=&quot;Microsoft.Practices.Unity.InterceptionExtension.Configuration.InterceptionConfigurationExtension, Microsoft.Practices.Unity.Interception.Configuration&quot;/&gt;
+
+    &lt;container&gt;
+      &lt;extension type=&quot;Interception&quot;/&gt;
+
+      &lt;register type=&quot;IBankAccount&quot; mapTo=&quot;BankAccount&quot;&gt;
+        &lt;interceptor type=&quot;InterfaceInterceptor&quot;/&gt;
+        &lt;!--&lt;interceptionBehavior type=&quot;TraceBehavior&quot;/&gt;--&gt;
+      &lt;/register&gt;
+      &lt;interception&gt;
+        &lt;policy name=&quot;method policy&quot;&gt;         
+          &lt;matchingRule name=&quot;rule1&quot; type=&quot;NamespaceMatchingRule&quot;&gt;
+            &lt;constructor&gt;
+              &lt;param name=&quot;namespaceName&quot; value=&quot;InterceptionHOL.*&quot;/&gt;
+            &lt;/constructor&gt;
+          &lt;/matchingRule&gt;
+          &lt;callHandler name=&quot;LogCallHandler&quot; type=&quot;Microsoft.Practices.EnterpriseLibrary.Logging.PolicyInjection.LogCallHandler, Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35&quot;&gt;
+            &lt;constructor&gt;              
+              &lt;param name=&quot;logWriter&quot;/&gt;
+            &lt;/constructor&gt;
+            &lt;property name=&quot;BeforeMessage&quot; value=&quot;Invoking method&quot; /&gt;
+            &lt;property name=&quot;AfterMessage&quot; value=&quot;Method completed&quot;/&gt;
+            &lt;property name=&quot;IncludeParameters&quot; value=&quot;true&quot;/&gt;
+          &lt;/callHandler&gt;
+        &lt;/policy&gt;
+      &lt;/interception&gt;
+    &lt;/container&gt;
+  &lt;/unity&gt;
+&lt;/configuration&gt;
+</code></pre>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1106567" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1106815">
+    <td id="PostDetailsCell_1106815" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1106815"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/13/2013 6:44:31 AM" LocalTimeTicks="1381671871">Oct 13, 2013 at 6:44 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="10/13/2013 6:44:56 AM" LocalTimeTicks="1381671896">Oct 13, 2013 at 6:44 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1106815" style="width: 100%; vertical-align: top;" 
+        class="discussionAnswer discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="Here&#32;is&#32;the&#32;config&#32;that&#32;works&#32;for&#32;me&#58;&#10;&#10;&#96;&#96;&#96;&#32;xml&#10;&#60;&#63;xml&#32;version&#61;&#34;1.0&#34;&#32;encoding&#61;&#34;utf-8&#34;&#63;&#62;&#10;&#60;configuration&#62;&#10;&#32;&#32;&#60;configSections&#62;&#10;&#32;&#32;&#32;&#32;&#60;section&#32;name&#61;&#34;loggingConfiguration&#34;&#32;type&#61;&#34;Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LoggingSettings,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#34;&#32;requirePermission&#61;&#34;true&#34;&#32;&#47;&#62;&#10;&#32;&#32;&#32;&#32;&#60;section&#32;name&#61;&#34;unity&#34;&#32;type&#61;&#34;Microsoft.Practices.Unity.Configuration.UnityConfigurationSection,&#32;Microsoft.Practices.Unity.Configuration,&#32;Version&#61;2.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#34;&#47;&#62;&#10;&#32;&#32;&#60;&#47;configSections&#62;&#10;&#10;&#32;&#32;&#60;loggingConfiguration&#32;name&#61;&#34;&#34;&#32;tracingEnabled&#61;&#34;true&#34;&#32;defaultCategory&#61;&#34;General&#34;&#62;&#10;&#32;&#32;&#32;&#32;&#60;listeners&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;add&#32;name&#61;&#34;Rolling&#32;Flat&#32;File&#32;Trace&#32;Listener&#34;&#32;type&#61;&#34;Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollingFlatFileTraceListener,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#34;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;listenerDataType&#61;&#34;Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.RollingFlatFileTraceListenerData,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#34;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fileName&#61;&#34;rolling.log&#34;&#32;formatter&#61;&#34;Text&#32;Formatter&#34;&#32;rollFileExistsBehavior&#61;&#34;Increment&#34;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rollInterval&#61;&#34;Week&#34;&#32;traceOutputOptions&#61;&#34;Callstack&#34;&#32;&#47;&#62;&#10;&#32;&#32;&#32;&#32;&#60;&#47;listeners&#62;&#10;&#32;&#32;&#32;&#32;&#60;formatters&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;add&#32;type&#61;&#34;Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.TextFormatter,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#34;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;template&#61;&#34;Timestamp&#58;&#32;&#123;timestamp&#40;local&#41;&#125;&#123;newline&#125;&#38;&#35;xA&#59;Message&#58;&#32;&#123;message&#125;&#123;newline&#125;&#38;&#35;xA&#59;Category&#58;&#32;&#123;category&#125;&#123;newline&#125;&#38;&#35;xA&#59;Priority&#58;&#32;&#123;priority&#125;&#123;newline&#125;&#38;&#35;xA&#59;EventId&#58;&#32;&#123;eventid&#125;&#123;newline&#125;&#38;&#35;xA&#59;Severity&#58;&#32;&#123;severity&#125;&#123;newline&#125;&#38;&#35;xA&#59;Title&#58;&#123;title&#125;&#123;newline&#125;&#38;&#35;xA&#59;Machine&#58;&#32;&#123;localMachine&#125;&#123;newline&#125;&#38;&#35;xA&#59;App&#32;Domain&#58;&#32;&#123;localAppDomain&#125;&#123;newline&#125;&#38;&#35;xA&#59;ProcessId&#58;&#32;&#123;localProcessId&#125;&#123;newline&#125;&#38;&#35;xA&#59;Process&#32;Name&#58;&#32;&#123;localProcessName&#125;&#123;newline&#125;&#38;&#35;xA&#59;Thread&#32;Name&#58;&#32;&#123;threadName&#125;&#123;newline&#125;&#38;&#35;xA&#59;Win32&#32;ThreadId&#58;&#123;win32ThreadId&#125;&#123;newline&#125;&#38;&#35;xA&#59;Extended&#32;Properties&#58;&#32;&#123;dictionary&#40;&#123;key&#125;&#32;-&#32;&#123;value&#125;&#123;newline&#125;&#41;&#125;&#34;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;name&#61;&#34;Text&#32;Formatter&#34;&#32;&#47;&#62;&#10;&#32;&#32;&#32;&#32;&#60;&#47;formatters&#62;&#10;&#32;&#32;&#32;&#32;&#60;categorySources&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;add&#32;switchValue&#61;&#34;All&#34;&#32;name&#61;&#34;General&#34;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;listeners&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;add&#32;name&#61;&#34;Rolling&#32;Flat&#32;File&#32;Trace&#32;Listener&#34;&#32;&#47;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;listeners&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;add&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;add&#32;switchValue&#61;&#34;All&#34;&#32;name&#61;&#34;Failure&#34;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;listeners&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;add&#32;name&#61;&#34;Rolling&#32;Flat&#32;File&#32;Trace&#32;Listener&#34;&#32;&#47;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;listeners&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;add&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;add&#32;switchValue&#61;&#34;All&#34;&#32;name&#61;&#34;Success&#34;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;listeners&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;add&#32;name&#61;&#34;Rolling&#32;Flat&#32;File&#32;Trace&#32;Listener&#34;&#32;&#47;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;listeners&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;add&#62;&#10;&#32;&#32;&#32;&#32;&#60;&#47;categorySources&#62;&#10;&#32;&#32;&#32;&#32;&#60;specialSources&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;allEvents&#32;switchValue&#61;&#34;All&#34;&#32;name&#61;&#34;All&#32;Events&#34;&#32;&#47;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;notProcessed&#32;switchValue&#61;&#34;All&#34;&#32;name&#61;&#34;Unprocessed&#32;Category&#34;&#32;&#47;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;errors&#32;switchValue&#61;&#34;All&#34;&#32;name&#61;&#34;Logging&#32;Errors&#32;&#38;amp&#59;&#32;Warnings&#34;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;listeners&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;add&#32;name&#61;&#34;Rolling&#32;Flat&#32;File&#32;Trace&#32;Listener&#34;&#32;&#47;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;listeners&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;errors&#62;&#10;&#32;&#32;&#32;&#32;&#60;&#47;specialSources&#62;&#10;&#32;&#32;&#60;&#47;loggingConfiguration&#62;&#10;&#32;&#32;&#60;appSettings&#62;&#10;&#32;&#32;&#32;&#32;&#60;add&#32;key&#61;&#34;User&#58;Alice&#34;&#32;value&#61;&#34;Teller&#34;&#32;&#47;&#62;&#10;&#32;&#32;&#32;&#32;&#60;add&#32;key&#61;&#34;User&#58;Bob&#34;&#32;value&#61;&#34;Assistant&#34;&#32;&#47;&#62;&#10;&#32;&#32;&#60;&#47;appSettings&#62;&#10;&#32;&#32;&#60;unity&#32;xmlns&#61;&#34;http&#58;&#47;&#47;schemas.microsoft.com&#47;practices&#47;2010&#47;unity&#34;&#62;&#10;&#32;&#32;&#32;&#32;&#60;assembly&#32;name&#61;&#34;InterceptionHOL&#34;&#47;&#62;&#10;&#32;&#32;&#32;&#32;&#60;namespace&#32;name&#61;&#34;InterceptionHOL.BusinessLogic&#34;&#47;&#62;&#10;&#10;&#32;&#32;&#32;&#32;&#60;sectionExtension&#32;type&#61;&#34;Microsoft.Practices.Unity.InterceptionExtension.Configuration.InterceptionConfigurationExtension,&#32;Microsoft.Practices.Unity.Interception.Configuration&#34;&#47;&#62;&#10;&#10;&#32;&#32;&#32;&#32;&#60;container&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;extension&#32;type&#61;&#34;Interception&#34;&#32;&#47;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;extension&#32;type&#61;&#34;Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Unity.EnterpriseLibraryCoreExtension,&#32;Microsoft.Practices.EnterpriseLibrary.Common&#34;&#32;&#47;&#62;&#10;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;register&#32;type&#61;&#34;IBankAccount&#34;&#32;mapTo&#61;&#34;BankAccount&#34;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;interceptor&#32;type&#61;&#34;InterfaceInterceptor&#34;&#47;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;policyInjection&#32;&#47;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;register&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;interception&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;policy&#32;name&#61;&#34;method&#32;policy&#34;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;matchingRule&#32;name&#61;&#34;rule1&#34;&#32;type&#61;&#34;NamespaceMatchingRule&#34;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;constructor&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;param&#32;name&#61;&#34;namespaceName&#34;&#32;value&#61;&#34;InterceptionHOL.&#42;&#34;&#47;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;constructor&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;matchingRule&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;callHandler&#32;name&#61;&#34;LogCallHandler&#34;&#32;type&#61;&#34;Microsoft.Practices.EnterpriseLibrary.Logging.PolicyInjection.LogCallHandler,&#32;Microsoft.Practices.EnterpriseLibrary.Logging,&#32;Version&#61;5.0.414.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#34;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;constructor&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;param&#32;name&#61;&#34;logWriter&#34;&#47;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;constructor&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;property&#32;name&#61;&#34;BeforeMessage&#34;&#32;value&#61;&#34;Invoking&#32;method&#34;&#32;&#47;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;property&#32;name&#61;&#34;AfterMessage&#34;&#32;value&#61;&#34;Method&#32;completed&#34;&#47;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;property&#32;name&#61;&#34;IncludeParameters&#34;&#32;value&#61;&#34;true&#34;&#47;&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;callHandler&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;policy&#62;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#60;&#47;interception&#62;&#10;&#32;&#32;&#32;&#32;&#60;&#47;container&#62;&#10;&#32;&#32;&#60;&#47;unity&#62;&#10;&#60;&#47;configuration&#62;&#10;&#96;&#96;&#96;&#10;&#10;The&#32;main&#32;changes&#32;were&#32;adding&#32;the&#32;EnterpriseLibraryCoreExtension&#32;to&#32;configure&#32;Enterprise&#32;Library&#32;in&#32;Unity&#32;and&#32;telling&#32;Unity&#32;to&#32;use&#32;policy&#32;injection&#32;&#40;with&#32;the&#32;&#96;&#60;policyInjection&#32;&#47;&#62;&#96;&#32;element&#41;.&#10;&#10;&#126;&#126;&#10;Randy&#32;Levy&#10;&#91;entlib.support&#64;live.com&#93;&#40;mailto&#58;entlib.support&#64;live.com&#41;&#10;Enterprise&#32;Library&#32;support&#32;engineer&#10;&#91;Support&#32;How-to&#93;&#40;http&#58;&#47;&#47;entlib.codeplex.com&#47;wikipage&#63;title&#61;Support&#37;20How-to&#41;&#32;">
+        <div class="markDownOutput ">Here is the config that works for me:<br>
+<div style="color:Black; background-color:White">
+<pre>
+<span style="color:Blue">&lt;?</span><span style="color:#A31515">xml</span> <span style="color:Red">version</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">1.0</span><span style="color:Black">&quot;</span> <span style="color:Red">encoding</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">utf-8</span><span style="color:Black">&quot;</span><span style="color:Blue">?&gt;</span>
+<span style="color:Blue">&lt;</span><span style="color:#A31515">configuration</span><span style="color:Blue">&gt;</span>
+  <span style="color:Blue">&lt;</span><span style="color:#A31515">configSections</span><span style="color:Blue">&gt;</span>
+    <span style="color:Blue">&lt;</span><span style="color:#A31515">section</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">loggingConfiguration</span><span style="color:Black">&quot;</span> <span style="color:Red">type</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LoggingSettings, Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</span><span style="color:Black">&quot;</span> <span style="color:Red">requirePermission</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">true</span><span style="color:Black">&quot;</span> <span style="color:Blue">/&gt;</span>
+    <span style="color:Blue">&lt;</span><span style="color:#A31515">section</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">unity</span><span style="color:Black">&quot;</span> <span style="color:Red">type</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Microsoft.Practices.Unity.Configuration.UnityConfigurationSection, Microsoft.Practices.Unity.Configuration, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</span><span style="color:Black">&quot;</span><span style="color:Blue">/&gt;</span>
+  <span style="color:Blue">&lt;/</span><span style="color:#A31515">configSections</span><span style="color:Blue">&gt;</span>
+
+  <span style="color:Blue">&lt;</span><span style="color:#A31515">loggingConfiguration</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">&quot; tracingEnabled=&quot;true</span><span style="color:Black">&quot;</span> <span style="color:Red">defaultCategory</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">General</span><span style="color:Black">&quot;</span><span style="color:Blue">&gt;</span>
+    <span style="color:Blue">&lt;</span><span style="color:#A31515">listeners</span><span style="color:Blue">&gt;</span>
+      <span style="color:Blue">&lt;</span><span style="color:#A31515">add</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Rolling Flat File Trace Listener</span><span style="color:Black">&quot;</span> <span style="color:Red">type</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollingFlatFileTraceListener, Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</span><span style="color:Black">&quot;</span>
+        <span style="color:Red">listenerDataType</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.RollingFlatFileTraceListenerData, Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</span><span style="color:Black">&quot;</span>
+        <span style="color:Red">fileName</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">rolling.log</span><span style="color:Black">&quot;</span> <span style="color:Red">formatter</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Text Formatter</span><span style="color:Black">&quot;</span> <span style="color:Red">rollFileExistsBehavior</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Increment</span><span style="color:Black">&quot;</span>
+        <span style="color:Red">rollInterval</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Week</span><span style="color:Black">&quot;</span> <span style="color:Red">traceOutputOptions</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Callstack</span><span style="color:Black">&quot;</span> <span style="color:Blue">/&gt;</span>
+    <span style="color:Blue">&lt;/</span><span style="color:#A31515">listeners</span><span style="color:Blue">&gt;</span>
+    <span style="color:Blue">&lt;</span><span style="color:#A31515">formatters</span><span style="color:Blue">&gt;</span>
+      <span style="color:Blue">&lt;</span><span style="color:#A31515">add</span> <span style="color:Red">type</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.TextFormatter, Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</span><span style="color:Black">&quot;</span>
+        <span style="color:Red">template</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Timestamp: {timestamp(local)}{newline}&amp;#xA;Message: {message}{newline}&amp;#xA;Category: {category}{newline}&amp;#xA;Priority: {priority}{newline}&amp;#xA;EventId: {eventid}{newline}&amp;#xA;Severity: {severity}{newline}&amp;#xA;Title:{title}{newline}&amp;#xA;Machine: {localMachine}{newline}&amp;#xA;App Domain: {localAppDomain}{newline}&amp;#xA;ProcessId: {localProcessId}{newline}&amp;#xA;Process Name: {localProcessName}{newline}&amp;#xA;Thread Name: {threadName}{newline}&amp;#xA;Win32 ThreadId:{win32ThreadId}{newline}&amp;#xA;Extended Properties: {dictionary({key} - {value}{newline})}</span><span style="color:Black">&quot;</span>
+        <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Text Formatter</span><span style="color:Black">&quot;</span> <span style="color:Blue">/&gt;</span>
+    <span style="color:Blue">&lt;/</span><span style="color:#A31515">formatters</span><span style="color:Blue">&gt;</span>
+    <span style="color:Blue">&lt;</span><span style="color:#A31515">categorySources</span><span style="color:Blue">&gt;</span>
+      <span style="color:Blue">&lt;</span><span style="color:#A31515">add</span> <span style="color:Red">switchValue</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">All</span><span style="color:Black">&quot;</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">General</span><span style="color:Black">&quot;</span><span style="color:Blue">&gt;</span>
+        <span style="color:Blue">&lt;</span><span style="color:#A31515">listeners</span><span style="color:Blue">&gt;</span>
+          <span style="color:Blue">&lt;</span><span style="color:#A31515">add</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Rolling Flat File Trace Listener</span><span style="color:Black">&quot;</span> <span style="color:Blue">/&gt;</span>
+        <span style="color:Blue">&lt;/</span><span style="color:#A31515">listeners</span><span style="color:Blue">&gt;</span>
+      <span style="color:Blue">&lt;/</span><span style="color:#A31515">add</span><span style="color:Blue">&gt;</span>
+      <span style="color:Blue">&lt;</span><span style="color:#A31515">add</span> <span style="color:Red">switchValue</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">All</span><span style="color:Black">&quot;</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Failure</span><span style="color:Black">&quot;</span><span style="color:Blue">&gt;</span>
+        <span style="color:Blue">&lt;</span><span style="color:#A31515">listeners</span><span style="color:Blue">&gt;</span>
+          <span style="color:Blue">&lt;</span><span style="color:#A31515">add</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Rolling Flat File Trace Listener</span><span style="color:Black">&quot;</span> <span style="color:Blue">/&gt;</span>
+        <span style="color:Blue">&lt;/</span><span style="color:#A31515">listeners</span><span style="color:Blue">&gt;</span>
+      <span style="color:Blue">&lt;/</span><span style="color:#A31515">add</span><span style="color:Blue">&gt;</span>
+      <span style="color:Blue">&lt;</span><span style="color:#A31515">add</span> <span style="color:Red">switchValue</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">All</span><span style="color:Black">&quot;</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Success</span><span style="color:Black">&quot;</span><span style="color:Blue">&gt;</span>
+        <span style="color:Blue">&lt;</span><span style="color:#A31515">listeners</span><span style="color:Blue">&gt;</span>
+          <span style="color:Blue">&lt;</span><span style="color:#A31515">add</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Rolling Flat File Trace Listener</span><span style="color:Black">&quot;</span> <span style="color:Blue">/&gt;</span>
+        <span style="color:Blue">&lt;/</span><span style="color:#A31515">listeners</span><span style="color:Blue">&gt;</span>
+      <span style="color:Blue">&lt;/</span><span style="color:#A31515">add</span><span style="color:Blue">&gt;</span>
+    <span style="color:Blue">&lt;/</span><span style="color:#A31515">categorySources</span><span style="color:Blue">&gt;</span>
+    <span style="color:Blue">&lt;</span><span style="color:#A31515">specialSources</span><span style="color:Blue">&gt;</span>
+      <span style="color:Blue">&lt;</span><span style="color:#A31515">allEvents</span> <span style="color:Red">switchValue</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">All</span><span style="color:Black">&quot;</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">All Events</span><span style="color:Black">&quot;</span> <span style="color:Blue">/&gt;</span>
+      <span style="color:Blue">&lt;</span><span style="color:#A31515">notProcessed</span> <span style="color:Red">switchValue</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">All</span><span style="color:Black">&quot;</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Unprocessed Category</span><span style="color:Black">&quot;</span> <span style="color:Blue">/&gt;</span>
+      <span style="color:Blue">&lt;</span><span style="color:#A31515">errors</span> <span style="color:Red">switchValue</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">All</span><span style="color:Black">&quot;</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Logging Errors &amp;amp; Warnings</span><span style="color:Black">&quot;</span><span style="color:Blue">&gt;</span>
+        <span style="color:Blue">&lt;</span><span style="color:#A31515">listeners</span><span style="color:Blue">&gt;</span>
+          <span style="color:Blue">&lt;</span><span style="color:#A31515">add</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Rolling Flat File Trace Listener</span><span style="color:Black">&quot;</span> <span style="color:Blue">/&gt;</span>
+        <span style="color:Blue">&lt;/</span><span style="color:#A31515">listeners</span><span style="color:Blue">&gt;</span>
+      <span style="color:Blue">&lt;/</span><span style="color:#A31515">errors</span><span style="color:Blue">&gt;</span>
+    <span style="color:Blue">&lt;/</span><span style="color:#A31515">specialSources</span><span style="color:Blue">&gt;</span>
+  <span style="color:Blue">&lt;/</span><span style="color:#A31515">loggingConfiguration</span><span style="color:Blue">&gt;</span>
+  <span style="color:Blue">&lt;</span><span style="color:#A31515">appSettings</span><span style="color:Blue">&gt;</span>
+    <span style="color:Blue">&lt;</span><span style="color:#A31515">add</span> <span style="color:Red">key</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">User:Alice</span><span style="color:Black">&quot;</span> <span style="color:Red">value</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Teller</span><span style="color:Black">&quot;</span> <span style="color:Blue">/&gt;</span>
+    <span style="color:Blue">&lt;</span><span style="color:#A31515">add</span> <span style="color:Red">key</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">User:Bob</span><span style="color:Black">&quot;</span> <span style="color:Red">value</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Assistant</span><span style="color:Black">&quot;</span> <span style="color:Blue">/&gt;</span>
+  <span style="color:Blue">&lt;/</span><span style="color:#A31515">appSettings</span><span style="color:Blue">&gt;</span>
+  <span style="color:Blue">&lt;</span><span style="color:#A31515">unity</span> <span style="color:Red">xmlns</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">http://schemas.microsoft.com/practices/2010/unity</span><span style="color:Black">&quot;</span><span style="color:Blue">&gt;</span>
+    <span style="color:Blue">&lt;</span><span style="color:#A31515">assembly</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">InterceptionHOL</span><span style="color:Black">&quot;</span><span style="color:Blue">/&gt;</span>
+    <span style="color:Blue">&lt;</span><span style="color:#A31515">namespace</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">InterceptionHOL.BusinessLogic</span><span style="color:Black">&quot;</span><span style="color:Blue">/&gt;</span>
+
+    <span style="color:Blue">&lt;</span><span style="color:#A31515">sectionExtension</span> <span style="color:Red">type</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Microsoft.Practices.Unity.InterceptionExtension.Configuration.InterceptionConfigurationExtension, Microsoft.Practices.Unity.Interception.Configuration</span><span style="color:Black">&quot;</span><span style="color:Blue">/&gt;</span>
+
+    <span style="color:Blue">&lt;</span><span style="color:#A31515">container</span><span style="color:Blue">&gt;</span>
+      <span style="color:Blue">&lt;</span><span style="color:#A31515">extension</span> <span style="color:Red">type</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Interception</span><span style="color:Black">&quot;</span> <span style="color:Blue">/&gt;</span>
+      <span style="color:Blue">&lt;</span><span style="color:#A31515">extension</span> <span style="color:Red">type</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Unity.EnterpriseLibraryCoreExtension, Microsoft.Practices.EnterpriseLibrary.Common</span><span style="color:Black">&quot;</span> <span style="color:Blue">/&gt;</span>
+
+      <span style="color:Blue">&lt;</span><span style="color:#A31515">register</span> <span style="color:Red">type</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">IBankAccount</span><span style="color:Black">&quot;</span> <span style="color:Red">mapTo</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">BankAccount</span><span style="color:Black">&quot;</span><span style="color:Blue">&gt;</span>
+        <span style="color:Blue">&lt;</span><span style="color:#A31515">interceptor</span> <span style="color:Red">type</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">InterfaceInterceptor</span><span style="color:Black">&quot;</span><span style="color:Blue">/&gt;</span>
+        <span style="color:Blue">&lt;</span><span style="color:#A31515">policyInjection</span> <span style="color:Blue">/&gt;</span>
+      <span style="color:Blue">&lt;/</span><span style="color:#A31515">register</span><span style="color:Blue">&gt;</span>
+      <span style="color:Blue">&lt;</span><span style="color:#A31515">interception</span><span style="color:Blue">&gt;</span>
+        <span style="color:Blue">&lt;</span><span style="color:#A31515">policy</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">method policy</span><span style="color:Black">&quot;</span><span style="color:Blue">&gt;</span>
+          <span style="color:Blue">&lt;</span><span style="color:#A31515">matchingRule</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">rule1</span><span style="color:Black">&quot;</span> <span style="color:Red">type</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">NamespaceMatchingRule</span><span style="color:Black">&quot;</span><span style="color:Blue">&gt;</span>
+            <span style="color:Blue">&lt;</span><span style="color:#A31515">constructor</span><span style="color:Blue">&gt;</span>
+              <span style="color:Blue">&lt;</span><span style="color:#A31515">param</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">namespaceName</span><span style="color:Black">&quot;</span> <span style="color:Red">value</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">InterceptionHOL.*</span><span style="color:Black">&quot;</span><span style="color:Blue">/&gt;</span>
+            <span style="color:Blue">&lt;/</span><span style="color:#A31515">constructor</span><span style="color:Blue">&gt;</span>
+          <span style="color:Blue">&lt;/</span><span style="color:#A31515">matchingRule</span><span style="color:Blue">&gt;</span>
+          <span style="color:Blue">&lt;</span><span style="color:#A31515">callHandler</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">LogCallHandler</span><span style="color:Black">&quot;</span> <span style="color:Red">type</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Microsoft.Practices.EnterpriseLibrary.Logging.PolicyInjection.LogCallHandler, Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</span><span style="color:Black">&quot;</span><span style="color:Blue">&gt;</span>
+            <span style="color:Blue">&lt;</span><span style="color:#A31515">constructor</span><span style="color:Blue">&gt;</span>
+              <span style="color:Blue">&lt;</span><span style="color:#A31515">param</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">logWriter</span><span style="color:Black">&quot;</span><span style="color:Blue">/&gt;</span>
+            <span style="color:Blue">&lt;/</span><span style="color:#A31515">constructor</span><span style="color:Blue">&gt;</span>
+            <span style="color:Blue">&lt;</span><span style="color:#A31515">property</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">BeforeMessage</span><span style="color:Black">&quot;</span> <span style="color:Red">value</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Invoking method</span><span style="color:Black">&quot;</span> <span style="color:Blue">/&gt;</span>
+            <span style="color:Blue">&lt;</span><span style="color:#A31515">property</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">AfterMessage</span><span style="color:Black">&quot;</span> <span style="color:Red">value</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Method completed</span><span style="color:Black">&quot;</span><span style="color:Blue">/&gt;</span>
+            <span style="color:Blue">&lt;</span><span style="color:#A31515">property</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">IncludeParameters</span><span style="color:Black">&quot;</span> <span style="color:Red">value</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">true</span><span style="color:Black">&quot;</span><span style="color:Blue">/&gt;</span>
+          <span style="color:Blue">&lt;/</span><span style="color:#A31515">callHandler</span><span style="color:Blue">&gt;</span>
+        <span style="color:Blue">&lt;/</span><span style="color:#A31515">policy</span><span style="color:Blue">&gt;</span>
+      <span style="color:Blue">&lt;/</span><span style="color:#A31515">interception</span><span style="color:Blue">&gt;</span>
+    <span style="color:Blue">&lt;/</span><span style="color:#A31515">container</span><span style="color:Blue">&gt;</span>
+  <span style="color:Blue">&lt;/</span><span style="color:#A31515">unity</span><span style="color:Blue">&gt;</span>
+<span style="color:Blue">&lt;/</span><span style="color:#A31515">configuration</span><span style="color:Blue">&gt;</span>
+</pre>
+</div>
+The main changes were adding the EnterpriseLibraryCoreExtension to configure Enterprise Library in Unity and telling Unity to use policy injection (with the
+<code>&lt;policyInjection /&gt;</code> element).<br>
+<br>
+~~<br>
+Randy Levy<br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">&#x65;n&#x74;&#108;&#105;&#x62;&#46;&#115;&#x75;&#112;&#112;&#x6f;&#x72;&#x74;&#x40;&#x6c;&#x69;&#118;&#x65;&#x2e;c&#x6f;&#x6d;</a><br>
+Enterprise Library support engineer<br>
+<a href="http://entlib.codeplex.com/wikipage?title=Support%20How-to"  rel="nofollow">Support How-to</a>
+<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post discussionAnswer">
+        
+        <span class="answerCheck" id="checkmark_1106815" title="Marked as answer by randylevy on 10/14/2013 at 11:25 PM">
+            <img src="../assets/check_answer.png" alt="Marked as answer by randylevy on 10/14/2013 at 11:25 PM" />
+        </span>
+        
+        <div id="Options_1106815" class="Options"  style="margin-top: -22px">
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1107487">
+    <td id="PostDetailsCell_1107487" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1107487"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jbx">jbx</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/15/2013 6:02:52 AM" LocalTimeTicks="1381842172">Oct 15, 2013 at 6:02 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1107487" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="Thanks&#32;a&#32;lot.&#32;That&#32;works.">
+        <div class="markDownOutput ">Thanks a lot. That works.<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1107487" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f461935">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="c0d617e0-4f7f-4e0d-977a-38722a3215e6">
+    <script class="options" defer="defer" id="c0d617e0-4f7f-4e0d-977a-38722a3215e6" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_10dd3152-a8fd-4c41-8d86-ef3a4e10fa5a">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_3b3f16ae-0246-4002-8e9f-24803f43e661">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_10dd3152-a8fd-4c41-8d86-ef3a4e10fa5a" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_3b3f16ae-0246-4002-8e9f-24803f43e661" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/461935';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

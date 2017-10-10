@@ -1,0 +1,1236 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - The Need for SetInerceptorFor When Policy Already Set</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/43766?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/43766?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="zASvby50OiHI4Gl79HT4IiabJDCGtxRTcwAUtgp92iqOz1DdJPfaegYmUo4gMsDeKa9T7kxYUNZ7R7aXJSewnS6M4lqmfTuhELxOYYK9gfh858LwCPJTsB32wWEIokWOfkK_iw2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2b1ed3b75-e3f3-4d09-b13a-5494ba8731e9" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:28:34 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f43766" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="2db32e68-ebbe-43fa-8bc6-d951127ddfce">
+                
+                    <script class="options" defer="defer" id="2db32e68-ebbe-43fa-8bc6-d951127ddfce" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="56e00776-0a15-439d-affa-f89ef29afed5">
+                
+                    <script class="options" defer="defer" id="56e00776-0a15-439d-affa-f89ef29afed5" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                The Need for SetInerceptorFor When Policy Already Set
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:43766]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="6094bb81-eb9a-40e6-8ca1-aa37f63364a7">
+    <script class="options" defer="defer" id="6094bb81-eb9a-40e6-8ca1-aa37f63364a7" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/43766","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="145559">
+    <td id="PostDetailsCell_145559" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post145559"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jeffsaremi">jeffsaremi</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/9/2009 12:15:39 AM" LocalTimeTicks="1231488939">Jan 9, 2009 at 12:15 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_145559" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#39;m&#32;just&#32;trying&#32;to&#32;understand&#32;these&#32;two&#32;concepts&#58;&#32;&#32;so&#32;i&#32;configure&#32;a&#32;Container&#32;for&#32;Interception&#32;&#91;container.Configure&#38;lt&#59;Interception&#38;gt&#59;&#40;&#41;&#93;&#32;then&#32;i&#32;add&#32;my&#32;Policy,&#32;say&#32;to&#32;intercept&#32;everything&#32;in&#32;an&#32;assembly&#32;&#91;.AddMatchingRule&#40;new&#32;AssemblyMatchingRule&#40;&#38;quot&#59;MyAssembly,&#32;Version&#61;1.0.0.0&#38;quot&#59;&#41;&#93;&#32;and&#32;I&#32;assign&#32;a&#32;Handler&#32;to&#32;this&#32;Policy&#32;&#91;.AddCallHandler&#40;new&#32;My.Extensions.MyCallHandler&#40;&#41;&#41;&#93;&#32;&#32;Basically&#32;what&#32;I&#32;thought&#32;I&#32;did&#32;above&#32;was&#32;I&#32;said&#32;that&#32;I&#32;want&#32;every&#32;kind&#32;of&#32;call&#32;to&#32;every&#32;kind&#32;of&#32;member&#32;in&#32;every&#32;kind&#32;of&#32;type&#32;&#40;public&#32;ones&#41;&#32;in&#32;my&#32;assembly&#32;be&#32;intercepted&#32;by&#32;my&#32;call&#32;handler.&#32;Period.&#32;&#32;Little&#32;later,&#32;trying&#32;to&#32;resolve&#32;some&#32;type&#32;or&#32;object,&#32;I&#32;get&#32;no&#32;interception.&#32;&#32;It&#32;appears&#32;that&#32;i&#32;needed&#32;to&#32;set&#32;the&#32;interceptor,&#32;using&#32;either&#32;&#91;.SetDefaultInterceptorFor&#38;lt&#59;&#38;gt&#59;&#93;&#32;or&#32;&#91;.SetInterceptorFor&#38;lt&#59;&#38;gt&#59;&#93;&#32;,&#32;to&#32;one&#32;of&#32;Proxy,&#32;Interface,&#32;or&#32;Virtual&#32;method&#32;interceptors.&#32;However,&#32;in&#32;doing&#32;so&#32;I&#32;would&#32;have&#32;to&#32;specify&#32;the&#32;type&#32;that&#32;is&#32;to&#32;be&#32;intercepted.&#32;&#40;may&#32;be&#32;i&#39;m&#32;missing&#32;something&#32;somewhere&#32;else&#63;&#41;&#32;&#32;But&#32;I&#32;thought&#32;i&#32;did&#32;specify,&#32;in&#32;the&#32;first&#32;part,&#32;that&#32;I&#32;wanted&#32;every&#32;type&#32;to&#32;be&#32;intercepted.&#32;Why&#32;do&#32;I&#32;have&#32;to&#32;re-specify&#32;the&#32;types&#32;to&#32;be&#32;proxied&#63;&#32;Can&#32;I&#32;set&#32;a&#32;blanket&#32;interceptor,&#32;say&#32;for&#32;a&#32;policy&#63;&#32;&#32;thanks&#32;jeff&#32;">
+        I'm just trying to understand these two concepts:<br>
+<br>
+so i configure a Container for Interception [container.Configure&lt;Interception&gt;()]<br>
+then i add my Policy, say to intercept everything in an assembly [.AddMatchingRule(new AssemblyMatchingRule(&quot;MyAssembly, Version=1.0.0.0&quot;)]<br>
+and I assign a Handler to this Policy [.AddCallHandler(new My.Extensions.MyCallHandler())]<br>
+<br>
+Basically what I thought I did above&nbsp;was&nbsp;I said that I want every kind of call to every kind of member&nbsp;in every kind of type (public ones) in my assembly be intercepted by my call handler. Period.<br>
+<br>
+Little later, trying to resolve some type or object, I get no interception.<br>
+<br>
+It appears that i needed to set&nbsp;the interceptor, using either&nbsp;[.SetDefaultInterceptorFor&lt;&gt;] or [.SetInterceptorFor&lt;&gt;]&nbsp;, to one of Proxy, Interface, or Virtual method interceptors. However, in doing so I would have to specify the type that is to
+ be intercepted. (may be i'm missing something somewhere else?)<br>
+<br>
+But I thought i did&nbsp;specify, in the first part, that I wanted every type to be intercepted. Why do I have to re-specify the types to be proxied? Can I set a blanket interceptor, say for a policy?<br>
+<br>
+thanks<br>
+jeff 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_145559" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="145619">
+    <td id="PostDetailsCell_145619" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post145619"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/9/2009 7:26:19 AM" LocalTimeTicks="1231514779">Jan 9, 2009 at 7:26 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_145619" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi,&#32;you&#32;don&#39;t&#32;have&#32;to&#32;re-specify&#32;the&#32;types.&#32;This&#32;code&#32;works...&#32;&#40;IProjectsService&#32;and&#32;ProjectsService&#32;are&#32;defined&#32;in&#32;a&#32;classlibrary&#32;project&#32;&#38;quot&#59;Models&#38;quot&#59;&#41;&#32;The&#32;Log&#32;method&#32;gets&#32;intercepted.&#32;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;IProjectsService,&#32;ProjectsService&#38;gt&#59;&#40;&#41;&#59;&#32;container.AddNewExtension&#38;lt&#59;Interception&#38;gt&#59;&#40;&#41;&#59;&#32;container.Configure&#38;lt&#59;Interception&#38;gt&#59;&#40;&#41;&#32;.SetDefaultInterceptorFor&#38;lt&#59;IProjectsService&#38;gt&#59;&#40;new&#32;InterfaceInterceptor&#40;&#41;&#41;&#32;.AddPolicy&#40;&#38;quot&#59;MyPolicy&#38;quot&#59;&#41;&#32;.AddMatchingRule&#40;typeof&#40;AssemblyMatchingRule&#41;,&#32;new&#32;InjectionConstructor&#40;&#38;quot&#59;Models&#38;quot&#59;&#41;&#41;&#32;.AddCallHandler&#40;new&#32;LogCallHandler&#40;&#41;&#41;&#59;&#32;IProjectsService&#32;service&#32;&#61;&#32;container.Resolve&#38;lt&#59;IProjectsService&#38;gt&#59;&#40;&#41;&#32;as&#32;IProjectsService&#59;&#32;service.Log&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#32;&#32;&#32;Sarah&#32;Urmeneta&#32;Global&#32;Technology&#32;&#38;amp&#59;&#32;Solutions&#32;Avanade,&#32;Inc.&#32;entlib.support&#64;avanade.com&#32;&#32;&#32;&#38;nbsp&#59;&#32;&#32;&#32;&#38;nbsp&#59;&#32;&#32;">
+        Hi, you don't have to re-specify the types.&nbsp; This code works...&nbsp; (IProjectsService and ProjectsService are defined in a classlibrary project &quot;Models&quot;)&nbsp; The Log method gets intercepted.<br>
+<br>
+<p><span style="font-size:13px; color:#2b91af">IUnityContainer </span><span style="font-size:13px">container =
+</span><span style="font-size:13px; color:#0000ff">new</span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#2b91af">UnityContainer</span><span style="font-size:13px">();<br>
+container.RegisterType&lt;</span><span style="font-size:13px; color:#2b91af">IProjectsService</span><span style="font-size:13px">,
+</span><span style="font-size:13px; color:#2b91af">ProjectsService</span><span style="font-size:13px">&gt;();<br>
+container.AddNewExtension&lt;</span><span style="font-size:13px; color:#2b91af">Interception</span><span style="font-size:13px">&gt;();<br>
+container.Configure&lt;</span><span style="font-size:13px; color:#2b91af">Interception</span><span style="font-size:13px">&gt;()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;.SetDefaultInterceptorFor&lt;</span><span style="font-size:13px; color:#2b91af">IProjectsService</span><span style="font-size:13px">&gt;(</span><span style="font-size:13px; color:#0000ff">new</span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#2b91af">InterfaceInterceptor</span><span style="font-size:13px">())<br>
+&nbsp;&nbsp;&nbsp;&nbsp;.AddPolicy(</span><span style="font-size:13px; color:#a31515">&quot;MyPolicy&quot;</span><span style="font-size:13px">)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.AddMatchingRule(</span><span style="font-size:13px; color:#0000ff">typeof</span><span style="font-size:13px">(</span><span style="font-size:13px; color:#2b91af">AssemblyMatchingRule</span><span style="font-size:13px">),
+</span><span style="font-size:13px; color:#0000ff">new</span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#2b91af">InjectionConstructor</span><span style="font-size:13px">(</span><span style="font-size:13px; color:#a31515">&quot;Models&quot;</span><span style="font-size:13px">))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.AddCallHandler(</span><span style="font-size:13px; color:#0000ff">new</span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#2b91af">LogCallHandler</span><span style="font-size:13px">());<br>
+</span><span style="font-size:13px; color:#2b91af">IProjectsService</span><span style="font-size:13px"> service = container.Resolve&lt;</span><span style="font-size:13px; color:#2b91af">IProjectsService</span><span style="font-size:13px">&gt;()
+</span><span style="font-size:13px; color:#0000ff">as</span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#2b91af">IProjectsService</span><span style="font-size:13px">;<br>
+service.Log(); </p>
+<p>&nbsp;</p>
+</span>
+<p></p>
+<br>
+<strong><em>Sarah&nbsp; Urmeneta</em></strong><br>
+Global Technology &amp; Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com?subject=Unity Forum Question" rel="nofollow">entlib.support@avanade.com<br>
+</a><br>
+<span style="font-size:13px; color:#2b91af">
+<p>&nbsp;</p>
+</span>
+<p><span style="font-size:13px"></p>
+<p>&nbsp;</p>
+</span>
+<p></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_145619" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="145659">
+    <td id="PostDetailsCell_145659" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post145659"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jeffsaremi">jeffsaremi</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/9/2009 10:06:55 AM" LocalTimeTicks="1231524415">Jan 9, 2009 at 10:06 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_145659" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="But&#32;you&#32;did&#32;specify&#32;it&#32;again&#58;&#32;.SetDefaultInterceptorFor&#38;lt&#59;IProjectsService&#38;gt&#59;&#40;new&#32;InterfaceInterceptor&#40;&#41;&#41;&#32;What&#32;i&#39;m&#32;trying&#32;to&#32;say&#32;is&#32;I&#32;am&#32;telling&#32;the&#32;Container&#32;what&#32;sort&#32;of&#32;types&#32;I&#32;am&#32;interested&#32;in&#32;intercepting.&#32;Why&#32;do&#32;I&#32;have&#32;to&#32;then&#32;set&#32;the&#32;Interceptor&#32;for&#32;a&#32;very&#32;specific&#32;type&#63;&#32;Basically,&#32;I&#32;want&#32;to&#32;say&#32;to&#32;intercept&#32;anything&#32;on&#32;this&#32;planet,&#32;anything&#32;that&#32;I&#32;would&#32;ask&#32;the&#32;Container&#32;to&#32;Resolve&#32;later,&#32;by&#32;way&#32;of&#32;specifying&#32;MatchingRules&#63;&#32;Isn&#39;t&#32;what&#32;a&#32;MatchingRule&#32;made&#32;for&#63;&#32;Now&#32;for&#32;all&#32;these&#32;types&#32;that&#32;Match&#32;my&#32;Rule,&#32;I&#32;want&#32;to&#32;specify&#32;a&#32;Handler&#32;&#40;no&#32;problem&#41;&#32;and&#32;an&#32;Interceptor&#32;&#40;here&#32;comes&#32;the&#32;problem&#41;.&#32;&#32;I&#32;actually&#32;have&#32;the&#32;same&#32;problem&#32;with&#32;injection&#32;for&#32;which&#32;I&#32;will&#32;open&#32;up&#32;another&#32;discussion&#32;item.&#32;">
+        But you did specify it again:&nbsp;<span style="font-size:13px">.SetDefaultInterceptorFor&lt;</span><span style="font-size:13px; color:#2b91af">IProjectsService</span><span style="font-size:13px">&gt;(</span><span style="font-size:13px; color:#0000ff">new</span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#2b91af">InterfaceInterceptor</span><span style="font-size:13px">())<br>
+</span>What i'm trying to say is I am telling the Container what sort of types I am interested in intercepting. Why do I have to then set the Interceptor for a very specific type?<br>
+Basically, I want to say to intercept anything on this planet, anything that I would ask the Container to Resolve later, by way of specifying MatchingRules? Isn't what a MatchingRule made for? Now for all these types that Match my Rule, I want to specify a
+ Handler (no problem) and an Interceptor (here comes the problem).<br>
+<br>
+I actually have the same problem with injection for which I will open up another discussion item.<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_145659" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="145764">
+    <td id="PostDetailsCell_145764" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post145764"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/9/2009 6:13:46 PM" LocalTimeTicks="1231553626">Jan 9, 2009 at 6:13 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_145764" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="There&#32;are&#32;three&#32;parts&#32;to&#32;the&#32;interception&#32;system&#32;that&#32;all&#32;have&#32;to&#32;be&#32;configured.&#32;&#32;First&#32;-&#32;what&#32;methods&#32;are&#32;going&#32;to&#32;be&#32;intercepted.&#32;This&#32;is&#32;what&#32;the&#32;matching&#32;rules&#32;do.&#32;Second&#32;-&#32;what&#32;happens&#32;when&#32;those&#32;methods&#32;are&#32;intercepted.&#32;This&#32;is&#32;what&#32;the&#32;call&#32;handlers&#32;do.&#32;&#32;The&#32;third&#32;part&#32;is&#32;a&#32;little&#32;trickier.&#32;This&#32;is&#32;HOW&#32;do&#32;the&#32;methods&#32;get&#32;intercepted&#63;&#32;&#32;We&#32;have&#32;three&#32;different&#32;ways&#32;to&#32;implement&#32;interception&#32;-&#32;implement&#32;the&#32;how.&#32;All&#32;three&#32;have&#32;different&#32;performance&#32;characteristics,&#32;and&#32;require&#32;different&#32;things&#32;from&#32;the&#32;class&#32;that&#32;is&#32;being&#32;intercepted.&#32;And&#32;the&#32;HOW&#32;is&#32;on&#32;a&#32;class&#32;level,&#32;not&#32;an&#32;individual&#32;method&#32;level.&#32;&#32;One&#32;interceptor&#32;can&#32;intercept&#32;any&#32;method,&#32;but&#32;requires&#32;that&#32;you&#32;inherit&#32;from&#32;MarshalByRefObject.&#32;One&#32;of&#32;them&#32;can&#32;intercept&#32;virtual&#32;methods&#32;only,&#32;and&#32;can&#32;only&#32;connect&#32;interception&#32;at&#32;creation&#32;time.&#32;The&#32;last&#32;one&#32;can&#32;intercept&#32;only&#32;interface&#32;methods,&#32;but&#32;can&#32;be&#32;done&#32;after&#32;object&#32;creation.&#32;&#32;There&#39;s&#32;no&#32;way&#32;that&#32;I&#32;can&#32;see&#32;to&#32;somehow&#32;go&#32;from&#32;&#38;quot&#59;intercept&#32;this&#32;method&#38;quot&#59;&#32;&#40;the&#32;matching&#32;rule&#41;&#32;to&#32;&#38;quot&#59;use&#32;this&#32;interception&#32;implementation&#38;quot&#59;&#32;automatically.&#32;&#32;So,&#32;we&#32;could&#32;try&#32;to&#32;attach&#32;an&#32;interceptor&#32;implementation&#32;to&#32;a&#32;policy.&#32;But&#32;then&#32;what&#32;happens&#32;when&#32;two&#32;policies,&#32;both&#32;of&#32;which&#32;apply&#32;to&#32;some&#32;set&#32;of&#32;methods&#32;on&#32;a&#32;type,&#32;specify&#32;different&#32;interception&#32;mechanisms&#63;&#32;&#32;I&#32;realize&#32;it&#39;s&#32;annoying,&#32;and&#32;I&#39;d&#32;love&#32;to&#32;hear&#32;suggestions&#32;that&#32;can&#32;simplify&#32;this.&#32;I&#32;don&#39;t&#32;see&#32;anything&#32;right&#32;now&#32;that&#32;will&#32;do&#32;that&#32;and&#32;preserve&#32;our&#32;flexibility,&#32;but&#32;I&#39;d&#32;love&#32;to&#32;be&#32;proven&#32;wrong.&#32;&#32;-Chris&#32;">
+        There are three parts to the interception system that all have to be configured.<br>
+<br>
+First - what methods are going to be intercepted. This is what the matching rules do.<br>
+Second - what happens when those methods are intercepted. This is what the call handlers do.<br>
+<br>
+The third part is a little trickier. This is <em>HOW</em> do the methods get intercepted?<br>
+<br>
+We have three different ways to implement interception - implement the <em>how</em>. All three have different performance characteristics, and require different things from the class that is being intercepted. And the HOW is on a class level, not an individual
+ method level.<br>
+<br>
+One interceptor can intercept any method, but requires that you inherit from MarshalByRefObject. One of them can intercept virtual methods only, and can only connect interception at creation time. The last one can intercept only interface methods, but can be
+ done after object creation.<br>
+<br>
+There's no way that I can see to somehow go from &quot;intercept this method&quot; (the matching rule) to &quot;use this interception implementation&quot; automatically.<br>
+<br>
+So, we could try to attach an interceptor implementation to a policy. But then what happens when two policies, both of which apply to some set of methods on a type, specify different interception mechanisms?<br>
+<br>
+I realize it's annoying, and I'd love to hear suggestions that can simplify this. I don't see anything right now that will do that and preserve our flexibility, but I'd love to be proven wrong.<br>
+<br>
+-Chris<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_145764" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="145866">
+    <td id="PostDetailsCell_145866" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post145866"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jeffsaremi">jeffsaremi</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/10/2009 12:07:42 AM" LocalTimeTicks="1231574862">Jan 10, 2009 at 12:07 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="1/11/2009 1:23:20 PM" LocalTimeTicks="1231709000">Jan 11, 2009 at 1:23 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_145866" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="i&#32;don&#39;t&#32;know&#32;since&#32;i&#32;never&#32;had&#32;to&#32;design&#32;a&#32;AOP&#32;module&#32;on&#32;my&#32;own.&#32;But&#32;here&#32;are&#32;a&#32;few&#32;more&#32;thoughts&#32;around&#32;this&#32;whole&#32;issue&#58;&#32;-&#32;As&#32;is,&#32;it&#32;is&#32;very&#32;much&#32;possible&#32;to&#32;specify&#32;an&#32;Interceptor&#32;that&#32;cannot&#32;intercept&#32;what&#32;the&#32;Policy&#32;requires.&#32;For&#32;instance,&#32;method&#32;signatures&#32;that&#32;are&#32;not&#32;&#38;quot&#59;virtual&#38;quot&#59;&#32;but&#32;a&#32;VirtualMethod&#32;interceptor&#32;registered&#32;for&#32;the&#32;class.&#32;-&#32;Unless&#32;a&#32;finegrained&#32;level&#32;of&#32;control&#32;is&#32;needed,&#32;could&#32;we&#32;not&#32;have&#32;one&#32;interceptor&#32;set&#32;globally&#63;&#32;One&#32;that&#32;you&#32;would&#32;recommend&#63;&#32;-&#32;Or&#32;could&#32;we&#32;not&#32;setup&#32;a&#32;list&#32;of&#32;interceptors,&#32;possibly&#32;in&#32;the&#32;order&#32;of&#32;preference,&#32;that&#32;are&#32;used&#32;by&#32;the&#32;smarts&#32;in&#32;the&#32;system&#32;when&#32;they&#39;re&#32;needed.&#32;The&#32;logic&#32;could&#32;look&#32;at&#32;the&#32;registered&#32;policies&#32;and&#32;determine&#32;which&#32;one&#32;is&#32;best&#32;in&#32;each&#32;case.&#32;-&#32;and&#32;the&#32;point&#32;i&#32;tried&#32;to&#32;make&#32;in&#32;my&#32;other&#32;post&#32;&#38;quot&#59;A&#32;Wider&#32;way&#32;of&#32;...&#38;quot&#59;&#32;which&#32;talks&#32;about&#32;rules&#32;about&#32;specifying&#32;classes&#32;not&#32;by&#32;their&#32;individual&#32;types&#32;but&#32;rather&#32;by&#32;expressions,&#32;rules,&#32;or&#32;policies&#32;if&#32;you&#32;will&#32;&#40;may&#32;be&#32;different&#32;kinds&#32;of&#32;policies&#32;than&#32;the&#32;ones&#32;used&#32;to&#32;group&#32;methods&#41;&#32;">
+        i don't know since i never had to design a AOP module on my own. But here are a few more thoughts around this whole issue:<br>
+- As is, it is very much possible to specify an Interceptor that cannot intercept what the Policy requires. For instance, method signatures that are not &quot;virtual&quot; but a VirtualMethod interceptor registered for the class.<br>
+- Unless a finegrained level of control is needed, could we not have one interceptor set globally? One that you would recommend?<br>
+- Or could we not setup a list of interceptors, possibly in the order of preference, that are used by the smarts in the system when they're needed. The logic could look at the registered policies and determine which one is best in each case.<br>
+- and the point i tried to make in my other post &quot;A Wider way of ...&quot; which talks about rules about specifying classes not by their individual types but rather by expressions, rules, or policies if you will (may be different kinds of policies than
+ the ones used to group methods)<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_145866" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="145963">
+    <td id="PostDetailsCell_145963" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post145963"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/mvalenty">mvalenty</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/10/2009 8:28:02 PM" LocalTimeTicks="1231648082">Jan 10, 2009 at 8:28 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_145963" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="This&#32;is&#32;a&#32;big&#32;deal&#32;for&#32;me&#32;too.&#32;In&#32;fact,&#32;I&#32;am&#32;still&#32;using&#32;a&#32;container&#32;extension&#32;to&#32;wrap&#32;everything&#32;with&#32;PIAB&#32;3.1&#32;for&#32;a&#32;logging&#32;call&#32;handler.&#32;My&#32;container&#32;extension&#32;checks&#32;the&#32;object&#32;being&#32;built&#32;to&#32;see&#32;if&#32;it&#32;is&#32;MarshallByRef&#32;and&#32;then&#32;checks&#32;for&#32;an&#32;interface.&#32;If&#32;neither&#32;is&#32;supported,&#32;the&#32;object&#32;isn&#39;t&#32;wrapped.&#32;&#32;I&#32;see&#32;your&#32;point&#32;about&#32;having&#32;fine-grained&#32;control&#32;on&#32;how&#32;to&#32;intercept,&#32;but&#32;_requiring_&#32;it&#32;is&#32;too&#32;restrictive&#32;and&#32;undermines&#32;what&#32;AOP&#32;is&#32;all&#32;about&#32;IMO.&#32;We&#32;should&#32;have&#32;a&#32;rule-based&#32;way&#32;to&#32;apply&#32;an&#32;interceptor&#32;&#40;or&#32;interceptor&#32;selector&#32;policy&#41;&#32;if&#32;that&#39;s&#32;what&#32;we&#32;want&#32;to&#32;do.&#32;I&#32;know&#32;there&#32;are&#32;trade-offs,&#32;but&#32;give&#32;us&#32;opportunity&#32;to&#32;make&#32;the&#32;choice.&#32;">
+        This is a big deal for me too. In fact, I am still using a container extension to wrap everything with PIAB 3.1 for a logging call handler. My container extension checks the object being built to see if it is MarshallByRef and then checks for an interface.
+ If neither is supported, the object isn't wrapped.<br>
+<br>
+I see your point about having fine-grained control on how to intercept, but _requiring_ it is too restrictive and undermines what AOP is all about IMO. We should have a rule-based way to apply an interceptor (or interceptor selector policy) if that's what we
+ want to do. I know there are trade-offs, but give us opportunity to make the choice.<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_145963" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="146207">
+    <td id="PostDetailsCell_146207" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post146207"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/12/2009 6:41:03 AM" LocalTimeTicks="1231771263">Jan 12, 2009 at 6:41 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_146207" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Folks,&#32;we&#39;re&#32;in&#32;the&#32;planning&#32;phase&#32;for&#32;the&#32;next&#32;version.&#32;Feel&#32;free&#32;to&#32;post&#32;ideas&#32;about&#32;what&#32;you&#39;d&#32;like&#32;to&#32;see&#32;in&#32;the&#32;interception&#32;API&#32;and&#32;behavior.&#32;I&#32;understand&#32;the&#32;pain&#32;around&#32;what&#32;we&#39;ve&#32;currently&#32;got.&#32;No&#32;more&#32;need&#32;for&#32;&#38;quot&#59;this&#32;sucks.&#38;quot&#59;&#32;How&#32;would&#32;you&#32;make&#32;it&#32;better&#63;&#32;&#32;&#32;">
+        Folks, we're in the planning phase for the next version. Feel free to post ideas about what you'd like to see in the interception API and behavior. I understand the pain around what we've currently got. No more need for &quot;this sucks.&quot; How would
+ you make it better?<br>
+<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_146207" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="146745">
+    <td id="PostDetailsCell_146745" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post146745"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/gman6">gman6</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/13/2009 5:08:28 PM" LocalTimeTicks="1231895308">Jan 13, 2009 at 5:08 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="1/13/2009 6:14:27 PM" LocalTimeTicks="1231899267">Jan 13, 2009 at 6:14 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_146745" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="This&#32;is&#32;like&#32;a&#32;few&#32;other&#32;chains&#32;&#58;Other&#32;thread&#32;discussing&#32;the&#32;need&#32;for&#32;matchin&#32;policiesAnother&#32;thread&#32;discussing&#32;no&#32;type&#32;matching&#32;for&#32;setinterceptforEssentially&#32;I&#32;think&#32;everyone&#32;is&#32;just&#32;looking&#32;for&#32;what&#32;the&#32;basic&#32;PolicyInjection&#32;.Create&#32;or&#32;.Wrap&#32;provide,&#32;a&#32;quick&#32;way&#32;to&#32;apply&#32;the&#32;pre&#32;defined&#32;matching&#32;policies&#32;and&#32;injections&#32;to&#32;a&#32;given&#32;class&#32;or&#32;when&#32;creating&#32;a&#32;class.&#32;I&#32;could&#32;be&#32;wrong&#32;but&#32;I&#32;don&#39;t&#32;think&#32;we&#32;every&#32;needed&#32;to&#32;specify&#32;the&#32;type&#32;of&#32;injection&#32;the&#32;PIAB&#32;was&#32;using&#32;in&#32;a&#32;simple&#32;case,&#32;simply&#32;setup&#32;a&#32;matching&#32;rule,&#32;handler,&#32;and&#32;.Create&#32;or&#32;Wrap.So&#32;in&#32;my&#32;situation,&#32;we&#32;had&#32;a&#32;PIAB&#32;matching&#32;rule&#32;setup&#32;to&#32;check&#32;if&#32;the&#32;class&#32;was&#32;in&#32;our&#32;contract&#32;library.&#32;Then&#32;in&#32;the&#32;instanceprovider&#32;in&#32;WCF&#32;we&#32;resolve&#32;the&#32;class&#32;in&#32;unity,&#32;then&#32;apply&#32;the&#32;PIAB&#32;wrapper&#32;using&#32;that&#32;configuration&#32;matching&#32;rule.&#32;The&#32;problem&#32;is&#32;obviously&#32;the&#32;unity&#32;daisy&#32;chaining&#32;of&#32;depedencies.&#32;Our&#32;services&#32;typically&#32;take&#32;in&#32;depedencies&#32;like&#32;the&#32;data&#32;layer.&#32;These&#32;auto&#32;injected&#32;dependencies&#32;are&#32;not&#32;wrapped&#32;since&#32;Unity&#32;is&#32;auto&#32;resolving&#47;injecting.&#32;That&#32;was&#32;my&#32;big&#32;hope&#32;for&#32;having&#32;the&#32;PIAB&#32;integrated&#32;with&#32;Unity,&#32;so&#32;we&#32;could&#32;properly&#32;rely&#32;on&#32;the&#32;auto&#32;injection&#32;and&#32;PIAB&#32;wrapping&#32;capabilities&#32;in&#32;unity.&#32;As&#32;mentioned&#32;I&#32;could&#32;specify&#32;the&#32;injection&#32;approach&#32;manually&#32;as&#32;discussed,&#32;but&#32;in&#32;an&#32;enterprise&#32;application&#32;I&#32;don&#39;t&#32;want&#32;to&#32;have&#32;to&#32;specify&#32;the&#32;injection&#32;rules&#32;100&#39;s&#32;of&#32;times&#32;for&#32;a&#32;huge&#32;enterprise&#32;project&#32;in&#32;my&#32;bootstrap&#32;config&#32;of&#32;the&#32;Unity&#32;container.">
+        
+<div>This is like a few other chains :</div>
+<div><span><a href="http://www.codeplex.com/unity/Thread/View.aspx?ThreadId=38040&ANCHOR#Post132037" rel="nofollow">Other thread discussing the need for matchin policies</a></span><br>
+</div>
+<div><span><a href="http://www.codeplex.com/unity/Thread/View.aspx?ThreadId=38276" title="another thread" rel="nofollow">Another thread discussing no type matching for setinterceptfor</a></span><br>
+</div>
+<div><br>
+</div>
+<div>Essentially I think everyone is just looking for what the basic PolicyInjection .Create or .Wrap provide, a quick way to apply the pre defined matching policies and injections to a given class or when creating a class. &nbsp;</div>
+<div><br>
+</div>
+<div>I could be wrong but I don't think we every needed to specify the type of injection the PIAB was using in a simple case, simply setup a matching rule, handler, and .Create or Wrap.</div>
+<div><br>
+</div>
+<div>So in my situation, we had a PIAB matching rule setup to check if the class was in our contract library. &nbsp;Then in the instanceprovider in WCF we resolve the class in unity, then apply the PIAB wrapper using that configuration matching rule.&nbsp;</div>
+<div><br>
+</div>
+<div>The problem is obviously the unity daisy chaining of depedencies. &nbsp;Our services typically take in depedencies like the data layer. &nbsp;These auto injected dependencies are not wrapped since Unity is auto resolving/injecting. &nbsp;</div>
+<div><br>
+</div>
+<div>That was my big hope for having the PIAB integrated with Unity, so we could properly rely on the auto injection and PIAB wrapping capabilities in unity. &nbsp;</div>
+<div><br>
+</div>
+<div>As mentioned I could specify the injection approach manually as discussed, but in an enterprise application I don't want to have to specify the injection rules 100's of times for a huge enterprise project in my bootstrap config of the Unity container.</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_146745" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="146784">
+    <td id="PostDetailsCell_146784" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post146784"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/13/2009 6:58:34 PM" LocalTimeTicks="1231901914">Jan 13, 2009 at 6:58 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_146784" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="You&#32;didn&#39;t&#32;need&#32;to&#32;specify&#32;what&#32;interceptor&#32;to&#32;use&#32;with&#32;PIAB&#32;because&#32;you&#32;didn&#39;t&#32;have&#32;a&#32;choice&#32;-&#32;there&#32;was&#32;&#40;and&#32;still&#32;is&#41;&#32;only&#32;one.&#32;Also,&#32;you&#32;didn&#39;t&#32;run&#32;an&#32;object&#32;through&#32;PIAB&#32;unless&#32;you&#32;knew&#32;that&#32;you&#32;wanted&#32;that&#32;specific&#32;object&#32;intercepted.&#32;&#32;With&#32;Unity,&#32;these&#32;two&#32;things&#32;change.&#32;There&#32;are&#32;now&#32;three&#32;different&#32;interceptors,&#32;which&#32;means&#32;that&#32;some&#32;things&#32;that&#32;could&#32;not&#32;have&#32;been&#32;intercepted&#32;in&#32;the&#32;past&#32;now&#32;can&#32;be,&#32;and&#32;the&#32;interception&#32;can&#32;be&#32;a&#32;lot&#32;faster,&#32;but&#32;which&#32;one&#32;do&#32;we&#32;use&#32;for&#32;each&#32;object&#32;&#47;&#32;type&#63;&#32;Also,&#32;since&#32;building&#32;up&#32;with&#32;Unity&#32;means&#32;we&#39;re&#32;not&#32;building&#32;just&#32;one&#32;object,&#32;but&#32;an&#32;entire&#32;object&#32;graph,&#32;do&#32;you&#32;want&#32;to&#32;get&#32;interception&#32;on&#32;every&#32;single&#32;object&#32;inside&#32;that&#32;object&#32;graph,&#32;or&#32;just&#32;on&#32;specific&#32;ones&#63;&#32;And&#32;which&#32;interception&#32;mechanism&#32;do&#32;we&#32;use&#32;on&#32;those&#32;inner&#32;objects&#63;&#32;&#32;The&#32;fear&#32;we&#32;had&#32;while&#32;developing&#32;this&#32;feature&#32;was&#32;that&#32;we&#32;would&#32;accidentally&#32;get&#32;interception&#32;&#40;and&#32;possible&#32;build&#32;errors&#41;&#32;when&#32;it&#32;wasn&#39;t&#32;wanted.&#32;So&#32;we&#32;erred&#32;on&#32;the&#32;side&#32;of&#32;explicitness&#32;-&#32;you&#32;need&#32;to&#32;specify&#32;in&#32;configuration&#32;specifically&#32;which&#32;types&#32;to&#32;intercept,&#32;and&#32;what&#32;mechanism&#32;to&#32;use.&#32;&#32;I&#32;personally&#32;don&#39;t&#32;see&#32;a&#32;heuristic&#32;that&#32;would&#32;allow&#32;automatic&#32;selection&#32;of&#32;interception&#32;mechanism&#32;that&#32;would&#32;also&#32;satisfy&#32;everybody.&#32;&#32;That&#39;s&#32;where&#32;I&#39;d&#32;like&#32;you&#32;folks&#32;in&#32;the&#32;community&#32;to&#32;step&#32;in.&#32;Give&#32;me&#32;examples&#32;-&#32;how&#32;would&#32;you&#32;ideally&#32;want&#32;this&#32;to&#32;work&#63;&#32;If&#32;we&#32;start&#32;getting&#32;explicit&#32;ideas&#32;out&#32;into&#32;the&#32;open,&#32;we&#32;can&#32;talk&#32;through&#32;the&#32;interactions&#32;and&#32;implications,&#32;and&#32;make&#32;something&#32;better.&#32;&#32;&#32;&#32;">
+        You didn't need to specify what interceptor to use with PIAB because you didn't have a choice - there was (and still is) only one. Also, you didn't run an object through PIAB unless you knew that you wanted that specific object intercepted.<br>
+<br>
+With Unity, these two things change. There are now three different interceptors, which means that some things that could not have been intercepted in the past now can be, and the interception can be a lot faster, but which one do we use for each object / type?
+ Also, since building up with Unity means we're not building just one object, but an entire object graph, do you want to get interception on every single object inside that object graph, or just on specific ones? And which interception mechanism do we use on
+ those inner objects?<br>
+<br>
+The fear we had while developing this feature was that we would accidentally get interception (and possible build errors) when it wasn't wanted. So we erred on the side of explicitness - you need to specify in configuration specifically which types to intercept,
+ and what mechanism to use.<br>
+<br>
+I personally don't see a heuristic that would allow automatic selection of interception mechanism that would also satisfy everybody.<br>
+<br>
+That's where I'd like you folks in the community to step in. Give me examples - how would you ideally want this to work? If we start getting explicit ideas out into the open, we can talk through the interactions and implications, and make something better.<br>
+<br>
+<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_146784" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="146838">
+    <td id="PostDetailsCell_146838" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post146838"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/gman6">gman6</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/13/2009 11:07:06 PM" LocalTimeTicks="1231916826">Jan 13, 2009 at 11:07 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_146838" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="All&#32;of&#32;your&#32;concerns&#32;are&#32;very&#32;valid,&#32;and&#32;everything&#32;you&#32;have&#32;done&#32;is&#32;great,&#32;but&#32;this&#32;is&#32;just&#32;a&#32;requirement&#32;that&#32;would&#32;make&#32;life&#32;alot&#32;easier&#32;in&#32;some&#32;situations.&#32;&#32;For&#32;example,&#32;I&#32;just&#32;want&#32;to&#32;wrap&#32;all&#32;my&#32;service&#32;instances&#32;in&#32;my&#32;exception&#32;block&#32;and&#32;logging&#32;block,&#32;this&#32;is&#32;where&#32;the&#32;ability&#32;to&#32;specify&#32;one&#32;of&#32;the&#32;interception&#32;types&#32;to&#32;all&#32;classes&#32;in&#32;my&#32;service&#32;library&#32;using&#32;a&#32;namespace&#32;match&#32;is&#32;beneficial.&#32;&#32;&#32;I&#32;have&#32;many&#32;developers&#32;working&#32;on&#32;many&#32;services,&#32;and&#32;don&#39;t&#32;want&#32;to&#32;have&#32;to&#32;ensure&#32;all&#32;of&#32;them&#32;properly&#32;setup&#32;the&#32;interception&#32;when&#32;items&#32;adding&#32;them&#32;to&#32;the&#32;unity&#32;container.&#32;I&#32;also&#32;can&#32;easily&#32;know&#32;the&#32;impact&#32;of&#32;my&#32;match&#32;pattern&#32;instead&#32;of&#32;looking&#32;at&#32;a&#32;container&#39;s&#32;registration&#32;when&#32;there&#32;could&#32;be&#32;thousands.&#32;Also,&#32;if&#32;I&#32;wanted&#32;to&#32;refactor&#32;out&#32;some&#32;base&#32;functionality,&#32;and&#32;quickly&#32;apply&#32;the&#32;exception&#32;block&#32;only&#32;to&#32;the&#32;services&#32;that&#32;extend&#32;some&#32;new&#32;interface,&#32;I&#32;would&#32;manually&#32;have&#32;to&#32;change&#32;all&#32;interceptions&#32;currently&#32;instead&#32;of&#32;changing&#32;some&#32;matching&#32;approach.&#32;&#32;Does&#32;this&#32;make&#32;sense&#63;&#32;Of&#32;course&#32;we&#32;could&#32;manually&#32;set&#32;the&#32;interception&#32;per&#32;service,&#32;but&#32;it&#32;is&#32;tedious&#32;and&#32;a&#32;automatic&#32;selection&#32;of&#32;interception&#32;based&#32;on&#32;a&#32;matching&#32;pattern&#32;would&#32;be&#32;very&#32;handy.&#32;&#32;">
+        All of your concerns are very valid, and everything you have done is great, but this is just a requirement that would make life alot easier in some situations.<br>
+<br>
+For example, I just want to wrap all my service instances&nbsp;in my exception block and logging block, this is where the ability to specify one of the interception types to all classes in my service library using a namespace match is beneficial.&nbsp;
+<br>
+<br>
+I have many developers working on many services, and don't want to have to ensure all of them properly setup the interception when items adding them to the unity container.&nbsp; I also can easily know the impact of my match pattern instead of looking at a container's
+ registration when there could be thousands.&nbsp; Also, if I wanted to refactor out some base functionality, and quickly apply the exception block only to the services that extend some new interface, I would manually have to change all interceptions currently instead
+ of changing some matching approach.<br>
+<br>
+Does this make sense?&nbsp; Of course we could manually set the interception per service, but it is tedious and a automatic selection of interception based on a matching pattern would be very handy.<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_146838" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="146858">
+    <td id="PostDetailsCell_146858" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post146858"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/14/2009 1:01:51 AM" LocalTimeTicks="1231923711">Jan 14, 2009 at 1:01 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_146858" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;think&#32;you&#32;misunderstand&#32;me.&#32;I&#32;don&#39;t&#32;need&#32;to&#32;be&#32;sold&#32;on&#32;the&#32;need&#32;for&#32;a&#32;change&#32;here.&#32;To&#32;be&#32;honest,&#32;I&#32;wasn&#39;t&#32;thrilled&#32;with&#32;what&#32;we&#32;have&#32;when&#32;I&#32;shipped&#32;it.&#32;But&#32;inspiration&#32;was&#32;not&#32;striking,&#32;so&#32;it&#32;was&#32;better&#32;to&#32;ship&#32;the&#32;suboptimal&#32;than&#32;not&#32;ship&#32;anything&#32;at&#32;all.&#32;&#32;I&#39;m&#32;asking&#32;you&#32;and&#32;the&#32;rest&#32;of&#32;the&#32;community&#32;to&#32;help&#32;design&#32;the&#32;updated&#32;feature.&#32;What&#32;specifically&#32;would&#32;you&#32;like&#32;to&#32;see&#63;&#32;How,&#32;exactly,&#32;does&#32;it&#32;work&#63;&#32;Can&#32;you&#32;give&#32;me&#32;a&#32;unit&#32;test&#32;that&#32;illustrates&#32;what&#32;you&#39;d&#32;like&#32;the&#32;API&#32;and&#32;behavior&#32;to&#32;look&#32;like&#63;&#32;That&#32;sort&#32;of&#32;thing.&#32;&#32;And,&#32;being&#32;the&#32;person&#32;that&#32;I&#32;am,&#32;I&#32;will&#32;attempt&#32;to&#32;poke&#32;holes&#32;in&#32;every&#32;idea&#32;posted&#32;&#40;including&#32;mine&#41;.&#32;It&#39;s&#32;not&#32;personal,&#32;it&#39;s&#32;just&#32;how&#32;I&#32;learn.&#32;&#32;So,&#32;you&#32;want&#32;a&#32;&#38;quot&#59;matching&#32;approach&#38;quot&#59;.&#32;Sounds&#32;like&#32;a&#32;reasonable&#32;direction&#32;to&#32;investigate.&#32;Now,&#32;can&#32;you&#32;be&#32;more&#32;specific&#63;&#32;How&#32;exactly&#32;would&#32;that&#32;work&#63;&#32;What&#39;s&#32;the&#32;API&#63;&#32;What&#39;s&#32;the&#32;interaction&#32;with&#32;other&#32;uses&#32;of&#32;the&#32;container&#63;&#32;What&#32;happens&#32;if&#32;multiple&#32;rules&#32;specifying&#32;different&#32;interceptors&#32;match&#63;&#32;&#32;-Chris&#32;">
+        I think you misunderstand me. I don't need to be sold on the need for a change here. To be honest, I wasn't thrilled with what we have when I shipped it. But inspiration was not striking, so it was better to ship the suboptimal than not ship anything at
+ all.<br>
+<br>
+I'm asking you and the rest of the community to help design the updated feature. What specifically would you like to see? How, exactly, does it work? Can you give me a unit test that illustrates what you'd like the API and behavior to look like? That sort of
+ thing.<br>
+<br>
+And, being the person that I am, I will attempt to poke holes in every idea posted (including mine). It's not personal, it's just how I learn.<br>
+<br>
+So, you want a &quot;matching approach&quot;. Sounds like a reasonable direction to investigate. Now, can you be more specific? How exactly would that work? What's the API? What's the interaction with other uses of the container? What happens if multiple rules
+ specifying different interceptors match?<br>
+<br>
+-Chris<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_146858" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="147025">
+    <td id="PostDetailsCell_147025" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post147025"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/gman6">gman6</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/14/2009 1:26:07 PM" LocalTimeTicks="1231968367">Jan 14, 2009 at 1:26 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_147025" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Poke&#32;away&#33;&#32;It&#39;s&#32;what&#32;leads&#32;to&#32;the&#32;best&#32;solution&#33;&#32;&#32;I&#32;was&#32;actually&#32;starting&#32;to&#32;try&#32;something&#32;out&#32;with&#32;some&#32;tests&#32;and&#32;some&#32;crude&#32;matching&#32;methods&#32;but&#32;work&#32;calls&#32;atm&#32;&#58;&#40;&#32;I&#32;will&#32;do&#32;my&#32;best&#32;to&#32;get&#32;something&#32;together&#32;as&#32;soon&#32;as&#32;I&#32;can&#32;breathe.&#32;At&#32;the&#32;very&#32;least&#32;I&#32;can&#32;try&#32;to&#32;throw&#32;a&#32;few&#32;user&#32;stories&#32;together&#32;setting&#32;up&#32;the&#32;context&#32;and&#32;expectations&#32;for&#32;the&#32;matching&#32;policies.&#32;&#32;&#32;You&#32;mentioned&#32;various&#32;issues&#32;that&#32;would&#32;need&#32;to&#32;be&#32;resolved&#32;to&#32;do&#32;this&#32;properly&#58;&#32;&#32;1.&#32;If&#32;there&#32;was&#32;a&#32;way&#32;to&#32;say&#32;Container.SetInterceptionUsing&#40;NameSpaceMatchingPolicy&#41;,&#32;thats&#32;well&#32;and&#32;good,&#32;but&#32;like&#32;you&#32;said,&#32;what&#32;about&#32;the&#32;interception&#32;type,&#32;should&#32;we&#32;use&#32;a&#32;global&#32;one&#32;or&#32;specific&#32;ones.&#32;If&#32;so,&#32;which&#32;takes&#32;precedence&#63;&#32;&#32;&#32;2.&#32;What&#32;is&#32;the&#32;impact&#32;of&#32;this&#32;on&#32;other&#32;features&#32;like&#32;child&#32;containers&#63;&#32;&#32;&#32;For&#32;my&#32;purposes&#32;I&#32;have&#32;always&#32;tried&#32;to&#32;limit&#32;using&#32;containers&#32;for&#32;too&#32;much&#32;conceptual&#32;logic,&#32;e.g.&#32;child&#32;containers.&#32;So&#32;from&#32;my&#32;perspective&#32;adding&#32;this&#32;matching&#32;approach&#32;wouldn&#39;t&#32;be&#32;overly&#32;complex&#32;but&#32;everyone&#32;needs&#32;to&#32;get&#32;involved&#32;to&#32;decide&#32;how&#32;best&#32;to&#32;handle&#32;it&#32;in&#32;these&#32;other&#32;situations.&#32;&#32;More&#32;to&#32;come&#32;when&#32;I&#32;can&#32;put&#32;something&#32;concrete&#32;together.&#32;&#32;">
+        Poke away!&nbsp; It's what leads to the best solution!<br>
+<br>
+I was actually starting to try something out with some tests and some crude matching methods but work calls atm :(&nbsp; I will do my best to get something together as soon as I can breathe.&nbsp; At the very least I can try to throw a few user stories together setting
+ up the context and expectations for the matching policies.&nbsp; <br>
+<br>
+You mentioned various issues that would need to be resolved to do this properly:<br>
+<br>
+1.&nbsp; If there was a way to say Container.SetInterceptionUsing(NameSpaceMatchingPolicy), thats well and good, but like you said, what about the interception type, should we use a global one or specific ones.&nbsp; If so, which takes precedence?&nbsp;
+<br>
+<br>
+2.&nbsp; What is the impact of this on other features like child containers?&nbsp; <br>
+<br>
+For my purposes I have always tried to limit using containers for too much conceptual logic, e.g. child containers.&nbsp; So from my perspective adding this matching approach wouldn't be overly complex but everyone needs to get involved to decide how best to handle
+ it in these other situations.<br>
+<br>
+More to come when I can put something concrete together.<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_147025" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="150332">
+    <td id="PostDetailsCell_150332" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post150332"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/mvalenty">mvalenty</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/23/2009 5:50:29 PM" LocalTimeTicks="1232761829">Jan 23, 2009 at 5:50 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_150332" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Using&#32;the&#32;Context.Registering&#32;event,&#32;I&#32;was&#32;able&#32;to&#32;make&#32;a&#32;container&#32;extension&#32;to&#32;basically&#32;do&#32;the&#32;same&#32;thing&#32;I&#32;was&#32;doing&#32;with&#32;EntLib&#32;3.1&#32;which&#32;is&#32;wrap&#32;everything&#32;built&#32;up&#32;by&#32;the&#32;container&#32;&#40;and&#32;then&#32;apply&#32;a&#32;logging&#32;call&#32;handler&#32;to&#32;it&#41;.&#32;I&#32;think&#32;it&#32;would&#32;be&#32;pretty&#32;easy&#32;to&#32;extend&#32;this&#32;with&#32;an&#32;&#38;quot&#59;AssemblyMatchingInteceptorSelector&#32;&#58;&#32;IIterceptorSelectorPolicy&#32;&#38;quot&#59;&#32;or&#32;whatever.&#32;For&#32;now,&#32;my&#32;need&#32;is&#32;pretty&#32;simple&#32;and&#32;I&#32;think&#32;this&#32;will&#32;do&#32;the&#32;trick&#33;&#32;&#32;public&#32;class&#32;InterceptOnRegisterContainerExtension&#32;&#58;&#32;UnityContainerExtension&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;protected&#32;override&#32;void&#32;Initialize&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Container.AddNewExtension&#38;lt&#59;Interception&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Context.Registering&#32;&#43;&#61;&#32;new&#32;EventHandler&#38;lt&#59;RegisterEventArgs&#38;gt&#59;&#40;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;delegate&#40;object&#32;sender,&#32;RegisterEventArgs&#32;e&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;SetInterceptorFor&#40;e.TypeFrom&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#41;&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Context.RegisteringInstance&#32;&#43;&#61;&#32;new&#32;EventHandler&#38;lt&#59;RegisterInstanceEventArgs&#38;gt&#59;&#40;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;delegate&#40;object&#32;sender,&#32;RegisterInstanceEventArgs&#32;e&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;SetInterceptorFor&#40;e.RegisteredType&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;private&#32;void&#32;SetInterceptorFor&#40;Type&#32;typeToIntercept&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;var&#32;interceptor&#32;&#61;&#32;SelectInterceptorFor&#40;typeToIntercept&#41;&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;if&#32;&#40;interceptor&#32;&#33;&#61;&#32;null&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Container.Configure&#38;lt&#59;Interception&#38;gt&#59;&#40;&#41;.SetInterceptorFor&#40;typeToIntercept,&#32;interceptor&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;private&#32;IInstanceInterceptor&#32;SelectInterceptorFor&#40;Type&#32;typeToIntercept&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;if&#32;&#40;typeToIntercept.IsMarshalByRef&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;return&#32;new&#32;TransparentProxyInterceptor&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;else&#32;if&#32;&#40;typeToIntercept.IsInterface&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;return&#32;new&#32;InterfaceInterceptor&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;return&#32;null&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#125;&#32;&#32;">
+        Using the Context.Registering event, I was able to make a container extension to basically do the same thing I was doing with EntLib 3.1 which is wrap everything built up by the container (and then apply a logging call handler to it). I think it would
+ be pretty easy to extend this with an &quot;AssemblyMatchingInteceptorSelector : IIterceptorSelectorPolicy &quot; or whatever. For now, my need is pretty simple and I think this will do the trick!<br>
+<br>
+public class InterceptOnRegisterContainerExtension : UnityContainerExtension<br>
+{<br>
+&nbsp;&nbsp;&nbsp; protected override void Initialize()<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Container.AddNewExtension&lt;Interception&gt;();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Context.Registering &#43;= new EventHandler&lt;RegisterEventArgs&gt;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; delegate(object sender, RegisterEventArgs e)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SetInterceptorFor(e.TypeFrom);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; });<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Context.RegisteringInstance &#43;= new EventHandler&lt;RegisterInstanceEventArgs&gt;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; delegate(object sender, RegisterInstanceEventArgs e)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SetInterceptorFor(e.RegisteredType);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; });<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; private void SetInterceptorFor(Type typeToIntercept)<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var interceptor = SelectInterceptorFor(typeToIntercept);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (interceptor != null)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Container.Configure&lt;Interception&gt;().SetInterceptorFor(typeToIntercept, interceptor);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; private IInstanceInterceptor SelectInterceptorFor(Type typeToIntercept)<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (typeToIntercept.IsMarshalByRef)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return new TransparentProxyInterceptor();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (typeToIntercept.IsInterface)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return new InterfaceInterceptor();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return null;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_150332" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="151591">
+    <td id="PostDetailsCell_151591" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post151591"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jeffsaremi">jeffsaremi</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/28/2009 1:39:14 AM" LocalTimeTicks="1233135554">Jan 28, 2009 at 1:39 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_151591" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="In&#32;case,&#32;anyone&#39;s&#32;still&#32;interested&#32;in&#32;investing&#32;in&#32;the&#32;interception&#32;improvements&#32;&#40;beyond&#32;one&#32;single&#32;Global&#32;interceptor&#32;as&#32;mentioned&#32;somewhere&#32;above&#41;&#32;I&#32;had&#32;some&#32;thoughts&#32;which&#32;may&#32;address&#32;the&#32;following&#32;concern.&#32;I&#32;haven&#39;t&#32;looked&#32;at&#32;the&#32;source&#32;code&#32;for&#32;Unity&#32;to&#32;see&#32;what&#32;it&#32;does&#32;today&#32;but&#32;i&#39;m&#32;guessing&#32;that&#32;the&#32;sequence&#32;of&#32;actions&#32;that&#32;i&#39;m&#32;about&#32;to&#32;explain&#32;could&#32;eliminate&#32;this&#32;dilema&#58;&#32;&#38;quot&#59;There&#39;s&#32;no&#32;way&#32;that&#32;I&#32;can&#32;see&#32;to&#32;somehow&#32;go&#32;from&#32;&#38;quot&#59;intercept&#32;this&#32;method&#38;quot&#59;&#32;&#40;the&#32;matching&#32;rule&#41;&#32;to&#32;&#38;quot&#59;use&#32;this&#32;interception&#32;implementation&#38;quot&#59;&#32;automatically.&#38;quot&#59;&#32;&#32;By&#32;following&#32;this&#32;order&#32;we&#32;may&#32;be&#32;able&#32;to&#32;come&#32;up&#32;with&#32;Interceptors&#32;selected&#32;specifically&#32;for&#32;their&#32;matching&#32;rules&#58;&#32;1.&#32;specify&#32;matching&#32;rules,&#32;handlers,&#32;along&#32;with&#32;desired&#32;interceptor&#32;2.&#32;use&#32;the&#32;above&#32;rules&#32;to&#32;search&#32;and&#32;find&#32;elligible&#32;types&#32;3.&#32;for&#32;each&#32;type&#32;found,&#32;create&#32;an&#32;interceptor&#32;using&#32;the&#32;specified&#32;interceptor&#32;and&#32;the&#32;handler&#32;logic&#32;4.&#32;register&#32;the&#32;above&#32;type.&#32;&#32;The&#32;above&#32;is&#32;done&#32;at&#32;the&#32;time&#32;of&#32;initialization&#32;of&#32;the&#32;container.&#32;Once&#32;done,&#32;a&#32;resolve&#32;action&#32;for&#32;the&#32;intercepted&#32;type&#32;should&#32;return&#32;the&#32;appropriate&#32;interceptor.&#32;&#40;without&#32;the&#32;need&#32;to&#32;additionally&#32;call&#32;.SetDefaultInterceptorFor&#38;lt&#59;&#38;gt&#59;&#41;&#32;&#32;Step&#32;2&#32;may&#32;have&#32;performance&#32;indications&#32;if&#32;the&#32;criteria&#32;is&#32;too&#32;wide.&#32;Too&#32;bad&#32;for&#32;us&#32;as&#32;users&#32;of&#32;Unity.&#32;It&#32;is&#32;the&#32;user&#39;s&#32;responsibility&#32;to&#32;ensure&#32;the&#32;search&#32;is&#32;narrowed&#32;down&#32;by&#32;assembly&#32;and&#47;or&#32;namespace&#32;in&#32;addition&#32;to&#32;whatever&#32;the&#32;matching&#32;rule&#32;is.&#32;On&#32;the&#32;Step&#32;4,&#32;an&#32;additional&#32;benefit&#32;is&#32;that&#32;you&#32;will&#32;get&#32;notified&#32;of&#32;all&#32;problems&#32;upfront&#32;at&#32;the&#32;start&#32;of&#32;your&#32;application.&#32;Since&#32;that&#32;is&#32;the&#32;time&#32;that&#32;the&#32;registration&#32;of&#32;all&#32;interceptors&#47;handlers&#32;take&#32;place.&#32;You&#32;don&#39;t&#32;have&#32;to&#32;wait&#32;until&#32;some&#32;hidden&#32;logic&#32;resulting&#32;in&#32;a&#32;&#40;mis&#41;interception&#32;get&#32;triggered&#32;&#40;see&#32;the&#32;note&#32;regarding&#32;the&#32;potential&#32;conflict&#32;between&#32;the&#32;Interceptor&#32;and&#32;the&#32;Matching&#32;rules&#41;.&#32;&#32;In&#32;step&#32;3,&#32;you&#32;may&#32;encounter&#32;the&#32;issue&#32;of&#32;conflicting&#32;interceptors.&#32;For&#32;instance,&#32;a&#32;matching&#32;rule&#43;interceptor&#32;could&#32;result&#32;in&#32;a&#32;type&#32;which&#32;is&#32;to&#32;be&#32;intecepted&#32;by&#32;a&#32;different&#32;interceptor.&#32;Establishing&#32;some&#32;global&#32;rules&#32;could&#32;eliminate&#32;this.&#32;For&#32;instance,&#32;if&#32;a&#32;type&#32;is&#32;already&#32;registered&#32;for&#32;one&#32;type&#32;of&#32;Interceptor&#32;re-registering&#32;it&#32;&#40;implicitly&#41;&#32;while&#32;trying&#32;to&#32;satisfy&#32;another&#32;matching&#32;rule&#32;is&#32;an&#32;error.&#32;An&#32;exception&#32;is&#32;throwng&#32;and&#32;the&#32;developer&#32;will&#32;go&#32;about&#32;fixing&#32;the&#32;rules&#32;&#40;again&#32;at&#32;the&#32;time&#32;of&#32;container&#32;startup&#32;or&#32;as&#32;soon&#32;as&#32;you&#32;start&#32;adding&#32;matching&#32;policies&#41;&#32;&#32;I&#32;hope&#32;I&#32;didn&#39;t&#32;get&#32;too&#32;excited&#32;too&#32;soon.&#32;">
+        
+<p dir="ltr" style="margin-right:0px">In case, anyone's still interested in investing in the interception improvements (beyond one single Global interceptor as mentioned somewhere above) I had some thoughts which may address the following concern. I haven't
+ looked at the source code for Unity to see what it does today but i'm guessing that the sequence of actions that i'm about to explain could eliminate this dilema:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;There's no way that I can see to somehow go from &quot;intercept this method&quot; (the matching rule) to &quot;use this interception implementation&quot; automatically.&quot;<br>
+<br>
+By following this order we may be able to come up with Interceptors selected specifically for their matching rules:<br>
+&nbsp; 1. specify matching rules, handlers, along with desired interceptor<br>
+&nbsp; 2. use the above rules to search and find elligible types<br>
+&nbsp; 3. for each type found, create an interceptor using the specified interceptor and the handler logic<br>
+&nbsp; 4. register the above type.<br>
+<br>
+The above is done at the time of initialization of the container.<br>
+Once done, a resolve action for the intercepted type should return the appropriate interceptor. (without the need to additionally call&nbsp;.SetDefaultInterceptorFor&lt;&gt;)<br>
+<br>
+Step 2 may have performance indications if the criteria is too wide. Too bad for us as users of Unity. It is the user's responsibility to ensure the search is narrowed down by assembly and/or namespace in addition to whatever the matching rule is.<br>
+On the Step 4,&nbsp;an additional&nbsp;benefit is that you will get notified of all problems upfront at the start of your application. Since that is the time that the registration of all interceptors/handlers take place. You don't have to wait until some hidden logic
+ resulting in a (mis)interception get triggered (see the note regarding the potential conflict between the Interceptor and the Matching rules).<br>
+<br>
+In step 3, you may encounter the issue of conflicting interceptors. For instance, a matching rule&#43;interceptor could result in a type which is to be intecepted by a different interceptor. Establishing some global rules could eliminate this. For instance, if&nbsp;a
+ type is already registered for one type of Interceptor re-registering it (implicitly) while trying to satisfy another matching rule is an error. An exception is throwng and the developer will go about fixing the rules (again at the time of container startup
+ or as soon as you start adding matching policies)<br>
+<br>
+I hope I didn't get too excited too soon.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_151591" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f43766">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="2772259b-6645-4787-baf8-fdf9ab87bf06">
+    <script class="options" defer="defer" id="2772259b-6645-4787-baf8-fdf9ab87bf06" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_ba3dc063-8e1a-46c7-957f-5259874b065b">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_fe0a3cd1-bc2f-402d-8bbf-1692f322e0ff">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_ba3dc063-8e1a-46c7-957f-5259874b065b" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_fe0a3cd1-bc2f-402d-8bbf-1692f322e0ff" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/43766';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

@@ -1,0 +1,682 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Suggestion&#58; more comprehensive error reporting</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/31204?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/31204?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="dGXhLcPs13rudAVo41jQQRxGI9-J5cI0yv9O-qwuXXs_yhFszRo9At8WKMRIk2j17oF-47dkIRKFEWjcz1-qE8pq298nTOLP1G8I_GppktgxtDt69FFbJURtW4-8oOQDYTXDYg2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2ebfcff2a-f0b7-4e9a-ae43-95f57227fff4" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:28:56 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f31204" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="55a1a823-c793-4e20-8a1d-ddb83ffc4f14">
+                
+                    <script class="options" defer="defer" id="55a1a823-c793-4e20-8a1d-ddb83ffc4f14" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="c81b6ee3-90b5-4eaf-aa10-37785b1b3314">
+                
+                    <script class="options" defer="defer" id="c81b6ee3-90b5-4eaf-aa10-37785b1b3314" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Suggestion&#58; more comprehensive error reporting
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:31204]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="a3865c7d-685f-4be7-84c8-9c2e114da296">
+    <script class="options" defer="defer" id="a3865c7d-685f-4be7-84c8-9c2e114da296" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/31204","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="103708">
+    <td id="PostDetailsCell_103708" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post103708"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/BillKrat">BillKrat</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/9/2008 8:54:38 PM" LocalTimeTicks="1215662078">Jul 9, 2008 at 8:54 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_103708" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="First&#32;off&#32;-&#32;Unity&#32;is&#32;sweeetttttt&#32;&#58;&#41;&#38;nbsp&#59;&#32;Great&#32;job&#33;&#33;&#33;&#32;&#32;The&#32;stacktrace&#32;is&#32;getting&#32;lost&#32;resulting&#32;in&#32;an&#32;error&#32;that&#32;can&#38;nbsp&#59;send&#32;newbies&#32;&#40;like&#32;me&#41;&#32;down&#32;a&#32;rabbit&#32;trail.&#38;nbsp&#59;&#32;I&#32;am&#32;refactoring&#32;an&#32;application&#32;which&#32;which&#32;relies&#32;on&#32;a&#32;factory&#32;and&#32;numerous&#32;concrete&#32;classes&#32;which&#32;have&#32;been&#32;retrofitted&#32;for&#32;Unity.&#38;nbsp&#59;&#38;nbsp&#59;&#32;Initially&#32;I&#32;intrepeted&#32;errors&#32;that&#32;I&#32;was&#32;recieving&#32;to&#32;be&#32;configuration&#32;errors,&#32;later&#32;I&#32;learned&#32;that&#32;they&#32;were&#32;actually&#32;null&#32;object&#32;references&#32;dangling&#32;during&#32;the&#32;conversion.&#32;e.g.,&#38;nbsp&#59;a&#38;nbsp&#59;reference&#32;that&#32;I&#32;missed&#32;resulted&#32;in&#32;the&#32;following&#32;error&#58;&#32;&#32;Resolution&#32;of&#32;the&#32;dependency&#32;failed,&#32;type&#32;&#61;&#32;&#38;quot&#59;Form1&#38;quot&#59;,&#32;name&#32;&#61;&#32;&#38;quot&#59;&#38;quot&#59;.&#32;Exception&#32;message&#32;is&#58;&#32;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;TestHarness.Form1,&#32;null&#93;&#41;&#32;failed&#58;&#32;The&#32;value&#32;for&#32;the&#32;property&#32;&#38;quot&#59;Presenter&#38;quot&#59;&#32;could&#32;not&#32;be&#32;resolved.&#32;&#40;Strategy&#32;type&#32;Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy,&#32;index&#32;2&#41;&#32;After&#32;updating&#32;the&#32;ResolutionFailedException.cs&#32;CreateMessage&#40;&#41;&#32;as&#32;follows&#58;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;private&#32;static&#32;string&#32;CreateMessage&#40;Type&#32;typeRequested,&#32;string&#32;nameRequested,&#32;Exception&#32;innerException&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;return&#32;string.Format&#40;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;CultureInfo.CurrentCulture,&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Resources.ResolutionFailed,&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;typeRequested.Name,&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;nameRequested,&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;GetInnerExceptionMessage&#40;innerException&#41;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#47;&#32;Recursive&#32;routine&#32;to&#32;collect&#32;all&#32;inner&#32;exception&#32;errors&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;ex&#38;quot&#59;&#38;gt&#59;&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;returns&#38;gt&#59;&#38;lt&#59;&#47;returns&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;private&#32;static&#32;string&#32;GetInnerExceptionMessage&#40;Exception&#32;ex&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;StringBuilder&#32;errorMessage&#32;&#61;&#32;new&#32;StringBuilder&#40;ex.InnerException.Message&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;errorMessage.Append&#40;ex.InnerException.StackTrace&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;errorMessage.Append&#40;&#38;quot&#59;&#92;r&#92;n&#38;quot&#59;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;if&#32;&#40;ex.InnerException.InnerException&#32;&#33;&#61;&#32;null&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;errorMessage.Append&#40;GetInnerExceptionMessage&#40;ex.InnerException.InnerException&#41;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;return&#32;errorMessage.ToString&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;I&#32;received&#32;the&#32;following&#32;error&#32;message&#32;which&#32;allows&#32;me&#32;to&#38;nbsp&#59;isolate&#32;issues&#32;more&#32;quickly&#58;&#32;&#32;Resolution&#32;of&#32;the&#32;dependency&#32;failed,&#32;type&#32;&#61;&#32;&#38;quot&#59;Form1&#38;quot&#59;,&#32;name&#32;&#61;&#32;&#38;quot&#59;&#38;quot&#59;.&#32;Exception&#32;message&#32;is&#58;&#32;The&#32;value&#32;for&#32;the&#32;property&#32;&#38;quot&#59;Presenter&#38;quot&#59;&#32;could&#32;not&#32;be&#32;resolved.&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodPropertySetterStrategy.ThrowOnFailedPropertyValueResolution&#40;Exception&#32;inner,&#32;String&#32;propertyName&#41;&#32;in&#32;C&#58;&#92;VisualStudio2008&#92;Unity&#92;Src&#92;ObjectBuilder&#92;Strategies&#92;BuildPlan&#92;DynamicMethod&#92;Property&#92;DynamicMethodPropertySetterStrategy.cs&#58;line&#32;82&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;BuildUp_TestHarness.Form1&#40;IBuilderContext&#32;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp&#40;IBuilderContext&#32;context&#41;&#32;in&#32;C&#58;&#92;VisualStudio2008&#92;Unity&#92;Src&#92;ObjectBuilder&#92;Strategies&#92;BuildPlan&#92;DynamicMethod&#92;DynamicMethodBuildPlan.cs&#58;line&#32;37&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp&#40;IBuilderContext&#32;context&#41;&#32;in&#32;C&#58;&#92;VisualStudio2008&#92;Unity&#92;Src&#92;ObjectBuilder&#92;Strategies&#92;BuildPlan&#92;BuildPlanStrategy.cs&#58;line&#32;40&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp&#40;IBuilderContext&#32;context&#41;&#32;in&#32;C&#58;&#92;VisualStudio2008&#92;Unity&#92;Src&#92;ObjectBuilder&#92;Strategies&#92;StrategyChain.cs&#58;line&#32;92&#32;The&#32;value&#32;for&#32;the&#32;property&#32;&#38;quot&#59;ImageViewer&#38;quot&#59;&#32;could&#32;not&#32;be&#32;resolved.&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodPropertySetterStrategy.ThrowOnFailedPropertyValueResolution&#40;Exception&#32;inner,&#32;String&#32;propertyName&#41;&#32;in&#32;C&#58;&#92;VisualStudio2008&#92;Unity&#92;Src&#92;ObjectBuilder&#92;Strategies&#92;BuildPlan&#92;DynamicMethod&#92;Property&#92;DynamicMethodPropertySetterStrategy.cs&#58;line&#32;82&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;BuildUp_TestHarness.TestHarnessPresenter&#40;IBuilderContext&#32;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp&#40;IBuilderContext&#32;context&#41;&#32;in&#32;C&#58;&#92;VisualStudio2008&#92;Unity&#92;Src&#92;ObjectBuilder&#92;Strategies&#92;BuildPlan&#92;DynamicMethod&#92;DynamicMethodBuildPlan.cs&#58;line&#32;37&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp&#40;IBuilderContext&#32;context&#41;&#32;in&#32;C&#58;&#92;VisualStudio2008&#92;Unity&#92;Src&#92;ObjectBuilder&#92;Strategies&#92;BuildPlan&#92;BuildPlanStrategy.cs&#58;line&#32;40&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp&#40;IBuilderContext&#32;context&#41;&#32;in&#32;C&#58;&#92;VisualStudio2008&#92;Unity&#92;Src&#92;ObjectBuilder&#92;Strategies&#92;StrategyChain.cs&#58;line&#32;92&#32;Object&#32;reference&#32;not&#32;set&#32;to&#32;an&#32;instance&#32;of&#32;an&#32;object.&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;TestHarness.TestHarnessPresenter._imageProcessorService_OnWriteMessage&#40;Object&#32;sender,&#32;LoggerEventArgs&#32;e&#41;&#32;in&#32;C&#58;&#92;UEApp&#92;ImageProcessor&#92;TestHarness&#92;TestHarnessPresenter.cs&#58;line&#32;148&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;ImageProcessor.Library.ImageProcessorService._logger_OnWriteMessage&#40;Object&#32;sender,&#32;LoggerEventArgs&#32;e&#41;&#32;in&#32;C&#58;&#92;UEApp&#92;ImageProcessor&#92;ImageProcessor.Library&#92;ImageProcessorService.cs&#58;line&#32;59&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;ImageProcessor.Library.TraceLogger.Write&#40;String&#32;message,&#32;TraceLevel&#32;level&#41;&#32;in&#32;C&#58;&#92;UEApp&#92;ImageProcessor&#92;ImageProcessor.Library&#92;TraceLogger.cs&#58;line&#32;93&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;ImageProcessor.Library.TraceLogger.WriteVerbose&#40;String&#32;message&#41;&#32;in&#32;C&#58;&#92;UEApp&#92;ImageProcessor&#92;ImageProcessor.Library&#92;TraceLogger.cs&#58;line&#32;129&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;LTLibrary.LTRasterImageViewer.LTRasterImageViewer.SetPercentage&#40;&#41;&#32;in&#32;C&#58;&#92;UEApp&#92;ImageProcessor&#92;LTLibrary&#92;LTRasterImageViewer&#92;LTRasterImageViewer.cs&#58;line&#32;457&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;LTLibrary.LTRasterImageViewer.LTRasterImageViewer..ctor&#40;ILogger&#32;logger&#41;&#32;in&#32;C&#58;&#92;UEApp&#92;ImageProcessor&#92;LTLibrary&#92;LTRasterImageViewer&#92;LTRasterImageViewer.cs&#58;line&#32;59&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;BuildUp_LTLibrary.LTRasterImageViewer.LTRasterImageViewer&#40;IBuilderContext&#32;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp&#40;IBuilderContext&#32;context&#41;&#32;in&#32;C&#58;&#92;VisualStudio2008&#92;Unity&#92;Src&#92;ObjectBuilder&#92;Strategies&#92;BuildPlan&#92;DynamicMethod&#92;DynamicMethodBuildPlan.cs&#58;line&#32;37&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp&#40;IBuilderContext&#32;context&#41;&#32;in&#32;C&#58;&#92;VisualStudio2008&#92;Unity&#92;Src&#92;ObjectBuilder&#92;Strategies&#92;BuildPlan&#92;BuildPlanStrategy.cs&#58;line&#32;40&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp&#40;IBuilderContext&#32;context&#41;&#32;in&#32;C&#58;&#92;VisualStudio2008&#92;Unity&#92;Src&#92;ObjectBuilder&#92;Strategies&#92;StrategyChain.cs&#58;line&#32;92&#32;&#38;nbsp&#59;&#32;">
+        
+<p>First off - Unity is sweeetttttt :)&nbsp; Great job!!!<br>
+<br>
+The stacktrace is getting lost resulting in an error that can&nbsp;send newbies (like me) down a rabbit trail.&nbsp; I am refactoring an application which which relies on a factory and numerous concrete classes which have been retrofitted for Unity.&nbsp;&nbsp;
+ Initially I intrepeted errors that I was recieving to be configuration errors, later I learned that they were actually null object references dangling during the conversion. e.g.,&nbsp;a&nbsp;reference that I missed resulted in the following error:<br>
+<br>
+<em>Resolution of the dependency failed, type = &quot;Form1&quot;, name = &quot;&quot;. Exception message is: The current build operation (build key Build Key[TestHarness.Form1, null]) failed: The value for the property &quot;Presenter&quot; could not be resolved.
+ (Strategy type Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy, index 2)</em></p>
+<p>After updating the <strong>ResolutionFailedException.cs</strong> CreateMessage() as follows:<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private static string CreateMessage(Type typeRequested, string nameRequested, Exception innerException)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return string.Format(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CultureInfo.CurrentCulture,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Resources.ResolutionFailed,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; typeRequested.Name,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nameRequested,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong> GetInnerExceptionMessage(innerException)</strong>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /// &lt;summary&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /// Recursive routine to collect all inner exception errors<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /// &lt;/summary&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /// &lt;param name=&quot;ex&quot;&gt;&lt;/param&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /// &lt;returns&gt;&lt;/returns&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private static string GetInnerExceptionMessage(Exception ex)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; StringBuilder errorMessage = new StringBuilder(ex.InnerException.Message);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; errorMessage.Append(ex.InnerException.StackTrace);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; errorMessage.Append(&quot;\r\n&quot;);</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ex.InnerException.InnerException != null)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; errorMessage.Append(GetInnerExceptionMessage(ex.InnerException.InnerException));</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return errorMessage.ToString();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+<p>I received the following error message which allows me to&nbsp;isolate issues more quickly:<br>
+<br>
+<em>Resolution of the dependency failed, type = &quot;Form1&quot;, name = &quot;&quot;. Exception message is: The value for the property &quot;Presenter&quot; could not be resolved.&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodPropertySetterStrategy.ThrowOnFailedPropertyValueResolution(Exception
+ inner, String propertyName) in C:\VisualStudio2008\Unity\Src\ObjectBuilder\Strategies\BuildPlan\DynamicMethod\Property\DynamicMethodPropertySetterStrategy.cs:line 82<br>
+&nbsp;&nbsp; at BuildUp_TestHarness.Form1(IBuilderContext )<br>
+&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context) in C:\VisualStudio2008\Unity\Src\ObjectBuilder\Strategies\BuildPlan\DynamicMethod\DynamicMethodBuildPlan.cs:line 37<br>
+&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context) in C:\VisualStudio2008\Unity\Src\ObjectBuilder\Strategies\BuildPlan\BuildPlanStrategy.cs:line 40<br>
+&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context) in C:\VisualStudio2008\Unity\Src\ObjectBuilder\Strategies\StrategyChain.cs:line 92<br>
+The value for the property &quot;ImageViewer&quot; could not be resolved.&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodPropertySetterStrategy.ThrowOnFailedPropertyValueResolution(Exception inner, String propertyName) in C:\VisualStudio2008\Unity\Src\ObjectBuilder\Strategies\BuildPlan\DynamicMethod\Property\DynamicMethodPropertySetterStrategy.cs:line
+ 82<br>
+&nbsp;&nbsp; at BuildUp_TestHarness.TestHarnessPresenter(IBuilderContext )<br>
+&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context) in C:\VisualStudio2008\Unity\Src\ObjectBuilder\Strategies\BuildPlan\DynamicMethod\DynamicMethodBuildPlan.cs:line 37<br>
+&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context) in C:\VisualStudio2008\Unity\Src\ObjectBuilder\Strategies\BuildPlan\BuildPlanStrategy.cs:line 40<br>
+&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context) in C:\VisualStudio2008\Unity\Src\ObjectBuilder\Strategies\StrategyChain.cs:line 92<br>
+</em><strong>Object reference not set to an instance of an object.&nbsp;&nbsp; at TestHarness.TestHarnessPresenter._imageProcessorService_OnWriteMessage(Object sender, LoggerEventArgs e) in C:\UEApp\ImageProcessor\TestHarness\TestHarnessPresenter.cs:line 148<br>
+</strong><em>&nbsp;&nbsp; at ImageProcessor.Library.ImageProcessorService._logger_OnWriteMessage(Object sender, LoggerEventArgs e) in C:\UEApp\ImageProcessor\ImageProcessor.Library\ImageProcessorService.cs:line 59<br>
+&nbsp;&nbsp; at ImageProcessor.Library.TraceLogger.Write(String message, TraceLevel level) in C:\UEApp\ImageProcessor\ImageProcessor.Library\TraceLogger.cs:line 93<br>
+&nbsp;&nbsp; at ImageProcessor.Library.TraceLogger.WriteVerbose(String message) in C:\UEApp\ImageProcessor\ImageProcessor.Library\TraceLogger.cs:line 129<br>
+&nbsp;&nbsp; at LTLibrary.LTRasterImageViewer.LTRasterImageViewer.SetPercentage() in C:\UEApp\ImageProcessor\LTLibrary\LTRasterImageViewer\LTRasterImageViewer.cs:line 457<br>
+&nbsp;&nbsp; at LTLibrary.LTRasterImageViewer.LTRasterImageViewer..ctor(ILogger logger) in C:\UEApp\ImageProcessor\LTLibrary\LTRasterImageViewer\LTRasterImageViewer.cs:line 59<br>
+&nbsp;&nbsp; at BuildUp_LTLibrary.LTRasterImageViewer.LTRasterImageViewer(IBuilderContext )<br>
+&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context) in C:\VisualStudio2008\Unity\Src\ObjectBuilder\Strategies\BuildPlan\DynamicMethod\DynamicMethodBuildPlan.cs:line 37<br>
+&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context) in C:\VisualStudio2008\Unity\Src\ObjectBuilder\Strategies\BuildPlan\BuildPlanStrategy.cs:line 40<br>
+&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context) in C:\VisualStudio2008\Unity\Src\ObjectBuilder\Strategies\StrategyChain.cs:line 92</em></p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_103708" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f31204">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="04b88eb5-dd0f-431c-9125-fa44cf0d5a52">
+    <script class="options" defer="defer" id="04b88eb5-dd0f-431c-9125-fa44cf0d5a52" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_66ace8ef-620d-450f-8cbd-ded3f3c292cc">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_e3d964c9-76cc-4144-9b72-43b58de6d68c">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_66ace8ef-620d-450f-8cbd-ded3f3c292cc" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_e3d964c9-76cc-4144-9b72-43b58de6d68c" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/31204';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

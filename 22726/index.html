@@ -1,0 +1,1019 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Evaluation for compile-time MSIL enhancement</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/22726?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/22726?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="ebxSTTgNjPFL9a_Cq3qnyxCXqU1wBKuu_nwI4f_pOxcRE2NbynKwSTEGFVA0G5J_5n_3T_V7aQwwQJnSDCM2TsfYxw4ok6-SLs590Yzdvh43iWspXJS4WfsTfNbUrH6KQ0IHiQ2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2a1c9c4c3-df06-4e68-84de-348df0f1d0c8" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:29:23 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f22726" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="a84e5438-d0f8-439d-b369-85f9e44ec388">
+                
+                    <script class="options" defer="defer" id="a84e5438-d0f8-439d-b369-85f9e44ec388" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="14bd4145-9b94-4069-b566-7fc81bc31ffd">
+                
+                    <script class="options" defer="defer" id="14bd4145-9b94-4069-b566-7fc81bc31ffd" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Evaluation for compile-time MSIL enhancement
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:22726]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="b3ad3c1d-6956-4251-8a6b-9af6181b603e">
+    <script class="options" defer="defer" id="b3ad3c1d-6956-4251-8a6b-9af6181b603e" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/22726","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="75933">
+    <td id="PostDetailsCell_75933" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post75933"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/gfraiteur">gfraiteur</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/23/2008 12:18:34 PM" LocalTimeTicks="1203797914">Feb 23, 2008 at 12:18 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_75933" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#32;have&#32;briefly&#32;looked&#32;at&#32;Unity&#32;to&#32;evaluate&#32;the&#32;possibilities&#32;to&#32;improve&#32;developer&#32;experience&#32;with&#32;Unity&#32;thanks&#32;to&#32;PostSharp-enabled&#32;MSIL&#32;enhancement.&#32;I&#32;have&#32;expressed&#32;some&#32;thoughts&#32;on&#32;my&#32;blog&#32;&#40;http&#58;&#47;&#47;www.postsharp.org&#47;blog&#47;2008&#47;01&#47;dependency-injection-naturally.html&#41;.&#32;To&#32;summarize,&#32;compile-time&#32;MSIL&#32;enhancement&#32;of&#32;assemblies&#32;possibly&#58;enables&#32;instantiation&#32;using&#32;the&#32;normal&#32;constructor,&#32;i.e.&#32;does&#32;not&#32;force&#32;to&#32;use&#32;a&#32;factory&#59;enables&#32;the&#32;injection&#32;of&#32;dependencies&#32;even&#32;into&#32;private&#32;members,&#32;i.e.&#32;does&#32;not&#32;force&#32;developers&#32;to&#32;expose&#32;public&#32;setters.Let&#32;me&#32;evaluate&#32;these&#32;two&#32;points&#32;separately.&#32;1.&#32;Instantiation&#32;using&#32;Normal&#32;Constructors&#32;The&#32;idea&#32;is&#32;to&#32;have&#32;a&#32;custom&#32;attribute&#32;modifying&#32;class&#32;constructors&#32;to&#32;that&#32;they&#32;call&#32;the&#32;BuildUp&#32;method.&#32;This&#32;feature&#32;is&#32;implemented&#32;in&#32;the&#32;Spring&#32;Framework&#32;&#40;&#64;Configurable&#32;annotation&#41;&#32;and&#32;uses&#32;AspectJ&#32;to&#32;enhance&#32;constructors.&#32;The&#32;same&#32;feature&#32;has&#32;been&#32;ported&#32;to&#32;the&#32;.NET&#32;version&#32;of&#32;the&#32;Spring&#32;Framework&#32;by&#32;Thomas&#32;Darimont&#32;--&#32;and&#32;surprise,&#32;it&#32;uses&#32;PostSharp&#32;for&#32;aspecting.&#32;The&#32;code&#32;is&#32;available&#32;on&#32;http&#58;&#47;&#47;code.google.com&#47;p&#47;postsharp4spring&#47;.&#32;Here&#32;is&#32;an&#32;usage&#32;example&#32;in&#32;Java&#58;&#32;package&#32;com.xyz.myapp.domain&#59;&#32;import&#32;org.springframework.beans.factory.annotation.Configurable&#59;&#32;&#64;Configurable&#32;public&#32;class&#32;Account&#32;&#123;&#32;...&#32;&#125;&#32;Would&#32;this&#32;be&#32;possible&#32;with&#32;Unity&#63;&#32;I&#32;am&#32;afraid&#32;it&#32;would&#32;not.&#32;Indeed,&#32;the&#32;implementation&#32;relies&#32;on&#32;the&#32;Spring&#32;facility&#32;ContextRegistry.&#32;This&#32;facility&#32;provides&#32;the&#32;default&#32;container&#32;for&#32;the&#32;current&#32;context.&#32;With&#32;Unity,&#32;I&#32;am&#32;afraid&#32;there&#32;is&#32;no&#32;notion&#32;of&#32;&#34;current&#32;context&#34;.&#32;Of&#32;course,&#32;it&#32;is&#32;easy&#32;to&#32;implement&#32;a&#32;context&#32;registry&#32;as&#32;a&#32;side&#32;project,&#32;but&#32;I&#32;consider&#32;that&#32;this&#32;concern&#32;should&#32;be&#32;solved&#32;by&#32;the&#32;Unity&#32;framework,&#32;so&#32;there&#32;won&#39;t&#32;be&#32;competing&#32;implementations.&#32;The&#32;registry&#32;facility&#32;should&#32;be&#32;unique&#32;to&#32;be&#32;useful.I&#32;must&#32;say&#32;I&#32;have&#32;been&#32;surprised&#32;by&#32;the&#32;complexity&#32;of&#32;Unity&#32;source&#32;code.&#32;It&#32;is&#32;really&#32;a&#32;maximalist&#32;approach,&#32;with&#32;a&#32;lot&#32;more&#32;extensibility&#32;than&#32;one&#32;would&#32;expect&#32;from&#32;a&#32;&#34;lightweight&#32;container&#34;.&#32;2.&#32;Initialization&#32;of&#32;private&#32;members.&#32;The&#32;idea&#32;here&#32;would&#32;be&#32;to&#32;be&#32;able&#32;to&#32;set&#32;private&#32;fields&#32;or&#32;properties,&#32;or&#32;invoke&#32;private&#32;methods,&#32;from&#32;the&#32;IoC&#32;framework.&#32;The&#32;principal&#32;advantage&#32;of&#32;this&#32;would&#32;be&#32;to&#32;better&#32;respect&#32;the&#32;object&#32;encapsulation&#32;and&#32;invariant&#32;enforcement.&#32;Ideally,&#32;an&#32;IoC&#32;framework&#32;should&#32;not&#32;push&#32;design&#32;changes,&#32;like&#32;visibility&#32;enlargement,&#32;into&#32;programs&#32;that&#32;use&#32;it.&#32;The&#32;technical&#32;solution&#32;would&#32;be&#32;that&#32;the&#32;object&#32;would&#32;invoke&#32;the&#32;IoC&#32;framework&#32;for&#32;each&#32;field&#32;or&#32;property&#32;marked&#32;with&#32;the&#32;Dependency&#32;and&#32;would&#32;ask&#32;to&#32;which&#32;value&#32;it&#32;should&#32;be&#32;assigned.&#32;So&#32;the&#32;IoC&#32;framework&#32;does&#32;not&#32;assign&#32;or&#32;invoke&#32;anything&#32;on&#32;the&#32;object&#32;being&#32;built,&#32;it&#32;acts&#32;purely&#32;passively&#32;and&#32;provides&#32;the&#32;depedencies&#32;to&#32;the&#32;caller.Well,&#32;having&#32;quickly&#32;looked&#32;at&#32;Unity&#32;source&#32;code,&#32;it&#32;seems&#32;impossible&#32;or&#32;unreasonable&#32;to&#32;implement&#32;this.&#32;Actually,&#32;I&#32;was&#32;surprised&#32;by&#32;the&#32;complexity&#32;of&#32;Unity.&#32;It&#39;s&#32;design&#32;is&#32;very&#32;maximalist,&#32;with&#32;much&#32;more&#32;extension&#32;points&#32;than&#32;I&#32;would&#32;expect&#32;from&#32;a&#32;&#34;lightweight&#32;IoC&#32;framework&#34;.&#32;More&#32;concretely,&#32;the&#32;process&#32;if&#32;setting&#32;dependencies&#32;burried&#32;too&#32;deeply&#32;and&#32;split&#32;into&#32;too&#32;many&#32;classes&#32;so&#32;that&#32;it&#32;would&#32;be&#32;possible&#32;&#40;or&#32;reasonable&#41;&#32;for&#32;the&#32;IoC&#32;facade&#32;to&#32;offer&#32;fine-grained&#32;methods&#32;besides&#32;the&#32;coarse-grained&#32;BuildUp&#32;family.&#32;I&#32;may&#32;be&#32;wrong,&#32;of&#32;course&#32;-&#32;this&#32;is&#32;only&#32;the&#32;result&#32;of&#32;a&#32;first&#32;analysis.So&#32;to&#32;conclude&#58;&#32;I&#32;give&#32;up&#32;the&#32;fine-grained&#32;initialization,&#32;but&#32;if&#32;there&#32;were&#32;a&#32;context&#32;registry&#32;in&#32;Unity,&#32;I&#32;would&#32;be&#32;glad&#32;to&#32;implement&#32;a&#32;Spring-like&#32;Configurable&#32;attribute&#32;--&#32;and&#32;it&#32;would&#32;be&#32;easy&#32;and&#32;clean.">
+        I have briefly looked at Unity to evaluate the possibilities to improve developer experience with Unity thanks to PostSharp-enabled MSIL enhancement. I have expressed some thoughts on my blog (http://www.postsharp.org/blog/2008/01/dependency-injection-naturally.html).
+ To summarize, compile-time MSIL enhancement of assemblies possibly:<br>
+<br>
+<ol>
+<li>enables instantiation using the normal constructor, i.e. does not force to use a factory;</li><li>enables the injection of dependencies even into private members, i.e. does not force developers to expose public setters.</li></ol>
+<br>
+Let me evaluate these two points separately.<br>
+<br>
+<h2>1. Instantiation using Normal Constructors </h2>
+<br>
+The idea is to have a custom attribute modifying class constructors to that they call the BuildUp method. This feature is implemented in the Spring Framework (@Configurable annotation) and uses AspectJ to enhance constructors. The same feature has been ported
+ to the .NET version of the Spring Framework by Thomas Darimont -- and surprise, it uses PostSharp for aspecting. The code is available on http://code.google.com/p/postsharp4spring/. Here is an usage example in Java:<br>
+<br>
+<pre style="background-color:#ECECEC; border:dashed .1em #3E62A6; font-family:Consolas,Courier New,Courier,Monospace; font-size:1em; margin-top:0; padding:.5em; height:auto; overflow:auto; overflow-x:auto; overflow-y:auto">
+package com.xyz.myapp.domain;
+ 
+import org.springframework.beans.factory.annotation.Configurable;
+ 
+@Configurable
+public class Account {
+   ...
+}
+</pre>
+<br>
+Would this be possible with Unity? I am afraid it would not. Indeed, the implementation relies on the Spring facility ContextRegistry. This facility provides the default container for the current context. With Unity, I am afraid there is no notion of &quot;current
+ context&quot;. Of course, it is easy to implement a context registry as a side project, but I consider that this concern should be solved by the Unity framework, so there won't be competing implementations. The registry facility should be unique to be useful.<br>
+<br>
+I must say I have been surprised by the complexity of Unity source code. It is really a maximalist approach, with a lot more extensibility than one would expect from a &quot;lightweight container&quot;.<br>
+<br>
+<br>
+<h2>2. Initialization of private members. </h2>
+<br>
+The idea here would be to be able to set private fields or properties, or invoke private methods, from the IoC framework. The principal advantage of this would be to better respect the object encapsulation and invariant enforcement. Ideally, an IoC framework
+ should not push design changes, like visibility enlargement, into programs that use it.
+<br>
+<br>
+The technical solution would be that the object would invoke the IoC framework for each field or property marked with the
+<a href="http://www.codeplex.com/unity/Wiki/View.aspx?title=Dependency" rel="nofollow">Dependency</a> and would ask to which value it should be assigned. So the IoC framework does not assign or invoke anything on the object being built, it acts purely passively and provides
+ the depedencies to the caller.<br>
+<br>
+Well, having quickly looked at Unity source code, it seems impossible or unreasonable to implement this. Actually, I was surprised by the complexity of Unity. It's design is very maximalist, with much more extension points than I would expect from a &quot;lightweight
+ IoC framework&quot;. More concretely, the process if setting dependencies burried too deeply and split into too many classes so that it would be possible (or reasonable) for the IoC facade to offer fine-grained methods besides the coarse-grained BuildUp family.
+ I may be wrong, of course - this is only the result of a first analysis.<br>
+<br>
+So to conclude: <b>I give up the fine-grained initialization, but if there were a context registry in Unity, I would be glad to implement a Spring-like
+<a href="http://www.codeplex.com/unity/Wiki/View.aspx?title=Configurable" rel="nofollow">Configurable</a> attribute -- and it would be easy and clean</b>.<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_75933" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="75946">
+    <td id="PostDetailsCell_75946" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post75946"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/francois_tanguay">francois_tanguay</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/23/2008 3:44:58 PM" LocalTimeTicks="1203810298">Feb 23, 2008 at 3:44 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_75946" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;AFAIK,&#32;in&#32;order&#32;to&#32;do&#32;Private&#32;Member&#32;Initialization,&#32;you&#32;need&#32;to&#58;-&#32;Add&#32;a&#32;&#34;DynamicMethodFieldSetterStrategy&#34;&#32;to&#32;the&#32;container&#32;BuildPlanStrategies&#32;list.-&#32;Add&#32;an&#32;IFieldChooserPolicy&#32;and&#32;and&#32;in&#32;implementation&#32;that&#32;looks&#32;through&#32;private&#32;fields&#32;&#40;exactly&#32;the&#32;same&#32;way&#32;PropertyChooserPolicy&#32;works&#33;&#41;And&#32;voil&#224;&#33;">
+        AFAIK, in order to do Private Member Initialization, you need to:<br>
+<br>
+- Add a &quot;DynamicMethodFieldSetterStrategy&quot; to the container BuildPlanStrategies list.<br>
+- Add an IFieldChooserPolicy and and in implementation that looks through private fields (exactly the same way PropertyChooserPolicy works!)<br>
+<br>
+And voilÃ !<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_75946" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="75961">
+    <td id="PostDetailsCell_75961" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post75961"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/23/2008 6:26:57 PM" LocalTimeTicks="1203820017">Feb 23, 2008 at 6:26 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_75961" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="gfraiteur&#32;wrote&#58;I&#32;have&#32;briefly&#32;looked&#32;at&#32;Unity&#32;to&#32;evaluate&#32;the&#32;possibilities&#32;to&#32;improve&#32;developer&#32;experience&#32;with&#32;Unity&#32;thanks&#32;to&#32;PostSharp-enabled&#32;MSIL&#32;enhancement.&#32;I&#32;have&#32;expressed&#32;some&#32;thoughts&#32;on&#32;my&#32;blog&#32;&#40;http&#58;&#47;&#47;www.postsharp.org&#47;blog&#47;2008&#47;01&#47;dependency-injection-naturally.html&#41;.&#32;To&#32;summarize,&#32;compile-time&#32;MSIL&#32;enhancement&#32;of&#32;assemblies&#32;possibly&#58;enables&#32;instantiation&#32;using&#32;the&#32;normal&#32;constructor,&#32;i.e.&#32;does&#32;not&#32;force&#32;to&#32;use&#32;a&#32;factory&#59;enables&#32;the&#32;injection&#32;of&#32;dependencies&#32;even&#32;into&#32;private&#32;members,&#32;i.e.&#32;does&#32;not&#32;force&#32;developers&#32;to&#32;expose&#32;public&#32;setters.Let&#32;me&#32;evaluate&#32;these&#32;two&#32;points&#32;separately.&#32;1.&#32;Instantiation&#32;using&#32;Normal&#32;Constructors&#32;The&#32;idea&#32;is&#32;to&#32;have&#32;a&#32;custom&#32;attribute&#32;modifying&#32;class&#32;constructors&#32;to&#32;that&#32;they&#32;call&#32;the&#32;BuildUp&#32;method.&#32;This&#32;feature&#32;is&#32;implemented&#32;in&#32;the&#32;Spring&#32;Framework&#32;&#40;&#64;Configurable&#32;annotation&#41;&#32;and&#32;uses&#32;AspectJ&#32;to&#32;enhance&#32;constructors.&#32;The&#32;same&#32;feature&#32;has&#32;been&#32;ported&#32;to&#32;the&#32;.NET&#32;version&#32;of&#32;the&#32;Spring&#32;Framework&#32;by&#32;Thomas&#32;Darimont&#32;--&#32;and&#32;surprise,&#32;it&#32;uses&#32;PostSharp&#32;for&#32;aspecting.&#32;The&#32;code&#32;is&#32;available&#32;on&#32;http&#58;&#47;&#47;code.google.com&#47;p&#47;postsharp4spring&#47;.&#32;Here&#32;is&#32;an&#32;usage&#32;example&#32;in&#32;Java&#58;&#32;package&#32;com.xyz.myapp.domain&#59;&#32;import&#32;org.springframework.beans.factory.annotation.Configurable&#59;&#32;&#64;Configurable&#32;public&#32;class&#32;Account&#32;&#123;&#32;...&#32;&#125;&#32;Would&#32;this&#32;be&#32;possible&#32;with&#32;Unity&#63;&#32;I&#32;am&#32;afraid&#32;it&#32;would&#32;not.&#32;Indeed,&#32;the&#32;implementation&#32;relies&#32;on&#32;the&#32;Spring&#32;facility&#32;ContextRegistry.&#32;This&#32;facility&#32;provides&#32;the&#32;default&#32;container&#32;for&#32;the&#32;current&#32;context.&#32;With&#32;Unity,&#32;I&#32;am&#32;afraid&#32;there&#32;is&#32;no&#32;notion&#32;of&#32;&#34;current&#32;context&#34;.&#32;Of&#32;course,&#32;it&#32;is&#32;easy&#32;to&#32;implement&#32;a&#32;context&#32;registry&#32;as&#32;a&#32;side&#32;project,&#32;but&#32;I&#32;consider&#32;that&#32;this&#32;concern&#32;should&#32;be&#32;solved&#32;by&#32;the&#32;Unity&#32;framework,&#32;so&#32;there&#32;won&#39;t&#32;be&#32;competing&#32;implementations.&#32;The&#32;registry&#32;facility&#32;should&#32;be&#32;unique&#32;to&#32;be&#32;useful.I&#32;must&#32;say&#32;I&#32;have&#32;been&#32;surprised&#32;by&#32;the&#32;complexity&#32;of&#32;Unity&#32;source&#32;code.&#32;It&#32;is&#32;really&#32;a&#32;maximalist&#32;approach,&#32;with&#32;a&#32;lot&#32;more&#32;extensibility&#32;than&#32;one&#32;would&#32;expect&#32;from&#32;a&#32;&#34;lightweight&#32;container&#34;.This&#32;is&#32;an&#32;interesting&#32;idea,&#32;and&#32;probably&#32;quite&#32;doable&#32;except&#32;for,&#32;as&#32;you&#32;mention,&#32;finding&#32;which&#32;container&#32;to&#32;use.However,&#32;I&#32;find&#32;it&#32;kind&#32;of&#32;amusing&#32;that&#32;you&#32;first&#32;complain&#32;that&#32;the&#32;container&#32;is&#32;too&#32;heavy,&#32;then&#32;ask&#32;us&#32;to&#32;add&#32;a&#32;massive&#32;new&#32;piece&#32;of&#32;infrastructure.&#32;The&#32;definition&#32;of&#32;&#34;lightweight&#34;&#32;is&#32;a&#32;matter&#32;of&#32;opinion,&#32;but&#32;a&#32;big&#32;part&#32;of&#32;that&#32;to&#32;me&#32;is&#32;minimizing&#32;what&#32;you&#32;need&#32;to&#32;do&#32;to&#32;use&#32;it.&#32;&#34;Contexts&#34;&#32;would&#32;warp&#32;your&#32;application&#32;architecture&#32;a&#32;lot&#32;more&#32;than&#32;just&#32;&#34;create&#32;a&#32;container&#32;and&#32;start&#32;using&#32;it.&#34;We&#39;re&#32;not&#32;going&#32;to&#32;build&#32;anything&#32;like&#32;that&#32;for&#32;Unity.&#32;Contributors&#32;are&#32;welcome&#32;to&#32;pursue&#32;it&#59;&#32;to&#32;be&#32;honest,&#32;I&#32;expect&#32;this&#32;kind&#32;of&#32;infrastructure&#32;is&#32;independent&#32;of&#32;what&#32;you&#39;re&#32;putting&#32;in&#32;the&#32;&#34;context&#34;&#32;anyway.&#32;2.&#32;Initialization&#32;of&#32;private&#32;members.&#32;The&#32;idea&#32;here&#32;would&#32;be&#32;to&#32;be&#32;able&#32;to&#32;set&#32;private&#32;fields&#32;or&#32;properties,&#32;or&#32;invoke&#32;private&#32;methods,&#32;from&#32;the&#32;IoC&#32;framework.&#32;The&#32;principal&#32;advantage&#32;of&#32;this&#32;would&#32;be&#32;to&#32;better&#32;respect&#32;the&#32;object&#32;encapsulation&#32;and&#32;invariant&#32;enforcement.&#32;Ideally,&#32;an&#32;IoC&#32;framework&#32;should&#32;not&#32;push&#32;design&#32;changes,&#32;like&#32;visibility&#32;enlargement,&#32;into&#32;programs&#32;that&#32;use&#32;it.&#32;The&#32;technical&#32;solution&#32;would&#32;be&#32;that&#32;the&#32;object&#32;would&#32;invoke&#32;the&#32;IoC&#32;framework&#32;for&#32;each&#32;field&#32;or&#32;property&#32;marked&#32;with&#32;the&#32;Dependency&#32;and&#32;would&#32;ask&#32;to&#32;which&#32;value&#32;it&#32;should&#32;be&#32;assigned.&#32;So&#32;the&#32;IoC&#32;framework&#32;does&#32;not&#32;assign&#32;or&#32;invoke&#32;anything&#32;on&#32;the&#32;object&#32;being&#32;built,&#32;it&#32;acts&#32;purely&#32;passively&#32;and&#32;provides&#32;the&#32;depedencies&#32;to&#32;the&#32;caller.Well,&#32;having&#32;quickly&#32;looked&#32;at&#32;Unity&#32;source&#32;code,&#32;it&#32;seems&#32;impossible&#32;or&#32;unreasonable&#32;to&#32;implement&#32;this.&#32;Actually,&#32;I&#32;was&#32;surprised&#32;by&#32;the&#32;complexity&#32;of&#32;Unity.&#32;It&#39;s&#32;design&#32;is&#32;very&#32;maximalist,&#32;with&#32;much&#32;more&#32;extension&#32;points&#32;than&#32;I&#32;would&#32;expect&#32;from&#32;a&#32;&#34;lightweight&#32;IoC&#32;framework&#34;.&#32;More&#32;concretely,&#32;the&#32;process&#32;if&#32;setting&#32;dependencies&#32;burried&#32;too&#32;deeply&#32;and&#32;split&#32;into&#32;too&#32;many&#32;classes&#32;so&#32;that&#32;it&#32;would&#32;be&#32;possible&#32;&#40;or&#32;reasonable&#41;&#32;for&#32;the&#32;IoC&#32;facade&#32;to&#32;offer&#32;fine-grained&#32;methods&#32;besides&#32;the&#32;coarse-grained&#32;BuildUp&#32;family.&#32;I&#32;may&#32;be&#32;wrong,&#32;of&#32;course&#32;-&#32;this&#32;is&#32;only&#32;the&#32;result&#32;of&#32;a&#32;first&#32;analysis.So&#32;to&#32;conclude&#58;&#32;I&#32;give&#32;up&#32;the&#32;fine-grained&#32;initialization,&#32;but&#32;if&#32;there&#32;were&#32;a&#32;context&#32;registry&#32;in&#32;Unity,&#32;I&#32;would&#32;be&#32;glad&#32;to&#32;implement&#32;a&#32;Spring-like&#32;Configurable&#32;attribute&#32;--&#32;and&#32;it&#32;would&#32;be&#32;easy&#32;and&#32;clean.Actually,&#32;this&#32;would&#32;be&#32;pretty&#32;easy&#32;in&#32;the&#32;present&#32;of&#32;Postsharp,&#32;which&#32;I&#32;assume&#32;you&#39;re&#32;talking&#32;about&#32;using.&#32;All&#32;that&#32;would&#32;be&#32;needed&#32;would&#32;be&#32;to&#32;add&#32;the&#32;&#34;ContainerAwareStrategy&#34;&#32;back&#32;into&#32;the&#32;strategy&#32;chain.&#32;The&#32;original&#32;OB&#32;had&#32;a&#32;BuilderAwareStrategy&#32;which&#32;would&#32;call&#32;back&#32;into&#32;the&#32;object&#32;being&#32;built&#32;up.&#32;We&#32;could&#32;do&#32;something&#32;similarly.You&#32;should,&#32;using&#32;PostSharp,&#32;be&#32;able&#32;to&#32;add&#32;an&#32;implementation&#32;of&#32;IContainerAware&#32;to&#32;the&#32;object&#32;being&#32;built&#32;up.&#32;When&#32;you&#32;get&#32;the&#32;&#34;OnBuildup&#40;IUnityContainer&#32;container&#41;&#34;&#32;call,&#32;your&#32;generated&#32;implementation&#32;of&#32;OnBuildUp&#32;would&#32;do&#32;what&#32;you&#32;describe&#58;&#32;loop&#32;through&#32;the&#32;dependencies,&#32;call&#32;the&#32;container&#32;to&#32;get&#32;values,&#32;and&#32;set&#32;them.&#32;This&#32;is&#32;actually&#32;pretty&#32;easy.-Chris">
+        <br>
+<div style="border:dotted .1em #aaa; border-left:none; border-right:none; font-style:italic; margin:1em 0em 2.5em 3em; padding:.2em">
+<br>
+gfraiteur wrote:<br>
+I have briefly looked at Unity to evaluate the possibilities to improve developer experience with Unity thanks to PostSharp-enabled MSIL enhancement. I have expressed some thoughts on my blog (http://www.postsharp.org/blog/2008/01/dependency-injection-naturally.html).
+ To summarize, compile-time MSIL enhancement of assemblies possibly:<br>
+<br>
+<ol>
+<li>enables instantiation using the normal constructor, i.e. does not force to use a factory;</li><li>enables the injection of dependencies even into private members, i.e. does not force developers to expose public setters.</li></ol>
+<br>
+Let me evaluate these two points separately.<br>
+<br>
+<h2>1. Instantiation using Normal Constructors </h2>
+<br>
+The idea is to have a custom attribute modifying class constructors to that they call the BuildUp method. This feature is implemented in the Spring Framework (@Configurable annotation) and uses AspectJ to enhance constructors. The same feature has been ported
+ to the .NET version of the Spring Framework by Thomas Darimont -- and surprise, it uses PostSharp for aspecting. The code is available on http://code.google.com/p/postsharp4spring/. Here is an usage example in Java:<br>
+<br>
+<pre style="background-color:#ECECEC; border:dashed .1em #3E62A6; font-family:Consolas,Courier New,Courier,Monospace; font-size:1em; margin-top:0; padding:.5em; height:auto; overflow:auto; overflow-x:auto; overflow-y:auto">
+package com.xyz.myapp.domain;
+ 
+import org.springframework.beans.factory.annotation.Configurable;
+ 
+@Configurable
+public class Account {
+   ...
+}
+</pre>
+<br>
+Would this be possible with Unity? I am afraid it would not. Indeed, the implementation relies on the Spring facility ContextRegistry. This facility provides the default container for the current context. With Unity, I am afraid there is no notion of &quot;current
+ context&quot;. Of course, it is easy to implement a context registry as a side project, but I consider that this concern should be solved by the Unity framework, so there won't be competing implementations. The registry facility should be unique to be useful.<br>
+<br>
+I must say I have been surprised by the complexity of Unity source code. It is really a maximalist approach, with a lot more extensibility than one would expect from a &quot;lightweight container&quot;.<br>
+<br>
+</div>
+<br>
+This is an interesting idea, and probably quite doable except for, as you mention, finding which container to use.<br>
+<br>
+However, I find it kind of amusing that you first complain that the container is too heavy, then ask us to add a massive new piece of infrastructure. The definition of &quot;lightweight&quot; is a matter of opinion, but a big part of that to me is minimizing what you
+ need to do to use it. &quot;Contexts&quot; would warp your application architecture a lot more than just &quot;create a container and start using it.&quot;<br>
+<br>
+We're not going to build anything like that for Unity. Contributors are welcome to pursue it; to be honest, I expect this kind of infrastructure is independent of what you're putting in the &quot;context&quot; anyway.<br>
+<br>
+<div style="border:dotted .1em #aaa; border-left:none; border-right:none; font-style:italic; margin:1em 0em 2.5em 3em; padding:.2em">
+<br>
+<h2>2. Initialization of private members. </h2>
+<br>
+The idea here would be to be able to set private fields or properties, or invoke private methods, from the IoC framework. The principal advantage of this would be to better respect the object encapsulation and invariant enforcement. Ideally, an IoC framework
+ should not push design changes, like visibility enlargement, into programs that use it.
+<br>
+<br>
+The technical solution would be that the object would invoke the IoC framework for each field or property marked with the
+<a href="http://www.codeplex.com/unity/Wiki/View.aspx?title=Dependency" rel="nofollow">Dependency</a> and would ask to which value it should be assigned. So the IoC framework does not assign or invoke anything on the object being built, it acts purely passively and provides
+ the depedencies to the caller.<br>
+<br>
+Well, having quickly looked at Unity source code, it seems impossible or unreasonable to implement this. Actually, I was surprised by the complexity of Unity. It's design is very maximalist, with much more extension points than I would expect from a &quot;lightweight
+ IoC framework&quot;. More concretely, the process if setting dependencies burried too deeply and split into too many classes so that it would be possible (or reasonable) for the IoC facade to offer fine-grained methods besides the coarse-grained BuildUp family.
+ I may be wrong, of course - this is only the result of a first analysis.<br>
+<br>
+So to conclude: <b>I give up the fine-grained initialization, but if there were a context registry in Unity, I would be glad to implement a Spring-like
+<a href="http://www.codeplex.com/unity/Wiki/View.aspx?title=Configurable" rel="nofollow">Configurable</a> attribute -- and it would be easy and clean</b>.<br>
+<br>
+<br>
+</div>
+<br>
+Actually, this would be pretty easy in the present of Postsharp, which I assume you're talking about using. All that would be needed would be to add the &quot;ContainerAwareStrategy&quot; back into the strategy chain. The original OB had a BuilderAwareStrategy which
+ would call back into the object being built up. We could do something similarly.<br>
+<br>
+You should, using PostSharp, be able to add an implementation of IContainerAware to the object being built up. When you get the &quot;OnBuildup(IUnityContainer container)&quot; call, your generated implementation of OnBuildUp would do what you describe: loop through
+ the dependencies, call the container to get values, and set them. This is actually pretty easy.<br>
+<br>
+-Chris<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_75961" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="75963">
+    <td id="PostDetailsCell_75963" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post75963"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/francois_tanguay">francois_tanguay</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/23/2008 6:46:45 PM" LocalTimeTicks="1203821205">Feb 23, 2008 at 6:46 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_75963" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Chris,I&#39;m&#32;curious&#32;as&#32;to&#32;why&#32;you&#32;recommend&#32;using&#32;IBuilderAware&#32;instead&#32;of&#32;hooking&#32;into&#32;the&#32;BuildPlanStrategies&#32;list&#32;as&#32;I&#39;ve&#32;proposed">
+        Chris,<br>
+<br>
+I'm curious as to why you recommend using IBuilderAware instead of hooking into the BuildPlanStrategies list as I've proposed<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_75963" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="75964">
+    <td id="PostDetailsCell_75964" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post75964"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/gfraiteur">gfraiteur</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/23/2008 6:54:35 PM" LocalTimeTicks="1203821675">Feb 23, 2008 at 6:54 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="2/23/2008 6:55:10 PM" LocalTimeTicks="1203821710">Feb 23, 2008 at 6:55 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_75964" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;&#64;Francois&#47;5&#58;44&#32;PM&#58;Exact.&#32;I&#32;ignored&#32;that&#32;DynamicMethod&#32;could&#32;be&#32;associated&#32;to&#32;a&#32;type&#32;and&#32;therefore&#32;have&#32;access&#32;to&#32;private&#32;members.In&#32;this&#32;case&#32;I&#32;acknowledge&#32;compile-time&#32;weaving&#32;is&#32;of&#32;limited&#32;interest.Gaelfrancois_tanguay&#32;wrote&#58;AFAIK,&#32;in&#32;order&#32;to&#32;do&#32;Private&#32;Member&#32;Initialization,&#32;you&#32;need&#32;to&#58;-&#32;Add&#32;a&#32;&#34;DynamicMethodFieldSetterStrategy&#34;&#32;to&#32;the&#32;container&#32;BuildPlanStrategies&#32;list.-&#32;Add&#32;an&#32;IFieldChooserPolicy&#32;and&#32;and&#32;in&#32;implementation&#32;that&#32;looks&#32;through&#32;private&#32;fields&#32;&#40;exactly&#32;the&#32;same&#32;way&#32;PropertyChooserPolicy&#32;works&#33;&#41;And&#32;voil&#224;&#33;">
+        @Francois/5:44 PM:<br>
+<br>
+Exact. I ignored that DynamicMethod could be associated to a type and therefore have access to private members.<br>
+In this case I acknowledge compile-time weaving is of limited interest.<br>
+<br>
+Gael<br>
+<br>
+<div style="border:dotted .1em #aaa; border-left:none; border-right:none; font-style:italic; margin:1em 0em 2.5em 3em; padding:.2em">
+<br>
+francois_tanguay wrote:<br>
+AFAIK, in order to do Private Member Initialization, you need to:<br>
+<br>
+- Add a &quot;DynamicMethodFieldSetterStrategy&quot; to the container BuildPlanStrategies list.<br>
+- Add an IFieldChooserPolicy and and in implementation that looks through private fields (exactly the same way PropertyChooserPolicy works!)<br>
+<br>
+And voilÃ !<br>
+<br>
+<br>
+<br>
+</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_75964" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="75966">
+    <td id="PostDetailsCell_75966" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post75966"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/gfraiteur">gfraiteur</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/23/2008 7:08:06 PM" LocalTimeTicks="1203822486">Feb 23, 2008 at 7:08 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_75966" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;To&#32;play&#32;with&#32;words,&#32;I&#32;did&#32;not&#32;complain,&#32;I&#32;expressed&#32;my&#32;surprise&#32;&#58;&#41;.&#32;Just&#32;a&#32;matter&#32;of&#32;expectation&#32;mismatch.The&#32;problem&#32;with&#32;contributed&#32;context&#32;registries&#32;is&#32;the&#32;lack&#32;of&#32;unity&#32;&#40;&#33;&#41;.&#32;Suppose&#32;I&#32;want&#32;to&#32;call&#32;BuildUp&#32;from&#32;the&#32;constructor&#32;of&#32;an&#32;ASP.NET&#32;page.&#32;If&#32;I&#32;understand&#32;well,&#32;I&#32;have&#32;to&#32;do&#32;my&#32;custom&#32;&#34;context&#32;registry&#34;,&#32;probably&#32;with&#32;a&#32;single&#32;application-wide&#32;container&#32;stored&#32;in&#32;a&#32;static&#32;field.&#32;Now&#32;what&#32;if&#32;another&#32;part&#32;of&#32;the&#32;project&#32;uses&#32;PostSharp-booted&#32;build-up&#63;&#32;If&#32;the&#32;PostSharp&#32;aspect&#32;relies&#32;on&#32;its&#32;own&#32;registry,&#32;there&#32;will&#32;be&#32;two&#32;context&#32;registries&#58;&#32;the&#32;one&#32;of&#32;PostSharp,&#32;and&#32;the&#32;custom&#32;one.As&#32;far&#32;as&#32;PostSharp&#32;is&#32;concerned,&#32;a&#32;solution&#32;is&#32;to&#32;define&#32;an&#32;interface&#32;IUnityContainerProvider&#32;and&#32;to&#32;let&#32;the&#32;developer&#32;specify&#32;&#40;globally&#32;or&#32;for&#32;each&#32;class&#41;&#32;an&#32;implementation&#58;&#32;interface&#32;IUnityContainerProvider&#32;&#123;&#32;UnityContainer&#32;CurrentContainer&#32;&#123;&#32;get&#59;&#32;&#125;&#32;&#125;&#32;Even&#32;without&#32;context&#32;registries,&#32;it&#32;will&#32;be&#32;straightforward&#32;to&#32;adapt&#32;Thomas&#32;Darimont&#39;s&#32;aspect&#32;to&#32;Unity.&#32;Do&#32;you&#32;have&#32;already&#32;an&#32;UnityContrib&#32;project&#32;&#59;&#41;&#32;&#63;Gael">
+        To play with words, I did not <i>complain</i>, I expressed my surprise :). Just a matter of expectation mismatch.<br>
+<br>
+The problem with contributed context registries is the lack of unity (!). Suppose I want to call BuildUp from the constructor of an ASP.NET page. If I understand well, I have to do my custom &quot;context registry&quot;, probably with a single application-wide container
+ stored in a static field. Now what if another part of the project uses PostSharp-booted build-up? If the PostSharp aspect relies on its own registry, there will be two context registries: the one of PostSharp, and the custom one.<br>
+<br>
+As far as PostSharp is concerned, a solution is to define an interface IUnityContainerProvider and to let the developer specify (globally or for each class) an implementation:<br>
+<br>
+<pre style="background-color:#ECECEC; border:dashed .1em #3E62A6; font-family:Consolas,Courier New,Courier,Monospace; font-size:1em; margin-top:0; padding:.5em; height:auto; overflow:auto; overflow-x:auto; overflow-y:auto">
+interface IUnityContainerProvider
+{
+  UnityContainer CurrentContainer { get; }
+}
+</pre>
+<br>
+Even without context registries, it will be straightforward to adapt Thomas Darimont's aspect to Unity. Do you have already an UnityContrib project ;) ?<br>
+<br>
+Gael<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_75966" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="75995">
+    <td id="PostDetailsCell_75995" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post75995"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/24/2008 12:54:10 AM" LocalTimeTicks="1203843250">Feb 24, 2008 at 12:54 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_75995" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="francois_tanguay&#32;wrote&#58;Chris,I&#39;m&#32;curious&#32;as&#32;to&#32;why&#32;you&#32;recommend&#32;using&#32;IBuilderAware&#32;instead&#32;of&#32;hooking&#32;into&#32;the&#32;BuildPlanStrategies&#32;list&#32;as&#32;I&#39;ve&#32;proposedIt&#32;was&#32;mainly&#32;based&#32;on&#32;the&#32;original&#32;proposed&#32;implementation,&#32;but&#32;there&#39;s&#32;a&#32;small&#32;issue&#32;about&#32;hooking&#32;the&#32;build&#32;plan&#32;strategies.&#32;The&#32;chooser&#32;runs&#32;at&#32;&#34;compile&#34;&#32;time,&#32;so&#32;it&#32;is&#32;not&#32;a&#32;method&#32;generated&#32;on&#32;the&#32;target&#32;class.&#32;That&#32;means&#32;you&#32;need&#32;private&#32;reflection&#32;permissions&#32;to&#32;run.&#32;Not&#32;insurmountable,&#32;but&#32;not&#32;something&#32;that&#32;we&#32;would&#32;recommend&#32;requiring.&#32;That&#32;and&#32;I&#39;m&#32;not&#32;100&#37;&#32;sure&#32;that&#32;the&#32;dynamic&#32;methods&#32;we&#39;re&#32;generating&#32;actually&#32;have&#32;access&#32;to&#32;private&#32;stuff&#59;&#32;I&#39;ll&#32;have&#32;to&#32;check.Since&#32;Postsharp&#32;lets&#32;you&#32;rewrite&#32;the&#32;target&#32;object&#39;s&#32;IL&#32;arbitrarily,&#32;it&#32;seemed&#32;to&#32;be&#32;easier&#32;to&#32;me&#32;to&#32;have&#32;Postsharp&#32;generate&#32;the&#32;code&#32;to&#32;assign&#32;field&#32;values&#59;&#32;all&#32;it&#32;needs&#32;is&#32;a&#32;way&#32;to&#32;kick&#32;it&#32;off,&#32;which&#32;is&#32;where&#32;ContainerAwareStrategy&#32;comes&#32;into&#32;play.It&#39;s&#32;actually&#32;nice&#32;to&#32;know&#32;there&#39;s&#32;more&#32;than&#32;one&#32;way&#32;to&#32;do&#32;this.-Chris">
+        
+<div style="border:dotted .1em #aaa; border-left:none; border-right:none; font-style:italic; margin:1em 0em 2.5em 3em; padding:.2em">
+<br>
+francois_tanguay wrote:<br>
+Chris,<br>
+<br>
+I'm curious as to why you recommend using IBuilderAware instead of hooking into the BuildPlanStrategies list as I've proposed<br>
+<br>
+</div>
+<br>
+It was mainly based on the original proposed implementation, but there's a small issue about hooking the build plan strategies. The chooser runs at &quot;compile&quot; time, so it is not a method generated on the target class. That means you need private reflection permissions
+ to run. Not insurmountable, but not something that we would recommend requiring. That and I'm not 100% sure that the dynamic methods we're generating actually have access to private stuff; I'll have to check.<br>
+<br>
+Since Postsharp lets you rewrite the target object's IL arbitrarily, it seemed to be easier to me to have Postsharp generate the code to assign field values; all it needs is a way to kick it off, which is where ContainerAwareStrategy comes into play.<br>
+<br>
+It's actually nice to know there's more than one way to do this.<br>
+<br>
+-Chris<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_75995" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="76020">
+    <td id="PostDetailsCell_76020" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post76020"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/gfraiteur">gfraiteur</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/24/2008 7:41:27 AM" LocalTimeTicks="1203867687">Feb 24, 2008 at 7:41 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_76020" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Note&#32;that&#32;there&#32;is&#32;currently&#32;no&#32;high-level&#32;&#40;PostSharp&#32;Laos&#41;&#32;facility&#32;to&#32;initialize&#32;fields.&#32;One&#32;has&#32;to&#32;play&#32;with&#32;MSIL-level&#32;manipulations&#32;&#40;using&#32;PostSharp&#32;Core&#41;.&#32;So&#32;I&#32;would&#32;need&#32;to&#32;develop&#32;this&#32;high-level&#32;block.&#32;Although&#32;it&#32;is&#32;not&#32;difficult,&#32;it&#32;is&#32;not&#32;trivial.&#32;So&#32;I&#32;would&#32;do&#32;it&#32;only&#32;if&#32;there&#32;I&#32;see&#32;some&#32;interest,&#32;but&#32;I&#32;cannot&#32;see&#32;it&#32;now.&#32;I&#32;had&#32;a&#32;workshop&#32;with&#32;Spring.NET&#32;guys&#32;recently,&#32;and&#32;they&#32;weren&#39;t&#32;really&#32;excited&#32;by&#32;the&#32;possibility.Another&#32;point&#32;related&#32;to&#32;the&#32;Configurable&#32;custom&#32;attribute.&#32;There&#32;could&#32;be&#32;a&#32;problem&#58;&#32;suppose&#32;that&#32;I&#32;enrich&#32;the&#32;constructor&#32;so&#32;that&#32;it&#32;calls&#32;BuildUp&#40;&#41;.&#32;A&#32;problem&#32;occurs&#32;if&#32;the&#32;built&#32;object&#32;is&#32;itself&#32;a&#32;dependency&#32;of&#32;another&#32;object,&#32;because&#32;in&#32;this&#32;case&#32;the&#32;constructor&#32;may&#32;be&#32;invoked&#32;from&#32;inside&#32;Unity.&#32;There&#32;are&#32;actually&#32;two&#32;problems&#58;1.&#32;How&#32;do&#32;I&#32;get&#32;the&#32;relevant&#32;container&#63;&#32;Even&#32;if&#32;I&#32;have&#32;something&#32;like&#32;a&#32;context&#32;registry,&#32;I&#32;must&#32;make&#32;sure&#32;that&#32;the&#32;dependency&#32;will&#32;be&#32;built&#32;using&#32;the&#32;same&#32;container&#32;than&#32;the&#32;parent&#32;object.&#32;And&#32;if&#32;there&#32;is&#32;no&#32;framework-provided&#32;context&#32;registry,&#32;how&#32;could&#32;I&#32;get&#32;the&#32;information&#63;&#32;A&#32;possibility&#32;would&#32;be&#32;that&#32;Unity&#32;provides&#32;a&#32;thread-static&#32;property&#32;with&#32;the&#32;container&#32;&#34;currently&#32;in&#32;the&#32;stack&#34;.&#32;Not&#32;so&#32;nice.2.&#32;We&#32;must&#32;ensure&#32;that&#32;the&#32;object&#32;was&#32;not&#32;built&#32;twice.&#32;I&#32;suggest&#32;to&#32;enhance&#32;the&#32;IBuilderAware&#32;interface&#32;by&#32;a&#32;read-only&#32;property&#32;&#34;IsBuiltUp&#34;.&#32;PostSharp&#32;would&#32;implement&#32;IBuilderAware&#32;automatically.BTW,&#32;another&#32;advantage&#32;of&#32;AOP-enhanced&#32;IoC&#32;is&#32;that&#32;dependencies&#32;are&#32;already&#32;initialized&#32;in&#32;the&#32;constructor.&#32;It&#32;makes&#32;it&#32;useless&#32;to&#32;implement&#32;IBuilderAware&#32;to&#32;perform&#32;&#34;two-stage&#34;&#32;initialization,&#32;when&#32;the&#32;second&#32;stage&#32;should&#32;be&#32;performed&#32;after&#32;dependency&#32;injection.&#32;That&#39;s&#32;one&#32;of&#32;the&#32;reason&#32;why&#32;I&#32;wrote&#32;that&#32;AOP-enhanced&#32;IoC&#32;allow&#32;for&#32;a&#32;more&#32;&#34;natural&#34;&#32;programming&#32;style,&#32;because&#32;one&#32;does&#32;not&#32;have&#32;to&#32;change&#32;the&#32;design&#32;specifically&#32;for&#32;the&#32;IoC&#32;framework.Gael">
+        Note that there is currently no high-level (PostSharp Laos) facility to initialize fields. One has to play with MSIL-level manipulations (using PostSharp Core). So I would need to develop this high-level block. Although it is not difficult, it is not trivial.
+ So I would do it only if there I see some interest, but I cannot see it now. I had a workshop with Spring.NET guys recently, and they weren't really excited by the possibility.<br>
+<br>
+Another point related to the Configurable custom attribute. There could be a problem: suppose that I enrich the constructor so that it calls BuildUp(). A problem occurs if the built object is itself a dependency of another object, because in this case the constructor
+ may be invoked from inside Unity. There are actually two problems:<br>
+<br>
+1. How do I get the relevant container? Even if I have something like a context registry, I must make sure that the dependency will be built using the same container than the parent object. And if there is no framework-provided context registry, how could I
+ get the information? A possibility would be that Unity provides a thread-static property with the container &quot;currently in the stack&quot;. Not so nice.<br>
+<br>
+2. We must ensure that the object was not built twice. I suggest to enhance the IBuilderAware interface by a read-only property &quot;IsBuiltUp&quot;. PostSharp would implement IBuilderAware automatically.<br>
+<br>
+BTW, another advantage of AOP-enhanced IoC is that dependencies are already initialized in the constructor. It makes it useless to implement IBuilderAware to perform &quot;two-stage&quot; initialization, when the second stage should be performed after dependency injection.
+ That's one of the reason why I wrote that AOP-enhanced IoC allow for a more &quot;natural&quot; programming style, because one does not have to change the design specifically for the IoC framework.<br>
+<br>
+Gael<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_76020" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f22726">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="1c6495e3-43e1-47dd-bcca-a72cd202bf97">
+    <script class="options" defer="defer" id="1c6495e3-43e1-47dd-bcca-a72cd202bf97" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_5b0f3d5c-b1c2-4f53-8268-5c98b3561793">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_fd951a66-a6ec-446a-9dea-85f6b5ef6e6d">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_5b0f3d5c-b1c2-4f53-8268-5c98b3561793" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_fd951a66-a6ec-446a-9dea-85f6b5ef6e6d" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/22726';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

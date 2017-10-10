@@ -1,0 +1,1027 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - resolve multiple implementations for one interface</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/355192?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/355192?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="3u5POXM_3SjcusPVi_PEddhq-C38-O0IeyVBEIXX2GjuGhHlj25iddScWyjQetwoKNikPxBm6gXwc7NhVd7kw6la0oMYiuZoI_yhN1VsxeXWJrzvMcrX8hKLqyjVQ8Xiz6-ttA2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2c1d46aad-d23a-4c00-a7f7-9ce35f881b55" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:26:11 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f355192" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="9d035c54-fcf4-4746-9a06-95270b535b7e">
+                
+                    <script class="options" defer="defer" id="9d035c54-fcf4-4746-9a06-95270b535b7e" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="6f100fc3-ad3e-4285-8d9a-f0b3d0347408">
+                
+                    <script class="options" defer="defer" id="6f100fc3-ad3e-4285-8d9a-f0b3d0347408" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                resolve multiple implementations for one interface
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:355192]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="b08a325a-7226-4eb7-a165-8212cbe2d008">
+    <script class="options" defer="defer" id="b08a325a-7226-4eb7-a165-8212cbe2d008" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/355192","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="834353">
+    <td id="PostDetailsCell_834353" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post834353"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/showard44">showard44</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/10/2012 2:03:33 AM" LocalTimeTicks="1336640613">May 10, 2012 at 2:03 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_834353" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Hi,&#32;I&#39;m&#32;sorry&#32;if&#32;this&#32;is&#32;answered&#32;somewhere&#32;else&#32;but&#32;having&#32;a&#32;hard&#32;time&#32;finding...&#32;I&#32;am&#32;currently&#32;a&#32;Spring.NET&#32;user&#32;and&#32;thinking&#32;of&#32;switching&#32;over&#32;to&#32;unity.&#32;Spring&#32;allows&#32;me&#32;to&#32;resolve&#32;multiple&#32;dependancies&#32;for&#32;a&#32;single&#32;interface&#32;in&#32;one&#32;container.&#32;I&#39;m&#32;assuming&#32;unity&#32;will&#32;allow&#32;me&#32;to&#32;do&#32;the&#32;same&#32;thing.&#32;I&#32;just&#32;would&#32;like&#32;to&#32;know&#32;how&#32;through&#32;configuration.&#32;Simply,&#32;if&#32;ILogger&#32;is&#32;my&#32;interface&#32;and&#32;i&#32;would&#32;like&#32;to&#32;resolve&#32;TraceLogger&#32;for&#32;one&#32;implementation&#32;and&#32;NullLogger&#32;for&#32;another&#32;implementation&#32;and&#32;have&#32;that&#32;use&#32;one&#32;configuration&#32;file,&#32;what&#32;does&#32;that&#32;look&#32;like&#63;&#32;&#38;nbsp&#59;&#32;thanks.&#32;&#38;nbsp&#59;&#32;">
+        
+<p>Hi,</p>
+<p>I'm sorry if this is answered somewhere else but having a hard time finding...</p>
+<p>I am currently a Spring.NET user and thinking of switching over to unity.</p>
+<p>Spring allows me to resolve multiple dependancies for a single interface in one container. I'm assuming unity will allow me to do the same thing. I just would like to know how through configuration.</p>
+<p>Simply, if ILogger is my interface and i would like to resolve TraceLogger for one implementation and NullLogger for another implementation and have that use one configuration file, what does that look like?</p>
+<p>&nbsp;</p>
+<p>thanks.</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_834353" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="834381">
+    <td id="PostDetailsCell_834381" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post834381"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/10/2012 4:45:28 AM" LocalTimeTicks="1336650328">May 10, 2012 at 4:45 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="5/10/2012 5:54:14 AM" LocalTimeTicks="1336654454">May 10, 2012 at 5:54 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_834381" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Yes,&#32;you&#32;can&#32;register&#32;interface&#47;type&#32;mappings&#32;and&#32;assign&#32;them&#32;a&#32;name.&#32;&#38;nbsp&#59;Let&#39;s&#32;use&#32;your&#32;example&#32;of&#32;an&#32;ILogger&#32;interface&#32;with&#32;TraceLogger&#32;and&#32;NullLogger&#32;implementations.&#32;We&#32;can&#32;use&#32;the&#32;configuration&#32;to&#32;register&#32;the&#32;types&#32;in&#32;the&#32;container&#58;&#32;&#32;&#38;lt&#59;&#63;xml&#32;version&#61;&#34;1.0&#34;&#63;&#38;gt&#59;&#32;&#38;lt&#59;configuration&#38;gt&#59;&#32;&#38;lt&#59;configSections&#38;gt&#59;&#32;&#38;lt&#59;section&#32;name&#61;&#34;unity&#34;&#32;type&#61;&#34;Microsoft.Practices.Unity.Configuration.UnityConfigurationSection,&#32;Microsoft.Practices.Unity.Configuration&#34;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;configSections&#38;gt&#59;&#32;&#38;lt&#59;unity&#32;xmlns&#61;&#34;http&#58;&#47;&#47;schemas.microsoft.com&#47;practices&#47;2010&#47;unity&#34;&#38;gt&#59;&#32;&#38;lt&#59;container&#38;gt&#59;&#32;&#38;lt&#59;register&#32;type&#32;&#61;&#34;UnityDemo.ILogger,&#32;UnityDemo&#34;&#32;mapTo&#61;&#34;UnityDemo.TraceLogger,&#32;UnityDemo&#34;&#32;name&#61;&#34;TraceLogger&#34;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;register&#32;type&#32;&#61;&#34;UnityDemo.ILogger,&#32;UnityDemo&#34;&#32;mapTo&#61;&#34;UnityDemo.NullLogger,&#32;UnityDemo&#34;&#32;name&#61;&#34;NullLogger&#34;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;container&#38;gt&#59;&#32;&#38;lt&#59;&#47;unity&#38;gt&#59;&#32;&#38;lt&#59;&#47;configuration&#38;gt&#59;&#32;&#32;I&#39;ve&#32;set&#32;the&#32;names&#32;to&#32;be&#32;TraceLogger&#32;and&#32;NullLogger&#32;but&#32;the&#32;names&#32;are&#32;arbitrary&#32;and&#32;need&#32;not&#32;be&#32;related&#32;to&#32;the&#32;actual&#32;type.&#32;&#38;nbsp&#59;Now&#32;we&#32;can&#32;resolve&#32;the&#32;ILogger&#32;interface&#32;using&#32;the&#32;name&#32;registered&#32;in&#32;the&#32;configuration&#32;file&#58;&#32;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.LoadConfiguration&#40;&#41;&#59;&#32;var&#32;logger1&#32;&#61;&#32;container.Resolve&#38;lt&#59;ILogger&#38;gt&#59;&#40;&#34;NullLogger&#34;&#41;&#59;&#32;var&#32;logger2&#32;&#61;&#32;container.Resolve&#38;lt&#59;ILogger&#38;gt&#59;&#40;&#34;TraceLogger&#34;&#41;&#59;&#32;&#47;&#47;&#32;Get&#32;all&#32;ILoggers&#39;s&#32;that&#32;are&#32;registered&#32;IEnumerable&#38;lt&#59;ILogger&#38;gt&#59;&#32;loggers&#32;&#61;&#32;container.ResolveAll&#38;lt&#59;ILogger&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;&#32;&#32;OK,&#32;but&#32;you&#32;may&#32;not&#32;want&#32;to&#32;pepper&#32;your&#32;code&#32;with&#32;ILogger&#32;names.&#32;&#38;nbsp&#59;It&#32;would&#32;be&#32;nicer&#32;if&#32;Unity&#32;would&#32;handle&#32;that&#32;for&#32;us.&#32;&#38;nbsp&#59;&#32;Next&#32;let&#39;s&#32;consider&#32;a&#32;class&#32;called&#32;DisplayManager&#58;&#32;&#32;&#32;public&#32;class&#32;DisplayManager&#32;&#123;&#32;ILogger&#32;logger&#59;&#32;&#32;public&#32;DisplayManager&#40;ILogger&#32;logger&#41;&#32;&#123;&#32;this.logger&#32;&#61;&#32;logger&#59;&#32;&#125;&#32;&#125;&#32;&#32;We&#32;can&#32;resolve&#32;DisplayManager&#32;from&#32;the&#32;UnityContainer&#32;&#40;no&#32;registration&#32;required&#41;&#58;&#32;&#32;DisplayManager&#32;manager&#32;&#61;&#32;container.Resolve&#38;lt&#59;DisplayManager&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;&#32;But&#32;when&#32;we&#32;do&#32;that&#32;we&#32;are&#32;greeted&#32;by&#32;the&#32;following&#32;exception&#58;&#32;InvalidOperationException&#32;-&#32;The&#32;current&#32;type,&#32;UnityDemo.ILogger,&#32;is&#32;an&#32;interface&#32;and&#32;cannot&#32;be&#32;constructed.&#32;Are&#32;you&#32;missing&#32;a&#32;type&#32;mapping&#63;&#32;What&#39;s&#32;going&#32;on&#32;here&#63;&#32;&#38;nbsp&#59;Well,&#32;the&#32;problem&#32;is&#32;that&#32;the&#32;DisplayManager&#32;class&#32;constructor&#32;accepts&#32;an&#32;ILogger&#32;but&#32;we&#32;have&#32;registered&#32;2&#32;ILogger&#32;types&#32;with&#32;the&#32;container&#32;so&#32;Unity&#32;does&#32;not&#32;know&#32;which&#32;ILogger&#32;to&#32;inject.&#32;&#38;nbsp&#59;The&#32;solution&#32;is&#32;to&#32;configure&#32;our&#32;DisplayManager&#32;type&#32;and&#32;indicate&#32;what&#32;type&#32;of&#32;ILogger&#32;the&#32;DisplayManager&#32;constructor&#32;should&#32;receive&#58;&#32;&#32;&#38;lt&#59;&#63;xml&#32;version&#61;&#34;1.0&#34;&#63;&#38;gt&#59;&#32;&#38;lt&#59;configuration&#38;gt&#59;&#32;&#38;lt&#59;configSections&#38;gt&#59;&#32;&#38;lt&#59;section&#32;name&#61;&#34;unity&#34;&#32;type&#61;&#34;Microsoft.Practices.Unity.Configuration.UnityConfigurationSection,&#32;Microsoft.Practices.Unity.Configuration&#34;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;configSections&#38;gt&#59;&#32;&#38;lt&#59;unity&#32;xmlns&#61;&#34;http&#58;&#47;&#47;schemas.microsoft.com&#47;practices&#47;2010&#47;unity&#34;&#38;gt&#59;&#32;&#38;lt&#59;container&#38;gt&#59;&#32;&#38;lt&#59;register&#32;type&#32;&#61;&#34;UnityDemo.ILogger,&#32;UnityDemo&#34;&#32;mapTo&#61;&#34;UnityDemo.TraceLogger,&#32;UnityDemo&#34;&#32;name&#61;&#34;TraceLogger&#34;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;register&#32;type&#32;&#61;&#34;UnityDemo.ILogger,&#32;UnityDemo&#34;&#32;mapTo&#61;&#34;UnityDemo.NullLogger,&#32;UnityDemo&#34;&#32;name&#61;&#34;NullLogger&#34;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;register&#32;type&#61;&#34;ConsumeUnity.DisplayManager,&#32;ConsumeUnity&#34;&#38;gt&#59;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#34;logger&#34;&#32;dependencyName&#61;&#34;TraceLogger&#34;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#32;&#38;lt&#59;&#47;register&#38;gt&#59;&#32;&#38;lt&#59;&#47;container&#38;gt&#59;&#32;&#38;lt&#59;&#47;unity&#38;gt&#59;&#32;&#38;lt&#59;&#47;configuration&#38;gt&#59;&#32;&#32;&#32;Now&#32;when&#32;we&#32;request&#32;a&#32;DisplayManager&#32;from&#32;the&#32;Unity&#32;container&#32;it&#32;will&#32;be&#32;injected&#32;with&#32;a&#32;TraceLogger.&#32;I&#32;hope&#32;that&#32;helps.&#32;--&#32;Randy&#32;Levy&#32;Enterprise&#32;Library&#32;support&#32;engineer&#32;entlib.support&#64;live.com&#38;nbsp&#59;">
+        
+<p>Yes, you can register interface/type mappings and assign them a name. &nbsp;Let's use your example of an ILogger interface with TraceLogger and NullLogger implementations.</p>
+<p>We can use the configuration to register the types in the container:</p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">&lt;?</span><span style="color:#a31515">xml</span> <span style="color:red">version</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">1.0</span><span style="color:black">&quot;</span><span style="color:blue">?&gt;</span>
+<span style="color:blue">&lt;</span><span style="color:#a31515">configuration</span><span style="color:blue">&gt;</span>
+  <span style="color:blue">&lt;</span><span style="color:#a31515">configSections</span><span style="color:blue">&gt;</span>
+    &lt;section name=&quot;unity&quot; type=&quot;Microsoft.Practices.Unity.Configuration.UnityConfigurationSection,
+              Microsoft.Practices.Unity.Configuration&quot;/&gt;
+  <span style="color:blue">&lt;/</span><span style="color:#a31515">configSections</span><span style="color:blue">&gt;</span>
+  <span style="color:blue">&lt;</span><span style="color:#a31515">unity</span> <span style="color:red">xmlns</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">http://schemas.microsoft.com/practices/2010/unity</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>        
+    <span style="color:blue">&lt;</span><span style="color:#a31515">container</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span> <span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">UnityDemo.ILogger, UnityDemo</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">UnityDemo.TraceLogger, UnityDemo</span><span style="color:black">&quot;</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">TraceLogger</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span> <span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">UnityDemo.ILogger, UnityDemo</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">UnityDemo.NullLogger, UnityDemo</span><span style="color:black">&quot;</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">NullLogger</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+    <span style="color:blue">&lt;/</span><span style="color:#a31515">container</span><span style="color:blue">&gt;</span>
+  <span style="color:blue">&lt;/</span><span style="color:#a31515">unity</span><span style="color:blue">&gt;</span>  
+<span style="color:blue">&lt;/</span><span style="color:#a31515">configuration</span><span style="color:blue">&gt;</span></pre>
+</div>
+<p>I've set the names to be TraceLogger and NullLogger but the names are arbitrary and need not be related to the actual type. &nbsp;Now we can resolve the ILogger interface using the name registered in the configuration file:</p>
+<div style="color:black; background-color:white">
+<pre><div style="color:black; background-color:white"><pre>IUnityContainer container = <span style="color:blue">new</span> UnityContainer();
+container.LoadConfiguration();
+
+<span style="color:blue">var</span> logger1 = container.Resolve&lt;ILogger&gt;(<span style="color:#a31515">&quot;NullLogger&quot;</span>);
+<span style="color:blue">var</span> logger2 = container.Resolve&lt;ILogger&gt;(<span style="color:#a31515">&quot;TraceLogger&quot;</span>);
+
+<span style="color:green">// Get all ILoggers's that are registered</span>
+IEnumerable&lt;ILogger&gt; loggers = container.ResolveAll&lt;ILogger&gt;();</pre>
+</div>
+</pre>
+</div>
+<p>OK, but you may not want to pepper your code with ILogger names. &nbsp;It would be nicer if Unity would handle that for us. &nbsp;</p>
+<p>Next let's consider a class called DisplayManager:</p>
+<div style="color:black; background-color:white">
+<pre>    <span style="color:blue">public</span> <span style="color:blue">class</span> DisplayManager
+    {
+        ILogger logger;
+<br>        <span style="color:blue">public</span> DisplayManager(ILogger logger)
+        {
+            <span style="color:blue">this</span>.logger = logger;
+        }
+    }</pre>
+</div>
+<p>We can resolve DisplayManager from the UnityContainer (no registration required):</p>
+<div style="color:black; background-color:white">
+<pre>DisplayManager manager = container.Resolve&lt;DisplayManager&gt;();
+</pre>
+</div>
+<p>But when we do that we are greeted by the following exception:</p>
+<pre>InvalidOperationException - The current type, UnityDemo.ILogger, is an interface and cannot be constructed. Are you missing a type mapping?</pre>
+<p>What's going on here? &nbsp;Well, the problem is that the DisplayManager class constructor accepts an ILogger but we have registered 2 ILogger types with the container so Unity does not know which ILogger to inject. &nbsp;The solution is to configure our
+ DisplayManager type and indicate what type of ILogger the DisplayManager constructor should receive:</p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">&lt;?</span><span style="color:#a31515">xml</span> <span style="color:red">version</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">1.0</span><span style="color:black">&quot;</span><span style="color:blue">?&gt;</span>
+<span style="color:blue">&lt;</span><span style="color:#a31515">configuration</span><span style="color:blue">&gt;</span>
+  <span style="color:blue">&lt;</span><span style="color:#a31515">configSections</span><span style="color:blue">&gt;</span>
+    &lt;section name=&quot;unity&quot; type=&quot;Microsoft.Practices.Unity.Configuration.UnityConfigurationSection,
+              Microsoft.Practices.Unity.Configuration&quot;/&gt;
+  <span style="color:blue">&lt;/</span><span style="color:#a31515">configSections</span><span style="color:blue">&gt;</span>
+  <span style="color:blue">&lt;</span><span style="color:#a31515">unity</span> <span style="color:red">xmlns</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">http://schemas.microsoft.com/practices/2010/unity</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>        
+    <span style="color:blue">&lt;</span><span style="color:#a31515">container</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span> <span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">UnityDemo.ILogger, UnityDemo</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">UnityDemo.TraceLogger, UnityDemo</span><span style="color:black">&quot;</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">TraceLogger</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span> <span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">UnityDemo.ILogger, UnityDemo</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">UnityDemo.NullLogger, UnityDemo</span><span style="color:black">&quot;</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">NullLogger</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ConsumeUnity.DisplayManager, ConsumeUnity</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+          <span style="color:blue">&lt;</span><span style="color:#a31515">param</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">logger</span><span style="color:black">&quot;</span> <span style="color:red">dependencyName</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">TraceLogger</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+        <span style="color:blue">&lt;/</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;/</span><span style="color:#a31515">register</span><span style="color:blue">&gt;</span>
+    <span style="color:blue">&lt;/</span><span style="color:#a31515">container</span><span style="color:blue">&gt;</span>
+  <span style="color:blue">&lt;/</span><span style="color:#a31515">unity</span><span style="color:blue">&gt;</span>  
+<span style="color:blue">&lt;/</span><span style="color:#a31515">configuration</span><span style="color:blue">&gt;</span>
+</pre>
+</div>
+<p>Now when we request a DisplayManager from the Unity container it will be injected with a TraceLogger.</p>
+<p>I hope that helps.</p>
+<p>--<br>
+Randy Levy<br>
+Enterprise Library support engineer<br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">entlib.support@live.com</a>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_834381" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="834868">
+    <td id="PostDetailsCell_834868" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post834868"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/showard44">showard44</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/10/2012 11:31:16 PM" LocalTimeTicks="1336717876">May 10, 2012 at 11:31 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_834868" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Randy,&#32;&#38;nbsp&#59;&#32;your&#32;display&#32;manager&#32;scenario&#32;is&#32;EXACTLY&#32;what&#32;I&#32;was&#32;looking&#32;for...&#32;i&#32;have&#32;been&#32;a&#32;long&#32;time&#32;Spring.NET&#32;user&#32;and&#32;still&#32;love&#32;what&#32;it&#32;can&#32;do,&#32;but&#32;i&#32;think&#32;with&#32;the&#32;interceptors&#32;capabilities&#32;that&#32;Unity&#32;has&#32;to&#32;offer&#32;and&#32;the&#32;ability&#32;to&#32;differentiate&#32;dependencies&#32;between&#32;implementations&#32;allows&#32;me&#32;to&#32;consider&#32;Unity&#32;for&#32;my&#32;new&#32;company&#32;that&#32;seems&#32;to&#32;really&#32;stick&#32;with&#32;Microsoft&#32;technologies...&#32;Thanks&#32;for&#32;the&#32;help.&#32;P.S.&#32;-&#32;Unity&#32;doesn&#39;t&#32;have&#32;an&#32;expression&#32;language&#32;like&#32;Spring.NET&#32;does&#32;it&#63;">
+        
+<p>Randy,</p>
+<p>&nbsp;</p>
+<p>your display manager scenario is EXACTLY what I was looking for... i have been a long time Spring.NET user and still love what it can do, but i think with the interceptors capabilities that Unity has to offer and the ability to differentiate dependencies
+ between implementations allows me to consider Unity for my new company that seems to really stick with Microsoft technologies...</p>
+<p>Thanks for the help.</p>
+<p>P.S. - Unity doesn't have an expression language like Spring.NET does it?</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_834868" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="834930">
+    <td id="PostDetailsCell_834930" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post834930"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/11/2012 5:25:02 AM" LocalTimeTicks="1336739102">May 11, 2012 at 5:25 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_834930" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#38;gt&#59;&#32;P.S.&#32;-&#32;Unity&#32;doesn&#39;t&#32;have&#32;an&#32;expression&#32;language&#32;like&#32;Spring.NET&#32;does&#32;it&#63;&#32;No,&#32;it&#32;doesn&#39;t.&#32;--Randy&#32;LevyEnterprise&#32;Library&#32;support&#32;engineerentlib.support&#64;live.com&#38;nbsp&#59;">
+        
+<p><em>&gt; P.S. - Unity doesn't have an expression language like Spring.NET does it?</em></p>
+<p>No, it doesn't.</p>
+<p><span>--</span><br>
+<span>Randy Levy</span><br>
+<span>Enterprise Library support engineer</span><br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">entlib.support@live.com</a><span>&nbsp;</span></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_834930" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="840547">
+    <td id="PostDetailsCell_840547" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post840547"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/suresh42">suresh42</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/24/2012 5:41:13 PM" LocalTimeTicks="1337906473">May 24, 2012 at 5:41 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_840547" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hello,&#32;I&#32;am&#32;not&#32;creating&#32;new&#32;thread&#32;cause&#32;i&#32;think&#32;my&#32;question&#32;is&#32;in&#32;some&#32;manner&#32;related&#32;to&#32;this&#32;topic.&#32;So&#32;i&#32;would&#32;like&#32;to&#32;ask&#32;if&#32;we&#32;can&#32;disable&#32;Unity&#32;autowiring&#32;feature&#32;&#40;like&#32;the&#32;spring&#32;framework&#32;in&#32;its&#32;default&#32;configuration&#41;&#32;&#63;&#32;&#40;&#32;afraid&#32;that&#32;the&#32;project&#32;becoming&#32;huge&#32;with&#32;a&#32;number&#32;of&#32;developers&#32;&#38;amp&#59;&#32;developer&#32;teams&#32;and&#32;some&#32;could&#32;foget&#32;dependencies&#32;without&#32;being&#32;warned&#41;&#32;thx">
+        
+<p>Hello,</p>
+<p>I am not creating new thread cause i think my question is in some manner related to this topic.
+<br>
+So i would like to ask if we can disable Unity autowiring feature (like the spring framework in its default configuration) ? ( afraid that the project becoming huge with a number of developers &amp; developer teams and some could foget dependencies without
+ being warned)</p>
+<p>thx</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_840547" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="841861">
+    <td id="PostDetailsCell_841861" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post841861"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/29/2012 3:36:54 AM" LocalTimeTicks="1338287814">May 29, 2012 at 3:36 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_841861" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="There&#32;is&#32;no&#32;easy&#32;way&#32;to&#32;disable&#32;autowiring&#32;&#40;such&#32;as&#32;configuration&#41;.&#32;&#38;nbsp&#59;In&#32;principle,&#32;you&#32;might&#32;be&#32;able&#32;to&#32;create&#32;a&#32;container&#32;extension&#32;to&#32;clear&#32;policies,&#32;strategies&#32;and&#32;replace&#32;them&#32;to&#32;obtain&#32;the&#32;desired&#32;behavior.&#32;--Randy&#32;LevyEnterprise&#32;Library&#32;support&#32;engineerentlib.support&#64;live.com&#38;nbsp&#59;">
+        
+<p>There is no easy way to disable autowiring (such as configuration). &nbsp;In principle, you
+<em>might</em> be able to create a container extension to clear policies, strategies and replace them to obtain the desired behavior.</p>
+<p><span>--</span><br>
+<span>Randy Levy</span><br>
+<span>Enterprise Library support engineer</span><br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">entlib.support@live.com</a><span>&nbsp;</span></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_841861" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="858126">
+    <td id="PostDetailsCell_858126" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post858126"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/neuron_upheaval">neuron_upheaval</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/5/2012 11:35:35 PM" LocalTimeTicks="1341556535">Jul 5, 2012 at 11:35 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="7/5/2012 11:39:21 PM" LocalTimeTicks="1341556761">Jul 5, 2012 at 11:39 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_858126" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Hello&#32;Randy&#32;I&#32;would&#32;like&#32;to&#32;do&#32;the&#32;same&#32;configuration&#32;wireup&#32;above&#32;programatically.&#32;How&#32;can&#32;I&#32;achieve&#32;that&#63;&#32;My&#32;project&#32;is&#32;as&#32;follows.&#32;I&#32;am&#32;writing&#32;a&#32;three-tier&#32;application.&#32;One&#32;tier&#32;is&#32;the&#32;Data&#32;Access&#32;Layer.&#32;public&#32;abstract&#32;class&#32;DAO&#32;&#123;&#32;private&#32;IDbConnection&#32;connection&#59;&#32;public&#32;DAO&#40;IDbConnection&#32;connection&#41;&#32;&#123;&#32;this.connection&#32;&#61;&#32;connection&#59;&#32;&#125;&#32;&#47;&#47;&#32;lots&#32;of&#32;code&#32;&#125;&#32;public&#32;class&#32;DAOAutomation&#32;&#58;&#32;DAO&#32;&#123;&#32;public&#32;DAOAutomation&#40;IDbConnection&#32;connection&#41;&#32;&#58;&#32;base&#40;connection&#41;&#32;&#123;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;DAOExternal&#32;&#58;&#32;DAO&#32;&#123;&#32;public&#32;DAOExternal&#40;IDbConnection&#32;connection&#41;&#32;&#58;&#32;base&#40;connection&#41;&#32;&#123;&#32;&#125;&#32;&#125;&#32;&#32;I&#32;would&#32;like&#32;to&#32;inject&#32;a&#32;fresh&#32;new&#38;nbsp&#59;OleDbConnection&#32;into&#32;every&#32;DAOAutomation&#32;instance,&#32;and&#32;a&#32;fresh&#32;new&#38;nbsp&#59;OracleConnection&#32;into&#32;every&#32;DAOExternal.&#32;That&#32;means&#32;my&#32;Unity&#32;container&#32;would&#32;look&#32;like&#32;this&#32;programatically&#58;&#32;public&#32;class&#32;EntryPoint&#32;&#123;&#32;public&#32;class&#32;EntryPoint&#40;&#41;&#32;&#123;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container&#32;.RegisterType&#38;lt&#59;IDbConnection,&#32;OleDbConnection&#38;gt&#59;&#40;&#38;quot&#59;access&#38;quot&#59;&#41;&#32;.RegisterType&#38;lt&#59;IDbConnection,&#32;OracleConnection&#38;gt&#59;&#40;&#38;quot&#59;oracle&#38;quot&#59;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;How&#32;do&#32;I&#32;go&#32;on&#32;and&#32;wire&#32;up&#32;each&#32;different&#32;IDbConnection&#32;to&#32;DAOAutomation&#32;and&#32;to&#32;DAOExternal&#63;&#32;I&#32;thought&#32;something&#32;on&#32;the&#32;lines&#32;of&#32;&#32;container&#32;.RegisterType&#38;lt&#59;DAOAutomation&#38;gt&#59;&#40;InjectParameter.ToParameter&#38;lt&#59;IDbConnection&#38;gt&#59;&#40;&#38;quot&#59;access&#38;quot&#59;&#41;&#41;&#32;.RegisterType&#38;lt&#59;DAOExternal&#38;gt&#59;&#40;InjectParameter.ToParameter&#38;lt&#59;IDbConnection&#38;gt&#59;&#40;&#38;quot&#59;oracle&#38;quot&#59;&#41;&#41;&#59;&#32;&#32;but&#32;it&#32;didn&#39;t&#32;work&#32;out.&#32;Please&#32;help&#32;me&#32;&#58;&#41;&#32;">
+        
+<p>Hello Randy</p>
+<p>I would like to do the same configuration wireup above programatically. How can I achieve that?</p>
+<p>My project is as follows. I am writing a three-tier application. One tier is the Data Access Layer.</p>
+<pre><span style="color:blue">public</span> <span style="color:blue">abstract</span> <span style="color:blue">class</span> DAO
+{
+    <span style="color:blue">private</span> IDbConnection connection;
+
+    <span style="color:blue">public</span> DAO(IDbConnection connection)
+    {
+        <span style="color:blue">this</span>.connection = connection;
+    }
+
+    <span style="color:green">// lots of code</span>
+}
+
+<span style="color:blue">public</span> <span style="color:blue">class</span> DAOAutomation : DAO
+{
+    <span style="color:blue">public</span> DAOAutomation(IDbConnection connection)
+        : <span style="color:blue">base</span>(connection)
+    {
+
+    }
+}
+
+<span style="color:blue">public</span> <span style="color:blue">class</span> DAOExternal : DAO
+{
+    <span style="color:blue">public</span> DAOExternal(IDbConnection connection)
+        : <span style="color:blue">base</span>(connection)
+    {
+
+    }
+}
+</pre>
+<p>I would like to inject a fresh new&nbsp;OleDbConnection into every DAOAutomation instance, and a fresh new&nbsp;OracleConnection into every DAOExternal. That means my Unity container would look like this programatically:</p>
+<pre><span style="color:blue">public</span> <span style="color:blue">class</span> EntryPoint
+{
+    <span style="color:blue">public</span> <span style="color:blue">class</span> EntryPoint()
+    {
+        IUnityContainer container = <span style="color:blue">new</span> UnityContainer();
+        container
+            .RegisterType&lt;IDbConnection, OleDbConnection&gt;(<span style="color:#a31515">&quot;access&quot;</span>)
+            .RegisterType&lt;IDbConnection, OracleConnection&gt;(<span style="color:#a31515">&quot;oracle&quot;</span>);
+    }
+}
+</pre>
+<p>How do I go on and wire up each different IDbConnection to DAOAutomation and to DAOExternal? I thought something on the lines of</p>
+<pre>            container
+                .RegisterType&lt;DAOAutomation&gt;(InjectParameter.ToParameter&lt;IDbConnection&gt;(&quot;access&quot;))
+                .RegisterType&lt;DAOExternal&gt;(InjectParameter.ToParameter&lt;IDbConnection&gt;(&quot;oracle&quot;)); </pre>
+<p>but it didn't work out. Please help me :)</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_858126" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="858136">
+    <td id="PostDetailsCell_858136" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post858136"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/6/2012 12:27:02 AM" LocalTimeTicks="1341559622">Jul 6, 2012 at 12:27 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_858136" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Since&#32;you&#32;want&#32;a&#32;fresh&#32;connection&#32;for&#32;every&#32;resolve&#32;you&#32;can&#32;use&#32;an&#38;nbsp&#59;InjectionConstructor&#38;nbsp&#59;combined&#32;with&#32;a&#32;ResolvedParameter.&#32;&#38;nbsp&#59;That&#32;way&#32;the&#32;connection&#32;will&#32;be&#32;resolved&#32;from&#32;the&#32;container&#32;every&#32;time&#32;the&#32;DAO&#32;object&#32;is&#32;resolved&#47;injected&#32;which&#32;will&#32;give&#32;you&#32;a&#32;new&#32;instance&#32;&#40;by&#32;default&#41;.&#32;&#38;nbsp&#59;For&#32;example&#58;&#32;&#32;&#32;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container&#32;.RegisterType&#38;lt&#59;IDbConnection,&#32;OleDbConnection&#38;gt&#59;&#40;&#34;access&#34;,&#32;new&#32;InjectionConstructor&#40;&#32;&#64;&#34;Provider&#61;Microsoft.Jet.OLEDB.4.0&#59;Data&#32;Source&#61;C&#58;&#92;mydatabase.mdb&#59;User&#32;Id&#61;admin&#59;Password&#61;&#59;&#34;&#41;&#41;&#32;.RegisterType&#38;lt&#59;IDbConnection,&#32;OracleConnection&#38;gt&#59;&#40;&#34;oracle&#34;,&#32;new&#32;InjectionConstructor&#40;&#32;&#64;&#34;Data&#32;Source&#61;MyOracleDB&#59;Integrated&#32;Security&#61;yes&#59;&#34;&#41;&#41;&#59;&#32;container&#32;.RegisterType&#38;lt&#59;DAOAutomation&#38;gt&#59;&#40;&#32;new&#32;InjectionConstructor&#40;&#32;new&#32;ResolvedParameter&#38;lt&#59;IDbConnection&#38;gt&#59;&#40;&#34;access&#34;&#41;&#41;&#41;&#59;&#32;container&#32;.RegisterType&#38;lt&#59;DAOExternal&#38;gt&#59;&#40;&#32;new&#32;InjectionConstructor&#40;&#32;new&#32;ResolvedParameter&#38;lt&#59;IDbConnection&#38;gt&#59;&#40;&#34;oracle&#34;&#41;&#41;&#41;&#59;&#32;var&#32;automationDAO&#32;&#61;&#32;container.Resolve&#38;lt&#59;DAOAutomation&#38;gt&#59;&#40;&#41;&#59;&#32;var&#32;externalDAO&#32;&#61;&#32;container.Resolve&#38;lt&#59;DAOExternal&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;&#32;--Randy&#32;LevyEnterprise&#32;Library&#32;support&#32;engineerentlib.support&#64;live.com&#38;nbsp&#59;">
+        
+<p>Since you want a fresh connection for every resolve you can use an&nbsp;InjectionConstructor&nbsp;combined with a ResolvedParameter. &nbsp;That way the connection will be resolved from the container every time the DAO object is resolved/injected which will
+ give you a new instance (by default). &nbsp;For example:</p>
+<p></p>
+<div style="color:black; background-color:white">
+<pre>    IUnityContainer container = <span style="color:blue">new</span> UnityContainer();
+
+    container
+        .RegisterType&lt;IDbConnection, OleDbConnection&gt;(<span style="color:#a31515">&quot;access&quot;</span>, 
+            <span style="color:blue">new</span> InjectionConstructor(
+                <span style="color:#a31515">@&quot;Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\mydatabase.mdb;User Id=admin;Password=;&quot;</span>))
+        .RegisterType&lt;IDbConnection, OracleConnection&gt;(<span style="color:#a31515">&quot;oracle&quot;</span>,
+            <span style="color:blue">new</span> InjectionConstructor(
+                <span style="color:#a31515">@&quot;Data Source=MyOracleDB;Integrated Security=yes;&quot;</span>));
+
+    container
+        .RegisterType&lt;DAOAutomation&gt;(
+            <span style="color:blue">new</span> InjectionConstructor(
+                <span style="color:blue">new</span> ResolvedParameter&lt;IDbConnection&gt;(<span style="color:#a31515">&quot;access&quot;</span>)));
+
+    container
+        .RegisterType&lt;DAOExternal&gt;(
+            <span style="color:blue">new</span> InjectionConstructor(
+                <span style="color:blue">new</span> ResolvedParameter&lt;IDbConnection&gt;(<span style="color:#a31515">&quot;oracle&quot;</span>)));
+
+            
+    <span style="color:blue">var</span> automationDAO = container.Resolve&lt;DAOAutomation&gt;();
+    <span style="color:blue">var</span> externalDAO = container.Resolve&lt;DAOExternal&gt;();
+
+</pre>
+</div>
+<span>--</span><br>
+<span>Randy Levy</span><br>
+<span>Enterprise Library support engineer</span><br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">entlib.support@live.com</a><span>&nbsp;</span>
+<p></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_858136" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f355192">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="12270365-37f2-4935-9a50-f7bc55656430">
+    <script class="options" defer="defer" id="12270365-37f2-4935-9a50-f7bc55656430" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_1bcf5c5f-58f5-4d01-8ecb-1afa24036f14">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_76594514-f75d-4505-96de-a54a49d91eba">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_1bcf5c5f-58f5-4d01-8ecb-1afa24036f14" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_76594514-f75d-4505-96de-a54a49d91eba" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/355192';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

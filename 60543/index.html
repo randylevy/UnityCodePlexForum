@@ -1,0 +1,878 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Nested configuration and unity extensions</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/60543?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/60543?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="aNkRfO_VahvVIEZZ4LueB9lXjN52e5xr6CHjtZiwvGC-eQa7oNuJljcGuEjJ0P5cgKr4OOgdDbaB2FFXaRB1siTRtHY9LX5OZW8cOHLGUFC6GuV5PUeEMcI5YFtd6cZDuJ6jzg2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2f5f983b3-3a3e-4c90-b442-39cd1251b68c" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:28:14 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f60543" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="8125403f-a54a-468b-9921-7c961532c61c">
+                
+                    <script class="options" defer="defer" id="8125403f-a54a-468b-9921-7c961532c61c" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="65271abb-94c3-48b5-b4c5-9043bb0c20c5">
+                
+                    <script class="options" defer="defer" id="65271abb-94c3-48b5-b4c5-9043bb0c20c5" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Nested configuration and unity extensions
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:60543]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="2fc71891-f692-4ed0-80d6-1543f7fd1e93">
+    <script class="options" defer="defer" id="2fc71891-f692-4ed0-80d6-1543f7fd1e93" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/60543","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="205064">
+    <td id="PostDetailsCell_205064" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post205064"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jdulay">jdulay</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/24/2009 4:39:37 PM" LocalTimeTicks="1245886777">Jun 24, 2009 at 4:39 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="6/24/2009 4:41:18 PM" LocalTimeTicks="1245886878">Jun 24, 2009 at 4:41 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_205064" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#38;nbsp&#59;&#32;Some&#32;background&#58;&#32;I&#39;m&#32;using&#32;CWAB&#32;to&#32;implement&#32;Modularity.&#38;nbsp&#59;&#32;I&#39;m&#32;following&#32;CWAB&#39;s&#32;example&#32;on&#32;how&#32;each&#32;module&#32;has&#32;it&#39;s&#32;own&#32;configuration&#32;file.&#38;nbsp&#59;&#32;I&#39;ve&#32;upgraded&#32;CWAB&#32;to&#32;leverage&#32;Unity&#32;as&#32;the&#32;container.&#38;nbsp&#59;&#32;For&#32;the&#32;most&#32;part,&#32;this&#32;all&#32;works&#32;fine.&#38;nbsp&#59;&#32;I&#32;have&#32;unity&#32;configuration&#32;sections&#32;in&#32;both&#32;the&#32;web.config&#32;and&#32;the&#32;module&#39;s&#32;config&#32;that&#32;specify&#32;type&#32;aliases&#32;and&#32;mappings&#32;and&#32;everything&#32;works&#32;fine.&#32;As&#32;shown&#32;below&#58;&#32;&#47;Web.config&#32;&#38;nbsp&#59;&#38;lt&#59;unity&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;typeAliases&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;blah&#32;blah&#32;blah&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;typeAliases&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;containers&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;container&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;types&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;blah&#32;blah&#32;blah&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;types&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;container&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;containers&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;unity&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#47;MyModule&#47;web.config&#32;&#38;lt&#59;unity&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;typeAliases&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;blah&#32;blah&#32;blah&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;typeAliases&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;containers&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;container&#32;name&#61;&#38;rdquo&#59;MyModule&#38;rdquo&#59;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;types&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;blah&#32;blah&#32;blah&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;types&#38;gt&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;container&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;containers&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;unity&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;My&#32;root&#32;container&#32;is&#32;configured&#32;using&#32;the&#32;unity&#32;section&#32;in&#32;the&#32;root&#32;web.config.&#38;nbsp&#59;&#32;A&#32;child&#32;container&#32;is&#32;created&#32;and&#32;configured&#32;using&#32;the&#32;unity&#32;config&#32;in&#32;the&#32;MyModule&#47;web.config.&#38;nbsp&#59;&#32;The&#32;Problem&#58;&#32;I&#32;want&#32;to&#32;use&#32;Unity&#32;Interception.&#38;nbsp&#59;&#32;When&#32;I&#32;add&#32;the&#32;corresponding&#32;extension,&#32;everything&#32;runs&#32;fine.&#38;nbsp&#59;&#32;But&#32;when&#32;I&#32;add&#32;an&#32;interceptor&#32;target&#32;configuration&#32;element,&#32;I&#32;get&#32;a&#32;configuration&#32;error&#32;when&#32;trying&#32;to&#32;configure&#32;the&#32;container.&#38;nbsp&#59;&#32;So&#32;when&#32;i&#32;do&#32;this&#58;&#32;&#47;Web.config&#32;&#38;nbsp&#59;&#38;lt&#59;unity&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;typeAliases&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;blah&#32;blah&#32;blah&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;typeAliases&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;containers&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;container&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;types&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;blah&#32;blah&#32;blah&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;types&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;extensions&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;add&#32;type&#61;&#38;quot&#59;Microsoft.Practices.Unity.InterceptionExtension.Interception,&#32;Microsoft.Practices.Unity.Interception&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;extensions&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;extensionConfig&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;add&#32;name&#61;&#38;quot&#59;interception&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Microsoft.Practices.Unity.InterceptionExtension.Configuration.InterceptionConfigurationElement,&#32;Microsoft.Practices.Unity.Interception.Configuration&#38;quot&#59;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;interceptors&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;interceptor&#32;type&#61;&#38;quot&#59;Microsoft.Practices.Unity.InterceptionExtension.VirtualMethodInterceptor,&#32;Microsoft.Practices.Unity.Interception&#38;quot&#59;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;key&#32;type&#61;&#38;rdquo&#59;mytype&#38;rdquo&#59;&#32;name&#61;&#38;rdquo&#59;typename&#38;rdquo&#59;&#47;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;interceptor&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;interceptors&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;add&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;extensionConfig&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;container&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;containers&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;unity&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#47;MyModule&#47;web.config&#32;&#38;lt&#59;unity&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;typeAliases&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;blah&#32;blah&#32;blah&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;typeAliases&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;containers&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;container&#32;name&#61;&#38;rdquo&#59;MyModule&#38;rdquo&#59;&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;types&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;blah&#32;blah&#32;blah&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;types&#38;gt&#59;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;container&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;containers&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;unity&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;I&#32;get&#32;the&#32;following&#32;error.&#38;nbsp&#59;&#32;Note&#32;how&#32;the&#32;source&#32;file&#32;is&#32;the&#32;module&#38;rsquo&#59;s&#32;web.config&#32;even&#32;though&#32;I&#32;get&#32;the&#32;exception&#32;when&#32;trying&#32;to&#32;configure&#32;the&#32;root&#32;container&#32;using&#32;the&#32;unity&#32;section&#32;in&#32;the&#32;root&#32;web.config&#58;&#32;Server&#32;Error&#32;in&#32;&#39;&#47;REBARTestApp&#39;&#32;Application.&#32;&#32;&#32;&#32;&#32;Configuration&#32;Error&#32;&#32;Description&#58;&#32;An&#32;error&#32;occurred&#32;during&#32;the&#32;processing&#32;of&#32;a&#32;configuration&#32;file&#32;required&#32;to&#32;service&#32;this&#32;request.&#32;Please&#32;review&#32;the&#32;specific&#32;error&#32;details&#32;below&#32;and&#32;modify&#32;your&#32;configuration&#32;file&#32;appropriately.&#32;&#32;&#32;Parser&#32;Error&#32;Message&#58;&#32;An&#32;error&#32;occurred&#32;creating&#32;the&#32;configuration&#32;section&#32;handler&#32;for&#32;unity&#58;&#32;Operation&#32;is&#32;not&#32;valid&#32;due&#32;to&#32;the&#32;current&#32;state&#32;of&#32;the&#32;object.&#32;&#32;Source&#32;Error&#58;&#32;&#32;&#32;&#32;&#32;&#32;&#38;nbsp&#59;&#32;Line&#32;34&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;authorization&#38;gt&#59;&#32;Line&#32;35&#58;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;&#47;compositeWeb&#38;gt&#59;&#32;Line&#32;36&#58;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;unity&#38;gt&#59;&#32;Line&#32;37&#58;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;containers&#38;gt&#59;&#32;Line&#32;38&#58;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#38;lt&#59;container&#32;name&#61;&#38;quot&#59;TestBizMod&#38;quot&#59;&#38;gt&#59;&#32;&#32;&#32;&#32;&#32;&#32;Source&#32;File&#58;&#32;c&#58;&#92;Projects&#92;REBAR&#92;REBAR&#92;Main&#92;Accenture.REBAR.TestApp&#92;WebSites&#92;REBARTestApp&#92;testbizmod&#92;web.config&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Line&#58;&#32;36&#32;&#32;&#32;&#32;&#32;Version&#32;Information&#58;&#38;nbsp&#59;Microsoft&#32;.NET&#32;Framework&#32;Version&#58;2.0.50727.3053&#59;&#32;ASP.NET&#32;Version&#58;2.0.50727.3053&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;The&#32;full&#32;exception&#32;information&#32;is&#32;below&#58;&#32;&#38;nbsp&#59;&#32;System.Configuration.ConfigurationErrorsException&#32;occurred&#32;&#38;nbsp&#59;&#32;BareMessage&#61;&#38;quot&#59;An&#32;error&#32;occurred&#32;creating&#32;the&#32;configuration&#32;section&#32;handler&#32;for&#32;unity&#58;&#32;Operation&#32;is&#32;not&#32;valid&#32;due&#32;to&#32;the&#32;current&#32;state&#32;of&#32;the&#32;object.&#38;quot&#59;&#32;&#38;nbsp&#59;&#32;Filename&#61;&#38;quot&#59;c&#58;&#92;Projects&#92;REBAR&#92;REBAR&#92;Main&#92;Accenture.REBAR.TestApp&#92;WebSites&#92;REBARTestApp&#92;testbizmod&#92;web.config&#38;quot&#59;&#32;&#38;nbsp&#59;&#32;Line&#61;36&#32;&#38;nbsp&#59;&#32;Message&#61;&#38;quot&#59;An&#32;error&#32;occurred&#32;creating&#32;the&#32;configuration&#32;section&#32;handler&#32;for&#32;unity&#58;&#32;Operation&#32;is&#32;not&#32;valid&#32;due&#32;to&#32;the&#32;current&#32;state&#32;of&#32;the&#32;object.&#32;&#40;c&#58;&#92;Projects&#92;REBAR&#92;REBAR&#92;Main&#92;Accenture.REBAR.TestApp&#92;WebSites&#92;REBARTestApp&#92;testbizmod&#92;web.config&#32;line&#32;36&#41;&#38;quot&#59;&#32;&#38;nbsp&#59;&#32;Source&#61;&#38;quot&#59;System.Configuration&#38;quot&#59;&#32;&#38;nbsp&#59;&#32;StackTrace&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Configuration.BaseConfigurationRecord.EvaluateOne&#40;String&#91;&#93;&#32;keys,&#32;SectionInput&#32;input,&#32;Boolean&#32;isTrusted,&#32;FactoryRecord&#32;factoryRecord,&#32;SectionRecord&#32;sectionRecord,&#32;Object&#32;parentResult&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Configuration.BaseConfigurationRecord.Evaluate&#40;FactoryRecord&#32;factoryRecord,&#32;SectionRecord&#32;sectionRecord,&#32;Object&#32;parentResult,&#32;Boolean&#32;getLkg,&#32;Boolean&#32;getRuntimeObject,&#32;Object&#38;amp&#59;&#32;result,&#32;Object&#38;amp&#59;&#32;resultRuntimeObject&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Configuration.BaseConfigurationRecord.GetSectionRecursive&#40;String&#32;configKey,&#32;Boolean&#32;getLkg,&#32;Boolean&#32;checkPermission,&#32;Boolean&#32;getRuntimeObject,&#32;Boolean&#32;requestIsHere,&#32;Object&#38;amp&#59;&#32;result,&#32;Object&#38;amp&#59;&#32;resultRuntimeObject&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Configuration.BaseConfigurationRecord.GetSection&#40;String&#32;configKey,&#32;Boolean&#32;getLkg,&#32;Boolean&#32;checkPermission&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Configuration.BaseConfigurationRecord.GetSection&#40;String&#32;configKey&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Web.HttpContext.GetSection&#40;String&#32;sectionName&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Web.Configuration.HttpConfigurationSystem.GetSection&#40;String&#32;sectionName&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Web.Configuration.HttpConfigurationSystem.System.Configuration.Internal.IInternalConfigSystem.GetSection&#40;String&#32;configKey&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Configuration.ConfigurationManager.GetSection&#40;String&#32;sectionName&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Accenture.REBAR.EAC.Containers.UnityCompositionContainer.GetUnityConfigSection&#40;&#41;&#32;in&#32;c&#58;&#92;projects&#92;REBAR&#92;REBAR&#92;Main&#92;Accenture.REBAR.EAC&#92;Accenture.REBAR.EAC&#92;Containers&#92;UnityCompositionContainer.vb&#58;line&#32;79&#32;&#38;nbsp&#59;&#32;InnerException&#58;&#32;System.InvalidOperationException&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Message&#61;&#38;quot&#59;Operation&#32;is&#32;not&#32;valid&#32;due&#32;to&#32;the&#32;current&#32;state&#32;of&#32;the&#32;object.&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Source&#61;&#38;quot&#59;Microsoft.Practices.Unity.Interception.Configuration&#38;quot&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;StackTrace&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.InterceptionExtension.Configuration.InterceptorTargetConfigurationElementCollection.CreateNewElement&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Configuration.ConfigurationElementCollection.CreateNewElement&#40;String&#32;elementName&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Configuration.ConfigurationElementCollection.Reset&#40;ConfigurationElement&#32;parentElement&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Configuration.ConfigurationElement.Reset&#40;ConfigurationElement&#32;parentElement&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Configuration.ConfigurationElementCollection.Reset&#40;ConfigurationElement&#32;parentElement&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Configuration.ConfigurationElement.Reset&#40;ConfigurationElement&#32;parentElement&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Configuration.ConfigurationElementCollection.Reset&#40;ConfigurationElement&#32;parentElement&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Configuration.ConfigurationElement.Reset&#40;ConfigurationElement&#32;parentElement&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Configuration.ConfigurationElementCollection.Reset&#40;ConfigurationElement&#32;parentElement&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Configuration.ConfigurationElement.Reset&#40;ConfigurationElement&#32;parentElement&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Configuration.RuntimeConfigurationRecord.RuntimeConfigurationFactory.CreateSectionImpl&#40;RuntimeConfigurationRecord&#32;configRecord,&#32;FactoryRecord&#32;factoryRecord,&#32;SectionRecord&#32;sectionRecord,&#32;Object&#32;parentConfig,&#32;ConfigXmlReader&#32;reader&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Configuration.RuntimeConfigurationRecord.RuntimeConfigurationFactory.CreateSectionWithRestrictedPermissions&#40;RuntimeConfigurationRecord&#32;configRecord,&#32;FactoryRecord&#32;factoryRecord,&#32;SectionRecord&#32;sectionRecord,&#32;Object&#32;parentConfig,&#32;ConfigXmlReader&#32;reader&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Configuration.RuntimeConfigurationRecord.RuntimeConfigurationFactory.CreateSection&#40;Boolean&#32;inputIsTrusted,&#32;RuntimeConfigurationRecord&#32;configRecord,&#32;FactoryRecord&#32;factoryRecord,&#32;SectionRecord&#32;sectionRecord,&#32;Object&#32;parentConfig,&#32;ConfigXmlReader&#32;reader&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Configuration.RuntimeConfigurationRecord.CreateSection&#40;Boolean&#32;inputIsTrusted,&#32;FactoryRecord&#32;factoryRecord,&#32;SectionRecord&#32;sectionRecord,&#32;Object&#32;parentConfig,&#32;ConfigXmlReader&#32;reader&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;System.Configuration.BaseConfigurationRecord.CallCreateSection&#40;Boolean&#32;inputIsTrusted,&#32;FactoryRecord&#32;factoryRecord,&#32;SectionRecord&#32;sectionRecord,&#32;Object&#32;parentConfig,&#32;ConfigXmlReader&#32;reader,&#32;String&#32;filename,&#32;Int32&#32;line&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;InnerException&#58;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;Any&#32;ideas&#63;&#63;&#63;">
+        
+<p>&nbsp;</p>
+<p>Some background: I'm using CWAB to implement Modularity.&nbsp; I'm following CWAB's example on how each module has it's own configuration file.&nbsp; I've upgraded CWAB to leverage Unity as the container.&nbsp; For the most part, this all works fine.&nbsp;
+ I have unity configuration sections in both the web.config and the module's config that specify type aliases and mappings and everything works fine. As shown below:</p>
+<p>/Web.config</p>
+<p style="line-height:12pt">&nbsp;&lt;unity&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp; </span>&lt;typeAliases&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>blah blah blah</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp; </span>&lt;/typeAliases&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp; </span>&lt;containers&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;container&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+&lt;types&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>blah blah blah</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+&lt;/types&gt;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;/container&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp; </span>&lt;/containers&gt;</p>
+<p style="line-height:12pt"><span>&nbsp; </span>&lt;/unity&gt;</p>
+<p style="line-height:12pt">&nbsp;</p>
+<p>/MyModule/web.config</p>
+<p>&lt;unity&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;typeAliases&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; blah blah blah<br>
+&nbsp;&nbsp;&nbsp; &lt;/typeAliases&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;containers&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;container name=&rdquo;MyModule&rdquo;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;types&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; blah blah blah<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/types&gt;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/container&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/containers&gt;<br>
+&nbsp; &lt;/unity&gt;</p>
+<p>&nbsp;</p>
+<p>My root container is configured using the unity section in the root web.config.&nbsp; A child container is created and configured using the unity config in the MyModule/web.config.&nbsp;</p>
+<p>The Problem: I want to use Unity Interception.&nbsp; When I add the corresponding extension, everything runs fine.<span>&nbsp;
+</span>But when I add an interceptor target configuration element, I get a configuration error when trying to configure the container.&nbsp; So when i do this:</p>
+<p>/Web.config</p>
+<p style="line-height:12pt">&nbsp;&lt;unity&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp; </span>&lt;typeAliases&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>blah blah blah</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp; </span>&lt;/typeAliases&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp; </span>&lt;containers&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;container&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+&lt;types&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>blah blah blah</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+&lt;/types&gt;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;extensions&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>&lt;add type=&quot;Microsoft.Practices.Unity.InterceptionExtension.Interception, Microsoft.Practices.Unity.Interception&quot; /&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+&lt;/extensions&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+&lt;extensionConfig&gt;<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>&lt;add name=&quot;interception&quot; type=&quot;Microsoft.Practices.Unity.InterceptionExtension.Configuration.InterceptionConfigurationElement, Microsoft.Practices.Unity.Interception.Configuration&quot;&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>&lt;interceptors&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>&lt;interceptor type=&quot;Microsoft.Practices.Unity.InterceptionExtension.VirtualMethodInterceptor, Microsoft.Practices.Unity.Interception&quot;&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><strong><span style="background:yellow none repeat scroll 0% 0%">&lt;key type=&rdquo;mytype&rdquo; name=&rdquo;typename&rdquo;/&gt;</span></strong></p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>&lt;/interceptor&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>&lt;/interceptors&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>&lt;/add&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+&lt;/extensionConfig&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;/container&gt;</p>
+<p style="line-height:12pt"><span>&nbsp;&nbsp;&nbsp; </span>&lt;/containers&gt;</p>
+<p style="line-height:12pt"><span>&nbsp; </span>&lt;/unity&gt;</p>
+<p style="line-height:12pt">&nbsp;</p>
+<p>/MyModule/web.config</p>
+<p>&lt;unity&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;typeAliases&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; blah blah blah<br>
+&nbsp;&nbsp;&nbsp; &lt;/typeAliases&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;containers&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;container name=&rdquo;MyModule&rdquo;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;types&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; blah blah blah<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/types&gt;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/container&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/containers&gt;<br>
+&nbsp; &lt;/unity&gt;</p>
+<p>&nbsp;</p>
+<p>I get the following error.<span>&nbsp; </span>Note how the source file is the module&rsquo;s web.config even though I get the exception when trying to configure the root container using the unity section in the root web.config:</p>
+<p><span style="font-size:18pt; font-family:'Verdana','sans-serif'; color:red">Server Error in '/REBARTestApp' Application.
+</span></p>
+<div style="text-align:center"><span style="font-size:18pt; font-family:'Verdana','sans-serif'; color:red">
+<hr size="1" style="color:silver">
+</span></div>
+<p><em><span style="font-size:14pt; font-family:'Verdana','sans-serif'; color:maroon">Configuration Error</span></em><span style="font-size:14pt; font-family:'Verdana','sans-serif'; color:maroon">
+</span></p>
+<p style="margin-bottom:12pt"><strong><span style="font-size:8.5pt; font-family:'Verdana','sans-serif'; color:black">Description:
+</span></strong><span style="font-size:8.5pt; font-family:'Arial','sans-serif'; color:black">An error occurred during the processing of a configuration file required to service this request. Please review the specific error details below and modify your configuration
+ file appropriately. <br>
+<br>
+</span><strong><span style="font-size:8.5pt; font-family:'Verdana','sans-serif'; color:black">Parser Error Message:
+</span></strong><span style="font-size:8.5pt; font-family:'Arial','sans-serif'; color:black">An error occurred creating the configuration section handler for unity: Operation is not valid due to the current state of the object.<br>
+<br>
+</span><strong><span style="font-size:8.5pt; font-family:'Verdana','sans-serif'; color:black">Source Error:</span></strong><span style="font-size:8.5pt; font-family:'Arial','sans-serif'; color:black">
+</span></p>
+<table border="0" cellpadding="0" width="100%" style="background:#ffffcc none repeat scroll 0% 0%; width:100%">
+<tbody>
+<tr>
+<td style="padding:0.75pt">
+<p><span style="font-size:9pt; font-family:'Lucida Console'; color:black">&nbsp;</span></p>
+<p><span style="font-size:9pt; font-family:'Lucida Console'; color:black">Line 34:
+<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;/authorization&gt;</span></p>
+<p><span style="font-size:9pt; font-family:'Lucida Console'; color:black">Line 35:<span>&nbsp;&nbsp;
+</span>&lt;/compositeWeb&gt;</span></p>
+<p><span style="font-size:9pt; font-family:'Lucida Console'; color:red">Line 36:<span>&nbsp;&nbsp;
+</span>&lt;unity&gt;</span></p>
+<p><span style="font-size:9pt; font-family:'Lucida Console'; color:black">Line 37:<span>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>&lt;containers&gt;</span></p>
+<p><span style="font-size:9pt; font-family:'Lucida Console'; color:black">Line 38:<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>&lt;container name=&quot;TestBizMod&quot;&gt;</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="margin-bottom:12pt"><span style="font-size:8.5pt; font-family:'Arial','sans-serif'; color:black"><br>
+</span><strong><span style="font-size:8.5pt; font-family:'Verdana','sans-serif'; color:black">Source File:
+</span></strong><span style="font-size:8.5pt; font-family:'Arial','sans-serif'; color:black">c:\Projects\REBAR\REBAR\Main\Accenture.REBAR.TestApp\WebSites\REBARTestApp\testbizmod\web.config</span><strong><span style="font-size:8.5pt; font-family:'Verdana','sans-serif'; color:black">
+ &nbsp;&nbsp; Line: </span></strong><span style="font-size:8.5pt; font-family:'Arial','sans-serif'; color:black">36
+</span></p>
+<div style="text-align:center"><span style="font-size:8.5pt; font-family:'Arial','sans-serif'; color:black">
+<hr size="1" style="color:silver">
+</span></div>
+<p><strong><span style="font-size:8.5pt; font-family:'Verdana','sans-serif'; color:black">Version Information:</span></strong><span style="font-size:8.5pt; font-family:'Arial','sans-serif'; color:black">&nbsp;Microsoft .NET Framework Version:2.0.50727.3053;
+ ASP.NET Version:2.0.50727.3053</span></p>
+<p><span style="font-size:8.5pt; font-family:'Arial','sans-serif'; color:black">&nbsp;</span></p>
+<p>&nbsp;</p>
+<p>The full exception information is below:</p>
+<p>&nbsp;</p>
+<p>System.Configuration.ConfigurationErrorsException occurred</p>
+<p><span>&nbsp; </span>BareMessage=&quot;An error occurred creating the configuration section handler for unity: Operation is not valid due to the current state of the object.&quot;</p>
+<p><span>&nbsp; </span>Filename=&quot;c:\Projects\REBAR\REBAR\Main\Accenture.REBAR.TestApp\WebSites\REBARTestApp\testbizmod\web.config&quot;</p>
+<p><span>&nbsp; </span>Line=36</p>
+<p><span>&nbsp; </span>Message=&quot;An error occurred creating the configuration section handler for unity: Operation is not valid due to the current state of the object. (c:\Projects\REBAR\REBAR\Main\Accenture.REBAR.TestApp\WebSites\REBARTestApp\testbizmod\web.config
+ line 36)&quot;</p>
+<p><span>&nbsp; </span>Source=&quot;System.Configuration&quot;</p>
+<p><span>&nbsp; </span>StackTrace:</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>at System.Configuration.BaseConfigurationRecord.EvaluateOne(String[] keys, SectionInput input, Boolean isTrusted, FactoryRecord factoryRecord, SectionRecord sectionRecord, Object parentResult)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>at System.Configuration.BaseConfigurationRecord.Evaluate(FactoryRecord factoryRecord, SectionRecord sectionRecord, Object parentResult, Boolean getLkg, Boolean getRuntimeObject, Object&amp; result, Object&amp;
+ resultRuntimeObject)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>at System.Configuration.BaseConfigurationRecord.GetSectionRecursive(String configKey, Boolean getLkg, Boolean checkPermission, Boolean getRuntimeObject, Boolean requestIsHere, Object&amp; result, Object&amp;
+ resultRuntimeObject)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>at System.Configuration.BaseConfigurationRecord.GetSection(String configKey, Boolean getLkg, Boolean checkPermission)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>at System.Configuration.BaseConfigurationRecord.GetSection(String configKey)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>at System.Web.HttpContext.GetSection(String sectionName)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>at System.Web.Configuration.HttpConfigurationSystem.GetSection(String sectionName)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>at System.Web.Configuration.HttpConfigurationSystem.System.Configuration.Internal.IInternalConfigSystem.GetSection(String configKey)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>at System.Configuration.ConfigurationManager.GetSection(String sectionName)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>at Accenture.REBAR.EAC.Containers.UnityCompositionContainer.GetUnityConfigSection() in c:\projects\REBAR\REBAR\Main\Accenture.REBAR.EAC\Accenture.REBAR.EAC\Containers\UnityCompositionContainer.vb:line 79</p>
+<p><span>&nbsp; </span>InnerException: System.InvalidOperationException</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Message=&quot;Operation is not valid due to the current state of the object.&quot;</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Source=&quot;Microsoft.Practices.Unity.Interception.Configuration&quot;</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>StackTrace:</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+at Microsoft.Practices.Unity.InterceptionExtension.Configuration.InterceptorTargetConfigurationElementCollection.CreateNewElement()</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+at System.Configuration.ConfigurationElementCollection.CreateNewElement(String elementName)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+at System.Configuration.ConfigurationElementCollection.Reset(ConfigurationElement parentElement)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+at System.Configuration.ConfigurationElement.Reset(ConfigurationElement parentElement)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+at System.Configuration.ConfigurationElementCollection.Reset(ConfigurationElement parentElement)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+at System.Configuration.ConfigurationElement.Reset(ConfigurationElement parentElement)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+at System.Configuration.ConfigurationElementCollection.Reset(ConfigurationElement parentElement)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+at System.Configuration.ConfigurationElement.Reset(ConfigurationElement parentElement)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+at System.Configuration.ConfigurationElementCollection.Reset(ConfigurationElement parentElement)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+at System.Configuration.ConfigurationElement.Reset(ConfigurationElement parentElement)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+at System.Configuration.RuntimeConfigurationRecord.RuntimeConfigurationFactory.CreateSectionImpl(RuntimeConfigurationRecord configRecord, FactoryRecord factoryRecord, SectionRecord sectionRecord, Object parentConfig, ConfigXmlReader reader)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+at System.Configuration.RuntimeConfigurationRecord.RuntimeConfigurationFactory.CreateSectionWithRestrictedPermissions(RuntimeConfigurationRecord configRecord, FactoryRecord factoryRecord, SectionRecord sectionRecord, Object parentConfig, ConfigXmlReader reader)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+at System.Configuration.RuntimeConfigurationRecord.RuntimeConfigurationFactory.CreateSection(Boolean inputIsTrusted, RuntimeConfigurationRecord configRecord, FactoryRecord factoryRecord, SectionRecord sectionRecord, Object parentConfig, ConfigXmlReader reader)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+at System.Configuration.RuntimeConfigurationRecord.CreateSection(Boolean inputIsTrusted, FactoryRecord factoryRecord, SectionRecord sectionRecord, Object parentConfig, ConfigXmlReader reader)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+at System.Configuration.BaseConfigurationRecord.CallCreateSection(Boolean inputIsTrusted, FactoryRecord factoryRecord, SectionRecord sectionRecord, Object parentConfig, ConfigXmlReader reader, String filename, Int32 line)</p>
+<p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>InnerException:</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Any ideas???</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_205064" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="205099">
+    <td id="PostDetailsCell_205099" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post205099"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jdulay">jdulay</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/24/2009 6:25:01 PM" LocalTimeTicks="1245893101">Jun 24, 2009 at 6:25 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_205099" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Update&#58;&#38;nbsp&#59;&#32;I&#32;found&#32;where&#32;the&#32;exception&#32;is&#32;being&#32;thrown&#32;explicitly&#32;in&#32;the&#32;Unity.Interception.Configuration&#32;assembly.&#38;nbsp&#59;&#32;I&#32;still&#32;can&#39;t&#32;explain&#32;why.&#38;nbsp&#59;&#32;I&#32;am&#32;continuing&#32;to&#32;debug.&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#47;&#47;&#47;&#32;Collection&#32;of&#32;&#38;lt&#59;see&#32;cref&#61;&#38;quot&#59;InterceptorTargetConfigurationElementBase&#38;quot&#59;&#47;&#38;gt&#59;&#32;elements&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#47;&#32;from&#32;the&#32;configuration&#32;file.&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;seealso&#32;cref&#61;&#38;quot&#59;InterceptorTargetConfigurationElementBase&#38;quot&#59;&#47;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;seealso&#32;cref&#61;&#38;quot&#59;KeyInterceptorTargetConfigurationElement&#38;quot&#59;&#47;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;seealso&#32;cref&#61;&#38;quot&#59;DefaultInterceptorTargetConfigurationElement&#38;quot&#59;&#47;&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#32;FxCop&#32;suppression&#58;&#32;This&#32;is&#32;not&#32;a&#32;normal&#32;collection,&#32;not&#32;going&#32;to&#32;implement&#32;generic&#32;interfaces&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#91;SuppressMessage&#40;&#38;quot&#59;Microsoft.Design&#38;quot&#59;,&#32;&#38;quot&#59;CA1010&#58;CollectionsShouldImplementGenericInterface&#38;quot&#59;&#41;&#93;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;class&#32;InterceptorTargetConfigurationElementCollection&#32;&#58;&#32;TypeResolvingConfigurationElementCollection&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#47;&#38;lt&#59;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#47;When&#32;overridden&#32;in&#32;a&#32;derived&#32;class,&#32;creates&#32;a&#32;new&#32;&#38;lt&#59;see&#32;cref&#61;&#38;quot&#59;T&#58;System.Configuration.ConfigurationElement&#38;quot&#59;&#38;gt&#59;&#38;lt&#59;&#47;see&#38;gt&#59;.&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#47;&#38;lt&#59;&#47;summary&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#47;&#38;lt&#59;returns&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#47;A&#32;new&#32;&#38;lt&#59;see&#32;cref&#61;&#38;quot&#59;T&#58;System.Configuration.ConfigurationElement&#38;quot&#59;&#38;gt&#59;&#38;lt&#59;&#47;see&#38;gt&#59;.&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#47;&#47;&#47;&#38;lt&#59;&#47;returns&#38;gt&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;protected&#32;override&#32;ConfigurationElement&#32;CreateNewElement&#40;&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;throw&#32;new&#32;InvalidOperationException&#40;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;">
+        
+<p>Update:&nbsp; I found where the exception is being thrown explicitly in the Unity.Interception.Configuration assembly.&nbsp; I still can't explain why.&nbsp; I am continuing to debug.&nbsp;</p>
+<p>&nbsp;</p>
+<p>/// Collection of &lt;see cref=&quot;InterceptorTargetConfigurationElementBase&quot;/&gt; elements<br>
+&nbsp;&nbsp;&nbsp; /// from the configuration file.<br>
+&nbsp;&nbsp;&nbsp; /// &lt;/summary&gt;<br>
+&nbsp;&nbsp;&nbsp; /// &lt;seealso cref=&quot;InterceptorTargetConfigurationElementBase&quot;/&gt;<br>
+&nbsp;&nbsp;&nbsp; /// &lt;seealso cref=&quot;KeyInterceptorTargetConfigurationElement&quot;/&gt;<br>
+&nbsp;&nbsp;&nbsp; /// &lt;seealso cref=&quot;DefaultInterceptorTargetConfigurationElement&quot;/&gt;<br>
+&nbsp;&nbsp;&nbsp; // FxCop suppression: This is not a normal collection, not going to implement generic interfaces<br>
+&nbsp;&nbsp;&nbsp; [SuppressMessage(&quot;Microsoft.Design&quot;, &quot;CA1010:CollectionsShouldImplementGenericInterface&quot;)]<br>
+&nbsp;&nbsp;&nbsp; public class InterceptorTargetConfigurationElementCollection : TypeResolvingConfigurationElementCollection<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ///&lt;summary&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ///When overridden in a derived class, creates a new &lt;see cref=&quot;T:System.Configuration.ConfigurationElement&quot;&gt;&lt;/see&gt;.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ///&lt;/summary&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ///&lt;returns&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ///A new &lt;see cref=&quot;T:System.Configuration.ConfigurationElement&quot;&gt;&lt;/see&gt;.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ///&lt;/returns&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; protected override ConfigurationElement CreateNewElement()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="text-decoration:underline">
+<em><strong>throw new InvalidOperationException();</strong></em></span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_205099" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f60543">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="add291f6-f685-45b5-80ba-3a2dc574e2ca">
+    <script class="options" defer="defer" id="add291f6-f685-45b5-80ba-3a2dc574e2ca" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_232d8bec-e3e2-4641-80fc-64ae80d9251d">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_d0a222be-87a2-464f-8dae-c31d7f53aa18">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_232d8bec-e3e2-4641-80fc-64ae80d9251d" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_d0a222be-87a2-464f-8dae-c31d7f53aa18" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/60543';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

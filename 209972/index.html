@@ -1,0 +1,1059 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Intercept interception - Testing bug from 1.2 &#35; 3685</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/209972?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/209972?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="w27BRjlBNEg5lvJHOz5OQLL317h27ukEeYjBvU32TFOPn6aQTTH9ZEvJQDyOvXxMMwdiHB7D7CEjLqkx7iVKQUtzglvMgC60khytWCeL0YVMlFs75pgZWR8kgynWz5Kqw16gjQ2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2d85aebbd-a2c3-4ffb-be14-d1130dcfd6ce" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:27:34 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f209972" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="0953d809-fc7e-4675-8b45-bd2e84f3d7a0">
+                
+                    <script class="options" defer="defer" id="0953d809-fc7e-4675-8b45-bd2e84f3d7a0" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="9fd04128-4a9a-4abc-b1e6-9b906251511e">
+                
+                    <script class="options" defer="defer" id="9fd04128-4a9a-4abc-b1e6-9b906251511e" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Intercept interception - Testing bug from 1.2 &#35; 3685
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:209972]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="8c7aceeb-39bc-418d-b3a5-e22809706e33">
+    <script class="options" defer="defer" id="8c7aceeb-39bc-418d-b3a5-e22809706e33" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/209972","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="433361">
+    <td id="PostDetailsCell_433361" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post433361"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/rslaney">rslaney</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/20/2010 9:26:26 PM" LocalTimeTicks="1271823986">Apr 20, 2010 at 9:26 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="4/20/2010 11:59:15 PM" LocalTimeTicks="1271833155">Apr 20, 2010 at 11:59 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_433361" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Our&#32;service&#32;interfaces&#32;are&#32;derived&#32;so&#32;i&#39;ve&#32;been&#32;unable&#32;to&#32;use&#32;interface&#32;interception&#32;when&#32;using&#38;nbsp&#59;Unity&#32;1.2.&#32;I&#39;m&#32;now&#32;testing&#32;this&#32;behaviour&#32;against&#32;the&#32;2.0&#32;RTW&#40;&#63;&#41;&#32;source&#32;code&#32;but&#32;i&#39;m&#32;getting&#32;a&#32;strange&#32;behaviour.&#32;In&#32;the&#32;follow&#32;code&#32;sample,&#32;my&#32;test&#32;is&#32;failing&#32;as&#32;only&#32;2&#32;entries&#32;are&#32;logged.&#38;nbsp&#59;&#32;The&#32;one&#32;that&#32;is&#32;missing&#32;is&#38;nbsp&#59;&#32;container.Resolve&#38;lt&#59;IDerived&#38;gt&#59;&#40;&#41;.Method1&#40;&#38;quot&#59;Value1&#38;quot&#59;,&#32;&#38;quot&#59;Value2&#38;quot&#59;&#41;&#59;&#38;nbsp&#59;&#32;This&#32;is&#32;the&#32;method&#32;on&#32;the&#32;IBase&#32;interface.&#38;nbsp&#59;&#32;It&#32;appears&#32;that&#32;the&#32;methods&#32;on&#32;the&#32;base&#32;interface&#32;are&#32;not&#32;being&#32;intercepted,&#32;although&#32;the&#32;issue&#32;with&#32;1.2&#32;is&#32;now&#32;fixed&#32;as&#32;the&#32;virtual&#32;interceptor&#32;at&#32;least&#32;now&#32;compiles.&#38;nbsp&#59;&#32;I&#39;ve&#32;tried&#32;using&#32;explicit&#32;interface&#32;method&#32;signatures&#32;but&#32;the&#32;result&#32;is&#32;the&#32;same.&#32;&#91;EDIT&#32;&#58;&#32;No&#32;change&#32;with&#32;Changeset&#32;50871&#93;&#32;&#32;&#32;&#91;TestFixture&#93;&#32;public&#32;class&#32;UnityInterception&#32;&#123;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Initialises&#32;all&#32;the&#32;unity&#32;containers&#32;used&#32;in&#32;the&#32;tests&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#91;Test&#93;&#32;public&#32;void&#32;Setup&#40;&#41;&#32;&#123;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#32;.AddNewExtension&#38;lt&#59;&#32;Interception&#32;&#38;gt&#59;&#40;&#41;&#59;&#32;container&#32;.RegisterType&#38;lt&#59;&#32;IBase,&#32;BaseImpl&#32;&#38;gt&#59;&#40;&#41;&#32;.Configure&#38;lt&#59;&#32;Interception&#32;&#38;gt&#59;&#40;&#41;&#32;.SetInterceptorFor&#38;lt&#59;&#32;IBase&#32;&#38;gt&#59;&#40;&#32;new&#32;InterfaceInterceptor&#40;&#41;&#32;&#41;&#59;&#32;container&#32;.RegisterType&#38;lt&#59;&#32;IDerived,&#32;DerivedImpl&#32;&#38;gt&#59;&#40;&#41;&#32;.Configure&#38;lt&#59;&#32;Interception&#32;&#38;gt&#59;&#40;&#41;&#32;.SetInterceptorFor&#38;lt&#59;&#32;IDerived&#32;&#38;gt&#59;&#40;&#32;new&#32;InterfaceInterceptor&#40;&#41;&#32;&#41;&#59;&#32;container.Resolve&#38;lt&#59;IBase&#38;gt&#59;&#40;&#41;.Method1&#40;&#38;quot&#59;Value1&#38;quot&#59;,&#32;&#38;quot&#59;Value2&#38;quot&#59;&#41;&#59;&#32;container.Resolve&#38;lt&#59;IDerived&#38;gt&#59;&#40;&#41;.Method1&#40;&#38;quot&#59;Value1&#38;quot&#59;,&#32;&#38;quot&#59;Value2&#38;quot&#59;&#41;&#59;&#32;container.Resolve&#38;lt&#59;IDerived&#38;gt&#59;&#40;&#41;.Method2&#40;&#38;quot&#59;Value3&#38;quot&#59;,&#32;&#38;quot&#59;Value4&#38;quot&#59;&#41;&#59;&#32;Assert.AreEqual&#40;&#32;3,&#32;InstrumentedAttribute.callLog.Count&#40;&#41;,&#32;&#38;quot&#59;Call&#32;Log&#32;did&#32;not&#32;expected&#32;number&#32;of&#32;entries&#38;quot&#59;&#32;&#41;&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#91;Instrumented&#93;&#32;public&#32;interface&#32;IBase&#32;&#123;&#32;void&#32;Method1&#40;string&#32;param1,&#32;string&#32;param2&#41;&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#91;Instrumented&#93;&#32;public&#32;interface&#32;IDerived&#32;&#58;&#32;IBase&#32;&#123;&#32;void&#32;Method2&#40;string&#32;param1,&#32;string&#32;param2&#41;&#59;&#32;&#125;&#32;public&#32;class&#32;BaseImpl&#32;&#58;&#32;IBase&#32;&#123;&#32;&#35;region&#32;IBase&#32;Members&#32;public&#32;void&#32;Method1&#40;string&#32;param1,&#32;string&#32;param2&#41;&#32;&#123;&#32;&#125;&#32;&#35;endregion&#32;&#125;&#32;public&#32;class&#32;DerivedImpl&#32;&#58;&#32;IDerived&#32;&#123;&#32;&#35;region&#32;IDerived&#32;Members&#32;public&#32;void&#32;Method2&#40;string&#32;param1,&#32;string&#32;param2&#41;&#32;&#123;&#32;&#125;&#32;&#35;endregion&#32;&#35;region&#32;IBase&#32;Members&#32;public&#32;void&#32;Method1&#40;string&#32;param1,&#32;string&#32;param2&#41;&#32;&#123;&#32;&#125;&#32;&#35;endregion&#32;&#125;&#32;public&#32;class&#32;InstrumentedAttribute&#32;&#58;&#32;HandlerAttribute&#32;&#123;&#32;public&#32;static&#32;List&#38;lt&#59;KeyValuePair&#38;lt&#59;string,&#32;List&#38;lt&#59;KeyValuePair&#38;lt&#59;string,&#32;string&#38;gt&#59;&#38;gt&#59;&#38;gt&#59;&#38;gt&#59;&#32;callLog&#32;&#61;&#32;new&#32;List&#38;lt&#59;KeyValuePair&#38;lt&#59;string,&#32;List&#38;lt&#59;KeyValuePair&#38;lt&#59;string,&#32;string&#38;gt&#59;&#38;gt&#59;&#38;gt&#59;&#38;gt&#59;&#40;&#41;&#59;&#32;public&#32;override&#32;ICallHandler&#32;CreateHandler&#40;IUnityContainer&#32;container&#41;&#32;&#123;&#32;return&#32;new&#32;InstrumentedCallHandler&#40;&#41;&#59;&#32;&#125;&#32;public&#32;class&#32;InstrumentedCallHandler&#32;&#58;&#32;ICallHandler&#32;&#123;&#32;&#35;region&#32;ICallHandler&#32;Members&#32;public&#32;IMethodReturn&#32;Invoke&#40;IMethodInvocation&#32;input,&#32;GetNextHandlerDelegate&#32;getNext&#41;&#32;&#123;&#32;string&#32;methodName&#32;&#61;&#32;input.MethodBase.Name&#59;&#32;List&#38;lt&#59;&#32;KeyValuePair&#38;lt&#59;&#32;string,&#32;string&#32;&#38;gt&#59;&#32;&#38;gt&#59;&#32;paramsAndValues&#32;&#61;&#32;input.MethodBase.GetParameters&#40;&#41;.Select&#40;&#32;&#40;&#32;parameter,&#32;index&#32;&#41;&#32;&#61;&#38;gt&#59;&#32;new&#32;KeyValuePair&#38;lt&#59;&#32;string,&#32;string&#32;&#38;gt&#59;&#40;&#32;parameter.Name,&#32;input.Inputs&#91;&#32;index&#32;&#93;.ToString&#40;&#41;&#32;&#41;&#32;&#41;.ToList&#40;&#41;&#59;&#32;callLog.Add&#40;&#32;new&#32;KeyValuePair&#38;lt&#59;&#32;string,&#32;List&#38;lt&#59;&#32;KeyValuePair&#38;lt&#59;&#32;string,&#32;string&#32;&#38;gt&#59;&#32;&#38;gt&#59;&#32;&#38;gt&#59;&#40;&#32;input.MethodBase.Name,&#32;paramsAndValues&#32;&#41;&#32;&#41;&#59;&#32;return&#32;getNext&#40;&#41;&#40;&#32;input,&#32;getNext&#32;&#41;&#59;&#32;&#125;&#32;public&#32;int&#32;Order&#32;&#123;&#32;get&#32;&#123;&#32;return&#32;1&#59;&#32;&#125;&#32;set&#32;&#123;&#32;&#125;&#32;&#125;&#32;&#35;endregion&#32;&#125;&#32;&#125;&#32;&#125;&#32;&#32;">
+        
+<p>Our service interfaces are derived so i've been unable to use interface interception when using&nbsp;Unity 1.2.</p>
+<p>I'm now testing this behaviour against the 2.0 RTW(?) source code but i'm getting a strange behaviour.</p>
+<p>In the follow code sample, my test is failing as only 2 entries are logged.&nbsp; The one that is missing is&nbsp; container.Resolve&lt;IDerived&gt;().Method1(<span style="color:#a31515">&quot;Value1&quot;</span>,
+<span style="color:#a31515">&quot;Value2&quot;</span>);&nbsp; This is the method on the IBase interface.&nbsp; It appears that the methods on the base interface are not being intercepted, although the issue with 1.2 is now fixed as the virtual interceptor at
+ least now compiles.&nbsp; I've tried using explicit interface method signatures but the result is the same.</p>
+<p>[EDIT : No change with Changeset 50871]</p>
+<div style="color:black; background-color:white">
+<pre>    [TestFixture]
+    <span style="color:blue">public</span> <span style="color:blue">class</span> UnityInterception
+    {
+        <span style="color:gray">///</span> <span style="color:gray">&lt;summary&gt;</span>
+        <span style="color:gray">///</span><span style="color:green"> Initialises all the unity containers used in the tests</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;/summary&gt;</span>
+        [Test]
+        <span style="color:blue">public</span> <span style="color:blue">void</span> Setup()
+        {
+            IUnityContainer container = <span style="color:blue">new</span> UnityContainer()
+                .AddNewExtension&lt; Interception &gt;();
+            container
+                .RegisterType&lt; IBase, BaseImpl &gt;()
+                .Configure&lt; Interception &gt;()
+                .SetInterceptorFor&lt; IBase &gt;( <span style="color:blue">new</span> InterfaceInterceptor() );
+            container
+                .RegisterType&lt; IDerived, DerivedImpl &gt;()
+                .Configure&lt; Interception &gt;()
+                .SetInterceptorFor&lt; IDerived &gt;( <span style="color:blue">new</span> InterfaceInterceptor() );
+
+            container.Resolve&lt;IBase&gt;().Method1(<span style="color:#a31515">&quot;Value1&quot;</span>, <span style="color:#a31515">&quot;Value2&quot;</span>);
+            container.Resolve&lt;IDerived&gt;().Method1(<span style="color:#a31515">&quot;Value1&quot;</span>, <span style="color:#a31515">&quot;Value2&quot;</span>);
+            container.Resolve&lt;IDerived&gt;().Method2(<span style="color:#a31515">&quot;Value3&quot;</span>, <span style="color:#a31515">&quot;Value4&quot;</span>);
+
+            Assert.AreEqual( 3, InstrumentedAttribute.callLog.Count(), <span style="color:#a31515">&quot;Call Log did not expected number of entries&quot;</span> );
+        }
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Instrumented]<br>        <span style="color:blue">public</span> <span style="color:blue">interface</span> IBase
+        {
+            <span style="color:blue">void</span> Method1(<span style="color:blue">string</span> param1, <span style="color:blue">string</span> param2);
+        }
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [Instrumented]<br>        <span style="color:blue">public</span> <span style="color:blue">interface</span> IDerived : IBase
+        {
+            <span style="color:blue">void</span> Method2(<span style="color:blue">string</span> param1, <span style="color:blue">string</span> param2);
+        }
+
+        <span style="color:blue">public</span> <span style="color:blue">class</span> BaseImpl : IBase
+        {
+
+            <span style="color:blue">#region</span> IBase Members
+
+            <span style="color:blue">public</span> <span style="color:blue">void</span> Method1(<span style="color:blue">string</span> param1, <span style="color:blue">string</span> param2)
+            {
+            }
+
+            <span style="color:blue">#endregion</span>
+        }
+
+        <span style="color:blue">public</span> <span style="color:blue">class</span> DerivedImpl : IDerived
+        {
+            <span style="color:blue">#region</span> IDerived Members
+
+            <span style="color:blue">public</span> <span style="color:blue">void</span> Method2(<span style="color:blue">string</span> param1, <span style="color:blue">string</span> param2)
+            {
+            }
+
+            <span style="color:blue">#endregion</span>
+
+            <span style="color:blue">#region</span> IBase Members
+
+            <span style="color:blue">public</span> <span style="color:blue">void</span> Method1(<span style="color:blue">string</span> param1, <span style="color:blue">string</span> param2)
+            {
+            }
+
+            <span style="color:blue">#endregion</span>
+        }
+
+        <span style="color:blue">public</span> <span style="color:blue">class</span> InstrumentedAttribute : HandlerAttribute
+        {
+            <span style="color:blue">public</span> <span style="color:blue">static</span> List&lt;KeyValuePair&lt;<span style="color:blue">string</span>, List&lt;KeyValuePair&lt;<span style="color:blue">string</span>, <span style="color:blue">string</span>&gt;&gt;&gt;&gt; callLog = <span style="color:blue">new</span> List&lt;KeyValuePair&lt;<span style="color:blue">string</span>, List&lt;KeyValuePair&lt;<span style="color:blue">string</span>, <span style="color:blue">string</span>&gt;&gt;&gt;&gt;();
+
+            <span style="color:blue">public</span> <span style="color:blue">override</span> ICallHandler CreateHandler(IUnityContainer container)
+            {
+                <span style="color:blue">return</span> <span style="color:blue">new</span> InstrumentedCallHandler();
+            }
+
+            <span style="color:blue">public</span> <span style="color:blue">class</span> InstrumentedCallHandler : ICallHandler
+            {
+
+                <span style="color:blue">#region</span> ICallHandler Members
+
+                <span style="color:blue">public</span> IMethodReturn Invoke(IMethodInvocation input, GetNextHandlerDelegate getNext)
+                {
+                    <span style="color:blue">string</span> methodName = input.MethodBase.Name;
+
+                    List&lt; KeyValuePair&lt; <span style="color:blue">string</span>, <span style="color:blue">string</span> &gt; &gt; paramsAndValues = input.MethodBase.GetParameters().Select( ( parameter, index ) =&gt; <span style="color:blue">new</span> KeyValuePair&lt; <span style="color:blue">string</span>, <span style="color:blue">string</span> &gt;( parameter.Name, input.Inputs[ index ].ToString() ) ).ToList();
+                    callLog.Add( <span style="color:blue">new</span> KeyValuePair&lt; <span style="color:blue">string</span>, List&lt; KeyValuePair&lt; <span style="color:blue">string</span>, <span style="color:blue">string</span> &gt; &gt; &gt;( input.MethodBase.Name, paramsAndValues ) );
+
+                    <span style="color:blue">return</span> getNext()( input, getNext );
+                }
+
+                <span style="color:blue">public</span> <span style="color:blue">int</span> Order
+                {
+                    <span style="color:blue">get</span>
+                    {
+                        <span style="color:blue">return</span> 1;
+                    }
+                    <span style="color:blue">set</span>
+                    {
+                    }
+                }
+
+                <span style="color:blue">#endregion</span>
+            }
+        }
+    }
+
+</pre>
+</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_433361" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="433405">
+    <td id="PostDetailsCell_433405" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post433405"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/21/2010 12:09:01 AM" LocalTimeTicks="1271833741">Apr 21, 2010 at 12:09 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_433405" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="If&#32;you&#39;re&#32;going&#32;to&#32;look&#32;at&#32;the&#32;unit&#32;tests&#32;for&#32;InterfaceInterceptor,&#32;you&#39;ll&#32;see&#32;a&#38;nbsp&#59;test&#32;method&#32;named&#32;&#38;quot&#59;CanInterceptDerivedInterface&#38;quot&#59;.&#38;nbsp&#59;&#32;This&#38;nbsp&#59;will&#32;initially&#32;tell&#32;you&#38;nbsp&#59;that&#32;your&#32;method&#32;from&#32;the&#32;base&#32;interface&#32;should&#32;have&#32;been&#32;intercepted.&#38;nbsp&#59;&#32;But&#32;if&#32;you&#32;look&#32;at&#32;the&#32;code&#32;inside&#32;the&#32;test&#32;method,&#32;you&#39;ll&#32;see&#32;that&#32;it&#32;only&#32;tests&#32;that&#32;it&#32;doesn&#39;t&#32;throw&#32;an&#32;exception.&#32;I&#32;think&#32;the&#32;fix&#32;was&#32;only&#32;meant&#32;to&#32;make&#32;sure&#32;that&#32;no&#32;exception&#32;will&#32;be&#32;encountered&#32;in&#32;such&#32;scenario.&#38;nbsp&#59;&#32;The&#32;beta&#32;2&#32;doc&#32;still&#32;says&#32;that&#32;the&#32;InterfaceInterceptor&#32;can&#32;only&#32;intercept&#32;methods&#32;on&#32;a&#32;single&#32;interface.&#38;nbsp&#59;&#32;If&#32;you&#39;re&#32;interested&#32;in&#32;creating&#32;your&#32;own&#32;interceptor&#32;that&#32;meets&#32;your&#32;requirement,&#32;you&#32;can&#32;check&#32;this&#32;out&#32;-&#32;http&#58;&#47;&#47;unity.codeplex.com&#47;Thread&#47;View.aspx&#63;ThreadId&#61;208820&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technology&#32;&#38;amp&#59;&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>If you're going to look at the unit tests for InterfaceInterceptor, you'll see a&nbsp;test method named &quot;CanInterceptDerivedInterface&quot;.&nbsp; This&nbsp;will initially tell you&nbsp;that your method from the base interface should have been intercepted.&nbsp;
+ But if you look at the code inside the test method, you'll see that it only tests that it doesn't throw an exception.</p>
+<p>I think the fix was only meant to make sure that no exception will be encountered in such scenario.&nbsp; The beta 2 doc still says that the InterfaceInterceptor can only intercept methods on a single interface.&nbsp;</p>
+<p>If you're interested in creating your own interceptor that meets your requirement, you can check this out -
+<a href="http://unity.codeplex.com/Thread/View.aspx?ThreadId=208820" rel="nofollow">http://unity.codeplex.com/Thread/View.aspx?ThreadId=208820</a></p>
+<p>&nbsp;</p>
+<p><strong><em>Sarah Urmeneta</em></strong><br>
+Global Technology &amp; Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_433405" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="433408">
+    <td id="PostDetailsCell_433408" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post433408"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/rslaney">rslaney</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/21/2010 12:29:54 AM" LocalTimeTicks="1271834994">Apr 21, 2010 at 12:29 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_433408" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;would&#32;still&#38;nbsp&#59;class&#32;this&#32;as&#32;a&#32;bug.&#38;nbsp&#59;&#32;Interface&#32;inheritence&#32;is&#32;a&#32;completely&#32;different&#32;design&#32;intent&#32;than&#32;object&#32;inheritence&#32;-&#32;Contract&#32;vs&#32;Implementation.&#38;nbsp&#59;&#32;Is&#32;there&#32;a&#32;feature&#32;or&#32;a&#32;bug&#32;workitem&#32;created&#32;to&#32;correct&#32;this&#32;behaviour.&#32;The&#32;solution&#32;in&#32;the&#32;link&#32;you&#32;provided&#32;corrects&#32;my&#32;situtation&#32;but&#32;I&#32;need&#32;the&#32;strongly&#32;typed&#32;Unity&#32;dlls&#32;from&#32;the&#32;installers&#32;so&#32;I&#32;don&#39;t&#32;want&#32;to&#32;alter&#32;the&#32;unity&#32;source&#32;code&#32;myself.&#32;&#38;nbsp&#59;">
+        
+<p>I would still&nbsp;class this as a bug.&nbsp; Interface inheritence is a completely different design intent than object inheritence - Contract vs Implementation.&nbsp;</p>
+<p>Is there a feature or a bug workitem created to correct this behaviour.</p>
+<p>The solution in the link you provided corrects my situtation but I need the strongly typed Unity dlls from the installers so I don't want to alter the unity source code myself.</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_433408" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="433409">
+    <td id="PostDetailsCell_433409" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post433409"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/21/2010 12:33:47 AM" LocalTimeTicks="1271835227">Apr 21, 2010 at 12:33 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_433409" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Found&#32;this&#32;-&#32;http&#58;&#47;&#47;unity.codeplex.com&#47;WorkItem&#47;View.aspx&#63;WorkItemId&#61;6911&#38;nbsp&#59;but&#32;was&#32;already&#32;closed&#32;by&#32;Chris&#32;Tavares&#32;explicitly&#32;saying&#32;that&#32;it&#32;is&#32;out&#32;of&#32;scope&#32;for&#32;unity&#32;2.0.&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technology&#32;&#38;amp&#59;&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;">
+        
+<p>Found this - <a href="http://unity.codeplex.com/WorkItem/View.aspx?WorkItemId=6911" rel="nofollow">
+http://unity.codeplex.com/WorkItem/View.aspx?WorkItemId=6911</a>&nbsp;but was already closed by Chris Tavares explicitly saying that it is out of scope for unity 2.0.</p>
+<p>&nbsp;</p>
+<p><strong><em>Sarah Urmeneta</em></strong><br>
+Global Technology &amp; Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_433409" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="433434">
+    <td id="PostDetailsCell_433434" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post433434"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/21/2010 2:32:47 AM" LocalTimeTicks="1271842367">Apr 21, 2010 at 2:32 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_433434" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#39;m&#32;sorry&#32;this&#32;issue&#32;is&#32;causing&#32;you&#32;difficulty.&#32;The&#32;interception&#32;pieces&#32;are&#32;one&#32;of&#32;the&#32;biggest&#32;parts&#32;of&#32;the&#32;project,&#32;bigger&#32;than&#32;the&#32;container&#32;itself,&#32;and&#32;there&#32;are&#32;so&#32;many&#32;permutations&#32;that&#32;it&#39;s&#32;difficult&#32;to&#32;cover&#32;every&#32;scenario.&#32;The&#32;interceptors&#32;are&#32;a&#32;plug&#32;point,&#32;so&#32;an&#32;option,&#32;if&#32;you&#32;don&#39;t&#32;want&#32;to&#32;compile&#32;the&#32;entire&#32;code&#32;yourself,&#32;you&#32;can&#32;just&#32;write&#32;an&#32;interceptor&#32;that&#32;fixes&#32;your&#32;issue&#32;for&#32;the&#32;moment&#32;and&#32;use&#32;the&#32;rest&#32;of&#32;the&#32;DLLs&#32;unchanged.">
+        
+<p>I'm sorry this issue is causing you difficulty. The interception pieces are one of the biggest parts of the project, bigger than the container itself, and there are so many permutations that it's difficult to cover every scenario.</p>
+<p>The interceptors are a plug point, so an option, if you don't want to compile the entire code yourself, you can just write an interceptor that fixes your issue for the moment and use the rest of the DLLs unchanged.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_433434" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="433448">
+    <td id="PostDetailsCell_433448" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post433448"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/rslaney">rslaney</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/21/2010 3:35:22 AM" LocalTimeTicks="1271846122">Apr 21, 2010 at 3:35 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_433448" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Any&#32;scenarios&#32;where&#32;this&#32;would&#32;cause&#32;problems&#32;&#63;&#32;&#32;&#32;public&#32;class&#32;FullInterfaceInterceptor&#32;&#58;&#32;IInstanceInterceptor&#32;&#123;&#32;private&#32;InterfaceInterceptor&#32;realInterceptor&#32;&#61;&#32;new&#32;InterfaceInterceptor&#40;&#41;&#59;&#32;&#35;region&#32;IInstanceInterceptor&#32;Members&#32;public&#32;IInterceptingProxy&#32;CreateProxy&#40;Type&#32;t,&#32;object&#32;target,&#32;params&#32;Type&#91;&#93;&#32;additionalInterfaces&#41;&#32;&#123;&#32;return&#32;realInterceptor.CreateProxy&#40;&#32;t,&#32;target,&#32;additionalInterfaces&#32;&#41;&#59;&#32;&#125;&#32;&#35;endregion&#32;&#35;region&#32;IInterceptor&#32;Members&#32;public&#32;bool&#32;CanIntercept&#40;Type&#32;t&#41;&#32;&#123;&#32;return&#32;realInterceptor.CanIntercept&#40;&#32;t&#32;&#41;&#59;&#32;&#125;&#32;public&#32;IEnumerable&#38;lt&#59;MethodImplementationInfo&#38;gt&#59;&#32;GetInterceptableMethods&#40;Type&#32;interceptedType,&#32;Type&#32;implementationType&#41;&#32;&#123;&#32;IEnumerable&#38;lt&#59;&#32;MethodImplementationInfo&#32;&#38;gt&#59;&#32;methods&#32;&#61;&#32;realInterceptor.GetInterceptableMethods&#40;&#32;interceptedType,&#32;implementationType&#32;&#41;&#59;&#32;foreach&#32;&#40;&#32;MethodImplementationInfo&#32;methodImplementationInfo&#32;in&#32;methods&#32;&#41;&#32;&#123;&#32;yield&#32;return&#32;methodImplementationInfo&#59;&#32;&#125;&#32;foreach&#32;&#40;var&#32;baseInterface&#32;in&#32;interceptedType.GetInterfaces&#40;&#41;&#41;&#32;&#123;&#32;InterfaceMapping&#32;mapping&#32;&#61;&#32;implementationType.GetInterfaceMap&#40;baseInterface&#41;&#59;&#32;for&#32;&#40;int&#32;i&#32;&#61;&#32;0&#59;&#32;i&#32;&#38;lt&#59;&#32;mapping.InterfaceMethods.Length&#59;&#32;&#43;&#43;i&#41;&#32;&#123;&#32;yield&#32;return&#32;new&#32;MethodImplementationInfo&#40;&#32;mapping.InterfaceMethods&#91;&#32;i&#32;&#93;,&#32;mapping.TargetMethods&#91;&#32;i&#32;&#93;&#32;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#125;&#32;&#35;endregion&#32;&#125;&#32;&#32;">
+        
+<p>Any scenarios where this would cause problems ?</p>
+<div style="color:black; background-color:white">
+<pre>        <span style="color:blue">public</span> <span style="color:blue">class</span> FullInterfaceInterceptor : IInstanceInterceptor
+        {
+            <span style="color:blue">private</span> InterfaceInterceptor realInterceptor = <span style="color:blue">new</span> InterfaceInterceptor();
+
+            <span style="color:blue">#region</span> IInstanceInterceptor Members
+
+            <span style="color:blue">public</span> IInterceptingProxy CreateProxy(Type t, <span style="color:blue">object</span> target, <span style="color:blue">params</span> Type[] additionalInterfaces)
+            {
+                <span style="color:blue">return</span> realInterceptor.CreateProxy( t, target, additionalInterfaces );
+            }
+
+            <span style="color:blue">#endregion</span>
+
+            <span style="color:blue">#region</span> IInterceptor Members
+
+            <span style="color:blue">public</span> <span style="color:blue">bool</span> CanIntercept(Type t)
+            {
+                <span style="color:blue">return</span> realInterceptor.CanIntercept( t );
+            }
+
+            <span style="color:blue">public</span> IEnumerable&lt;MethodImplementationInfo&gt; GetInterceptableMethods(Type interceptedType, Type implementationType)
+            {
+                IEnumerable&lt; MethodImplementationInfo &gt; methods = realInterceptor.GetInterceptableMethods( interceptedType, implementationType );
+
+                <span style="color:blue">foreach</span> ( MethodImplementationInfo methodImplementationInfo <span style="color:blue">in</span> methods )
+                {
+                    yield <span style="color:blue">return</span> methodImplementationInfo;
+                }
+
+                <span style="color:blue">foreach</span> (<span style="color:blue">var</span> baseInterface <span style="color:blue">in</span> interceptedType.GetInterfaces())
+                {
+                    InterfaceMapping mapping = implementationType.GetInterfaceMap(baseInterface);
+
+                    <span style="color:blue">for</span> (<span style="color:blue">int</span> i = 0; i &lt; mapping.InterfaceMethods.Length; &#43;&#43;i)
+                    {
+                        yield <span style="color:blue">return</span> <span style="color:blue">new</span> MethodImplementationInfo( mapping.InterfaceMethods[ i ], mapping.TargetMethods[ i ] );
+                    }
+                }
+
+            }
+
+            <span style="color:blue">#endregion</span>
+        }
+</pre>
+</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_433448" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="433859">
+    <td id="PostDetailsCell_433859" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post433859"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/21/2010 8:40:38 PM" LocalTimeTicks="1271907638">Apr 21, 2010 at 8:40 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_433859" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Have&#32;you&#32;tried&#32;that&#63;&#32;I&#39;m&#32;not&#32;convinced&#32;it&#39;d&#32;actually&#32;work,&#32;since&#32;the&#32;GetInterceptableMethods&#32;stuff&#32;is&#32;only&#32;used&#32;to&#32;wire&#32;up&#32;the&#32;PIAB&#32;call&#32;handlers,&#32;they&#32;don&#39;t&#32;actually&#32;go&#32;into&#32;the&#32;proxy&#32;object.&#32;I&#32;could&#32;very&#32;well&#32;be&#32;wrong&#59;&#32;as&#32;I&#32;said,&#32;the&#32;interception&#32;stuff&#32;is&#32;complex&#32;and&#32;I&#32;don&#39;t&#32;have&#32;it&#32;all&#32;in&#32;short&#32;term&#32;memory.&#32;&#58;-&#41;&#32;&#38;nbsp&#59;">
+        
+<p>Have you tried that? I'm not convinced it'd actually work, since the GetInterceptableMethods stuff is only used to wire up the PIAB call handlers, they don't actually go into the proxy object.</p>
+<p>I could very well be wrong; as I said, the interception stuff is complex and I don't have it all in short term memory. :-)</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_433859" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="433919">
+    <td id="PostDetailsCell_433919" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post433919"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/rslaney">rslaney</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/21/2010 11:27:31 PM" LocalTimeTicks="1271917651">Apr 21, 2010 at 11:27 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_433919" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Works&#32;on&#32;my&#32;machine&#32;&#58;&#41;&#32;...&#32;well&#32;at&#32;least&#32;my&#32;unit&#32;test&#32;above&#32;now&#32;works.&#38;nbsp&#59;&#38;nbsp&#59;&#32;I&#39;ll&#32;put&#32;the&#32;system&#32;through&#32;it&#39;s&#32;full&#32;paces&#32;after&#32;I&#32;convert&#32;the&#32;unity&#32;source&#32;test&#32;projects&#32;to&#32;nUnit.&#38;nbsp&#59;&#32;VSTests&#32;isn&#39;t&#32;installed&#32;with&#32;my&#32;VS2008,&#32;and&#32;VS2010&#32;Ultimate&#32;cannot&#32;run&#32;the&#32;tests&#32;as&#32;it&#32;upgrades&#32;the&#32;test&#32;projects&#32;to&#32;.NET&#32;4,&#32;whch&#32;causes&#32;Type&#32;load&#32;exceptions&#32;due&#32;to&#32;the&#32;changes&#32;in&#32;security.">
+        
+<p>Works on my machine :)</p>
+<p>... well at least my unit test above now works.&nbsp;&nbsp; I'll put the system through it's full paces after I convert the unity source test projects to nUnit.&nbsp;</p>
+<p>VSTests isn't installed with my VS2008, and VS2010 Ultimate cannot run the tests as it upgrades the test projects to .NET 4, whch causes Type load exceptions due to the changes in security.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_433919" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="433970">
+    <td id="PostDetailsCell_433970" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post433970"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/22/2010 4:05:05 AM" LocalTimeTicks="1271934305">Apr 22, 2010 at 4:05 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_433970" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Sorry&#32;about&#32;that,&#32;the&#32;unit&#32;test&#32;framework&#32;has&#32;been&#32;a&#32;pain&#32;point&#32;for&#32;a&#32;while,&#32;but&#32;being&#32;part&#32;of&#32;DevDiv,&#32;we&#39;re&#32;kind&#32;of&#32;obligated&#32;to&#32;use&#32;our&#32;own&#32;products.&#32;Glad&#32;to&#32;know&#32;it&#32;&#40;seems&#32;to&#41;&#32;work,&#32;though&#33;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;">
+        
+<p>Sorry about that, the unit test framework has been a pain point for a while, but being part of DevDiv, we're kind of obligated to use our own products.</p>
+<p>Glad to know it (seems to) work, though!</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_433970" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f209972">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="b2882d85-2891-4420-800c-4fba4234b7d1">
+    <script class="options" defer="defer" id="b2882d85-2891-4420-800c-4fba4234b7d1" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_635ff5e1-8ad5-4cf8-ad16-52ec11583662">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_184b88c2-668b-48bc-b592-1dc0c48b122c">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_635ff5e1-8ad5-4cf8-ad16-52ec11583662" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_184b88c2-668b-48bc-b592-1dc0c48b122c" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/209972';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

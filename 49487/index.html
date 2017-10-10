@@ -1,0 +1,835 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Property Value Substitution</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/49487?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/49487?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="JvjlFTaeu5uikxFk8ydayNnjEjPbVTzbxgtr8qW-03RWjQl7_t6JVOsqyRE9sXjJgz_DxpKCvYt55j_J5r_loecjkOcSo48w5sImS5qW_As5O17MtiBFyBJjUEtA0TWnEInsNA2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken29b629c1a-be18-4ea4-b6b8-e82951f34860" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:27:46 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f49487" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="102d3950-d690-47fd-a930-5983b569a43f">
+                
+                    <script class="options" defer="defer" id="102d3950-d690-47fd-a930-5983b569a43f" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="ab1de220-4e6d-49c8-a865-b46d297e1a58">
+                
+                    <script class="options" defer="defer" id="ab1de220-4e6d-49c8-a865-b46d297e1a58" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Property Value Substitution
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:49487]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="c399a4b3-fb1f-48fd-9364-5cb010cc18ed">
+    <script class="options" defer="defer" id="c399a4b3-fb1f-48fd-9364-5cb010cc18ed" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/49487","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="165603">
+    <td id="PostDetailsCell_165603" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post165603"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/dsmalley">dsmalley</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/7/2009 5:39:30 AM" LocalTimeTicks="1236433170">Mar 7, 2009 at 5:39 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_165603" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;am&#32;new&#32;to&#32;Unity,&#32;but&#32;have&#32;been&#32;using&#32;Spring.NET&#32;for&#32;a&#32;couple&#32;years.&#32;In&#32;Spring.NET,&#32;it&#32;is&#32;possible&#32;to&#32;define&#32;a&#32;property&#32;value&#32;as&#32;something&#32;like&#32;&#38;quot&#59;&#36;&#123;MyKey&#125;&#38;quot&#59;,&#32;and&#32;during&#32;the&#32;configuration&#32;stage,&#32;have&#32;this&#32;resolve&#32;through&#32;a&#32;name&#47;value&#32;source&#32;of&#32;some&#32;kind,&#32;into&#32;something&#32;like&#32;&#38;quot&#59;MyValue&#38;quot&#59;.&#32;I&#32;am&#32;trying&#32;to&#32;do&#32;something&#32;similar&#32;in&#32;Unity&#32;and&#32;ObjectBuilder2.&#32;&#32;I&#32;can&#32;see&#32;various&#32;ways&#32;to&#32;achieve&#32;something&#32;like&#32;this&#32;using&#32;alternative&#32;configuration&#32;sources,&#32;but&#32;this&#32;is&#32;not&#32;a&#32;solution&#32;for&#32;me.&#32;Let&#32;me&#32;explain&#58;&#32;&#32;I&#32;have&#32;an&#32;application&#32;deployed&#32;by&#32;ClickOnce&#32;which&#32;uses&#32;DI&#32;to&#32;define&#32;and&#32;wire-up&#32;multiple&#32;objects.&#32;For&#32;the&#32;sake&#32;of&#32;simplicity,&#32;let&#39;s&#32;assume&#32;one&#32;of&#32;those&#32;objects&#32;has&#32;a&#32;property&#32;called&#32;&#38;quot&#59;Timeout&#38;quot&#59;.&#32;It&#32;is&#32;quite&#32;easy&#32;to&#32;configure&#32;this&#32;in&#32;a&#32;unity&#32;configuration&#32;section&#32;in&#32;App.config,&#32;or&#32;in&#32;some&#32;other&#32;file.&#32;However,&#32;in&#32;a&#32;ClickOnce&#32;application,&#32;all&#32;files&#32;in&#32;the&#32;deployment&#32;are&#32;referenced&#32;in&#32;the&#32;manifests&#32;with&#32;their&#32;hash,&#32;and&#32;the&#32;manifests&#32;are&#32;then&#32;signed.&#32;This&#32;has&#32;the&#32;effect&#32;of&#32;making&#32;configuration&#32;files&#32;essentially&#32;hard-coded.&#32;If&#32;I&#32;want&#32;to&#32;change&#32;the&#32;value&#32;of&#32;the&#32;&#38;quot&#59;Timeout&#38;quot&#59;&#32;property&#32;above&#32;from&#32;say&#32;10&#32;to&#32;20,&#32;I&#32;can&#39;t&#32;simply&#32;modify&#32;the&#32;config&#32;file&#32;on&#32;the&#32;web&#32;server&#59;&#32;I&#32;must&#32;modify&#32;the&#32;config&#32;file,&#32;and&#32;then&#32;generate&#32;a&#32;new&#32;deployment,&#32;so&#32;the&#32;manifests&#32;and&#32;the&#32;config&#32;file&#40;s&#41;&#32;are&#32;compatible.&#32;&#32;I&#32;have&#32;gotten&#32;around&#32;this&#32;limitation&#32;for&#32;simple&#32;cases&#32;like&#32;the&#32;&#38;quot&#59;Timeout&#38;quot&#59;&#32;property&#32;by&#32;resolving&#32;&#38;quot&#59;&#36;&#123;MyKey&#125;&#38;quot&#59;&#32;against&#32;a&#32;file&#32;of&#32;name&#47;value&#32;pairs&#32;which&#32;is&#32;accessed&#32;from&#32;the&#32;web&#32;sever&#32;via&#32;an&#32;http&#32;URL.&#32;The&#32;URL&#32;is&#32;&#38;quot&#59;hard-coded&#38;quot&#59;&#32;into&#32;the&#32;config&#32;file,&#32;but&#32;the&#32;content&#32;can&#32;be&#32;changed&#32;on&#32;the&#32;server&#32;by&#32;simply&#32;editing&#32;the&#32;file,&#32;because&#32;it&#32;is&#32;outside&#32;of&#32;the&#32;ClickOnce&#32;deployment&#32;itself.&#32;In&#32;case&#32;you&#39;re&#32;interested,&#32;I&#32;do&#32;this&#32;in&#32;Spring.NET&#32;using&#32;a&#32;VariablePlaceholderConfigurer&#32;and&#32;a&#32;PropertyFileVariableSource&#32;with&#32;the&#32;location&#32;property&#32;set&#32;to&#32;the&#32;URL.&#32;&#32;I&#32;am&#32;trying&#32;to&#32;figure&#32;out&#32;how&#32;to&#32;do&#32;something&#32;similar&#32;with&#32;Unity.&#32;Anything&#32;which&#32;relies&#32;on&#32;the&#32;System.Configuration&#32;namespace&#32;is&#32;a&#32;non-starter,&#32;because&#32;it&#32;always&#32;assumes&#32;config&#32;files&#32;are&#32;referenced&#32;with&#32;relative&#32;or&#32;absolute&#32;file&#32;paths,&#32;not&#32;URL&#39;s.&#32;&#32;Is&#32;there&#32;some&#32;way&#32;of&#32;accomplishing&#32;something&#32;like&#32;this&#32;in&#32;Unity&#63;&#32;I&#32;have&#32;looked&#32;at&#32;providing&#32;a&#32;custom&#32;type&#32;converter&#32;which&#32;would&#32;take&#32;&#38;quot&#59;&#36;&#123;MyKey&#125;&#38;quot&#59;&#32;and&#32;resolve&#32;it&#32;against&#32;the&#32;file&#32;from&#32;the&#32;URL,&#32;but&#32;this&#32;has&#32;a&#32;slight&#32;problem&#32;in&#32;that&#32;I&#32;would&#32;rather&#32;not&#32;hard-code&#32;&#40;for&#32;real&#41;&#32;the&#32;URL&#32;in&#32;the&#32;converter&#32;class,&#32;but&#32;inject&#32;it&#32;with&#32;DI&#32;itself,&#32;and&#32;I&#32;don&#39;t&#32;see&#32;how&#32;to&#32;make&#32;the&#32;typeconverter&#32;attribute&#32;reference&#32;a&#32;configured&#32;instance&#32;in&#32;the&#32;container.&#32;I&#32;have&#32;also&#32;been&#32;looking&#32;at&#32;a&#32;custom&#32;build&#32;strategy,&#32;but&#32;I&#39;m&#32;not&#32;finding&#32;much&#32;documentation&#32;on&#32;this.&#32;Am&#32;I&#32;missing&#32;a&#32;simple&#32;way&#32;of&#32;accomplishing&#32;this&#63;&#32;Or&#32;is&#32;there&#32;some&#32;way&#32;other&#32;than&#32;what&#32;I&#39;ve&#32;mentioned&#32;to&#32;go&#32;about&#32;it&#63;&#32;Dave&#32;">
+        
+<p>I am new to Unity, but have been using Spring.NET for a couple years. In Spring.NET, it is possible to define a property value as something like &quot;${MyKey}&quot;, and during the configuration stage, have this resolve through a name/value source of some
+ kind, into something like &quot;MyValue&quot;. I am trying to do something similar in Unity and ObjectBuilder2.<br>
+<br>
+I can see various ways to achieve something like this using alternative configuration sources, but this is not a solution for me. Let me explain:<br>
+<br>
+I have an application deployed by ClickOnce which uses DI to define and wire-up multiple objects. For the sake of simplicity, let's assume one of those objects has a property called &quot;Timeout&quot;. It is quite easy to configure this in a unity configuration
+ section in App.config, or in some other file. However, in a ClickOnce application, all files in the deployment are referenced in the manifests with their hash, and the manifests are then signed. This has the effect of making configuration files essentially
+ hard-coded. If I want to change the value of the &quot;Timeout&quot; property above from say 10 to 20, I can't simply modify the config file on the web server; I must modify the config file, and then generate a new deployment, so the manifests and the config
+ file(s) are compatible.<br>
+<br>
+I have gotten around this limitation for simple cases like the &quot;Timeout&quot; property by resolving &quot;${MyKey}&quot; against a file of name/value pairs which is accessed from the web sever via an http URL. The URL is &quot;hard-coded&quot; into the
+ config file, but the content can be changed on the server by simply editing the file, because it is outside of the ClickOnce deployment itself. In case you're interested, I do this in Spring.NET using a VariablePlaceholderConfigurer and a PropertyFileVariableSource
+ with the location property set to the URL.<br>
+<br>
+I am trying to figure out how to do something similar with Unity. Anything which relies on the System.Configuration namespace is a non-starter, because it always assumes config files are referenced with relative or absolute file paths, not URL's.<br>
+<br>
+Is there some way of accomplishing something like this in Unity? I have looked at providing a custom type converter which would take &quot;${MyKey}&quot; and resolve it against the file from the URL, but this has a slight problem in that I would rather not
+ hard-code (for real) the URL in the converter class, but inject it with DI itself, and I don't see how to make the typeconverter attribute reference a configured&nbsp;instance in the container. I have also been looking at a custom build strategy, but I'm not finding
+ much documentation on this.</p>
+<p>Am I missing a simple way of accomplishing this? Or is there some way other than what I've mentioned to go about it?</p>
+<p>Dave</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_165603" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="166375">
+    <td id="PostDetailsCell_166375" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post166375"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/dsmalley">dsmalley</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/10/2009 7:30:16 AM" LocalTimeTicks="1236695416">Mar 10, 2009 at 7:30 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_166375" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="OK,&#32;that&#32;was&#32;easy.&#32;Create&#32;a&#32;new&#32;class&#32;inheriting&#32;from&#32;InjectionParameterValueElement&#32;&#40;basically&#32;cloning&#32;InstanceValueElement&#41;&#32;called&#32;KeyedValueElement,&#32;with&#32;a&#32;&#38;quot&#59;key&#38;quot&#59;&#32;instead&#32;of&#32;a&#32;&#38;quot&#59;value&#38;quot&#59;&#32;attribute,&#32;then&#32;use&#32;it&#32;to&#32;lookup&#32;the&#32;value&#32;before&#32;creating&#32;the&#32;InjectionParameterValue&#32;for&#32;the&#32;looked-up&#32;value.&#32;Put&#32;it&#32;in&#32;the&#32;config&#32;file&#58;&#32;&#38;lt&#59;keyedValue&#32;elementType&#61;&#38;quot&#59;UnityExtensions.KeyedValueElement,&#32;UnityExtensions&#38;quot&#59;&#32;key&#61;&#38;quot&#59;MyKey&#38;quot&#59;&#32;&#91;type&#61;&#38;quot&#59;...&#38;quot&#59;&#93;&#32;&#91;typeConverter&#61;&#38;quot&#59;...&#38;quot&#59;&#93;&#32;&#47;&#38;gt&#59;&#32;&#32;Works&#32;like&#32;a&#32;charm.&#32;Another&#32;question&#58;&#32;Is&#32;there&#32;a&#32;mechanism&#32;whereby&#32;I&#32;can&#32;register&#32;something&#32;like&#32;a&#32;&#38;quot&#59;dictionary&#32;service&#38;quot&#59;&#32;accessible&#32;inside&#32;the&#32;container&#63;&#32;I&#32;could&#32;use&#32;this&#32;to&#32;map&#32;different&#32;name&#47;value&#32;providers&#32;under&#32;a&#32;name,&#32;which&#32;I&#32;could&#32;then&#32;make&#32;an&#32;additional&#32;attribute&#32;of&#32;the&#32;element.&#32;I&#32;suppose&#32;I&#32;could&#32;make&#32;the&#32;appSettings&#32;section&#32;of&#32;the&#32;config&#32;file&#32;the&#32;default&#32;provider&#32;if&#32;none&#32;was&#32;specified.&#32;&#32;Dave&#32;">
+        
+<p>OK, that was easy. Create a new class inheriting from InjectionParameterValueElement (basically cloning InstanceValueElement) called KeyedValueElement, with a &quot;key&quot; instead of a &quot;value&quot; attribute, then use it to lookup the value before
+ creating the InjectionParameterValue for the looked-up value. Put it in the config file:</p>
+<p>&lt;keyedValue elementType=&quot;UnityExtensions.KeyedValueElement, UnityExtensions&quot; key=&quot;MyKey&quot; [type=&quot;...&quot;] [typeConverter=&quot;...&quot;] /&gt;<br>
+<br>
+Works like a charm. Another question: Is there&nbsp;a mechanism whereby I can register something like a &quot;dictionary service&quot; accessible inside the container? I could use this to map different name/value providers under a name, which I could then make an
+ additional attribute of the element. I suppose I could make the appSettings section of the config file the default provider if none was specified.<br>
+<br>
+Dave</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_166375" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="286365">
+    <td id="PostDetailsCell_286365" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post286365"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/cpedros">cpedros</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/5/2010 6:15:38 PM" LocalTimeTicks="1265422538">Feb 5, 2010 at 6:15 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_286365" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Dave.&#32;Thanks&#32;for&#32;this,&#32;I&#39;ve&#32;been&#32;digging&#32;around&#32;trying&#32;to&#32;achieve&#32;the&#32;same&#32;thing&#32;having&#32;moved&#32;over&#32;from&#32;Spring.&#32;Is&#32;it&#32;possible&#32;to&#32;post&#32;the&#32;code&#32;for&#32;KeyedValueElement&#63;&#32;I&#32;follow&#32;the&#32;clone&#32;of&#32;InstanceValueElement,&#32;but&#32;am&#32;not&#32;sure&#32;on&#32;the&#32;best&#32;approach&#32;for&#32;the&#32;lookup&#32;of&#32;the&#32;value&#32;for&#32;the&#32;key,&#32;plus&#32;it&#39;s&#32;usage&#32;in&#32;the&#32;configuration.&#32;Incidentally,&#32;related&#32;to&#32;the&#32;lookup&#32;of&#32;the&#32;value,&#32;I&#39;m&#32;looking&#32;to&#32;use&#32;this&#32;in&#32;a&#32;Prism&#32;application&#32;where&#32;we&#32;have&#32;a&#32;number&#32;of&#32;modules&#32;with&#32;separate&#32;unity&#32;configurations.&#32;Do&#32;you&#32;think&#32;the&#32;above&#32;solution&#32;work&#32;where&#32;I&#32;want&#32;to&#32;have&#32;all&#32;the&#32;environment&#32;specific&#32;variables&#32;defined&#32;in&#32;a&#32;single&#32;configuration&#32;file&#32;in&#32;entry&#32;point&#32;project&#32;of&#32;the&#32;application&#32;and&#32;have&#32;all&#32;the&#32;modules&#39;&#32;unity&#32;configurations&#32;lookup&#32;the&#32;substitution&#32;variables&#63;&#32;Pero">
+        
+<p>Dave. Thanks for this, I've been digging around trying to achieve the same thing having moved over from Spring. Is it possible to post the code for KeyedValueElement? I follow the clone of InstanceValueElement, but am not sure on the best approach for the
+ lookup of the value for the key, plus it's usage in the configuration.</p>
+<p>Incidentally, related to the lookup of the value, I'm looking to use this in a Prism application where we have a number of modules with separate unity configurations. Do you think the above solution work where I want to have all the environment specific
+ variables defined in a single configuration file in entry point project of the application and have all the modules' unity configurations lookup the substitution variables?</p>
+<p>Pero</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_286365" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="286394">
+    <td id="PostDetailsCell_286394" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post286394"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/cpedros">cpedros</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/5/2010 7:54:13 PM" LocalTimeTicks="1265428453">Feb 5, 2010 at 7:54 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_286394" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#39;ve&#32;implemented&#32;a&#32;solution&#32;which&#32;looks&#32;up&#32;the&#32;key&#32;values&#32;from&#32;the&#32;appSettings&#32;section&#32;of&#32;the&#32;application&#39;s&#32;app.config,&#32;through&#32;the&#32;ConfigurationManager,&#32;and&#32;this&#32;works&#32;fine&#32;for&#32;variable&#32;replacement&#32;in&#32;unity&#32;configurations&#32;of&#32;Prism&#32;modules.&#32;Code&#32;below.&#32;Thanks&#32;for&#32;the&#32;pointers&#32;Dave&#33;&#32;&#32;Imports&#32;System&#32;Imports&#32;System.ComponentModel&#32;Imports&#32;System.Configuration&#32;Imports&#32;Microsoft.Practices.Unity&#32;Imports&#32;Microsoft.Practices.Unity.Configuration&#32;Public&#32;Class&#32;KeyedValueElement&#32;Inherits&#32;InjectionParameterValueElement&#32;&#38;lt&#59;ConfigurationProperty&#40;&#38;quot&#59;type&#38;quot&#59;,&#32;DefaultValue&#58;&#61;Nothing&#41;&#38;gt&#59;&#32;_&#32;Public&#32;Property&#32;TypeName&#40;&#41;&#32;As&#32;String&#32;Get&#32;Return&#32;DirectCast&#40;Me&#40;&#38;quot&#59;type&#38;quot&#59;&#41;,&#32;String&#41;&#32;End&#32;Get&#32;Set&#40;ByVal&#32;value&#32;As&#32;String&#41;&#32;Me&#40;&#38;quot&#59;type&#38;quot&#59;&#41;&#32;&#61;&#32;value&#32;End&#32;Set&#32;End&#32;Property&#32;&#38;lt&#59;ConfigurationProperty&#40;&#38;quot&#59;key&#38;quot&#59;,&#32;IsRequired&#58;&#61;True&#41;&#38;gt&#59;&#32;_&#32;Public&#32;Property&#32;&#91;Key&#93;&#40;&#41;&#32;As&#32;String&#32;Get&#32;Return&#32;DirectCast&#40;Me&#40;&#38;quot&#59;key&#38;quot&#59;&#41;,&#32;String&#41;&#32;End&#32;Get&#32;Set&#40;ByVal&#32;key&#32;As&#32;String&#41;&#32;Me&#40;&#38;quot&#59;key&#38;quot&#59;&#41;&#32;&#61;&#32;key&#32;End&#32;Set&#32;End&#32;Property&#32;&#38;lt&#59;ConfigurationProperty&#40;&#38;quot&#59;typeConverter&#38;quot&#59;,&#32;IsRequired&#58;&#61;False,&#32;DefaultValue&#58;&#61;Nothing&#41;&#38;gt&#59;&#32;_&#32;Public&#32;Property&#32;TypeConverterName&#40;&#41;&#32;As&#32;String&#32;Get&#32;Return&#32;DirectCast&#40;Me&#40;&#38;quot&#59;typeConverter&#38;quot&#59;&#41;,&#32;String&#41;&#32;End&#32;Get&#32;Set&#40;ByVal&#32;value&#32;As&#32;String&#41;&#32;Me&#40;&#38;quot&#59;typeConverter&#38;quot&#59;&#41;&#32;&#61;&#32;value&#32;End&#32;Set&#32;End&#32;Property&#32;Public&#32;Function&#32;CreateInstance&#40;&#41;&#32;As&#32;Object&#32;&#39;lookup&#32;the&#32;value&#32;from&#32;the&#32;app&#32;settings&#32;Dim&#32;replacementValue&#32;As&#32;String&#32;&#61;&#32;ConfigurationManager.AppSettings&#40;&#91;Key&#93;&#41;&#32;If&#32;String.IsNullOrEmpty&#40;replacementValue&#41;&#32;Then&#32;Throw&#32;New&#32;ConfigurationErrorsException&#40;&#38;quot&#59;The&#32;key&#32;&#39;&#38;quot&#59;&#32;&#38;amp&#59;&#32;&#91;Key&#93;&#32;&#38;amp&#59;&#32;&#38;quot&#59;&#39;&#32;has&#32;no&#32;value&#32;in&#32;the&#32;appSettings&#32;configuration&#32;section&#38;quot&#59;&#41;&#32;End&#32;If&#32;If&#32;TypeToCreate&#32;Is&#32;GetType&#40;String&#41;&#32;Then&#32;Return&#32;replacementValue&#32;End&#32;If&#32;Dim&#32;converter&#32;As&#32;TypeConverter&#32;&#61;&#32;GetTypeConverter&#40;TypeToCreate,&#32;TypeConverterName,&#32;TypeResolver&#41;&#32;Return&#32;converter.ConvertFromString&#40;replacementValue&#41;&#32;End&#32;Function&#32;Private&#32;Shared&#32;Function&#32;GetTypeConverter&#40;ByVal&#32;typeToCreate&#32;As&#32;Type,&#32;ByVal&#32;typeConverterName&#32;As&#32;String,&#32;ByVal&#32;typeResolver&#32;As&#32;UnityTypeResolver&#41;&#32;As&#32;TypeConverter&#32;If&#32;Not&#32;String.IsNullOrEmpty&#40;typeConverterName&#41;&#32;Then&#32;&#39;&#32;return&#32;the&#32;type&#32;converter&#32;override&#32;Dim&#32;converterType&#32;As&#32;Type&#32;&#61;&#32;typeResolver.ResolveType&#40;typeConverterName&#41;&#32;Return&#32;DirectCast&#40;Activator.CreateInstance&#40;converterType&#41;,&#32;TypeConverter&#41;&#32;Else&#32;&#39;&#32;return&#32;the&#32;default&#32;type&#32;converter&#32;Return&#32;TypeDescriptor.GetConverter&#40;typeToCreate&#41;&#32;End&#32;If&#32;End&#32;Function&#32;Public&#32;Overloads&#32;Overrides&#32;Function&#32;CreateParameterValue&#40;ByVal&#32;targetType&#32;As&#32;Type&#41;&#32;As&#32;InjectionParameterValue&#32;Dim&#32;typeToCreate&#32;As&#32;Type&#32;If&#32;String.IsNullOrEmpty&#40;TypeName&#41;&#32;Then&#32;typeToCreate&#32;&#61;&#32;targetType&#32;Else&#32;typeToCreate&#32;&#61;&#32;TypeResolver.ResolveType&#40;TypeName&#41;&#32;End&#32;If&#32;Return&#32;New&#32;InjectionParameter&#40;typeToCreate,&#32;CreateInstance&#40;&#41;&#41;&#32;End&#32;Function&#32;Public&#32;ReadOnly&#32;Property&#32;TypeToCreate&#40;&#41;&#32;As&#32;Type&#32;Get&#32;Return&#32;TypeResolver.ResolveWithDefault&#40;TypeName,&#32;GetType&#40;String&#41;&#41;&#32;End&#32;Get&#32;End&#32;Property&#32;End&#32;Class&#32;&#32;">
+        
+<p>I've implemented a solution which looks up the key values from the appSettings section of the application's app.config, through the ConfigurationManager, and this works fine for variable replacement in unity configurations of Prism modules. Code below. Thanks
+ for the pointers Dave!</p>
+<div style="color:Black; background-color:White">
+<pre><span style="color:Blue">Imports</span> System
+<span style="color:Blue">Imports</span> System.ComponentModel
+<span style="color:Blue">Imports</span> System.Configuration
+
+<span style="color:Blue">Imports</span> Microsoft.Practices.Unity
+<span style="color:Blue">Imports</span> Microsoft.Practices.Unity.Configuration
+
+<span style="color:Blue">Public</span> <span style="color:Blue">Class</span> KeyedValueElement
+    <span style="color:Blue">Inherits</span> InjectionParameterValueElement
+
+    &lt;ConfigurationProperty(<span style="color:#A31515">&quot;type&quot;</span>, DefaultValue:=<span style="color:Blue">Nothing</span>)&gt; _
+    <span style="color:Blue">Public</span> <span style="color:Blue">Property</span> TypeName() <span style="color:Blue">As</span> <span style="color:Blue">String</span>
+        <span style="color:Blue">Get</span>
+            <span style="color:Blue">Return</span> <span style="color:Blue">DirectCast</span>(<span style="color:Blue">Me</span>(<span style="color:#A31515">&quot;type&quot;</span>), <span style="color:Blue">String</span>)
+        <span style="color:Blue">End</span> <span style="color:Blue">Get</span>
+        <span style="color:Blue">Set</span>(<span style="color:Blue">ByVal</span> value <span style="color:Blue">As</span> <span style="color:Blue">String</span>)
+            <span style="color:Blue">Me</span>(<span style="color:#A31515">&quot;type&quot;</span>) = value
+        <span style="color:Blue">End</span> <span style="color:Blue">Set</span>
+    <span style="color:Blue">End</span> <span style="color:Blue">Property</span>
+
+    &lt;ConfigurationProperty(<span style="color:#A31515">&quot;key&quot;</span>, IsRequired:=<span style="color:Blue">True</span>)&gt; _
+    <span style="color:Blue">Public</span> <span style="color:Blue">Property</span> [Key]() <span style="color:Blue">As</span> <span style="color:Blue">String</span>
+        <span style="color:Blue">Get</span>
+            <span style="color:Blue">Return</span> <span style="color:Blue">DirectCast</span>(<span style="color:Blue">Me</span>(<span style="color:#A31515">&quot;key&quot;</span>), <span style="color:Blue">String</span>)
+        <span style="color:Blue">End</span> <span style="color:Blue">Get</span>
+        <span style="color:Blue">Set</span>(<span style="color:Blue">ByVal</span> key <span style="color:Blue">As</span> <span style="color:Blue">String</span>)
+            <span style="color:Blue">Me</span>(<span style="color:#A31515">&quot;key&quot;</span>) = key
+        <span style="color:Blue">End</span> <span style="color:Blue">Set</span>
+    <span style="color:Blue">End</span> <span style="color:Blue">Property</span>
+
+    &lt;ConfigurationProperty(<span style="color:#A31515">&quot;typeConverter&quot;</span>, IsRequired:=<span style="color:Blue">False</span>, DefaultValue:=<span style="color:Blue">Nothing</span>)&gt; _
+    <span style="color:Blue">Public</span> <span style="color:Blue">Property</span> TypeConverterName() <span style="color:Blue">As</span> <span style="color:Blue">String</span>
+        <span style="color:Blue">Get</span>
+            <span style="color:Blue">Return</span> <span style="color:Blue">DirectCast</span>(<span style="color:Blue">Me</span>(<span style="color:#A31515">&quot;typeConverter&quot;</span>), <span style="color:Blue">String</span>)
+        <span style="color:Blue">End</span> <span style="color:Blue">Get</span>
+        <span style="color:Blue">Set</span>(<span style="color:Blue">ByVal</span> value <span style="color:Blue">As</span> <span style="color:Blue">String</span>)
+            <span style="color:Blue">Me</span>(<span style="color:#A31515">&quot;typeConverter&quot;</span>) = value
+        <span style="color:Blue">End</span> <span style="color:Blue">Set</span>
+    <span style="color:Blue">End</span> <span style="color:Blue">Property</span>
+
+    <span style="color:Blue">Public</span> <span style="color:Blue">Function</span> CreateInstance() <span style="color:Blue">As</span> <span style="color:Blue">Object</span>
+        <span style="color:Green">'lookup the value from the app settings</span>
+        <span style="color:Blue">Dim</span> replacementValue <span style="color:Blue">As</span> <span style="color:Blue">String</span> = ConfigurationManager.AppSettings([Key])
+
+        <span style="color:Blue">If</span> <span style="color:Blue">String</span>.IsNullOrEmpty(replacementValue) <span style="color:Blue">Then</span>
+            <span style="color:Blue">Throw</span> <span style="color:Blue">New</span> ConfigurationErrorsException(<span style="color:#A31515">&quot;The key '&quot;</span> &amp; [Key] &amp; <span style="color:#A31515">&quot;' has no value in the appSettings configuration section&quot;</span>)
+        <span style="color:Blue">End</span> <span style="color:Blue">If</span>
+
+        <span style="color:Blue">If</span> TypeToCreate <span style="color:Blue">Is</span> <span style="color:Blue">GetType</span>(<span style="color:Blue">String</span>) <span style="color:Blue">Then</span>
+            <span style="color:Blue">Return</span> replacementValue
+        <span style="color:Blue">End</span> <span style="color:Blue">If</span>
+
+        <span style="color:Blue">Dim</span> converter <span style="color:Blue">As</span> TypeConverter = GetTypeConverter(TypeToCreate, TypeConverterName, TypeResolver)
+        <span style="color:Blue">Return</span> converter.ConvertFromString(replacementValue)
+    <span style="color:Blue">End</span> <span style="color:Blue">Function</span>
+
+    <span style="color:Blue">Private</span> <span style="color:Blue">Shared</span> <span style="color:Blue">Function</span> GetTypeConverter(<span style="color:Blue">ByVal</span> typeToCreate <span style="color:Blue">As</span> Type, <span style="color:Blue">ByVal</span> typeConverterName <span style="color:Blue">As</span> <span style="color:Blue">String</span>, <span style="color:Blue">ByVal</span> typeResolver <span style="color:Blue">As</span> UnityTypeResolver) <span style="color:Blue">As</span> TypeConverter
+        <span style="color:Blue">If</span> <span style="color:Blue">Not</span> <span style="color:Blue">String</span>.IsNullOrEmpty(typeConverterName) <span style="color:Blue">Then</span>
+            <span style="color:Green">' return the type converter override</span>
+            <span style="color:Blue">Dim</span> converterType <span style="color:Blue">As</span> Type = typeResolver.ResolveType(typeConverterName)
+            <span style="color:Blue">Return</span> <span style="color:Blue">DirectCast</span>(Activator.CreateInstance(converterType), TypeConverter)
+        <span style="color:Blue">Else</span>
+            <span style="color:Green">' return the default type converter</span>
+            <span style="color:Blue">Return</span> TypeDescriptor.GetConverter(typeToCreate)
+        <span style="color:Blue">End</span> <span style="color:Blue">If</span>
+    <span style="color:Blue">End</span> <span style="color:Blue">Function</span>
+
+    <span style="color:Blue">Public</span> <span style="color:Blue">Overloads</span> <span style="color:Blue">Overrides</span> <span style="color:Blue">Function</span> CreateParameterValue(<span style="color:Blue">ByVal</span> targetType <span style="color:Blue">As</span> Type) <span style="color:Blue">As</span> InjectionParameterValue
+        <span style="color:Blue">Dim</span> typeToCreate <span style="color:Blue">As</span> Type
+        <span style="color:Blue">If</span> <span style="color:Blue">String</span>.IsNullOrEmpty(TypeName) <span style="color:Blue">Then</span>
+            typeToCreate = targetType
+        <span style="color:Blue">Else</span>
+            typeToCreate = TypeResolver.ResolveType(TypeName)
+        <span style="color:Blue">End</span> <span style="color:Blue">If</span>
+        <span style="color:Blue">Return</span> <span style="color:Blue">New</span> InjectionParameter(typeToCreate, CreateInstance())
+    <span style="color:Blue">End</span> <span style="color:Blue">Function</span>
+
+    <span style="color:Blue">Public</span> <span style="color:Blue">ReadOnly</span> <span style="color:Blue">Property</span> TypeToCreate() <span style="color:Blue">As</span> Type
+        <span style="color:Blue">Get</span>
+            <span style="color:Blue">Return</span> TypeResolver.ResolveWithDefault(TypeName, <span style="color:Blue">GetType</span>(<span style="color:Blue">String</span>))
+        <span style="color:Blue">End</span> <span style="color:Blue">Get</span>
+    <span style="color:Blue">End</span> <span style="color:Blue">Property</span>
+<span style="color:Blue">End</span> <span style="color:Blue">Class</span>
+
+</pre>
+</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_286394" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f49487">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="cae46479-b1e4-4321-9af3-4ff027a39588">
+    <script class="options" defer="defer" id="cae46479-b1e4-4321-9af3-4ff027a39588" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_e7c5cefb-1f4d-4410-9b07-8fd5a0918d96">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_9c5f8a6f-d9b3-4edc-9017-5a5a481c3f88">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_e7c5cefb-1f4d-4410-9b07-8fd5a0918d96" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_9c5f8a6f-d9b3-4edc-9017-5a5a481c3f88" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/49487';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

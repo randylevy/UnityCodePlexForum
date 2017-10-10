@@ -1,0 +1,842 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Can anyone please explain how injecting addtional interfaces works&#63;</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/227719?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/227719?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="WlBMmrWDYprkT2z_38U7wPs7piTiMzjmVrgpqUgOTjTq2M4XaenT0vYk1EB67jjXcOqhJHbICIaUszyUDHXj04KgD0ojz5xX8BzprDW9UVuUF1efvCbcEszSXfeFFQDrwLM3ig2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken24dd7cd43-16c8-4865-8213-0e40263f3c3f" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:27:13 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f227719" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="237b58cb-9656-4df1-9284-7757ab6ab828">
+                
+                    <script class="options" defer="defer" id="237b58cb-9656-4df1-9284-7757ab6ab828" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="daf2b799-a97f-4e2a-9010-63d8082423e1">
+                
+                    <script class="options" defer="defer" id="daf2b799-a97f-4e2a-9010-63d8082423e1" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Can anyone please explain how injecting addtional interfaces works&#63;
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:227719]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="fa24cec9-db14-411e-8ceb-23781cb2a10c">
+    <script class="options" defer="defer" id="fa24cec9-db14-411e-8ceb-23781cb2a10c" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/227719","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="495385">
+    <td id="PostDetailsCell_495385" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post495385"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/WelvisW">WelvisW</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/18/2010 12:52:40 PM" LocalTimeTicks="1284839560">Sep 18, 2010 at 12:52 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="9/18/2010 1:09:11 PM" LocalTimeTicks="1284840551">Sep 18, 2010 at 1:09 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_495385" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="amendment&#58;&#32;I&#39;ve&#32;just&#32;noticed&#32;that&#32;ctavares&#32;mentioned&#32;in&#32;another&#32;post&#32;back&#32;in&#32;July&#32;that&#32;interface&#32;injection&#32;is&#32;&#38;quot&#59;a&#32;highly&#32;advanced&#32;case&#32;and&#32;if&#32;you&#32;don&#39;t&#32;know&#32;why&#32;you&#39;d&#32;use&#32;it,&#32;you&#32;don&#39;t&#32;need&#32;it&#32;and&#32;can&#32;ignore&#32;it.&#32;&#58;-&#41;&#38;quot&#59;.&#32;Fair&#32;enough.&#32;However&#32;I&#32;still&#32;feel&#32;that&#32;my&#32;particular&#32;question&#32;is&#32;a&#32;different&#32;one&#32;from&#32;the&#32;one&#32;previously&#32;posted&#32;and&#32;hence&#32;valid.&#32;I&#32;think&#32;that&#32;it&#32;would&#32;be&#32;good&#32;for&#32;us&#32;to&#32;know&#32;how&#32;to&#32;use&#32;this&#32;functionality.&#32;&#32;I&#39;m&#32;trying&#32;to&#32;&#38;quot&#59;inject&#38;quot&#59;&#32;an&#32;additional&#32;interface&#32;into&#32;an&#32;intercepted&#32;object.&#32;I&#39;ve&#32;successfully&#32;resolved&#32;an&#32;object&#32;and&#32;if&#32;I&#32;check&#32;to&#32;see&#32;if&#32;the&#32;interface&#32;has&#32;been&#32;injected,&#32;it&#32;has,&#32;but&#32;it&#39;s&#32;never&#32;implemented&#32;&#40;which&#32;makes&#32;sense&#32;I&#32;suppose&#41;.&#32;how&#32;do&#32;i&#32;implement&#32;an&#32;&#38;quot&#59;injected&#38;quot&#59;&#32;interface&#63;&#32;e.g.&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;IUnityContainer&#32;c&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;.LoadConfiguration&#40;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;IFoo&#32;x&#61;&#32;c.Resolve&#38;lt&#59;IFoo&#38;gt&#59;&#40;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;x.DoFoo&#40;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;var&#32;doYouBar&#32;&#61;&#32;x&#32;as&#32;IBar&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;doYouBar&#32;&#33;&#61;&#32;null&#32;returns&#32;true&#32;BUT&#32;&#40;&#40;IBar&#41;x&#41;.DoBar&#40;&#41;&#32;returns&#32;System.NotImplementedException&#32;was&#32;unhandled&#38;nbsp&#59;&#32;Message&#61;&#38;quot&#59;Additional&#32;interfaces&#32;do&#32;not&#32;have&#32;an&#32;implementation.&#38;quot&#59;&#38;nbsp&#59;&#32;Source&#61;&#38;quot&#59;Unity_ILEmit_InterfaceProxies&#38;quot&#59;&#38;nbsp&#59;&#32;StackTrace&#58;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;DynamicModule.ns.Wrapped_ILogger_676ab7e076db4d0680198c8885428900.IBar.DoBar&#40;&#41;&#38;nbsp&#59;&#32;InnerException&#58;&#32;&#32;this&#32;makes&#32;sense&#32;because&#32;i&#39;ve&#32;just&#32;injected&#32;an&#32;interface&#32;-&#32;not&#32;an&#32;implementation&#32;of&#32;that&#32;interface...where&#47;how&#32;is&#32;that&#32;done&#63;&#32;does&#32;it&#32;have&#32;something&#32;to&#32;do&#32;with&#32;GetRequiredInterfaces&#63;">
+        
+<p><span style="color:#008000"><em><strong>amendment</strong></em>: I've just noticed that ctavares mentioned in another post back in July that interface injection is &quot;a highly advanced case and if you don't know why you'd use it, you don't need it and
+ can ignore it. :-)&quot;. Fair enough. However I still feel that my particular question is a different one from the one previously posted and hence valid. I think that it would be good for us to know how to use this functionality.
+</span></p>
+<p>I'm trying to &quot;inject&quot; an additional interface into an intercepted object. I've successfully resolved an object and if I check to see if the interface has been injected, it has, but it's never implemented (which makes sense I suppose). how do i
+ implement an &quot;injected&quot; interface?</p>
+<p>e.g.</p>
+<p><span style="color:#008080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IUnityContainer c = new UnityContainer().LoadConfiguration();</span><br>
+<span style="color:#008080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IFoo x= c.Resolve&lt;IFoo&gt;();</span><br>
+<span style="color:#008080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x.DoFoo();</span><br>
+<span style="color:#008080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var doYouBar = x as IBar;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+doYouBar != null returns true BUT</p>
+<p>((IBar)x).DoBar() returns</p>
+<p><span style="color:#800000">System.NotImplementedException was unhandled</span><br>
+<span style="color:#800000">&nbsp; Message=&quot;Additional interfaces do not have an implementation.&quot;</span><br>
+<span style="color:#800000">&nbsp; Source=&quot;Unity_ILEmit_InterfaceProxies&quot;</span><br>
+<span style="color:#800000">&nbsp; StackTrace:</span><br>
+<span style="color:#800000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at DynamicModule.ns.Wrapped_ILogger_676ab7e076db4d0680198c8885428900.IBar.DoBar()</span><br>
+<span style="color:#800000">&nbsp; InnerException: </span></p>
+<p>this makes sense because i've just injected an interface - not an implementation of that interface...where/how is that done? does it have something to do with
+<span style="color:#008080">GetRequiredInterfaces</span>?</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_495385" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="495544">
+    <td id="PostDetailsCell_495544" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post495544"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/19/2010 7:00:56 AM" LocalTimeTicks="1284904856">Sep 19, 2010 at 7:00 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_495544" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="As&#32;you&#39;ve&#32;discovered,&#32;all&#32;the&#32;AdditionalInterface&#32;API&#32;or&#32;config&#32;element&#32;does&#32;it&#32;make&#32;sure&#32;the&#32;proxy&#32;includes&#32;the&#32;interface,&#32;it&#32;doesn&#39;t&#32;actually&#32;provide&#32;an&#32;implementation.&#32;The&#32;implementation&#32;itself&#32;is&#32;provided&#32;by&#32;a&#32;custom&#32;interception&#32;behavior,&#32;which&#32;you&#39;ll&#32;need&#32;to&#32;write.&#32;It&#32;needs&#32;to&#32;detect&#32;when&#32;a&#32;method&#32;is&#32;called&#32;on&#32;the&#32;interface&#32;&#40;typically&#32;by&#32;looking&#32;at&#32;the&#32;MethodInfo&#32;object&#32;passed&#32;into&#32;the&#32;invoke&#32;call&#41;&#32;and&#32;then&#32;do,&#32;well,&#32;whatever&#32;you&#32;want&#32;it&#32;to.&#32;Typically,&#32;you&#32;don&#39;t&#32;need&#32;to&#32;use&#32;AdditionalInterfaces.&#32;This&#32;is&#32;because&#32;most&#32;behaviors&#32;are&#32;written&#32;to&#32;implement&#32;a&#32;specific&#32;interface&#32;or&#32;interfaces,&#32;and&#32;they&#32;know&#32;what&#32;they&#32;are&#32;at&#32;compile&#32;time.&#32;That&#39;s&#32;what&#32;the&#32;RequiredInterfaces&#32;property&#32;is&#32;for&#32;-&#32;it&#32;tells&#32;the&#32;proxy&#32;generation&#32;&#38;quot&#59;if&#32;you&#39;re&#32;including&#32;this&#32;behavior,&#32;add&#32;these&#32;interfaces&#32;too.&#38;quot&#59;&#32;It&#39;s&#32;nice&#32;and&#32;self&#32;contained.&#32;There&#32;are&#32;a&#32;small&#32;class&#32;of&#32;behaviors,&#32;however,&#32;that&#32;DON&#39;T&#32;know&#32;at&#32;compile&#32;time,&#32;or&#32;even&#32;at&#32;proxy&#32;generation&#32;time,&#32;which&#32;interfaces&#32;they&#39;re&#32;implementing.&#32;Typically&#32;this&#32;is&#32;because&#32;they&#32;work&#32;off&#32;some&#32;other&#32;configuration.&#32;A&#32;mock&#32;object&#32;framework&#32;is&#32;the&#32;typical&#32;example&#32;here.&#32;If&#32;you&#39;ve&#32;written&#32;such&#32;a&#32;behavior,&#32;then&#32;the&#32;users&#32;of&#32;that&#32;behavior&#32;need&#32;to&#32;tell&#32;the&#32;interception&#32;system,&#32;through&#32;the&#32;additional&#32;interfaces,&#32;which&#32;interfaces&#32;to&#32;add,&#32;since&#32;the&#32;behavior&#32;itself&#32;cannot.&#32;This&#32;is&#32;the&#32;heart&#32;of&#32;my&#32;&#38;quot&#59;if&#32;you&#32;don&#39;t&#32;know&#32;you&#32;need&#32;it,&#32;you&#32;don&#39;t&#32;need&#32;it&#38;quot&#59;&#32;comment.&#32;&#38;nbsp&#59;">
+        
+<p>As you've discovered, all the AdditionalInterface API or config element does it make sure the proxy includes the interface, it doesn't actually provide an implementation. The implementation itself is provided by a custom interception behavior, which you'll
+ need to write. It needs to detect when a method is called on the interface (typically by looking at the MethodInfo object passed into the invoke call) and then do, well, whatever you want it to.</p>
+<p>Typically, you don't need to use AdditionalInterfaces. This is because most behaviors are written to implement a specific interface or interfaces, and they know what they are at compile time. That's what the RequiredInterfaces property is for - it tells
+ the proxy generation &quot;if you're including this behavior, add these interfaces too.&quot; It's nice and self contained. There are a small class of behaviors, however, that DON'T know at compile time, or even at proxy generation time, which interfaces they're
+ implementing. Typically this is because they work off some other configuration. A mock object framework is the typical example here. If you've written such a behavior, then the users of that behavior need to tell the interception system, through the additional
+ interfaces, which interfaces to add, since the behavior itself cannot.</p>
+<p>This is the heart of my &quot;if you don't know you need it, you don't need it&quot; comment.</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_495544" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="495686">
+    <td id="PostDetailsCell_495686" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post495686"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/WelvisW">WelvisW</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/19/2010 7:45:57 PM" LocalTimeTicks="1284950757">Sep 19, 2010 at 7:45 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_495686" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Thank&#32;you&#32;very&#32;much&#32;for&#32;your&#32;answer.&#32;I&#32;think&#32;I&#32;understand,&#32;but&#32;with&#32;a&#32;little&#32;understanding&#32;inevitably&#32;comes&#32;more&#32;questions&#32;&#40;sorry&#33;&#41;.&#32;For&#32;clarity&#39;s&#32;sake&#32;could&#32;you&#32;please&#32;explain&#58;&#32;&#32;the&#32;difference&#32;between&#32;an&#32;interceptionBehavior&#32;and&#32;a&#32;callHandler&#32;-&#32;they&#32;seem&#32;to&#32;do&#32;very&#32;similar&#32;things.&#32;is&#32;the&#32;behavior&#32;more&#32;for&#32;a&#32;specific&#32;type&#32;whereas&#32;handlers&#32;are&#32;for&#32;matching&#32;&#38;gt&#59;1&#32;type&#63;&#32;&#32;as&#32;stated&#32;in&#32;an&#32;earlier&#32;post,&#32;i&#39;ve&#32;injected&#32;the&#32;interface&#32;-&#32;where&#32;&#40;i.e.&#32;what&#32;class&#32;that&#32;the&#32;behavior&#32;has&#32;reference&#32;to&#41;&#32;do&#32;i&#32;implement&#32;that&#32;interface&#63;&#38;nbsp&#59;&#32;&#32;&#32;So&#32;far&#32;I&#32;really&#32;like&#32;Unity&#32;but&#32;there&#32;is&#32;so&#32;much&#32;to&#32;learn&#33;&#32;&#38;nbsp&#59;">
+        
+<p>Thank you very much for your answer. I think I understand, but with a little understanding inevitably comes more questions (sorry!).</p>
+<p>For clarity's sake could you please explain:</p>
+<ul>
+<li>the difference between an interceptionBehavior and a callHandler - they seem to do very similar things. is the behavior more for a specific type whereas handlers are for matching &gt;1 type?
+</li><li>as stated in an earlier post, i've injected the interface - where (i.e. what class that the behavior has reference to) do i implement that interface?&nbsp;
+</li></ul>
+<p>So far I really like Unity but there is so much to learn!</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_495686" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="496100">
+    <td id="PostDetailsCell_496100" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post496100"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/20/2010 5:02:31 PM" LocalTimeTicks="1285027351">Sep 20, 2010 at 5:02 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_496100" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="The&#32;difference&#32;between&#32;callhandlers&#32;and&#32;behaviors&#32;is&#32;mainly&#32;historical.&#32;In&#32;the&#32;beginning,&#32;there&#32;was&#32;the&#32;Policy&#32;Injection&#32;block.&#32;Handed&#32;down&#32;from&#32;Mount&#32;Sinai...&#32;no,&#32;wait,&#32;different&#32;story..&#32;Basically,&#32;when&#32;we&#32;originally&#32;wrote&#32;PIAB,&#32;it&#32;was&#32;based&#32;around&#32;the&#32;concept&#32;of&#32;call&#32;handlers.&#32;These&#32;are&#32;objects&#32;that&#32;implement&#32;&#38;quot&#59;aspects&#38;quot&#59;&#32;and&#32;are&#32;invoked&#32;based&#32;on&#32;matching&#32;rules&#32;that&#32;check&#32;the&#32;method&#32;being&#32;called&#32;to&#32;see&#32;if&#32;it&#39;s&#32;a&#32;candidate&#32;for&#32;the&#32;aspect&#32;or&#32;not.&#32;Behaviors,&#32;are,&#32;essentially,&#32;the&#32;exact&#32;same&#32;thing&#32;-&#32;an&#32;implementation&#32;of&#32;an&#32;&#38;quot&#59;aspect&#38;quot&#59;&#32;that&#32;can&#32;intercept&#32;a&#32;call&#32;or&#32;the&#32;return&#32;value&#32;from&#32;that&#32;call.&#32;In&#32;fact,&#32;if&#32;you&#32;look&#32;at&#32;the&#32;type&#32;definitions&#32;for&#32;call&#32;handlers&#32;and&#32;behaviors,&#32;there&#39;s&#32;essentially&#32;identical.&#32;So&#32;what&#39;s&#32;the&#32;difference&#63;&#32;There&#39;s&#32;one&#32;subtle&#32;but&#32;very&#32;important&#32;difference&#32;here.&#32;Remember&#32;my&#32;statement&#38;nbsp&#59;&#38;quot&#59;...&#38;nbsp&#59;are&#32;invoked&#32;based&#32;on&#32;matching&#32;rules&#32;that&#32;check&#32;the&#32;method&#32;being&#32;called&#32;...&#38;quot&#59;&#63;&#32;Behaviors&#32;have&#32;NO&#32;matching&#32;rules&#32;involved&#32;-&#32;they&#32;always&#32;run&#32;for&#32;every&#32;call&#32;on&#32;the&#32;intercepted&#32;object,&#32;period.&#32;If&#32;the&#32;behavior&#32;only&#32;works&#32;when&#32;called&#32;on&#32;particular&#32;methods,&#32;then&#32;the&#32;behavior&#32;author&#32;is&#32;responsible&#32;for&#32;doing&#32;the&#32;checking&#32;inside&#32;the&#32;Invoke&#32;method&#32;to&#32;determine&#32;if&#32;it&#39;s&#32;appropriate&#32;to&#32;run&#32;or&#32;not.&#32;This&#32;difference&#32;is&#32;the&#32;reason&#32;we&#32;implemented&#32;two&#32;separate&#32;abstractions.&#32;CallHandlers&#32;are&#32;written&#32;assuming&#32;they&#32;just&#32;run&#59;&#32;that&#32;assumption&#32;isn&#39;t&#32;valid&#32;in&#32;the&#32;context&#32;of&#32;a&#32;behavior.&#32;We&#32;felt&#32;it&#32;was&#32;safer&#32;to&#32;have&#32;two&#32;different&#32;but&#32;similar&#32;types&#32;to&#32;make&#32;the&#32;author&#32;and&#32;user&#32;aware&#32;of&#32;the&#32;difference&#32;in&#32;semantics.&#32;This&#32;&#38;quot&#59;always&#32;runs&#38;quot&#59;&#32;semantic&#32;gives&#32;behaviors&#32;one&#32;piece&#32;of&#32;power&#32;that&#32;call&#32;handlers&#32;don&#39;t&#32;have&#32;-&#32;the&#32;ability&#32;to&#32;implement&#32;methods&#32;that&#32;the&#32;underlying&#32;object&#32;doesn&#39;t&#32;implement&#32;itself.&#32;Which&#32;was&#32;the&#32;whole&#32;point&#32;-&#32;to&#32;get&#32;the&#32;ability&#32;to&#32;add&#32;interface&#32;implementations&#32;through&#32;the&#32;interception&#32;mechanism.&#32;This&#32;was&#32;a&#32;feature&#32;I&#32;wanted&#32;from&#32;the&#32;start&#32;of&#32;PIAB,&#32;but&#32;couldn&#39;t&#32;get&#32;in&#32;there&#32;until&#32;Entlib&#32;5.&#32;So&#32;I&#32;hope&#32;this&#32;helps&#32;explain&#32;the&#32;difference.&#32;As&#32;for&#32;how&#32;to&#32;implement&#32;the&#32;interface,&#32;basically&#32;you&#32;create&#32;a&#32;class&#32;that&#32;implements&#32;IInterceptionBehavior.&#32;Inside&#32;the&#32;implementation&#32;of&#32;the&#32;Invoke&#32;method,&#32;check&#32;the&#32;MethodInfo&#32;on&#32;the&#32;input&#32;&#40;input.MethodBase&#41;&#32;to&#32;see&#32;if&#32;it&#39;s&#32;one&#32;of&#32;the&#32;methods&#32;on&#32;the&#32;interface&#32;you&#39;re&#32;implementing,&#32;and&#32;if&#32;it&#32;is,&#32;well,&#32;do&#32;whatever&#32;you&#32;want.&#32;Note&#32;the&#32;the&#32;behavior&#32;doesn&#39;t&#32;need&#32;to&#32;actually&#32;implement&#32;the&#32;interface&#32;in&#32;question&#32;&#40;that&#32;is,&#32;have&#32;the&#32;interface&#32;on&#32;it&#39;s&#32;class&#32;declaration&#41;&#32;in&#32;order&#32;to&#32;provide&#32;the&#32;implementation&#32;of&#32;the&#32;methods.&#32;It&#39;s&#32;completely&#32;dynamic&#32;and&#32;done&#32;at&#32;runtime.&#32;For&#32;an&#32;example&#32;that&#32;does&#32;this,&#32;see&#32;the&#32;documentation&#32;on&#32;interception&#32;on&#32;MSDN.&#32;Hope&#32;this&#32;helps,&#32;-Chris&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;">
+        
+<p>The difference between callhandlers and behaviors is mainly historical.</p>
+<p>In the beginning, there was the Policy Injection block. Handed down from Mount Sinai... no, wait, different story..</p>
+<p>Basically, when we originally wrote PIAB, it was based around the concept of call handlers. These are objects that implement &quot;aspects&quot; and are invoked based on matching rules that check the method being called to see if it's a candidate for the
+ aspect or not.</p>
+<p>Behaviors, are, essentially, the exact same thing - an implementation of an &quot;aspect&quot; that can intercept a call or the return value from that call. In fact, if you look at the type definitions for call handlers and behaviors, there's essentially
+ identical. So what's the difference?</p>
+<p>There's one subtle but very important difference here. Remember my statement&nbsp;&quot;...&nbsp;are invoked based on matching rules that check the method being called ...&quot;? Behaviors have NO matching rules involved - they always run for every call
+ on the intercepted object, period. If the behavior only works when called on particular methods, then the behavior author is responsible for doing the checking inside the Invoke method to determine if it's appropriate to run or not.</p>
+<p>This difference is the reason we implemented two separate abstractions. CallHandlers are written assuming they just run; that assumption isn't valid in the context of a behavior. We felt it was safer to have two different but similar types to make the author
+ and user aware of the difference in semantics.</p>
+<p>This &quot;always runs&quot; semantic gives behaviors one piece of power that call handlers don't have - the ability to implement methods that the underlying object doesn't implement itself. Which was the whole point - to get the ability to add interface
+ implementations through the interception mechanism. This was a feature I wanted from the start of PIAB, but couldn't get in there until Entlib 5.</p>
+<p>So I hope this helps explain the difference.</p>
+<p>As for how to implement the interface, basically you create a class that implements IInterceptionBehavior. Inside the implementation of the Invoke method, check the MethodInfo on the input (input.MethodBase) to see if it's one of the methods on the interface
+ you're implementing, and if it is, well, do whatever you want. Note the the behavior doesn't need to actually implement the interface in question (that is, have the interface on it's class declaration) in order to provide the implementation of the methods.
+ It's completely dynamic and done at runtime. <a href="http://msdn.microsoft.com/en-us/library/ff660851(PandP.20).aspx" rel="nofollow">
+For an example that does this, see the documentation on interception on MSDN</a>.</p>
+<p>Hope this helps,</p>
+<p>-Chris</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_496100" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="496905">
+    <td id="PostDetailsCell_496905" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post496905"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/WelvisW">WelvisW</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/22/2010 9:08:47 AM" LocalTimeTicks="1285171727">Sep 22, 2010 at 9:08 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="9/22/2010 10:16:31 AM" LocalTimeTicks="1285175791">Sep 22, 2010 at 10:16 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_496905" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Excellent.&#32;That&#39;s&#32;precisely&#32;the&#32;sort&#32;of&#32;information&#32;I&#32;was&#32;after.&#32;What&#32;does&#32;WillExecute&#32;actually&#32;do&#63;&#32;How&#32;can&#32;I&#32;leverage&#32;it&#39;s&#32;functionality&#63;&#32;I&#32;don&#39;t&#32;see&#32;how&#32;I&#32;could&#32;hook&#32;into&#32;it&#32;for&#32;conditional&#32;processing&#32;as&#32;it&#39;s&#32;called&#32;before&#32;GetRequiredInterfaces&#32;and&#32;Invoke.&#32;Speaking&#32;of&#32;which,&#32;what&#32;consumes&#47;calls&#32;GetRequiredInterfaces&#63;&#32;I&#39;m&#32;still&#32;trying&#32;to&#32;understand&#32;exactly&#32;what&#32;this&#32;method&#32;does.&#32;This&#32;didn&#39;t&#32;really&#32;clarify&#32;it&#32;for&#32;me&#33;&#32;I&#39;ll&#32;play&#32;around&#32;with&#32;some&#32;of&#32;the&#32;ideas&#32;you&#39;ve&#32;given&#32;me&#32;and&#32;I&#39;ll&#32;ask&#32;more&#32;questions&#32;if&#32;they&#32;arise&#63;&#32;As&#32;always,&#32;thanks&#32;for&#32;the&#32;good&#32;info&#33;&#32;&#38;nbsp&#59;">
+        
+<p>Excellent. That's precisely the sort of information I was after.</p>
+<p>What does <strong>WillExecute </strong>actually do? How can I leverage it's functionality? I don't see how I could hook into it for conditional processing as it's called before GetRequiredInterfaces and Invoke.</p>
+<p>Speaking of which, what consumes/calls GetRequiredInterfaces? I'm still trying to understand exactly what this method does.<a title="MSDN" href="http://msdn.microsoft.com/en-us/library/microsoft.practices.unity.interceptionextension.iinterceptionbehavior_members(v=PandP.20).aspx" rel="nofollow">
+ This</a> didn't really clarify it for me!</p>
+<p>I'll play around with some of the ideas you've given me and I'll ask more questions if they arise? As always, thanks for the good info!</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_496905" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="497087">
+    <td id="PostDetailsCell_497087" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post497087"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="9/22/2010 5:11:46 PM" LocalTimeTicks="1285200706">Sep 22, 2010 at 5:11 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_497087" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="GetRequiredInterfaces&#32;and&#32;WillExecute&#32;are&#32;called&#32;by&#32;the&#32;interceptor.&#32;When&#32;you&#32;say&#32;new&#32;Interceptor&#38;lt&#59;Some&#32;Type&#32;Here&#38;gt&#59;&#40;&#41;,&#32;that&#39;s&#32;the&#32;interceptor,&#32;and&#32;it&#39;s&#32;responsible&#32;for&#32;creating&#32;the&#32;proxy&#47;derived&#32;type&#32;used&#32;to&#32;actually&#32;run&#32;the&#32;interception.&#32;WillExecute&#32;is&#32;a&#32;flag&#32;used&#32;by&#32;the&#32;interceptor&#32;to&#32;decide&#32;if&#32;it&#32;should&#32;do&#32;anything.&#32;If&#32;you&#39;ve&#32;configured&#32;a&#32;bunch&#32;of&#32;behaviors,&#32;but&#32;none&#32;of&#32;them&#32;will&#32;actually&#32;do&#32;anything,&#32;then&#32;there&#39;s&#32;no&#32;reason&#32;to&#32;build&#32;a&#32;proxy&#32;at&#32;all.&#32;This&#32;is&#32;currently&#32;only&#32;used&#32;by&#32;the&#32;policy&#32;injection&#32;behavior.&#32;You&#39;ll&#32;need&#32;to&#32;pass&#32;in&#32;additional&#32;information&#32;to&#32;your&#32;behavior&#32;so&#32;that&#32;it&#32;knows&#32;what&#32;type&#32;it&#39;s&#32;being&#32;used&#32;on,&#32;or&#32;any&#32;contextual&#32;information,&#32;and&#32;that&#39;s&#32;when&#32;you&#32;can&#32;decide&#32;if&#32;WillExecute&#32;should&#32;be&#32;true&#32;or&#32;false.&#32;&#38;nbsp&#59;">
+        
+<p>GetRequiredInterfaces and WillExecute are called by the interceptor. When you say new Interceptor&lt;Some Type Here&gt;(), that's the interceptor, and it's responsible for creating the proxy/derived type used to actually run the interception.</p>
+<p>WillExecute is a flag used by the interceptor to decide if it should do anything. If you've configured a bunch of behaviors, but none of them will actually do anything, then there's no reason to build a proxy at all. This is currently only used by the policy
+ injection behavior. You'll need to pass in additional information to your behavior so that it knows what type it's being used on, or any contextual information, and that's when you can decide if WillExecute should be true or false.</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_497087" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f227719">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="47ddc156-b131-4f35-a700-12977019b89a">
+    <script class="options" defer="defer" id="47ddc156-b131-4f35-a700-12977019b89a" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_983b582f-52e2-43b1-aa04-64419ffa93f4">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_f4c5ae65-5af6-4ad0-8786-5f05abf5f2b9">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_983b582f-52e2-43b1-aa04-64419ffa93f4" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_f4c5ae65-5af6-4ad0-8786-5f05abf5f2b9" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/227719';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

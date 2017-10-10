@@ -1,0 +1,886 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - interceptors -error</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/399784?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/399784?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="o4eplUVriiwM0o7tJQ45FTKwX_1wh4VdiO9YfDrqj2EphmpKvb-B252L4TwwPrrw8NmDsNpU9QcPE2ZkZzxn2vXb3YB84L5kp84W0B8DUxdUqBpZuQmoMgHsVSIlypmZ5jwx_A2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken29e7b37b3-09ba-43e1-a1f4-a328f28fc354" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:26:05 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f399784" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="cfc63a20-767e-42e9-98df-4e4eb6fdf67c">
+                
+                    <script class="options" defer="defer" id="cfc63a20-767e-42e9-98df-4e4eb6fdf67c" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="c95857a7-3e60-4665-8d78-d78f48843d55">
+                
+                    <script class="options" defer="defer" id="c95857a7-3e60-4665-8d78-d78f48843d55" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                interceptors -error
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:399784]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="d8d3fb69-d054-4d53-8c00-31f9ac8cfe1e">
+    <script class="options" defer="defer" id="d8d3fb69-d054-4d53-8c00-31f9ac8cfe1e" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/399784","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="928239">
+    <td id="PostDetailsCell_928239" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post928239"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/esmiejose">esmiejose</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/17/2012 6:26:38 PM" LocalTimeTicks="1350523598">Oct 17, 2012 at 6:26 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_928239" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;&#32;&#32;&#32;&#32;0down&#32;votefavorite&#32;&#38;nbsp&#59;&#32;&#32;&#32;&#32;&#32;&#32;I&#32;am&#32;trying&#32;to&#32;intercept&#32;a&#32;WCF&#32;client.&#32;But&#32;the&#32;Unity&#32;interceptor&#32;does&#32;not&#32;seem&#32;to&#32;work.&#32;1&#41;&#32;I&#32;am&#32;not&#32;getting&#32;a&#32;call&#32;to&#32;the&#32;proxy.&#32;2&#41;&#32;I&#32;did&#32;not&#32;know&#32;how&#32;to&#32;link&#32;the&#32;attribute&#32;to&#32;the&#32;container&#32;3&#41;&#32;In&#32;AddPolicy&#32;what&#32;is&#32;the&#32;name&#32;attribute&#32;-&#32;Here&#32;I&#32;used&#32;the&#32;function&#32;to&#32;intercept&#32;-&#32;GetXml.&#32;&#91;AttributeUsage&#40;AttributeTargets.Class&#32;&#124;&#32;AttributeTargets.Property&#32;&#124;&#32;AttributeTargets.Method&#41;&#93;&#32;public&#32;class&#32;GetXmlCallHandlerAttribute&#32;&#58;&#32;HandlerAttribute&#32;&#123;&#32;public&#32;GetXmlCallHandlerAttribute&#40;&#41;&#123;&#125;&#32;&#32;public&#32;override&#32;ICallHandler&#32;CreateHandler&#40;IUnityContainer&#32;ignored&#41;&#32;&#123;&#32;return&#32;new&#32;GetXmlTestCallHandler&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;GetXmlTestCallHandler&#32;&#58;&#32;ICallHandler&#32;&#123;&#32;public&#32;int&#32;Order&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;public&#32;IMethodReturn&#32;Invoke&#40;IMethodInvocation&#32;input,&#32;GetNextHandlerDelegate&#32;getNext&#41;&#32;&#123;&#32;IMethodReturn&#32;msg&#59;&#32;Object&#32;returnValue&#32;&#61;&#32;XElement.Load&#40;&#38;quot&#59;..&#47;..&#47;Resources&#47;a1.xml&#38;quot&#59;&#41;&#59;&#32;Object&#91;&#93;&#32;outputs&#32;&#61;&#32;null&#59;&#32;msg&#32;&#61;&#32;input.CreateMethodReturn&#40;returnValue,&#32;outputs&#41;&#59;&#32;return&#32;msg&#59;&#32;&#125;&#32;&#47;&#47;public&#32;delegate&#32;IMethodReturn&#32;InvokeHandlerDelegate&#40;IMethodInvocation&#32;input,&#32;&#47;&#47;&#32;GetNextHandlerDelegate&#32;getNext&#41;&#59;&#32;&#47;&#47;public&#32;delegate&#32;InvokeHandlerDelegate&#32;GetNextHandlerDelegate&#40;&#41;&#59;&#32;&#125;&#32;class&#32;SendDataTest&#32;&#123;&#32;public&#32;void&#32;GetXmlTest&#40;&#41;&#32;&#123;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;ICallHandler&#32;myInterception&#32;&#61;&#32;new&#32;GetXmlTestCallHandler&#40;&#41;&#59;&#32;container.AddNewExtension&#38;lt&#59;Interception&#38;gt&#59;&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;SendData&#38;gt&#59;&#40;new&#32;Interceptor&#40;new&#32;TransparentProxyInterceptor&#40;&#41;&#41;&#41;&#59;&#32;container.Configure&#38;lt&#59;Interception&#38;gt&#59;&#40;&#41;.AddPolicy&#40;&#38;quot&#59;GetXml&#38;quot&#59;&#41;.AddCallHandler&#40;myInterception&#41;&#59;&#32;SendData&#32;target&#32;&#61;&#32;container.Resolve&#38;lt&#59;SendData&#38;gt&#59;&#40;&#41;&#59;&#32;XElement&#32;expected&#32;&#61;&#32;null&#59;&#32;&#47;&#47;&#32;TODO&#58;&#32;Initialize&#32;to&#32;an&#32;appropriate&#32;value&#32;XElement&#32;actual&#59;&#32;actual&#32;&#61;&#32;target.GetXml&#40;&#41;&#59;&#32;Assert.AreEqual&#40;expected,&#32;actual&#41;&#59;&#32;Assert.Inconclusive&#40;&#38;quot&#59;Verify&#32;the&#32;correctness&#32;of&#32;this&#32;test&#32;method.&#38;quot&#59;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;">
+        
+<table>
+<tbody>
+<tr>
+<td>
+<div><a title="This question shows research effort; it is useful and clear (click again to undo)"></a><span>0</span><a title="This question does not show any research effort; it is unclear or not useful (click again to undo)">down vote</a><a title="This is a favorite question (click again to undo)" href="http://stackoverflow.com/questions/12940631/unity-interceptors-transparentproxyinterceptor#" rel="nofollow">favorite</a>
+<div><strong>&nbsp;</strong></div>
+</div>
+</td>
+<td>
+<div>
+<div>
+<p>I am trying to intercept a WCF client. But the Unity interceptor does not seem to work.</p>
+<p>1) I am not getting a call to the proxy. 2) I did not know how to link the attribute to the container 3) In AddPolicy what is the name attribute - Here I used the function to intercept - GetXml.</p>
+<p>[AttributeUsage(AttributeTargets.Class | AttributeTargets.Property | AttributeTargets.Method)] public class GetXmlCallHandlerAttribute : HandlerAttribute { public GetXmlCallHandlerAttribute(){}</p>
+<pre><code>    public override ICallHandler CreateHandler(IUnityContainer ignored)
+    {
+      return new GetXmlTestCallHandler();
+    }
+  }
+
+  public class GetXmlTestCallHandler : ICallHandler
+  {
+    public int Order { get; set; }  
+
+    public IMethodReturn Invoke(IMethodInvocation input, GetNextHandlerDelegate getNext)
+    {
+      IMethodReturn msg;
+      Object returnValue = XElement.Load(&quot;../../Resources/a1.xml&quot;);
+      Object[] outputs = null;
+      msg = input.CreateMethodReturn(returnValue, outputs);
+      return msg;        
+    }
+    //public delegate IMethodReturn InvokeHandlerDelegate(IMethodInvocation input,
+    //                          GetNextHandlerDelegate getNext);
+
+    //public delegate InvokeHandlerDelegate GetNextHandlerDelegate();
+
+  } 
+class SendDataTest
+{
+    public void GetXmlTest()
+    {
+
+      IUnityContainer container = new UnityContainer();
+      ICallHandler myInterception = new GetXmlTestCallHandler();    
+
+      container.AddNewExtension&lt;Interception&gt;();
+      container.RegisterType&lt;SendData&gt;(new Interceptor(new TransparentProxyInterceptor()));
+      container.Configure&lt;Interception&gt;().AddPolicy(&quot;GetXml&quot;).AddCallHandler(myInterception);
+      SendData target = container.Resolve&lt;SendData&gt;();
+      XElement expected = null; // TODO: Initialize to an appropriate value
+      XElement actual;
+      actual = target.GetXml();
+      Assert.AreEqual(expected, actual);
+      Assert.Inconclusive(&quot;Verify the correctness of this test method.&quot;);
+    }
+}
+</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_928239" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="928504">
+    <td id="PostDetailsCell_928504" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post928504"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/18/2012 3:23:52 AM" LocalTimeTicks="1350555832">Oct 18, 2012 at 3:23 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_928504" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="If&#32;you&#32;are&#32;using&#38;nbsp&#59;TransparentProxyInterceptor&#32;then&#32;SendData&#32;will&#32;need&#32;to&#32;implement&#32;an&#32;interface&#32;or&#32;inherit&#32;from&#32;MarshalByRefObject.&#32;&#38;nbsp&#59;Since&#32;you&#32;are&#32;registering&#32;and&#32;resolving&#32;the&#32;concrete&#32;SendData&#32;class&#32;then&#32;it&#32;will&#32;need&#32;to&#32;inherit&#32;from&#38;nbsp&#59;MarshalByRefObject.&#32;&#38;nbsp&#59;Since&#32;you&#32;didn&#39;t&#32;post&#32;the&#32;SendData&#32;class&#32;I&#39;m&#32;not&#32;sure&#32;if&#32;that&#32;is&#32;true.&#32;&#38;nbsp&#59;If&#32;SendData&#32;is&#32;a&#32;WCF&#32;ClientBase&#38;lt&#59;T&#38;gt&#59;&#32;or&#32;ChannelFactory&#38;lt&#59;T&#38;gt&#59;&#32;then&#32;it&#32;doesn&#39;t&#32;inherit&#32;from&#32;MarshalByRefObject&#32;so&#32;you&#32;would&#32;need&#32;to&#32;use&#32;interfaces&#32;or&#32;virtual&#32;methods.&#32;I&#39;m&#32;assuming&#32;you&#32;are&#32;applying&#32;your&#32;custom&#32;attribute.&#32;&#38;nbsp&#59;If&#32;that&#32;is&#32;the&#32;case&#32;then&#32;you&#32;should&#32;add&#32;a&#38;nbsp&#59;CustomAttributeMatchingRule&#32;to&#32;the&#32;policy&#32;and&#32;also&#32;add&#32;PolicyInjectionBehavior&#38;nbsp&#59;to&#32;the&#32;registration.&#32;&#38;nbsp&#59;Here&#32;is&#32;a&#32;contrived&#32;example&#32;based&#32;on&#32;your&#32;code&#32;&#40;with&#32;a&#32;string&#32;return&#32;value&#32;instead&#32;of&#32;XElement&#41;&#32;using&#32;MarshalByRefObject&#58;&#32;&#32;&#32;&#91;AttributeUsage&#40;AttributeTargets.Class&#32;&#124;&#32;AttributeTargets.Property&#32;&#124;&#32;AttributeTargets.Method&#41;&#93;&#32;public&#32;class&#32;GetXmlCallHandlerAttribute&#32;&#58;&#32;HandlerAttribute&#32;&#123;&#32;public&#32;GetXmlCallHandlerAttribute&#40;&#41;&#32;&#123;&#32;&#125;&#32;public&#32;override&#32;ICallHandler&#32;CreateHandler&#40;IUnityContainer&#32;ignored&#41;&#32;&#123;&#32;return&#32;new&#32;GetXmlTestCallHandler&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;GetXmlTestCallHandler&#32;&#58;&#32;ICallHandler&#32;&#123;&#32;public&#32;int&#32;Order&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;public&#32;IMethodReturn&#32;Invoke&#40;IMethodInvocation&#32;input,&#32;GetNextHandlerDelegate&#32;getNext&#41;&#32;&#123;&#32;IMethodReturn&#32;msg&#59;&#32;msg&#32;&#61;&#32;input.CreateMethodReturn&#40;&#34;&#38;lt&#59;abc&#38;gt&#59;def&#38;lt&#59;&#47;abc&#38;gt&#59;&#34;&#41;&#59;&#32;return&#32;msg&#59;&#32;&#125;&#32;&#125;&#32;class&#32;Program&#32;&#123;&#32;public&#32;static&#32;void&#32;GetXmlTest&#40;&#41;&#32;&#123;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.AddNewExtension&#38;lt&#59;Interception&#38;gt&#59;&#40;&#41;&#59;&#32;CustomAttributeMatchingRule&#32;matchingRule&#32;&#61;&#32;new&#32;CustomAttributeMatchingRule&#40;typeof&#40;GetXmlCallHandlerAttribute&#41;,&#32;true&#41;&#59;&#32;ICallHandler&#32;myInterception&#32;&#61;&#32;new&#32;GetXmlTestCallHandler&#40;&#41;&#59;&#32;container.Configure&#38;lt&#59;Interception&#38;gt&#59;&#40;&#41;&#32;.AddPolicy&#40;&#34;GetXml&#34;&#41;&#32;.AddCallHandler&#40;myInterception&#41;&#32;.AddMatchingRule&#40;matchingRule&#41;&#59;&#32;container.RegisterType&#38;lt&#59;SendData&#38;gt&#59;&#40;&#32;new&#32;Interceptor&#40;new&#32;TransparentProxyInterceptor&#40;&#41;&#41;,&#32;new&#32;InterceptionBehavior&#38;lt&#59;PolicyInjectionBehavior&#38;gt&#59;&#40;&#41;&#41;&#59;&#32;var&#32;target&#32;&#61;&#32;container.Resolve&#38;lt&#59;SendData&#38;gt&#59;&#40;&#41;&#59;&#32;var&#32;actual&#32;&#61;&#32;target.GetXml&#40;&#41;&#59;&#32;var&#32;target2&#32;&#61;&#32;container.Resolve&#38;lt&#59;SendDataNoIntercept&#38;gt&#59;&#40;&#41;&#59;&#32;var&#32;actual2&#32;&#61;&#32;target2.GetXml&#40;&#41;&#59;&#32;&#125;&#32;static&#32;void&#32;Main&#40;string&#91;&#93;&#32;args&#41;&#32;&#123;&#32;GetXmlTest&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;SendData&#32;&#58;&#32;MarshalByRefObject&#32;&#123;&#32;&#91;GetXmlCallHandler&#93;&#32;public&#32;string&#32;GetXml&#40;&#41;&#32;&#123;&#32;return&#32;&#34;&#38;lt&#59;abc&#38;gt&#59;xyz&#38;lt&#59;&#47;abc&#38;gt&#59;&#34;&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;SendDataNoIntercept&#32;&#58;&#32;MarshalByRefObject&#32;&#123;&#32;public&#32;string&#32;GetXml&#40;&#41;&#32;&#123;&#32;return&#32;&#34;&#38;lt&#59;abc&#38;gt&#59;xyz&#38;lt&#59;&#47;abc&#38;gt&#59;&#34;&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;The&#32;interface&#32;example&#32;is&#32;similar&#32;except&#32;that&#32;we&#32;register&#32;and&#32;resolve&#32;an&#32;interface&#58;&#32;&#32;&#32;&#91;AttributeUsage&#40;AttributeTargets.Class&#32;&#124;&#32;AttributeTargets.Property&#32;&#124;&#32;AttributeTargets.Method&#41;&#93;&#32;public&#32;class&#32;GetXmlCallHandlerAttribute&#32;&#58;&#32;HandlerAttribute&#32;&#123;&#32;public&#32;GetXmlCallHandlerAttribute&#40;&#41;&#32;&#123;&#32;&#125;&#32;public&#32;override&#32;ICallHandler&#32;CreateHandler&#40;IUnityContainer&#32;ignored&#41;&#32;&#123;&#32;return&#32;new&#32;GetXmlTestCallHandler&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;GetXmlTestCallHandler&#32;&#58;&#32;ICallHandler&#32;&#123;&#32;public&#32;int&#32;Order&#32;&#123;&#32;get&#59;&#32;set&#59;&#32;&#125;&#32;public&#32;IMethodReturn&#32;Invoke&#40;IMethodInvocation&#32;input,&#32;GetNextHandlerDelegate&#32;getNext&#41;&#32;&#123;&#32;IMethodReturn&#32;msg&#59;&#32;msg&#32;&#61;&#32;input.CreateMethodReturn&#40;&#34;&#38;lt&#59;abc&#38;gt&#59;def&#38;lt&#59;&#47;abc&#38;gt&#59;&#34;&#41;&#59;&#32;return&#32;msg&#59;&#32;&#125;&#32;&#125;&#32;class&#32;Program&#32;&#123;&#32;public&#32;static&#32;void&#32;GetXmlTest&#40;&#41;&#32;&#123;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.AddNewExtension&#38;lt&#59;Interception&#38;gt&#59;&#40;&#41;&#59;&#32;CustomAttributeMatchingRule&#32;matchingRule&#32;&#61;&#32;new&#32;CustomAttributeMatchingRule&#40;typeof&#40;GetXmlCallHandlerAttribute&#41;,&#32;true&#41;&#59;&#32;ICallHandler&#32;myInterception&#32;&#61;&#32;new&#32;GetXmlTestCallHandler&#40;&#41;&#59;&#32;container.Configure&#38;lt&#59;Interception&#38;gt&#59;&#40;&#41;&#32;.AddPolicy&#40;&#34;GetXml&#34;&#41;&#32;.AddCallHandler&#40;myInterception&#41;&#32;.AddMatchingRule&#40;matchingRule&#41;&#59;&#32;container.RegisterType&#38;lt&#59;ISendData,&#32;SendData&#38;gt&#59;&#40;&#32;new&#32;Interceptor&#40;new&#32;TransparentProxyInterceptor&#40;&#41;&#41;,&#32;new&#32;InterceptionBehavior&#38;lt&#59;PolicyInjectionBehavior&#38;gt&#59;&#40;&#41;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;ISendData,&#32;SendDataNoIntercept&#38;gt&#59;&#40;&#34;NoIntercept&#34;,&#32;new&#32;Interceptor&#40;new&#32;TransparentProxyInterceptor&#40;&#41;&#41;,&#32;new&#32;InterceptionBehavior&#38;lt&#59;PolicyInjectionBehavior&#38;gt&#59;&#40;&#41;&#41;&#59;&#32;var&#32;target&#32;&#61;&#32;container.Resolve&#38;lt&#59;ISendData&#38;gt&#59;&#40;&#41;&#59;&#32;var&#32;actual&#32;&#61;&#32;target.GetXml&#40;&#41;&#59;&#32;var&#32;target2&#32;&#61;&#32;container.Resolve&#38;lt&#59;ISendData&#38;gt&#59;&#40;&#34;NoIntercept&#34;&#41;&#59;&#32;var&#32;actual2&#32;&#61;&#32;target2.GetXml&#40;&#41;&#59;&#32;&#125;&#32;static&#32;void&#32;Main&#40;string&#91;&#93;&#32;args&#41;&#32;&#123;&#32;GetXmlTest&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;public&#32;interface&#32;ISendData&#32;&#123;&#32;string&#32;GetXml&#40;&#41;&#59;&#32;&#125;&#32;public&#32;class&#32;SendData&#32;&#58;&#32;ISendData&#32;&#123;&#32;&#91;GetXmlCallHandler&#93;&#32;public&#32;string&#32;GetXml&#40;&#41;&#32;&#123;&#32;return&#32;&#34;&#38;lt&#59;abc&#38;gt&#59;xyz&#38;lt&#59;&#47;abc&#38;gt&#59;&#34;&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;SendDataNoIntercept&#32;&#58;&#32;ISendData&#32;&#123;&#32;public&#32;string&#32;GetXml&#40;&#41;&#32;&#123;&#32;return&#32;&#34;&#38;lt&#59;abc&#38;gt&#59;xyz&#38;lt&#59;&#47;abc&#38;gt&#59;&#34;&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;--Randy&#32;LevyEnterprise&#32;Library&#32;support&#32;engineerentlib.support&#64;live.com&#38;nbsp&#59;">
+        
+<p>If you are using&nbsp;TransparentProxyInterceptor then SendData will need to implement an interface or inherit from MarshalByRefObject. &nbsp;Since you are registering and resolving the concrete SendData class then it will need to inherit from&nbsp;MarshalByRefObject.
+ &nbsp;Since you didn't post the SendData class I'm not sure if that is true. &nbsp;If SendData is a WCF ClientBase&lt;T&gt; or ChannelFactory&lt;T&gt; then it doesn't inherit from MarshalByRefObject so you would need to use interfaces or virtual methods.</p>
+<p>I'm assuming you are applying your custom attribute. &nbsp;If that is the case then you should add a&nbsp;CustomAttributeMatchingRule to the policy and also add PolicyInjectionBehavior&nbsp;to the registration. &nbsp;Here is a contrived example based on
+ your code (with a string return value instead of XElement) using MarshalByRefObject:</p>
+<div style="color:black; background-color:white">
+<pre>    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property | AttributeTargets.Method)]
+    <span style="color:blue">public</span> <span style="color:blue">class</span> GetXmlCallHandlerAttribute : HandlerAttribute
+    {
+        <span style="color:blue">public</span> GetXmlCallHandlerAttribute() { }
+
+        <span style="color:blue">public</span> <span style="color:blue">override</span> ICallHandler CreateHandler(IUnityContainer ignored)
+        {
+            <span style="color:blue">return</span> <span style="color:blue">new</span> GetXmlTestCallHandler();
+        }
+    }
+
+    <span style="color:blue">public</span> <span style="color:blue">class</span> GetXmlTestCallHandler : ICallHandler
+    {
+        <span style="color:blue">public</span> <span style="color:blue">int</span> Order { <span style="color:blue">get</span>; <span style="color:blue">set</span>; }
+
+        <span style="color:blue">public</span> IMethodReturn Invoke(IMethodInvocation input, GetNextHandlerDelegate getNext)
+        {
+            IMethodReturn msg;
+            msg = input.CreateMethodReturn(<span style="color:#a31515">&quot;&lt;abc&gt;def&lt;/abc&gt;&quot;</span>);
+            <span style="color:blue">return</span> msg;
+        }
+    } 
+
+    <span style="color:blue">class</span> Program
+    {
+        <span style="color:blue">public</span> <span style="color:blue">static</span> <span style="color:blue">void</span> GetXmlTest()
+        {
+            IUnityContainer container = <span style="color:blue">new</span> UnityContainer();
+
+            container.AddNewExtension&lt;Interception&gt;();
+
+            CustomAttributeMatchingRule matchingRule = <span style="color:blue">new</span> CustomAttributeMatchingRule(<span style="color:blue">typeof</span>(GetXmlCallHandlerAttribute), <span style="color:blue">true</span>);
+            ICallHandler myInterception = <span style="color:blue">new</span> GetXmlTestCallHandler();
+            
+            container.Configure&lt;Interception&gt;()
+                .AddPolicy(<span style="color:#a31515">&quot;GetXml&quot;</span>)
+                .AddCallHandler(myInterception)
+                .AddMatchingRule(matchingRule);
+
+            container.RegisterType&lt;SendData&gt;(
+                <span style="color:blue">new</span> Interceptor(<span style="color:blue">new</span> TransparentProxyInterceptor()), 
+                <span style="color:blue">new</span> InterceptionBehavior&lt;PolicyInjectionBehavior&gt;());
+
+            <span style="color:blue">var</span> target = container.Resolve&lt;SendData&gt;();
+            <span style="color:blue">var</span> actual = target.GetXml();
+
+            <span style="color:blue">var</span> target2 = container.Resolve&lt;SendDataNoIntercept&gt;();
+            <span style="color:blue">var</span> actual2 = target2.GetXml();
+        }
+
+        <span style="color:blue">static</span> <span style="color:blue">void</span> Main(<span style="color:blue">string</span>[] args)
+        {
+            GetXmlTest();
+        }
+    }
+
+    <span style="color:blue">public</span> <span style="color:blue">class</span> SendData : MarshalByRefObject
+    {
+        [GetXmlCallHandler]
+        <span style="color:blue">public</span> <span style="color:blue">string</span> GetXml()
+        {
+            <span style="color:blue">return</span> <span style="color:#a31515">&quot;&lt;abc&gt;xyz&lt;/abc&gt;&quot;</span>;
+        }
+    }
+
+    <span style="color:blue">public</span> <span style="color:blue">class</span> SendDataNoIntercept : MarshalByRefObject
+    {
+        <span style="color:blue">public</span> <span style="color:blue">string</span> GetXml()
+        {
+            <span style="color:blue">return</span> <span style="color:#a31515">&quot;&lt;abc&gt;xyz&lt;/abc&gt;&quot;</span>;
+        }
+    }
+</pre>
+</div>
+<p>The interface example is similar except that we register and resolve an interface:</p>
+<div style="color:black; background-color:white">
+<pre>    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property | AttributeTargets.Method)]
+    <span style="color:blue">public</span> <span style="color:blue">class</span> GetXmlCallHandlerAttribute : HandlerAttribute
+    {
+        <span style="color:blue">public</span> GetXmlCallHandlerAttribute() { }
+
+        <span style="color:blue">public</span> <span style="color:blue">override</span> ICallHandler CreateHandler(IUnityContainer ignored)
+        {
+            <span style="color:blue">return</span> <span style="color:blue">new</span> GetXmlTestCallHandler();
+        }
+    }
+
+    <span style="color:blue">public</span> <span style="color:blue">class</span> GetXmlTestCallHandler : ICallHandler
+    {
+        <span style="color:blue">public</span> <span style="color:blue">int</span> Order { <span style="color:blue">get</span>; <span style="color:blue">set</span>; }
+
+        <span style="color:blue">public</span> IMethodReturn Invoke(IMethodInvocation input, GetNextHandlerDelegate getNext)
+        {
+            IMethodReturn msg;
+            msg = input.CreateMethodReturn(<span style="color:#a31515">&quot;&lt;abc&gt;def&lt;/abc&gt;&quot;</span>);
+            <span style="color:blue">return</span> msg;
+        }
+    } 
+
+    <span style="color:blue">class</span> Program
+    {
+        <span style="color:blue">public</span> <span style="color:blue">static</span> <span style="color:blue">void</span> GetXmlTest()
+        {
+            IUnityContainer container = <span style="color:blue">new</span> UnityContainer();
+
+            container.AddNewExtension&lt;Interception&gt;();
+
+            CustomAttributeMatchingRule matchingRule = <span style="color:blue">new</span> CustomAttributeMatchingRule(<span style="color:blue">typeof</span>(GetXmlCallHandlerAttribute), <span style="color:blue">true</span>);
+            ICallHandler myInterception = <span style="color:blue">new</span> GetXmlTestCallHandler();
+            
+            container.Configure&lt;Interception&gt;()
+                .AddPolicy(<span style="color:#a31515">&quot;GetXml&quot;</span>)
+                .AddCallHandler(myInterception)
+                .AddMatchingRule(matchingRule);
+
+            container.RegisterType&lt;ISendData, SendData&gt;(
+                <span style="color:blue">new</span> Interceptor(<span style="color:blue">new</span> TransparentProxyInterceptor()), 
+                <span style="color:blue">new</span> InterceptionBehavior&lt;PolicyInjectionBehavior&gt;());
+
+            container.RegisterType&lt;ISendData, SendDataNoIntercept&gt;(<span style="color:#a31515">&quot;NoIntercept&quot;</span>,
+                <span style="color:blue">new</span> Interceptor(<span style="color:blue">new</span> TransparentProxyInterceptor()),
+                <span style="color:blue">new</span> InterceptionBehavior&lt;PolicyInjectionBehavior&gt;());
+
+            <span style="color:blue">var</span> target = container.Resolve&lt;ISendData&gt;();
+            <span style="color:blue">var</span> actual = target.GetXml();
+
+            <span style="color:blue">var</span> target2 = container.Resolve&lt;ISendData&gt;(<span style="color:#a31515">&quot;NoIntercept&quot;</span>);
+            <span style="color:blue">var</span> actual2 = target2.GetXml();
+        }
+
+        <span style="color:blue">static</span> <span style="color:blue">void</span> Main(<span style="color:blue">string</span>[] args)
+        {
+            GetXmlTest();
+        }
+    }
+
+    <span style="color:blue">public</span> <span style="color:blue">interface</span> ISendData
+    {
+        <span style="color:blue">string</span> GetXml();
+    }
+
+    <span style="color:blue">public</span> <span style="color:blue">class</span> SendData : ISendData
+    {
+        [GetXmlCallHandler]
+        <span style="color:blue">public</span> <span style="color:blue">string</span> GetXml()
+        {
+            <span style="color:blue">return</span> <span style="color:#a31515">&quot;&lt;abc&gt;xyz&lt;/abc&gt;&quot;</span>;
+        }
+    }
+
+    <span style="color:blue">public</span> <span style="color:blue">class</span> SendDataNoIntercept : ISendData
+    {
+        <span style="color:blue">public</span> <span style="color:blue">string</span> GetXml()
+        {
+            <span style="color:blue">return</span> <span style="color:#a31515">&quot;&lt;abc&gt;xyz&lt;/abc&gt;&quot;</span>;
+        }
+    }
+</pre>
+</div>
+<p>--<br>
+Randy Levy<br>
+Enterprise Library support engineer<br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">entlib.support@live.com</a>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_928504" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f399784">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="ead38047-e292-4a9e-bd0a-0aa6532772da">
+    <script class="options" defer="defer" id="ead38047-e292-4a9e-bd0a-0aa6532772da" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_59f1c2bd-0b8a-4889-8d0f-8fddb0aed907">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_9f83e170-6ba2-41b4-bd32-9c7eb2925d0c">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_59f1c2bd-0b8a-4889-8d0f-8fddb0aed907" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_9f83e170-6ba2-41b4-bd32-9c7eb2925d0c" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/399784';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

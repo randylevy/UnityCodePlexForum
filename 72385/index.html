@@ -1,0 +1,885 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Unity under .NET 4.0 TypeLoadException</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/72385?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/72385?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="dwfbAPOplbGPmHfwGvr7vEVZppUj8_GcPMEhPd-CFamqBgA3xzRfSRzuFYUlbhzJmhwog7GXsykyJvqKQn3VCeEoISqQ7HE3JLYocu8lyoGBGU59bU42ZOpjwaT8mLbcRMMGZw2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2b7379c58-29ac-48f3-9e21-0f3c2fdc6e49" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:28:05 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f72385" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="9f40d70e-c9fd-4906-8083-a6d16322c1a9">
+                
+                    <script class="options" defer="defer" id="9f40d70e-c9fd-4906-8083-a6d16322c1a9" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="c1eda75d-d34a-4199-a5a0-88bf527b7ab7">
+                
+                    <script class="options" defer="defer" id="c1eda75d-d34a-4199-a5a0-88bf527b7ab7" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Unity under .NET 4.0 TypeLoadException
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:72385]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="1588d474-1ceb-4c51-9ed2-e70bb8430f88">
+    <script class="options" defer="defer" id="1588d474-1ceb-4c51-9ed2-e70bb8430f88" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/72385","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="247147">
+    <td id="PostDetailsCell_247147" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post247147"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/mousedoc">mousedoc</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/19/2009 4:35:18 AM" LocalTimeTicks="1255952118">Oct 19, 2009 at 4:35 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_247147" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;When&#32;the&#32;current&#32;Unity&#32;build&#32;is&#32;compiled&#32;under&#32;.NET&#32;4.0&#32;Beta&#32;1&#32;using&#32;Visual&#32;Studio&#32;10&#32;Beta&#32;1&#32;the&#32;code&#32;below&#38;nbsp&#59;throws&#32;a&#32;TypeLoadException&#32;in&#32;UnityContainer.DoBuild&#32;with&#32;the&#32;following&#32;details.&#32;&#32;Additional&#32;information&#58;&#32;Inheritance&#32;security&#32;rules&#32;violated&#32;while&#32;overriding&#32;member&#58;&#32;&#39;Microsoft.Practices.Unity.ResolutionFailedException.GetObjectData&#40;System.Runtime.Serialization.SerializationInfo,&#32;System.Runtime.Serialization.StreamingContext&#41;&#39;.&#32;Security&#32;accessibility&#32;of&#32;the&#32;overriding&#32;method&#32;must&#32;match&#32;the&#32;security&#32;accessibility&#32;of&#32;the&#32;method&#32;being&#32;overriden.&#32;&#32;Any&#32;thoughts&#32;and&#32;work&#32;arounds&#63;&#32;public&#32;interface&#32;IRepository&#123;&#32;void&#32;Test&#40;&#41;&#59;&#32;&#125;&#32;public&#32;class&#32;Repository&#32;&#58;&#32;IRepository&#123;&#32;public&#32;void&#32;Test&#40;&#41;&#123;&#125;&#32;&#125;&#32;public&#32;void&#32;DoTest&#40;&#41;&#32;&#123;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;IRepository,&#32;Repository&#38;gt&#59;&#40;&#41;&#59;&#32;IRepository&#32;repository&#32;&#61;&#32;container.Resolve&#38;lt&#59;IRepository&#38;gt&#59;&#40;&#41;&#59;&#32;if&#32;&#40;repository&#32;&#61;&#61;&#32;null&#41;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Response.Write&#40;&#38;quot&#59;Repository&#32;failed&#32;to&#32;initialize.&#38;quot&#59;&#41;&#59;&#125;else&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Response.Write&#40;&#38;quot&#59;Repository&#32;initialized&#32;successfully.&#38;quot&#59;&#41;&#59;&#125;&#32;&#125;&#32;">
+        
+<p></p>
+<p>When the current Unity build is compiled under .NET 4.0 Beta 1 using Visual Studio 10 Beta 1 the code below&nbsp;throws a TypeLoadException in UnityContainer.DoBuild with the following details.</p>
+<p></p>
+<p>Additional information: Inheritance security rules violated while overriding member: 'Microsoft.Practices.Unity.ResolutionFailedException.GetObjectData(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)'. Security
+ accessibility of the overriding method must match the security accessibility of the method being overriden.</p>
+<p></p>
+<p>Any thoughts and work arounds?</p>
+<p><span style="font-family:Courier New; color:#0000ff; font-size:x-small"><span style="font-family:Courier New; color:#0000ff; font-size:x-small"><span style="font-family:Courier New; color:#0000ff; font-size:x-small">public interface IRepository<br>
+{</span></span></span></p>
+<p><span style="font-family:Courier New; color:#0000ff">void Test();</span></p>
+<p><span style="font-family:Courier New; color:#0000ff">}</span></p>
+<p><span style="font-family:Courier New; color:#0000ff; font-size:x-small"><span style="font-family:Courier New; color:#0000ff; font-size:x-small"><span style="font-family:Courier New; color:#0000ff; font-size:x-small">public class Repository : IRepository<br>
+{</span></span></span></p>
+<p><span style="font-family:Courier New; color:#0000ff">public void Test(){}</span></p>
+<p><span style="font-family:Courier New; color:#0000ff">}</span></p>
+<p><span style="font-family:Courier New; color:#0000ff; font-size:x-small"><span style="font-family:Courier New; color:#0000ff; font-size:x-small"><span style="font-family:Courier New; color:#0000ff; font-size:x-small">public</span></span></span><span style="font-family:Courier New; font-size:x-small"><span style="font-family:Courier New; font-size:x-small">
+</span></span><span style="font-family:Courier New; color:#0000ff; font-size:x-small"><span style="font-family:Courier New; color:#0000ff; font-size:x-small"><span style="font-family:Courier New; color:#0000ff; font-size:x-small">void</span></span></span><span style="font-family:Courier New; font-size:x-small"><span style="font-family:Courier New; font-size:x-small">
+ DoTest()</span></span></p>
+<p><span style="font-family:Courier New">{</span></p>
+<p><span style="font-family:Courier New"><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">IUnityContainer</span></span></span><span style="font-size:x-small"><span style="font-size:x-small">
+ container = </span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">new</span></span></span><span style="font-size:x-small"><span style="font-size:x-small">
+</span></span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">UnityContainer</span></span></span><span style="font-size:x-small"><span style="font-size:x-small">();</span></span></span></p>
+<p><span style="font-family:Courier New">container.RegisterType&lt;</span><span style="font-family:Courier New"><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">IRepository</span></span></span><span style="font-size:x-small"><span style="font-size:x-small">,
+</span></span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">Repository</span></span></span><span style="font-size:x-small"><span style="font-size:x-small">&gt;();</span></span></span></p>
+<p><span style="font-family:Courier New"><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">IRepository</span></span></span><span style="font-size:x-small"><span style="font-size:x-small">
+ repository = container.Resolve&lt;</span></span><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small"><span style="color:#2b91af; font-size:x-small">IRepository</span></span></span><span style="font-size:x-small"><span style="font-size:x-small">&gt;();</span></span></span></p>
+<p><span style="font-family:Courier New">if (</span><span style="font-family:Courier New"><span style="font-size:x-small"><span style="font-size:x-small">repository ==
+</span></span><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">null</span></span></span></span><span style="font-family:Courier New">)<br>
+</span><span style="font-family:Courier New">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp; Response.Write(<span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">&quot;Repository failed to initialize.&quot;</span></span></span><span style="font-size:x-small"><span style="font-size:x-small">);<br>
+}<br>
+</span></span></span><span style="font-family:Courier New"><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small"><span style="color:#0000ff; font-size:x-small">else</span></span></span></span><span style="font-size:x-small"><span style="font-size:x-small"><span style="font-family:Courier New"><br>
+</span><span style="font-family:Courier New">{<br>
+&nbsp;&nbsp;&nbsp; </span><span style="font-family:Courier New">Response.Write(</span></span></span><span style="font-family:Courier New"><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small"><span style="color:#a31515; font-size:x-small">&quot;Repository
+ initialized successfully.&quot;</span></span></span><span style="font-size:x-small"><span style="font-size:x-small">);<br>
+}</span></span></span></p>
+<p><span style="font-family:Courier New">}</span></p>
+<p></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_247147" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="247151">
+    <td id="PostDetailsCell_247151" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post247151"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/mousedoc">mousedoc</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/19/2009 5:14:48 AM" LocalTimeTicks="1255954488">Oct 19, 2009 at 5:14 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_247151" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Did&#32;some&#32;follow-up&#32;testing.&#32;Downloaded&#32;the&#32;current&#32;build&#32;again&#32;and&#32;attempted&#32;to&#32;build&#32;out&#32;of&#32;the&#32;box&#32;with&#32;Visual&#32;Studio&#32;2010&#32;Beta&#32;1.&#32;Crashed&#32;the&#32;compiler&#32;multiple&#32;times.&#32;Tried&#32;again&#32;with&#32;the&#32;current&#32;free&#32;WebDeveloper&#32;version&#32;and&#32;built&#32;for&#32;3.5.&#32;Same&#32;code&#32;as&#32;above&#32;it&#32;works.&#32;So,&#32;definitely&#32;a&#32;.NET&#32;4.0&#47;Visual&#32;Studio&#32;2010&#32;Beta&#32;1&#38;nbsp&#59;issue.">
+        
+<p>Did some follow-up testing. Downloaded the current build again and attempted to build out of the box with Visual Studio 2010 Beta 1. Crashed the compiler multiple times. Tried again with the current free WebDeveloper version and built for 3.5. Same code
+ as above it works. So, definitely a .NET 4.0/Visual Studio 2010 Beta 1&nbsp;issue.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_247151" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="247152">
+    <td id="PostDetailsCell_247152" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post247152"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/19/2009 5:21:32 AM" LocalTimeTicks="1255954892">Oct 19, 2009 at 5:21 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_247152" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="We&#39;ve&#32;been&#32;waiting&#32;for&#32;Beta&#32;2&#32;to&#32;release&#32;before&#32;we&#32;do&#32;any&#32;work&#32;on&#32;cross-compiling&#32;for&#32;.NET&#32;4.0.&#32;We&#39;re&#32;not&#32;planning&#32;on&#32;shipping&#32;4.0&#32;only&#32;binaries&#32;&#40;the&#32;3.5&#32;version&#32;should&#32;work&#32;just&#32;fine&#32;in&#32;a&#32;4.0&#32;process&#41;,&#32;but&#32;we&#39;d&#32;like&#32;it&#32;to&#32;compile&#32;and&#32;work&#32;with&#32;4.0&#32;if&#32;people&#32;want&#32;to&#32;do&#32;that&#32;themselves.&#32;&#38;nbsp&#59;">
+        
+<p>We've been waiting for Beta 2 to release before we do any work on cross-compiling for .NET 4.0. We're not planning on shipping 4.0 only binaries (the 3.5 version should work just fine in a 4.0 process), but we'd like it to compile and work with 4.0 if people
+ want to do that themselves.</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_247152" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="247928">
+    <td id="PostDetailsCell_247928" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post247928"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/mousedoc">mousedoc</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/21/2009 12:29:04 AM" LocalTimeTicks="1256110144">Oct 21, 2009 at 12:29 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_247928" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#39;ve&#32;gotten&#32;a&#32;little&#32;farther&#32;and&#32;have&#32;realized&#32;that&#32;if&#32;I&#32;use&#32;ResolveType&#38;lt&#59;From,To&#38;gt&#59;&#32;I&#32;get&#32;the&#32;error&#32;but&#32;if&#32;use&#32;RegisterInstance&#38;lt&#59;From&#38;gt&#59;&#40;instance&#41;&#32;I&#32;don&#39;t&#32;get&#32;the&#32;error,&#32;regardless&#32;of&#32;what&#32;version&#32;of&#32;Unity,&#32;.NET&#32;Framework,&#32;or&#32;compiler&#32;I&#32;am&#32;using.&#32;I&#39;ve&#32;gone&#32;all&#32;the&#32;way&#32;back&#32;to&#32;Unity&#32;1.2&#32;under&#32;.NET&#32;2.0.&#32;Am&#32;I&#32;missing&#32;something&#32;simple&#63;">
+        
+<p>I've gotten a little farther and have realized that if I use ResolveType&lt;From,To&gt; I get the error but if use RegisterInstance&lt;From&gt;(instance) I don't get the error, regardless of what version of Unity, .NET Framework, or compiler I am using.
+ I've gone all the way back to Unity 1.2 under .NET 2.0. Am I missing something simple?</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_247928" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="247962">
+    <td id="PostDetailsCell_247962" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post247962"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/21/2009 5:05:37 AM" LocalTimeTicks="1256126737">Oct 21, 2009 at 5:05 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_247962" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Well,&#32;there&#32;is&#32;no&#32;ResolveType&#38;lt&#59;From,&#32;To&#38;gt&#59;&#32;call.&#32;Do&#32;you&#32;mean&#32;RegisterType&#38;lt&#59;From,&#32;To&#38;gt&#59;&#63;&#32;And&#32;I&#32;use&#32;that&#32;all&#32;the&#32;time,&#32;so&#32;there&#32;must&#32;be&#32;something&#32;in&#32;your&#32;app&#32;that&#32;we&#39;re&#32;not&#32;seeing.&#32;The&#32;error&#32;has&#32;to&#32;do&#32;with&#32;serialization&#32;on&#32;.NET&#32;4.0&#59;&#32;you&#32;definitely&#32;should&#32;not&#32;be&#32;seeing&#32;it&#32;on&#32;.NET&#32;2.0.&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;">
+        
+<p>Well, there is no ResolveType&lt;From, To&gt; call. Do you mean RegisterType&lt;From, To&gt;?</p>
+<p>And I use that all the time, so there must be something in your app that we're not seeing. The error has to do with serialization on .NET 4.0; you definitely should not be seeing it on .NET 2.0.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_247962" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="248248">
+    <td id="PostDetailsCell_248248" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post248248"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/mousedoc">mousedoc</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/21/2009 7:15:26 PM" LocalTimeTicks="1256177726">Oct 21, 2009 at 7:15 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_248248" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Yes,&#32;I&#32;meant&#32;RegisterType.&#32;Should&#32;have&#32;reviewed&#32;my&#32;post&#32;more&#32;carefully.&#32;I&#32;have&#32;used&#38;nbsp&#59;Unity&#32;previously&#32;with&#32;no&#32;problems.&#32;The&#32;primary&#32;difference&#32;for&#32;me&#32;now,&#32;but&#32;I&#39;m&#32;not&#32;sure&#32;how&#32;it&#32;would&#32;be&#32;relevant,&#32;is&#32;I&#32;used&#32;the&#32;installer&#32;before&#32;but&#32;am&#32;compiling&#32;the&#32;source&#32;myself&#32;this&#32;time&#32;on&#38;nbsp&#59;a&#32;machine&#32;that&#32;the&#32;installer&#32;was&#32;not&#32;run&#32;on.&#32;&#38;nbsp&#59;">
+        
+<p>Yes, I meant RegisterType. Should have reviewed my post more carefully. I have used&nbsp;Unity previously with no problems. The primary difference for me now, but I'm not sure how it would be relevant, is I used the installer before but am compiling the
+ source myself this time on&nbsp;a machine that the installer was not run on.</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_248248" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="248815">
+    <td id="PostDetailsCell_248815" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post248815"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/mousedoc">mousedoc</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/22/2009 11:58:33 PM" LocalTimeTicks="1256281113">Oct 22, 2009 at 11:58 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="10/23/2009 12:09:23 AM" LocalTimeTicks="1256281763">Oct 23, 2009 at 12:09 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_248815" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Resolved&#32;the&#32;problem&#32;and&#32;it&#32;sort&#32;of&#32;wasn&#39;t&#32;Unity.&#32;I&#32;had&#32;two&#32;constructors,&#32;the&#32;second&#32;taking&#32;a&#32;connection&#32;string&#32;which&#32;was&#32;blowing&#32;up&#32;Resolve.&#32;I&#32;changed&#32;the&#32;second&#32;constructor&#32;to&#32;take&#32;a&#32;parameter&#32;of&#38;nbsp&#59;IConnectionString&#32;as&#32;declared&#32;below,&#32;then&#32;initialized&#32;an&#32;instance&#32;of&#32;an&#32;IConnectionString&#32;implementer&#32;and&#32;registered&#32;it&#32;with&#32;the&#32;container.&#32;Resolve&#32;then&#32;works&#32;beautifully&#32;under&#32;Visual&#32;Studio&#32;10&#32;Beta&#32;1&#32;and&#32;.NET&#32;4.0&#32;Beta&#32;1.&#32;&#32;&#32;public&#32;interface&#32;IConnectionString&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#32;string&#32;Value&#32;&#123;&#32;get&#59;&#32;&#125;&#125;&#32;&#32;public&#32;class&#32;ConnectionString&#32;&#58;&#32;IConnectionString&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;ConnectionString&#40;string&#32;connectionString&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;if&#32;&#40;string.IsNullOrEmpty&#40;connectionString&#41;&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;throw&#32;new&#32;ArgumentNullException&#40;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;this.Value&#32;&#61;&#32;connectionString&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;string&#32;Value&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;get&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;private&#32;set&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#125;&#32;&#32;In&#32;retrospect,&#32;including&#32;in&#32;the&#32;error&#32;message&#32;where&#32;the&#32;class&#47;method&#47;constructor&#32;in&#32;the&#32;requested&#32;resolution&#32;where&#32;the&#32;buildup&#32;error&#32;occurred&#32;would&#32;have&#32;made&#32;it&#32;much&#32;easier&#32;to&#32;resolve&#32;my&#32;mistake.&#32;Took&#32;me&#32;about&#32;10&#32;hours&#32;of&#32;time&#32;to&#32;figure&#32;this&#32;simple&#32;issue&#32;out.&#32;Uggh,&#32;do&#32;I&#32;feel&#32;dumb.">
+        
+<p>Resolved the problem and it sort of wasn't Unity. I had two constructors, the second taking a connection string which was blowing up Resolve. I changed the second constructor to take a parameter of&nbsp;IConnectionString as declared below, then initialized
+ an instance of an IConnectionString implementer and registered it with the container. Resolve then works beautifully under Visual Studio 10 Beta 1 and .NET 4.0 Beta 1.</p>
+<p></p>
+<p></p>
+<p><span style="font-family:Courier New; color:#0000ff; font-size:x-small"><span style="font-family:Courier New; color:#0000ff; font-size:x-small"><span style="font-family:Courier New; color:#0000ff; font-size:x-small">public</span></span></span><span style="font-family:Courier New; font-size:x-small"><span style="font-family:Courier New; font-size:x-small">
+</span></span><span style="font-family:Courier New; color:#0000ff; font-size:x-small"><span style="font-family:Courier New; color:#0000ff; font-size:x-small"><span style="font-family:Courier New; color:#0000ff; font-size:x-small">interface</span></span></span><span style="font-family:Courier New; font-size:x-small"><span style="font-family:Courier New; font-size:x-small">
+</span></span><span style="font-family:Courier New; color:#2b91af; font-size:x-small"><span style="font-family:Courier New; color:#2b91af; font-size:x-small"><span style="font-family:Courier New; color:#2b91af; font-size:x-small">IConnectionString<br>
+</span></span></span><span style="font-family:Courier New; font-size:x-small"><span style="font-family:Courier New; font-size:x-small">{<br>
+&nbsp;&nbsp; </span></span><span style="font-family:Courier New; color:#0000ff; font-size:x-small"><span style="font-family:Courier New; color:#0000ff; font-size:x-small"><span style="font-family:Courier New; color:#0000ff; font-size:x-small">string</span></span></span><span style="font-family:Courier New; font-size:x-small"><span style="font-family:Courier New; font-size:x-small">
+ Value { </span></span><span style="font-family:Courier New; color:#0000ff; font-size:x-small"><span style="font-family:Courier New; color:#0000ff; font-size:x-small"><span style="font-family:Courier New; color:#0000ff; font-size:x-small">get</span></span></span><span style="font-family:Courier New; font-size:x-small"><span style="font-family:Courier New; font-size:x-small">;
+ }<br>
+</span></span><span style="font-family:Courier New">}</span></p>
+<p></p>
+<p><span style="font-family:Courier New">public class ConnectionString : IConnectionString<br>
+{<br>
+</span><span style="font-family:Courier New">&nbsp;&nbsp; public ConnectionString(string connectionString)<br>
+&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (string.IsNullOrEmpty(connectionString))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; throw new ArgumentNullException();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.Value = connectionString;<br>
+&nbsp;&nbsp; }</span></p>
+<p><span style="font-family:Courier New">&nbsp;&nbsp; public string Value<br>
+&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; get;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private set;<br>
+&nbsp;&nbsp; }<br>
+}</span></p>
+<p></p>
+<p>In retrospect, including in the error message where the class/method/constructor in the requested resolution where the buildup error occurred would have made it much easier to resolve my mistake. Took me about 10 hours of time to figure this simple issue
+ out. Uggh, do I feel dumb.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_248815" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f72385">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="926c370d-01c9-4799-8636-2e48937593dd">
+    <script class="options" defer="defer" id="926c370d-01c9-4799-8636-2e48937593dd" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_19d81a27-59dc-4e7e-94cc-b741a3a0367a">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_b64069bc-d81e-4bc7-b06c-bba482409a1d">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_19d81a27-59dc-4e7e-94cc-b741a3a0367a" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_b64069bc-d81e-4bc7-b06c-bba482409a1d" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/72385';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

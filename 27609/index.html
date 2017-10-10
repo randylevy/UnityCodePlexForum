@@ -1,0 +1,1226 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Extra Parameters, and Resolving internal constructors</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/27609?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/27609?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="5EbXiimUpbQG0ChL2_0IZ6xmhdSkHNZ9JBUcVK2o81bZ3W9xz-rAykGwQEEoC7n-U1_jHPzCxM9OAHA_JhD7-nCYAQ_BIWppL_uwy27HPyfV8KIxzC4UcfToCD5PqKtoegE_Yw2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2239e0737-bd53-44b7-8417-67933e106c90" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:29:02 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f27609" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="deaccdde-8a7b-470e-8b11-3a362956e211">
+                
+                    <script class="options" defer="defer" id="deaccdde-8a7b-470e-8b11-3a362956e211" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="3a40aaee-9e5a-4d81-92fa-e5f1a7858f49">
+                
+                    <script class="options" defer="defer" id="3a40aaee-9e5a-4d81-92fa-e5f1a7858f49" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Extra Parameters, and Resolving internal constructors
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:27609]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="5259354f-da1d-4a0f-ba0d-b406323e1400">
+    <script class="options" defer="defer" id="5259354f-da1d-4a0f-ba0d-b406323e1400" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/27609","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="92123">
+    <td id="PostDetailsCell_92123" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post92123"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ijones">ijones</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/13/2008 10:50:15 AM" LocalTimeTicks="1210701015">May 13, 2008 at 10:50 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_92123" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hello,&#32;&#32;Extra&#32;Parameters&#32;when&#32;resolving&#32;a&#32;class&#32;is&#32;it&#32;possible&#32;to&#32;pass&#32;extra&#32;parameters&#32;which&#32;are&#32;just&#32;instances&#32;of&#32;objects&#63;&#32;&#32;I.e.&#32;I&#32;don&#39;t&#32;want&#32;to&#32;register&#32;one&#32;of&#32;the&#32;parameters,&#32;and&#32;just&#32;want&#32;to&#32;pass&#32;through&#32;a&#32;value&#32;to&#32;the&#32;constructor&#32;like&#32;a&#32;DTO.&#32;So&#32;I&#32;am&#32;passing&#32;a&#32;DTO&#32;as&#32;well&#32;as&#32;all&#32;the&#32;class&#32;dependancies.&#32;&#32;Can&#32;I&#32;use&#32;resolve&#32;to&#32;load&#32;in&#32;the&#32;dependancies&#32;as&#32;well&#32;as&#32;pass&#32;through&#32;other&#32;parameters&#63;&#32;&#32;Alternatively&#32;would&#32;I&#32;have&#32;to&#32;create&#32;a&#32;seperate&#32;container&#32;that&#32;was&#32;just&#32;used&#32;in&#32;this&#32;one&#32;location,&#32;and&#32;register&#32;the&#32;DTO&#32;to&#32;be&#32;sent&#32;through.&#32;I&#32;wouldn&#39;t&#32;want&#32;to&#32;register&#32;the&#32;DTO&#32;in&#32;the&#32;main&#32;application&#32;container,&#32;or&#32;else&#32;it&#32;might&#32;get&#32;used&#32;in&#32;different&#32;parts&#32;of&#32;the&#32;application,&#32;and&#32;might&#32;have&#32;conflicts&#32;with&#32;other&#32;threads&#32;registering&#32;different&#32;DTO&#39;s.&#32;&#32;The&#32;only&#32;other&#32;way&#32;I&#32;thought&#32;of&#32;is&#32;moving&#32;these&#32;extra&#32;parameters&#32;as&#32;setters,&#32;but&#32;I&#32;don&#39;t&#32;want&#32;to&#32;have&#32;to&#32;do&#32;this.&#32;As&#32;you&#32;then&#32;start&#32;to&#32;have&#32;objects&#32;that&#32;exist&#32;which&#32;might&#32;not&#32;have&#32;been&#32;setup&#32;correctly.&#32;&#32;Resolving&#32;internal&#32;constructors&#32;Is&#32;it&#32;possible&#32;to&#32;resolve&#32;internal&#32;constructors&#63;&#32;Seems&#32;to&#32;throw&#32;an&#32;error&#32;when&#32;I&#32;try.&#32;&#32;I&#32;have&#32;an&#32;internal&#32;constructor&#32;on&#32;an&#32;object&#32;as&#32;I&#32;only&#32;want&#32;it&#32;created&#32;from&#32;within&#32;the&#32;current&#32;project,&#32;or&#32;the&#32;test&#32;project&#32;&#40;using&#32;&#91;assembly&#58;&#32;InternalsVisibleTo&#32;...&#32;&#41;&#32;&#32;Or&#32;do&#32;I&#32;have&#32;to&#32;use&#32;a&#32;factory,&#32;and&#32;use&#32;Unity&#32;as&#32;a&#32;service&#32;locator&#32;to&#32;get&#32;the&#32;dependencies&#32;and&#32;pass&#32;them&#32;through&#32;to&#32;the&#32;internal&#32;constructor&#63;&#32;&#32;Regards&#32;&#32;&#32;">
+        Hello,<br>
+<br>
+<span style="text-decoration:underline">Extra Parameters</span><br>
+when resolving a class is it possible to pass extra parameters which are just instances of objects?<br>
+<br>
+I.e. I don't want to register one of the parameters, and just want to pass through a value to the constructor like&nbsp;a DTO.<br>
+So I am passing a DTO as well as all the class dependancies.<br>
+<br>
+Can I use resolve to load in the dependancies&nbsp;as well as pass through&nbsp;other parameters?<br>
+<br>
+Alternatively would I have to create a seperate container that was just used in this one location, and register the DTO to be sent through. I wouldn't want to register the DTO in the main application container, or else it might get used in different parts of
+ the application, and might have conflicts with other threads registering&nbsp;different DTO's.<br>
+<br>
+The only other way I thought of is moving these extra parameters as setters, but I don't want to have to do this. As you then start to&nbsp;have objects that exist which might not have been setup correctly.<br>
+<br>
+<span style="text-decoration:underline">Resolving internal constructors</span><br>
+Is it possible to resolve internal constructors? Seems to throw an error when I try.<br>
+<br>
+I have an internal constructor on an object as I only want it created from within the current project, or the test project (using
+<span style="font-size:13px">[assembly: </span><span style="font-size:13px; color:#2b91af">InternalsVisibleTo ...
+</span>)<br>
+<br>
+Or do I have to use a factory, and use Unity as a service locator to get the dependencies and pass them through to the internal constructor?<br>
+<br>
+Regards<br>
+<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_92123" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="92229">
+    <td id="PostDetailsCell_92229" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post92229"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ijones">ijones</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/13/2008 4:57:01 PM" LocalTimeTicks="1210723021">May 13, 2008 at 4:57 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_92229" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="The&#32;nearest&#32;I&#32;have&#32;got&#32;is&#32;&#32;ConfigureInjectionFor&#47;InjectionConstructor&#32;&#32;http&#58;&#47;&#47;msdn.microsoft.com&#47;en-us&#47;library&#47;cc440941.aspx&#32;&#32;But&#32;haven&#39;t&#32;got&#32;any&#32;further.&#32;&#32;&#32;An&#32;example&#32;of&#32;what&#32;I&#32;am&#32;trying&#32;to&#32;achieve&#32;is&#58;&#32;&#32;public&#32;class&#32;TestClass&#32;&#32;&#123;&#32;private&#32;EmployeeDto&#32;_dto&#59;&#32;private&#32;ILogger&#32;_logger&#59;&#32;&#32;&#47;&#47;throws&#32;error&#32;if&#32;internal&#32;on&#32;Resolve&#38;lt&#59;TestClass&#38;gt&#59;,&#32;hack&#32;change&#32;to&#32;public&#32;internal&#32;TestClass&#40;EmployeeDto&#32;dto,&#32;ILogger&#32;logger&#41;&#32;&#123;&#32;_dto&#32;&#61;&#32;dto&#59;&#32;_logger&#32;&#61;&#32;logger&#59;&#32;&#125;&#32;...&#32;&#125;&#32;&#32;&#32;&#47;&#47;Setup&#32;code&#32;.RegisterType&#38;lt&#59;ILogger,&#32;Logger&#38;gt&#59;&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#32;&#32;&#47;&#47;Calling&#32;code,&#32;how&#32;to&#32;pass&#32;in&#32;dto,&#32;and&#32;keep&#32;ILogger&#32;being&#32;resolved&#32;automatically&#63;&#63;&#32;Container.Resolve&#38;lt&#59;TestClass&#38;gt&#59;&#40;&#41;&#32;&#32;&#32;">
+        The nearest I have got is<br>
+<br>
+ConfigureInjectionFor/InjectionConstructor<br>
+<br>
+<a href="http://msdn.microsoft.com/en-us/library/cc440941.aspx" rel="nofollow">http://msdn.microsoft.com/en-us/library/cc440941.aspx</a><br>
+<br>
+But haven't got any further.<br>
+<br>
+<br>
+An example of what I am trying to achieve is:<br>
+<br>
+public class TestClass <br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;EmployeeDto _dto;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private ILogger _logger;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//throws error if internal on Resolve&lt;TestClass&gt;, hack change to public<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;internal TestClass(EmployeeDto dto, ILogger logger)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_dto = dto;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_logger = logger;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+...<br>
+}<br>
+<br>
+<br>
+//Setup code<br>
+<span style="font-size:13px">.RegisterType&lt;</span><span style="font-size:13px; color:#2b91af">ILogger</span><span style="font-size:13px">,
+</span><span style="font-size:13px; color:#2b91af">Logger</span><span style="font-size:13px">&gt;();<br>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</span>
+<p></p>
+<p>//Calling code, how to pass in dto, and keep ILogger being resolved automatically??<br>
+<span style="font-size:13px">Container.Resolve&lt;TestClass&gt;()</span><br>
+</p>
+<p></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_92229" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="92269">
+    <td id="PostDetailsCell_92269" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post92269"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/BillKrat">BillKrat</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/13/2008 7:56:19 PM" LocalTimeTicks="1210733779">May 13, 2008 at 7:56 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="5/13/2008 8:00:24 PM" LocalTimeTicks="1210734024">May 13, 2008 at 8:00 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_92269" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Have&#32;you&#32;considered&#32;InjectionMethod&#40;&#41;&#63;&#32;&#32;&#32;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#32;.RegisterType&#38;lt&#59;IMylogger,&#32;MyLogger&#38;gt&#59;&#40;&#41;&#59;&#32;TestClass&#32;SetItUpTheWayIWant&#32;&#61;&#32;new&#32;TestClass&#40;new&#32;EmployeeDto&#40;&#38;quot&#59;My&#32;Name&#38;quot&#59;&#41;&#41;&#59;&#32;container.BuildUp&#38;lt&#59;testclass&#38;gt&#59;&#40;SetItUpTheWayIWant&#41;&#59;&#32;SetItUpTheWayIWant.MyProcess&#40;&#41;&#59;&#32;&#32;&#32;&#32;public&#32;interface&#32;IMyLogger&#32;&#123;&#32;void&#32;write&#40;string&#32;message&#41;&#59;&#32;&#125;&#32;public&#32;class&#32;MyLogger&#32;&#58;&#32;IMyLogger&#32;&#123;&#32;public&#32;void&#32;write&#40;string&#32;message&#41;&#32;&#123;&#32;Debug.Write&#40;message,&#32;&#38;quot&#59;LOGGER&#38;quot&#59;&#41;&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;EmployeeDto&#32;&#123;&#32;private&#32;string&#32;_name&#59;&#32;public&#32;string&#32;Name&#32;&#123;&#32;get&#32;&#123;&#32;return&#32;_name&#59;&#32;&#125;&#32;set&#32;&#123;&#32;_name&#32;&#61;&#32;value&#59;&#32;&#125;&#32;&#125;&#32;public&#32;EmployeeDto&#40;string&#32;name&#41;&#32;&#123;&#32;_name&#32;&#61;&#32;name&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;TestClass&#32;&#123;&#32;private&#32;EmployeeDto&#32;_dto&#59;&#32;private&#32;IMyLogger&#32;_logger&#59;&#32;&#91;InjectionMethod&#93;&#32;public&#32;void&#32;Initialize&#40;IMyLogger&#32;logger&#41;&#32;&#123;&#32;_logger&#32;&#61;&#32;logger&#59;&#32;&#125;&#32;internal&#32;TestClass&#40;EmployeeDto&#32;dto&#41;&#32;&#123;&#32;_dto&#32;&#61;&#32;dto&#59;&#32;&#125;&#32;public&#32;void&#32;MyProcess&#40;&#41;&#32;&#123;&#32;_logger.write&#40;string.Format&#40;&#38;quot&#59;Name&#58;&#32;&#123;0&#125;&#38;quot&#59;,&#32;_dto.Name&#41;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;">
+        <br>
+Have you considered InjectionMethod()?<br>
+<br>
+<hr>
+<pre>            IUnityContainer container = new UnityContainer()
+                .RegisterType&lt;IMylogger, MyLogger&gt;();
+
+            TestClass SetItUpTheWayIWant = new TestClass(new EmployeeDto(&quot;My Name&quot;));
+            container.BuildUp&lt;testclass&gt;(SetItUpTheWayIWant);
+
+            SetItUpTheWayIWant.MyProcess();
+</pre>
+<hr>
+<pre>    public interface IMyLogger
+    {
+        void write(string message);
+    }
+    public class MyLogger : IMyLogger
+    {
+        public void write(string message)
+        {
+            Debug.Write(message, &quot;LOGGER&quot;);
+        }
+    }
+
+    public class EmployeeDto
+    {
+        private string _name;
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+        public EmployeeDto(string name)
+        {
+            _name = name;
+        }
+    }
+
+    public class TestClass
+    {
+        private EmployeeDto _dto;
+        private IMyLogger _logger;
+
+        [InjectionMethod]
+        public void Initialize(IMyLogger logger)
+        {
+            _logger = logger;
+        }
+        internal TestClass(EmployeeDto dto)
+        {
+            _dto = dto;
+        }
+        public void MyProcess()
+        {
+            _logger.write(string.Format(&quot;Name: {0}&quot;, _dto.Name));
+        }
+    }
+</pre>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_92269" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="92307">
+    <td id="PostDetailsCell_92307" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post92307"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/13/2008 10:16:12 PM" LocalTimeTicks="1210742172">May 13, 2008 at 10:16 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_92307" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;&#32;ijones&#32;wrote&#58;&#32;Hello,&#32;&#32;Extra&#32;Parameters&#32;when&#32;resolving&#32;a&#32;class&#32;is&#32;it&#32;possible&#32;to&#32;pass&#32;extra&#32;parameters&#32;which&#32;are&#32;just&#32;instances&#32;of&#32;objects&#63;&#32;&#32;I.e.&#32;I&#32;don&#39;t&#32;want&#32;to&#32;register&#32;one&#32;of&#32;the&#32;parameters,&#32;and&#32;just&#32;want&#32;to&#32;pass&#32;through&#32;a&#32;value&#32;to&#32;the&#32;constructor&#32;like&#38;nbsp&#59;a&#32;DTO.&#32;So&#32;I&#32;am&#32;passing&#32;a&#32;DTO&#32;as&#32;well&#32;as&#32;all&#32;the&#32;class&#32;dependancies.&#32;&#32;Can&#32;I&#32;use&#32;resolve&#32;to&#32;load&#32;in&#32;the&#32;dependancies&#38;nbsp&#59;as&#32;well&#32;as&#32;pass&#32;through&#38;nbsp&#59;other&#32;parameters&#63;&#32;&#32;Alternatively&#32;would&#32;I&#32;have&#32;to&#32;create&#32;a&#32;seperate&#32;container&#32;that&#32;was&#32;just&#32;used&#32;in&#32;this&#32;one&#32;location,&#32;and&#32;register&#32;the&#32;DTO&#32;to&#32;be&#32;sent&#32;through.&#32;I&#32;wouldn&#39;t&#32;want&#32;to&#32;register&#32;the&#32;DTO&#32;in&#32;the&#32;main&#32;application&#32;container,&#32;or&#32;else&#32;it&#32;might&#32;get&#32;used&#32;in&#32;different&#32;parts&#32;of&#32;the&#32;application,&#32;and&#32;might&#32;have&#32;conflicts&#32;with&#32;other&#32;threads&#32;registering&#38;nbsp&#59;different&#32;DTO&#39;s.&#32;&#32;The&#32;only&#32;other&#32;way&#32;I&#32;thought&#32;of&#32;is&#32;moving&#32;these&#32;extra&#32;parameters&#32;as&#32;setters,&#32;but&#32;I&#32;don&#39;t&#32;want&#32;to&#32;have&#32;to&#32;do&#32;this.&#32;As&#32;you&#32;then&#32;start&#32;to&#38;nbsp&#59;have&#32;objects&#32;that&#32;exist&#32;which&#32;might&#32;not&#32;have&#32;been&#32;setup&#32;correctly.&#32;&#32;Resolving&#32;internal&#32;constructors&#32;Is&#32;it&#32;possible&#32;to&#32;resolve&#32;internal&#32;constructors&#63;&#32;Seems&#32;to&#32;throw&#32;an&#32;error&#32;when&#32;I&#32;try.&#32;&#32;I&#32;have&#32;an&#32;internal&#32;constructor&#32;on&#32;an&#32;object&#32;as&#32;I&#32;only&#32;want&#32;it&#32;created&#32;from&#32;within&#32;the&#32;current&#32;project,&#32;or&#32;the&#32;test&#32;project&#32;&#40;using&#32;&#91;assembly&#58;&#32;InternalsVisibleTo&#32;...&#32;&#41;&#32;&#32;Or&#32;do&#32;I&#32;have&#32;to&#32;use&#32;a&#32;factory,&#32;and&#32;use&#32;Unity&#32;as&#32;a&#32;service&#32;locator&#32;to&#32;get&#32;the&#32;dependencies&#32;and&#32;pass&#32;them&#32;through&#32;to&#32;the&#32;internal&#32;constructor&#63;&#32;&#32;Regards&#32;&#32;&#32;&#32;&#32;&#32;&#32;There&#32;have&#32;been&#32;several&#32;requests&#32;for&#32;being&#32;able&#32;to&#32;pass&#32;parameters&#32;in&#32;the&#32;resolve&#32;method.&#32;There&#39;s&#32;also&#32;a&#32;lot&#32;of&#32;differing&#32;opinions&#32;on&#32;how&#32;that&#32;should&#32;work.&#32;The&#32;current&#32;best&#32;approach&#32;in&#32;my&#32;mind&#32;is&#32;to&#32;let&#32;you&#32;pass&#32;a&#32;dictionary&#32;and&#32;if&#32;the&#32;names&#32;and&#32;types&#32;in&#32;the&#32;dictionary&#32;line&#32;up&#32;with&#32;a&#32;constructor&#32;or&#32;method&#32;parameter&#32;or&#32;property,&#32;use&#32;the&#32;value&#32;from&#32;the&#32;dictionary.&#32;Yes,&#32;this&#32;is&#32;deliberately&#32;awkward.&#32;&#32;Unity&#32;will&#32;only&#32;call&#32;public&#32;constructors,&#32;properties&#32;or&#32;methods.&#32;Internal&#32;constructors&#32;are&#32;not&#32;available&#32;to&#32;the&#32;Unity&#32;assembly,&#32;after&#32;all.&#32;We&#32;could&#32;theoretically&#32;use&#32;reflection&#32;over&#32;private&#32;members,&#32;but&#32;that&#32;only&#32;works&#32;in&#32;full&#32;trust,&#32;is&#32;very&#32;slow,&#32;and&#32;violates&#32;good&#32;design&#32;principles.&#32;&#32;">
+        <br>
+<div style="border-style:dotted none; border-width:0.1em medium; margin:1em 0em 2.5em 3em; padding:0.2em; font-style:italic">
+<br>
+ijones wrote:<br>
+Hello,<br>
+<br>
+<span style="text-decoration:underline">Extra Parameters</span><br>
+when resolving a class is it possible to pass extra parameters which are just instances of objects?<br>
+<br>
+I.e. I don't want to register one of the parameters, and just want to pass through a value to the constructor like&nbsp;a DTO.<br>
+So I am passing a DTO as well as all the class dependancies.<br>
+<br>
+Can I use resolve to load in the dependancies&nbsp;as well as pass through&nbsp;other parameters?<br>
+<br>
+Alternatively would I have to create a seperate container that was just used in this one location, and register the DTO to be sent through. I wouldn't want to register the DTO in the main application container, or else it might get used in different parts of
+ the application, and might have conflicts with other threads registering&nbsp;different DTO's.<br>
+<br>
+The only other way I thought of is moving these extra parameters as setters, but I don't want to have to do this. As you then start to&nbsp;have objects that exist which might not have been setup correctly.<br>
+<br>
+<span style="text-decoration:underline">Resolving internal constructors</span><br>
+Is it possible to resolve internal constructors? Seems to throw an error when I try.<br>
+<br>
+I have an internal constructor on an object as I only want it created from within the current project, or the test project (using
+<span style="font-size:13px">[assembly: </span><span style="font-size:13px; color:rgb(43,145,175)">InternalsVisibleTo ...
+</span>)<br>
+<br>
+Or do I have to use a factory, and use Unity as a service locator to get the dependencies and pass them through to the internal constructor?<br>
+<br>
+Regards<br>
+<br>
+<br>
+<br>
+<br>
+</div>
+<br>
+There have been several requests for being able to pass parameters in the resolve method. There's also a lot of differing opinions on how that should work. The current best approach in my mind is to let you pass a dictionary and if the names and types in the
+ dictionary line up with a constructor or method parameter or property, use the value from the dictionary. Yes, this is deliberately awkward.<br>
+<br>
+Unity will only call public constructors, properties or methods. Internal constructors are not available to the Unity assembly, after all. We could theoretically use reflection over private members, but that only works in full trust, is very slow, and violates
+ good design principles.<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_92307" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="92401">
+    <td id="PostDetailsCell_92401" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post92401"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ijones">ijones</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/14/2008 10:29:12 AM" LocalTimeTicks="1210786152">May 14, 2008 at 10:29 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_92401" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Thanks&#32;for&#32;the&#32;input,&#32;&#32;yeah&#32;I&#32;had&#32;thought&#32;about&#32;the&#32;BuildUp&#32;method,&#32;but&#32;didn&#39;t&#32;want&#32;to&#32;allow&#32;people&#32;to&#32;construct&#32;the&#32;object&#32;without&#32;the&#32;dependancies&#32;if&#32;they&#32;didn&#39;t&#32;call&#32;the&#32;BuildUp&#32;method.&#32;However&#32;I&#32;guess&#32;with&#32;internal&#32;constructor&#32;this&#32;BuildUp&#32;call&#32;can&#32;be&#32;guaranteed&#32;&#40;nearly&#41;&#32;with&#32;the&#32;use&#32;of&#32;a&#32;factory&#32;class&#32;to&#32;construct&#32;the&#32;object.&#32;And&#32;since&#32;Unity&#32;can&#39;t&#32;call&#32;internal&#32;methods&#32;would&#32;need&#32;a&#32;factory&#32;method&#32;anyway.&#32;&#32;It&#32;seems&#32;overkill&#32;though&#32;to&#32;use&#32;a&#32;factory&#32;for&#32;any&#32;class&#32;that&#32;takes&#32;non&#32;dependency&#32;parameters&#32;as&#32;well&#32;as&#32;dependencies,&#32;changing&#32;public&#32;constructors&#32;to&#32;internal,&#32;and&#32;setting&#32;up&#32;an&#32;initilize&#32;method.&#32;&#32;&#32;&#32;&#32;The&#32;Dictionary&#32;idea&#32;doesn&#39;t&#32;sound&#32;too&#32;good,&#32;strings&#32;literals&#32;of&#32;parameters&#32;and&#32;types&#32;&#43;&#32;refactoring&#32;&#61;&#32;broken&#32;code&#63;&#32;Ok&#32;so&#32;you&#32;could&#32;have&#32;constants&#32;in&#32;the&#32;class&#32;of&#32;the&#32;parameter&#32;names,&#32;and&#32;types,&#32;but&#32;this&#32;is&#32;more&#32;stuff&#32;to&#32;maintain.&#32;Unless&#32;you&#32;have&#32;any&#32;ideas&#32;on&#32;how&#32;to&#32;keep&#32;string&#32;representations&#32;of&#32;property&#32;names&#32;&#38;amp&#59;&#32;types&#47;constructor&#32;variables&#32;in&#32;sync.&#32;&#32;Ideally&#32;I&#32;would&#32;want&#32;the&#32;parameters&#32;strongly&#32;typed.&#32;&#32;In&#32;the&#32;same&#32;way&#32;that&#32;you&#32;can&#32;call&#32;RegisterInstance,&#32;can&#32;there&#32;be&#32;a&#32;RegisterInstanceForResolve&#32;that&#32;only&#32;affects&#32;the&#32;current&#32;Resolve.&#32;Ok&#32;people&#32;might&#32;complain&#32;that&#32;they&#32;can&#32;only&#32;pass&#32;in&#32;one&#32;type&#32;of&#32;each&#32;object,&#32;particularly&#32;strings&#32;or&#32;integers,&#32;but&#32;they&#32;can&#32;create&#32;a&#32;helper&#32;class&#32;and&#32;setup&#32;these&#32;values,&#32;then&#32;register&#32;the&#32;instance&#32;during&#32;the&#32;resolve&#32;call.&#32;&#32;I&#32;imagine&#32;it&#32;would&#32;look&#32;something&#32;like&#32;&#32;TestClass&#32;&#32;&#32;_testClass&#32;&#61;&#32;Container.Resolve&#38;lt&#59;TestClass&#38;gt&#59;&#40;&#41;&#59;&#32;-&#38;gt&#59;&#32;TestClass&#32;_testClass&#32;&#61;&#32;Container.RegisterInstanceForResolve&#38;lt&#59;EmployeeDto&#38;gt&#59;&#40;dto&#41;.Resolve&#38;lt&#59;TestClass&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;Alternatively&#32;is&#32;there&#32;a&#32;way&#32;to&#32;clone&#32;or&#32;copy&#32;the&#32;registered&#32;services&#32;in&#32;the&#32;container,&#32;then&#32;I&#32;can&#32;just&#32;call&#32;&#32;RegisterInstance&#38;lt&#59;EmployeeDto&#38;gt&#59;&#40;dto&#41;&#32;on&#32;the&#32;clone&#32;without&#32;worrying&#32;about&#32;how&#32;other&#32;users&#32;of&#32;the&#32;container&#32;might&#32;be&#32;affected.&#32;&#38;nbsp&#59;&#32;&#32;">
+        Thanks for the input,<br>
+<br>
+yeah I had thought about the BuildUp method, but didn't want to allow people to construct the object without the dependancies if they didn't call the BuildUp method.<br>
+However I guess with internal constructor this BuildUp call can be guaranteed (nearly) with the use of a factory class to construct the object. And since Unity can't call internal methods would need a factory method anyway.<br>
+<br>
+It seems overkill though to use a factory for any class that takes non dependency parameters as well as dependencies, changing public constructors to internal, and setting up an initilize method.<br>
+<br>
+<br>
+<br>
+<br>
+The Dictionary idea doesn't sound too good, strings literals of parameters and types &#43; refactoring = broken code? Ok so you could have constants in the class of the parameter names, and types, but this is more stuff to maintain.<br>
+Unless you have any ideas on how to keep string representations of property names &amp; types/constructor variables in sync.<br>
+<br>
+Ideally I would want the parameters strongly typed.<br>
+<br>
+In the same way that you can call&nbsp;RegisterInstance, can there be a RegisterInstanceForResolve that only affects the current Resolve.<br>
+Ok people might complain that they can only pass in one type of each object, particularly strings or integers, but they can create a helper class and setup these values, then register the instance during the resolve call.<br>
+<br>
+I imagine it would look something like<br>
+<span style="font-size:13px; color:#2b91af">
+<p>TestClass</p>
+</span>
+<p><span style="font-size:13px">&nbsp;_testClass = </span><span style="font-size:13px">Container.Resolve&lt;</span><span style="font-size:13px; color:#2b91af">TestClass</span><span style="font-size:13px">&gt;(); -&gt;<br>
+TestClass<span style="font-size:13px">&nbsp;_testClass = </span><span style="font-size:13px">Container.RegisterInstanceForResolve&lt;EmployeeDto&gt;(dto).Resolve&lt;</span><span style="font-size:13px; color:#2b91af">TestClass</span><span style="font-size:13px">&gt;();<br>
+<br>
+Alternatively is there a way to clone or copy the registered services in the container,<br>
+then I can just call <br>
+<span style="font-size:13px">RegisterInstance&lt;EmployeeDto&gt;(dto)<br>
+on the clone without worrying about how other users of the container might be affected.</span></span>
+</p>
+<p>&nbsp;</p>
+</span>
+<p></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_92401" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="92405">
+    <td id="PostDetailsCell_92405" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post92405"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ijones">ijones</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/14/2008 11:01:50 AM" LocalTimeTicks="1210788110">May 14, 2008 at 11:01 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="5/14/2008 11:08:41 AM" LocalTimeTicks="1210788521">May 14, 2008 at 11:08 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_92405" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Would&#32;be&#32;good&#32;if&#32;the&#32;UnityContainer&#32;class&#32;had&#32;a&#32;clone&#32;method.&#32;&#32;&#32;Maybe&#32;I&#32;can&#32;achieve&#32;the&#32;same&#32;effect&#32;by&#32;using&#32;CreateChildContainer,&#32;will&#32;investigate&#32;further.&#32;&#38;nbsp&#59;&#32;&#32;&#32;">
+        <span style="font-size:13px">Would be good if the&nbsp;<span style="font-size:13px">UnityContainer class had a clone method.<br>
+</span>
+<p>&nbsp;Maybe I can achieve the same effect by&nbsp;using <span style="font-size:13px">CreateChildContainer, will investigate further.
+</p>
+<p>&nbsp;</p>
+</span>
+<p></p>
+</span>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_92405" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="92423">
+    <td id="PostDetailsCell_92423" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post92423"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/mrudang">mrudang</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/14/2008 1:09:59 PM" LocalTimeTicks="1210795799">May 14, 2008 at 1:09 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_92423" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;&#32;ctavares&#32;wrote&#58;&#32;&#32;&#32;ijones&#32;wrote&#58;&#32;Hello,&#32;&#32;Extra&#32;Parameters&#32;when&#32;resolving&#32;a&#32;class&#32;is&#32;it&#32;possible&#32;to&#32;pass&#32;extra&#32;parameters&#32;which&#32;are&#32;just&#32;instances&#32;of&#32;objects&#63;&#32;&#32;I.e.&#32;I&#32;don&#39;t&#32;want&#32;to&#32;register&#32;one&#32;of&#32;the&#32;parameters,&#32;and&#32;just&#32;want&#32;to&#32;pass&#32;through&#32;a&#32;value&#32;to&#32;the&#32;constructor&#32;like&#32;a&#32;DTO.&#32;So&#32;I&#32;am&#32;passing&#32;a&#32;DTO&#32;as&#32;well&#32;as&#32;all&#32;the&#32;class&#32;dependancies.&#32;&#32;Can&#32;I&#32;use&#32;resolve&#32;to&#32;load&#32;in&#32;the&#32;dependancies&#32;as&#32;well&#32;as&#32;pass&#32;through&#32;other&#32;parameters&#63;&#32;&#32;Alternatively&#32;would&#32;I&#32;have&#32;to&#32;create&#32;a&#32;seperate&#32;container&#32;that&#32;was&#32;just&#32;used&#32;in&#32;this&#32;one&#32;location,&#32;and&#32;register&#32;the&#32;DTO&#32;to&#32;be&#32;sent&#32;through.&#32;I&#32;wouldn&#39;t&#32;want&#32;to&#32;register&#32;the&#32;DTO&#32;in&#32;the&#32;main&#32;application&#32;container,&#32;or&#32;else&#32;it&#32;might&#32;get&#32;used&#32;in&#32;different&#32;parts&#32;of&#32;the&#32;application,&#32;and&#32;might&#32;have&#32;conflicts&#32;with&#32;other&#32;threads&#32;registering&#32;different&#32;DTO&#39;s.&#32;&#32;The&#32;only&#32;other&#32;way&#32;I&#32;thought&#32;of&#32;is&#32;moving&#32;these&#32;extra&#32;parameters&#32;as&#32;setters,&#32;but&#32;I&#32;don&#39;t&#32;want&#32;to&#32;have&#32;to&#32;do&#32;this.&#32;As&#32;you&#32;then&#32;start&#32;to&#32;have&#32;objects&#32;that&#32;exist&#32;which&#32;might&#32;not&#32;have&#32;been&#32;setup&#32;correctly.&#32;&#32;Resolving&#32;internal&#32;constructors&#32;Is&#32;it&#32;possible&#32;to&#32;resolve&#32;internal&#32;constructors&#63;&#32;Seems&#32;to&#32;throw&#32;an&#32;error&#32;when&#32;I&#32;try.&#32;&#32;I&#32;have&#32;an&#32;internal&#32;constructor&#32;on&#32;an&#32;object&#32;as&#32;I&#32;only&#32;want&#32;it&#32;created&#32;from&#32;within&#32;the&#32;current&#32;project,&#32;or&#32;the&#32;test&#32;project&#32;&#40;using&#32;&#91;assembly&#58;&#32;InternalsVisibleTo&#32;...&#32;&#41;&#32;&#32;Or&#32;do&#32;I&#32;have&#32;to&#32;use&#32;a&#32;factory,&#32;and&#32;use&#32;Unity&#32;as&#32;a&#32;service&#32;locator&#32;to&#32;get&#32;the&#32;dependencies&#32;and&#32;pass&#32;them&#32;through&#32;to&#32;the&#32;internal&#32;constructor&#63;&#32;&#32;Regards&#32;&#32;&#32;&#32;&#32;&#32;&#32;There&#32;have&#32;been&#32;several&#32;requests&#32;for&#32;being&#32;able&#32;to&#32;pass&#32;parameters&#32;in&#32;the&#32;resolve&#32;method.&#32;There&#39;s&#32;also&#32;a&#32;lot&#32;of&#32;differing&#32;opinions&#32;on&#32;how&#32;that&#32;should&#32;work.&#32;The&#32;current&#32;best&#32;approach&#32;in&#32;my&#32;mind&#32;is&#32;to&#32;let&#32;you&#32;pass&#32;a&#32;dictionary&#32;and&#32;if&#32;the&#32;names&#32;and&#32;types&#32;in&#32;the&#32;dictionary&#32;line&#32;up&#32;with&#32;a&#32;constructor&#32;or&#32;method&#32;parameter&#32;or&#32;property,&#32;use&#32;the&#32;value&#32;from&#32;the&#32;dictionary.&#32;Yes,&#32;this&#32;is&#32;deliberately&#32;awkward.&#32;&#32;Unity&#32;will&#32;only&#32;call&#32;public&#32;constructors,&#32;properties&#32;or&#32;methods.&#32;Internal&#32;constructors&#32;are&#32;not&#32;available&#32;to&#32;the&#32;Unity&#32;assembly,&#32;after&#32;all.&#32;We&#32;could&#32;theoretically&#32;use&#32;reflection&#32;over&#32;private&#32;members,&#32;but&#32;that&#32;only&#32;works&#32;in&#32;full&#32;trust,&#32;is&#32;very&#32;slow,&#32;and&#32;violates&#32;good&#32;design&#32;principles.&#32;&#32;&#32;&#32;&#32;&#32;I&#32;vote&#32;for&#32;this&#32;approach.&#32;Other&#32;approach&#32;could&#32;Unity&#32;have&#32;a&#32;custom&#32;collection&#32;class&#32;that&#32;can&#32;be&#32;used&#32;to&#32;populated&#32;and&#32;pass&#32;it&#32;to&#32;Resolve&#32;">
+        <br>
+<div style="border-right:medium none; padding-right:0.2em; border-top:#aaa 0.1em dotted; padding-left:0.2em; padding-bottom:0.2em; margin:1em 0em 2.5em 3em; border-left:medium none; padding-top:0.2em; border-bottom:#aaa 0.1em dotted; font-style:italic">
+<br>
+ctavares wrote:<br>
+<br>
+<div style="border-right:medium none; padding-right:0.2em; border-top:rgb(170,170,170) 0.1em dotted; padding-left:0.2em; padding-bottom:0.2em; margin:1em 0em 2.5em 3em; border-left:medium none; padding-top:0.2em; border-bottom:0.1em dotted; font-style:italic">
+<br>
+ijones wrote:<br>
+Hello,<br>
+<br>
+<span style="text-decoration:underline">Extra Parameters</span><br>
+when resolving a class is it possible to pass extra parameters which are just instances of objects?<br>
+<br>
+I.e. I don't want to register one of the parameters, and just want to pass through a value to the constructor like&nbsp;a DTO.<br>
+So I am passing a DTO as well as all the class dependancies.<br>
+<br>
+Can I use resolve to load in the dependancies&nbsp;as well as pass through&nbsp;other parameters?<br>
+<br>
+Alternatively would I have to create a seperate container that was just used in this one location, and register the DTO to be sent through. I wouldn't want to register the DTO in the main application container, or else it might get used in different parts of
+ the application, and might have conflicts with other threads registering&nbsp;different DTO's.<br>
+<br>
+The only other way I thought of is moving these extra parameters as setters, but I don't want to have to do this. As you then start to&nbsp;have objects that exist which might not have been setup correctly.<br>
+<br>
+<span style="text-decoration:underline">Resolving internal constructors</span><br>
+Is it possible to resolve internal constructors? Seems to throw an error when I try.<br>
+<br>
+I have an internal constructor on an object as I only want it created from within the current project, or the test project (using
+<span style="font-size:13px">[assembly: </span><span style="font-size:13px; color:#2b91af">InternalsVisibleTo ...
+</span>)<br>
+<br>
+Or do I have to use a factory, and use Unity as a service locator to get the dependencies and pass them through to the internal constructor?<br>
+<br>
+Regards<br>
+<br>
+<br>
+<br>
+<br>
+</div>
+<br>
+There have been several requests for being able to pass parameters in the resolve method. There's also a lot of differing opinions on how that should work. The current best approach in my mind is to let you pass a dictionary and if the names and types in the
+ dictionary line up with a constructor or method parameter or property, use the value from the dictionary. Yes, this is deliberately awkward.<br>
+<br>
+Unity will only call public constructors, properties or methods. Internal constructors are not available to the Unity assembly, after all. We could theoretically use reflection over private members, but that only works in full trust, is very slow, and violates
+ good design principles.<br>
+<br>
+<br>
+<br>
+<br>
+</div>
+I vote for this approach.&nbsp; Other approach could Unity have a custom collection class that can be used to populated and pass it to Resolve<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_92423" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="92434">
+    <td id="PostDetailsCell_92434" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post92434"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ijones">ijones</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/14/2008 1:50:49 PM" LocalTimeTicks="1210798249">May 14, 2008 at 1:50 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="5/14/2008 2:05:46 PM" LocalTimeTicks="1210799146">May 14, 2008 at 2:05 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_92434" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;tried&#32;the&#32;&#32;&#32;IUnityContainer&#32;&#32;&#32;childContainer&#32;&#61;&#32;container.CreateChildContainer&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#32;childContainer.RegisterInstance&#38;lt&#59;&#32;&#32;EmployeeDto&#38;gt&#59;&#40;new&#32;EmployeeDto&#40;&#41;&#41;&#59;&#32;&#38;nbsp&#59;&#32;childContainer.Resolve&#38;lt&#59;&#32;&#32;TestClass&#38;gt&#59;&#40;&#41;&#59;&#32;&#32;and&#32;worked&#32;fine.&#32;&#32;&#32;Of&#32;course&#32;not&#32;with&#32;my&#32;internal&#32;constructor&#32;where&#32;I&#32;do&#32;TestClass&#32;employee&#32;&#61;&#32;new&#32;TestClass&#40;dto&#41;&#59;&#32;Container.BuildUp&#40;employee&#41;&#59;&#32;&#38;nbsp&#59;&#32;as&#32;suggested&#32;by&#32;BillKrat,&#32;in&#32;my&#32;factory&#32;&#32;I&#32;was&#32;thinking&#32;about&#32;a&#32;custom&#32;class&#32;to&#32;pass&#32;to&#32;Resolve&#32;which&#32;contains&#32;the&#32;property&#32;of&#32;the&#32;parameters&#32;to&#32;fill&#32;out,&#32;unity&#32;would&#32;then&#32;use&#32;reflection&#32;to&#32;get&#32;the&#32;property&#32;names,&#32;types&#32;and&#32;values.&#32;I&#32;think&#32;this&#32;would&#32;be&#32;better&#32;than&#32;a&#32;string&#32;dictionary,&#32;but&#32;you&#32;still&#32;would&#32;have&#32;to&#32;keep&#32;the&#32;custom&#32;class&#32;propertys&#32;in&#32;sync&#32;with&#32;the&#32;constructor&#32;parameters.&#32;&#32;Registering&#32;the&#32;instance&#32;on&#32;the&#32;child&#32;container&#32;works&#32;for&#32;me,&#32;anyone&#32;spot&#32;any&#32;potential&#32;issues&#32;with&#32;this&#63;&#32;Any&#32;better&#32;approaches&#32;welcomed.&#32;&#32;&#38;nbsp&#59;&#32;&#32;&#32;&#32;">
+        
+<p>I tried the </p>
+<span style="font-size:13px; color:#2b91af">
+<p>IUnityContainer </p>
+</span>
+<p><span style="font-size:13px">childContainer = c</span><span style="font-size:13px">ontainer.CreateChildContainer();
+</p>
+<p>&nbsp;</p>
+<p><span style="font-size:13px">childContainer</span>.RegisterInstance&lt;</p>
+</span>
+<p></p>
+<p><span style="font-size:13px; color:#2b91af">EmployeeDto</span><span style="font-size:13px">&gt;(</span><span style="font-size:13px; color:#0000ff">new</span><span style="font-size:13px">
+</span><span style="font-size:13px; color:#2b91af">EmployeeDto</span><span style="font-size:13px">());<span style="font-size:13px">
+</p>
+<p>&nbsp;</p>
+<p>childContainer.Resolve&lt;</p>
+</span>
+<p><span style="font-size:13px; color:#2b91af">TestClass</span><span style="font-size:13px">&gt;();<br>
+<br>
+and worked fine. <br>
+<br>
+Of course not with my internal constructor where I do<br>
+<span style="font-size:13px"><span style="color:#2b91af">TestClass</span>&nbsp;employee =
+</span><span style="font-size:13px; color:#0000ff">new</span><span style="font-size:13px">
+<span style="color:#2b91af">TestClass</span></span><span style="font-size:13px">(dto);<br>
+</span><span style="font-size:13px">Container.BuildUp(employee); </p>
+<p>&nbsp;</p>
+<p>as suggested by BillKrat, in my factory</p>
+</span>
+<p>I was thinking about a custom class to pass to Resolve which contains the property of the parameters to fill out,&nbsp;unity would then use reflection to get the property names, types and values.&nbsp;I think this&nbsp;would be better than a string dictionary, but you&nbsp;still
+ would have to keep&nbsp;the custom class propertys in sync&nbsp;with the constructor parameters.<br>
+<br>
+Registering the instance on the child container works for me, anyone spot any potential issues with this? Any better approaches welcomed.</p>
+</span>
+<p></p>
+<p>&nbsp;</p>
+</span>
+<p></p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_92434" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="93569">
+    <td id="PostDetailsCell_93569" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post93569"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Lexx">Lexx</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/20/2008 7:35:15 AM" LocalTimeTicks="1211294115">May 20, 2008 at 7:35 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_93569" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;would&#32;very&#32;much&#32;like&#32;this&#32;feature&#32;implemented&#32;as&#32;well.&#32;Currently&#32;it&#32;is&#32;available&#32;in&#32;the&#32;Castle&#32;Project&#32;Windsor&#32;which&#32;i&#39;m&#32;currently&#32;using.&#32;This&#32;feature&#32;is&#32;an&#32;absolute&#32;must&#32;and&#32;is&#32;the&#32;only&#32;thing&#32;stopping&#32;me&#32;from&#32;converting&#32;my&#32;application&#32;to&#32;use&#32;Unity&#32;instead&#32;of&#32;Windsor.&#32;&#32;Currently&#32;Windsor&#32;implements&#32;this&#32;feature&#32;by&#32;passing&#32;an&#32;IDictionary&#32;in&#32;the&#32;resolve&#32;method.&#32;This&#32;works&#32;for&#32;me&#32;in&#32;95&#37;&#32;of&#32;the&#32;cases&#32;it&#32;does&#32;however&#32;have&#32;a&#32;big&#32;shortcoming.&#32;Consider&#32;the&#32;&#38;quot&#59;ID&#38;quot&#59;&#32;property&#32;which&#32;is&#32;often&#32;present&#32;on&#32;business&#32;entities&#32;as&#32;the&#32;primary&#32;key.&#32;When&#32;an&#32;argument&#32;is&#32;supplied&#32;to&#32;the&#32;resolve&#32;method&#32;it&#32;will&#32;set&#32;all&#32;properties&#32;with&#32;name&#32;and&#32;type&#32;of&#32;&#38;quot&#59;ID&#38;quot&#59;&#32;to&#32;the&#32;value&#32;supplied.&#32;This&#32;is&#32;not&#32;always&#32;what&#32;you&#32;want&#32;as&#32;you&#32;may&#32;want&#32;to&#32;just&#32;initialize&#32;the&#32;&#38;quot&#59;ID&#38;quot&#59;&#32;of&#32;1&#32;top&#32;level&#32;business&#32;entity.&#32;&#32;For&#32;example&#58;&#32;A&#32;new&#32;City&#32;is&#32;constructed&#32;for&#32;which&#32;you&#32;supply&#32;an&#32;&#38;quot&#59;ID&#38;quot&#59;&#32;and&#32;at&#32;the&#32;same&#32;time&#32;City&#32;has&#32;a&#32;dependency&#32;on&#32;Country.&#32;Both&#32;City&#32;and&#32;Country&#32;have&#32;an&#32;&#38;quot&#59;ID&#38;quot&#59;&#32;field&#32;as&#32;primary&#32;key&#32;so&#32;when&#32;the&#32;container&#32;resolves&#32;the&#32;dependencies&#32;it&#32;will&#32;set&#32;both&#32;City&#32;and&#32;Country&#32;to&#32;the&#32;same&#32;supplied&#32;&#38;quot&#59;ID&#38;quot&#59;.&#32;&#32;This&#32;is&#32;a&#32;shortcoming&#32;for&#32;me&#32;in&#32;Windsor&#32;at&#32;the&#32;moment&#32;although&#32;I&#32;have&#32;adjusted&#32;my&#32;way&#32;of&#32;working&#32;so&#32;that&#32;this&#32;is&#32;no&#32;longer&#32;an&#32;issue&#32;right&#32;now.&#32;If&#32;this&#32;functionality&#32;is&#32;included&#32;in&#32;Unity&#32;it&#32;should&#32;have&#32;some&#32;sort&#32;of&#32;scope&#32;so&#32;that&#32;you&#32;can&#32;limit&#32;it&#32;to&#32;a&#32;certain&#32;type&#32;of&#32;class&#32;for&#32;example.&#32;As&#32;I&#32;said,&#32;I&#32;don&#39;t&#32;really&#32;see&#32;right&#32;away&#32;an&#32;easy&#32;solution&#32;here...&#32;">
+        I would very much like this feature implemented as well. Currently it is available in the Castle Project Windsor which i'm currently using. This feature is an absolute must and is the only thing stopping me from converting my application to use Unity instead
+ of Windsor.<br>
+<br>
+Currently Windsor implements this feature by passing an IDictionary in the resolve method. This works for me in 95% of the cases it does however have a big shortcoming. Consider the &quot;ID&quot; property which is often present on business entities as the
+ primary key. When an argument is supplied to the resolve method it will set all properties with name and type of &quot;ID&quot; to the value supplied. This is not always what you want as you may want to just initialize the &quot;ID&quot; of 1 top level business
+ entity.<br>
+<br>
+For example: A new City is constructed for which you supply an &quot;ID&quot; and at the same time City has a dependency on Country. Both City and Country have an &quot;ID&quot; field as primary key so when the container resolves the dependencies it will set
+ both City and Country to the same supplied &quot;ID&quot;.<br>
+<br>
+This is a shortcoming for me in Windsor at the moment&nbsp;although I have adjusted my way of working so that this is no longer an issue right now. If this functionality is included in Unity it should have some sort of scope so that you can limit it to a certain
+ type of class for example. As I said, I don't really see right away an easy solution here...
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_93569" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="93710">
+    <td id="PostDetailsCell_93710" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post93710"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/20/2008 6:35:35 PM" LocalTimeTicks="1211333735">May 20, 2008 at 6:35 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_93710" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#38;nbsp&#59;If&#32;Windsor&#32;is&#32;currently&#32;working&#32;for&#32;you&#32;why&#32;do&#32;you&#32;want&#32;to&#32;switch&#63;&#32;&#32;The&#32;feature&#32;is&#32;on&#32;the&#32;backlog,&#32;but&#32;I&#32;can&#32;pretty&#32;much&#32;guarantee&#32;we&#32;won&#39;t&#32;do&#32;any&#32;&#38;quot&#59;scoping&#38;quot&#59;&#32;for&#32;child&#32;objects.&#32;At&#32;that&#32;point,&#32;you&#32;shouldn&#39;t&#32;be&#32;using&#32;a&#32;DI&#32;container,&#32;you&#32;should&#32;be&#32;either&#32;newing&#32;it&#32;up&#32;directly&#32;or&#32;using&#32;the&#32;container&#32;to&#32;get&#32;a&#32;factory&#32;which&#32;has&#32;all&#32;the&#32;detailed&#32;knowledge&#32;of&#32;how&#32;to&#32;build&#32;subsidiary&#32;objects&#32;&#40;and&#32;could&#32;use&#32;the&#32;container&#32;to&#32;do&#32;it&#41;.&#32;&#32;&#32;">
+        &nbsp;If Windsor is currently working for you why do you want to switch?<br>
+<br>
+The feature is on the backlog, but I can pretty much guarantee we won't do any &quot;scoping&quot; for child objects. At that point, you shouldn't be using a DI container, you should be either newing it up directly or using the container to get a factory which
+ has all the detailed knowledge of how to build subsidiary objects (and could use the container to do it).<br>
+<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_93710" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="93840">
+    <td id="PostDetailsCell_93840" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post93840"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/Lexx">Lexx</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/21/2008 6:48:27 AM" LocalTimeTicks="1211377707">May 21, 2008 at 6:48 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_93840" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Reason&#32;for&#32;switching&#32;would&#32;be&#32;due&#32;to&#32;the&#32;fact&#32;that&#32;Unity&#32;has&#32;other&#32;features&#32;which&#32;Windsor&#32;doesn&#39;t&#32;have&#32;that&#32;I&#32;would&#32;like&#32;to&#32;integrate&#32;&#40;to&#32;replace&#32;custom&#32;code&#41;&#32;in&#32;my&#32;application.&#32;However&#32;due&#32;to&#32;the&#32;fact&#32;that&#32;my&#32;current&#32;framework&#32;components&#32;rely&#32;heavily&#32;on&#32;the&#32;possibility&#32;to&#32;pass&#32;arguments&#32;to&#32;the&#32;resolve&#32;method&#32;I&#32;will&#32;not&#32;be&#32;migrating&#32;until&#32;this&#32;feature&#32;is&#32;present.&#32;&#32;I&#32;understand&#32;that&#32;scoping&#32;is&#32;indeed&#32;a&#32;difficult&#32;problem&#32;to&#32;solve&#32;and&#32;through&#32;slightly&#32;different&#32;design&#32;&#40;as&#32;I&#32;have&#32;done&#32;now&#41;&#32;there&#32;are&#32;indeed&#32;other&#32;solutions&#32;to&#32;this&#32;problem.&#32;&#32;Thanks&#32;for&#32;the&#32;reply&#33;&#32;">
+        Reason for switching would be due to the fact that Unity has other features which Windsor doesn't have that I would like to integrate (to replace custom code)&nbsp;in my application. However due to the fact that my current framework components rely heavily
+ on the possibility to pass arguments to the resolve method I will not be migrating until this feature is present.<br>
+<br>
+I understand that scoping is indeed a difficult problem to solve and through slightly different design (as I have done now) there are indeed other solutions to this problem.<br>
+<br>
+Thanks for the reply! 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_93840" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f27609">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="b705efa7-f8e4-43fe-9450-2a72e6cad87f">
+    <script class="options" defer="defer" id="b705efa7-f8e4-43fe-9450-2a72e6cad87f" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_e4e35411-e12c-4977-8500-193c3fdece2b">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_5b40267e-f088-464c-a618-dfa385de66b3">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_e4e35411-e12c-4977-8500-193c3fdece2b" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_5b40267e-f088-464c-a618-dfa385de66b3" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/27609';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

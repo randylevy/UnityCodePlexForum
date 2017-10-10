@@ -1,0 +1,875 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - StaticFactory Extension</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/22295?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/22295?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="3E7fRsnNxAThYgdwixN8y0jtReWaJdjZNVvqQHvY85GgSX_lAN-wlPgoCfpxcg43Wc7K9ob_SDHVo9nlg4PymsN9G-eLoWA3FDu6pp7RcYPu82LMy9dv-C1Zt96UdcK9aeoLlw2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2d0b6f249-5ca2-44d7-870c-252edf071ccf" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:29:24 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f22295" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="63e9e03f-070f-4357-8a93-164bc89da2f4">
+                
+                    <script class="options" defer="defer" id="63e9e03f-070f-4357-8a93-164bc89da2f4" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="a0a19cc3-ca5b-441a-90e0-6dfcba7c3541">
+                
+                    <script class="options" defer="defer" id="a0a19cc3-ca5b-441a-90e0-6dfcba7c3541" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                StaticFactory Extension
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:22295]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="1b7079d3-98c9-464e-8b25-6ead22416525">
+    <script class="options" defer="defer" id="1b7079d3-98c9-464e-8b25-6ead22416525" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/22295","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="74314">
+    <td id="PostDetailsCell_74314" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post74314"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/francois_tanguay">francois_tanguay</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/16/2008 2:58:07 PM" LocalTimeTicks="1203202687">Feb 16, 2008 at 2:58 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_74314" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#32;find&#32;interesting&#32;you&#39;ve&#32;decided&#32;to&#32;use&#32;the&#32;whole&#32;Policy&#43;Strategy&#32;package&#32;for&#32;the&#32;StaticFactory&#32;extension.IMHO,&#32;you&#32;could&#39;ve&#32;simply&#32;create&#32;a&#32;IBuildPlanPolicy-derived&#32;class&#32;that&#32;calls&#32;the&#32;delegate&#32;on&#32;build&#32;up.&#32;At&#32;least&#32;that&#39;s&#32;what&#32;I&#32;did&#32;and&#32;it&#32;fits&#32;well&#32;in&#32;the&#32;overall&#32;architecture&#32;and&#32;there&#32;is&#32;no&#32;need&#32;to&#32;place&#32;some&#32;extension&#32;at&#32;the&#32;&#34;Singleton&#34;&#32;stage&#32;which&#32;seemed&#32;strange&#32;anyways.">
+        I find interesting you've decided to use the whole Policy&#43;Strategy package for the StaticFactory extension.<br>
+<br>
+IMHO, you could've simply create a IBuildPlanPolicy-derived class that calls the delegate on build up. At least that's what I did and it fits well in the overall architecture and there is no need to place some extension at the &quot;Singleton&quot; stage which seemed
+ strange anyways.<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_74314" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="74379">
+    <td id="PostDetailsCell_74379" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post74379"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/17/2008 1:31:00 AM" LocalTimeTicks="1203240660">Feb 17, 2008 at 1:31 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="2/17/2008 1:31:22 AM" LocalTimeTicks="1203240682">Feb 17, 2008 at 1:31 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_74379" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Actually,&#32;I&#32;changed&#32;that&#32;code&#32;two&#32;days&#32;ago&#32;to&#32;do&#32;exactly&#32;what&#32;you&#39;re&#32;suggesting&#32;here.&#32;The&#32;updated&#32;version&#32;will&#32;be&#32;available&#32;in&#32;the&#32;next&#32;drop.The&#32;extension&#32;was&#32;written&#32;before&#32;build&#32;plans&#32;existed.-Chris">
+        Actually, I changed that code two days ago to do exactly what you're suggesting here. The updated version will be available in the next drop.<br>
+<br>
+The extension was written before build plans existed.<br>
+<br>
+-Chris<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_74379" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="74389">
+    <td id="PostDetailsCell_74389" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post74389"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/derekgreer">derekgreer</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/17/2008 3:18:00 AM" LocalTimeTicks="1203247080">Feb 17, 2008 at 3:18 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_74389" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Chris,&#32;can&#32;you&#32;explain&#32;the&#32;concept&#32;behind&#32;the&#32;Build&#32;Plan&#63;&#32;I&#32;don&#39;t&#32;recall&#32;this&#32;in&#32;the&#32;first&#32;Object&#32;Builder,&#32;so&#32;I&#39;m&#32;guessing&#32;its&#32;new.&#32;Derek">
+        Chris, can you explain the concept behind the Build Plan? I don't recall this in the first Object Builder, so I'm guessing its new.
+<br>
+<br>
+<br>
+Derek<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_74389" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="74406">
+    <td id="PostDetailsCell_74406" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post74406"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/francois_tanguay">francois_tanguay</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/17/2008 7:10:22 AM" LocalTimeTicks="1203261022">Feb 17, 2008 at 7:10 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_74406" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#32;too&#32;am&#32;interested.&#32;I&#39;m&#32;not&#32;sure&#32;I&#32;understand&#32;why&#32;Strategies&#32;and&#32;BuildPlanStrategies&#32;couldn&#39;t&#32;be&#32;merged&#32;into&#32;a&#32;single&#32;set&#32;of&#32;strategies.If&#32;it&#32;was&#32;to&#32;split&#32;whcih&#32;strategies&#32;are&#32;used&#32;by&#32;DynamicMethodBuildPlanCreatorPolicy&#32;and&#32;which&#32;aren&#39;t,&#32;then&#32;we&#32;should&#32;have&#32;created&#32;a&#32;view&#32;on&#32;the&#32;existing&#32;BuilderContext.Strategies,&#32;not&#32;define&#32;a&#32;new&#32;strategy&#32;placeholder.">
+        I too am interested.<br>
+<br>
+I'm not sure I understand why Strategies and BuildPlanStrategies couldn't be merged into a single set of strategies.<br>
+<br>
+If it was to split whcih strategies are used by DynamicMethodBuildPlanCreatorPolicy and which aren't, then we should have created a view on the existing BuilderContext.Strategies, not define a new strategy placeholder.<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_74406" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="74409">
+    <td id="PostDetailsCell_74409" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post74409"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/17/2008 7:52:08 AM" LocalTimeTicks="1203263528">Feb 17, 2008 at 7:52 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_74409" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#39;ll&#32;do&#32;a&#32;more&#32;complete&#32;explanation&#32;on&#32;my&#32;blog&#32;once&#32;I&#39;ve&#32;stopped&#32;sneezing,&#32;but&#32;yes,&#32;the&#32;build&#32;plan&#32;is&#32;new.&#32;The&#32;basic&#32;idea&#32;is&#32;that&#32;the&#32;build&#32;plan&#32;is&#32;an&#32;object&#32;that,&#32;when&#32;invoked,&#32;creates&#32;the&#32;desired&#32;object&#32;&#40;the&#32;name&#32;is&#32;analogous&#32;to&#32;a&#32;SQL&#32;query&#32;plan&#41;.&#32;The&#32;build&#32;plan&#32;is&#32;created&#32;via&#32;dynamic&#32;IL&#32;generation.&#32;This&#32;buys&#32;us&#32;two&#32;major&#32;perf&#32;benefits.&#32;First,&#32;it&#39;s&#32;a&#32;generalized&#32;cache&#32;of&#32;all&#32;the&#32;reflection&#32;query&#32;info,&#32;so&#32;you&#32;don&#39;t&#32;have&#32;to&#32;figure&#32;out&#32;how&#32;to&#32;cache&#32;per-strategy&#32;or&#32;scatter&#32;policies&#32;everywhere,&#32;and&#32;second,&#32;we&#32;avoid&#32;all&#32;the&#32;reflection&#32;invoke&#32;overhead.&#32;We&#39;re&#32;seeing&#32;almost&#32;an&#32;order&#32;of&#32;magnitude&#32;performance&#32;improvement&#32;using&#32;this&#32;approach.The&#32;two&#32;strategy&#32;chains&#32;are&#32;split&#32;because&#32;they&#32;build&#32;different&#32;things.&#32;The&#32;regular&#32;strategies&#32;are&#32;what&#32;you&#39;re&#32;used&#32;to&#32;with&#32;OB.&#32;The&#32;BuildPlanStrategies&#32;generate&#32;the&#32;dynamic&#32;IL&#32;used&#32;to&#32;create&#32;the&#32;build&#32;plan&#32;objects.&#32;BuildPlanStrategies&#32;really&#32;aren&#39;t&#32;regular&#32;OB&#32;strategies&#59;&#32;they&#32;don&#39;t&#32;return&#32;an&#32;object,&#32;for&#32;example,&#32;instead&#32;making&#32;calls&#32;on&#32;the&#32;existing&#32;IL&#32;generator&#32;that&#32;gets&#32;passed&#32;through.&#32;It&#32;might&#32;have&#32;been&#32;cleaner&#32;to&#32;define&#32;a&#32;completely&#32;different&#32;interface,&#32;but&#32;I&#32;needed&#32;a&#32;pipeline&#32;and&#32;OB&#32;provided&#32;a&#32;perfectly&#32;good&#32;one,&#32;so&#32;I&#32;reused&#32;it.&#32;I&#32;think&#32;you&#39;d&#32;need&#32;to&#32;make&#32;a&#32;REALLY&#32;strong&#32;case&#32;for&#32;merging&#32;the&#32;two&#32;chains.This&#32;also&#32;has&#32;a&#32;nice&#32;side&#32;effect&#32;that&#32;as&#32;far&#32;as&#32;the&#32;regular&#32;OB&#32;chain&#32;is&#32;concerned,&#32;the&#32;dynamic&#32;IL&#32;stuff&#32;is&#32;completely&#32;transparent.&#32;You&#32;can&#32;add&#32;preexisting&#32;OB&#32;strategies&#32;&#40;well,&#32;if&#32;you&#32;had&#32;preexisting&#32;OB2&#32;strategies,&#32;anyway&#41;&#32;and&#32;they&#39;ll&#32;work&#32;just&#32;like&#32;they&#32;did&#32;before&#32;&#40;as&#32;long&#32;as&#32;they&#32;don&#39;t&#32;depend&#32;on&#32;policies&#32;from&#32;the&#32;now&#32;removed&#32;reflection&#32;strategies,&#32;for&#32;example&#41;.We&#39;ll&#32;talk&#32;more&#32;about&#32;this&#32;on&#32;Monday&#32;I&#39;m&#32;sure.-Chris">
+        I'll do a more complete explanation on my <a href="http://www.tavaresstudios.com" rel="nofollow">
+blog<span style="font-family:Consolas,Courier New,Courier,Monospace"></span></a> once I've stopped sneezing, but yes, the build plan is new. The basic idea is that the build plan is an object that, when invoked, creates the desired object (the name is analogous
+ to a SQL query plan). The build plan is created via dynamic IL generation. This buys us two major perf benefits. First, it's a generalized cache of all the reflection query info, so you don't have to figure out how to cache per-strategy or scatter policies
+ everywhere, and second, we avoid all the reflection invoke overhead. We're seeing almost an order of magnitude performance improvement using this approach.<br>
+<br>
+The two strategy chains are split because they build different things. The regular strategies are what you're used to with OB. The BuildPlanStrategies generate the dynamic IL used to create the build plan objects. BuildPlanStrategies really aren't regular OB
+ strategies; they don't return an object, for example, instead making calls on the existing IL generator that gets passed through. It might have been cleaner to define a completely different interface, but I needed a pipeline and OB provided a perfectly good
+ one, so I reused it. I think you'd need to make a REALLY strong case for merging the two chains.<br>
+<br>
+This also has a nice side effect that as far as the regular OB chain is concerned, the dynamic IL stuff is completely transparent. You can add preexisting OB strategies (well, if you had preexisting OB2 strategies, anyway) and they'll work just like they did
+ before (as long as they don't depend on policies from the now removed reflection strategies, for example).<br>
+<br>
+We'll talk more about this on Monday I'm sure.<br>
+<br>
+-Chris<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_74409" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="74412">
+    <td id="PostDetailsCell_74412" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post74412"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/francois_tanguay">francois_tanguay</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/17/2008 8:56:18 AM" LocalTimeTicks="1203267378">Feb 17, 2008 at 8:56 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_74412" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Yeah...&#32;I&#39;ll&#32;definitely&#32;hope&#32;we&#39;ll&#32;have&#32;time&#32;to&#32;talk&#32;about&#32;it&#32;on&#32;monday&#32;&#59;&#41;But&#32;for&#32;what&#32;it&#39;s&#32;worth...&#32;I&#32;think&#32;you&#32;needed&#32;a&#32;pipeline&#32;for&#32;the&#32;same&#32;reasons&#32;OB&#32;exists&#58;&#32;i.e.&#32;to&#32;Create&#32;and&#32;Initialize&#32;your&#32;objets...&#32;IL&#32;emit&#32;or&#32;not.&#32;IL&#32;Emit&#32;vs&#32;Reflection&#32;is&#32;only&#32;a&#32;different&#32;strategy.&#32;I&#32;understand&#32;you&#32;needed&#32;the&#32;&#34;DynamicBuildPlanGenerationContext&#34;&#32;but&#32;this&#32;could&#32;have&#32;been&#32;passed&#32;along&#32;using&#32;a&#32;policy&#32;or&#32;a&#32;new&#32;build&#32;key&#32;type.A&#32;good&#32;reason&#32;why&#32;I&#32;think&#32;the&#39;re&#32;part&#32;of&#32;the&#32;same&#32;pipeline&#32;is&#32;they&#32;use&#32;the&#32;same&#32;stages&#33;&#33;&#32;As&#32;to&#32;the&#32;nice&#32;side&#32;effect&#32;that&#32;existing&#32;strategies&#32;can&#32;be&#32;unaware&#32;of&#32;the&#32;new&#32;strategy&#32;&#40;IL&#32;Emit&#32;and&#32;new&#32;build&#32;key&#41;,&#32;that&#32;should&#32;prevail&#32;whatever&#32;the&#32;strategy&#32;is.&#32;You&#32;shouldn&#39;t&#32;develop&#32;a&#32;strategy&#32;and&#32;break&#32;the&#32;IBuildStrategy&#32;contract&#32;&#40;i.e.&#32;change&#32;the&#32;buildkey&#32;down&#32;the&#32;chain&#41;...And&#32;if&#32;BuildPlanStrategies&#32;were&#32;to&#32;exist,&#32;I&#32;think&#32;they&#32;should&#39;ve&#32;been&#32;extracted&#32;into&#32;the&#32;config&#32;part&#32;of&#32;an&#32;extension&#32;that&#32;deals&#32;with&#32;DynamicMethod&#32;Creation&#32;Policy&#32;extension.So&#32;my&#32;question&#32;is&#32;more&#58;&#32;Could&#32;we&#32;have&#32;done&#32;WITHOUT&#32;having&#32;2&#32;different&#32;pipelines&#32;and&#32;what&#32;would&#39;ve&#32;been&#32;the&#32;impacts&#32;on&#32;the&#32;design&#63;&#32;I&#32;don&#39;t&#32;see&#32;many&#32;but&#32;we&#39;ll&#32;pair&#32;it&#32;on&#32;monday&#32;&#59;&#41;I&#39;m&#32;sneezing&#32;as&#32;well.&#32;so&#32;ttyl...">
+        Yeah... I'll definitely hope we'll have time to talk about it on monday ;)<br>
+<br>
+But for what it's worth... I think you needed a pipeline for the same reasons OB exists: i.e. to Create and Initialize your objets... IL emit or not. IL Emit vs Reflection is only a different strategy. I understand you needed the &quot;DynamicBuildPlanGenerationContext&quot;
+ but this could have been passed along using a policy or a new build key type.<br>
+<br>
+A good reason why I think the're part of the same pipeline is they use the same stages!!
+<br>
+<br>
+As to the nice side effect that existing strategies can be unaware of the new strategy (IL Emit and new build key), that should prevail whatever the strategy is. You shouldn't develop a strategy and break the IBuildStrategy contract (i.e. change the buildkey
+ down the chain)...<br>
+<br>
+And if BuildPlanStrategies were to exist, I think they should've been extracted into the config part of an extension that deals with DynamicMethod Creation Policy extension.<br>
+<br>
+So my question is more: Could we have done WITHOUT having 2 different pipelines and what would've been the impacts on the design? I don't see many but we'll pair it on monday ;)<br>
+<br>
+I'm sneezing as well. so ttyl...<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_74412" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="74476">
+    <td id="PostDetailsCell_74476" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post74476"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/17/2008 8:54:16 PM" LocalTimeTicks="1203310456">Feb 17, 2008 at 8:54 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_74476" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Well,&#32;they&#32;only&#32;use&#32;the&#32;same&#32;stages&#32;because&#32;I&#39;m&#32;lazy.&#32;&#59;-&#41;&#32;There&#39;s&#32;absolutely&#32;no&#32;reason&#32;to&#32;have&#32;the&#32;singleton&#32;stage&#32;in&#32;the&#32;build&#32;plan&#32;chain,&#32;for&#32;example.">
+        Well, they only use the same stages because I'm lazy. ;-) There's absolutely no reason to have the singleton stage in the build plan chain, for example.<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_74476" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="75301">
+    <td id="PostDetailsCell_75301" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post75301"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/derekgreer">derekgreer</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/20/2008 6:17:22 PM" LocalTimeTicks="1203560242">Feb 20, 2008 at 6:17 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_75301" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#32;think&#32;I&#32;need&#32;a&#32;concrete&#32;example&#32;to&#32;follow.&#32;I&#39;m&#32;not&#32;really&#32;understanding&#32;it&#32;from&#32;this&#32;description&#32;or&#32;the&#32;unit&#32;tests.">
+        I think I need a concrete example to follow. I'm not really understanding it from this description or the unit tests.<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_75301" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f22295">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="c93e50bb-ce96-4c31-b49f-54880ac773ca">
+    <script class="options" defer="defer" id="c93e50bb-ce96-4c31-b49f-54880ac773ca" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_35452a18-7983-46df-b9af-f62de0a55aa7">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_c35348f4-78d5-480c-90ce-4498bec602bc">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_35452a18-7983-46df-b9af-f62de0a55aa7" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_c35348f4-78d5-480c-90ce-4498bec602bc" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/22295';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

@@ -1,0 +1,1046 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - unity, WCF and registerInstance</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/155300?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/155300?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="MKD9tNxcZO9AGxu9bqlwcfE0nBuz_LFJjhzFG66rKcC-EceSdcByVBxfJu-z6nLiQlFM1ZLhk_kv-_I3APOY0gjYdyQHqBtCXsBiPd-UbAPbaaATE17yoXT6VlOPT1C2O_A-TQ2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken20736dcb5-e221-486a-bd2a-70aa8c592858" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:27:42 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f155300" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="86205481-20e2-422f-93d3-99278ef46bbc">
+                
+                    <script class="options" defer="defer" id="86205481-20e2-422f-93d3-99278ef46bbc" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="e8f9a03e-ed70-49f9-83e4-b2dd31024b2f">
+                
+                    <script class="options" defer="defer" id="e8f9a03e-ed70-49f9-83e4-b2dd31024b2f" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                unity, WCF and registerInstance
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:155300]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="4b1f015a-c4f6-4524-8c0d-88d3077d58fc">
+    <script class="options" defer="defer" id="4b1f015a-c4f6-4524-8c0d-88d3077d58fc" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/155300","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="362528">
+    <td id="PostDetailsCell_362528" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post362528"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/arifsetiawan">arifsetiawan</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="2/22/2010 8:33:54 AM" LocalTimeTicks="1266856434">Feb 22, 2010 at 8:33 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_362528" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi,&#32;I&#39;m&#32;starting&#32;to&#32;learn&#32;how&#32;to&#32;use&#32;Dependency&#32;Injection&#32;with&#32;Unity&#32;in&#32;WCF&#32;application.&#32;I&#32;think&#32;I&#32;have&#32;managed&#32;to&#32;modify&#32;the&#32;code&#32;from&#32;codeproject&#32;which&#32;shows&#32;how&#32;to&#32;use&#32;WCF&#32;in&#32;Winforms&#32;to&#32;use&#32;parameterised&#32;constructor&#32;by&#32;using&#32;Unity.ServiceModel&#32;library&#32;from&#32;this&#32;blog.&#32;That&#39;s&#32;one&#32;step.&#32;For&#32;my&#32;real&#32;application,&#32;I&#32;need&#32;to&#32;inject&#32;existing&#32;instance&#32;as&#32;WCF&#32;Service&#32;constructor&#32;parameter.&#32;As&#32;I&#32;read&#32;from&#32;Unity&#32;documentation&#32;there&#32;is&#32;RegisterInstance&#32;which&#32;I&#32;think&#32;will&#32;do&#32;what&#32;I&#32;need,&#32;but&#32;I&#32;still&#32;can&#39;t&#32;get&#32;it&#32;working.&#32;This&#32;is&#32;the&#32;service&#32;interface&#32;and&#32;implementation&#32;from&#32;the&#32;codeproject&#32;article&#32;mentioned&#32;before&#58;&#32;&#32;&#32;&#32;&#91;ServiceContract&#40;Namespace&#32;&#61;&#32;&#38;quot&#59;http&#58;&#47;&#47;Microsoft.ServiceModel.Samples&#38;quot&#59;&#41;&#93;&#32;public&#32;interface&#32;IServicePatient&#32;&#123;&#32;&#91;OperationContract&#93;&#32;Patient&#32;GetPatient&#40;Int32&#32;index&#41;&#59;&#32;&#91;OperationContract&#93;&#32;void&#32;SetPatient&#40;Int32&#32;index,&#32;Patient&#32;patient&#41;&#59;&#32;&#125;&#32;public&#32;class&#32;PatientService&#32;&#58;&#32;IServicePatient&#32;&#123;&#32;IPatientData&#32;pData&#59;&#32;public&#32;PatientService&#40;IPatientData&#32;pData&#41;&#32;&#123;&#32;this.pData&#32;&#61;&#32;pData&#59;&#32;&#125;&#32;public&#32;Patient&#32;GetPatient&#40;Int32&#32;index&#41;&#32;&#123;&#32;return&#32;pData.GetPatient&#40;index&#41;&#59;&#32;&#125;&#32;public&#32;void&#32;SetPatient&#40;Int32&#32;index,&#32;Patient&#32;patient&#41;&#32;&#123;&#32;pData.SetPatient&#40;index,&#32;patient&#41;&#59;&#32;&#125;&#32;&#125;&#32;public&#32;interface&#32;IPatientData&#32;&#123;&#32;Patient&#32;GetPatient&#40;Int32&#32;index&#41;&#59;&#32;void&#32;SetPatient&#40;Int32&#32;index,&#32;Patient&#32;patient&#41;&#59;&#32;&#125;&#32;public&#32;class&#32;PatientData&#32;&#58;&#32;IPatientData&#32;&#123;&#32;Patient&#91;&#93;&#32;pat&#32;&#61;&#32;null&#59;&#32;public&#32;PatientData&#40;&#41;&#32;&#123;&#32;pat&#32;&#61;&#32;new&#32;Patient&#91;3&#93;&#59;&#32;pat&#91;0&#93;&#32;&#61;&#32;new&#32;Patient&#40;&#41;&#59;&#32;pat&#91;0&#93;.FirstName&#32;&#61;&#32;&#38;quot&#59;Bob&#38;quot&#59;&#59;&#32;pat&#91;0&#93;.LastName&#32;&#61;&#32;&#38;quot&#59;Chandler&#38;quot&#59;&#59;&#32;pat&#91;1&#93;&#32;&#61;&#32;new&#32;Patient&#40;&#41;&#59;&#32;pat&#91;1&#93;.FirstName&#32;&#61;&#32;&#38;quot&#59;Joe&#38;quot&#59;&#59;&#32;pat&#91;1&#93;.LastName&#32;&#61;&#32;&#38;quot&#59;Klink&#38;quot&#59;&#59;&#32;pat&#91;2&#93;&#32;&#61;&#32;new&#32;Patient&#40;&#41;&#59;&#32;pat&#91;2&#93;.FirstName&#32;&#61;&#32;&#38;quot&#59;Sally&#38;quot&#59;&#59;&#32;pat&#91;2&#93;.LastName&#32;&#61;&#32;&#38;quot&#59;Wilson&#38;quot&#59;&#59;&#32;&#125;&#32;public&#32;Patient&#32;GetPatient&#40;Int32&#32;index&#41;&#32;&#123;&#32;if&#32;&#40;index&#32;&#38;lt&#59;&#61;&#32;pat.GetUpperBound&#40;0&#41;&#32;&#38;amp&#59;&#38;amp&#59;&#32;index&#32;&#38;gt&#59;&#32;-1&#41;&#32;return&#32;pat&#91;index&#93;&#59;&#32;else&#32;return&#32;new&#32;Patient&#40;&#41;&#59;&#32;&#125;&#32;public&#32;void&#32;SetPatient&#40;Int32&#32;index,&#32;Patient&#32;patient&#41;&#32;&#123;&#32;if&#32;&#40;index&#32;&#38;lt&#59;&#61;&#32;pat.GetUpperBound&#40;0&#41;&#32;&#38;amp&#59;&#38;amp&#59;&#32;index&#32;&#38;gt&#59;&#32;-1&#41;&#32;pat&#91;index&#93;&#32;&#61;&#32;patient&#59;&#32;&#125;&#32;&#125;&#32;&#91;DataContract&#93;&#32;public&#32;class&#32;Patient&#32;&#123;&#32;string&#32;firstName&#59;&#32;string&#32;lastName&#59;&#32;&#91;DataMember&#93;&#32;public&#32;string&#32;FirstName&#32;&#123;&#32;get&#32;&#123;&#32;return&#32;firstName&#59;&#32;&#125;&#32;set&#32;&#123;&#32;firstName&#32;&#61;&#32;value&#59;&#32;&#125;&#32;&#125;&#32;&#91;DataMember&#93;&#32;public&#32;string&#32;LastName&#32;&#123;&#32;get&#32;&#123;&#32;return&#32;lastName&#59;&#32;&#125;&#32;set&#32;&#123;&#32;lastName&#32;&#61;&#32;value&#59;&#32;&#125;&#32;&#125;&#32;&#125;&#32;&#32;&#32;&#32;While&#32;my&#32;App.config&#32;&#58;&#32;&#32;&#32;&#38;lt&#59;&#63;xml&#32;version&#61;&#38;quot&#59;1.0&#38;quot&#59;&#32;encoding&#61;&#38;quot&#59;utf-8&#38;quot&#59;&#32;&#63;&#38;gt&#59;&#32;&#38;lt&#59;configuration&#38;gt&#59;&#32;&#38;lt&#59;configSections&#38;gt&#59;&#32;&#38;lt&#59;section&#32;name&#61;&#38;quot&#59;unity&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Microsoft.Practices.Unity.Configuration.UnityConfigurationSection,&#32;Microsoft.Practices.Unity.Configuration,&#32;Version&#61;1.2.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;31bf3856ad364e35&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;configSections&#38;gt&#59;&#32;&#38;lt&#59;unity&#38;gt&#59;&#32;&#38;lt&#59;typeAliases&#38;gt&#59;&#32;&#38;lt&#59;typeAlias&#32;alias&#61;&#38;quot&#59;external&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Microsoft.Practices.Unity.ExternallyControlledLifetimeManager,&#32;Microsoft.Practices.Unity&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;typeAliases&#38;gt&#59;&#32;&#38;lt&#59;containers&#38;gt&#59;&#32;&#38;lt&#59;container&#38;gt&#59;&#32;&#38;lt&#59;types&#38;gt&#59;&#32;&#38;lt&#59;type&#32;type&#61;&#38;quot&#59;TestService.IPatientData,&#32;TestService&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;TestService.PatientData,&#32;TestService&#38;quot&#59;&#32;&#38;gt&#59;&#32;&#38;lt&#59;lifetime&#32;type&#61;&#38;quot&#59;external&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;type&#38;gt&#59;&#32;&#38;lt&#59;&#47;types&#38;gt&#59;&#32;&#38;lt&#59;&#47;container&#38;gt&#59;&#32;&#38;lt&#59;&#47;containers&#38;gt&#59;&#32;&#38;lt&#59;&#47;unity&#38;gt&#59;&#32;&#38;lt&#59;system.serviceModel&#38;gt&#59;&#32;&#38;lt&#59;services&#38;gt&#59;&#32;&#38;lt&#59;service&#32;name&#61;&#38;quot&#59;TestService.PatientService&#38;quot&#59;&#32;behaviorConfiguration&#61;&#38;quot&#59;Behaviors1&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;endpoint&#32;address&#61;&#38;quot&#59;net.tcp&#58;&#47;&#47;localhost&#58;2202&#47;PatientServiceTest&#38;quot&#59;&#32;binding&#61;&#38;quot&#59;netTcpBinding&#38;quot&#59;&#32;bindingConfiguration&#61;&#38;quot&#59;Binding1&#38;quot&#59;&#32;contract&#61;&#38;quot&#59;TestService.IServicePatient&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;service&#38;gt&#59;&#32;&#38;lt&#59;&#47;services&#38;gt&#59;&#32;&#38;lt&#59;bindings&#38;gt&#59;&#32;&#38;lt&#59;netTcpBinding&#38;gt&#59;&#32;&#38;lt&#59;binding&#32;name&#61;&#38;quot&#59;Binding1&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;security&#32;mode&#61;&#38;quot&#59;None&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;transport&#32;protectionLevel&#61;&#38;quot&#59;None&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;security&#38;gt&#59;&#32;&#38;lt&#59;&#47;binding&#38;gt&#59;&#32;&#38;lt&#59;&#47;netTcpBinding&#38;gt&#59;&#32;&#38;lt&#59;&#47;bindings&#38;gt&#59;&#32;&#38;lt&#59;behaviors&#38;gt&#59;&#32;&#38;lt&#59;serviceBehaviors&#38;gt&#59;&#32;&#38;lt&#59;behavior&#32;name&#61;&#38;quot&#59;Behaviors1&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;unity&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;behavior&#38;gt&#59;&#32;&#38;lt&#59;&#47;serviceBehaviors&#38;gt&#59;&#32;&#38;lt&#59;&#47;behaviors&#38;gt&#59;&#32;&#38;lt&#59;extensions&#38;gt&#59;&#32;&#38;lt&#59;behaviorExtensions&#38;gt&#59;&#32;&#38;lt&#59;add&#32;name&#61;&#38;quot&#59;unity&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Unity.ServiceModel.InjectionElement,&#32;Unity.ServiceModel,&#32;&#32;Version&#61;1.0.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;null&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;behaviorExtensions&#38;gt&#59;&#32;&#38;lt&#59;&#47;extensions&#38;gt&#59;&#32;&#32;&#38;lt&#59;&#47;system.serviceModel&#38;gt&#59;&#32;&#38;lt&#59;&#47;configuration&#38;gt&#59;&#32;&#32;&#32;&#32;And&#32;this&#32;is&#32;how&#32;I&#32;call&#32;the&#32;service&#32;&#32;&#32;&#32;&#47;&#47;IPatientData&#32;thePatientData&#32;&#61;&#32;new&#32;PatientData&#40;&#41;&#59;&#32;&#47;&#47;IUnityContainer&#32;myContainer&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;&#47;&#47;UnityConfigurationSection&#32;section&#32;&#47;&#47;&#32;&#61;&#32;&#40;UnityConfigurationSection&#41;ConfigurationManager.GetSection&#40;&#38;quot&#59;unity&#38;quot&#59;&#41;&#59;&#32;&#47;&#47;section.Containers&#91;&#38;quot&#59;containerOne&#38;quot&#59;&#93;.Configure&#40;myContainer&#41;&#59;&#32;&#47;&#47;myContainer.RegisterInstance&#38;lt&#59;IPatientData&#38;gt&#59;&#40;thePatientData,&#32;&#47;&#47;&#32;new&#32;ExternallyControlledLifetimeManager&#40;&#41;&#41;&#59;&#32;myServiceHost&#32;&#61;&#32;new&#32;ServiceHost&#40;typeof&#40;PatientService&#41;&#41;&#59;&#32;myServiceHost.Open&#40;&#41;&#59;&#32;&#32;&#32;&#32;The&#32;commented&#32;part&#32;is&#32;how&#32;I&#32;tried&#32;to&#32;use&#32;RegisterInstance&#32;to&#32;map&#32;IPatientData&#32;to&#32;existing&#32;instance&#32;thePatientData.&#32;It&#32;failed&#32;with&#32;argument&#32;null&#32;exception.&#32;Perhaps&#32;I&#32;missed&#32;something&#32;here.&#32;Any&#32;suggestion&#32;or&#32;help&#32;would&#32;be&#32;helpful.&#38;nbsp&#59;&#32;Thank&#32;you.&#32;Regards,&#32;Arif&#32;&#38;lt&#59;&#33;--&#91;if&#32;gte&#32;mso&#32;9&#93;&#38;gt&#59;&#38;lt&#59;xml&#38;gt&#59;&#32;&#38;lt&#59;w&#58;WordDocument&#38;gt&#59;&#32;&#38;lt&#59;w&#58;View&#38;gt&#59;Normal&#38;lt&#59;&#47;w&#58;View&#38;gt&#59;&#32;&#38;lt&#59;w&#58;Zoom&#38;gt&#59;0&#38;lt&#59;&#47;w&#58;Zoom&#38;gt&#59;&#32;&#38;lt&#59;w&#58;PunctuationKerning&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;w&#58;ValidateAgainstSchemas&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;w&#58;SaveIfXMLInvalid&#38;gt&#59;false&#38;lt&#59;&#47;w&#58;SaveIfXMLInvalid&#38;gt&#59;&#32;&#38;lt&#59;w&#58;IgnoreMixedContent&#38;gt&#59;false&#38;lt&#59;&#47;w&#58;IgnoreMixedContent&#38;gt&#59;&#32;&#38;lt&#59;w&#58;AlwaysShowPlaceholderText&#38;gt&#59;false&#38;lt&#59;&#47;w&#58;AlwaysShowPlaceholderText&#38;gt&#59;&#32;&#38;lt&#59;w&#58;Compatibility&#38;gt&#59;&#32;&#38;lt&#59;w&#58;BreakWrappedTables&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;w&#58;SnapToGridInCell&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;w&#58;WrapTextWithPunct&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;w&#58;UseAsianBreakRules&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;w&#58;DontGrowAutofit&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;w&#58;UseFELayout&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;w&#58;Compatibility&#38;gt&#59;&#32;&#38;lt&#59;w&#58;BrowserLevel&#38;gt&#59;MicrosoftInternetExplorer4&#38;lt&#59;&#47;w&#58;BrowserLevel&#38;gt&#59;&#32;&#38;lt&#59;&#47;w&#58;WordDocument&#38;gt&#59;&#32;&#38;lt&#59;&#47;xml&#38;gt&#59;&#38;lt&#59;&#33;&#91;endif&#93;--&#38;gt&#59;&#38;lt&#59;&#33;--&#91;if&#32;gte&#32;mso&#32;9&#93;&#38;gt&#59;&#38;lt&#59;xml&#38;gt&#59;&#32;&#38;lt&#59;w&#58;LatentStyles&#32;DefLockedState&#61;&#38;quot&#59;false&#38;quot&#59;&#32;LatentStyleCount&#61;&#38;quot&#59;156&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;&#47;w&#58;LatentStyles&#38;gt&#59;&#32;&#38;lt&#59;&#47;xml&#38;gt&#59;&#38;lt&#59;&#33;&#91;endif&#93;--&#38;gt&#59;&#38;lt&#59;&#33;--&#91;if&#32;&#33;mso&#93;&#38;gt&#59;&#32;&#38;lt&#59;object&#32;classid&#61;&#38;quot&#59;clsid&#58;38481807-CA0E-42D2-BF39-B33AF135CC4D&#38;quot&#59;&#32;id&#61;ieooui&#38;gt&#59;&#32;&#38;lt&#59;&#47;object&#38;gt&#59;&#32;&#38;lt&#59;mce&#58;style&#38;gt&#59;&#38;lt&#59;&#33;&#32;st1&#92;&#58;&#42;&#123;behavior&#58;url&#40;&#35;ieooui&#41;&#32;&#125;&#32;--&#38;gt&#59;&#32;&#38;lt&#59;&#33;--&#91;endif&#93;--&#38;gt&#59;&#38;lt&#59;&#33;--&#32;&#47;&#42;&#32;Font&#32;Definitions&#32;&#42;&#47;&#32;&#64;font-face&#32;&#123;font-family&#58;Batang&#59;&#32;panose-1&#58;2&#32;3&#32;6&#32;0&#32;0&#32;1&#32;1&#32;1&#32;1&#32;1&#59;&#32;mso-font-alt&#58;ë°”íƒ•&#59;&#32;mso-font-charset&#58;129&#59;&#32;mso-generic-font-family&#58;auto&#59;&#32;mso-font-format&#58;other&#59;&#32;mso-font-pitch&#58;fixed&#59;&#32;mso-font-signature&#58;1&#32;151388160&#32;16&#32;0&#32;524288&#32;0&#59;&#125;&#32;&#64;font-face&#32;&#123;font-family&#58;&#38;quot&#59;&#92;&#64;Batang&#38;quot&#59;&#59;&#32;panose-1&#58;2&#32;3&#32;6&#32;0&#32;0&#32;1&#32;1&#32;1&#32;1&#32;1&#59;&#32;mso-font-charset&#58;129&#59;&#32;mso-generic-font-family&#58;roman&#59;&#32;mso-font-pitch&#58;variable&#59;&#32;mso-font-signature&#58;-1342176593&#32;1775729915&#32;48&#32;0&#32;524447&#32;0&#59;&#125;&#32;&#47;&#42;&#32;Style&#32;Definitions&#32;&#42;&#47;&#32;p.MsoNormal,&#32;li.MsoNormal,&#32;div.MsoNormal&#32;&#123;mso-style-parent&#58;&#38;quot&#59;&#38;quot&#59;&#59;&#32;margin&#58;0mm&#59;&#32;margin-bottom&#58;.0001pt&#59;&#32;mso-pagination&#58;widow-orphan&#59;&#32;font-size&#58;12.0pt&#59;&#32;font-family&#58;&#38;quot&#59;Times&#32;New&#32;Roman&#38;quot&#59;&#59;&#32;mso-fareast-font-family&#58;Batang&#59;&#125;&#32;&#64;page&#32;Section1&#32;&#123;size&#58;612.0pt&#32;792.0pt&#59;&#32;margin&#58;72.0pt&#32;90.0pt&#32;72.0pt&#32;90.0pt&#59;&#32;mso-header-margin&#58;36.0pt&#59;&#32;mso-footer-margin&#58;36.0pt&#59;&#32;mso-paper-source&#58;0&#59;&#125;&#32;div.Section1&#32;&#123;page&#58;Section1&#59;&#125;&#32;--&#38;gt&#59;&#38;lt&#59;&#33;--&#91;if&#32;gte&#32;mso&#32;10&#93;&#38;gt&#59;&#32;&#38;lt&#59;mce&#58;style&#38;gt&#59;&#38;lt&#59;&#33;&#32;&#47;&#42;&#32;Style&#32;Definitions&#32;&#42;&#47;&#32;table.MsoNormalTable&#32;&#123;mso-style-name&#58;&#38;quot&#59;Table&#32;Normal&#38;quot&#59;&#59;&#32;mso-tstyle-rowband-size&#58;0&#59;&#32;mso-tstyle-colband-size&#58;0&#59;&#32;mso-style-noshow&#58;yes&#59;&#32;mso-style-parent&#58;&#38;quot&#59;&#38;quot&#59;&#59;&#32;mso-padding-alt&#58;0mm&#32;5.4pt&#32;0mm&#32;5.4pt&#59;&#32;mso-para-margin&#58;0mm&#59;&#32;mso-para-margin-bottom&#58;.0001pt&#59;&#32;mso-pagination&#58;widow-orphan&#59;&#32;font-size&#58;10.0pt&#59;&#32;font-family&#58;&#38;quot&#59;Times&#32;New&#32;Roman&#38;quot&#59;&#59;&#32;mso-fareast-font-family&#58;&#38;quot&#59;Times&#32;New&#32;Roman&#38;quot&#59;&#59;&#32;mso-ansi-language&#58;&#35;0400&#59;&#32;mso-fareast-language&#58;&#35;0400&#59;&#32;mso-bidi-language&#58;&#35;0400&#59;&#125;&#32;--&#38;gt&#59;&#32;&#38;lt&#59;&#33;--&#91;endif&#93;--&#38;gt&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#91;ServiceContract&#40;Namespace&#32;&#61;&#32;&#38;quot&#59;http&#58;&#47;&#47;Microsoft.ServiceModel.Samples&#38;quot&#59;&#41;&#93;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;interface&#32;IServicePatient&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#91;OperationContract&#93;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Patient&#32;GetPatient&#40;Int32&#32;index&#41;&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#91;OperationContract&#93;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;void&#32;SetPatient&#40;Int32&#32;index,&#32;Patient&#32;patient&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;class&#32;PatientService&#32;&#58;&#32;IServicePatient&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;IPatientData&#32;pData&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;PatientService&#40;IPatientData&#32;pData&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;this.pData&#32;&#61;&#32;pData&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;Patient&#32;GetPatient&#40;Int32&#32;index&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;return&#32;pData.GetPatient&#40;index&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;void&#32;SetPatient&#40;Int32&#32;index,&#32;Patient&#32;patient&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;pData.SetPatient&#40;index,&#32;patient&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;interface&#32;IPatientData&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Patient&#32;GetPatient&#40;Int32&#32;index&#41;&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;void&#32;SetPatient&#40;Int32&#32;index,&#32;Patient&#32;patient&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;class&#32;PatientData&#32;&#58;&#32;IPatientData&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Patient&#91;&#93;&#32;pat&#32;&#61;&#32;null&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;PatientData&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;pat&#32;&#61;&#32;new&#32;Patient&#91;3&#93;&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;pat&#91;0&#93;&#32;&#61;&#32;new&#32;Patient&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;pat&#91;0&#93;.FirstName&#32;&#61;&#32;&#38;quot&#59;Bob&#38;quot&#59;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;pat&#91;0&#93;.LastName&#32;&#61;&#32;&#38;quot&#59;Chandler&#38;quot&#59;&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;pat&#91;1&#93;&#32;&#61;&#32;new&#32;Patient&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;pat&#91;1&#93;.FirstName&#32;&#61;&#32;&#38;quot&#59;Joe&#38;quot&#59;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;pat&#91;1&#93;.LastName&#32;&#61;&#32;&#38;quot&#59;Klink&#38;quot&#59;&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;pat&#91;2&#93;&#32;&#61;&#32;new&#32;Patient&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;pat&#91;2&#93;.FirstName&#32;&#61;&#32;&#38;quot&#59;Sally&#38;quot&#59;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;pat&#91;2&#93;.LastName&#32;&#61;&#32;&#38;quot&#59;Wilson&#38;quot&#59;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;Patient&#32;GetPatient&#40;Int32&#32;index&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;if&#32;&#40;index&#32;&#38;lt&#59;&#61;&#32;pat.GetUpperBound&#40;0&#41;&#32;&#38;amp&#59;&#38;amp&#59;&#32;index&#32;&#38;gt&#59;&#32;-1&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;return&#32;pat&#91;index&#93;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;else&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;return&#32;new&#32;Patient&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;void&#32;SetPatient&#40;Int32&#32;index,&#32;Patient&#32;patient&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;if&#32;&#40;index&#32;&#38;lt&#59;&#61;&#32;pat.GetUpperBound&#40;0&#41;&#32;&#38;amp&#59;&#38;amp&#59;&#32;index&#32;&#38;gt&#59;&#32;-1&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;pat&#91;index&#93;&#32;&#61;&#32;patient&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#91;DataContract&#93;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;class&#32;Patient&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;string&#32;firstName&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;string&#32;lastName&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#91;DataMember&#93;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;string&#32;FirstName&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;get&#32;&#123;&#32;return&#32;firstName&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;set&#32;&#123;&#32;firstName&#32;&#61;&#32;value&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#91;DataMember&#93;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;public&#32;string&#32;LastName&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;get&#32;&#123;&#32;return&#32;lastName&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;set&#32;&#123;&#32;lastName&#32;&#61;&#32;value&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#38;nbsp&#59;&#32;">
+        
+<p>Hi,</p>
+<p>I'm starting to learn how to use Dependency Injection with Unity in WCF application. I think I have managed to modify the code from codeproject which shows
+<a title="WCF_winform" href="http://www.codeproject.com/KB/WCF/WCFexample.aspx" rel="nofollow">how to use WCF in Winforms</a> to use parameterised constructor by using Unity.ServiceModel library from
+<a title="unity_wcf" href="http://blogs.southworks.net/dperez/2008/11/02/unity-friends-the-wcf-service-host-side/" rel="nofollow">
+this blog</a>. That's one step. For my real application, I need to inject existing instance as WCF Service constructor parameter. As I read from Unity documentation there is RegisterInstance which I think will do what I need, but I still can't get it working.
+ This is the service interface and implementation from the codeproject article mentioned before:</p>
+<p></p>
+<div style="color:Black; background-color:White">
+<pre>    [ServiceContract(Namespace = <span style="color:#A31515">&quot;http://Microsoft.ServiceModel.Samples&quot;</span>)]
+    <span style="color:Blue">public</span> <span style="color:Blue">interface</span> IServicePatient
+    {
+        [OperationContract]
+        Patient GetPatient(Int32 index);
+
+        [OperationContract]
+        <span style="color:Blue">void</span> SetPatient(Int32 index, Patient patient);
+    }
+
+    <span style="color:Blue">public</span> <span style="color:Blue">class</span> PatientService : IServicePatient
+    {
+        IPatientData pData;
+
+        <span style="color:Blue">public</span> PatientService(IPatientData pData)
+        {
+            <span style="color:Blue">this</span>.pData = pData;
+        }
+
+        <span style="color:Blue">public</span> Patient GetPatient(Int32 index)
+        {
+            <span style="color:Blue">return</span> pData.GetPatient(index);
+        }
+
+        <span style="color:Blue">public</span> <span style="color:Blue">void</span> SetPatient(Int32 index, Patient patient)
+        {
+            pData.SetPatient(index, patient);
+        }
+    }
+
+    <span style="color:Blue">public</span> <span style="color:Blue">interface</span> IPatientData
+    {
+        Patient GetPatient(Int32 index);
+
+        <span style="color:Blue">void</span> SetPatient(Int32 index, Patient patient);
+    }
+
+    <span style="color:Blue">public</span> <span style="color:Blue">class</span> PatientData : IPatientData
+    {
+        Patient[] pat = <span style="color:Blue">null</span>;
+
+        <span style="color:Blue">public</span> PatientData()
+        {
+            pat = <span style="color:Blue">new</span> Patient[3];
+
+            pat[0] = <span style="color:Blue">new</span> Patient();
+            pat[0].FirstName = <span style="color:#A31515">&quot;Bob&quot;</span>;
+            pat[0].LastName = <span style="color:#A31515">&quot;Chandler&quot;</span>;
+
+            pat[1] = <span style="color:Blue">new</span> Patient();
+            pat[1].FirstName = <span style="color:#A31515">&quot;Joe&quot;</span>;
+            pat[1].LastName = <span style="color:#A31515">&quot;Klink&quot;</span>;
+
+            pat[2] = <span style="color:Blue">new</span> Patient();
+            pat[2].FirstName = <span style="color:#A31515">&quot;Sally&quot;</span>;
+            pat[2].LastName = <span style="color:#A31515">&quot;Wilson&quot;</span>;
+        }
+
+        <span style="color:Blue">public</span> Patient GetPatient(Int32 index)
+        {
+            <span style="color:Blue">if</span> (index &lt;= pat.GetUpperBound(0) &amp;&amp; index &gt; -1)
+                <span style="color:Blue">return</span> pat[index];
+            <span style="color:Blue">else</span>
+                <span style="color:Blue">return</span> <span style="color:Blue">new</span> Patient();
+        }
+
+        <span style="color:Blue">public</span> <span style="color:Blue">void</span> SetPatient(Int32 index, Patient patient)
+        {
+            <span style="color:Blue">if</span> (index &lt;= pat.GetUpperBound(0) &amp;&amp; index &gt; -1)
+                pat[index] = patient;
+        }
+    }
+
+    [DataContract]
+    <span style="color:Blue">public</span> <span style="color:Blue">class</span> Patient
+    {
+        <span style="color:Blue">string</span> firstName;
+        <span style="color:Blue">string</span> lastName;
+
+        [DataMember]
+        <span style="color:Blue">public</span> <span style="color:Blue">string</span> FirstName
+        {
+            <span style="color:Blue">get</span> { <span style="color:Blue">return</span> firstName; }
+            <span style="color:Blue">set</span> { firstName = value; }
+        }
+        [DataMember]
+        <span style="color:Blue">public</span> <span style="color:Blue">string</span> LastName
+        {
+            <span style="color:Blue">get</span> { <span style="color:Blue">return</span> lastName; }
+            <span style="color:Blue">set</span> { lastName = value; }
+        }
+    }
+</pre>
+</div>
+<p></p>
+<p>While my App.config :</p>
+<p></p>
+<div style="color:Black; background-color:White">
+<pre><span style="color:Blue">&lt;?</span><span style="color:#A31515">xml</span> <span style="color:Red">version</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">1.0</span><span style="color:Black">&quot;</span> <span style="color:Red">encoding</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">utf-8</span><span style="color:Black">&quot;</span> <span style="color:Blue">?&gt;</span>
+<span style="color:Blue">&lt;</span><span style="color:#A31515">configuration</span><span style="color:Blue">&gt;</span>
+  
+  <span style="color:Blue">&lt;</span><span style="color:#A31515">configSections</span><span style="color:Blue">&gt;</span>
+    &lt;section name=&quot;unity&quot; type=&quot;Microsoft.Practices.Unity.Configuration.UnityConfigurationSection, 
+             Microsoft.Practices.Unity.Configuration, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35&quot;/&gt;
+  <span style="color:Blue">&lt;/</span><span style="color:#A31515">configSections</span><span style="color:Blue">&gt;</span>
+
+  <span style="color:Blue">&lt;</span><span style="color:#A31515">unity</span><span style="color:Blue">&gt;</span>
+    
+    <span style="color:Blue">&lt;</span><span style="color:#A31515">typeAliases</span><span style="color:Blue">&gt;</span>
+      &lt;typeAlias alias=&quot;external&quot;
+         type=&quot;Microsoft.Practices.Unity.ExternallyControlledLifetimeManager, Microsoft.Practices.Unity&quot; /&gt;
+    <span style="color:Blue">&lt;/</span><span style="color:#A31515">typeAliases</span><span style="color:Blue">&gt;</span>
+    
+    <span style="color:Blue">&lt;</span><span style="color:#A31515">containers</span><span style="color:Blue">&gt;</span>
+      <span style="color:Blue">&lt;</span><span style="color:#A31515">container</span><span style="color:Blue">&gt;</span>
+        <span style="color:Blue">&lt;</span><span style="color:#A31515">types</span><span style="color:Blue">&gt;</span>
+          <span style="color:Blue">&lt;</span><span style="color:#A31515">type</span> <span style="color:Red">type</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">TestService.IPatientData, TestService</span><span style="color:Black">&quot;</span> <span style="color:Red">mapTo</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">TestService.PatientData, TestService</span><span style="color:Black">&quot;</span> <span style="color:Blue">&gt;</span>
+            <span style="color:Blue">&lt;</span><span style="color:#A31515">lifetime</span> <span style="color:Red">type</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">external</span><span style="color:Black">&quot;</span><span style="color:Blue">/&gt;</span>
+          <span style="color:Blue">&lt;/</span><span style="color:#A31515">type</span><span style="color:Blue">&gt;</span>
+        <span style="color:Blue">&lt;/</span><span style="color:#A31515">types</span><span style="color:Blue">&gt;</span>        
+      <span style="color:Blue">&lt;/</span><span style="color:#A31515">container</span><span style="color:Blue">&gt;</span>
+    <span style="color:Blue">&lt;/</span><span style="color:#A31515">containers</span><span style="color:Blue">&gt;</span>
+    
+  <span style="color:Blue">&lt;/</span><span style="color:#A31515">unity</span><span style="color:Blue">&gt;</span>
+  
+  <span style="color:Blue">&lt;</span><span style="color:#A31515">system.serviceModel</span><span style="color:Blue">&gt;</span>
+    <span style="color:Blue">&lt;</span><span style="color:#A31515">services</span><span style="color:Blue">&gt;</span>
+      <span style="color:Blue">&lt;</span><span style="color:#A31515">service</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">TestService.PatientService</span><span style="color:Black">&quot;</span> <span style="color:Red">behaviorConfiguration</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Behaviors1</span><span style="color:Black">&quot;</span><span style="color:Blue">&gt;</span>
+        <span style="color:Blue">&lt;</span><span style="color:#A31515">endpoint</span> <span style="color:Red">address</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">net.tcp://localhost:2202/PatientServiceTest</span><span style="color:Black">&quot;</span> <span style="color:Red">binding</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">netTcpBinding</span><span style="color:Black">&quot;</span>
+                  <span style="color:Red">bindingConfiguration</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Binding1</span><span style="color:Black">&quot;</span> <span style="color:Red">contract</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">TestService.IServicePatient</span><span style="color:Black">&quot;</span><span style="color:Blue">/&gt;</span>
+      <span style="color:Blue">&lt;/</span><span style="color:#A31515">service</span><span style="color:Blue">&gt;</span>
+    <span style="color:Blue">&lt;/</span><span style="color:#A31515">services</span><span style="color:Blue">&gt;</span>
+
+    <span style="color:Blue">&lt;</span><span style="color:#A31515">bindings</span><span style="color:Blue">&gt;</span>
+      <span style="color:Blue">&lt;</span><span style="color:#A31515">netTcpBinding</span><span style="color:Blue">&gt;</span>
+        <span style="color:Blue">&lt;</span><span style="color:#A31515">binding</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Binding1</span><span style="color:Black">&quot;</span><span style="color:Blue">&gt;</span>
+          <span style="color:Blue">&lt;</span><span style="color:#A31515">security</span> <span style="color:Red">mode</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">None</span><span style="color:Black">&quot;</span><span style="color:Blue">&gt;</span>
+            <span style="color:Blue">&lt;</span><span style="color:#A31515">transport</span> <span style="color:Red">protectionLevel</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">None</span><span style="color:Black">&quot;</span> <span style="color:Blue">/&gt;</span>
+          <span style="color:Blue">&lt;/</span><span style="color:#A31515">security</span><span style="color:Blue">&gt;</span>
+        <span style="color:Blue">&lt;/</span><span style="color:#A31515">binding</span><span style="color:Blue">&gt;</span>
+      <span style="color:Blue">&lt;/</span><span style="color:#A31515">netTcpBinding</span><span style="color:Blue">&gt;</span>
+    <span style="color:Blue">&lt;/</span><span style="color:#A31515">bindings</span><span style="color:Blue">&gt;</span>
+
+    <span style="color:Blue">&lt;</span><span style="color:#A31515">behaviors</span><span style="color:Blue">&gt;</span>
+      <span style="color:Blue">&lt;</span><span style="color:#A31515">serviceBehaviors</span><span style="color:Blue">&gt;</span>
+        <span style="color:Blue">&lt;</span><span style="color:#A31515">behavior</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Behaviors1</span><span style="color:Black">&quot;</span><span style="color:Blue">&gt;</span>
+          <span style="color:Blue">&lt;</span><span style="color:#A31515">unity</span><span style="color:Blue">/&gt;</span>
+        <span style="color:Blue">&lt;/</span><span style="color:#A31515">behavior</span><span style="color:Blue">&gt;</span>
+      <span style="color:Blue">&lt;/</span><span style="color:#A31515">serviceBehaviors</span><span style="color:Blue">&gt;</span>
+    <span style="color:Blue">&lt;/</span><span style="color:#A31515">behaviors</span><span style="color:Blue">&gt;</span>
+    
+    <span style="color:Blue">&lt;</span><span style="color:#A31515">extensions</span><span style="color:Blue">&gt;</span>
+      <span style="color:Blue">&lt;</span><span style="color:#A31515">behaviorExtensions</span><span style="color:Blue">&gt;</span>
+        <span style="color:Blue">&lt;</span><span style="color:#A31515">add</span> <span style="color:Red">name</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">unity</span><span style="color:Black">&quot;</span> <span style="color:Red">type</span><span style="color:Blue">=</span><span style="color:Black">&quot;</span><span style="color:Blue">Unity.ServiceModel.InjectionElement, Unity.ServiceModel, <br>                   Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</span><span style="color:Black">&quot;</span><span style="color:Blue">/&gt;</span>
+      <span style="color:Blue">&lt;/</span><span style="color:#A31515">behaviorExtensions</span><span style="color:Blue">&gt;</span>
+    <span style="color:Blue">&lt;/</span><span style="color:#A31515">extensions</span><span style="color:Blue">&gt;</span>
+   <br>  <span style="color:Blue">&lt;/</span><span style="color:#A31515">system.serviceModel</span><span style="color:Blue">&gt;</span>
+<span style="color:Blue">&lt;/</span><span style="color:#A31515">configuration</span><span style="color:Blue">&gt;</span>
+</pre>
+</div>
+<p></p>
+<p>And this is how I call the service</p>
+<p></p>
+<div style="color:Black; background-color:White">
+<pre>                <span style="color:Green">//IPatientData thePatientData = new PatientData();</span>
+
+                <span style="color:Green">//IUnityContainer myContainer = new UnityContainer();</span>
+                <span style="color:Green">//UnityConfigurationSection section</span>
+                <span style="color:Green">//    = (UnityConfigurationSection)ConfigurationManager.GetSection(&quot;unity&quot;);</span>
+                <span style="color:Green">//section.Containers[&quot;containerOne&quot;].Configure(myContainer);</span>
+
+                <span style="color:Green">//myContainer.RegisterInstance&lt;IPatientData&gt;(thePatientData,</span>
+                <span style="color:Green">//                new ExternallyControlledLifetimeManager());</span>
+           
+                myServiceHost = <span style="color:Blue">new</span> ServiceHost(<span style="color:Blue">typeof</span>(PatientService));
+                myServiceHost.Open();
+</pre>
+</div>
+<p></p>
+<p>The commented part is how I tried to use RegisterInstance to map IPatientData to existing instance thePatientData. It failed with argument null exception. Perhaps I missed something here. Any suggestion or help would be helpful.&nbsp;</p>
+<p>Thank you.</p>
+<p>Regards,</p>
+<p>Arif</p>
+<div id="_mcePaste" style="left:-10000px; top:0px; width:1px; height:1px; overflow:hidden">
+&lt;!--[if gte mso 9]&gt;&lt;xml&gt; &lt;w:WordDocument&gt; &lt;w:View&gt;Normal&lt;/w:View&gt; &lt;w:Zoom&gt;0&lt;/w:Zoom&gt; &lt;w:PunctuationKerning /&gt; &lt;w:ValidateAgainstSchemas /&gt; &lt;w:SaveIfXMLInvalid&gt;false&lt;/w:SaveIfXMLInvalid&gt; &lt;w:IgnoreMixedContent&gt;false&lt;/w:IgnoreMixedContent&gt;
+ &lt;w:AlwaysShowPlaceholderText&gt;false&lt;/w:AlwaysShowPlaceholderText&gt; &lt;w:Compatibility&gt; &lt;w:BreakWrappedTables /&gt; &lt;w:SnapToGridInCell /&gt; &lt;w:WrapTextWithPunct /&gt; &lt;w:UseAsianBreakRules /&gt; &lt;w:DontGrowAutofit /&gt; &lt;w:UseFELayout
+ /&gt; &lt;/w:Compatibility&gt; &lt;w:BrowserLevel&gt;MicrosoftInternetExplorer4&lt;/w:BrowserLevel&gt; &lt;/w:WordDocument&gt; &lt;/xml&gt;&lt;![endif]--&gt;&lt;!--[if gte mso 9]&gt;&lt;xml&gt; &lt;w:LatentStyles DefLockedState=&quot;false&quot; LatentStyleCount=&quot;156&quot;&gt;
+ &lt;/w:LatentStyles&gt; &lt;/xml&gt;&lt;![endif]--&gt;&lt;!--[if !mso]&gt; &lt;object classid=&quot;clsid:38481807-CA0E-42D2-BF39-B33AF135CC4D&quot; id=ieooui&gt; &lt;/object&gt; &lt;mce:style&gt;&lt;! st1\:*{behavior:url(#ieooui) } --&gt; &lt;!--[endif]--&gt;&lt;!--
+ /* Font Definitions */ @font-face {font-family:Batang; panose-1:2 3 6 0 0 1 1 1 1 1; mso-font-alt:ë°”íƒ•; mso-font-charset:129; mso-generic-font-family:auto; mso-font-format:other; mso-font-pitch:fixed; mso-font-signature:1 151388160 16 0 524288 0;} @font-face
+ {font-family:&quot;\@Batang&quot;; panose-1:2 3 6 0 0 1 1 1 1 1; mso-font-charset:129; mso-generic-font-family:roman; mso-font-pitch:variable; mso-font-signature:-1342176593 1775729915 48 0 524447 0;} /* Style Definitions */ p.MsoNormal, li.MsoNormal, div.MsoNormal
+ {mso-style-parent:&quot;&quot;; margin:0mm; margin-bottom:.0001pt; mso-pagination:widow-orphan; font-size:12.0pt; font-family:&quot;Times New Roman&quot;; mso-fareast-font-family:Batang;} @page Section1 {size:612.0pt 792.0pt; margin:72.0pt 90.0pt 72.0pt 90.0pt;
+ mso-header-margin:36.0pt; mso-footer-margin:36.0pt; mso-paper-source:0;} div.Section1 {page:Section1;} --&gt;&lt;!--[if gte mso 10]&gt; &lt;mce:style&gt;&lt;! /* Style Definitions */ table.MsoNormalTable {mso-style-name:&quot;Table Normal&quot;; mso-tstyle-rowband-size:0;
+ mso-tstyle-colband-size:0; mso-style-noshow:yes; mso-style-parent:&quot;&quot;; mso-padding-alt:0mm 5.4pt 0mm 5.4pt; mso-para-margin:0mm; mso-para-margin-bottom:.0001pt; mso-pagination:widow-orphan; font-size:10.0pt; font-family:&quot;Times New Roman&quot;;
+ mso-fareast-font-family:&quot;Times New Roman&quot;; mso-ansi-language:#0400; mso-fareast-language:#0400; mso-bidi-language:#0400;} --&gt; &lt;!--[endif]--&gt;
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;
+</span>[<span style="color:#2b91af">ServiceContract</span>(<span style="color:#010001">Namespace</span> =
+<span style="color:#a31515">&quot;http://Microsoft.ServiceModel.Samples&quot;</span>)]</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">public</span> <span style="color:blue">interface</span>
+<span style="color:#2b91af">IServicePatient</span></span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;
+</span>{</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[<span style="color:#2b91af">OperationContract</span>]</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#2b91af">Patient</span> <span style="color:#010001">GetPatient</span>(<span style="color:#2b91af">Int32</span>
+<span style="color:#010001">index</span>);</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'">&nbsp;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[<span style="color:#2b91af">OperationContract</span>]</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">void</span> <span style="color:#010001">SetPatient</span>(<span style="color:#2b91af">Int32</span>
+<span style="color:#010001">index</span>, <span style="color:#2b91af">Patient</span>
+<span style="color:#010001">patient</span>);</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;
+</span>}</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'">&nbsp;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">public</span> <span style="color:blue">class</span>
+<span style="color:#2b91af">PatientService</span> : <span style="color:#2b91af">IServicePatient</span></span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;
+</span>{</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#2b91af">IPatientData</span> <span style="color:#010001">
+pData</span>;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'">&nbsp;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">public</span> <span style="color:#010001">PatientService</span>(<span style="color:#2b91af">IPatientData</span>
+<span style="color:#010001">pData</span>)</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>{</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">this</span>.<span style="color:#010001">pData</span> =
+<span style="color:#010001">pData</span>;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'">&nbsp;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">public</span> <span style="color:#2b91af">Patient</span>
+<span style="color:#010001">GetPatient</span>(<span style="color:#2b91af">Int32</span>
+<span style="color:#010001">index</span>)</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>{</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">return</span> <span style="color:#010001">pData</span>.<span style="color:#010001">GetPatient</span>(<span style="color:#010001">index</span>);</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'">&nbsp;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">public</span> <span style="color:blue">void</span>
+<span style="color:#010001">SetPatient</span>(<span style="color:#2b91af">Int32</span>
+<span style="color:#010001">index</span>, <span style="color:#2b91af">Patient</span>
+<span style="color:#010001">patient</span>)</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>{</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#010001">pData</span>.<span style="color:#010001">SetPatient</span>(<span style="color:#010001">index</span>,
+<span style="color:#010001">patient</span>);</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;
+</span>}</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'">&nbsp;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">public</span> <span style="color:blue">interface</span>
+<span style="color:#2b91af">IPatientData</span></span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;
+</span>{</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#2b91af">Patient</span> <span style="color:#010001">GetPatient</span>(<span style="color:#2b91af">Int32</span>
+<span style="color:#010001">index</span>);</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'">&nbsp;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">void</span> <span style="color:#010001">SetPatient</span>(<span style="color:#2b91af">Int32</span>
+<span style="color:#010001">index</span>, <span style="color:#2b91af">Patient</span>
+<span style="color:#010001">patient</span>);</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;
+</span>}</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'">&nbsp;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">public</span> <span style="color:blue">class</span>
+<span style="color:#2b91af">PatientData</span> : <span style="color:#2b91af">IPatientData</span></span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;
+</span>{</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#2b91af">Patient</span>[] <span style="color:#010001">pat</span> =
+<span style="color:blue">null</span>;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'">&nbsp;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">public</span> <span style="color:#010001">PatientData</span>()</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>{</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#010001">pat</span> = <span style="color:blue">new</span>
+<span style="color:#2b91af">Patient</span>[3];</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'">&nbsp;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#010001">pat</span>[0] = <span style="color:blue">new</span>
+<span style="color:#2b91af">Patient</span>();</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#010001">pat</span>[0].<span style="color:#010001">FirstName</span> =
+<span style="color:#a31515">&quot;Bob&quot;</span>;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#010001">pat</span>[0].<span style="color:#010001">LastName</span> =
+<span style="color:#a31515">&quot;Chandler&quot;</span>;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'">&nbsp;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#010001">pat</span>[1] = <span style="color:blue">new</span>
+<span style="color:#2b91af">Patient</span>();</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#010001">pat</span>[1].<span style="color:#010001">FirstName</span> =
+<span style="color:#a31515">&quot;Joe&quot;</span>;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#010001">pat</span>[1].<span style="color:#010001">LastName</span> =
+<span style="color:#a31515">&quot;Klink&quot;</span>;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'">&nbsp;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#010001">pat</span>[2] = <span style="color:blue">new</span>
+<span style="color:#2b91af">Patient</span>();</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#010001">pat</span>[2].<span style="color:#010001">FirstName</span> =
+<span style="color:#a31515">&quot;Sally&quot;</span>;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#010001">pat</span>[2].<span style="color:#010001">LastName</span> =
+<span style="color:#a31515">&quot;Wilson&quot;</span>;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'">&nbsp;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">public</span> <span style="color:#2b91af">Patient</span>
+<span style="color:#010001">GetPatient</span>(<span style="color:#2b91af">Int32</span>
+<span style="color:#010001">index</span>)</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>{</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'">&nbsp;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">if</span> (<span style="color:#010001">index</span> &lt;=
+<span style="color:#010001">pat</span>.<span style="color:#010001">GetUpperBound</span>(0) &amp;&amp;
+<span style="color:#010001">index</span> &gt; -1)</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">return</span> <span style="color:#010001">pat</span>[<span style="color:#010001">index</span>];</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">else</span></span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">return</span> <span style="color:blue">new</span>
+<span style="color:#2b91af">Patient</span>();</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'">&nbsp;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">public</span> <span style="color:blue">void</span>
+<span style="color:#010001">SetPatient</span>(<span style="color:#2b91af">Int32</span>
+<span style="color:#010001">index</span>, <span style="color:#2b91af">Patient</span>
+<span style="color:#010001">patient</span>)</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>{</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">if</span> (<span style="color:#010001">index</span> &lt;=
+<span style="color:#010001">pat</span>.<span style="color:#010001">GetUpperBound</span>(0) &amp;&amp;
+<span style="color:#010001">index</span> &gt; -1)</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#010001">pat</span>[<span style="color:#010001">index</span>] =
+<span style="color:#010001">patient</span>;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;
+</span>}</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'">&nbsp;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;
+</span>[<span style="color:#2b91af">DataContract</span>]</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">public</span> <span style="color:blue">class</span>
+<span style="color:#2b91af">Patient</span></span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;
+</span>{</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">string</span> <span style="color:#010001">firstName</span>;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">string</span> <span style="color:#010001">lastName</span>;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'">&nbsp;</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[<span style="color:#2b91af">DataMember</span>]</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">public</span> <span style="color:blue">string</span>
+<span style="color:#010001">FirstName</span></span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>{</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">get</span> { <span style="color:blue">return</span>
+<span style="color:#010001">firstName</span>; }</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">set</span> { <span style="color:#010001">firstName</span> =
+<span style="color:blue">value</span>; }</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[<span style="color:#2b91af">DataMember</span>]</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp; </span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:blue">public</span>
+<span style="color:blue">string</span> <span style="color:#010001">LastName</span></span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>{</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">get</span> { <span style="color:blue">return</span>
+<span style="color:#010001">lastName</span>; }</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">set</span> { <span style="color:#010001">lastName</span> =
+<span style="color:blue">value</span>; }</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}</span></p>
+<p><span style="font-size:10pt; font-family:'Courier New'"><span>&nbsp;&nbsp;&nbsp;
+</span>}</span></p>
+<p><span style="font-size:10pt">&nbsp;</span></p>
+</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_362528" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f155300">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="a02759e0-8cb2-404d-ba48-146be9ed76d8">
+    <script class="options" defer="defer" id="a02759e0-8cb2-404d-ba48-146be9ed76d8" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_69ac7449-5a2f-4db2-a9bf-698fdfaa741a">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_8097b35d-d69b-4661-8c39-6f3082ad15a9">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_69ac7449-5a2f-4db2-a9bf-698fdfaa741a" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_8097b35d-d69b-4661-8c39-6f3082ad15a9" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/155300';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

@@ -1,0 +1,1127 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - object lifetime and garbage collection</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/53281?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/53281?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="tiGXLKuMdd9OqIf655kApy8c3rzYCBL_gXK99U2IXW0BcETUQBunI_0HECdwjAdi8o4-n5fIRps5KUlEkc8EK-O_o4zw-qUK3UjTPgGF3kw8C9wHLCRSP7Wv97j0oe1w6jVLAQ2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken266c5f52e-0296-49c6-8dcc-cd453ab506c0" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:28:20 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f53281" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="6471659c-ae19-4c47-9abd-e6772698247d">
+                
+                    <script class="options" defer="defer" id="6471659c-ae19-4c47-9abd-e6772698247d" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="8671cfa1-d1cf-45cc-bfe1-65328293291e">
+                
+                    <script class="options" defer="defer" id="8671cfa1-d1cf-45cc-bfe1-65328293291e" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                object lifetime and garbage collection
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:53281]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="48839330-3f5b-431a-8611-fa56d77625fe">
+    <script class="options" defer="defer" id="48839330-3f5b-431a-8611-fa56d77625fe" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/53281","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="179241">
+    <td id="PostDetailsCell_179241" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post179241"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jihohan">jihohan</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/14/2009 9:53:37 PM" LocalTimeTicks="1239771217">Apr 14, 2009 at 9:53 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_179241" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;have&#32;an&#32;object&#32;that&#32;gets&#32;created&#32;and&#32;put&#32;into&#32;the&#32;container&#32;as&#32;a&#32;singleton.&#32;At&#32;some&#32;point,&#32;I&#32;no&#32;longer&#32;need&#32;the&#32;object&#32;and&#32;I&#32;tried&#32;to&#32;remove&#32;it.&#38;nbsp&#59;&#32;From&#32;what&#32;I&#32;can&#32;see,&#32;there&#32;are&#32;no&#32;more&#32;references&#32;to&#32;the&#32;object&#32;but&#32;for&#32;some&#32;reason,&#32;it&#32;is&#32;not&#32;being&#32;garbage&#32;collected.&#32;I&#32;am&#32;wondering&#32;if&#32;the&#32;container&#32;is&#32;keeping&#32;it&#32;alive.&#38;nbsp&#59;&#32;Note&#32;that&#32;there&#32;is&#32;no&#32;external&#32;reference&#32;to&#32;the&#32;container&#32;either.&#38;nbsp&#59;&#32;The&#32;container&#32;is&#32;created&#32;initially&#32;outside&#32;of&#32;the&#32;object&#32;and&#32;is&#32;passed&#32;into&#32;it&#32;as&#32;a&#32;constructor&#32;argument&#32;and&#32;the&#32;object&#32;holds&#32;onto&#32;the&#32;container&#32;as&#32;a&#32;member&#32;variable.&#38;nbsp&#59;&#32;So&#32;we&#32;have&#32;a&#32;cyclic&#32;reference&#32;in&#32;a&#32;sense.&#32;&#32;I&#39;ve&#32;tried&#32;to&#32;call&#32;the&#32;container.Dispose&#32;but&#32;that&#32;only&#32;succeeded&#32;in&#32;&#38;quot&#59;freezing&#38;quot&#59;&#32;and&#32;eventually&#32;crashing&#32;my&#32;app.&#32;Is&#32;there&#32;a&#32;way&#32;to&#32;properly&#32;shut&#32;down&#32;the&#32;container&#63;&#38;nbsp&#59;&#32;What&#32;else&#32;could&#32;be&#32;holding&#32;my&#32;reference&#32;hostage&#63;&#32;&#32;Thanks&#32;Jiho&#32;">
+        I have an object that gets created and put into the container as a singleton.<br>
+At some point, I no longer need the object and I tried to remove it.&nbsp; From what I can see, there are no more references to the object but for some reason, it is not being garbage collected.<br>
+I am wondering if the container is keeping it alive.&nbsp; Note that there is no external reference to the container either.&nbsp; The container is created initially outside of the object and is passed into it as a constructor argument and the object holds
+ onto the container as a member variable.&nbsp; So we have a cyclic reference in a sense.<br>
+<br>
+I've tried to call the container.Dispose but that only succeeded in &quot;freezing&quot; and eventually crashing my app.<br>
+Is there a way to properly shut down the container?&nbsp; What else could be holding my reference hostage?<br>
+<br>
+Thanks<br>
+Jiho<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_179241" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="180349">
+    <td id="PostDetailsCell_180349" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post180349"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/16/2009 11:21:36 PM" LocalTimeTicks="1239949296">Apr 16, 2009 at 11:21 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_180349" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Something&#32;has&#32;to&#32;be&#32;keeping&#32;the&#32;container&#32;alive.&#32;Perhaps&#32;using&#32;WinDBG&#47;SoS&#32;could&#32;help&#32;you&#32;track&#32;down&#32;what&#39;s&#32;got&#32;your&#32;object&#32;rooted.&#32;&#32;I&#32;have&#32;no&#32;idea&#32;why&#32;container.Dispose&#32;crashed&#32;your&#32;app&#32;-&#32;did&#32;you&#32;register&#32;the&#32;container&#32;with&#32;itself&#63;&#32;">
+        Something has to be keeping the container alive. Perhaps using WinDBG/SoS could help you track down what's got your object rooted.<br>
+<br>
+I have no idea why container.Dispose crashed your app - did you register the container with itself?<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_180349" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="180570">
+    <td id="PostDetailsCell_180570" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post180570"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/jihohan">jihohan</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/17/2009 1:08:05 PM" LocalTimeTicks="1239998885">Apr 17, 2009 at 1:08 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_180570" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Thanks&#32;for&#32;the&#32;suggestion&#32;-&#32;in&#32;fact,&#32;I&#32;have&#32;been&#32;using&#32;WinDBG&#47;SoS&#32;to&#32;find&#32;out&#32;the&#32;culprit&#32;for&#32;the&#32;past&#32;couple&#32;of&#32;days.&#38;nbsp&#59;&#32;I&#39;ve&#32;never&#32;used&#32;the&#32;tool&#32;so&#32;it&#39;s&#32;taking&#32;me&#32;a&#32;while&#32;to&#32;get&#32;acquainted.&#32;The&#32;Dispose&#32;issue&#32;is&#32;a&#32;known&#32;and&#32;resolved&#32;issue&#32;in&#32;Prism&#32;as&#32;it&#32;turns&#32;out.&#38;nbsp&#59;&#32;Yes,&#32;Prism&#32;apparently&#32;had&#32;added&#32;the&#32;container&#32;itself&#32;to&#32;the&#32;container&#32;for&#32;some&#32;reason&#32;but&#32;no&#32;longer.&#32;I&#39;ve&#32;since&#32;fixed&#32;it&#32;in&#32;my&#32;local&#32;fork&#32;&#40;I&#39;m&#32;using&#32;the&#32;modified&#32;WinForms&#32;version&#41;.&#32;&#32;I&#32;am&#32;using&#32;&#33;gcroot&#32;command&#32;to&#32;find&#32;out&#32;what&#39;s&#32;keeping&#32;it&#32;afloat&#32;according&#32;to&#32;this&#32;article&#58;&#32;http&#58;&#47;&#47;blogs.msdn.com&#47;ricom&#47;archive&#47;2004&#47;12&#47;10&#47;279612.aspx&#32;If&#32;you&#32;know&#32;other&#32;or&#32;better&#32;ways,&#32;please&#32;let&#32;me&#32;know.&#32;Thanks&#32;">
+        Thanks for the suggestion - in fact, I have been using WinDBG/SoS to find out the culprit for the past couple of days.&nbsp; I've never used the tool so it's taking me a while to get acquainted.<br>
+The Dispose issue is a known and resolved issue in Prism as it turns out.&nbsp; Yes, Prism apparently had added the container itself to the container for some reason but no longer.<br>
+I've since fixed it in my local fork (I'm using the modified WinForms version).<br>
+<br>
+I am using !gcroot command to find out what's keeping it afloat according to this article: http://blogs.msdn.com/ricom/archive/2004/12/10/279612.aspx<br>
+If you know other or better ways, please let me know.<br>
+Thanks<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_180570" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="190831">
+    <td id="PostDetailsCell_190831" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post190831"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/bobbyangers">bobbyangers</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/15/2009 6:03:03 PM" LocalTimeTicks="1242435783">May 15, 2009 at 6:03 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_190831" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hi,&#32;There&#32;is&#32;some&#32;issues&#32;witht&#32;the&#32;Dispose&#58;&#32;1.&#38;nbsp&#59;&#32;the&#32;function&#32;does&#32;not&#32;call&#32;the&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;GC.SuppresFinalize&#40;this&#41;&#59;&#38;nbsp&#59;&#32;and&#32;it&#32;definitely&#32;should&#32;&#32;&#32;&#32;&#32;public&#32;override&#32;void&#32;Dispose&#40;&#41;&#32;&#123;&#32;this.Dispose&#40;true&#41;&#59;&#32;&#32;GC.SuppresFinalize&#40;this&#41;&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#32;&#32;&#32;&#32;&#32;2.&#38;nbsp&#59;&#32;the&#32;class&#32;does&#32;not&#32;track&#32;if&#32;the&#32;dispose&#32;was&#32;allready&#32;called,&#32;creating&#32;a&#32;stackOverflow&#32;if&#32;the&#32;container&#32;itself&#32;is&#32;in&#32;the&#32;container&#32;&#40;which&#32;is&#32;a&#32;common&#32;scenario&#32;I&#32;have&#32;seen&#41;&#32;private&#32;bool&#32;_diposed&#32;&#61;&#32;defaut&#40;bool&#41;&#59;&#32;private&#32;object&#32;lockObject&#32;&#61;&#32;new&#32;object&#40;&#41;&#59;&#32;protected&#32;virtual&#32;void&#32;Dispose&#40;bool&#32;disposing&#41;&#32;&#123;&#32;&#32;&#32;lock&#40;lockObject&#41;&#32;&#32;&#123;&#32;&#32;if&#32;&#40;disposing&#41;&#32;&#123;&#32;&#32;if&#40;&#32;&#33;_disposed&#41;&#32;&#32;&#123;&#32;if&#32;&#40;this.lifetimeContainer&#32;&#33;&#61;&#32;null&#41;&#32;&#123;&#32;this.lifetimeContainer.Dispose&#40;&#41;&#59;&#32;this.lifetimeContainer&#32;&#61;&#32;null&#59;&#32;if&#32;&#40;&#40;this.parent&#32;&#33;&#61;&#32;null&#41;&#32;&#38;amp&#59;&#38;amp&#59;&#32;&#40;this.parent.lifetimeContainer&#32;&#33;&#61;&#32;null&#41;&#41;&#32;&#123;&#32;this.parent.lifetimeContainer.Remove&#40;this&#41;&#59;&#32;&#125;&#32;&#125;&#32;foreach&#32;&#40;IDisposable&#32;disposable&#32;in&#32;Sequence.OfType&#38;lt&#59;IDisposable&#38;gt&#59;&#40;this.extensions&#41;&#41;&#32;&#123;&#32;disposable.Dispose&#40;&#41;&#59;&#32;&#125;&#32;this.extensions.Clear&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#32;_disposed&#32;&#61;&#32;true&#59;&#32;&#32;&#125;&#32;&#32;&#125;&#32;&#32;&#125;&#32;&#125;&#32;&#32;&#38;nbsp&#59;Hope&#32;this&#32;makes&#32;it&#32;to&#32;the&#32;next&#32;release,&#32;StackOverflow&#32;are&#32;never&#32;nice&#32;to&#32;deal&#32;with&#32;&#33;&#33;&#33;&#32;--Robert&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;">
+        
+<p>Hi,</p>
+<p>There is some issues witht the Dispose:</p>
+<p>1.&nbsp; the function does not call the&nbsp;&nbsp;&nbsp; GC.SuppresFinalize(this);&nbsp; and it definitely should</p>
+<table border="0" cellspacing="0" cellpadding="0" width="100%" style="margin-bottom:0px">
+<tbody>
+<tr>
+<td colspan="2" valign="top" style="padding-bottom:4px; padding-left:5px; padding-right:5px; padding-top:4px">
+<pre><span style="color:#1000a0">public</span> <span style="color:#1000a0">override</span> <a title="System.Void" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089/System.Void" rel="nofollow">void</a> <strong><a href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://Microsoft.Practices.Unity:1.2.0.0:31bf3856ad364e35/Microsoft.Practices.Unity.UnityContainer/Dispose()" rel="nofollow">Dispose</a></strong>()
+{
+    <span style="color:#1000a0">this</span>.<a title="void Microsoft.Practices.Unity.UnityContainer.Dispose(bool disposing);" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://Microsoft.Practices.Unity:1.2.0.0:31bf3856ad364e35/Microsoft.Practices.Unity.UnityContainer/Dispose(Boolean)" rel="nofollow">Dispose</a>(<span style="color:#800000">true</span>);</pre>
+<pre>    <strong>GC.SuppresFinalize(this);&nbsp;</strong> 
+}
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p>2.&nbsp; the class does not track if the dispose was allready called, creating a stackOverflow if the container itself is in the container (which is a common scenario I have seen)</p>
+<pre><span style="color:#ff0000"><strong>private bool _diposed = defaut(bool);</strong></span></pre>
+<pre><strong><span style="color:#ff0000">private object lockObject = new object();</span></strong></pre>
+<pre><span style="color:#1000a0">protected</span> <span style="color:#1000a0">virtual</span> <a title="System.Void" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089/System.Void" rel="nofollow">void</a> <strong><a href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://Microsoft.Practices.Unity:1.2.0.0:31bf3856ad364e35/Microsoft.Practices.Unity.UnityContainer/Dispose(Boolean)" rel="nofollow">Dispose</a></strong>(<a title="System.Boolean" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089/System.Boolean" rel="nofollow">bool</a> disposing)
+{</pre>
+<pre>  <span style="color:#ff0000"><strong>  lock(lockObject)</strong></span></pre>
+<pre><strong><span style="color:#ff0000">    {</span>
+</strong>    <span style="color:#1000a0">if</span> (<a title="bool disposing; // Parameter">disposing</a>)
+    {</pre>
+<pre><strong><span style="color:#ff0000">        if( !_disposed)</span></strong></pre>
+<pre><strong><span style="color:#ff0000">        {</span></strong>
+           <span style="color:#1000a0">if</span> (<span style="color:#1000a0">this</span>.<a title="LifetimeContainer Microsoft.Practices.Unity.UnityContainer.lifetimeContainer;" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://Microsoft.Practices.Unity:1.2.0.0:31bf3856ad364e35/Microsoft.Practices.Unity.UnityContainer/lifetimeContainer:Microsoft.Practices.ObjectBuilder2.LifetimeContainer" rel="nofollow">lifetimeContainer</a> != <span style="color:#800000">null</span>)
+           {
+               <span style="color:#1000a0">this</span>.<a title="LifetimeContainer Microsoft.Practices.Unity.UnityContainer.lifetimeContainer;" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://Microsoft.Practices.Unity:1.2.0.0:31bf3856ad364e35/Microsoft.Practices.Unity.UnityContainer/lifetimeContainer:Microsoft.Practices.ObjectBuilder2.LifetimeContainer" rel="nofollow">lifetimeContainer</a>.<a title="void Microsoft.Practices.ObjectBuilder2.LifetimeContainer.Dispose();" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://Microsoft.Practices.ObjectBuilder2:2.2.0.0:31bf3856ad364e35/Microsoft.Practices.ObjectBuilder2.LifetimeContainer/Dispose()" rel="nofollow">Dispose</a>();
+               <span style="color:#1000a0">this</span>.<a title="LifetimeContainer Microsoft.Practices.Unity.UnityContainer.lifetimeContainer;" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://Microsoft.Practices.Unity:1.2.0.0:31bf3856ad364e35/Microsoft.Practices.Unity.UnityContainer/lifetimeContainer:Microsoft.Practices.ObjectBuilder2.LifetimeContainer" rel="nofollow">lifetimeContainer</a> = <span style="color:#800000">null</span>;
+               <span style="color:#1000a0">if</span> ((<span style="color:#1000a0">this</span>.<a title="UnityContainer Microsoft.Practices.Unity.UnityContainer.parent;" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://Microsoft.Practices.Unity:1.2.0.0:31bf3856ad364e35/Microsoft.Practices.Unity.UnityContainer/parent" rel="nofollow">parent</a> != <span style="color:#800000">null</span>) &amp;&amp; (<span style="color:#1000a0">this</span>.<a title="UnityContainer Microsoft.Practices.Unity.UnityContainer.parent;" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://Microsoft.Practices.Unity:1.2.0.0:31bf3856ad364e35/Microsoft.Practices.Unity.UnityContainer/parent" rel="nofollow">parent</a>.<a title="LifetimeContainer Microsoft.Practices.Unity.UnityContainer.lifetimeContainer;" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://Microsoft.Practices.Unity:1.2.0.0:31bf3856ad364e35/Microsoft.Practices.Unity.UnityContainer/lifetimeContainer:Microsoft.Practices.ObjectBuilder2.LifetimeContainer" rel="nofollow">lifetimeContainer</a> != <span style="color:#800000">null</span>))
+               {
+                   <span style="color:#1000a0">this</span>.<a title="UnityContainer Microsoft.Practices.Unity.UnityContainer.parent;" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://Microsoft.Practices.Unity:1.2.0.0:31bf3856ad364e35/Microsoft.Practices.Unity.UnityContainer/parent" rel="nofollow">parent</a>.<a title="LifetimeContainer Microsoft.Practices.Unity.UnityContainer.lifetimeContainer;" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://Microsoft.Practices.Unity:1.2.0.0:31bf3856ad364e35/Microsoft.Practices.Unity.UnityContainer/lifetimeContainer:Microsoft.Practices.ObjectBuilder2.LifetimeContainer" rel="nofollow">lifetimeContainer</a>.<a title="void Microsoft.Practices.ObjectBuilder2.LifetimeContainer.Remove(object);" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://Microsoft.Practices.ObjectBuilder2:2.2.0.0:31bf3856ad364e35/Microsoft.Practices.ObjectBuilder2.LifetimeContainer/Remove(Object)" rel="nofollow">Remove</a>(<span style="color:#1000a0">this</span>);
+               }
+           }
+           <span style="color:#1000a0">foreach</span> (<a title="System.IDisposable" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089/System.IDisposable" rel="nofollow">IDisposable</a> <strong>disposable</strong> <span style="color:#1000a0">in</span> <a title="Microsoft.Practices.ObjectBuilder2.Sequence" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://Microsoft.Practices.ObjectBuilder2:2.2.0.0:31bf3856ad364e35/Microsoft.Practices.ObjectBuilder2.Sequence" rel="nofollow">Sequence</a>.<a title="IEnumerable&lt;IDisposable&gt; Microsoft.Practices.ObjectBuilder2.Sequence.OfType&lt;IDisposable&gt;(IEnumerable);" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://Microsoft.Practices.ObjectBuilder2:2.2.0.0:31bf3856ad364e35/Microsoft.Practices.ObjectBuilder2.Sequence/OfType&lt;&gt;(System.Collections.IEnumerable):System.Collections.Generic.IEnumerable&lt;&lt;!!0&gt;&gt;" rel="nofollow">OfType</a>&lt;<a title="System.IDisposable" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089/System.IDisposable" rel="nofollow">IDisposable</a>&gt;(<span style="color:#1000a0">this</span>.<a title="List&lt;UnityContainerExtension&gt; Microsoft.Practices.Unity.UnityContainer.extensions;" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://Microsoft.Practices.Unity:1.2.0.0:31bf3856ad364e35/Microsoft.Practices.Unity.UnityContainer/extensions:System.Collections.Generic.List&lt;Microsoft.Practices.Unity.UnityContainerExtension&gt;" rel="nofollow">extensions</a>))
+           {
+               <a title="IDisposable disposable // Local Variable">disposable</a>.<a title="void System.IDisposable.Dispose();" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089/System.IDisposable/Dispose()" rel="nofollow">Dispose</a>();
+           }
+           <span style="color:#1000a0">this</span>.<a title="List&lt;UnityContainerExtension&gt; Microsoft.Practices.Unity.UnityContainer.extensions;" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://Microsoft.Practices.Unity:1.2.0.0:31bf3856ad364e35/Microsoft.Practices.Unity.UnityContainer/extensions:System.Collections.Generic.List&lt;Microsoft.Practices.Unity.UnityContainerExtension&gt;" rel="nofollow">extensions</a>.<a title="void System.Collections.Generic.List&lt;UnityContainerExtension&gt;.Clear();" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089/System.Collections.Generic.List&lt;&gt;/Clear()" rel="nofollow">Clear</a>();</pre>
+<pre><strong><span style="color:#ff0000">&nbsp;          _disposed = true;</span></strong></pre>
+<pre><strong><span style="color:#ff0000">        }</span>
+</strong>    }</pre>
+<pre><span style="color:#ff0000"><strong>   }
+</strong></span>}
+</pre>
+<p>&nbsp;Hope this makes it to the next release, StackOverflow are never nice to deal with !!!</p>
+<p>--Robert</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_190831" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="191056">
+    <td id="PostDetailsCell_191056" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post191056"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/16/2009 5:56:51 PM" LocalTimeTicks="1242521811">May 16, 2009 at 5:56 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_191056" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Why&#32;should&#32;we&#32;call&#32;SuppressFinalize&#63;&#32;The&#32;container&#32;doesn&#39;t&#32;have&#32;a&#32;finalizer,&#32;nor&#32;should&#32;it.&#32;Your&#32;suggestion&#32;on&#32;the&#32;_disposed&#32;flag&#32;wouldn&#39;t&#32;help&#32;-&#32;if&#32;the&#32;container&#32;is&#32;registered&#32;with&#32;itself,&#32;it&#39;s&#32;stored&#32;in&#32;the&#32;lifetimeContainer,&#32;which&#32;is&#32;disposed&#32;before&#32;the&#32;flag&#32;gets&#32;set.&#32;Therefore&#32;the&#32;flag&#32;won&#39;t&#32;work.&#32;The&#32;real&#32;solution&#32;is&#32;NOT&#32;TO&#32;STORE&#32;THE&#32;CONTAINER&#32;IN&#32;ITSELF.&#32;You&#32;don&#39;t&#32;need&#32;to&#32;-&#32;in&#32;Unity&#32;1.2&#32;we&#32;already&#32;automatically&#32;register&#32;the&#32;container&#32;with&#32;itself&#32;in&#32;a&#32;way&#32;that&#32;will&#32;not&#32;cause&#32;a&#32;stack&#32;overflow.&#32;So&#32;Just&#32;Don&#39;t&#32;Do&#32;That.&#32;&#38;nbsp&#59;&#32;-Chris&#32;&#38;nbsp&#59;">
+        
+<p>Why should we call SuppressFinalize? The container doesn't have a finalizer, nor should it.</p>
+<p>Your suggestion on the _disposed flag wouldn't help - if the container is registered with itself, it's stored in the lifetimeContainer, which is disposed before the flag gets set. Therefore the flag won't work. The real solution is
+<strong>NOT TO STORE THE CONTAINER IN ITSELF.</strong> You don't need to - in Unity 1.2
+<strong>we already automatically register the container with itself in a way that will not cause a stack overflow</strong>. So Just Don't Do That.</p>
+<p>&nbsp;</p>
+<p>-Chris</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_191056" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="191194">
+    <td id="PostDetailsCell_191194" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post191194"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/bobbyangers">bobbyangers</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/17/2009 1:38:49 PM" LocalTimeTicks="1242592729">May 17, 2009 at 1:38 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_191194" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Hi&#32;Chris,&#32;Thanks&#32;for&#32;the&#32;precision.&#32;I&#32;definitely&#32;stop&#32;that&#32;practice&#32;right&#32;away&#33;&#32;&#32;&#32;However,&#32;I&#32;do&#32;believe&#32;that&#32;the&#32;compiler&#32;does&#32;generate&#32;a&#32;default&#32;finalizer&#32;if&#32;we&#32;don&#38;&#35;146&#59;t&#32;define&#32;one.&#32;Referring,&#32;please&#32;refer&#32;to&#32;this&#32;article&#32;&#58;&#32;http&#58;&#47;&#47;msdn.microsoft.com&#47;en-us&#47;magazine&#47;cc163392.aspx&#32;.&#32;Before&#32;I&#32;did&#32;not&#32;use&#32;these&#32;recommendations&#32;and&#32;had&#32;all&#32;sorts&#32;for&#32;weird&#32;stuff&#32;happening&#32;at&#32;runtime&#32;and&#32;unreproducable&#32;situations...&#32;since&#32;I&#32;have&#32;been&#32;using&#32;this&#32;pattern,&#32;I&#32;no&#32;longer&#32;encounter&#32;&#40;very&#32;rarely&#41;&#32;these&#32;kind&#32;of&#32;problems&#32;or&#32;memory&#32;leaks.&#32;&#32;&#32;&#32;Having&#32;this&#32;said,&#32;it&#32;does&#32;matter&#32;more&#32;on&#32;disposable&#32;object&#32;that&#32;have&#32;many&#32;instances.&#32;which&#32;is&#32;not&#32;really&#32;the&#32;case&#32;here&#32;since&#32;usually&#32;few&#32;containers&#32;exists&#32;in&#32;the&#32;same&#32;domaine&#32;space.&#32;However&#32;in&#32;the&#32;case&#32;where&#32;we&#32;are&#32;doing&#32;unit&#32;tests...&#32;I&#32;usually&#32;create&#32;a&#32;new&#32;container&#32;for&#32;each&#32;test.&#32;&#32;&#32;&#32;I&#32;did&#32;not&#32;need&#32;to&#32;offend&#32;you&#32;or&#32;your&#32;team,&#32;I&#32;think&#32;that&#32;Unity&#32;is&#32;great.&#32;I&#32;discover&#32;new&#32;ways&#32;to&#32;use&#32;it&#32;everyday...&#32;Some&#32;stuff&#32;we&#32;have&#32;to&#32;discover,&#32;like&#32;the&#32;fact&#32;that&#32;the&#32;container&#32;is&#32;registered&#32;automatically.&#32;&#32;&#32;--Bobby">
+        
+<div>Hi Chris,</div>
+<div>Thanks for the precision. I definitely stop that practice right away!</div>
+<div></div>
+<div>However, I do believe that the compiler does generate a default finalizer if we don&#146;t define one. Referring, please refer to this article :
+<a href="http://msdn.microsoft.com/en-us/magazine/cc163392.aspx" rel="nofollow">http://msdn.microsoft.com/en-us/magazine/cc163392.aspx</a> . Before I did not use these recommendations and had all sorts for weird stuff happening at runtime and unreproducable situations...
+ since I have been using this pattern, I no longer encounter (very rarely) these kind of problems or memory leaks.
+</div>
+<div></div>
+<div>Having this said, it does matter more on disposable object that have many instances. which is not really the case here since usually few containers exists in the same domaine space. However in the case where we are doing unit tests... I usually create
+ a new container for each test. </div>
+<div></div>
+<div>I did not need to offend you or your team, I think that Unity is great. I discover new ways to use it everyday... Some stuff we have to discover, like the fact that the container is registered automatically.</div>
+<div></div>
+<div>--Bobby</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_191194" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="191241">
+    <td id="PostDetailsCell_191241" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post191241"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/17/2009 7:44:01 PM" LocalTimeTicks="1242614641">May 17, 2009 at 7:44 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_191241" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Bobby,&#32;If&#32;my&#32;post&#32;sounded&#32;like&#32;I&#32;was&#32;offended,&#32;I&#32;apologize,&#32;as&#32;that&#32;was&#32;not&#32;my&#32;intent.&#32;The&#32;&#38;quot&#59;I&#32;registered&#32;the&#32;container&#32;with&#32;itself&#38;quot&#59;&#32;thing&#32;has&#32;come&#32;up&#32;many&#32;times&#32;now,&#32;and&#32;I&#32;just&#32;really&#32;wanted&#32;to&#32;emphasize&#32;that&#32;you&#32;don&#39;t&#32;have&#32;to&#32;do&#32;that&#32;anymore,&#32;it&#39;s&#32;done&#32;automatically.&#32;I&#39;ll&#32;try&#32;and&#32;get&#32;it&#32;documented&#32;better&#32;for&#32;Unity&#32;V2.&#32;As&#32;far&#32;as&#32;the&#32;compiler&#32;generating&#32;a&#32;default&#32;finalizer,&#32;that&#32;I&#32;can&#32;definately&#32;answer&#58;&#32;no,&#32;it&#32;doesn&#39;t.&#32;A&#32;finalizer&#32;is&#32;a&#32;very&#32;special&#32;method&#32;that&#32;changes&#32;the&#32;way&#32;the&#32;garbage&#32;collector&#32;works,&#32;and&#32;if&#32;every&#32;class&#32;had&#32;a&#32;finalizer,&#32;the&#32;overall&#32;performance&#32;of&#32;the&#32;GC&#32;&#40;and&#32;the&#32;resulting&#32;system&#41;&#32;would&#32;drop&#32;like&#32;a&#32;rock.&#32;The&#32;easiest&#32;way&#32;to&#32;check&#32;is&#32;to&#32;just&#32;write&#32;two&#32;classes,&#32;one&#32;with&#32;a&#32;finalizer&#32;and&#32;one&#32;without,&#32;and&#32;see&#32;what&#32;you&#32;get&#32;in&#32;ILDASM&#47;Reflector.&#32;I&#32;wrote&#32;these&#32;two&#32;classes&#58;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;class&#32;WithoutFinalizer&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;void&#32;DoSomething&#40;&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Console.WriteLine&#40;&#38;quot&#59;I&#39;m&#32;doing&#32;something&#32;without&#32;a&#32;finalizer&#38;quot&#59;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;class&#32;WithFinalizer&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#126;WithFinalizer&#40;&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Console.WriteLine&#40;&#38;quot&#59;Finalizing&#38;quot&#59;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;void&#32;DoSomething&#40;&#41;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;Console.WriteLine&#40;&#38;quot&#59;I&#39;m&#32;doing&#32;something&#32;with&#32;a&#32;finalizer&#38;quot&#59;&#41;&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;When&#32;I&#32;crack&#32;open&#32;the&#32;assembly&#32;in&#32;Reflector,&#32;I&#32;see&#32;this&#32;for&#32;WithoutFinalizer&#32;&#40;leaving&#32;out&#32;the&#32;method&#32;bodies&#41;&#58;&#32;&#32;&#32;&#32;&#32;.class&#32;private&#32;auto&#32;ansi&#32;beforefieldinit&#32;WithoutFinalizer&#32;extends&#32;&#91;mscorlib&#93;System.Object&#32;&#123;&#32;.method&#32;public&#32;hidebysig&#32;specialname&#32;rtspecialname&#32;instance&#32;void&#32;.ctor&#40;&#41;&#32;cil&#32;managed&#32;&#123;&#32;&#125;&#32;.method&#32;public&#32;hidebysig&#32;instance&#32;void&#32;DoSomething&#40;&#41;&#32;cil&#32;managed&#32;&#123;&#32;&#125;&#32;&#125;&#32;&#32;&#32;&#32;&#32;&#32;And&#32;for&#32;WithFinalizer&#58;&#32;.class&#32;private&#32;auto&#32;ansi&#32;beforefieldinit&#32;WithFinalizer&#32;extends&#32;&#91;mscorlib&#93;System.Object&#123;&#32;.method&#32;public&#32;hidebysig&#32;specialname&#32;rtspecialname&#32;instance&#32;void&#32;.ctor&#40;&#41;&#32;cil&#32;managed&#32;&#123;&#32;&#125;&#32;.method&#32;public&#32;hidebysig&#32;instance&#32;void&#32;DoSomething&#40;&#41;&#32;cil&#32;managed&#32;&#123;&#32;&#125;&#32;.method&#32;family&#32;hidebysig&#32;virtual&#32;instance&#32;void&#32;Finalize&#40;&#41;&#32;cil&#32;managed&#32;&#123;&#32;&#125;&#125;&#32;So,&#32;you&#32;can&#32;see&#32;that&#32;the&#32;compiler&#32;only&#32;added&#32;the&#32;Finalize&#32;method&#32;to&#32;the&#32;class&#32;that&#32;explicitly&#32;defined&#32;it.&#32;As&#32;for&#32;the&#32;Dispose&#32;pattern,&#32;I&#39;d&#32;like&#32;to&#32;refer&#32;you&#32;to&#32;a&#32;paragraph&#32;near&#32;the&#32;bottom&#32;of&#32;that&#32;link&#32;you&#32;gave&#58;&#32;&#38;quot&#59;&#32;A&#32;strong&#32;argument&#32;can&#32;be&#32;made&#32;that&#32;with&#32;the&#32;introduction&#32;of&#32;SafeHandle,&#32;there&#32;is&#32;no&#32;longer&#32;any&#32;reason&#32;for&#32;a&#32;type&#32;not&#32;derived&#32;from&#32;SafeHandle&#32;to&#32;contain&#32;raw&#32;native&#32;resources.&#32;Instead,&#32;objects&#32;should&#32;only&#32;contain&#32;managed&#32;resources,&#32;including&#32;subclasses&#32;of&#32;SafeHandle&#32;for&#32;any&#32;native&#32;resources&#32;they&#32;use.&#32;&#32;Following&#32;this&#32;pattern&#32;has&#32;several&#32;benefits.&#32;First,&#32;no&#32;classes&#32;other&#32;than&#32;the&#32;SafeHandles&#32;need&#32;to&#32;have&#32;finalizers,&#32;as&#32;only&#32;the&#32;SafeHandles&#32;will&#32;own&#32;native&#32;resources.&#32;Secondly,&#32;it&#32;creates&#32;a&#32;clean&#32;model&#32;where&#32;each&#32;SafeHandle&#32;owns&#32;exactly&#32;one&#32;native&#32;resource,&#32;and&#32;managed&#32;objects&#32;can&#32;then&#32;compose&#32;various&#32;SafeHandles&#32;to&#32;achieve&#32;their&#32;needs.&#38;quot&#59;&#32;&#32;&#40;Bold&#32;added&#32;by&#32;me&#41;.&#32;&#32;This&#32;article&#32;was&#32;written&#32;in&#32;2007.&#32;In&#32;the&#32;two&#32;years&#32;since,&#32;this&#32;argument&#32;&#40;at&#32;least&#32;within&#32;Microsoft&#41;&#32;has&#32;been&#32;settled&#32;-&#32;no&#32;classes&#32;other&#32;than&#32;SafeHandles&#32;should&#32;deal&#32;directly&#32;with&#32;unmanaged&#32;resources,&#32;and&#32;only&#32;SafeHandles&#32;should&#32;have&#32;finalizers.&#32;Since&#32;Unity&#32;doesn&#39;t&#32;deal&#32;with&#32;unmanaged&#32;resources&#32;at&#32;all,&#32;it&#32;has&#32;no&#32;reason&#32;to&#32;have&#32;a&#32;finalizer.&#32;And&#32;without&#32;a&#32;finalizer,&#32;there&#39;s&#32;no&#32;reason&#32;to&#32;complicate&#32;the&#32;Dispose&#32;implementation&#32;with&#32;the&#32;&#38;quot&#59;dispose&#32;pattern&#38;quot&#59;.&#32;That&#32;pattern&#32;was&#32;very&#32;important&#32;in&#32;.NET&#32;1.x,&#32;but&#32;it&#32;isn&#39;t&#32;nearly&#32;as&#32;important&#32;in&#32;the&#32;later&#32;CLRs.&#32;&#32;Hope&#32;this&#32;helps,&#32;&#32;-Chris&#32;&#38;nbsp&#59;">
+        
+<p>Bobby,</p>
+<p>If my post sounded like I was offended, I apologize, as that was not my intent. The &quot;I registered the container with itself&quot; thing has come up many times now, and I just really wanted to emphasize that you don't have to do that anymore, it's done
+ automatically. I'll try and get it documented better for Unity V2.</p>
+<p>As far as the compiler generating a default finalizer, that I can definately answer: no, it doesn't. A finalizer is a very special method that changes the way the garbage collector works, and if every class had a finalizer, the overall performance of the
+ GC (and the resulting system) would drop like a rock. The easiest way to check is to just write two classes, one with a finalizer and one without, and see what you get in ILDASM/Reflector. I wrote these two classes:</p>
+<p>&nbsp;&nbsp;&nbsp; class WithoutFinalizer<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void DoSomething()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(&quot;I'm doing something without a finalizer&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; class WithFinalizer<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ~WithFinalizer()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(&quot;Finalizing&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void DoSomething()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(&quot;I'm doing something with a finalizer&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }</p>
+<p>When I crack open the assembly in Reflector, I see this for WithoutFinalizer (leaving out the method bodies):</p>
+<table border="0" cellspacing="0" cellpadding="0" width="100%" style="margin-bottom:0px">
+<tbody>
+<tr>
+<td colspan="2" valign="top" style="padding:4px 5px">
+<pre><span style="color:#1000a0">.class</span> <span style="color:#1000a0">private</span> <span style="color:#1000a0">auto</span><span style="color:#1000a0"> </span><span style="color:#1000a0">ansi</span><span style="color:#1000a0"> </span><span style="color:#1000a0">beforefieldinit</span> <strong><a href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://DuelingFinalizers:1.0.0.0/DuelingFinalizers.WithoutFinalizer" rel="nofollow">WithoutFinalizer</a></strong>
+    <span style="color:#1000a0">extends</span> [<a title="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089" rel="nofollow">mscorlib</a>]<a title="[mscorlib]System.Object" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089/System.Object" rel="nofollow">System.Object</a>
+{
+    <span style="color:#1000a0">.method</span> <span style="color:#1000a0">public</span> <span style="color:#1000a0">hidebysig</span> <span style="color:#1000a0">specialname</span> <span style="color:#1000a0">rtspecialname</span> <span style="color:#1000a0">instance</span> <a title="void" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089/System.Void" rel="nofollow">void</a> <strong><a href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://DuelingFinalizers:1.0.0.0/DuelingFinalizers.WithoutFinalizer/.ctor()" rel="nofollow">.ctor</a></strong>()<span style="color:#1000a0"> </span><span style="color:#1000a0">cil</span><span style="color:#1000a0"> </span><span style="color:#1000a0">managed</span>
+    {
+    }
+
+    <span style="color:#1000a0">.method</span> <span style="color:#1000a0">public</span> <span style="color:#1000a0">hidebysig</span> <span style="color:#1000a0">instance</span> <a title="void" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089/System.Void" rel="nofollow">void</a> <strong><a href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://DuelingFinalizers:1.0.0.0/DuelingFinalizers.WithoutFinalizer/DoSomething()" rel="nofollow">DoSomething</a></strong>()<span style="color:#1000a0"> </span><span style="color:#1000a0">cil</span><span style="color:#1000a0"> </span><span style="color:#1000a0">managed</span>
+    {
+    }
+
+}
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p>And for WithFinalizer:</p>
+<pre><span style="color:#1000a0">.class</span> <span style="color:#1000a0">private</span> <span style="color:#1000a0">auto</span><span style="color:#1000a0"> </span><span style="color:#1000a0">ansi</span><span style="color:#1000a0"> </span><span style="color:#1000a0">beforefieldinit</span> <strong><a href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://DuelingFinalizers:1.0.0.0/DuelingFinalizers.WithFinalizer" rel="nofollow">WithFinalizer</a></strong><br>    <span style="color:#1000a0">extends</span> [<a title="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089" rel="nofollow">mscorlib</a>]<a title="[mscorlib]System.Object" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089/System.Object" rel="nofollow">System.Object</a><br>{<br>    <span style="color:#1000a0">.method</span> <span style="color:#1000a0">public</span> <span style="color:#1000a0">hidebysig</span> <span style="color:#1000a0">specialname</span> <span style="color:#1000a0">rtspecialname</span> <span style="color:#1000a0">instance</span> <a title="void" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089/System.Void" rel="nofollow">void</a> <strong><a href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://DuelingFinalizers:1.0.0.0/DuelingFinalizers.WithFinalizer/.ctor()" rel="nofollow">.ctor</a></strong>()<span style="color:#1000a0"> </span><span style="color:#1000a0">cil</span><span style="color:#1000a0"> </span><span style="color:#1000a0">managed</span><br>    {<br>    }<br><br>    <span style="color:#1000a0">.method</span> <span style="color:#1000a0">public</span> <span style="color:#1000a0">hidebysig</span> <span style="color:#1000a0">instance</span> <a title="void" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089/System.Void" rel="nofollow">void</a> <strong><a href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://DuelingFinalizers:1.0.0.0/DuelingFinalizers.WithFinalizer/DoSomething()" rel="nofollow">DoSomething</a></strong>()<span style="color:#1000a0"> </span><span style="color:#1000a0">cil</span><span style="color:#1000a0"> </span><span style="color:#1000a0">managed</span><br>    {<br>    }<br><br>    <span style="color:#1000a0">.method</span> <span style="color:#1000a0">family</span> <span style="color:#1000a0">hidebysig</span> <span style="color:#1000a0">virtual</span> <span style="color:#1000a0">instance</span> <a title="void" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089/System.Void" rel="nofollow">void</a> <strong><a href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://DuelingFinalizers:1.0.0.0/DuelingFinalizers.WithFinalizer/Finalize()" rel="nofollow">Finalize</a></strong>()<span style="color:#1000a0"> </span><span style="color:#1000a0">cil</span><span style="color:#1000a0"> </span><span style="color:#1000a0">managed</span><br>    {<br>    }<br><br>}<br></pre>
+<p>So, you can see that the compiler only added the Finalize method to the class that explicitly defined it.</p>
+<p>As for the Dispose pattern, I'd like to refer you to a paragraph near the bottom of that link you gave:</p>
+<p>&quot;</p>
+<div>A strong argument can be made that with the introduction of SafeHandle, there is no longer any reason for a type not derived from SafeHandle to contain raw native resources. Instead, objects should only contain managed resources, including subclasses of
+ SafeHandle for any native resources they use.</div>
+<div><br>
+</div>
+<div>Following this pattern has several benefits. First, <strong>no classes other than the SafeHandles need to have finalizers</strong>, as only the SafeHandles will own native resources. Secondly, it creates a clean model where each SafeHandle owns exactly
+ one native resource, and managed objects can then compose various SafeHandles to achieve their needs.&quot;</div>
+<div><br>
+</div>
+<div>(Bold added by me).</div>
+<div><br>
+</div>
+<div>This article was written in 2007. In the two years since, this argument (at least within Microsoft) has been settled - no classes other than SafeHandles should deal directly with unmanaged resources, and only SafeHandles should have finalizers. Since Unity
+ doesn't deal with unmanaged resources at all, it has no reason to have a finalizer. And without a finalizer, there's no reason to complicate the Dispose implementation with the &quot;dispose pattern&quot;. That pattern was very important in .NET 1.x, but it
+ isn't nearly as important in the later CLRs.</div>
+<div><br>
+</div>
+<div>Hope this helps,</div>
+<div><br>
+</div>
+<div>-Chris<br>
+</div>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_191241" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="191388">
+    <td id="PostDetailsCell_191388" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post191388"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/bobbyangers">bobbyangers</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/18/2009 10:36:49 AM" LocalTimeTicks="1242668209">May 18, 2009 at 10:36 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_191388" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Hi&#32;Chris,&#32;&#32;&#32;Thanks&#32;for&#32;the&#32;extended&#32;explanation.&#32;Please&#32;be&#32;assured&#32;I&#32;will&#32;take&#32;this&#32;into&#32;consideration&#32;from&#32;now&#32;on.&#32;&#32;&#32;&#32;Good&#32;day&#32;to&#32;you&#33;&#32;&#32;&#32;--Bobby&#32;&#32;&#32;&#32;From&#58;&#32;&#91;email&#32;removed&#93;&#32;&#32;Sent&#58;&#32;Sunday,&#32;May&#32;17,&#32;2009&#32;3&#58;44&#32;PM&#32;To&#58;&#32;&#91;email&#32;removed&#93;&#32;&#32;Subject&#58;&#32;Re&#58;&#32;object&#32;lifetime&#32;and&#32;garbage&#32;collection&#32;&#91;unity&#58;53281&#93;&#32;&#32;From&#58;&#32;ctavares&#32;&#32;Bobby,&#32;If&#32;my&#32;post&#32;sounded&#32;like&#32;I&#32;was&#32;offended,&#32;I&#32;apologize,&#32;as&#32;that&#32;was&#32;not&#32;my&#32;intent.&#32;The&#32;&#38;quot&#59;I&#32;registered&#32;the&#32;container&#32;with&#32;itself&#38;quot&#59;&#32;thing&#32;has&#32;come&#32;up&#32;many&#32;times&#32;now,&#32;and&#32;I&#32;just&#32;really&#32;wanted&#32;to&#32;emphasize&#32;that&#32;you&#32;don&#39;t&#32;have&#32;to&#32;do&#32;that&#32;anymore,&#32;it&#39;s&#32;done&#32;automatically.&#32;I&#39;ll&#32;try&#32;and&#32;get&#32;it&#32;documented&#32;better&#32;for&#32;Unity&#32;V2.&#32;As&#32;far&#32;as&#32;the&#32;compiler&#32;generating&#32;a&#32;default&#32;finalizer,&#32;that&#32;I&#32;can&#32;definately&#32;answer&#58;&#32;no,&#32;it&#32;doesn&#39;t.&#32;A&#32;finalizer&#32;is&#32;a&#32;very&#32;special&#32;method&#32;that&#32;changes&#32;the&#32;way&#32;the&#32;garbage&#32;collector&#32;works,&#32;and&#32;if&#32;every&#32;class&#32;had&#32;a&#32;finalizer,&#32;the&#32;overall&#32;performance&#32;of&#32;the&#32;GC&#32;&#40;and&#32;the&#32;resulting&#32;system&#41;&#32;would&#32;drop&#32;like&#32;a&#32;rock.&#32;The&#32;easiest&#32;way&#32;to&#32;check&#32;is&#32;to&#32;just&#32;write&#32;two&#32;classes,&#32;one&#32;with&#32;a&#32;finalizer&#32;and&#32;one&#32;without,&#32;and&#32;see&#32;what&#32;you&#32;get&#32;in&#32;ILDASM&#47;Reflector.&#32;I&#32;wrote&#32;these&#32;two&#32;classes&#58;&#32;&#32;class&#32;WithoutFinalizer&#32;&#123;&#32;public&#32;void&#32;DoSomething&#40;&#41;&#32;&#123;&#32;Console.WriteLine&#40;&#38;quot&#59;I&#39;m&#32;doing&#32;something&#32;without&#32;a&#32;finalizer&#38;quot&#59;&#41;&#59;&#32;&#125;&#32;&#125;&#32;class&#32;WithFinalizer&#32;&#123;&#32;&#126;WithFinalizer&#40;&#41;&#32;&#123;&#32;Console.WriteLine&#40;&#38;quot&#59;Finalizing&#38;quot&#59;&#41;&#59;&#32;&#125;&#32;public&#32;void&#32;DoSomething&#40;&#41;&#32;&#123;&#32;Console.WriteLine&#40;&#38;quot&#59;I&#39;m&#32;doing&#32;something&#32;with&#32;a&#32;finalizer&#38;quot&#59;&#41;&#59;&#32;&#125;&#32;&#125;&#32;When&#32;I&#32;crack&#32;open&#32;the&#32;assembly&#32;in&#32;Reflector,&#32;I&#32;see&#32;this&#32;for&#32;WithoutFinalizer&#32;&#40;leaving&#32;out&#32;the&#32;method&#32;bodies&#41;&#58;&#32;&#32;&#32;&#32;.class&#32;private&#32;auto&#32;ansi&#32;beforefieldinit&#32;WithoutFinalizer&#32;extends&#32;&#91;mscorlib&#93;System.Object&#32;&#123;&#32;.method&#32;public&#32;hidebysig&#32;specialname&#32;rtspecialname&#32;instance&#32;void&#32;.ctor&#40;&#41;&#32;cil&#32;managed&#32;&#123;&#32;&#125;&#32;.method&#32;public&#32;hidebysig&#32;instance&#32;void&#32;DoSomething&#40;&#41;&#32;cil&#32;managed&#32;&#123;&#32;&#125;&#32;&#125;&#32;&#32;And&#32;for&#32;WithFinalizer&#58;.class&#32;private&#32;auto&#32;ansi&#32;beforefieldinit&#32;WithFinalizer&#32;extends&#32;&#91;mscorlib&#93;System.Object&#123;&#32;.method&#32;public&#32;hidebysig&#32;specialname&#32;rtspecialname&#32;instance&#32;void&#32;.ctor&#40;&#41;&#32;cil&#32;managed&#32;&#123;&#32;&#125;&#32;.method&#32;public&#32;hidebysig&#32;instance&#32;void&#32;DoSomething&#40;&#41;&#32;cil&#32;managed&#32;&#123;&#32;&#125;&#32;.method&#32;family&#32;hidebysig&#32;virtual&#32;instance&#32;void&#32;Finalize&#40;&#41;&#32;cil&#32;managed&#32;&#123;&#32;&#125;&#125;&#32;So,&#32;you&#32;can&#32;see&#32;that&#32;the&#32;compiler&#32;only&#32;added&#32;the&#32;Finalize&#32;method&#32;to&#32;the&#32;class&#32;that&#32;explicitly&#32;defined&#32;it.&#32;As&#32;for&#32;the&#32;Dispose&#32;pattern,&#32;I&#39;d&#32;like&#32;to&#32;refer&#32;you&#32;to&#32;a&#32;paragraph&#32;near&#32;the&#32;bottom&#32;of&#32;that&#32;link&#32;you&#32;gave&#58;&#32;&#38;quot&#59;&#32;A&#32;strong&#32;argument&#32;can&#32;be&#32;made&#32;that&#32;with&#32;the&#32;introduction&#32;of&#32;SafeHandle,&#32;there&#32;is&#32;no&#32;longer&#32;any&#32;reason&#32;for&#32;a&#32;type&#32;not&#32;derived&#32;from&#32;SafeHandle&#32;to&#32;contain&#32;raw&#32;native&#32;resources.&#32;Instead,&#32;objects&#32;should&#32;only&#32;contain&#32;managed&#32;resources,&#32;including&#32;subclasses&#32;of&#32;SafeHandle&#32;for&#32;any&#32;native&#32;resources&#32;they&#32;use.&#32;&#32;Following&#32;this&#32;pattern&#32;has&#32;several&#32;benefits.&#32;First,&#32;no&#32;classes&#32;other&#32;than&#32;the&#32;SafeHandles&#32;need&#32;to&#32;have&#32;finalizers,&#32;as&#32;only&#32;the&#32;SafeHandles&#32;will&#32;own&#32;native&#32;resources.&#32;Secondly,&#32;it&#32;creates&#32;a&#32;clean&#32;model&#32;where&#32;each&#32;SafeHandle&#32;owns&#32;exactly&#32;one&#32;native&#32;resource,&#32;and&#32;managed&#32;objects&#32;can&#32;then&#32;compose&#32;various&#32;SafeHandles&#32;to&#32;achieve&#32;their&#32;needs.&#38;quot&#59;&#32;&#32;&#40;Bold&#32;added&#32;by&#32;me&#41;.&#32;&#32;This&#32;article&#32;was&#32;written&#32;in&#32;2007.&#32;In&#32;the&#32;two&#32;years&#32;since,&#32;this&#32;argument&#32;&#40;at&#32;least&#32;within&#32;Microsoft&#41;&#32;has&#32;been&#32;settled&#32;-&#32;no&#32;classes&#32;other&#32;than&#32;SafeHandles&#32;should&#32;deal&#32;directly&#32;with&#32;unmanaged&#32;resources,&#32;and&#32;only&#32;SafeHandles&#32;should&#32;have&#32;finalizers.&#32;Since&#32;Unity&#32;doesn&#39;t&#32;deal&#32;with&#32;unmanaged&#32;resources&#32;at&#32;all,&#32;it&#32;has&#32;no&#32;reason&#32;to&#32;have&#32;a&#32;finalizer.&#32;And&#32;without&#32;a&#32;finalizer,&#32;there&#39;s&#32;no&#32;reason&#32;to&#32;complicate&#32;the&#32;Dispose&#32;implementation&#32;with&#32;the&#32;&#38;quot&#59;dispose&#32;pattern&#38;quot&#59;.&#32;That&#32;pattern&#32;was&#32;very&#32;important&#32;in&#32;.NET&#32;1.x,&#32;but&#32;it&#32;isn&#39;t&#32;nearly&#32;as&#32;important&#32;in&#32;the&#32;later&#32;CLRs.&#32;&#32;Hope&#32;this&#32;helps,&#32;&#32;-Chris&#32;&#32;&#32;">
+        
+<div>Hi Chris,</div>
+<div></div>
+<div>Thanks for the extended explanation. Please be assured I will take this into consideration from now on.
+</div>
+<div></div>
+<div>Good day to you!</div>
+<div></div>
+<div>--Bobby</div>
+<div style="font:10pt Tahoma">
+<div><br>
+</div>
+<div style="background:#f5f5f5">
+<div style=""><b>From:</b> [email removed] </div>
+<div><b>Sent:</b> Sunday, May 17, 2009 3:44 PM</div>
+<div><b>To:</b> [email removed] </div>
+<div><b>Subject:</b> Re: object lifetime and garbage collection [unity:53281]</div>
+</div>
+</div>
+<div><br>
+</div>
+<p>From: ctavares</p>
+<div id="ThreadNotificationPostBody">
+<p>Bobby,</p>
+<p>If my post sounded like I was offended, I apologize, as that was not my intent. The &quot;I registered the container with itself&quot; thing has come up many times now, and I just really wanted to emphasize that you don't have to do that anymore, it's done
+ automatically. I'll try and get it documented better for Unity V2.</p>
+<p>As far as the compiler generating a default finalizer, that I can definately answer: no, it doesn't. A finalizer is a very special method that changes the way the garbage collector works, and if every class had a finalizer, the overall performance of the
+ GC (and the resulting system) would drop like a rock. The easiest way to check is to just write two classes, one with a finalizer and one without, and see what you get in ILDASM/Reflector. I wrote these two classes:</p>
+<p>class WithoutFinalizer<br>
+{<br>
+public void DoSomething()<br>
+{<br>
+Console.WriteLine(&quot;I'm doing something without a finalizer&quot;);<br>
+}<br>
+}<br>
+<br>
+class WithFinalizer<br>
+{<br>
+~WithFinalizer()<br>
+{<br>
+Console.WriteLine(&quot;Finalizing&quot;);<br>
+}<br>
+<br>
+public void DoSomething()<br>
+{<br>
+Console.WriteLine(&quot;I'm doing something with a finalizer&quot;);<br>
+}<br>
+}</p>
+<p>When I crack open the assembly in Reflector, I see this for WithoutFinalizer (leaving out the method bodies):</p>
+<table border="0" cellspacing="0" cellpadding="0" width="100%" style="margin-bottom:0px">
+<tbody>
+<tr>
+<td valign="top" colspan="2" style="padding-bottom:4px; padding-left:5px; padding-right:5px; padding-top:4px">
+<pre><span style="color:#1000a0">.class</span> <span style="color:#1000a0">private</span> <span style="color:#1000a0">auto</span><span style="color:#1000a0"> </span><span style="color:#1000a0">ansi</span><span style="color:#1000a0"> </span><span style="color:#1000a0">beforefieldinit</span> <strong><a href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://DuelingFinalizers:1.0.0.0/DuelingFinalizers.WithoutFinalizer" rel="nofollow">WithoutFinalizer</a></strong>
+    <span style="color:#1000a0">extends</span> [<a title="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089" rel="nofollow">mscorlib</a>]<a title="[mscorlib]System.Object" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089/System.Object" rel="nofollow">System.Object</a>
+{
+    <span style="color:#1000a0">.method</span> <span style="color:#1000a0">public</span> <span style="color:#1000a0">hidebysig</span> <span style="color:#1000a0">specialname</span> <span style="color:#1000a0">rtspecialname</span> <span style="color:#1000a0">instance</span> <a title="void" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089/System.Void" rel="nofollow">void</a> <strong><a href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://DuelingFinalizers:1.0.0.0/DuelingFinalizers.WithoutFinalizer/.ctor()" rel="nofollow">.ctor</a></strong>()<span style="color:#1000a0"> </span><span style="color:#1000a0">cil</span><span style="color:#1000a0"> </span><span style="color:#1000a0">managed</span>
+    {
+    }
+
+    <span style="color:#1000a0">.method</span> <span style="color:#1000a0">public</span> <span style="color:#1000a0">hidebysig</span> <span style="color:#1000a0">instance</span> <a title="void" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089/System.Void" rel="nofollow">void</a> <strong><a href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://DuelingFinalizers:1.0.0.0/DuelingFinalizers.WithoutFinalizer/DoSomething()" rel="nofollow">DoSomething</a></strong>()<span style="color:#1000a0"> </span><span style="color:#1000a0">cil</span><span style="color:#1000a0"> </span><span style="color:#1000a0">managed</span>
+    {
+    }
+
+}
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p>And for WithFinalizer:</p>
+<pre><span style="color:#1000a0">.class</span> <span style="color:#1000a0">private</span> <span style="color:#1000a0">auto</span><span style="color:#1000a0"> </span><span style="color:#1000a0">ansi</span><span style="color:#1000a0"> </span><span style="color:#1000a0">beforefieldinit</span> <strong><a href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://DuelingFinalizers:1.0.0.0/DuelingFinalizers.WithFinalizer" rel="nofollow">WithFinalizer</a></strong><br>    <span style="color:#1000a0">extends</span> [<a title="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089" rel="nofollow">mscorlib</a>]<a title="[mscorlib]System.Object" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089/System.Object" rel="nofollow">System.Object</a><br>{<br>    <span style="color:#1000a0">.method</span> <span style="color:#1000a0">public</span> <span style="color:#1000a0">hidebysig</span> <span style="color:#1000a0">specialname</span> <span style="color:#1000a0">rtspecialname</span> <span style="color:#1000a0">instance</span> <a title="void" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089/System.Void" rel="nofollow">void</a> <strong><a href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://DuelingFinalizers:1.0.0.0/DuelingFinalizers.WithFinalizer/.ctor()" rel="nofollow">.ctor</a></strong>()<span style="color:#1000a0"> </span><span style="color:#1000a0">cil</span><span style="color:#1000a0"> </span><span style="color:#1000a0">managed</span><br>    {<br>    }<br><br>    <span style="color:#1000a0">.method</span> <span style="color:#1000a0">public</span> <span style="color:#1000a0">hidebysig</span> <span style="color:#1000a0">instance</span> <a title="void" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089/System.Void" rel="nofollow">void</a> <strong><a href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://DuelingFinalizers:1.0.0.0/DuelingFinalizers.WithFinalizer/DoSomething()" rel="nofollow">DoSomething</a></strong>()<span style="color:#1000a0"> </span><span style="color:#1000a0">cil</span><span style="color:#1000a0"> </span><span style="color:#1000a0">managed</span><br>    {<br>    }<br><br>    <span style="color:#1000a0">.method</span> <span style="color:#1000a0">family</span> <span style="color:#1000a0">hidebysig</span> <span style="color:#1000a0">virtual</span> <span style="color:#1000a0">instance</span> <a title="void" href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://mscorlib:2.0.0.0:b77a5c561934e089/System.Void" rel="nofollow">void</a> <strong><a href="http://www.aisto.com/roeder/dotnet/Default.aspx?Target=code://DuelingFinalizers:1.0.0.0/DuelingFinalizers.WithFinalizer/Finalize()" rel="nofollow">Finalize</a></strong>()<span style="color:#1000a0"> </span><span style="color:#1000a0">cil</span><span style="color:#1000a0"> </span><span style="color:#1000a0">managed</span><br>    {<br>    }<br><br>}<br></pre>
+<p>So, you can see that the compiler only added the Finalize method to the class that explicitly defined it.</p>
+<p>As for the Dispose pattern, I'd like to refer you to a paragraph near the bottom of that link you gave:</p>
+<p>&quot;</p>
+<div>A strong argument can be made that with the introduction of SafeHandle, there is no longer any reason for a type not derived from SafeHandle to contain raw native resources. Instead, objects should only contain managed resources, including subclasses of
+ SafeHandle for any native resources they use.</div>
+<div><br>
+</div>
+<div>Following this pattern has several benefits. First, <strong>no classes other than the SafeHandles need to have finalizers</strong>, as only the SafeHandles will own native resources. Secondly, it creates a clean model where each SafeHandle owns exactly
+ one native resource, and managed objects can then compose various SafeHandles to achieve their needs.&quot;</div>
+<div><br>
+</div>
+<div>(Bold added by me).</div>
+<div><br>
+</div>
+<div>This article was written in 2007. In the two years since, this argument (at least within Microsoft) has been settled - no classes other than SafeHandles should deal directly with unmanaged resources, and only SafeHandles should have finalizers. Since Unity
+ doesn't deal with unmanaged resources at all, it has no reason to have a finalizer. And without a finalizer, there's no reason to complicate the Dispose implementation with the &quot;dispose pattern&quot;. That pattern was very important in .NET 1.x, but it
+ isn't nearly as important in the later CLRs.</div>
+<div><br>
+</div>
+<div>Hope this helps,</div>
+<div><br>
+</div>
+<div>-Chris<br>
+</div>
+<p></p>
+</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_191388" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="191390">
+    <td id="PostDetailsCell_191390" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post191390"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/bobbyangers">bobbyangers</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="5/18/2009 10:40:49 AM" LocalTimeTicks="1242668449">May 18, 2009 at 10:40 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_191390" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Chris,&#32;&#32;&#32;Regarding&#32;the&#32;container&#32;auto&#32;register&#32;itself,&#32;maybe&#32;it&#32;should&#32;throw&#32;an&#32;exception&#32;&#40;mayby&#32;InvalidOperationException&#41;&#32;when&#32;calling&#32;RegisterInsantce,&#32;and&#32;the&#32;object&#32;is&#32;itself.&#32;&#32;&#32;--Bobby&#32;&#32;&#32;&#32;&#32;">
+        
+<div>Chris,</div>
+<div></div>
+<div>Regarding the container auto register itself, maybe it should throw an exception (mayby InvalidOperationException) when calling RegisterInsantce, and the object is itself.</div>
+<div></div>
+<div>--Bobby</div>
+<div style="font:10pt Tahoma">
+<div></div>
+</div>
+<p></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_191390" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f53281">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="340edfc4-a035-443d-957a-f7b0f59528d9">
+    <script class="options" defer="defer" id="340edfc4-a035-443d-957a-f7b0f59528d9" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_36a816d7-3e2f-4447-b9a4-5a71d460fee9">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_1f455e08-e1be-4c76-a2ee-e864b33fb22f">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_36a816d7-3e2f-4447-b9a4-5a71d460fee9" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_1f455e08-e1be-4c76-a2ee-e864b33fb22f" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/53281';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

@@ -1,0 +1,727 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - ResolutionFailedException - Strange Problem</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/50338?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/50338?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="ngcsSGPYZluxX-a9sham5gCMvxd7RYEdrHaxdF7t49_ktkyJo5anh1afr9xjFlO4oiDQlGJyq_yYILbWCFKzPW5rNPJTUj4Y713wpMMLzsoyLP-j-3Vcb7Eweow10HH-9QnJBw2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2941bedc8-404c-4494-8550-4b53b9c51418" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:28:27 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f50338" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="73327459-0494-4568-8bd1-07e0b536031b">
+                
+                    <script class="options" defer="defer" id="73327459-0494-4568-8bd1-07e0b536031b" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="cff3a744-9f23-4de0-9c6c-3ec20cad1ca2">
+                
+                    <script class="options" defer="defer" id="cff3a744-9f23-4de0-9c6c-3ec20cad1ca2" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                ResolutionFailedException - Strange Problem
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:50338]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="5156d12d-9f09-4677-824d-a59da0ee648e">
+    <script class="options" defer="defer" id="5156d12d-9f09-4677-824d-a59da0ee648e" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/50338","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="168592">
+    <td id="PostDetailsCell_168592" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post168592"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/okaragoz">okaragoz</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/16/2009 4:14:51 PM" LocalTimeTicks="1237245291">Mar 16, 2009 at 4:14 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_168592" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Hello&#32;Everyone,&#32;&#32;I&#32;have&#32;a&#32;strange&#32;problem&#32;with&#32;unity&#32;app&#32;block.&#32;Our&#32;project&#32;has&#32;two&#32;part.&#32;Server&#32;side&#40;Web&#32;Service&#41;,&#32;And&#32;client&#32;side&#40;C&#35;&#32;Windows&#32;app.&#41;&#32;Web&#32;Service&#32;project&#32;uses&#32;unity.&#32;The&#32;strange&#32;thing&#32;is&#32;that&#32;All&#32;member&#32;of&#32;our&#32;project&#40;except&#32;me&#32;&#58;&#41;&#32;&#41;&#32;can&#32;debug&#32;or&#32;run&#32;their&#32;programs&#32;without&#32;any&#32;problem.&#32;But&#32;if&#32;i&#32;try&#32;to&#32;debug,&#38;nbsp&#59;&#32;I&#32;am&#32;getting&#32;following&#32;exception&#58;&#32;System.Web.Services.Protocols.SoapException&#58;&#32;Server&#32;was&#32;unable&#32;to&#32;process&#32;request.&#32;---&#38;gt&#59;&#32;Microsoft.Practices.Unity.ResolutionFailedException&#58;&#32;Resolution&#32;of&#32;the&#32;dependency&#32;failed,&#32;type&#32;&#61;&#32;&#38;quot&#59;Safir.FrontEnd.Web.Service.ServiceInterception.IBL_W_FRM_000&#38;quot&#59;,&#32;name&#32;&#61;&#32;&#38;quot&#59;&#38;quot&#59;.&#32;Exception&#32;message&#32;is&#58;&#32;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;Safir.FrontEnd.Web.Service.ServiceInterception.IBL_W_FRM_000,&#32;null&#93;&#41;&#32;failed&#58;&#32;The&#32;current&#32;type,&#32;Safir.FrontEnd.Web.Service.ServiceInterception.IBL_W_FRM_000,&#32;is&#32;an&#32;interface&#32;and&#32;cannot&#32;be&#32;constructed.&#32;Are&#32;you&#32;missing&#32;a&#32;type&#32;mapping&#63;&#32;&#40;Strategy&#32;type&#32;BuildPlanStrategy,&#32;index&#32;5&#41;&#32;---&#38;gt&#59;&#32;Microsoft.Practices.ObjectBuilder2.BuildFailedException&#58;&#32;The&#32;current&#32;build&#32;operation&#32;&#40;build&#32;key&#32;Build&#32;Key&#91;Safir.FrontEnd.Web.Service.ServiceInterception.IBL_W_FRM_000,&#32;null&#93;&#41;&#32;failed&#58;&#32;The&#32;current&#32;type,&#32;Safir.FrontEnd.Web.Service.ServiceInterception.IBL_W_FRM_000,&#32;is&#32;an&#32;interface&#32;and&#32;cannot&#32;be&#32;constructed.&#32;Are&#32;you&#32;missing&#32;a&#32;type&#32;mapping&#63;&#32;&#40;Strategy&#32;type&#32;BuildPlanStrategy,&#32;index&#32;5&#41;&#32;---&#38;gt&#59;&#32;System.InvalidOperationException&#58;&#32;The&#32;current&#32;type,&#32;Safir.FrontEnd.Web.Service.ServiceInterception.IBL_W_FRM_000,&#32;is&#32;an&#32;interface&#32;and&#32;cannot&#32;be&#32;constructed.&#32;Are&#32;you&#32;missing&#32;a&#32;type&#32;mapping&#63;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForAttemptingToConstructInterface&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;BuildUp_Safir.FrontEnd.Web.Service.ServiceInterception.IBL_W_FRM_000&#40;IBuilderContext&#32;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;---&#32;End&#32;of&#32;inner&#32;exception&#32;stack&#32;trace&#32;---&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.Builder.BuildUp&#40;IReadWriteLocator&#32;locator,&#32;ILifetimeContainer&#32;lifetime,&#32;IPolicyList&#32;policies,&#32;IStrategyChain&#32;strategies,&#32;Object&#32;buildKey,&#32;Object&#32;existing&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.UnityContainer.DoBuildUp&#40;Type&#32;t,&#32;Object&#32;existing,&#32;String&#32;name&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;---&#32;End&#32;of&#32;inner&#32;exception&#32;stack&#32;trace&#32;---&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.UnityContainer.DoBuildUp&#40;Type&#32;t,&#32;Object&#32;existing,&#32;String&#32;name&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.UnityContainer.Resolve&#40;Type&#32;t,&#32;String&#32;name&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Microsoft.Practices.Unity.UnityContainerBase.Resolve&#91;T&#93;&#40;&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Safir.FrontEnd.Libraries.IoCContainer.UnityIocContainer.Resolve&#91;T&#93;&#40;&#41;&#32;in&#32;D&#58;&#92;My.Projects&#92;SAFIR&#92;Dev&#92;branch_isyeri_1.2&#92;FrontEnd&#92;Libraries&#92;IoCContainer&#92;UnityIoCContainer.cs&#58;line&#32;34&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Safir.FrontEnd.Web.Service.BaseService2&#96;1..ctor&#40;&#41;&#32;in&#32;D&#58;&#92;My.Projects&#92;SAFIR&#92;Dev&#92;branch_isyeri_1.2&#92;FrontEnd&#92;Web&#92;Service&#92;BaseService2.asmx.cs&#58;line&#32;24&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;at&#32;Safir.FrontEnd.Web.Service.BL_I_FRM_000..ctor&#40;&#41;&#32;in&#32;D&#58;&#92;My.Projects&#92;SAFIR&#92;Dev&#92;branch_isyeri_1.2&#92;FrontEnd&#92;Web&#92;Service&#92;BL_I_FRM_000.asmx.cs&#58;line&#32;28&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;---&#32;End&#32;of&#32;inner&#32;exception&#32;stack&#32;trace&#32;---&#32;To&#32;solve&#32;the&#32;problem,&#32;i&#32;have&#32;tried&#32;to&#32;debug&#32;into&#32;web&#32;service&#32;but&#32;it&#32;did&#32;not&#32;work.&#32;&#32;Can&#32;anyone&#32;help&#32;me&#63;&#32;Thanks&#32;">
+        Hello Everyone,<br>
+<br>
+I have a strange problem with unity app block. Our project has two part. Server side(Web Service), And client side(C# Windows app.) Web Service project uses unity. The strange thing is that All member of our project(except me :) ) can debug or run their programs
+ without any problem. But if i try to debug,&nbsp; I am getting following exception:<br>
+<blockquote>System.Web.Services.Protocols.SoapException: Server was unable to process request. ---&gt; Microsoft.Practices.Unity.ResolutionFailedException: Resolution of the dependency failed, type = &quot;Safir.FrontEnd.Web.Service.ServiceInterception.IBL_W_FRM_000&quot;,
+ name = &quot;&quot;. Exception message is: The current build operation (build key Build Key[Safir.FrontEnd.Web.Service.ServiceInterception.IBL_W_FRM_000, null]) failed: The current type, Safir.FrontEnd.Web.Service.ServiceInterception.IBL_W_FRM_000, is an interface
+ and cannot be constructed. Are you missing a type mapping? (Strategy type BuildPlanStrategy, index 5) ---&gt; Microsoft.Practices.ObjectBuilder2.BuildFailedException: The current build operation (build key Build Key[Safir.FrontEnd.Web.Service.ServiceInterception.IBL_W_FRM_000,
+ null]) failed: The current type, Safir.FrontEnd.Web.Service.ServiceInterception.IBL_W_FRM_000, is an interface and cannot be constructed. Are you missing a type mapping? (Strategy type BuildPlanStrategy, index 5) ---&gt; System.InvalidOperationException: The
+ current type, Safir.FrontEnd.Web.Service.ServiceInterception.IBL_W_FRM_000, is an interface and cannot be constructed. Are you missing a type mapping?<br>
+&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForAttemptingToConstructInterface(IBuilderContext context)<br>
+&nbsp;&nbsp; at BuildUp_Safir.FrontEnd.Web.Service.ServiceInterception.IBL_W_FRM_000(IBuilderContext )<br>
+&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)<br>
+&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)<br>
+&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)<br>
+&nbsp;&nbsp; --- End of inner exception stack trace ---<br>
+&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)<br>
+&nbsp;&nbsp; at Microsoft.Practices.ObjectBuilder2.Builder.BuildUp(IReadWriteLocator locator, ILifetimeContainer lifetime, IPolicyList policies, IStrategyChain strategies, Object buildKey, Object existing)<br>
+&nbsp;&nbsp; at Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name)<br>
+&nbsp;&nbsp; --- End of inner exception stack trace ---<br>
+&nbsp;&nbsp; at Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name)<br>
+&nbsp;&nbsp; at Microsoft.Practices.Unity.UnityContainer.Resolve(Type t, String name)<br>
+&nbsp;&nbsp; at Microsoft.Practices.Unity.UnityContainerBase.Resolve[T]()<br>
+&nbsp;&nbsp; at Safir.FrontEnd.Libraries.IoCContainer.UnityIocContainer.Resolve[T]() in D:\My.Projects\SAFIR\Dev\branch_isyeri_1.2\FrontEnd\Libraries\IoCContainer\UnityIoCContainer.cs:line 34<br>
+&nbsp;&nbsp; at Safir.FrontEnd.Web.Service.BaseService2`1..ctor() in D:\My.Projects\SAFIR\Dev\branch_isyeri_1.2\FrontEnd\Web\Service\BaseService2.asmx.cs:line 24<br>
+&nbsp;&nbsp; at Safir.FrontEnd.Web.Service.BL_I_FRM_000..ctor() in D:\My.Projects\SAFIR\Dev\branch_isyeri_1.2\FrontEnd\Web\Service\BL_I_FRM_000.asmx.cs:line 28<br>
+&nbsp;&nbsp; --- End of inner exception stack trace ---</blockquote>
+<br>
+To solve the problem, i have tried to debug into web service but it did not work.<br>
+<br>
+Can anyone help me?<br>
+Thanks<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_168592" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="168739">
+    <td id="PostDetailsCell_168739" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post168739"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/16/2009 9:05:00 PM" LocalTimeTicks="1237262700">Mar 16, 2009 at 9:05 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_168739" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#39;d&#32;start&#32;with&#32;the&#32;error&#32;message&#58;&#32;&#32;The&#32;current&#32;type,&#32;Safir.FrontEnd.Web.Service.ServiceInterception.IBL_W_FRM_000,&#32;is&#32;an&#32;interface&#32;and&#32;cannot&#32;be&#32;constructed.&#32;Are&#32;you&#32;missing&#32;a&#32;type&#32;mapping&#63;&#32;&#32;Is&#32;IBL_W_FRM_000&#32;an&#32;interface&#63;&#32;If&#32;so,&#32;are&#32;you&#32;missing&#32;a&#32;type&#32;mapping&#63;&#32;It&#32;may&#32;be&#32;that&#32;the&#32;web&#32;service&#32;on&#32;your&#32;box&#32;isn&#39;t&#32;finding&#32;a&#32;config&#32;file.&#32;&#32;&#32;&#32;">
+        I'd start with the error message:<br>
+<br>
+The current type, Safir.FrontEnd.Web.Service.ServiceInterception.IBL_W_FRM_000, <em>
+<strong>is an interface and cannot be constructed</strong></em>. Are you missing a type mapping?<br>
+<br>
+Is IBL_W_FRM_000 an interface? If so, are you missing a type mapping? It may be that the web service on your box isn't finding a config file.<br>
+<br>
+<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_168739" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="169013">
+    <td id="PostDetailsCell_169013" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post169013"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/okaragoz">okaragoz</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/17/2009 2:16:34 PM" LocalTimeTicks="1237324594">Mar 17, 2009 at 2:16 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_169013" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="In&#32;our&#32;project,&#32;we&#32;do&#32;not&#32;use&#32;config&#32;file&#32;for&#32;type&#32;mapping.&#32;In&#32;global.asax&#32;we&#32;have&#32;following&#32;codes.&#32;This&#32;codes&#32;are&#32;executing&#32;after&#32;Application_Start&#40;Object&#32;sender,&#32;EventArgs&#32;e&#41;&#32;method.&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;SafirContainer.Container.Register&#38;lt&#59;Safir.FrontEnd.Web.Service.ServiceInterception.IBL_W_FRM_000,&#32;Safir.FrontEnd.Web.Service.ServiceInterception.BL_W_FRM_000&#38;gt&#59;&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;SafirContainer.Container.AddInterceptorFor&#38;lt&#59;Safir.FrontEnd.Web.Service.ServiceInterception.IBL_W_FRM_000&#38;gt&#59;&#40;InterceptorType.UnityTransparent&#41;&#59;&#32;&#32;&#32;">
+        In our project, we do not use config file for type mapping.<br>
+In global.asax we have following codes. This codes are executing after Application_Start(Object sender, EventArgs e) method.<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SafirContainer.Container.Register&lt;Safir.FrontEnd.Web.Service.ServiceInterception.IBL_W_FRM_000, Safir.FrontEnd.Web.Service.ServiceInterception.BL_W_FRM_000&gt;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SafirContainer.Container.AddInterceptorFor&lt;Safir.FrontEnd.Web.Service.ServiceInterception.IBL_W_FRM_000&gt;(InterceptorType.UnityTransparent);<br>
+<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_169013" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f50338">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="8d282ebf-37f1-4af2-a64e-e5284f9f2e58">
+    <script class="options" defer="defer" id="8d282ebf-37f1-4af2-a64e-e5284f9f2e58" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_127ee70d-56aa-4f4e-a554-a58d4a9b36e4">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_a0cacbfa-14fe-413f-9933-3c8bb722e9b4">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_127ee70d-56aa-4f4e-a554-a58d4a9b36e4" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_a0cacbfa-14fe-413f-9933-3c8bb722e9b4" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/50338';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

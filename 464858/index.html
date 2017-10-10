@@ -1,0 +1,994 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Open Generics Registration Bug</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/464858?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/464858?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="hjZqgAhDlj8p5IIov0jgYmoagh55SmadUQT_dRZ1NirMBdjPdSrB9Xbf88Lsh9TI_fkZ0IsFiKpSLfY5RYdDptexb6b4XCPDJyM6He-vyf_i76VLq_xTlOlCbE4C30IYkKKoRg2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken25842884a-1d8f-4ca9-9830-0e9249ca36af" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:25:46 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f464858" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="eb581656-6cc5-4074-b647-c7ea5d016827">
+                
+                    <script class="options" defer="defer" id="eb581656-6cc5-4074-b647-c7ea5d016827" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="408610e5-0bde-42cf-be20-baa63d73c9d1">
+                
+                    <script class="options" defer="defer" id="408610e5-0bde-42cf-be20-baa63d73c9d1" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Open Generics Registration Bug
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:464858]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="06363ab4-faf7-47cc-9e5b-5fb9e676c0dd">
+    <script class="options" defer="defer" id="06363ab4-faf7-47cc-9e5b-5fb9e676c0dd" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/464858","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="1115029">
+    <td id="PostDetailsCell_1115029" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1115029"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/julealgon">julealgon</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/31/2013 2:29:56 PM" LocalTimeTicks="1383254996">Oct 31, 2013 at 2:29 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1115029" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="Yesterday,&#32;we&#32;just&#32;found&#32;what&#32;seems&#32;to&#32;be&#32;a&#32;problem&#32;with&#32;the&#32;implementation&#32;the&#32;container&#32;uses&#32;to&#32;traverse&#32;the&#32;registrations.&#13;&#10;&#13;&#10;Let&#32;me&#32;try&#32;to&#32;explain&#32;our&#32;situation&#32;here&#32;before&#32;I&#32;delve&#32;into&#32;the&#32;problem.&#32;We&#32;had&#32;these&#32;so&#32;called&#32;CommandHandlers&#32;in&#32;a&#32;few&#32;places&#32;of&#32;our&#32;code,&#32;which&#32;basically&#32;follow&#32;the&#32;command&#32;pattern.&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#13;&#10;&#32;&#32;&#32;&#32;public&#32;interface&#32;ICommand&#13;&#10;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Guid&#32;Id&#32;&#123;&#32;get&#59;&#32;&#125;&#13;&#10;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;public&#32;interface&#32;ICommandHandler&#60;in&#32;TCommand&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;where&#32;TCommand&#32;&#58;&#32;ICommand&#13;&#10;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;void&#32;Handle&#40;TCommand&#32;command&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#96;&#96;&#96;&#13;&#10;&#13;&#10;We&#32;have&#32;a&#32;bunch&#32;of&#32;implementations&#32;for&#32;both&#32;commands&#32;and&#32;handlers,&#32;and&#32;register&#32;them&#32;explicitly&#32;in&#32;the&#32;container.&#13;&#10;&#13;&#10;A&#32;few&#32;days&#32;ago,&#32;we&#32;started&#32;experimenting&#32;with&#32;a&#32;ESB&#32;library,&#32;&#91;Mass&#32;Transit&#93;&#40;http&#58;&#47;&#47;masstransit-project.com&#47;&#41;.&#32;They&#32;have&#32;the&#32;concept&#32;of&#32;a&#32;&#39;Consumer&#60;T&#62;&#39;,&#32;which&#32;needs&#32;to&#32;be&#32;implemented&#32;to&#32;support&#32;auto&#32;wiring&#32;of&#32;the&#32;pub&#47;sub&#32;model.&#13;&#10;&#13;&#10;To&#32;make&#32;our&#32;code&#32;independent&#32;of&#32;the&#32;MassTransit&#32;API,&#32;I&#32;then&#32;created&#32;a&#32;separate&#32;project,&#32;containing&#32;this&#32;adapter&#32;class&#58;&#13;&#10;&#96;&#96;&#96;&#13;&#10;&#32;&#32;&#32;&#32;public&#32;sealed&#32;class&#32;CommandHandlerAdapter&#60;TCommand&#62;&#32;&#58;&#32;Consumes&#60;TCommand&#62;.All&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;where&#32;TCommand&#32;&#58;&#32;class,&#32;ICommand&#13;&#10;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;private&#32;readonly&#32;ICommandHandler&#60;TCommand&#62;&#32;_handler&#59;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;public&#32;CommandHandlerAdapter&#40;ICommandHandler&#60;TCommand&#62;&#32;handler&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_handler&#32;&#61;&#32;handler&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;void&#32;Consumes&#60;TCommand&#62;.All.Consume&#40;TCommand&#32;message&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_handler.Handle&#40;message&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#96;&#96;&#96;&#13;&#10;&#13;&#10;The&#32;purpose&#32;here&#32;is&#32;to&#32;wrap&#32;one&#32;of&#32;our&#32;command&#32;handlers&#32;in&#32;a&#32;way&#32;that&#32;is&#32;compatible&#32;with&#32;the&#32;type&#32;required&#32;by&#32;MassTransit.&#32;It&#32;would&#32;be&#32;a&#32;matter&#32;of&#32;registering&#32;this&#32;new&#32;type&#32;in&#32;the&#32;container&#32;and&#32;all&#32;would&#32;work.&#13;&#10;&#13;&#10;At&#32;that&#32;point,&#32;I&#32;remembered&#32;about&#32;registering&#32;open&#32;generic&#32;types,&#32;and&#32;that&#32;this&#32;would&#32;be&#32;a&#32;perfect&#32;fit&#32;for&#32;that.&#32;This&#32;single&#32;line&#32;would&#32;make&#32;all&#32;of&#32;our&#32;previous&#32;registrations&#32;automatically&#32;available&#32;to&#32;the&#32;ESB&#58;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#13;&#10;.RegisterType&#40;typeof&#32;&#40;Consumes&#60;&#62;.All&#41;,&#32;typeof&#32;&#40;CommandHandlerAdapter&#60;&#62;&#41;&#41;&#13;&#10;&#96;&#96;&#96;&#13;&#10;&#13;&#10;To&#32;our&#32;surprise&#32;though,&#32;this&#32;throws&#32;an&#32;exception&#32;the&#32;accessing&#32;the&#32;&#39;Registrations&#39;&#32;property&#32;on&#32;the&#32;container&#32;class.&#32;The&#32;method&#32;the&#32;ESB&#32;uses&#32;to&#32;populate&#32;the&#32;consumers,&#32;tries&#32;to&#32;iterate&#32;over&#32;the&#32;registrations&#32;on&#32;the&#32;container,&#32;causing&#32;the&#32;issue.&#32;This&#32;is&#32;the&#32;test&#32;result&#32;from&#32;one&#32;of&#32;the&#32;tests&#32;I&#32;created&#32;to&#32;showcase&#32;the&#32;problem&#58;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#13;&#10;Test&#32;Name&#58;&#9;UnityFailsOnGetRegistrationsForOpenGenerics&#13;&#10;Test&#32;FullName&#58;&#9;UnityBug.ApplicationTest.UnitTest1.UnityFailsOnGetRegistrationsForOpenGenerics&#13;&#10;Test&#32;Source&#58;&#9;c&#58;&#92;Users&#92;julianogoncalves&#92;Documents&#92;Visual&#32;Studio&#32;2013&#92;Projects&#92;UnityBug&#92;UnityBug.ApplicationTest&#92;UnitTest1.cs&#32;&#58;&#32;line&#32;26&#13;&#10;Test&#32;Outcome&#58;&#9;Failed&#13;&#10;Test&#32;Duration&#58;&#9;0&#58;00&#58;00.0011958&#13;&#10;&#13;&#10;Result&#32;Message&#58;&#9;&#13;&#10;Test&#32;method&#32;UnityBug.ApplicationTest.UnitTest1.UnityFailsOnGetRegistrationsForOpenGenerics&#32;threw&#32;exception&#58;&#32;&#13;&#10;System.ArgumentException&#58;&#32;GenericArguments&#91;0&#93;,&#32;&#39;TMessage&#39;,&#32;on&#32;&#39;UnityBug.MassTransit.CommandHandlerAdapter&#96;1&#91;TCommand&#93;&#39;&#32;violates&#32;the&#32;constraint&#32;of&#32;type&#32;&#39;TCommand&#39;.&#32;---&#62;&#32;System.TypeLoadException&#58;&#32;GenericArguments&#91;0&#93;,&#32;&#39;TMessage&#39;,&#32;on&#32;&#39;UnityBug.MassTransit.CommandHandlerAdapter&#96;1&#91;TCommand&#93;&#39;&#32;violates&#32;the&#32;constraint&#32;of&#32;type&#32;parameter&#32;&#39;TCommand&#39;.&#13;&#10;Result&#32;StackTrace&#58;&#9;&#13;&#10;at&#32;System.RuntimeTypeHandle.Instantiate&#40;RuntimeTypeHandle&#32;handle,&#32;IntPtr&#42;&#32;pInst,&#32;Int32&#32;numGenericArgs,&#32;ObjectHandleOnStack&#32;type&#41;&#13;&#10;&#32;&#32;&#32;at&#32;System.RuntimeTypeHandle.Instantiate&#40;Type&#91;&#93;&#32;inst&#41;&#13;&#10;&#32;&#32;&#32;at&#32;System.RuntimeType.MakeGenericType&#40;Type&#91;&#93;&#32;instantiation&#41;&#13;&#10;&#32;---&#32;End&#32;of&#32;inner&#32;exception&#32;stack&#32;trace&#32;---&#13;&#10;&#32;&#32;&#32;&#32;at&#32;System.RuntimeType.ValidateGenericArguments&#40;MemberInfo&#32;definition,&#32;RuntimeType&#91;&#93;&#32;genericArguments,&#32;Exception&#32;e&#41;&#13;&#10;&#32;&#32;&#32;at&#32;System.RuntimeType.MakeGenericType&#40;Type&#91;&#93;&#32;instantiation&#41;&#13;&#10;&#32;&#32;&#32;at&#32;Microsoft.Practices.ObjectBuilder2.GenericTypeBuildKeyMappingPolicy.Map&#40;NamedTypeBuildKey&#32;buildKey,&#32;IBuilderContext&#32;context&#41;&#13;&#10;&#32;&#32;&#32;at&#32;Microsoft.Practices.Unity.ContainerRegistration.GetMappedType&#40;IPolicyList&#32;policies&#41;&#13;&#10;&#32;&#32;&#32;at&#32;Microsoft.Practices.Unity.ContainerRegistration..ctor&#40;Type&#32;registeredType,&#32;String&#32;name,&#32;IPolicyList&#32;policies&#41;&#13;&#10;&#32;&#32;&#32;at&#32;Microsoft.Practices.Unity.UnityContainer.&#60;get_Registrations&#62;b__16&#40;Type&#32;type,&#32;String&#32;name&#41;&#13;&#10;&#32;&#32;&#32;at&#32;System.Linq.Enumerable.&#60;SelectManyIterator&#62;d__31&#96;3.MoveNext&#40;&#41;&#13;&#10;&#32;&#32;&#32;at&#32;System.Collections.Generic.List&#96;1..ctor&#40;IEnumerable&#96;1&#32;collection&#41;&#13;&#10;&#32;&#32;&#32;at&#32;System.Linq.Enumerable.ToList&#91;TSource&#93;&#40;IEnumerable&#96;1&#32;source&#41;&#13;&#10;&#32;&#32;&#32;at&#32;UnityBug.ApplicationTest.UnitTest1.UnityFailsOnGetRegistrationsForOpenGenerics&#40;&#41;&#32;in&#32;c&#58;&#92;Users&#92;julianogoncalves&#92;Documents&#92;Visual&#32;Studio&#32;2013&#92;Projects&#92;UnityBug&#92;UnityBug.ApplicationTest&#92;UnitTest1.cs&#58;line&#32;31&#13;&#10;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#13;&#10;The&#32;test&#32;itself&#32;is&#32;quite&#32;short&#32;too&#58;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#91;TestMethod&#93;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;public&#32;void&#32;UnityFailsOnGetRegistrationsForOpenGenerics&#40;&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;var&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.RegisterType&#60;ICommandHandler&#60;TestCommand&#62;,&#32;TestCommandHandler&#62;&#40;&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.RegisterType&#40;typeof&#40;Consumes&#60;&#62;.All&#41;,&#32;typeof&#40;CommandHandlerAdapter&#60;&#62;&#41;&#41;&#59;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;container.Registrations.ToList&#40;&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#96;&#96;&#96;&#13;&#10;&#13;&#10;&#13;&#10;After&#32;finding&#32;out&#32;that&#32;the&#32;problem&#32;was&#32;apparently&#32;in&#32;the&#32;container&#32;itself,&#32;I&#32;updated&#32;the&#32;unity&#32;nuget&#32;package&#32;to&#32;the&#32;latest&#32;version&#32;and,&#32;to&#32;my&#32;surprise,&#32;the&#32;problem&#32;was&#32;gone&#32;oO.&#32;Since&#32;the&#32;test&#32;project&#32;I&#32;created&#32;was&#32;.Net&#32;4.5,&#32;I&#32;could&#32;use&#32;the&#32;latest&#32;version,&#32;but&#32;I&#32;can&#39;t&#32;do&#32;the&#32;same&#32;on&#32;our&#32;production&#32;code,&#32;since&#32;it&#32;is&#32;limited&#32;to&#32;.Net&#32;4,&#32;which&#32;Unity&#32;3&#32;does&#32;not&#32;support.&#13;&#10;&#13;&#10;I&#32;wonder&#32;if&#32;it&#32;would&#32;be&#32;somehow&#32;possible&#32;to&#32;correct&#32;this&#32;behavior&#32;on&#32;v2&#63;&#32;By&#32;the&#32;stack&#32;trace,&#32;it&#32;seems&#32;to&#32;be&#32;a&#32;problem&#32;in&#32;the&#32;.Net&#32;framework&#32;itself,&#32;but&#32;perhaps&#32;it&#32;is&#32;avoidable&#32;via&#32;code&#32;with&#32;some&#32;preemptive&#32;tests.&#32;It&#32;is&#32;obviously&#32;related&#32;to&#32;the&#32;constraints&#32;on&#32;the&#32;types&#32;too,&#32;which&#32;we&#32;would&#32;also&#32;like&#32;to&#32;keep&#32;this&#32;way,&#32;since&#32;we&#32;don&#39;t&#32;want&#32;to&#32;modify&#32;our&#32;code&#32;&#40;to&#32;remove&#32;the&#32;ICommand&#32;restriction&#32;on&#32;T&#41;&#32;and&#32;need&#32;to&#32;conform&#32;to&#32;the&#32;MassTransit&#32;restriction&#32;of&#32;&#39;class&#39;.&#32;I&#32;wonder&#32;if&#32;this&#32;is&#32;related&#32;to&#32;the&#32;changes&#32;in&#32;the&#32;reflection&#32;stuff&#32;from&#32;.Net4&#32;to&#32;.Net4.5,&#32;since&#32;from&#32;what&#32;I&#39;ve&#32;read&#32;unity&#32;3&#32;uses&#32;the&#32;new&#32;model&#32;to&#32;do&#32;it&#39;s&#32;magic.&#13;&#10;&#13;&#10;I&#39;ve&#32;created&#32;a&#32;small&#32;solution&#32;to&#32;demonstrate&#32;the&#32;problem,&#32;but&#32;I&#39;m&#32;not&#32;sure&#32;how&#32;to&#32;share&#32;it&#32;in&#32;this&#32;post.&#32;If&#32;you&#32;need&#32;it&#32;for&#32;diagnostics&#32;purposes&#32;just&#32;send&#32;me&#32;an&#32;email&#32;or&#32;something&#32;so&#32;that&#32;I&#32;can&#32;send&#32;it.&#13;&#10;&#13;&#10;Regards,&#13;&#10;Juliano">
+        <div class="markDownOutput ">Yesterday, we just found what seems to be a problem with the implementation the container uses to traverse the registrations.
+<br>
+<br>
+Let me try to explain our situation here before I delve into the problem. We had these so called CommandHandlers in a few places of our code, which basically follow the command pattern.<br>
+<pre><code>    public interface ICommand
+    {
+        Guid Id { get; }
+    }
+
+    public interface ICommandHandler&lt;in TCommand&gt;
+        where TCommand : ICommand
+    {
+        void Handle(TCommand command);
+    }</code></pre>
+We have a bunch of implementations for both commands and handlers, and register them explicitly in the container.
+<br>
+<br>
+A few days ago, we started experimenting with a ESB library, <a href="http://masstransit-project.com/"  rel="nofollow">
+Mass Transit</a>. They have the concept of a 'Consumer&lt;T&gt;', which needs to be implemented to support auto wiring of the pub/sub model.
+<br>
+<br>
+To make our code independent of the MassTransit API, I then created a separate project, containing this adapter class:<br>
+<pre><code>    public sealed class CommandHandlerAdapter&lt;TCommand&gt; : Consumes&lt;TCommand&gt;.All
+        where TCommand : class, ICommand
+    {
+        private readonly ICommandHandler&lt;TCommand&gt; _handler;
+
+        public CommandHandlerAdapter(ICommandHandler&lt;TCommand&gt; handler)
+        {
+            _handler = handler;
+        }
+
+        void Consumes&lt;TCommand&gt;.All.Consume(TCommand message)
+        {
+            _handler.Handle(message);
+        }
+    }</code></pre>
+The purpose here is to wrap one of our command handlers in a way that is compatible with the type required by MassTransit. It would be a matter of registering this new type in the container and all would work.
+<br>
+<br>
+At that point, I remembered about registering open generic types, and that this would be a perfect fit for that. This single line would make all of our previous registrations automatically available to the ESB:<br>
+<pre><code>.RegisterType(typeof (Consumes&lt;&gt;.All), typeof (CommandHandlerAdapter&lt;&gt;))</code></pre>
+To our surprise though, this throws an exception the accessing the 'Registrations' property on the container class. The method the ESB uses to populate the consumers, tries to iterate over the registrations on the container, causing the issue. This is the test
+ result from one of the tests I created to showcase the problem:<br>
+<pre><code>Test Name:  UnityFailsOnGetRegistrationsForOpenGenerics
+Test FullName:  UnityBug.ApplicationTest.UnitTest1.UnityFailsOnGetRegistrationsForOpenGenerics
+Test Source:    c:\Users\julianogoncalves\Documents\Visual Studio 2013\Projects\UnityBug\UnityBug.ApplicationTest\UnitTest1.cs : line 26
+Test Outcome:   Failed
+Test Duration:  0:00:00.0011958
+
+Result Message: 
+Test method UnityBug.ApplicationTest.UnitTest1.UnityFailsOnGetRegistrationsForOpenGenerics threw exception: 
+System.ArgumentException: GenericArguments[0], 'TMessage', on 'UnityBug.MassTransit.CommandHandlerAdapter`1[TCommand]' violates the constraint of type 'TCommand'. ---&gt; System.TypeLoadException: GenericArguments[0], 'TMessage', on 'UnityBug.MassTransit.CommandHandlerAdapter`1[TCommand]' violates the constraint of type parameter 'TCommand'.
+Result StackTrace:  
+at System.RuntimeTypeHandle.Instantiate(RuntimeTypeHandle handle, IntPtr* pInst, Int32 numGenericArgs, ObjectHandleOnStack type)
+   at System.RuntimeTypeHandle.Instantiate(Type[] inst)
+   at System.RuntimeType.MakeGenericType(Type[] instantiation)
+ --- End of inner exception stack trace ---
+    at System.RuntimeType.ValidateGenericArguments(MemberInfo definition, RuntimeType[] genericArguments, Exception e)
+   at System.RuntimeType.MakeGenericType(Type[] instantiation)
+   at Microsoft.Practices.ObjectBuilder2.GenericTypeBuildKeyMappingPolicy.Map(NamedTypeBuildKey buildKey, IBuilderContext context)
+   at Microsoft.Practices.Unity.ContainerRegistration.GetMappedType(IPolicyList policies)
+   at Microsoft.Practices.Unity.ContainerRegistration..ctor(Type registeredType, String name, IPolicyList policies)
+   at Microsoft.Practices.Unity.UnityContainer.&lt;get_Registrations&gt;b__16(Type type, String name)
+   at System.Linq.Enumerable.&lt;SelectManyIterator&gt;d__31`3.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at UnityBug.ApplicationTest.UnitTest1.UnityFailsOnGetRegistrationsForOpenGenerics() in c:\Users\julianogoncalves\Documents\Visual Studio 2013\Projects\UnityBug\UnityBug.ApplicationTest\UnitTest1.cs:line 31
+
+</code></pre>
+The test itself is quite short too:<br>
+<pre><code>        [TestMethod]
+        public void UnityFailsOnGetRegistrationsForOpenGenerics()
+        {
+            var container = new UnityContainer()
+                .RegisterType&lt;ICommandHandler&lt;TestCommand&gt;, TestCommandHandler&gt;()
+                .RegisterType(typeof(Consumes&lt;&gt;.All), typeof(CommandHandlerAdapter&lt;&gt;));
+
+            container.Registrations.ToList();
+        }</code></pre>
+After finding out that the problem was apparently in the container itself, I updated the unity nuget package to the latest version and, to my surprise, the problem was gone oO. Since the test project I created was .Net 4.5, I could use the latest version, but
+ I can't do the same on our production code, since it is limited to .Net 4, which Unity 3 does not support.
+<br>
+<br>
+I wonder if it would be somehow possible to correct this behavior on v2? By the stack trace, it seems to be a problem in the .Net framework itself, but perhaps it is avoidable via code with some preemptive tests. It is obviously related to the constraints on
+ the types too, which we would also like to keep this way, since we don't want to modify our code (to remove the ICommand restriction on T) and need to conform to the MassTransit restriction of 'class'. I wonder if this is related to the changes in the reflection
+ stuff from .Net4 to .Net4.5, since from what I've read unity 3 uses the new model to do it's magic.
+<br>
+<br>
+I've created a small solution to demonstrate the problem, but I'm not sure how to share it in this post. If you need it for diagnostics purposes just send me an email or something so that I can send it.
+<br>
+<br>
+Regards, <br>
+Juliano<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1115029" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1116404">
+    <td id="PostDetailsCell_1116404" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1116404"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/1/2013 5:10:30 AM" LocalTimeTicks="1383307830">Nov 1, 2013 at 5:10 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1116404" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="My&#32;first&#32;thought&#32;was&#32;also&#32;that&#32;the&#32;difference&#32;might&#32;be&#32;in&#32;the&#32;.NET&#32;Framework.&#32;&#32;But&#32;it&#32;also&#32;looks&#32;like&#32;the&#32;logic&#32;of&#32;GenericTypeBuildKeyMappingPolicy.Map&#32;was&#32;modified&#32;to&#32;use&#32;the&#32;new&#32;reflection&#32;API&#32;but&#32;the&#32;behavior&#32;is&#32;now&#32;slightly&#32;different.&#32;&#32;Here&#32;is&#32;the&#32;Unity&#32;2&#32;version&#32;that&#32;throws&#58;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#32;c&#35;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;public&#32;NamedTypeBuildKey&#32;Map&#40;NamedTypeBuildKey&#32;buildKey,&#32;IBuilderContext&#32;context&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Guard.ArgumentNotNull&#40;buildKey,&#32;&#34;buildKey&#34;&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Type&#32;originalType&#32;&#61;&#32;buildKey.Type&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;GuardSameNumberOfGenericArguments&#40;originalType&#41;&#59;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Type&#91;&#93;&#32;genericArguments&#32;&#61;&#32;originalType.GetGenericArguments&#40;&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Type&#32;resultType&#32;&#61;&#32;destinationKey.Type.MakeGenericType&#40;genericArguments&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;new&#32;NamedTypeBuildKey&#40;resultType,&#32;destinationKey.Name&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#13;&#10;&#13;&#10;Here&#32;is&#32;the&#32;new&#32;Unity&#32;3&#32;version&#32;that&#32;works&#58;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#32;c&#35;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;public&#32;NamedTypeBuildKey&#32;Map&#40;NamedTypeBuildKey&#32;buildKey,&#32;IBuilderContext&#32;context&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Guard.ArgumentNotNull&#40;buildKey,&#32;&#34;buildKey&#34;&#41;&#59;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;var&#32;originalTypeInfo&#32;&#61;&#32;buildKey.Type.GetTypeInfo&#40;&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;originalTypeInfo.IsGenericTypeDefinition&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;No&#32;need&#32;to&#32;perform&#32;a&#32;mapping&#32;-&#32;the&#32;source&#32;type&#32;is&#32;an&#32;open&#32;generic&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;this.destinationKey&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;this.GuardSameNumberOfGenericArguments&#40;originalTypeInfo&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Type&#91;&#93;&#32;genericArguments&#32;&#61;&#32;originalTypeInfo.GenericTypeArguments&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Type&#32;resultType&#32;&#61;&#32;this.destinationKey.Type.MakeGenericType&#40;genericArguments&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;new&#32;NamedTypeBuildKey&#40;resultType,&#32;this.destinationKey.Name&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#13;&#10;&#13;&#10;Besides&#32;the&#32;TypeInfo&#32;changes&#32;the&#32;new&#32;code&#32;has&#32;a&#32;short&#32;circuit&#32;for&#32;open&#32;generic&#32;types&#32;which&#32;seems&#32;to&#32;align&#32;with&#32;the&#32;behavior&#32;you&#32;are&#32;seeing.&#32;&#32;I&#32;would&#32;try&#32;implementing&#32;a&#32;similar&#32;change&#32;in&#32;the&#32;Unity&#32;2&#32;source&#32;to&#32;see&#32;if&#32;it&#32;helps.&#32;&#32;That&#32;said,&#32;I&#32;would&#32;worry&#32;a&#32;bit&#32;that&#32;the&#32;change&#32;might&#32;cause&#32;another&#32;issue&#32;in&#32;Unity&#32;2&#32;&#40;although&#32;after&#32;a&#32;quick&#32;check&#32;I&#32;don&#39;t&#32;see&#32;anything&#41;.&#13;&#10;&#13;&#10;In&#32;terms&#32;of&#32;formally&#32;getting&#32;a&#32;fix&#32;into&#32;Unity&#32;2,&#32;I&#32;would&#32;say&#32;that&#32;it&#32;would&#32;be&#32;unlikely&#32;at&#32;this&#32;time&#32;--&#32;you&#32;would&#32;probably&#32;have&#32;to&#32;modify&#32;the&#32;Unity&#32;source&#32;and&#32;go&#32;with&#32;a&#32;custom&#32;build.&#13;&#10;&#13;&#10;&#126;&#126;&#13;&#10;Randy&#32;Levy&#13;&#10;&#91;entlib.support&#64;live.com&#93;&#40;mailto&#58;entlib.support&#64;live.com&#41;&#13;&#10;Enterprise&#32;Library&#32;support&#32;engineer&#13;&#10;&#91;Support&#32;How-to&#93;&#40;http&#58;&#47;&#47;entlib.codeplex.com&#47;wikipage&#63;title&#61;Support&#37;20How-to&#41;&#32;">
+        <div class="markDownOutput ">My first thought was also that the difference might be in the .NET Framework. But it also looks like the logic of GenericTypeBuildKeyMappingPolicy.Map was modified to use the new reflection API but the behavior is now slightly different. Here is the Unity
+ 2 version that throws:<br>
+<div style="color:Black; background-color:White">
+<pre>
+        <span style="color:Blue">public</span> NamedTypeBuildKey Map(NamedTypeBuildKey buildKey, IBuilderContext context)
+        {
+            Guard.ArgumentNotNull(buildKey, <span style="color:#A31515">&quot;buildKey&quot;</span>);
+            Type originalType = buildKey.Type;
+            GuardSameNumberOfGenericArguments(originalType);
+
+            Type[] genericArguments = originalType.GetGenericArguments();
+            Type resultType = destinationKey.Type.MakeGenericType(genericArguments);
+            <span style="color:Blue">return</span> <span style="color:Blue">new</span> NamedTypeBuildKey(resultType, destinationKey.Name);
+        }
+
+</pre>
+</div>
+Here is the new Unity 3 version that works:<br>
+<div style="color:Black; background-color:White">
+<pre>
+        <span style="color:Blue">public</span> NamedTypeBuildKey Map(NamedTypeBuildKey buildKey, IBuilderContext context)
+        {
+            Guard.ArgumentNotNull(buildKey, <span style="color:#A31515">&quot;buildKey&quot;</span>);
+
+            <span style="color:Blue">var</span> originalTypeInfo = buildKey.Type.GetTypeInfo();
+            <span style="color:Blue">if</span> (originalTypeInfo.IsGenericTypeDefinition)
+            {
+                <span style="color:Green">// No need to perform a mapping - the source type is an open generic</span>
+                <span style="color:Blue">return</span> <span style="color:Blue">this</span>.destinationKey;
+            }
+
+            <span style="color:Blue">this</span>.GuardSameNumberOfGenericArguments(originalTypeInfo);
+            Type[] genericArguments = originalTypeInfo.GenericTypeArguments;
+            Type resultType = <span style="color:Blue">this</span>.destinationKey.Type.MakeGenericType(genericArguments);
+            <span style="color:Blue">return</span> <span style="color:Blue">new</span> NamedTypeBuildKey(resultType, <span style="color:Blue">this</span>.destinationKey.Name);
+        }
+
+</pre>
+</div>
+Besides the TypeInfo changes the new code has a short circuit for open generic types which seems to align with the behavior you are seeing. I would try implementing a similar change in the Unity 2 source to see if it helps. That said, I would worry a bit that
+ the change might cause another issue in Unity 2 (although after a quick check I don't see anything).
+<br>
+<br>
+In terms of formally getting a fix into Unity 2, I would say that it would be unlikely at this time -- you would probably have to modify the Unity source and go with a custom build.
+<br>
+<br>
+~~ <br>
+Randy Levy <br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">&#x65;n&#x74;&#108;&#105;&#x62;&#46;&#115;&#x75;&#112;&#112;&#x6f;&#x72;&#x74;&#x40;&#x6c;&#x69;&#118;&#x65;&#x2e;c&#x6f;&#x6d;</a>
+<br>
+Enterprise Library support engineer <br>
+<a href="http://entlib.codeplex.com/wikipage?title=Support%20How-to"  rel="nofollow">Support How-to</a>
+<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1116404" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1117892">
+    <td id="PostDetailsCell_1117892" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1117892"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/julealgon">julealgon</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/5/2013 5:24:29 PM" LocalTimeTicks="1383701069">Nov 5, 2013 at 5:24 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="11/5/2013 5:24:56 PM" LocalTimeTicks="1383701096">Nov 5, 2013 at 5:24 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1117892" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="Oh...&#32;so&#32;it&#32;really&#32;is&#32;a&#32;bug&#32;in&#32;the&#32;policy&#32;causing&#32;this&#32;issue...&#10;&#10;Isn&#39;t&#32;there&#32;a&#32;way&#32;to&#32;override&#32;just&#32;this&#32;policy,&#32;using&#32;a&#32;container&#32;extension&#63;&#32;If&#32;I&#32;remember&#32;correctly,&#32;I&#32;could&#32;just&#32;remove&#32;the&#32;default&#32;one&#32;and&#32;add&#32;the&#32;custom,&#32;fixed&#32;one,&#32;through&#32;code.&#10;&#10;I&#39;m&#32;not&#32;willing&#32;to&#32;maintain&#32;the&#32;whole&#32;source&#32;code&#32;just&#32;for&#32;this,&#32;since&#32;it&#32;is&#32;very&#32;localized.&#32;Unfortunately,&#32;I&#32;also&#32;cannot&#32;upgrade&#32;to&#32;Unity&#32;3&#32;because&#32;of&#32;the&#32;.Net&#32;framework&#32;4.5&#32;restrictions&#32;&#40;many&#32;of&#32;our&#32;clients&#32;still&#32;use&#32;Windows&#32;Xp&#32;and&#32;Windows&#32;Server&#32;2003&#41;.&#10;&#10;About&#32;the&#32;update,&#32;why&#32;do&#32;you&#32;think&#32;it&#32;is&#32;unlikely&#32;that&#32;a&#32;fix&#32;will&#32;go&#32;live&#63;&#32;Is&#32;it&#32;that&#32;complicated&#32;to&#32;correct&#32;this&#32;problem&#63;&#32;I&#32;suppose&#32;it&#39;s&#32;just&#32;a&#32;matter&#32;of&#32;adding&#32;the&#32;open&#32;generics&#32;check&#32;there&#32;right&#63;&#10;&#10;By&#32;the&#32;way,&#32;thanks&#32;a&#32;lot&#32;again&#32;as&#32;always&#32;Randy,&#32;you&#32;are&#32;the&#32;man&#32;&#59;&#41;&#10;&#10;Regards,&#10;Juliano&#10;&#10;">
+        <div class="markDownOutput ">Oh... so it really is a bug in the policy causing this issue...<br>
+<br>
+Isn't there a way to override just this policy, using a container extension? If I remember correctly, I could just remove the default one and add the custom, fixed one, through code.<br>
+<br>
+I'm not willing to maintain the whole source code just for this, since it is very localized. Unfortunately, I also cannot upgrade to Unity 3 because of the .Net framework 4.5 restrictions (many of our clients still use Windows Xp and Windows Server 2003).<br>
+<br>
+About the update, why do you think it is unlikely that a fix will go live? Is it that complicated to correct this problem? I suppose it's just a matter of adding the open generics check there right?<br>
+<br>
+By the way, thanks a lot again as always Randy, you are the man ;)<br>
+<br>
+Regards,<br>
+Juliano<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1117892" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1119566">
+    <td id="PostDetailsCell_1119566" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1119566"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="11/7/2013 4:11:22 AM" LocalTimeTicks="1383826282">Nov 7, 2013 at 4:11 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1119566" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="Thanks&#32;for&#32;the&#32;kind&#32;words,&#32;Juliano.&#32;&#32;&#13;&#10;&#13;&#10;&#62;&#32;Isn&#39;t&#32;there&#32;a&#32;way&#32;to&#32;override&#32;just&#32;this&#32;policy,&#32;using&#32;a&#32;container&#32;extension&#63;&#32;If&#32;I&#32;remember&#32;correctly,&#32;I&#32;could&#32;just&#32;remove&#32;the&#32;default&#32;one&#32;and&#32;add&#32;the&#32;custom,&#32;fixed&#32;one,&#32;through&#32;code.&#13;&#10;&#35;&#13;&#10;You&#39;re&#32;right.&#32;&#32;Unity&#32;is&#32;very&#32;flexible&#32;and&#32;you&#32;can&#32;do&#32;most&#32;anything&#32;in&#32;a&#32;container&#32;extension.&#32;&#32;So&#32;you&#32;__can__&#32;put&#32;the&#32;fix&#32;in&#32;and&#32;then&#32;create&#32;a&#32;container&#32;extension&#32;to&#32;apply&#32;it.&#32;&#32;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#32;c&#35;&#13;&#10;public&#32;class&#32;CustomPolicyOverrideBehaviorExtension&#32;&#58;&#32;UnityContainerExtension&#13;&#10;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#47;&#47;&#47;&#32;&#60;summary&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#47;&#47;&#47;&#32;Install&#32;the&#32;default&#32;container&#32;behavior&#32;into&#32;the&#32;container.&#13;&#10;&#32;&#32;&#32;&#32;&#47;&#47;&#47;&#32;&#60;&#47;summary&#62;&#13;&#10;&#32;&#32;&#32;&#32;protected&#32;override&#32;void&#32;Initialize&#40;&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Context.Registering&#32;&#43;&#61;&#32;OnRegister&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;public&#32;override&#32;void&#32;Remove&#40;&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Context.Registering&#32;-&#61;&#32;OnRegister&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;private&#32;void&#32;OnRegister&#40;object&#32;sender,&#32;RegisterEventArgs&#32;e&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;e.TypeFrom&#32;&#33;&#61;&#32;null&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;e.TypeFrom.IsGenericTypeDefinition&#32;&#38;&#38;&#32;e.TypeTo.IsGenericTypeDefinition&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;Override&#32;the&#32;existing&#32;policy&#32;with&#32;custom&#32;implementation&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Context.Policies.Set&#60;IBuildKeyMappingPolicy&#62;&#40;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;new&#32;CustomGenericTypeBuildKeyMappingPolicy&#40;new&#32;NamedTypeBuildKey&#40;e.TypeTo,&#32;e.Name&#41;&#41;,&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;new&#32;NamedTypeBuildKey&#40;e.TypeFrom,&#32;e.Name&#41;&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#125;&#13;&#10;&#13;&#10;public&#32;class&#32;CustomGenericTypeBuildKeyMappingPolicy&#32;&#58;&#32;IBuildKeyMappingPolicy&#13;&#10;&#123;&#13;&#10;&#32;&#32;&#32;&#32;private&#32;readonly&#32;NamedTypeBuildKey&#32;destinationKey&#59;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;&#47;&#47;&#47;&#32;&#60;summary&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#47;&#47;&#47;&#32;Create&#32;a&#32;new&#32;&#60;see&#32;cref&#61;&#34;CustomGenericTypeBuildKeyMappingPolicy&#34;&#47;&#62;&#32;instance&#13;&#10;&#32;&#32;&#32;&#32;&#47;&#47;&#47;&#32;that&#32;will&#32;map&#32;generic&#32;types.&#13;&#10;&#32;&#32;&#32;&#32;&#47;&#47;&#47;&#32;&#60;&#47;summary&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#47;&#47;&#47;&#32;&#60;param&#32;name&#61;&#34;destinationKey&#34;&#62;Build&#32;key&#32;to&#32;map&#32;to.&#32;This&#32;must&#32;be&#32;or&#32;contain&#32;an&#32;open&#32;generic&#32;type.&#60;&#47;param&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#47;&#47;&#32;FxCop&#32;suppression&#58;&#32;Validation&#32;is&#32;done&#32;by&#32;Guard&#32;class&#13;&#10;&#32;&#32;&#32;&#32;&#91;SuppressMessage&#40;&#34;Microsoft.Design&#34;,&#32;&#34;CA1062&#58;ValidateArgumentsOfPublicMethods&#34;&#41;&#93;&#13;&#10;&#32;&#32;&#32;&#32;public&#32;CustomGenericTypeBuildKeyMappingPolicy&#40;NamedTypeBuildKey&#32;destinationKey&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Guard.ArgumentNotNull&#40;destinationKey,&#32;&#34;destinationKey&#34;&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;&#33;destinationKey.Type.IsGenericTypeDefinition&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;throw&#32;new&#32;ArgumentException&#40;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;string.Format&#40;&#34;Resources.MustHaveOpenGenericType&#58;&#32;&#123;0&#125;&#34;,&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;destinationKey.Type.Name&#41;&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;this.destinationKey&#32;&#61;&#32;destinationKey&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;&#47;&#47;&#47;&#32;&#60;summary&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#47;&#47;&#47;&#32;Maps&#32;the&#32;build&#32;key.&#13;&#10;&#32;&#32;&#32;&#32;&#47;&#47;&#47;&#32;&#60;&#47;summary&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#47;&#47;&#47;&#32;&#60;param&#32;name&#61;&#34;buildKey&#34;&#62;The&#32;build&#32;key&#32;to&#32;map.&#60;&#47;param&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#47;&#47;&#47;&#32;&#60;param&#32;name&#61;&#34;context&#34;&#62;Current&#32;build&#32;context.&#32;Used&#32;for&#32;contextual&#32;information&#13;&#10;&#32;&#32;&#32;&#32;&#47;&#47;&#47;&#32;if&#32;writing&#32;a&#32;more&#32;sophisticated&#32;mapping.&#60;&#47;param&#62;&#13;&#10;&#32;&#32;&#32;&#32;&#47;&#47;&#47;&#32;&#60;returns&#62;The&#32;new&#32;build&#32;key.&#60;&#47;returns&#62;&#13;&#10;&#32;&#32;&#32;&#32;public&#32;NamedTypeBuildKey&#32;Map&#40;NamedTypeBuildKey&#32;buildKey,&#32;IBuilderContext&#32;context&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Guard.ArgumentNotNull&#40;buildKey,&#32;&#34;buildKey&#34;&#41;&#59;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;var&#32;originalType&#32;&#61;&#32;buildKey.Type&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;originalType.IsGenericTypeDefinition&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#47;&#47;&#32;No&#32;need&#32;to&#32;perform&#32;a&#32;mapping&#32;-&#32;the&#32;source&#32;type&#32;is&#32;an&#32;open&#32;generic&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;this.destinationKey&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;this.GuardSameNumberOfGenericArguments&#40;originalType&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Type&#91;&#93;&#32;genericArguments&#32;&#61;&#32;originalType.GetGenericArguments&#40;&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Type&#32;resultType&#32;&#61;&#32;this.destinationKey.Type.MakeGenericType&#40;genericArguments&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;new&#32;NamedTypeBuildKey&#40;resultType,&#32;this.destinationKey.Name&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;private&#32;void&#32;GuardSameNumberOfGenericArguments&#40;Type&#32;sourceType&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;&#40;sourceType.GetGenericArguments&#40;&#41;.Length&#32;&#33;&#61;&#32;this.DestinationType.GetGenericArguments&#40;&#41;.Length&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;throw&#32;new&#32;ArgumentException&#40;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;string.Format&#40;&#34;Resources.MustHaveSameNumberOfGenericArguments.&#32;&#32;Source&#32;Type&#58;&#32;&#123;0&#125;,&#32;Destination&#32;Type&#58;&#32;&#123;1&#125;&#34;,&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sourceType.Name,&#32;this.DestinationType.Name&#41;,&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#34;sourceTypeInfo&#34;&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;private&#32;Type&#32;DestinationType&#13;&#10;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;get&#32;&#123;&#32;return&#32;destinationKey.Type&#59;&#32;&#125;&#13;&#10;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#125;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#13;&#10;&#13;&#10;And&#32;the&#32;code&#32;which&#32;should&#32;pass&#32;your&#32;test&#58;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#32;c&#35;&#13;&#10;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#13;&#10;container.AddExtension&#40;new&#32;CustomPolicyOverrideBehaviorExtension&#40;&#41;&#41;&#59;&#13;&#10;&#13;&#10;container.RegisterType&#60;ICommandHandler&#60;TestCommand&#62;,&#32;TestCommandHandler&#62;&#40;&#41;&#59;&#13;&#10;container.RegisterType&#40;typeof&#40;Consumes&#60;&#62;&#41;,&#32;typeof&#40;CommandHandlerAdapter&#60;&#62;&#41;&#41;&#59;&#13;&#10;&#13;&#10;container.Registrations.ToList&#40;&#41;&#59;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#13;&#10;&#13;&#10;&#126;&#126;&#13;&#10;Randy&#32;Levy&#13;&#10;&#91;entlib.support&#64;live.com&#93;&#40;mailto&#58;entlib.support&#64;live.com&#41;&#13;&#10;Enterprise&#32;Library&#32;support&#32;engineer&#13;&#10;&#91;Support&#32;How-to&#93;&#40;http&#58;&#47;&#47;entlib.codeplex.com&#47;wikipage&#63;title&#61;Support&#37;20How-to&#41;&#32;">
+        <div class="markDownOutput ">Thanks for the kind words, Juliano. <br>
+<blockquote>Isn't there a way to override just this policy, using a container extension? If I remember correctly, I could just remove the default one and add the custom, fixed one, through code.<br>
+</blockquote>
+<h1></h1>
+You're right. Unity is very flexible and you can do most anything in a container extension. So you
+<strong>can</strong> put the fix in and then create a container extension to apply it.
+<br>
+<div style="color:Black; background-color:White">
+<pre>
+<span style="color:Blue">public</span> <span style="color:Blue">class</span> CustomPolicyOverrideBehaviorExtension : UnityContainerExtension
+{
+    <span style="color:Gray">///</span> <span style="color:Gray">&lt;summary&gt;</span>
+    <span style="color:Gray">///</span><span style="color:Green"> Install the default container behavior into the container.</span>
+    <span style="color:Gray">///</span> <span style="color:Gray">&lt;/summary&gt;</span>
+    <span style="color:Blue">protected</span> <span style="color:Blue">override</span> <span style="color:Blue">void</span> Initialize()
+    {
+        Context.Registering &#43;= OnRegister;
+    }
+
+    <span style="color:Blue">public</span> <span style="color:Blue">override</span> <span style="color:Blue">void</span> Remove()
+    {
+        Context.Registering -= OnRegister;
+    }
+
+    <span style="color:Blue">private</span> <span style="color:Blue">void</span> OnRegister(<span style="color:Blue">object</span> sender, RegisterEventArgs e)
+    {
+        <span style="color:Blue">if</span> (e.TypeFrom != <span style="color:Blue">null</span>)
+        {
+            <span style="color:Blue">if</span> (e.TypeFrom.IsGenericTypeDefinition &amp;&amp; e.TypeTo.IsGenericTypeDefinition)
+            {
+                <span style="color:Green">// Override the existing policy with custom implementation</span>
+                Context.Policies.Set&lt;IBuildKeyMappingPolicy&gt;(
+                    <span style="color:Blue">new</span> CustomGenericTypeBuildKeyMappingPolicy(<span style="color:Blue">new</span> NamedTypeBuildKey(e.TypeTo, e.Name)),
+                    <span style="color:Blue">new</span> NamedTypeBuildKey(e.TypeFrom, e.Name));
+            }
+        }
+    }
+}
+
+<span style="color:Blue">public</span> <span style="color:Blue">class</span> CustomGenericTypeBuildKeyMappingPolicy : IBuildKeyMappingPolicy
+{
+    <span style="color:Blue">private</span> <span style="color:Blue">readonly</span> NamedTypeBuildKey destinationKey;
+
+    <span style="color:Gray">///</span> <span style="color:Gray">&lt;summary&gt;</span>
+    <span style="color:Gray">///</span><span style="color:Green"> Create a new &lt;see cref=&quot;CustomGenericTypeBuildKeyMappingPolicy&quot;/&gt; instance</span>
+    <span style="color:Gray">///</span><span style="color:Green"> that will map generic types.</span>
+    <span style="color:Gray">///</span> <span style="color:Gray">&lt;/summary&gt;</span>
+    <span style="color:Gray">///</span> <span style="color:Gray">&lt;param name=&quot;destinationKey&quot;&gt;</span><span style="color:Green">Build key to map to. This must be or contain an open generic type.&lt;/param&gt;</span>
+    <span style="color:Green">// FxCop suppression: Validation is done by Guard class</span>
+    [SuppressMessage(<span style="color:#A31515">&quot;Microsoft.Design&quot;</span>, <span style="color:#A31515">&quot;CA1062:ValidateArgumentsOfPublicMethods&quot;</span>)]
+    <span style="color:Blue">public</span> CustomGenericTypeBuildKeyMappingPolicy(NamedTypeBuildKey destinationKey)
+    {
+        Guard.ArgumentNotNull(destinationKey, <span style="color:#A31515">&quot;destinationKey&quot;</span>);
+        <span style="color:Blue">if</span> (!destinationKey.Type.IsGenericTypeDefinition)
+        {
+            <span style="color:Blue">throw</span> <span style="color:Blue">new</span> ArgumentException(
+                <span style="color:Blue">string</span>.Format(<span style="color:#A31515">&quot;Resources.MustHaveOpenGenericType: {0}&quot;</span>,
+                                destinationKey.Type.Name));
+        }
+        <span style="color:Blue">this</span>.destinationKey = destinationKey;
+    }
+
+    <span style="color:Gray">///</span> <span style="color:Gray">&lt;summary&gt;</span>
+    <span style="color:Gray">///</span><span style="color:Green"> Maps the build key.</span>
+    <span style="color:Gray">///</span> <span style="color:Gray">&lt;/summary&gt;</span>
+    <span style="color:Gray">///</span> <span style="color:Gray">&lt;param name=&quot;buildKey&quot;&gt;</span><span style="color:Green">The build key to map.&lt;/param&gt;</span>
+    <span style="color:Gray">///</span> <span style="color:Gray">&lt;param name=&quot;context&quot;&gt;</span><span style="color:Green">Current build context. Used for contextual information</span>
+    <span style="color:Gray">///</span><span style="color:Green"> if writing a more sophisticated mapping.&lt;/param&gt;</span>
+    <span style="color:Gray">///</span> <span style="color:Gray">&lt;returns&gt;</span><span style="color:Green">The new build key.&lt;/returns&gt;</span>
+    <span style="color:Blue">public</span> NamedTypeBuildKey Map(NamedTypeBuildKey buildKey, IBuilderContext context)
+    {
+        Guard.ArgumentNotNull(buildKey, <span style="color:#A31515">&quot;buildKey&quot;</span>);
+
+        <span style="color:Blue">var</span> originalType = buildKey.Type;
+        <span style="color:Blue">if</span> (originalType.IsGenericTypeDefinition)
+        {
+            <span style="color:Green">// No need to perform a mapping - the source type is an open generic</span>
+            <span style="color:Blue">return</span> <span style="color:Blue">this</span>.destinationKey;
+        }
+
+        <span style="color:Blue">this</span>.GuardSameNumberOfGenericArguments(originalType);
+        Type[] genericArguments = originalType.GetGenericArguments();
+        Type resultType = <span style="color:Blue">this</span>.destinationKey.Type.MakeGenericType(genericArguments);
+        <span style="color:Blue">return</span> <span style="color:Blue">new</span> NamedTypeBuildKey(resultType, <span style="color:Blue">this</span>.destinationKey.Name);
+    }
+
+    <span style="color:Blue">private</span> <span style="color:Blue">void</span> GuardSameNumberOfGenericArguments(Type sourceType)
+    {
+        <span style="color:Blue">if</span> (sourceType.GetGenericArguments().Length != <span style="color:Blue">this</span>.DestinationType.GetGenericArguments().Length)
+        {
+            <span style="color:Blue">throw</span> <span style="color:Blue">new</span> ArgumentException(
+                <span style="color:Blue">string</span>.Format(<span style="color:#A31515">&quot;Resources.MustHaveSameNumberOfGenericArguments.  Source Type: {0}, Destination Type: {1}&quot;</span>,
+                                sourceType.Name, <span style="color:Blue">this</span>.DestinationType.Name),
+                <span style="color:#A31515">&quot;sourceTypeInfo&quot;</span>);
+        }
+    }
+
+    <span style="color:Blue">private</span> Type DestinationType
+    {
+        <span style="color:Blue">get</span> { <span style="color:Blue">return</span> destinationKey.Type; }
+    }
+}
+
+</pre>
+</div>
+And the code which should pass your test:<br>
+<div style="color:Black; background-color:White">
+<pre>
+IUnityContainer container = <span style="color:Blue">new</span> UnityContainer();
+container.AddExtension(<span style="color:Blue">new</span> CustomPolicyOverrideBehaviorExtension());
+
+container.RegisterType&lt;ICommandHandler&lt;TestCommand&gt;, TestCommandHandler&gt;();
+container.RegisterType(<span style="color:Blue">typeof</span>(Consumes&lt;&gt;), <span style="color:Blue">typeof</span>(CommandHandlerAdapter&lt;&gt;));
+
+container.Registrations.ToList();
+
+</pre>
+</div>
+~~ <br>
+Randy Levy <br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">&#x65;n&#x74;&#108;&#105;&#x62;&#46;&#115;&#x75;&#112;&#112;&#x6f;&#x72;&#x74;&#x40;&#x6c;&#x69;&#118;&#x65;&#x2e;c&#x6f;&#x6d;</a>
+<br>
+Enterprise Library support engineer <br>
+<a href="http://entlib.codeplex.com/wikipage?title=Support%20How-to"  rel="nofollow">Support How-to</a>
+<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1119566" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f464858">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="c37204ee-474b-4c04-a950-219c3d712a1a">
+    <script class="options" defer="defer" id="c37204ee-474b-4c04-a950-219c3d712a1a" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_1a907cde-62ff-4093-8df9-fab7e4fc8c84">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_0d31baee-38f0-44e8-8596-6b841d1268fb">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_1a907cde-62ff-4093-8df9-fab7e4fc8c84" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_0d31baee-38f0-44e8-8596-6b841d1268fb" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/464858';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

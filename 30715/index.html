@@ -1,0 +1,912 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Child containers and lifetime</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/30715?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/30715?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="siHrWiaOCWj9WvLbxMTa98MFpCFSsQbLrFSA4IpwKTizKKNEhoeN2e52SFmiODa03rlDRyK7KCS5UJcvoCZrAQ3P4eTa8PyJ2IlPdSPao1qW_qUHLftRVDBjWfHkvy85UwQGtA2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken29a3139cf-7b33-4d07-aa14-fc7bf14e6407" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:28:57 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f30715" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="08624c31-230e-4fda-b43c-60b0035dec84">
+                
+                    <script class="options" defer="defer" id="08624c31-230e-4fda-b43c-60b0035dec84" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="84d1de6b-2c32-442d-8695-ffd9616e7d19">
+                
+                    <script class="options" defer="defer" id="84d1de6b-2c32-442d-8695-ffd9616e7d19" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Child containers and lifetime
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:30715]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="bff503fd-ddef-4c69-b23f-a54fb811b217">
+    <script class="options" defer="defer" id="bff503fd-ddef-4c69-b23f-a54fb811b217" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/30715","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="102197">
+    <td id="PostDetailsCell_102197" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post102197"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/digitalbanzai">digitalbanzai</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/2/2008 4:55:00 PM" LocalTimeTicks="1215042900">Jul 2, 2008 at 4:55 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_102197" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#39;m&#32;trying&#32;to&#32;port&#32;some&#32;of&#32;the&#32;concepts&#32;of&#32;the&#32;SCSF&#32;using&#32;Unity.&#32;One&#32;of&#32;the&#32;behaviors&#32;of&#32;the&#32;SCSF&#32;is&#32;the&#32;ability&#32;to&#32;have&#32;seperate&#32;instances&#32;returned&#32;to&#32;seperate&#32;child&#32;work&#32;items&#32;using&#32;a&#32;single&#32;registration.&#32;A&#32;type&#32;can&#32;be&#32;registered&#32;at&#32;the&#32;parent&#32;as&#32;a&#32;singleton,&#32;however&#32;when&#32;requested&#32;from&#32;seperate&#32;child&#32;containers&#32;each&#32;child&#32;container&#32;would&#32;receive&#32;a&#32;seperate&#32;singleton&#32;instance.&#32;Once&#32;an&#32;instance&#32;has&#32;been&#32;created,&#32;it&#32;is&#32;accessible&#32;to&#32;each&#32;of&#32;that&#32;container&#39;s&#32;children,&#32;but&#32;not&#32;to&#32;it&#39;s&#32;parent&#32;or&#32;sibling.&#32;&#32;This&#32;allows&#32;you&#32;to&#32;register&#32;some&#32;global&#32;service&#32;instances&#38;nbsp&#59;&#40;say,&#32;authorization&#41;&#32;at&#32;the&#32;parent&#32;item&#32;which&#32;are&#32;available&#32;to&#32;all&#32;of&#32;the&#32;children,&#32;but&#32;views&#32;and&#32;controllers&#32;can&#32;live&#32;seperately&#32;between&#32;seperate&#32;child&#32;containers.&#32;&#32;For&#32;example&#58;&#32;&#32;&#32;&#32;using&#32;&#40;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#41;&#32;&#123;&#32;IFoo&#32;childFoo&#59;&#32;IFoo&#32;parentFoo&#59;&#32;container.RegisterType&#38;lt&#59;IFoo,&#32;Foo&#38;gt&#59;&#40;new&#32;ContainerControlledLifetimeManager&#40;&#41;&#41;&#59;&#32;using&#32;&#40;IUnityContainer&#32;childContainer&#32;&#61;&#32;container.CreateChildContainer&#40;&#41;&#41;&#32;&#123;&#32;childFoo&#32;&#61;&#32;childContainer.Resolve&#38;lt&#59;IFoo&#38;gt&#59;&#40;&#41;&#59;&#32;&#125;&#32;parentFoo&#32;&#61;&#32;container.Resolve&#38;lt&#59;IFoo&#38;gt&#59;&#40;&#41;&#59;&#32;Assert.AreNotSame&#40;parentFoo,&#32;childFoo&#41;&#59;&#32;&#125;&#32;&#32;While&#32;this&#32;may&#32;not&#32;seem&#32;useful&#32;&#40;or&#32;logical&#41;,&#32;the&#32;real&#32;goal&#32;is&#58;&#32;&#32;&#32;&#32;using&#32;&#40;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#41;&#32;&#123;&#32;IFoo&#32;childFoo1,&#32;childFoo2&#59;&#32;container.RegisterInstance&#38;lt&#59;IFoo,&#32;Foo&#38;gt&#59;&#40;new&#32;ContainerControlledLifetimeManager&#40;&#41;&#41;&#59;&#32;using&#32;&#40;IUnityContainer&#32;childContainer1&#32;&#61;&#32;container.CreateChildContainer&#40;&#41;&#41;&#32;&#123;&#32;childFoo1&#32;&#61;&#32;childContainer1.Resolve&#38;lt&#59;IFoo&#38;gt&#59;&#40;&#41;&#59;&#32;&#125;&#32;using&#32;&#40;IUnityContainer&#32;childContainer2&#32;&#61;&#32;container.CreateChildContainer&#40;&#41;&#41;&#32;&#123;&#32;childFoo2&#32;&#61;&#32;childContainer2.Resolve&#38;lt&#59;IFoo&#38;gt&#59;&#40;&#41;&#59;&#32;&#125;&#32;Assert.AreNotSame&#40;childFoo1,&#32;childFoo2&#41;&#59;&#32;&#125;&#32;&#32;&#32;More&#32;importantly,&#32;the&#32;ability&#32;to&#32;also&#32;register&#32;an&#32;instance&#32;that&#32;would&#32;be&#32;returned&#32;to&#32;all&#32;child&#32;containers&#58;&#32;&#32;using&#32;&#40;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#41;&#32;&#123;&#32;IFoo&#32;childFoo&#59;&#32;IFoo&#32;parentFoo&#59;&#32;container.RegisterInstance&#38;lt&#59;IFoo&#38;gt&#59;&#40;new&#32;Foo&#40;&#41;&#41;&#59;&#32;using&#32;&#40;IUnityContainer&#32;childContainer&#32;&#61;&#32;container.CreateChildContainer&#40;&#41;&#41;&#32;&#123;&#32;childFoo&#32;&#61;&#32;childContainer.Resolve&#38;lt&#59;IFoo&#38;gt&#59;&#40;&#41;&#59;&#32;&#125;&#32;parentFoo&#32;&#61;&#32;container.Resolve&#38;lt&#59;IFoo&#38;gt&#59;&#40;&#41;&#59;&#32;Assert.AreSame&#40;parentFoo,&#32;childFoo&#41;&#59;&#32;&#125;&#32;&#32;However,&#32;because&#32;the&#32;lifetime&#32;exists&#32;at&#32;the&#32;parent,&#32;it&#32;always&#32;returns&#32;the&#32;same&#32;instance.&#32;The&#32;only&#32;solution&#32;I&#32;can&#32;find&#32;today&#32;is&#32;to&#32;have&#32;2&#32;seperate&#32;container&#32;configurations,&#32;one&#32;for&#32;the&#32;parent&#32;and&#32;one&#32;for&#32;child&#32;containers,&#38;nbsp&#59;and&#38;nbsp&#59;always&#32;configure&#32;the&#32;child&#32;containers&#32;on&#32;creation.&#32;While&#32;this&#32;would&#32;work&#32;for&#32;the&#32;first&#32;level&#32;of&#32;children,&#32;it&#32;would&#32;break&#32;the&#32;ability&#32;of&#32;the&#32;2nd&#32;level&#32;of&#32;children&#32;&#40;the&#32;top&#32;container&#39;s&#32;grandchildren&#41;&#32;to&#32;inherit&#32;instances&#32;from&#32;it&#39;s&#32;parent.&#32;I&#32;thought&#32;that&#32;I&#32;might&#32;be&#32;able&#32;to&#32;create&#32;a&#32;new&#32;lifetime&#32;manager,&#32;however&#32;I&#32;can&#39;t&#32;see&#32;how&#32;the&#32;current&#32;container&#32;that&#32;is&#32;resolving&#32;would&#32;be&#32;accessible&#32;from&#32;the&#32;lifetime&#32;manager&#32;&#40;especially&#32;during&#32;GetValue&#40;&#41;&#32;and&#32;SetValue&#40;object&#41;&#32;calls&#41;.&#32;Perhaps&#32;I&#39;m&#32;missing&#32;a&#32;concept&#63;&#32;">
+        I'm trying to port some of the concepts of the SCSF using Unity. One of the behaviors of the SCSF is the ability to have seperate instances returned to seperate child work items using a single registration. A type can be registered at the parent as a singleton,
+ however when requested from seperate child containers each child container would receive a seperate singleton instance. Once an instance has been created, it is accessible to each of that container's children, but not to it's parent or sibling.<br>
+<br>
+This allows you to register some global service instances&nbsp;(say, authorization) at the parent item which are available to all of the children, but views and controllers can live seperately between seperate child containers.<br>
+<br>
+For example:<br>
+<br>
+<blockquote dir="ltr" style="margin-right:0px">
+<hr>
+<pre>using (IUnityContainer container = new UnityContainer())
+{
+	IFoo childFoo;
+	IFoo parentFoo;
+
+	container.RegisterType&lt;IFoo, Foo&gt;(new ContainerControlledLifetimeManager());
+
+	using (IUnityContainer childContainer =
+		container.CreateChildContainer())
+	{
+		childFoo = childContainer.Resolve&lt;IFoo&gt;();
+	}
+
+	parentFoo = container.Resolve&lt;IFoo&gt;();
+
+	Assert.AreNotSame(parentFoo, childFoo);
+}</pre>
+<hr>
+</blockquote>
+While this may not seem useful (or logical), the real goal is:<br>
+<br>
+<blockquote>
+<hr>
+<pre>using (IUnityContainer container = new UnityContainer())
+{
+	IFoo childFoo1, childFoo2;
+
+	container.RegisterInstance&lt;IFoo, Foo&gt;(new ContainerControlledLifetimeManager());
+
+	using (IUnityContainer childContainer1 =
+		container.CreateChildContainer())
+	{
+		childFoo1 = childContainer1.Resolve&lt;IFoo&gt;();
+	}
+
+	using (IUnityContainer childContainer2 =
+		container.CreateChildContainer())
+	{
+		childFoo2 = childContainer2.Resolve&lt;IFoo&gt;();
+	}
+
+	Assert.AreNotSame(childFoo1, childFoo2);
+}</pre>
+<hr>
+</blockquote>
+More importantly, the ability to also register an instance that would be returned to all child containers:<br>
+<blockquote dir="ltr" style="margin-right:0px">
+<pre><hr><br>using (IUnityContainer container = new UnityContainer())
+{
+	IFoo childFoo;
+	IFoo parentFoo;
+
+	container.RegisterInstance&lt;IFoo&gt;(new Foo());
+
+	using (IUnityContainer childContainer =
+		container.CreateChildContainer())
+	{
+		childFoo = childContainer.Resolve&lt;IFoo&gt;();
+	}
+
+	parentFoo = container.Resolve&lt;IFoo&gt;();
+
+	Assert.AreSame(parentFoo, childFoo);
+}<br><hr></pre>
+</blockquote>
+<p>However, because the lifetime exists at the parent, it always returns the same instance. The only solution I can find today is to have 2 seperate container configurations, one for the parent and one for child containers,&nbsp;and&nbsp;always configure the
+ child containers on creation. While this would work for the first level of children, it would break the ability of the 2nd level of children (the top container's grandchildren) to inherit instances from it's parent. I thought that I might be able to create
+ a new lifetime manager, however I can't see how the current container that is resolving would be accessible from the lifetime manager (especially during GetValue() and SetValue(object) calls).</p>
+<p>Perhaps I'm missing a concept?</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_102197" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="102205">
+    <td id="PostDetailsCell_102205" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post102205"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/2/2008 5:38:27 PM" LocalTimeTicks="1215045507">Jul 2, 2008 at 5:38 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_102205" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="No,&#32;you&#39;ve&#32;pretty&#32;much&#32;got&#32;it.&#32;This&#32;is&#32;not&#32;something&#32;that&#39;s&#32;easily&#32;supported.&#32;It&#32;also&#32;feels&#32;a&#32;little&#32;weird&#32;to&#32;me.&#32;The&#32;intended&#32;usage&#32;is&#32;for&#32;you&#32;to&#32;configure&#32;each&#32;child&#32;container&#32;if&#32;you&#32;need&#32;the&#32;child&#32;to&#32;do&#32;something&#32;differently&#32;from&#32;the&#32;parent.&#32;&#32;What&#32;do&#32;you&#32;mean&#32;by&#32;&#38;quot&#59;it&#32;would&#32;break&#32;the&#32;ability&#32;of&#32;the&#32;2nd&#32;level&#32;of&#32;children&#32;&#40;the&#32;top&#32;container&#39;s&#32;grandchildren&#41;&#32;to&#32;inherit&#32;instances&#32;from&#32;it&#39;s&#32;parent&#38;quot&#59;&#63;&#32;The&#32;grandchildren&#32;would,&#32;when&#32;resolving&#32;values,&#32;look&#32;first&#32;in&#32;itself,&#32;then&#32;in&#32;it&#39;s&#32;parent,&#32;and&#32;so&#32;on&#32;up&#32;the&#32;parent&#32;tree&#32;until&#32;it&#32;finds&#32;a&#32;lifetime&#32;manager&#32;or&#32;ends&#32;up&#32;building&#32;the&#32;object&#32;itself.&#32;I&#32;think&#32;I&#39;m&#32;misunderstanding&#32;what&#32;you&#32;mean,&#32;could&#32;you&#32;give&#32;me&#32;more&#32;details&#63;&#32;&#32;">
+        No, you've pretty much got it. This is not something that's easily supported. It also feels a little weird to me. The intended usage is for you to configure each child container if you need the child to do something differently from the parent.<br>
+<br>
+What do you mean by &quot;it would break the ability of the 2nd level of children (the top container's grandchildren) to inherit instances from it's parent&quot;? The grandchildren would, when resolving values, look first in itself, then in it's parent, and
+ so on up the parent tree until it finds a lifetime manager or ends up building the object itself. I think I'm misunderstanding what you mean, could you give me more details?<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_102205" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="102207">
+    <td id="PostDetailsCell_102207" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post102207"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/digitalbanzai">digitalbanzai</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/2/2008 5:48:58 PM" LocalTimeTicks="1215046138">Jul 2, 2008 at 5:48 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="7/2/2008 5:49:38 PM" LocalTimeTicks="1215046178">Jul 2, 2008 at 5:49 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_102207" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;&#32;ctavares&#32;wrote&#58;&#32;&#32;What&#32;do&#32;you&#32;mean&#32;by&#32;&#38;quot&#59;it&#32;would&#32;break&#32;the&#32;ability&#32;of&#32;the&#32;2nd&#32;level&#32;of&#32;children&#32;&#40;the&#32;top&#32;container&#39;s&#32;grandchildren&#41;&#32;to&#32;inherit&#32;instances&#32;from&#32;it&#39;s&#32;parent&#38;quot&#59;&#63;&#32;The&#32;grandchildren&#32;would,&#32;when&#32;resolving&#32;values,&#32;look&#32;first&#32;in&#32;itself,&#32;then&#32;in&#32;it&#39;s&#32;parent,&#32;and&#32;so&#32;on&#32;up&#32;the&#32;parent&#32;tree&#32;until&#32;it&#32;finds&#32;a&#32;lifetime&#32;manager&#32;or&#32;ends&#32;up&#32;building&#32;the&#32;object&#32;itself.&#32;I&#32;think&#32;I&#39;m&#32;misunderstanding&#32;what&#32;you&#32;mean,&#32;could&#32;you&#32;give&#32;me&#32;more&#32;details&#63;&#32;&#32;&#32;&#32;&#32;&#32;Sorry...this&#32;was&#32;in&#32;reference&#32;to&#32;the&#32;existing&#32;Unity&#32;container.&#32;If&#32;I&#32;reconfigure&#32;every&#32;child&#32;container&#32;&#40;UnityContainer&#41;,&#32;it&#32;will&#32;create&#38;nbsp&#59;a&#32;new&#32;lifetime&#32;at&#32;that&#32;container&#32;level&#32;so&#32;it&#32;wouldn&#39;t&#32;look&#32;at&#32;it&#39;s&#32;parent.&#32;&#32;I&#39;m&#32;wondering&#32;if&#32;maybe&#32;there&#39;s&#32;another&#32;approach.&#32;The&#32;SCSF&#32;combined&#32;the&#38;nbsp&#59;Unit&#32;of&#32;Work&#38;nbsp&#59;and&#32;DI&#32;concepts&#32;together&#32;into&#32;the&#32;Work&#32;Item.&#32;Maybe&#32;that&#39;s&#32;the&#32;problem&#63;&#32;I&#39;m&#32;trying&#32;to&#32;get&#32;the&#32;MVP&#32;pattern&#32;implemented&#32;in&#32;a&#32;Windows&#32;Application,&#32;but&#32;I&#32;didn&#39;t&#32;want&#32;to&#32;have&#32;to&#32;make&#32;the&#32;application&#32;itself&#32;responsible&#32;for&#32;creating&#32;the&#32;DI&#32;containers.&#32;I&#32;was&#32;hoping&#32;to&#32;abstract&#32;the&#32;DI&#32;mechanism&#32;from&#32;the&#32;application&#32;itself.&#32;So,&#32;instead&#32;of&#58;&#32;&#32;protected&#32;void&#32;Button_Click&#40;object&#32;sender,&#32;EventArgs&#32;e&#41;&#32;&#123;&#32;using&#32;&#40;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#41;&#32;&#123;&#32;SomeController&#32;controller&#32;&#61;&#32;container.Resolve&#38;lt&#59;SomeController&#38;gt&#59;&#40;&#41;&#59;&#32;controller.Execute&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;It&#32;might&#32;just&#32;be&#58;&#32;&#32;protected&#32;void&#32;Button_Click&#40;object&#32;sender,&#32;EventArgs&#32;e&#41;&#32;&#123;&#32;using&#32;&#40;SomeWorkItem&#32;childWorkItem&#32;&#61;&#32;workItem.Get&#38;lt&#59;SomeWorkItem&#38;gt&#59;&#40;&#41;&#41;&#32;&#123;&#32;childWorkItem.Execute&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;Maybe&#32;there&#39;s&#32;a&#32;better&#32;or&#32;more&#32;straightforward&#32;approach&#63;&#32;&#32;&#32;-Adam&#32;">
+        <br>
+<div style="border-right:medium none; padding-right:0.2em; border-top:#aaa 0.1em dotted; padding-left:0.2em; padding-bottom:0.2em; margin:1em 0em 2.5em 3em; border-left:medium none; padding-top:0.2em; border-bottom:#aaa 0.1em dotted; font-style:italic">
+<br>
+ctavares wrote:<br>
+<br>
+What do you mean by &quot;it would break the ability of the 2nd level of children (the top container's grandchildren) to inherit instances from it's parent&quot;? The grandchildren would, when resolving values, look first in itself, then in it's parent, and
+ so on up the parent tree until it finds a lifetime manager or ends up building the object itself. I think I'm misunderstanding what you mean, could you give me more details?<br>
+<br>
+<br>
+<br>
+</div>
+<br>
+Sorry...this was in reference to the existing Unity container. If I reconfigure every child container (UnityContainer), it will create&nbsp;a new lifetime at that container level so it wouldn't look at it's parent.<br>
+<br>
+I'm wondering if maybe there's another approach. The SCSF combined the&nbsp;Unit of Work&nbsp;and DI concepts together into the Work Item. Maybe that's the problem? I'm trying to get the MVP pattern implemented in a Windows Application, but I didn't want to
+ have to make the application itself responsible for creating the DI containers. I was hoping to abstract the DI mechanism from the application itself. So, instead of:<br>
+<blockquote dir="ltr" style="margin-right:0px">
+<pre><hr>protected void Button_Click(object sender, EventArgs e)
+{
+	using (IUnityContainer container = new UnityContainer())
+	{
+		SomeController controller = 
+			container.Resolve&lt;SomeController&gt;();
+	
+		controller.Execute();
+	}
+}<hr></pre>
+</blockquote>
+It might just be:<br>
+<blockquote dir="ltr" style="margin-right:0px">
+<pre><hr>protected void Button_Click(object sender, EventArgs e)
+{
+	using (SomeWorkItem childWorkItem = workItem.Get&lt;SomeWorkItem&gt;())
+	{
+		childWorkItem.Execute();
+	}
+}<hr></pre>
+</blockquote>
+Maybe there's a better or more straightforward approach? <br>
+<br>
+-Adam 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_102207" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="102209">
+    <td id="PostDetailsCell_102209" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post102209"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/2/2008 5:55:31 PM" LocalTimeTicks="1215046531">Jul 2, 2008 at 5:55 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_102209" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="The&#32;most&#32;straightforward&#32;approach&#32;would&#32;be&#58;&#32;&#32;class&#32;MyWindow&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;SomeController&#32;controller&#59;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;public&#32;MyWindow&#40;SomeController&#32;controller&#41;&#32;&#123;&#32;this.controller&#32;&#61;&#32;controller&#59;&#32;&#125;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;protected&#32;void&#32;Button_Click&#40;object&#32;sender,&#32;EventArgs&#32;e&#41;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#123;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;controller.Execute&#40;&#41;&#59;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#125;&#32;&#125;&#32;&#32;Then&#32;use&#32;the&#32;container&#32;when&#32;creating&#32;the&#32;window&#32;object,&#32;and&#32;the&#32;controller&#32;gets&#32;injected&#32;like&#32;any&#32;other&#32;dependency.&#32;&#32;Have&#32;you&#32;looked&#32;at&#32;the&#32;Prism&#32;&#40;now&#32;CAPG&#32;or&#32;something&#32;hideous&#32;like&#32;that&#41;&#32;project&#63;&#32;They&#39;ve&#32;released&#32;their&#32;code&#32;to&#32;codeplex.&#32;It&#39;s&#32;composite&#32;app&#32;guidance&#32;for&#32;WPF,&#32;and&#32;they&#32;took&#32;a&#32;very&#32;different,&#32;and&#32;much&#32;simpler,&#32;approach&#32;than&#32;CAB&#32;did&#32;for&#32;winforms.&#32;Even&#32;if&#32;you&#32;aren&#39;t&#32;interested&#32;in&#32;WPF,&#32;I&#32;think&#32;the&#32;approach&#32;they&#32;used&#32;is&#32;valuable&#32;for&#32;Winforms&#32;as&#32;well.&#32;They&#32;lean&#32;on&#32;a&#32;DI&#32;container&#32;very&#32;heavily.&#32;&#32;">
+        The most straightforward approach would be:<br>
+<br>
+class MyWindow<br>
+{<br>
+&nbsp;&nbsp;&nbsp; SomeController controller;<br>
+<br>
+&nbsp;&nbsp;&nbsp; public MyWindow(SomeController controller) { this.controller = controller; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; protected void Button_Click(object sender, EventArgs e)<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; controller.Execute();<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+<br>
+Then use the container when creating the window object, and the controller gets injected like any other dependency.<br>
+<br>
+Have you looked at the <a href="http://www.codeplex.com/CompositeWPF" rel="nofollow">Prism (now CAPG or something hideous like that) project</a>? They've released their code to codeplex. It's composite app guidance for WPF, and they took a very different, and much simpler,
+ approach than CAB did for winforms. Even if you aren't interested in WPF, I think the approach they used is valuable for Winforms as well. They lean on a DI container very heavily.<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_102209" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="102216">
+    <td id="PostDetailsCell_102216" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post102216"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/digitalbanzai">digitalbanzai</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="7/2/2008 6:21:21 PM" LocalTimeTicks="1215048081">Jul 2, 2008 at 6:21 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="7/2/2008 6:22:57 PM" LocalTimeTicks="1215048177">Jul 2, 2008 at 6:22 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_102216" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Sorry,&#32;my&#32;example&#32;was&#32;probably&#32;a&#32;poor&#32;choice.&#32;I&#39;m&#32;really&#32;more&#32;confused&#32;with&#32;trying&#32;to&#32;create&#32;child&#32;work&#32;items,&#32;such&#32;as&#58;&#32;&#32;&#32;&#32;View&#32;public&#32;event&#32;EventHandler&#32;CreateNewRecord&#59;&#32;protected&#32;void&#32;mnuCreateNewRecord_Click&#40;object&#32;sender,&#32;EventArgs&#32;e&#41;&#32;&#123;&#32;if&#32;&#40;CreateNewRecord&#32;&#33;&#61;&#32;null&#41;&#32;CreateNewRecord&#40;this,&#32;EventArgs.Empty&#41;&#59;&#32;&#125;&#32;&#32;&#32;&#32;Controller&#32;protected&#32;void&#32;View_CreateNewRecord&#40;object&#32;sender,&#32;EventArgs&#32;e&#41;&#32;&#123;&#32;using&#32;&#40;CreateRecordWorkItem&#32;childWorkItem&#32;&#61;&#32;workItem.Get&#38;lt&#59;CreateRecordWorkItem&#38;gt&#59;&#40;&#41;&#41;&#32;&#123;&#32;childWorkItem.Execute&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;I&#32;am&#32;aiming&#32;for&#32;a&#32;Passive&#32;View,&#32;so&#32;I&#32;had&#32;hoped&#32;to&#32;make&#32;the&#32;controller&#32;responsible&#32;for&#32;execution&#32;vs.&#32;relying&#32;on&#32;the&#32;view.&#32;&#32;&#32;I&#39;ll&#32;investigate&#32;Prism&#32;this&#32;afternoon&#32;and&#32;see&#32;if&#32;it&#32;can&#32;offer&#32;some&#32;ideas.&#32;">
+        Sorry, my example was probably a poor choice. I'm really more confused with trying to create child work items, such as:<br>
+<br>
+<blockquote>
+<hr>
+View<br>
+<pre>public event EventHandler CreateNewRecord;
+
+protected void mnuCreateNewRecord_Click(object sender, EventArgs e)
+{
+	if (CreateNewRecord != null)
+		CreateNewRecord(this, EventArgs.Empty);
+}</pre>
+<hr>
+<br>
+<hr>
+Controller
+<pre>protected void View_CreateNewRecord(object sender, EventArgs e)
+{
+	using (CreateRecordWorkItem childWorkItem =
+		workItem.Get&lt;CreateRecordWorkItem&gt;())
+	{
+		childWorkItem.Execute();
+	}
+}
+</pre>
+<hr>
+</blockquote>
+I am aiming for a Passive View, so I had hoped to make the controller responsible for execution vs. relying on the view.
+<br>
+<br>
+I'll investigate Prism this afternoon and see if it can offer some ideas. 
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_102216" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f30715">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="abecf342-3431-4074-b065-cce06b9e70da">
+    <script class="options" defer="defer" id="abecf342-3431-4074-b065-cce06b9e70da" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_52ff83c9-7b63-4589-8f41-07e50f477634">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_3e5938f7-a0b3-4cdf-a044-2444516a955f">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_52ff83c9-7b63-4589-8f41-07e50f477634" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_3e5938f7-a0b3-4cdf-a044-2444516a955f" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/30715';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

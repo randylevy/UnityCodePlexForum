@@ -1,0 +1,2159 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Unity Injection question passing information to multiple layers</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/250763?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/250763?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="vxXbs2ywi_yPxs4hgJ1y3V95QkuM8noW9D0FfsH8-IKhpkMwHy1H1WtwKyDsyhy-krDcUq2CJIA-nNryiHDa3TU_qmORXeeHErCelrX9xia1DbzfC_PzEY5nZ327bs0dVmucNg2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken297ec475f-52b6-4602-930a-652d1b5f3ac7" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:26:46 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f250763" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="b2a0f3ef-e0d9-489c-b9ad-d715c895255f">
+                
+                    <script class="options" defer="defer" id="b2a0f3ef-e0d9-489c-b9ad-d715c895255f" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="41143ecd-c05f-4bb1-b392-9317be731217">
+                
+                    <script class="options" defer="defer" id="41143ecd-c05f-4bb1-b392-9317be731217" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Unity Injection question passing information to multiple layers
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:250763]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="80b3750f-6637-47e7-b2e9-74cb7dfda432">
+    <script class="options" defer="defer" id="80b3750f-6637-47e7-b2e9-74cb7dfda432" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/250763","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="584668">
+    <td id="PostDetailsCell_584668" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post584668"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/22/2011 11:00:43 PM" LocalTimeTicks="1300860043">Mar 22, 2011 at 11:00 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_584668" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;I&#39;m&#32;trying&#32;to&#32;used&#32;Unity&#32;to&#32;do&#32;some&#32;dependency&#32;injection&#32;with&#32;some&#32;cross-cutting&#32;classes.&#32;&#38;nbsp&#59;Right&#32;now&#32;I&#32;have&#32;some&#32;caching&#32;infrastructure&#32;that&#32;I&#39;ve&#32;wrapped&#32;around&#32;the&#32;MS&#32;enterprise&#32;library.&#32;&#38;nbsp&#59;I&#39;m&#32;wrapping&#32;it&#32;because&#32;I&#32;may&#32;want&#32;to&#32;use&#32;something&#32;else&#32;later.&#32;&#38;nbsp&#59;Furthermore,&#32;I&#32;may&#32;want&#32;to&#32;mix&#32;and&#32;match&#32;for&#32;different&#32;cache&#32;stores.&#32;So&#32;I&#32;have&#32;a&#32;generic&#32;caching&#32;interface&#32;and&#32;a&#32;concrete&#32;implementation&#32;as&#32;follows&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#32;&#32;public&#32;interface&#32;ICacheProvider&#32;&#123;&#32;void&#32;Add&#40;object&#32;key,&#32;object&#32;value&#41;&#59;&#32;void&#32;Remove&#40;object&#32;key&#41;&#59;&#32;object&#32;GetData&#40;object&#32;key&#41;&#59;&#32;void&#32;Flush&#40;&#41;&#59;&#32;&#125;&#32;public&#32;class&#32;MyCacheProvider&#32;&#58;&#32;ICacheProvider&#32;&#123;&#32;private&#32;ICacheManager&#32;cacheManager&#59;&#32;public&#32;MyProvider&#40;ICacheManager&#32;manager&#41;&#32;&#123;&#32;cacheManager&#32;&#61;&#32;manager&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;&#32;The&#32;ICacheManager&#32;is&#32;of&#32;the&#32;type&#32;in&#32;the&#32;enterprise&#32;library.&#32;&#38;nbsp&#59;What&#32;I&#39;m&#32;trying&#32;to&#32;do&#32;is&#32;use&#32;unity&#32;to&#32;resolve&#32;the&#32;cache&#32;manager&#32;at&#32;runtime.&#32;&#38;nbsp&#59;Furthermore,&#32;this&#32;could&#32;be&#32;different&#32;for&#32;different&#32;cacheStores.&#32;&#38;nbsp&#59;Right&#32;now,&#32;they&#32;all&#32;resolve&#32;to&#32;the&#32;type&#32;I&#39;ve&#32;displayed.&#32;&#38;nbsp&#59;Here&#39;s&#32;my&#32;unity&#32;config.&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#32;&#38;lt&#59;unity&#38;gt&#59;&#32;&#38;lt&#59;typeAliases&#38;gt&#59;&#32;&#38;lt&#59;typeAlias&#32;alias&#61;&#38;quot&#59;string&#38;quot&#59;&#32;type&#61;&#38;quot&#59;System.String,&#32;mscorlib&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;typeAlias&#32;alias&#61;&#38;quot&#59;ICacheProvider&#38;quot&#59;&#32;type&#61;&#38;quot&#59;DomainBase.Caching.ICacheProvider,&#32;DomainBase&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;typeAlias&#32;alias&#61;&#38;quot&#59;MSCacheProvider&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Caching.MyCacheProvider,&#32;Caching&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;typeAliases&#38;gt&#59;&#32;&#38;lt&#59;containers&#38;gt&#59;&#32;&#38;lt&#59;container&#38;gt&#59;&#32;&#38;lt&#59;types&#38;gt&#59;&#32;&#38;lt&#59;register&#32;type&#61;&#38;quot&#59;ICacheProvider&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;MSCacheProvider&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;types&#38;gt&#59;&#32;&#38;lt&#59;&#47;container&#38;gt&#59;&#32;&#38;lt&#59;&#47;containers&#38;gt&#59;&#32;&#32;&#32;&#32;&#32;Here&#39;s&#32;how&#32;I&#32;setup&#32;my&#32;unity&#32;container&#58;&#32;&#32;&#32;private&#32;IUnityContainer&#32;rootContainer&#59;&#32;rootContainer&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;.LoadConfiguration&#40;&#41;&#59;&#32;var&#32;configurator&#32;&#61;&#32;new&#32;UnityContainerConfigurator&#40;rootContainer&#41;&#59;&#32;EnterpriseLibraryContainer.ConfigureContainer&#40;configurator,&#32;ConfigurationSourceFactory.Create&#40;&#41;&#41;&#59;&#32;&#32;&#32;&#38;nbsp&#59;&#38;nbsp&#59;&#32;&#32;This&#32;allows&#32;the&#32;enterprise&#32;library&#32;to&#32;automatically&#32;pick&#32;up&#32;information&#32;from&#32;the&#32;config&#32;and&#32;resolve&#32;based&#32;on&#32;what&#39;s&#32;there.&#32;&#38;nbsp&#59;The&#32;problem&#32;is&#32;that&#32;when&#32;I&#32;go&#32;two&#32;levels&#32;deep&#32;&#40;ie&#32;-&#32;I&#39;m&#32;not&#32;resolving&#32;directly&#32;to&#32;enterprise&#32;library&#32;interface&#41;,&#32;the&#32;resolution&#32;fails&#32;because&#32;I&#32;don&#39;t&#32;have&#32;a&#32;named&#32;resolution.&#32;&#38;nbsp&#59;Named&#32;resolution&#32;isn&#39;t&#32;needed&#32;given&#32;the&#32;enterprise&#32;library&#32;extensions&#32;since&#32;the&#32;provided&#32;extensions&#32;register&#32;the&#32;proper&#32;resolution&#32;as&#32;if&#32;it&#32;were&#32;named.&#32;&#38;nbsp&#59;Though,&#32;I&#32;gather&#32;Unity&#32;cannot&#32;make&#32;that&#32;magic&#32;leap&#32;on&#32;it&#39;s&#32;own&#32;from&#32;mapping&#32;my&#32;interface&#32;to&#32;the&#32;enterprise&#32;library.&#32;&#38;nbsp&#59;Here&#39;s&#32;some&#32;sample&#32;code&#32;&#32;&#32;&#47;&#47;note&#32;that&#39;s&#32;ICacheProvider&#32;which&#32;my&#32;interface&#32;for&#32;abstracting&#32;caching.&#32;NOT&#32;&#47;&#47;the&#32;enterprise&#32;library&#32;interface&#32;ICacheProvider&#32;customersCache&#32;&#61;&#32;rootContainer.Resolve&#38;lt&#59;ICacheProvider&#38;gt&#59;&#40;&#41;&#59;&#32;&#47;&#47;works&#32;ICacheProvider&#32;productsCache&#32;&#61;&#32;rootContainer.Resolve&#38;lt&#59;ICacheProvider&#38;gt&#59;&#40;&#38;quot&#59;products&#38;quot&#59;&#41;&#59;&#32;&#47;&#47;doesn&#39;t&#32;work&#32;&#32;&#32;&#32;The&#32;first&#32;sample&#32;works&#32;because&#32;there&#39;s&#32;default&#32;resolution,&#32;however&#32;the&#32;second&#32;sample&#32;fails&#32;because&#32;I&#32;don&#39;t&#32;have&#32;a&#32;named&#32;resolution&#32;for&#32;&#38;quot&#59;products&#38;quot&#59;.&#32;&#38;nbsp&#59;Is&#32;there&#32;a&#32;good&#32;way&#32;to&#32;deal&#32;with&#32;this&#32;situation&#63;&#32;&#38;nbsp&#59;I&#32;don&#39;t&#32;want&#32;to&#32;have&#32;to&#32;have&#32;named&#32;resolution&#32;for&#32;every&#32;different&#32;cache&#32;store&#32;I&#32;add&#32;to&#32;the&#32;system&#32;as&#32;they&#39;re&#32;already&#32;defined&#32;in&#32;the&#32;caching&#32;config.&#32;&#38;nbsp&#59;I&#32;would&#32;try&#32;a&#32;different&#32;type&#32;of&#32;injection,&#32;but&#32;you&#32;pretty&#32;much&#32;have&#32;to&#32;use&#32;constructor&#32;injection&#32;in&#32;this&#32;scenario.&#32;Also,&#32;I&#32;have&#32;tried&#32;explicitly&#32;defining&#32;named&#32;registration&#32;and&#32;I&#32;still&#32;get&#32;the&#32;same&#32;CacheManager&#32;instance&#32;back&#32;even&#32;though&#32;two&#32;seperate&#32;ones&#32;are&#32;defined.&#32;&#38;nbsp&#59;I&#32;suppose&#32;once&#32;the&#32;initial&#32;resolution&#32;is&#32;done,&#32;it&#32;looks&#32;at&#32;the&#32;constructor&#32;and&#32;has&#32;no&#32;&#38;quot&#59;name&#38;quot&#59;&#32;left&#32;and&#32;just&#32;injects&#32;based&#32;on&#32;the&#32;default&#63;&#32;Thanks&#32;for&#32;your&#32;help&#32;&#32;&#32;&#32;">
+        
+<p>I'm trying to used Unity to do some dependency injection with some cross-cutting classes. &nbsp;Right now I have some caching infrastructure that I've wrapped around the MS enterprise library. &nbsp;I'm wrapping it because I may want to use something else
+ later. &nbsp;Furthermore, I may want to mix and match for different cache stores.<br>
+So I have a generic caching interface and a concrete implementation as follows<br>
+&nbsp;&nbsp;&nbsp; </p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">public</span> <span style="color:blue">interface</span> ICacheProvider
+{
+    <span style="color:blue">void</span> Add(<span style="color:blue">object</span> key, <span style="color:blue">object</span> value);
+
+    <span style="color:blue">void</span> Remove(<span style="color:blue">object</span> key);
+
+    <span style="color:blue">object</span> GetData(<span style="color:blue">object</span> key);
+
+    <span style="color:blue">void</span> Flush();
+}
+
+<span style="color:blue">public</span> <span style="color:blue">class</span> MyCacheProvider : ICacheProvider
+{
+    <span style="color:blue">private</span> ICacheManager cacheManager;
+
+    <span style="color:blue">public</span> MyProvider(ICacheManager manager)
+    {
+        cacheManager = manager;
+    }
+}
+</pre>
+</div>
+<br>
+The ICacheManager is of the type in the enterprise library. &nbsp;What I'm trying to do is use unity to resolve the cache manager at runtime. &nbsp;Furthermore, this could be different for different cacheStores. &nbsp;Right now, they all resolve to the type
+ I've displayed. &nbsp;Here's my unity config.<br>
+&nbsp;&nbsp;&nbsp;
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">&lt;</span><span style="color:#a31515">unity</span><span style="color:blue">&gt;</span>
+<span style="color:blue">&lt;</span><span style="color:#a31515">typeAliases</span><span style="color:blue">&gt;</span>
+  <span style="color:blue">&lt;</span><span style="color:#a31515">typeAlias</span> <span style="color:red">alias</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">string</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">System.String, mscorlib</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+  <span style="color:blue">&lt;</span><span style="color:#a31515">typeAlias</span> <span style="color:red">alias</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ICacheProvider</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">DomainBase.Caching.ICacheProvider, DomainBase</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+  <span style="color:blue">&lt;</span><span style="color:#a31515">typeAlias</span> <span style="color:red">alias</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">MSCacheProvider</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Caching.MyCacheProvider, Caching</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+<span style="color:blue">&lt;/</span><span style="color:#a31515">typeAliases</span><span style="color:blue">&gt;</span>
+<span style="color:blue">&lt;</span><span style="color:#a31515">containers</span><span style="color:blue">&gt;</span>
+  <span style="color:blue">&lt;</span><span style="color:#a31515">container</span><span style="color:blue">&gt;</span>
+    <span style="color:blue">&lt;</span><span style="color:#a31515">types</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ICacheProvider</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">MSCacheProvider</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+    <span style="color:blue">&lt;/</span><span style="color:#a31515">types</span><span style="color:blue">&gt;</span>
+  <span style="color:blue">&lt;/</span><span style="color:#a31515">container</span><span style="color:blue">&gt;</span>
+<span style="color:blue">&lt;/</span><span style="color:#a31515">containers</span><span style="color:blue">&gt;</span>
+</pre>
+</div>
+<p></p>
+<p><br>
+Here's how I setup my unity container:<br>
+</p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">private</span> IUnityContainer rootContainer;
+
+ rootContainer = <span style="color:blue">new</span> UnityContainer().LoadConfiguration();
+ <span style="color:blue">var</span> configurator = <span style="color:blue">new</span> UnityContainerConfigurator(rootContainer);
+ EnterpriseLibraryContainer.ConfigureContainer(configurator, ConfigurationSourceFactory.Create());
+</pre>
+</div>
+&nbsp;&nbsp;
+<p></p>
+<p>This allows the enterprise library to automatically pick up information from the config and resolve based on what's there. &nbsp;The problem is that when I go two levels deep (ie - I'm not resolving directly to enterprise library interface), the resolution
+ fails because I don't have a named resolution. &nbsp;Named resolution isn't needed given the enterprise library extensions since the provided extensions register the proper resolution as if it were named. &nbsp;Though, I gather Unity cannot make that magic
+ leap on it's own from mapping my interface to the enterprise library. &nbsp;Here's some sample code</p>
+<p></p>
+<div style="color:black; background-color:white">
+<pre><span style="color:green">//note that's ICacheProvider which my interface for abstracting caching.  NOT</span>
+<span style="color:green">//the enterprise library interface</span>
+ICacheProvider customersCache = rootContainer.Resolve&lt;ICacheProvider&gt;(); <span style="color:green">//works</span>
+ICacheProvider productsCache = rootContainer.Resolve&lt;ICacheProvider&gt;(<span style="color:#a31515">&quot;products&quot;</span>); <span style="color:green">//doesn't work</span>
+</pre>
+</div>
+<p></p>
+<p>The first sample works because there's default resolution, however the second sample fails because I don't have a named resolution for &quot;products&quot;. &nbsp;Is there a good way to deal with this situation? &nbsp;I don't want to have to have named resolution
+ for every different cache store I add to the system as they're already defined in the caching config. &nbsp;I would try a different type of injection, but you pretty much have to use constructor injection in this scenario.</p>
+<p>Also, I have tried explicitly defining named registration and I still get the same CacheManager instance back even though two seperate ones are defined. &nbsp;I suppose once the initial resolution is done, it looks at the constructor and has no &quot;name&quot;
+ left and just injects based on the default?</p>
+<p>Thanks for your help<br>
+<br>
+<br>
+</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_584668" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="584723">
+    <td id="PostDetailsCell_584723" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post584723"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/23/2011 2:26:27 AM" LocalTimeTicks="1300872387">Mar 23, 2011 at 2:26 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_584723" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="To&#32;check&#32;that&#32;I&#32;understand&#32;your&#32;requirement,&#32;you&#32;want&#32;to&#32;be&#32;able&#32;to&#32;resolve&#32;instances&#32;of&#32;ICacheProvider&#32;with&#32;different&#32;instance&#32;of&#32;ICacheManager&#32;passed&#32;to&#32;its&#32;constructor&#32;based&#32;on&#32;the&#32;name&#32;of&#32;the&#32;cache&#32;manager&#32;as&#32;defined&#32;in&#32;the&#32;config&#32;without&#32;defining&#32;a&#32;constructor&#32;injection&#32;for&#32;the&#32;registration&#32;of&#32;ICacheProvider,&#32;am&#32;I&#38;nbsp&#59;right&#63;&#38;nbsp&#59;&#32;In&#32;your&#32;code&#32;sample&#32;which&#32;doesn&#39;t&#32;work,&#32;you&#32;have&#32;a&#32;cache&#32;manager&#32;named&#32;&#34;products&#34;&#32;so&#32;you&#32;want&#32;to&#32;be&#32;able&#32;to&#32;resolve&#32;an&#32;ICacheProvider&#32;passing&#32;the&#32;cache&#32;manager&#32;named&#32;products,&#32;correct&#63;&#38;nbsp&#59;&#32;If&#32;this&#32;is&#32;the&#32;case,&#32;you&#32;can&#32;make&#32;use&#32;of&#32;a&#32;ParameterOverride&#58;&#32;&#32;ICacheProvider&#32;productsCache&#32;&#61;&#32;rootContainer.Resolve&#38;lt&#59;ICacheProvider&#38;gt&#59;&#40;new&#32;ParameterOverride&#40;&#34;manager&#34;,&#32;&#32;new&#32;ResolvedParameter&#40;typeof&#40;ICacheManager&#41;,&#32;&#34;products&#34;&#41;&#41;&#41;&#59;&#32;&#32;&#32;This&#32;tells&#32;the&#32;container&#32;to&#32;give&#32;you&#32;an&#32;instance&#32;of&#32;ICacheProvider&#32;based&#32;on&#32;the&#32;default&#32;registration&#32;but&#32;overriding&#32;the&#32;value&#32;of&#32;the&#32;manager&#32;parameter&#32;with&#32;the&#32;&#34;products&#34;&#32;cache&#32;manager.&#38;nbsp&#59;&#38;nbsp&#59;&#32;Does&#32;this&#32;answers&#32;your&#32;concern&#32;or&#32;am&#32;I&#32;missing&#32;something&#63;&#32;In&#32;addition,&#32;in&#32;your&#32;statement&#32;&#34;Also,&#32;I&#32;have&#32;tried&#32;explicitly&#32;defining&#32;named&#32;registration&#32;and&#32;I&#32;still&#32;get&#32;the&#32;same&#32;CacheManager&#32;instance&#32;back&#32;even&#32;though&#32;two&#32;seperate&#32;ones&#32;are&#32;defined&#34;,&#32;did&#32;you&#32;define&#32;the&#32;constructor&#32;injection&#32;for&#32;that&#32;registration&#32;or&#32;did&#32;you&#32;simply&#32;give&#32;it&#32;a&#32;name&#32;which&#32;differentiates&#32;it&#32;from&#32;the&#32;other&#32;registration&#63;&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>To check that I understand your requirement, you want to be able to resolve instances of ICacheProvider with different instance of ICacheManager passed to its constructor based on the name of the cache manager as defined in the config without defining a
+ constructor injection for the registration of ICacheProvider, am I&nbsp;right?&nbsp; In your code sample which doesn't work, you have a cache manager named &quot;products&quot; so you want to be able to resolve an ICacheProvider passing the cache manager named products,
+ correct?&nbsp; If this is the case, you can make use of a ParameterOverride:</p>
+<div style="color:black; background-color:white">
+<pre>ICacheProvider productsCache = rootContainer.Resolve&lt;ICacheProvider&gt;(<span style="color:blue">new</span> ParameterOverride(<span style="color:#a31515">&quot;manager&quot;</span>, 
+<span style="color:blue">                                                                              new</span> ResolvedParameter(<span style="color:blue">typeof</span>(ICacheManager), <span style="color:#a31515">&quot;products&quot;</span>)));
+</pre>
+</div>
+<p>This tells the container to give you an instance of ICacheProvider based on the default registration but overriding the value of the manager parameter with the &quot;products&quot; cache manager.&nbsp;&nbsp;</p>
+<p>Does this answers your concern or am I missing something?</p>
+<p>In addition, in your statement &quot;<em>Also, I have tried explicitly defining named registration and I still get the same CacheManager instance back even though two seperate ones are defined</em>&quot;, did you define the constructor injection for that registration
+ or did you simply give it a name which differentiates it from the other registration?</p>
+<p>&nbsp;</p>
+<p><em><strong>Sarah Urmeneta</strong></em><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_584723" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="584726">
+    <td id="PostDetailsCell_584726" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post584726"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/23/2011 2:32:10 AM" LocalTimeTicks="1300872730">Mar 23, 2011 at 2:32 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_584726" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="At&#32;first&#32;I&#32;did&#32;not&#32;do&#32;any&#32;constructor&#32;injection.&#32;&#38;nbsp&#59;Then&#32;I&#32;did&#32;with&#32;a&#32;simple&#32;string&#32;and&#32;it&#32;worked.&#32;&#38;nbsp&#59;However,&#32;the&#32;solution&#32;was&#32;kind&#32;of&#32;a&#32;hack.&#32;&#38;nbsp&#59;The&#32;main&#32;problem&#32;with&#32;your&#32;scenario&#32;is&#32;that&#32;I&#32;have&#32;to&#32;call&#32;ICacheManager&#32;out&#32;explicitly.&#32;&#38;nbsp&#59;Can&#32;this&#32;be&#32;done&#32;via&#32;configuration.&#32;&#38;nbsp&#59;Everything&#32;we&#39;re&#32;talking&#32;about&#32;here&#32;is&#32;done&#32;in&#32;an&#32;abstracted&#32;manner&#32;to&#32;hide&#32;ICacheManger&#32;so&#32;if&#32;I&#32;have&#32;to&#32;call&#32;it&#32;out&#32;explicitly&#32;in&#32;code,&#32;it&#32;defeats&#32;the&#32;purpose.">
+        
+<p>At first I did not do any constructor injection. &nbsp;Then I did with a simple string and it worked. &nbsp;However, the solution was kind of a hack. &nbsp;The main problem with your scenario is that I have to call ICacheManager out explicitly. &nbsp;Can
+ this be done via configuration. &nbsp;Everything we're talking about here is done in an abstracted manner to hide ICacheManger so if I have to call it out explicitly in code, it defeats the purpose.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_584726" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="584728">
+    <td id="PostDetailsCell_584728" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post584728"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/23/2011 2:42:10 AM" LocalTimeTicks="1300873330">Mar 23, 2011 at 2:42 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_584728" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Or&#32;maybe&#32;I&#32;could&#32;create&#32;an&#32;extension&#32;that&#32;might&#32;be&#32;able&#32;to&#32;pass&#32;the&#32;original&#32;name&#32;parameter&#63;&#32;&#38;nbsp&#59;It&#32;seems&#32;to&#32;me&#32;that&#32;I&#32;should&#32;be&#32;able&#32;to&#32;wrap&#32;a&#32;class&#32;and&#32;still&#32;inject&#32;it&#32;as&#32;I&#32;did&#32;before,&#32;passing&#32;the&#32;required&#32;information&#32;further&#32;down&#32;the&#32;chain.">
+        
+<p>Or maybe I could create an extension that might be able to pass the original name parameter? &nbsp;It seems to me that I should be able to wrap a class and still inject it as I did before, passing the required information further down the chain.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_584728" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="584756">
+    <td id="PostDetailsCell_584756" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post584756"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/23/2011 4:44:21 AM" LocalTimeTicks="1300880661">Mar 23, 2011 at 4:44 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_584756" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;see&#32;what&#32;you&#32;mean.&#38;nbsp&#59;&#32;But&#32;I&#32;don&#39;t&#32;see&#32;yet&#32;how&#32;the&#32;custom&#32;extension&#32;you&#32;mention&#32;would&#32;work.&#32;It&#32;seems&#32;my&#32;initial&#32;understanding&#32;of&#32;what&#32;you&#32;want&#32;to&#32;do&#32;is&#32;incorrect&#32;since&#32;I&#32;thought&#32;that&#32;you&#32;just&#32;want&#32;to&#32;be&#32;able&#32;to&#32;be&#32;able&#32;to&#32;use&#32;different&#32;instances&#32;of&#32;cache&#32;managers&#32;with&#32;regards&#32;to&#32;your&#32;MyCacheProvider.&#38;nbsp&#59;&#32;If&#32;you&#32;don&#39;t&#32;want&#32;to&#32;use&#32;an&#32;ICacheManager,&#32;you&#39;ll&#32;create&#32;a&#32;new&#32;implementation&#32;of&#32;ICacheProvider,&#32;right&#63;&#32;And&#32;definitely,&#32;you&#32;need&#32;to&#32;create&#32;a&#32;corresponding&#32;type&#32;registration&#32;for&#32;that&#32;specifying&#32;the&#32;other&#32;class&#32;you&#32;want&#32;to&#32;use&#32;instead&#32;of&#32;an&#32;ICacheManager.&#38;nbsp&#59;&#32;So&#32;what&#32;confuses&#32;me&#32;now&#32;is&#32;your&#32;previous&#32;statement&#32;&#34;I&#32;don&#39;t&#32;want&#32;to&#32;have&#32;to&#32;have&#32;named&#32;resolution&#32;for&#32;every&#32;different&#32;cache&#32;store&#32;I&#32;add&#32;to&#32;the&#32;system&#32;as&#32;they&#39;re&#32;already&#32;defined&#32;in&#32;the&#32;caching&#32;config&#34;&#32;as&#32;this&#32;only&#32;pertains&#32;to&#32;ICacheManagers.&#38;nbsp&#59;&#32;Could&#32;you&#32;enlighten&#32;me&#32;on&#32;this&#63;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>I see what you mean.&nbsp; But I don't see yet how the custom extension you mention would work. It seems my initial understanding of what you want to do is incorrect since I thought that you just want to be able to be able to use different instances of cache
+ managers with regards to your MyCacheProvider.&nbsp; If you don't want to use an ICacheManager, you'll create a new implementation of ICacheProvider, right? And definitely, you need to create a corresponding type registration for that specifying the other
+ class you want to use instead of an ICacheManager.&nbsp; So what confuses me now is your previous statement &quot;<em>I don't want to have to have named resolution for every different cache store I add to the system as they're already defined in the caching config</em>&quot;
+ as this only pertains to ICacheManagers.&nbsp; Could you enlighten me on this?</p>
+<p><em><strong>Sarah Urmeneta</strong></em><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_584756" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="584771">
+    <td id="PostDetailsCell_584771" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post584771"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/23/2011 5:19:04 AM" LocalTimeTicks="1300882744">Mar 23, 2011 at 5:19 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_584771" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Think&#32;of&#32;it&#32;this&#32;way.&#32;&#38;nbsp&#59;I&#32;configure&#32;all&#32;my&#32;cache&#32;stores.&#32;&#38;nbsp&#59;In&#32;this&#32;case&#32;I&#39;m&#32;using&#32;the&#32;entlib&#32;caching&#32;block.&#32;&#38;nbsp&#59;Let&#39;s&#32;say&#32;there&#32;are&#32;5.&#32;&#38;nbsp&#59;I&#32;shouldn&#39;t&#32;have&#32;to&#32;create&#32;a&#32;Unity&#32;mapping&#32;for&#32;each&#32;one&#32;of&#32;those&#32;to&#32;map&#32;from&#32;my&#32;wrapped&#32;ICachingProvider&#32;to&#32;ICachingManager.&#32;&#38;nbsp&#59;If&#32;I&#32;wasn&#39;t&#32;wrapping&#32;the&#32;entlib&#32;caching,&#32;I&#32;would&#32;be&#32;able&#32;to&#32;simply&#32;say&#32;unityContainer.Resolve&#38;lt&#59;ICachingMAnager&#38;gt&#59;&#40;&#34;ProductsCache&#34;&#41;&#32;w&#47;o&#32;having&#32;an&#32;explicit&#32;registration&#32;because&#32;of&#32;the&#32;Unity&#32;entlib&#32;extensions.&#32;&#38;nbsp&#59;I&#39;m&#32;trying&#32;to&#32;do&#32;the&#32;same&#32;thing.&#32;&#38;nbsp&#59;Essentially&#32;when&#32;I&#32;call&#32;unityContainer.Resolve&#38;lt&#59;ICachingProvider&#38;gt&#59;&#40;&#34;ProductsCache&#34;&#41;,&#32;all&#32;I&#32;want&#32;to&#32;do&#32;is&#32;pass&#32;&#34;productsCache&#34;&#32;down&#32;one&#32;level&#32;and&#32;use&#32;it&#32;in&#32;resolving&#32;the&#32;second&#32;level.&#32;&#38;nbsp&#59;Right&#32;now&#32;I&#32;resolve&#32;a&#32;ICacheProvider&#32;to&#32;MyCacheProvider&#32;and&#32;then&#32;the&#32;ICacheManager&#32;in&#32;the&#32;constructor&#32;is&#32;resolved&#32;by&#32;Unity&#32;because&#32;of&#32;the&#32;entlib&#32;extensions&#32;&#40;it&#32;examines&#32;the&#32;config&#32;and&#32;adds&#32;the&#32;necessary&#32;resolvers&#32;for&#32;me&#41;.&#32;&#38;nbsp&#59;I&#32;want&#32;to&#32;be&#32;able&#32;to&#32;do&#32;the&#32;exact&#32;same&#32;thing,&#32;just&#32;wrapped&#32;with&#32;my&#32;own&#32;interface&#32;in&#32;case&#32;I&#32;ever&#32;change&#32;caching&#32;providers.&#32;&#38;nbsp&#59;It&#39;s&#32;not&#32;a&#32;crazy&#32;concept&#32;I&#32;don&#39;t&#32;think.&#32;&#38;nbsp&#59;A&#32;custom&#32;extension&#32;couldn&#39;t&#32;manage&#32;passing&#32;that&#32;initial&#32;&#34;ProductsCache&#34;&#32;to&#32;the&#32;next&#32;thing&#32;in&#32;line&#63;&#32;&#38;nbsp&#59;Since&#32;there&#32;could&#32;be&#32;several&#32;different&#32;cache&#32;stores&#32;&#40;products,&#32;customers,&#32;orders...whatever&#41;,&#32;listing&#32;out&#32;each&#32;different&#32;one&#32;with&#32;an&#32;explicit&#32;mapping&#32;is&#32;pretty&#32;cumbersome&#32;and&#32;confusing.&#32;Does&#32;that&#32;make&#32;sense&#63;&#32;&#38;nbsp&#59;I&#32;shouldn&#39;t&#32;have&#32;to&#32;do&#32;double&#32;configuration&#32;is&#32;what&#32;I&#39;m&#32;saying.&#32;&#38;nbsp&#59;Furthermore,&#32;even&#32;if&#32;I&#32;did&#32;double&#32;configuration,&#32;I&#32;don&#39;t&#32;see&#32;how&#32;it&#32;would&#32;work&#32;seeing&#32;as&#32;the&#32;&#34;name&#34;&#32;parameter&#32;used&#32;to&#32;resolve&#32;happens&#32;at&#32;the&#32;top&#32;layer.&#32;&#38;nbsp&#59;Maybe&#32;you&#32;could&#32;explain&#32;how&#32;to&#32;do&#32;this&#32;with&#32;explicit&#32;registration&#32;of&#32;each&#32;separate&#32;cache&#32;store.">
+        
+<p>Think of it this way. &nbsp;I configure all my cache stores. &nbsp;In this case I'm using the entlib caching block. &nbsp;Let's say there are 5. &nbsp;I shouldn't have to create a Unity mapping for each one of those to map from my wrapped ICachingProvider
+ to ICachingManager. &nbsp;If I wasn't wrapping the entlib caching, I would be able to simply say unityContainer.Resolve&lt;ICachingMAnager&gt;(&quot;ProductsCache&quot;) w/o having an explicit registration because of the Unity entlib extensions. &nbsp;I'm trying to
+ do the same thing. &nbsp;Essentially when I call unityContainer.Resolve&lt;ICachingProvider&gt;(&quot;ProductsCache&quot;), all I want to do is pass &quot;productsCache&quot; down one level and use it in resolving the second level. &nbsp;Right now I resolve a ICacheProvider to
+ MyCacheProvider and then the ICacheManager in the constructor is resolved by Unity because of the entlib extensions (it examines the config and adds the necessary resolvers for me). &nbsp;I want to be able to do the exact same thing, just wrapped with my own
+ interface in case I ever change caching providers. &nbsp;It's not a crazy concept I don't think. &nbsp;A custom extension couldn't manage passing that initial &quot;ProductsCache&quot; to the next thing in line? &nbsp;Since there could be several different cache stores
+ (products, customers, orders...whatever), listing out each different one with an explicit mapping is pretty cumbersome and confusing.</p>
+<p>Does that make sense? &nbsp;I shouldn't have to do double configuration is what I'm saying. &nbsp;Furthermore, even if I did double configuration, I don't see how it would work seeing as the &quot;name&quot; parameter used to resolve happens at the top layer. &nbsp;Maybe
+ you could explain how to do this with explicit registration of each separate cache store.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_584771" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="584780">
+    <td id="PostDetailsCell_584780" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post584780"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/23/2011 5:51:28 AM" LocalTimeTicks="1300884688">Mar 23, 2011 at 5:51 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_584780" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Furthermore,&#32;I&#32;would&#32;want&#32;to&#32;do&#32;the&#32;same&#32;thing&#32;for&#32;many&#32;of&#32;the&#32;blocks.&#32;&#38;nbsp&#59;I&#32;could&#32;change&#32;my&#32;underlying&#32;services&#32;to&#32;use&#32;different&#32;components&#32;instead&#32;of&#32;the&#32;entlib&#32;so&#32;I&#32;should&#32;be&#32;able&#32;to&#32;make&#32;a&#32;second&#32;hop.&#32;&#38;nbsp&#59;The&#32;main&#32;problem&#32;is&#32;that&#32;now&#32;the&#32;entlib&#32;documentation&#32;say&#32;I&#32;should&#32;be&#32;using&#32;unity&#32;containers&#32;to&#32;instantiate&#32;the&#32;entlib&#32;objects.&#32;&#38;nbsp&#59;So,&#32;I&#39;m&#32;using&#32;unity&#32;to&#32;resolve&#32;my&#32;Ilogger&#32;or&#32;ICacheProvider&#32;interface&#32;and&#32;THEN&#32;I&#32;have&#32;to&#32;use&#32;unity&#32;again&#32;to&#32;resolve&#32;the&#32;actual&#32;entlib&#32;type&#32;because&#32;it&#32;could&#32;be&#32;different&#32;based&#32;on&#32;configuration.&#32;&#38;nbsp&#59;It&#39;s&#32;just&#32;easier&#32;to&#32;do&#32;something&#32;like&#32;CacheFActory.GetCacheManager&#40;&#34;&#34;&#41;&#32;then&#32;having&#32;to&#32;inject&#32;it,&#32;the&#32;docs&#32;make&#32;it&#32;sound&#32;like&#32;the&#32;old&#32;factory&#32;methods&#32;are&#32;going&#32;away.&#32;&#38;nbsp&#59;This&#32;creates&#32;a&#32;terribly&#32;complicated&#32;situation&#32;when&#32;I&#32;have&#32;a&#32;simple&#32;scenario.&#32;&#38;nbsp&#59;It&#39;s&#32;not&#32;insane&#32;that&#32;I&#32;don&#39;t&#32;want&#32;to&#32;depend&#32;on&#32;the&#32;interface&#32;of&#32;entlib&#32;if&#32;I&#32;want&#32;to&#32;change&#32;things&#32;out,&#32;so&#32;I&#32;wrap&#32;them&#32;in&#32;my&#32;own.">
+        
+<p>Furthermore, I would want to do the same thing for many of the blocks. &nbsp;I could change my underlying services to use different components instead of the entlib so I should be able to make a second hop. &nbsp;The main problem is that now the entlib documentation
+ say I should be using unity containers to instantiate the entlib objects. &nbsp;So, I'm using unity to resolve my Ilogger or ICacheProvider interface and THEN I have to use unity again to resolve the actual entlib type because it could be different based on
+ configuration. &nbsp;It's just easier to do something like CacheFActory.GetCacheManager(&quot;&quot;) then having to inject it, the docs make it sound like the old factory methods are going away. &nbsp;This creates a terribly complicated situation when I have a simple
+ scenario. &nbsp;It's not insane that I don't want to depend on the interface of entlib if I want to change things out, so I wrap them in my own.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_584780" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="584788">
+    <td id="PostDetailsCell_584788" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post584788"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/23/2011 6:13:47 AM" LocalTimeTicks="1300886027">Mar 23, 2011 at 6:13 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="3/23/2011 6:18:05 AM" LocalTimeTicks="1300886285">Mar 23, 2011 at 6:18 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_584788" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Yes,&#38;nbsp&#59;it&#32;does&#32;makes&#32;sense.&#38;nbsp&#59;&#32;Sorry,&#32;I&#38;nbsp&#59;&#38;nbsp&#59;misunderstood&#32;the&#32;problem.&#38;nbsp&#59;&#32;And&#32;yes,&#32;&#38;nbsp&#59;I&#32;guess&#32;a&#32;custom&#32;extension&#32;would&#32;solve&#32;your&#32;requirement&#32;as&#32;the&#32;behavior&#32;you&#32;want&#38;nbsp&#59;isn&#39;t&#32;directly&#32;supported.&#32;As&#32;for&#32;your&#32;other&#32;concern,&#32;I&#32;don&#39;t&#32;quite&#32;agree.&#38;nbsp&#59;&#38;nbsp&#59;Yes,&#32;it&#39;s&#32;easier&#32;to&#32;call&#32;the&#32;static&#32;methods&#32;for&#32;creating&#32;entlib&#32;objects&#32;but&#32;if&#32;you&#39;re&#32;creating&#32;it&#32;for&#32;the&#32;purpose&#32;of&#32;injecting&#32;it,&#32;doing&#32;it&#32;through&#32;the&#32;container&#32;is&#32;easier.&#38;nbsp&#59;&#32;Since&#32;you&#32;can&#32;have&#32;all&#32;entlib&#32;objects&#32;registered&#32;in&#32;the&#32;same&#32;container&#32;where&#32;your&#32;ICacheProvider&#32;is&#32;registered&#32;&#40;either&#32;by&#32;using&#32;EnterpriseLibraryContainer.Configurator&#32;method&#32;or&#32;adding&#32;the&#32;EnterpriseLibraryCoreExtension&#41;,&#32;this&#32;makes&#32;it&#32;much&#32;easier&#32;to&#32;configure&#32;its&#32;dependencies&#32;to&#32;the&#32;entlib&#32;objects.&#38;nbsp&#59;&#32;It&#32;can&#32;be&#32;easily&#32;accomplished&#32;using&#32;Unity&#39;s&#32;various&#32;injection&#32;mechanisms&#32;&#40;constructor,&#32;property&#41;.&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>Yes,&nbsp;it does makes sense.&nbsp; Sorry, I&nbsp;&nbsp;misunderstood the problem.&nbsp; And yes, &nbsp;I guess a custom extension would solve your requirement as the behavior you want&nbsp;isn't directly supported.</p>
+<p>As for your other concern, I don't quite agree.&nbsp;&nbsp;Yes, it's easier to call the static methods for creating entlib objects but if you're creating it for the purpose of injecting it, doing it through the container is easier.&nbsp; Since you can have
+ all entlib objects registered in the same container where your ICacheProvider is registered (either by using EnterpriseLibraryContainer.Configurator method or adding the EnterpriseLibraryCoreExtension), this makes it much easier to configure its dependencies
+ to the entlib objects.&nbsp; It can be easily accomplished using Unity's various injection mechanisms (constructor, property).</p>
+<p>&nbsp;</p>
+<p><em><strong>Sarah Urmeneta</strong></em><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_584788" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="585033">
+    <td id="PostDetailsCell_585033" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post585033"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/23/2011 2:06:36 PM" LocalTimeTicks="1300914396">Mar 23, 2011 at 2:06 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_585033" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Any&#32;guidance&#32;on&#32;how&#32;to&#32;create&#32;the&#32;custom&#32;extension&#63;&#32;&#38;nbsp&#59;There&#32;isn&#39;t&#32;a&#32;whole&#32;lot&#32;of&#32;documentation&#32;out&#32;there.">
+        
+<p>Any guidance on how to create the custom extension? &nbsp;There isn't a whole lot of documentation out there.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_585033" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="585098">
+    <td id="PostDetailsCell_585098" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post585098"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/23/2011 3:56:50 PM" LocalTimeTicks="1300921010">Mar 23, 2011 at 3:56 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_585098" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;tried&#32;the&#32;following&#32;to&#32;no&#32;avail.&#32;&#38;nbsp&#59;Seems&#32;to&#32;me&#32;like&#32;it&#32;should&#32;work,&#32;but&#32;I&#39;m&#32;obviously&#32;off&#32;somewhere&#32;&#38;nbsp&#59;&#32;&#32;&#32;&#32;public&#32;class&#32;WrappedResolver&#32;&#58;&#32;UnityContainerExtension&#32;&#123;&#32;protected&#32;override&#32;void&#32;Initialize&#40;&#41;&#32;&#123;&#32;this.Context.Strategies.Add&#40;new&#32;WrappedBuilder&#40;&#41;,&#32;Microsoft.Practices.Unity.ObjectBuilder.UnityBuildStage.PreCreation&#41;&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;WrappedBuilder&#32;&#58;&#32;BuilderStrategy&#32;&#123;&#32;public&#32;override&#32;void&#32;PreBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#123;&#32;if&#32;&#40;context.BuildKey.Type.Name.Contains&#40;&#34;ICacheProvider&#34;&#41;&#32;&#38;amp&#59;&#38;amp&#59;&#32;context.OriginalBuildKey.Name&#32;&#33;&#61;&#32;null&#41;&#32;&#123;&#32;Type&#32;mytype&#32;&#61;&#32;Type.GetType&#40;&#34;Microsoft.Practices.EnterpriseLibrary.Caching.ICacheManager,&#32;Microsoft.Practices.EnterpriseLibrary.Caching&#34;&#41;&#59;&#32;context.AddResolverOverrides&#40;new&#32;ParameterOverride&#40;&#34;manager&#34;,&#32;new&#32;ResolvedParameter&#40;mytype,&#32;context.OriginalBuildKey.Name&#41;&#41;&#41;&#59;&#32;&#125;&#32;base.PreBuildUp&#40;context&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;">
+        
+<p>I tried the following to no avail. &nbsp;Seems to me like it should work, but I'm obviously off somewhere</p>
+<p>&nbsp;</p>
+<p></p>
+<div style="color:black; background-color:white">
+<pre>    <span style="color:blue">public</span> <span style="color:blue">class</span> WrappedResolver : UnityContainerExtension
+    {
+
+        <span style="color:blue">protected</span> <span style="color:blue">override</span> <span style="color:blue">void</span> Initialize()
+        {
+            
+            <span style="color:blue">this</span>.Context.Strategies.Add(<span style="color:blue">new</span> WrappedBuilder(), Microsoft.Practices.Unity.ObjectBuilder.UnityBuildStage.PreCreation);
+        }
+    }
+
+    <span style="color:blue">public</span> <span style="color:blue">class</span> WrappedBuilder : BuilderStrategy
+    {
+        <span style="color:blue">public</span> <span style="color:blue">override</span> <span style="color:blue">void</span> PreBuildUp(IBuilderContext context)
+        {
+
+            <span style="color:blue">if</span> (context.BuildKey.Type.Name.Contains(<span style="color:#a31515">&quot;ICacheProvider&quot;</span>) &amp;&amp; context.OriginalBuildKey.Name != <span style="color:blue">null</span>)
+            {
+                Type mytype = Type.GetType(<span style="color:#a31515">&quot;Microsoft.Practices.EnterpriseLibrary.Caching.ICacheManager, Microsoft.Practices.EnterpriseLibrary.Caching&quot;</span>);
+                context.AddResolverOverrides(<span style="color:blue">new</span> ParameterOverride(<span style="color:#a31515">&quot;manager&quot;</span>, <span style="color:blue">new</span> ResolvedParameter(mytype, context.OriginalBuildKey.Name)));
+            }
+            <span style="color:blue">base</span>.PreBuildUp(context);
+        }
+
+        
+    }
+</pre>
+</div>
+<p></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_585098" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="585128">
+    <td id="PostDetailsCell_585128" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post585128"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/23/2011 4:39:29 PM" LocalTimeTicks="1300923569">Mar 23, 2011 at 4:39 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="3/23/2011 4:40:06 PM" LocalTimeTicks="1300923606">Mar 23, 2011 at 4:40 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_585128" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="This&#32;approach&#32;worked&#32;though&#32;it&#32;kind&#32;of&#32;feels&#32;weird.&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#32;public&#32;class&#32;WrappedResolver&#32;&#58;&#32;UnityContainerExtension&#32;&#123;&#32;protected&#32;override&#32;void&#32;Initialize&#40;&#41;&#32;&#123;&#32;this.Context.Strategies.Add&#40;new&#32;WrappedBuilder&#40;this.Container&#41;,&#32;Microsoft.Practices.Unity.ObjectBuilder.UnityBuildStage.PreCreation&#41;&#59;&#32;&#125;&#32;&#125;&#32;public&#32;class&#32;WrappedBuilder&#32;&#58;&#32;BuilderStrategy&#32;&#123;&#32;IUnityContainer&#32;baseContainer&#59;&#32;public&#32;WrappedBuilder&#40;IUnityContainer&#32;container&#41;&#32;&#123;&#32;baseContainer&#32;&#61;&#32;container&#59;&#32;&#125;&#32;public&#32;override&#32;void&#32;PreBuildUp&#40;IBuilderContext&#32;context&#41;&#32;&#123;&#32;if&#32;&#40;context.BuildKey.Type.Name.Contains&#40;&#34;ICacheProvider&#34;&#41;&#32;&#38;amp&#59;&#38;amp&#59;&#32;context.OriginalBuildKey.Name&#32;&#33;&#61;&#32;null&#41;&#32;&#123;&#32;string&#32;originalName&#32;&#61;&#32;context.OriginalBuildKey.Name&#59;&#32;Type&#32;mytype&#32;&#61;&#32;Type.GetType&#40;&#34;Microsoft.Practices.EnterpriseLibrary.Caching.ICacheManager,&#32;Microsoft.Practices.EnterpriseLibrary.Caching&#34;&#41;&#59;&#32;Type&#32;originalType&#32;&#61;&#32;Type.GetType&#40;&#34;DomainBase.Caching.ICacheProvider,&#32;DomainBase&#34;&#41;&#59;&#32;context.Existing&#32;&#61;&#32;baseContainer.Resolve&#40;originalType,&#32;new&#32;ParameterOverride&#40;&#34;manager&#34;,&#32;new&#32;ResolvedParameter&#40;mytype,&#32;originalName&#41;&#41;&#41;&#59;&#32;&#47;&#47;context.AddResolverOverrides&#40;new&#32;ParameterOverride&#40;&#34;manager&#34;,&#32;new&#32;ResolvedParameter&#40;mytype,&#32;context.OriginalBuildKey.Name&#41;&#41;&#41;&#59;&#32;&#125;&#32;&#47;&#47;base.PreBuildUp&#40;context&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;&#38;nbsp&#59;&#32;I&#32;feel&#32;like&#32;I&#32;should&#32;be&#32;able&#32;to&#32;add&#32;some&#32;general&#32;resolver&#32;information&#32;and&#32;then&#32;let&#32;the&#32;system&#32;do&#32;what&#32;it&#32;normally&#32;does.&#32;&#38;nbsp&#59;Instead&#32;I&#32;just&#32;resolve&#32;it&#32;right&#32;there.&#32;&#38;nbsp&#59;It&#32;works,&#32;but&#32;is&#32;it&#32;the&#32;right&#32;approach&#63;&#32;&#38;nbsp&#59;Plus&#32;it&#32;makes&#32;automating&#32;all&#32;this&#32;in&#32;configuration&#32;a&#32;bit&#32;more&#32;difficult.">
+        
+<p>This approach worked though it kind of feels weird. &nbsp;</p>
+<p>&nbsp;</p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">public</span> <span style="color:blue">class</span> WrappedResolver : UnityContainerExtension
+    {
+
+        <span style="color:blue">protected</span> <span style="color:blue">override</span> <span style="color:blue">void</span> Initialize()
+        {
+            <span style="color:blue">this</span>.Context.Strategies.Add(<span style="color:blue">new</span> WrappedBuilder(<span style="color:blue">this</span>.Container), Microsoft.Practices.Unity.ObjectBuilder.UnityBuildStage.PreCreation);
+        }
+    }
+
+    <span style="color:blue">public</span> <span style="color:blue">class</span> WrappedBuilder : BuilderStrategy
+    {
+        IUnityContainer baseContainer;
+
+        <span style="color:blue">public</span> WrappedBuilder(IUnityContainer container)
+        {
+            baseContainer = container;
+        }
+
+        <span style="color:blue">public</span> <span style="color:blue">override</span> <span style="color:blue">void</span> PreBuildUp(IBuilderContext context)
+        {
+            <span style="color:blue">if</span> (context.BuildKey.Type.Name.Contains(<span style="color:#a31515">&quot;ICacheProvider&quot;</span>) &amp;&amp; context.OriginalBuildKey.Name != <span style="color:blue">null</span>)
+            {
+                <span style="color:blue">string</span> originalName = context.OriginalBuildKey.Name;
+                Type mytype = Type.GetType(<span style="color:#a31515">&quot;Microsoft.Practices.EnterpriseLibrary.Caching.ICacheManager, Microsoft.Practices.EnterpriseLibrary.Caching&quot;</span>);
+                Type originalType = Type.GetType(<span style="color:#a31515">&quot;DomainBase.Caching.ICacheProvider, DomainBase&quot;</span>);
+                context.Existing = baseContainer.Resolve(originalType, <span style="color:blue">new</span> ParameterOverride(<span style="color:#a31515">&quot;manager&quot;</span>,
+                                                                             <span style="color:blue">new</span> ResolvedParameter(mytype, originalName)));
+                
+                <span style="color:green">//context.AddResolverOverrides(new ParameterOverride(&quot;manager&quot;, new ResolvedParameter(mytype, context.OriginalBuildKey.Name)));</span>
+            }
+            <span style="color:green">//base.PreBuildUp(context);</span>
+        }   
+    }
+</pre>
+</div>
+<p>&nbsp;</p>
+<p>I feel like I should be able to add some general resolver information and then let the system do what it normally does. &nbsp;Instead I just resolve it right there. &nbsp;It works, but is it the right approach? &nbsp;Plus it makes automating all this in
+ configuration a bit more difficult.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_585128" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="585278">
+    <td id="PostDetailsCell_585278" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post585278"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/23/2011 8:42:21 PM" LocalTimeTicks="1300938141">Mar 23, 2011 at 8:42 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="3/23/2011 8:45:35 PM" LocalTimeTicks="1300938335">Mar 23, 2011 at 8:45 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_585278" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Also,&#32;I&#39;m&#32;unsure&#32;if&#32;that&#32;solution&#32;will&#32;cause&#32;recursion&#32;issues.&#32;">
+        
+<div style="color:black; background-color:white">
+<pre><br>Also, I'm unsure if that solution will cause recursion issues.</pre>
+</div>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_585278" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="585331">
+    <td id="PostDetailsCell_585331" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post585331"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/23/2011 9:57:17 PM" LocalTimeTicks="1300942637">Mar 23, 2011 at 9:57 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_585331" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;unfortunately&#32;have&#32;to&#32;specify&#32;the&#32;type&#32;in&#32;a&#32;hard&#32;coded&#32;way&#32;in&#32;this&#32;solution.&#32;&#38;nbsp&#59;If&#32;there&#39;s&#32;a&#32;better&#32;way&#32;of&#32;setting&#32;mytype,&#32;please&#32;let&#32;me&#32;know.">
+        
+<p>I unfortunately have to specify the type in a hard coded way in this solution. &nbsp;If there's a better way of setting mytype, please let me know.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_585331" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="585381">
+    <td id="PostDetailsCell_585381" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post585381"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/23/2011 11:52:23 PM" LocalTimeTicks="1300949543">Mar 23, 2011 at 11:52 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_585381" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="And&#32;as&#32;I&#32;dig&#32;further,&#32;I&#39;m&#32;finding&#32;that&#32;a&#32;child&#32;container&#32;may&#32;be&#32;a&#32;far&#32;easier&#32;approach&#32;to&#32;this&#32;where&#32;instead&#32;of&#32;sending&#32;a&#32;name,&#32;I&#32;use&#32;an&#32;entirely&#32;different&#32;container&#32;to&#32;resolve&#32;the&#32;custom&#32;stuff.">
+        
+<p>And as I dig further, I'm finding that a child container may be a far easier approach to this where instead of sending a name, I use an entirely different container to resolve the custom stuff.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_585381" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="587998">
+    <td id="PostDetailsCell_587998" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post587998"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/29/2011 3:20:44 AM" LocalTimeTicks="1301394044">Mar 29, 2011 at 3:20 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="3/29/2011 3:58:59 AM" LocalTimeTicks="1301396339">Mar 29, 2011 at 3:58 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_587998" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="This&#32;code&#32;lets&#32;you&#32;avoid&#32;hardcoding&#38;nbsp&#59;the&#32;parameter&#32;type.&#38;nbsp&#59;&#32;However,&#32;you&#32;would&#32;still&#32;need&#32;to&#32;have&#32;some&#32;assumptions&#32;about&#32;the&#32;type&#32;of&#32;the&#32;parameter&#32;which&#32;you&#32;want&#32;to&#32;configure,&#32;for&#32;example&#32;you&#32;may&#32;have&#32;established&#32;that&#32;your&#32;ICacheProvider&#32;implementations&#32;will&#32;always&#32;have&#32;a&#32;single&#38;nbsp&#59;interface&#32;parameter&#58;&#32;&#32;IPolicyList&#32;resolverPolicyDestination&#59;&#32;IConstructorSelectorPolicy&#32;selector&#32;&#61;&#32;context.Policies.Get&#40;context.BuildKey,&#32;out&#32;resolverPolicyDestination&#41;&#59;&#32;SelectedConstructor&#32;selectedCtor&#32;&#61;&#32;selector.SelectConstructor&#40;context,&#32;resolverPolicyDestination&#41;&#59;&#32;ParameterInfo&#91;&#93;&#32;parameters&#32;&#61;&#32;selectedCtor.Constructor.GetParameters&#40;&#41;&#59;&#32;for&#32;&#40;int&#32;ctr&#32;&#61;&#32;0&#59;&#32;ctr&#32;&#38;lt&#59;&#32;parameters.Length&#59;&#32;ctr&#43;&#43;&#41;&#32;&#123;&#32;Type&#32;parameterType&#32;&#61;&#32;parameters&#91;ctr&#93;.ParameterType&#59;&#32;if&#32;&#40;parameterType.IsInterface&#41;&#32;&#47;&#47;&#32;assumption&#32;about&#32;what&#32;is&#32;the&#32;parameter&#32;you&#32;want&#32;to&#32;configure&#32;a&#32;parameteroverride&#32;for&#32;&#123;&#32;context.AddResolverOverrides&#40;new&#32;ParameterOverride&#40;parameters&#91;ctr&#93;.Name,&#32;new&#32;ResolvedParameter&#40;parameterType,&#32;context.BuildKey.Name&#41;&#41;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#38;nbsp&#59;&#32;&#32;&#32;This&#32;is&#32;only&#32;better&#32;than&#32;hard-coding&#32;if&#32;you&#32;indeed&#32;have&#32;a&#32;standard&#32;rule&#32;about&#32;the&#32;type&#32;of&#32;parameter&#32;of&#32;your&#32;ICacheProvider&#32;implementations.&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>This code lets you avoid hardcoding&nbsp;the parameter type.&nbsp; However, you would still need to have some assumptions about the type of the parameter which you want to configure, for example you may have established that your ICacheProvider implementations
+ will always have a single&nbsp;interface parameter:</p>
+<div style="background-color:white; color:black">
+<pre><pre><pre>IPolicyList resolverPolicyDestination;
+IConstructorSelectorPolicy selector = context.Policies.Get(context.BuildKey, out resolverPolicyDestination);
+
+SelectedConstructor selectedCtor = selector.SelectConstructor(context, resolverPolicyDestination);
+
+ParameterInfo[] parameters = selectedCtor.Constructor.GetParameters();
+
+for (int ctr = 0; ctr &lt; parameters.Length; ctr&#43;&#43;)
+{
+                Type parameterType = parameters[ctr].ParameterType;
+                if (parameterType.IsInterface) // assumption about what is the parameter you want to configure a parameteroverride for
+                {
+                    context.AddResolverOverrides(new ParameterOverride(parameters[ctr].Name,
+                            new ResolvedParameter(parameterType, context.BuildKey.Name)));
+                }
+}</pre>
+<em><strong></strong></em>&nbsp;</pre>
+</pre>
+</div>
+<p>This is only better than hard-coding if you indeed have a standard rule about the type of parameter of your ICacheProvider implementations.</p>
+<p><em><strong>Sarah Urmeneta</strong></em><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_587998" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="589857">
+    <td id="PostDetailsCell_589857" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post589857"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/31/2011 10:47:41 PM" LocalTimeTicks="1301636861">Mar 31, 2011 at 10:47 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_589857" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Is&#32;that&#32;code&#32;correct&#63;&#32;&#38;nbsp&#59;context.Policies.Get&#32;requires&#32;a&#32;Type&#32;parameter&#32;in&#32;order&#32;to&#32;build&#32;properly">
+        
+<p>Is that code correct? &nbsp;context.Policies.Get requires a Type parameter in order to build properly</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_589857" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="589881">
+    <td id="PostDetailsCell_589881" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post589881"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="3/31/2011 11:26:04 PM" LocalTimeTicks="1301639164">Mar 31, 2011 at 11:26 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_589881" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="did&#32;you&#32;mean&#58;&#32;&#32;&#32;context.Policies.Get&#38;lt&#59;IConstructorSelectorPolicy&#38;gt&#59;&#40;context.BuildKey,&#32;out&#32;resolverPolicyDestination&#41;&#59;&#32;&#32;&#32;tried&#32;that&#32;and&#32;it&#32;didn&#39;t&#32;work.&#32;&#38;nbsp&#59;slectedCtor&#32;came&#32;back&#32;null&#32;even&#32;though&#32;I&#32;only&#32;have&#32;one&#32;that&#32;takes&#32;an&#32;ICacheManager.&#32;&#38;nbsp&#59;">
+        
+<p>did you mean:</p>
+<p></p>
+<div style="color:black; background-color:white">
+<pre>context.Policies.Get&lt;IConstructorSelectorPolicy&gt;(context.BuildKey, <span style="color:blue">out</span> resolverPolicyDestination);
+</pre>
+</div>
+tried that and it didn't work. &nbsp;slectedCtor came back null even though I only have one that takes an ICacheManager. &nbsp;
+<p></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_589881" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="589895">
+    <td id="PostDetailsCell_589895" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post589895"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/1/2011 12:24:32 AM" LocalTimeTicks="1301642672">Apr 1, 2011 at 12:24 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_589895" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Yes,&#38;nbsp&#59;you&#39;re&#32;right&#32;about&#32;the&#32;code,&#32;sorry&#32;about&#32;the&#32;typo.&#38;nbsp&#59;&#38;nbsp&#59;&#32;What&#32;is&#32;the&#32;value&#32;of&#32;the&#38;nbsp&#59;context.BuildKey.Type&#32;when&#32;you&#32;got&#32;the&#32;null&#32;selectedCtor&#63;&#38;nbsp&#59;&#38;nbsp&#59;In&#32;addition,&#32;what&#32;UnityBuildStage&#32;did&#32;you&#32;use&#32;when&#32;you&#32;add&#32;your&#32;custom&#32;strategy&#63;&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>Yes,&nbsp;you're right about the code, sorry about the typo.&nbsp;&nbsp; What is the value of the&nbsp;context.BuildKey.Type when you got the null selectedCtor?&nbsp;&nbsp;In addition, what UnityBuildStage did you use when you add your custom strategy?</p>
+<p>&nbsp;</p>
+<p><em><strong>Sarah Urmeneta</strong></em><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_589895" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="589907">
+    <td id="PostDetailsCell_589907" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post589907"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/1/2011 12:46:50 AM" LocalTimeTicks="1301644010">Apr 1, 2011 at 12:46 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_589907" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="value&#32;of&#32;context.BuildKey.Type&#32;is&#32;ICacheProvider&#32;build&#32;stage&#32;is&#32;precreation.&#32;&#38;nbsp&#59;If&#32;I&#32;make&#32;it&#32;any&#32;later,&#32;it&#32;errors&#32;out&#32;before&#32;my&#32;extension&#32;every&#32;fires">
+        
+<p>value of context.BuildKey.Type is ICacheProvider</p>
+<p>build stage is precreation. &nbsp;If I make it any later, it errors out before my extension every fires</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_589907" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="589915">
+    <td id="PostDetailsCell_589915" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post589915"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/1/2011 1:16:08 AM" LocalTimeTicks="1301645768">Apr 1, 2011 at 1:16 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_589915" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;suggest&#32;you&#32;put&#32;it&#32;in&#32;the&#32;TypeMapping&#32;stage.&#38;nbsp&#59;&#32;The&#32;context.BuildKey.Type&#32;you&#32;will&#32;get&#32;then&#32;should&#32;be&#32;the&#32;type&#32;of&#32;the&#32;actual&#32;implementation&#32;of&#32;the&#32;interface.&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>I suggest you put it in the TypeMapping stage.&nbsp; The context.BuildKey.Type you will get then should be the type of the actual implementation of the interface.</p>
+<p>&nbsp;</p>
+<p><em><strong>Sarah Urmeneta</strong></em><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_589915" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="589917">
+    <td id="PostDetailsCell_589917" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post589917"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/1/2011 1:20:39 AM" LocalTimeTicks="1301646039">Apr 1, 2011 at 1:20 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_589917" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;will&#32;give&#32;that&#32;a&#32;try,&#32;but&#32;it&#32;errors&#32;out&#32;right&#32;after&#32;pre&#32;creation&#32;because&#32;I&#39;m&#32;trying&#32;to&#32;resolve&#32;by&#32;name&#32;container.Resolve&#38;lt&#59;ICacheProvider&#38;gt&#59;&#40;&#34;cache_name_here&#34;&#41;.&#32;&#38;nbsp&#59;Since&#32;there&#32;is&#32;no&#32;named&#32;mapping,&#32;it&#32;errors&#32;out.&#32;&#38;nbsp&#59;By&#32;the&#32;time&#32;you&#32;get&#32;to&#32;TypeMapping,&#32;isn&#39;t&#32;the&#32;original&#32;build&#32;key&#32;gone&#63;">
+        
+<p>I will give that a try, but it errors out right after pre creation because I'm trying to resolve by name container.Resolve&lt;ICacheProvider&gt;(&quot;cache_name_here&quot;). &nbsp;Since there is no named mapping, it errors out. &nbsp;By the time you get to TypeMapping,
+ isn't the original build key gone?</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_589917" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="589925">
+    <td id="PostDetailsCell_589925" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post589925"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/1/2011 1:58:28 AM" LocalTimeTicks="1301648308">Apr 1, 2011 at 1:58 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_589925" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;misunderstood&#32;your&#32;requirement.&#38;nbsp&#59;&#32;I&#32;thought&#32;what&#32;you&#32;want&#32;is&#32;when&#32;you&#32;resolve&#32;for&#32;a&#32;named&#32;mapping,&#32;you&#32;want&#32;to&#32;resolve&#38;nbsp&#59;its&#32;dependency&#32;using&#32;the&#32;same&#32;name.&#38;nbsp&#59;&#32;So&#32;now&#32;let&#32;me&#32;confirm&#32;what&#32;you&#32;want,&#32;say&#32;you&#32;have&#32;2&#32;cache&#32;managers,&#32;one&#32;is&#32;named&#32;&#34;Cache&#32;Manager&#34;&#38;nbsp&#59;and&#32;the&#32;other&#32;named&#32;&#34;Product&#32;Cache&#34;.&#32;In&#32;your&#32;unity&#32;container,&#32;you&#38;nbsp&#59;only&#32;configured&#32;a&#32;default&#32;type&#32;mapping&#32;for&#32;ICacheProvider&#32;mapped&#32;to&#32;MyCacheProvider.&#38;nbsp&#59;&#32;And&#32;when&#32;you&#32;try&#32;to&#32;do&#32;this&#32;container.Resolve&#38;lt&#59;ICacheProvider&#38;gt&#59;&#40;&#34;Product&#32;Cache&#34;&#41;&#32;you&#32;want&#32;to&#32;get&#32;an&#32;instance&#32;of&#32;MyCacheProvider&#32;which&#32;uses&#32;the&#32;&#34;Product&#32;Cache&#34;&#32;cache&#32;manager,&#32;is&#32;this&#32;correct&#63;&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>I misunderstood your requirement.&nbsp; I thought what you want is when you resolve for a named mapping, you want to resolve&nbsp;its dependency using the same name.&nbsp;</p>
+<p>So now let me confirm what you want, say you have 2 cache managers, one is named &quot;Cache Manager&quot;&nbsp;and the other named &quot;Product Cache&quot;.</p>
+<p>In your unity container, you&nbsp;only configured a default type mapping for ICacheProvider mapped to MyCacheProvider.&nbsp; And when you try to do this</p>
+<p>container.Resolve&lt;ICacheProvider&gt;(&quot;Product Cache&quot;)</p>
+<p>you want to get an instance of MyCacheProvider which uses the &quot;Product Cache&quot; cache manager, is this correct?</p>
+<p>&nbsp;</p>
+<p><em><strong>Sarah Urmeneta</strong></em><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_589925" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="589927">
+    <td id="PostDetailsCell_589927" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post589927"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/1/2011 2:02:42 AM" LocalTimeTicks="1301648562">Apr 1, 2011 at 2:02 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_589927" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Well,&#32;I&#39;d&#32;like&#32;the&#32;ability&#32;to&#32;specify&#32;different&#32;cache&#32;stores&#32;for&#32;different&#32;named&#32;registrations.&#32;&#38;nbsp&#59;So&#32;it&#39;s&#32;kind&#32;of&#32;both.&#32;&#38;nbsp&#59;However,&#32;yes,&#32;I&#32;want&#32;to&#32;be&#32;able&#32;to&#32;resolve&#32;&#34;Product&#32;Cache&#34;&#32;to&#32;the&#32;product&#32;cache&#32;defined&#32;in&#32;my&#32;entlib&#32;caching&#32;section&#32;as&#32;if&#32;I&#32;were&#32;doing&#32;Entlibcontainer.current.GetInstance&#38;lt&#59;&#38;gt&#59;&#40;&#34;Product&#32;Cache&#34;&#41;.&#32;&#38;nbsp&#59;The&#32;only&#32;way&#32;I&#32;could&#32;figure&#32;to&#32;do&#32;this&#32;was&#32;to&#32;pass&#32;the&#32;cache&#32;name&#32;all&#32;the&#32;way&#32;down&#32;as&#32;I&#39;m&#32;wrapping&#32;ICacheManager&#32;with&#32;ICacheProvider.">
+        
+<p>Well, I'd like the ability to specify different cache stores for different named registrations. &nbsp;So it's kind of both. &nbsp;However, yes, I want to be able to resolve &quot;Product Cache&quot; to the product cache defined in my entlib caching section as if I
+ were doing Entlibcontainer.current.GetInstance&lt;&gt;(&quot;Product Cache&quot;). &nbsp;The only way I could figure to do this was to pass the cache name all the way down as I'm wrapping ICacheManager with ICacheProvider.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_589927" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="589930">
+    <td id="PostDetailsCell_589930" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post589930"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/1/2011 2:08:41 AM" LocalTimeTicks="1301648921">Apr 1, 2011 at 2:08 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_589930" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Here&#32;is&#32;the&#32;main&#32;goal&#58;&#32;to&#32;be&#32;able&#32;to&#32;resolve&#32;a&#32;cache&#32;manager&#32;like&#32;I&#32;normally&#32;would&#32;if&#32;I&#32;was&#32;resolving&#32;CacheManager&#32;directly.&#32;&#38;nbsp&#59;However,&#32;I&#39;m&#32;wrapping&#32;it&#32;so&#32;that&#32;I&#32;can&#32;swap&#32;the&#32;caching&#32;provider&#32;out&#32;later.&#32;&#38;nbsp&#59;That&#39;s&#32;all">
+        
+<p>Here is the main goal: to be able to resolve a cache manager like I normally would if I was resolving CacheManager directly. &nbsp;However, I'm wrapping it so that I can swap the caching provider out later. &nbsp;That's all</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_589930" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="589933">
+    <td id="PostDetailsCell_589933" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post589933"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/1/2011 2:31:45 AM" LocalTimeTicks="1301650305">Apr 1, 2011 at 2:31 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_589933" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;see.&#38;nbsp&#59;&#32;What&#32;I&#32;could&#32;think&#32;of&#32;is&#32;since&#32;you&#39;re&#32;trying&#32;to&#32;resolve&#32;for&#32;a&#32;named&#32;mapping&#32;which&#32;you&#32;didn&#39;t&#32;actually&#32;registered,&#32;you&#32;can&#32;consider&#32;adding&#32;the&#32;registration&#32;in&#32;the&#32;PreBuildUp&#32;method&#32;&#40;if&#32;the&#32;registration&#32;doesn&#39;t&#32;exists&#32;yet&#41;&#32;by&#32;adding&#32;an&#32;instance&#32;of&#32;IBuildKeyMappingPolicy&#32;in&#32;the&#32;context.PersistentPolicies&#32;object.&#38;nbsp&#59;&#32;Is&#32;this&#32;an&#32;acceptable&#32;solution&#32;for&#32;you&#63;&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>I see.&nbsp; What I could think of is since you're trying to resolve for a named mapping which you didn't actually registered, you can consider adding the registration in the PreBuildUp method (if the registration doesn't exists yet) by adding an instance
+ of IBuildKeyMappingPolicy in the context.PersistentPolicies object.&nbsp; Is this an acceptable solution for you?</p>
+<p>&nbsp;</p>
+<p><em><strong>Sarah Urmeneta</strong></em><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_589933" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="589935">
+    <td id="PostDetailsCell_589935" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post589935"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/1/2011 2:34:00 AM" LocalTimeTicks="1301650440">Apr 1, 2011 at 2:34 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_589935" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="The&#32;mapping&#32;does&#32;exist&#32;because&#32;I&#32;configure&#32;the&#32;unity&#32;container&#32;with&#32;the&#32;entlib&#32;unity&#32;extensions.&#32;&#38;nbsp&#59;I&#39;m&#32;not&#32;sure&#32;exactly&#32;what&#32;you&#39;re&#32;referring&#32;to.&#32;&#38;nbsp&#59;Can&#32;you&#32;provide&#32;a&#32;short&#32;sample.">
+        
+<p>The mapping does exist because I configure the unity container with the entlib unity extensions. &nbsp;I'm not sure exactly what you're referring to. &nbsp;Can you provide a short sample.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_589935" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="589936">
+    <td id="PostDetailsCell_589936" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post589936"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/1/2011 2:38:17 AM" LocalTimeTicks="1301650697">Apr 1, 2011 at 2:38 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_589936" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;meant&#32;the&#32;named&#32;mapping&#32;for&#32;the&#32;ICacheProvider.&#38;nbsp&#59;&#32;That&#39;s&#32;what&#32;I&#32;understood&#32;from&#32;your&#32;previous&#32;statement&#58;&#32;&#34;I&#32;will&#32;give&#32;that&#32;a&#32;try,&#32;but&#32;it&#32;errors&#32;out&#32;right&#32;after&#32;pre&#32;creation&#32;because&#32;I&#39;m&#32;trying&#32;to&#32;resolve&#32;by&#32;name&#32;container.Resolve&#38;lt&#59;ICacheProvider&#38;gt&#59;&#40;&#34;cache_name_here&#34;&#41;.&#32;&#38;nbsp&#59;Since&#32;there&#32;is&#32;no&#32;named&#32;mapping,&#32;it&#32;errors&#32;out.&#34;&#32;This&#32;gives&#32;me&#32;the&#32;impression&#32;that&#32;you&#32;didn&#39;t&#32;have&#32;&#40;and&#32;didnt&#39;&#32;want&#32;to&#32;have&#32;to&#32;explicitly&#32;have&#41;&#32;a&#32;type&#32;mapping&#32;for&#32;ICacheProvider&#32;named&#32;&#34;cache_name_here&#34;&#32;but&#32;would&#32;still&#32;like&#32;to&#32;be&#32;able&#32;to&#32;resolve&#32;such&#32;type&#32;using&#32;the&#32;cache&#32;manager&#32;named&#32;&#34;cache_name_here&#34;&#32;as&#32;the&#32;parameter&#32;to&#32;the&#32;constructor&#32;of&#32;the&#32;implementation&#32;of&#32;ICacheProvider.&#32;If&#32;this&#32;isn&#39;t&#32;what&#32;you&#32;want,&#32;kindly&#32;post&#32;the&#32;sample&#32;code&#32;and&#32;configuration&#32;demonstrating&#32;what&#32;you&#32;want.&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>I meant the named mapping for the ICacheProvider.&nbsp; That's what I understood from your previous statement:</p>
+<p>&quot;I will give that a try, but it errors out right after pre creation because I'm trying to resolve by name container.Resolve&lt;ICacheProvider&gt;(&quot;cache_name_here&quot;). &nbsp;Since there is no named mapping, it errors out.&quot;</p>
+<p>This gives me the impression that you didn't have (and didnt' want to have to explicitly have) a type mapping for ICacheProvider named &quot;cache_name_here&quot; but would still like to be able to resolve such type using the cache manager named &quot;cache_name_here&quot;
+ as the parameter to the constructor of the implementation of ICacheProvider.</p>
+<p>If this isn't what you want, kindly post the sample code and configuration demonstrating what you want.</p>
+<p>&nbsp;</p>
+<p><em><strong>Sarah Urmeneta</strong></em><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_589936" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="589939">
+    <td id="PostDetailsCell_589939" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post589939"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/1/2011 2:42:28 AM" LocalTimeTicks="1301650948">Apr 1, 2011 at 2:42 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_589939" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="This&#32;is&#32;correct.&#32;&#38;nbsp&#59;&#32;This&#32;gives&#32;me&#32;the&#32;impression&#32;that&#32;you&#32;didn&#39;t&#32;have&#32;&#40;and&#32;didnt&#39;&#32;want&#32;to&#32;have&#32;to&#32;explicitly&#32;have&#41;&#32;a&#32;type&#32;mapping&#32;for&#32;ICacheProvider&#32;named&#32;&#34;cache_name_here&#34;&#32;but&#32;would&#32;still&#32;like&#32;to&#32;be&#32;able&#32;to&#32;resolve&#32;such&#32;type&#32;using&#32;the&#32;cache&#32;manager&#32;named&#32;&#34;cache_name_here&#34;&#32;as&#32;the&#32;parameter&#32;to&#32;the&#32;constructor&#32;of&#32;the&#32;implementation&#32;of&#32;ICacheProvider.&#32;I&#32;don&#39;t&#32;want&#32;to&#32;explicitly&#32;make&#32;a&#32;mapping&#32;for&#32;&#34;cache_name_here&#34;&#32;as&#32;that&#32;mapping&#32;is&#32;already&#32;put&#32;in&#32;place&#32;by&#32;the&#32;entlib&#32;unity&#32;extension.&#32;&#38;nbsp&#59;I&#32;don&#39;t&#32;want&#32;to&#32;define&#32;it&#32;twice.&#32;&#38;nbsp&#59;I&#32;want&#32;to&#32;resolve&#32;as&#32;if&#32;it&#39;s&#32;already&#32;there&#32;because&#32;it&#32;is&#32;already&#32;there.">
+        
+<p>This is correct. &nbsp;</p>
+<p>This gives me the impression that you didn't have (and didnt' want to have to explicitly have) a type mapping for ICacheProvider named &quot;cache_name_here&quot; but would still like to be able to resolve such type using the cache manager named &quot;cache_name_here&quot;
+ as the parameter to the constructor of the implementation of ICacheProvider.</p>
+<p>I don't want to explicitly make a mapping for &quot;cache_name_here&quot; as that mapping is already put in place by the entlib unity extension. &nbsp;I don't want to define it twice. &nbsp;I want to resolve as if it's already there because it is already there.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_589939" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="589940">
+    <td id="PostDetailsCell_589940" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post589940"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/1/2011 2:52:15 AM" LocalTimeTicks="1301651535">Apr 1, 2011 at 2:52 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="4/1/2011 3:01:42 AM" LocalTimeTicks="1301652102">Apr 1, 2011 at 3:01 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_589940" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Then&#32;is&#32;my&#32;last&#32;suggestion&#32;acceptable&#63;&#32;&#34;What&#32;I&#32;could&#32;think&#32;of&#32;is&#32;since&#32;you&#39;re&#32;trying&#32;to&#32;resolve&#32;for&#32;a&#32;named&#32;mapping&#32;which&#32;you&#32;didn&#39;t&#32;actually&#32;registered,&#32;you&#32;can&#32;consider&#32;adding&#32;the&#32;registration&#32;in&#32;the&#32;PreBuildUp&#32;method&#32;&#40;if&#32;the&#32;registration&#32;doesn&#39;t&#32;exists&#32;yet&#41;&#32;by&#32;adding&#32;an&#32;instance&#32;of&#32;IBuildKeyMappingPolicy&#32;in&#32;the&#32;context.PersistentPolicies&#32;object.&#38;nbsp&#59;&#34;&#32;This&#32;is&#32;just&#32;an&#32;idea,&#32;I&#39;m&#32;still&#32;playing&#32;around&#32;the&#32;policy&#32;list&#32;of&#32;the&#32;context&#32;object&#32;to&#32;see&#32;how&#32;to&#32;get&#32;the&#32;details&#32;necessary&#32;to&#32;create&#32;the&#32;registration&#32;for&#32;the&#32;named&#32;mapping.&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>Then is my last suggestion acceptable?</p>
+<p>&quot;What I could think of is since you're trying to resolve for a named mapping which you didn't actually registered, you can consider adding the registration in the PreBuildUp method (if the registration doesn't exists yet) by adding an instance of IBuildKeyMappingPolicy
+ in the context.PersistentPolicies object.&nbsp;&quot;</p>
+<p>This is just an idea, I'm still playing around the policy list of the context object to see how to get the details necessary to create the registration for the named mapping.</p>
+<p>&nbsp;</p>
+<p><em><strong>Sarah Urmeneta</strong></em><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_589940" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="589947">
+    <td id="PostDetailsCell_589947" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post589947"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/1/2011 3:20:18 AM" LocalTimeTicks="1301653218">Apr 1, 2011 at 3:20 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_589947" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;guess&#32;my&#32;answer&#32;to&#32;that&#32;is&#32;that&#32;I&#39;m&#32;not&#32;sure&#32;since&#32;I&#39;m&#32;not&#32;familiar&#32;with&#32;that.&#32;&#38;nbsp&#59;If&#32;you&#32;had&#32;a&#32;code&#32;sample&#32;that&#32;would&#32;be&#32;helpful.&#32;&#38;nbsp&#59;I&#32;will&#32;give&#32;it&#32;a&#32;try.">
+        
+<p>I guess my answer to that is that I'm not sure since I'm not familiar with that. &nbsp;If you had a code sample that would be helpful. &nbsp;I will give it a try.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_589947" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="589951">
+    <td id="PostDetailsCell_589951" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post589951"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/1/2011 3:31:05 AM" LocalTimeTicks="1301653865">Apr 1, 2011 at 3:31 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="4/1/2011 3:31:53 AM" LocalTimeTicks="1301653913">Apr 1, 2011 at 3:31 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_589951" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;posted&#32;a&#32;sample&#32;code&#32;here.&#38;nbsp&#59;&#32;It&#32;doesn&#39;t&#32;perform&#32;your&#32;exact&#32;requirements&#32;but&#32;the&#32;idea&#32;of&#32;checking&#32;if&#32;the&#32;type&#32;mapping&#32;exists&#32;is&#32;there&#32;as&#32;well&#32;as&#32;registering&#32;the&#32;type&#32;mapping&#32;you&#32;need&#32;thru&#32;setting&#32;a&#32;policy&#32;in&#32;the&#32;context.PersistentPolicies&#32;object.&#38;nbsp&#59;&#32;By&#32;the&#32;way,&#32;the&#32;strategy&#32;would&#32;have&#32;to&#32;be&#32;added&#32;at&#32;the&#32;Setup&#32;UnityBuildStage.&#38;nbsp&#59;&#32;Adding&#32;it&#32;at&#32;any&#32;later&#32;stage&#32;won&#39;t&#32;work.&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>I posted a sample code <a href="http://unity.codeplex.com/discussions/251451" rel="nofollow">
+here</a>.&nbsp; It doesn't perform your exact requirements but the idea of checking if the type mapping exists is there as well as registering the type mapping you need thru setting a policy in the context.PersistentPolicies object.&nbsp;</p>
+<p>By the way, the strategy would have to be added at the Setup UnityBuildStage.&nbsp; Adding it at any later stage won't work.</p>
+<p>&nbsp;</p>
+<p><em><strong>Sarah Urmeneta</strong></em><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_589951" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="589965">
+    <td id="PostDetailsCell_589965" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post589965"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/1/2011 4:40:03 AM" LocalTimeTicks="1301658003">Apr 1, 2011 at 4:40 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_589965" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;looked&#32;at&#32;the&#32;sample&#32;and&#32;I&#32;guess&#32;I&#32;don&#39;t&#32;understand&#32;how&#32;it&#32;would&#32;help.&#32;&#38;nbsp&#59;How&#32;is&#32;this&#32;different&#32;than&#32;just&#32;hardcoded&#32;a&#32;named&#32;registration&#63;&#32;&#38;nbsp&#59;Sure&#32;I&#32;can&#32;check&#32;if&#32;the&#32;mapping&#32;exists,&#32;but&#32;if&#32;it&#32;doesn&#39;t,&#32;I&#32;have&#32;to&#32;hardcode&#32;it&#32;in&#32;to&#32;resolve.&#32;&#38;nbsp&#59;My&#32;whole&#32;point&#32;is&#32;the&#32;type&#32;mapping&#32;already&#32;exists.&#32;&#38;nbsp&#59;It&#39;s&#32;just&#32;done&#32;automatically&#32;by&#32;the&#32;enterprise&#32;library&#32;unity&#32;extensions.&#32;&#38;nbsp&#59;I&#39;m&#32;just&#32;one&#32;layer&#32;deeper&#32;than&#32;normal&#32;because&#32;I&#32;wrapped&#32;the&#32;entlib&#32;caching&#32;in&#32;my&#32;own&#32;interface.&#32;&#38;nbsp&#59;I&#39;ll&#32;give&#32;it&#32;a&#32;deeper&#32;look&#32;tomorrow,&#32;but&#32;I&#32;don&#39;t&#32;really&#32;see&#32;how&#32;it&#32;helps.">
+        
+<p>I looked at the sample and I guess I don't understand how it would help. &nbsp;How is this different than just hardcoded a named registration? &nbsp;Sure I can check if the mapping exists, but if it doesn't, I have to hardcode it in to resolve. &nbsp;My
+ whole point is the type mapping already exists. &nbsp;It's just done automatically by the enterprise library unity extensions. &nbsp;I'm just one layer deeper than normal because I wrapped the entlib caching in my own interface. &nbsp;I'll give it a deeper
+ look tomorrow, but I don't really see how it helps.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_589965" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="590028">
+    <td id="PostDetailsCell_590028" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post590028"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/1/2011 7:24:31 AM" LocalTimeTicks="1301667871">Apr 1, 2011 at 7:24 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="4/1/2011 8:11:56 AM" LocalTimeTicks="1301670716">Apr 1, 2011 at 8:11 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_590028" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#39;m&#32;not&#32;sure&#32;if&#32;you&#32;don&#39;t&#32;like&#32;the&#32;whole&#32;idea&#32;of&#32;registering&#32;the&#32;type&#32;mapping&#32;in&#32;the&#32;strategy&#32;or&#32;if&#32;it&#39;s&#32;just&#32;the&#32;hardcoding&#32;part.&#38;nbsp&#59;&#32;If&#32;it&#39;s&#32;the&#32;hardcoding&#32;part,&#32;you&#32;can&#32;somehow&#32;get&#32;around&#32;that.&#38;nbsp&#59;&#32;The&#32;sample&#32;code&#32;below&#32;shows&#32;how&#32;although&#32;it&#32;definitely&#32;has&#32;rooms&#32;for&#32;improvement&#32;especially&#32;the&#32;logic&#32;of&#32;getting&#32;the&#32;parameter&#32;information.&#38;nbsp&#59;&#32;I&#32;particularly&#32;not&#32;satisfied&#32;with&#32;that&#32;since&#32;it&#32;required&#32;me&#32;to&#32;create&#32;a&#32;different&#32;copy&#32;of&#32;an&#32;IBuilderContext&#32;just&#32;so&#32;I&#32;could&#32;supply&#32;the&#32;correct&#32;BuildContext&#32;property&#32;&#40;If&#32;you&#32;don&#39;t&#32;understand&#32;this,&#32;try&#32;debugging&#32;through&#32;the&#32;IConstructorSelectPolicy.SelectConstructor&#32;method&#41;.&#38;nbsp&#59;&#32;The&#32;code&#32;also&#32;assumes&#32;that&#32;the&#32;first&#32;parameter&#32;&#40;parameters&#91;0&#93;&#41;&#38;nbsp&#59;is&#32;the&#32;one&#32;which&#32;we&#32;would&#32;add&#32;a&#32;resolver&#32;override&#32;for.&#38;nbsp&#59;&#32;There&#32;is&#32;surely&#32;other&#32;better&#32;ways&#32;of&#32;doing&#32;these&#32;things&#32;but&#32;this&#32;is&#32;what&#32;I&#32;have&#32;right&#32;now.&#32;&#32;if&#32;&#40;context.BuildKey.Type.Name.Contains&#40;&#34;ICacheProvider&#34;&#41;&#41;&#32;&#123;&#32;&#47;&#47;check&#32;if&#32;a&#32;mapping&#32;exists&#32;already&#32;IBuildKeyMappingPolicy&#32;currentMappingToResolve&#32;&#61;&#32;context.Policies.Get&#40;context.OriginalBuildKey&#41;&#59;&#32;if&#32;&#40;currentMappingToResolve&#32;&#61;&#61;&#32;null&#41;&#32;&#123;&#32;&#47;&#47;get&#32;info&#32;about&#32;the&#32;default&#32;mapping&#32;IBuildKeyMappingPolicy&#32;defaultMapping&#32;&#61;&#32;context.Policies.Get&#40;new&#32;NamedTypeBuildKey&#40;context.OriginalBuildKey.Type&#41;&#41;&#59;&#32;&#47;&#47;get&#32;this&#32;info&#32;so&#32;we&#32;could&#32;derive&#32;the&#32;actual&#32;implementation&#32;&#40;MyCacheProvider&#41;&#32;mapped&#32;to&#32;the&#32;interface&#32;NamedTypeBuildKey&#32;defaultImplementation&#32;&#61;&#32;defaultMapping.Map&#40;context.OriginalBuildKey,&#32;context&#41;&#59;&#32;&#47;&#47;add&#32;the&#32;mapping&#32;with&#32;the&#32;context.OriginalBuildKey.Name&#32;as&#32;the&#32;registration&#32;name&#32;context.PersistentPolicies.Set&#40;&#32;new&#32;BuildKeyMappingPolicy&#40;new&#32;NamedTypeBuildKey&#40;defaultImplementation.Type&#41;&#41;,&#32;new&#32;NamedTypeBuildKey&#40;context.BuildKey.Type,&#32;context.OriginalBuildKey.Name&#41;&#41;&#59;&#32;IPolicyList&#32;resolverPolicyDestination&#59;&#32;IConstructorSelectorPolicy&#32;selector&#32;&#61;&#32;context.Policies.Get&#40;defaultImplementation,&#32;out&#32;resolverPolicyDestination&#41;&#59;&#32;IBuilderContext&#32;contextCopy&#32;&#61;&#32;new&#32;BuilderContext&#40;context.Strategies,&#32;context.Lifetime,&#32;context.PersistentPolicies,&#32;context.Policies,&#32;new&#32;NamedTypeBuildKey&#40;defaultImplementation.Type,&#32;context.OriginalBuildKey.Name&#41;,&#32;context.Existing&#41;&#59;&#32;SelectedConstructor&#32;selectedCtor&#32;&#61;&#32;selector.SelectConstructor&#40;contextCopy,&#32;resolverPolicyDestination&#41;&#59;&#32;ParameterInfo&#91;&#93;&#32;parameters&#32;&#61;&#32;selectedCtor.Constructor.GetParameters&#40;&#41;&#59;&#32;Type&#32;parameterType&#32;&#61;&#32;parameters&#91;0&#93;.ParameterType&#59;&#32;if&#32;&#40;&#33;parameterType.IsValueType&#41;&#32;&#123;&#32;context.AddResolverOverrides&#40;new&#32;ParameterOverride&#40;parameters&#91;0&#93;.Name,&#32;new&#32;ResolvedParameter&#40;parameterType,&#32;context.BuildKey.Name&#41;&#41;&#41;&#59;&#32;&#125;&#32;&#125;&#32;base.PreBuildUp&#40;context&#41;&#59;&#32;&#32;&#38;nbsp&#59;&#32;This&#32;is&#32;just&#32;a&#32;sample.&#32;the&#32;key&#32;is&#32;to&#32;explore&#32;the&#32;objects&#32;which&#32;you&#32;could&#32;use&#32;from&#32;the&#32;IBuilderContext&#32;object.&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>I'm not sure if you don't like the whole idea of registering the type mapping in the strategy or if it's just the hardcoding part.&nbsp; If it's the hardcoding part, you can somehow get around that.&nbsp; The sample code below shows how although it definitely
+ has rooms for improvement especially the logic of getting the parameter information.&nbsp; I particularly not satisfied with that since it required me to create a different copy of an IBuilderContext just so I could supply the correct BuildContext property
+ (If you don't understand this, try debugging through the IConstructorSelectPolicy.SelectConstructor method).&nbsp; The code also assumes that the first parameter (parameters[0])&nbsp;is the one which we would add a resolver override for.&nbsp; There is surely
+ other better ways of doing these things but this is what I have right now.</p>
+<p><span style="color:blue"></p>
+<pre>if (context.BuildKey.Type.Name.Contains(&quot;ICacheProvider&quot;))
+{
+            //check if a mapping exists already
+            IBuildKeyMappingPolicy currentMappingToResolve = context.Policies.Get(context.OriginalBuildKey);
+
+            if (currentMappingToResolve == null)
+            {
+                 //get info about the default mapping
+                 IBuildKeyMappingPolicy defaultMapping = context.Policies.Get(new NamedTypeBuildKey(context.OriginalBuildKey.Type));
+
+                 //get this info so we could derive the actual implementation (MyCacheProvider) mapped to the interface
+                 NamedTypeBuildKey defaultImplementation = defaultMapping.Map(context.OriginalBuildKey, context);
+
+                //add the mapping with the context.OriginalBuildKey.Name as the registration name
+                 context.PersistentPolicies.Set(
+                        new BuildKeyMappingPolicy(new NamedTypeBuildKey(defaultImplementation.Type)),
+                         new NamedTypeBuildKey(context.BuildKey.Type, context.OriginalBuildKey.Name));
+
+                 IPolicyList resolverPolicyDestination;
+                 IConstructorSelectorPolicy selector = context.Policies.Get(defaultImplementation, out resolverPolicyDestination);
+
+                 IBuilderContext contextCopy = new BuilderContext(context.Strategies, context.Lifetime, context.PersistentPolicies, context.Policies, new NamedTypeBuildKey(defaultImplementation.Type, context.OriginalBuildKey.Name), context.Existing);
+                  SelectedConstructor selectedCtor = selector.SelectConstructor(contextCopy, resolverPolicyDestination);
+
+                  ParameterInfo[] parameters = selectedCtor.Constructor.GetParameters();
+
+                  Type parameterType = parameters[0].ParameterType;
+                  if (!parameterType.IsValueType)
+                  { 
+                     context.AddResolverOverrides(new ParameterOverride(parameters[0].Name, new ResolvedParameter(parameterType, context.BuildKey.Name)));
+                  }
+}
+base.PreBuildUp(context);</pre>
+</span>
+<p></p>
+<p>&nbsp;</p>
+<p>This is just a sample. the key is to explore the objects which you could use from the IBuilderContext object.</p>
+<p>&nbsp;</p>
+<p><em><strong>Sarah Urmeneta</strong></em><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_590028" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="590277">
+    <td id="PostDetailsCell_590277" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post590277"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/1/2011 3:24:44 PM" LocalTimeTicks="1301696684">Apr 1, 2011 at 3:24 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_590277" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Yeah,&#32;it&#32;just&#32;seems&#32;redundant&#32;to&#32;have&#32;to&#32;re-register&#32;a&#32;type&#32;mapping&#32;that&#32;already&#32;exists&#32;in&#32;memory.&#32;&#38;nbsp&#59;This&#32;solution&#32;then&#32;isn&#39;t&#32;a&#32;whole&#32;lot&#32;different&#32;than&#32;what&#32;I&#32;posted&#32;earlier.">
+        
+<p>Yeah, it just seems redundant to have to re-register a type mapping that already exists in memory. &nbsp;This solution then isn't a whole lot different than what I posted earlier.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_590277" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="590296">
+    <td id="PostDetailsCell_590296" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post590296"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/1/2011 4:05:55 PM" LocalTimeTicks="1301699155">Apr 1, 2011 at 4:05 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_590296" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="This&#32;same&#32;scenario&#32;exists&#32;if&#32;I&#32;was&#32;trying&#32;to&#32;resolve&#32;a&#32;database&#32;object&#32;as&#32;well.&#32;&#38;nbsp&#59;It&#32;would&#32;work&#32;well&#32;if&#32;I&#32;just&#32;wanted&#32;the&#32;default&#32;database,&#32;but&#32;if&#32;I&#32;wanted&#32;a&#32;named&#32;one,&#32;I&#32;would&#32;run&#32;into&#32;the&#32;same&#32;issue.">
+        
+<p>This same scenario exists if I was trying to resolve a database object as well. &nbsp;It would work well if I just wanted the default database, but if I wanted a named one, I would run into the same issue.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_590296" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="590844">
+    <td id="PostDetailsCell_590844" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post590844"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/3/2011 6:00:29 AM" LocalTimeTicks="1301835629">Apr 3, 2011 at 6:00 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="4/3/2011 6:02:13 AM" LocalTimeTicks="1301835733">Apr 3, 2011 at 6:02 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_590844" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;think&#32;the&#32;type&#32;mapping&#32;you&#39;re&#32;referring&#32;to&#32;which&#32;&#34;already&#32;exists&#32;in&#32;memory&#34;&#32;is&#32;the&#32;type&#32;mapping&#32;for&#32;the&#32;enterprise&#32;library&#32;type,&#32;ICacheManager.&#38;nbsp&#59;&#32;The&#32;code&#32;in&#32;the&#32;custom&#32;strategy&#32;doesn&#39;t&#32;re-register&#32;that,&#32;it&#32;registers&#32;the&#32;type&#32;mapping&#32;for&#32;your&#32;wrapper&#32;class,&#32;ICacheProvider.&#32;This&#32;is&#32;what&#32;I&#32;suggested&#32;since&#32;what&#32;you&#32;want&#32;is&#32;to&#32;be&#32;able&#32;to&#32;resolve&#32;a&#32;mapping&#32;which&#32;you&#32;didn&#39;t&#32;actually&#32;register&#32;&#40;only&#32;the&#32;registration&#32;for&#32;the&#32;ICacheManager&#32;exists&#41;.&#38;nbsp&#59;&#32;So&#32;either&#32;you&#32;register&#32;the&#32;mapping&#32;or&#32;create&#32;the&#32;object&#32;directly&#32;within&#32;the&#32;custom&#32;strategy.&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>I think the type mapping you're referring to which &quot;already exists in memory&quot; is the type mapping for the enterprise library type, ICacheManager.&nbsp; The code in the custom strategy doesn't re-register that, it registers the type mapping for your wrapper
+ class, ICacheProvider.</p>
+<p>This is what I suggested since what you want is to be able to resolve a mapping which you didn't actually register (only the registration for the ICacheManager exists).&nbsp; So either you register the mapping or create the object directly within the custom
+ strategy.</p>
+<p>&nbsp;</p>
+<p><em><strong>Sarah Urmeneta</strong></em><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_590844" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="591378">
+    <td id="PostDetailsCell_591378" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post591378"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/4/2011 3:47:58 PM" LocalTimeTicks="1301957278">Apr 4, 2011 at 3:47 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_591378" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="At&#32;what&#32;point&#32;does&#32;this&#32;run&#58;&#32;Setup,&#32;PreCreation,&#32;TypeMapping&#63;&#32;&#38;nbsp&#59;I&#39;m&#32;not&#32;entirely&#32;sure&#32;what&#32;it&#39;s&#32;doing.">
+        
+<p>At what point does this run: Setup, PreCreation, TypeMapping? &nbsp;I'm not entirely sure what it's doing.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_591378" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="591470">
+    <td id="PostDetailsCell_591470" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post591470"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/4/2011 6:22:53 PM" LocalTimeTicks="1301966573">Apr 4, 2011 at 6:22 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_591470" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Also,&#32;I&#32;don&#39;t&#32;think&#32;your&#32;sample&#32;works&#32;If&#32;you&#32;have&#32;a&#32;default&#32;mapping&#32;then&#32;currentMappingToResolve&#32;is&#32;not&#32;null&#32;and&#32;doesn&#39;t&#32;drop&#32;in.&#32;&#38;nbsp&#59;If&#32;you&#32;don&#39;t&#32;have&#32;a&#32;default&#32;mapping&#32;then&#38;nbsp&#59;currentMappingToResolve&#32;&#38;nbsp&#59;AND&#32;defaultMapping&#32;is&#32;null&#32;causing&#32;a&#32;nullreference.&#32;I&#39;m&#32;going&#32;to&#32;poke&#32;around&#32;a&#32;bit&#32;more,&#32;but&#32;I&#39;ve&#32;tried&#32;several&#32;different&#32;routes&#32;all&#32;to&#32;no&#32;avail.&#32;&#38;nbsp&#59;What&#32;I&#32;have&#32;for&#32;a&#32;stop&#32;gap&#32;solution&#32;is&#32;passing&#32;the&#32;cache&#32;name&#32;as&#32;a&#32;string&#32;and&#32;calling&#32;resolve&#32;manually&#32;TWICE.">
+        
+<p>Also, I don't think your sample works</p>
+<p>If you have a default mapping then currentMappingToResolve is not null and doesn't drop in. &nbsp;If you don't have a default mapping then&nbsp;currentMappingToResolve &nbsp;AND defaultMapping is null causing a nullreference.</p>
+<p>I'm going to poke around a bit more, but I've tried several different routes all to no avail. &nbsp;What I have for a stop gap solution is passing the cache name as a string and calling resolve manually TWICE.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_591470" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="591471">
+    <td id="PostDetailsCell_591471" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post591471"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/chriscap16">chriscap16</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/4/2011 6:25:51 PM" LocalTimeTicks="1301966751">Apr 4, 2011 at 6:25 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_591471" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#32;also&#32;had&#32;to&#32;define&#32;a&#32;named&#32;registration&#32;for&#32;every&#32;single&#32;cache&#32;type&#32;essentially&#32;doing&#32;redundant&#32;configuration.&#32;&#38;nbsp&#59;This&#32;is&#32;quite&#32;a&#32;shame.">
+        
+<p>I also had to define a named registration for every single cache type essentially doing redundant configuration. &nbsp;This is quite a shame.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_591471" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="591722">
+    <td id="PostDetailsCell_591722" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post591722"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/5/2011 12:49:01 AM" LocalTimeTicks="1301989741">Apr 5, 2011 at 12:49 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_591722" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="It&#32;runs&#32;at&#32;Setup.&#38;nbsp&#59;&#32;In&#32;addition,&#32;the&#32;currentMappingToResolve&#32;will&#32;be&#32;null&#32;even&#32;if&#32;you&#32;have&#32;a&#32;default&#32;mapping&#32;if&#32;you&#39;re&#32;resolving&#32;for&#32;a&#32;named&#32;registration&#32;of&#32;a&#32;type&#32;which&#32;doesn&#39;t&#32;exists.&#38;nbsp&#59;&#32;If&#32;you&#32;want,&#32;I&#32;can&#32;send&#32;you&#32;a&#32;sample&#32;solution&#32;which&#32;uses&#32;this.&#32;Just&#32;email&#32;me&#32;at&#32;entlib.support&#64;avanade.com.&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>It runs at Setup.&nbsp; In addition, the currentMappingToResolve will be null even if you have a default mapping if you're resolving for a named registration of a type which doesn't exists.&nbsp; If you want, I can send you a sample solution which uses this.
+ Just email me at <a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a>.</p>
+<p>&nbsp;</p>
+<p><em><strong>Sarah Urmeneta</strong></em><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_591722" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f250763">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="b2bc8492-a49d-4249-a2f8-753f00100825">
+    <script class="options" defer="defer" id="b2bc8492-a49d-4249-a2f8-753f00100825" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_aea4f33f-c325-4a37-9550-5988681a8188">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_a3ba9e26-7975-45e5-8d76-e762b94349c9">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_aea4f33f-c325-4a37-9550-5988681a8188" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_a3ba9e26-7975-45e5-8d76-e762b94349c9" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/250763';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

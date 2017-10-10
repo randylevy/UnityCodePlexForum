@@ -1,0 +1,785 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Constructor Injection</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/29179?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/29179?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="v5VTBkfjoCTDBVWrrOdUY31qVkH-OPpG-sLHdMxWvaXBzN1VPVXleR7kT-lcqdT_GDeFSdtSYqEOcmw4uMSFtYY6uqo4KH2yWJsltzpXEJRP8kPYCphHyYmmKaO5zXSkE9a0aQ2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken275d602e5-faf4-4e41-987f-62bf5f63e65b" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:28:59 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f29179" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="ebfab0ea-94f0-4044-9b49-8abf6d1b4d07">
+                
+                    <script class="options" defer="defer" id="ebfab0ea-94f0-4044-9b49-8abf6d1b4d07" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="72a1ee54-8e29-4d15-9ec1-a0b41c357a29">
+                
+                    <script class="options" defer="defer" id="72a1ee54-8e29-4d15-9ec1-a0b41c357a29" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Constructor Injection
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:29179]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="dccbb12f-2065-4b5a-b7df-ec417f3a88fe">
+    <script class="options" defer="defer" id="dccbb12f-2065-4b5a-b7df-ec417f3a88fe" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/29179","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="97248">
+    <td id="PostDetailsCell_97248" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post97248"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/onesandtwos">onesandtwos</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/6/2008 11:31:15 AM" LocalTimeTicks="1212777075">Jun 6, 2008 at 11:31 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="6/6/2008 12:32:26 PM" LocalTimeTicks="1212780746">Jun 6, 2008 at 12:32 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_97248" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Sorry&#32;to&#32;ask&#32;but&#32;the&#32;downloadable&#32;documentation&#32;is&#32;still&#32;not&#32;working&#32;&#40;Page&#32;cannot&#32;be&#32;displayed&#32;error&#41;&#32;and&#32;the&#32;MSDN&#32;documentation&#32;doesn&#39;t&#32;cover&#32;this....&#32;&#32;I&#32;have&#32;two&#32;classes&#32;that&#32;inherits&#32;from&#32;a&#32;generic&#32;interface&#32;which&#32;I&#32;have&#32;in&#32;my&#32;config&#32;like&#32;so&#58;&#32;&#38;lt&#59;typeAlias&#32;alias&#61;&#38;quot&#59;IMessageQueueController&#38;quot&#59;&#32;type&#61;&#38;quot&#59;AnAssembly.IMessageQueueController,&#32;AnAssembly&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;typeAlias&#32;alias&#61;&#38;quot&#59;IMessageFormatter&#38;quot&#59;&#32;type&#61;&#38;quot&#59;System.Messaging.IMessageFormatter,&#32;System.Messaging&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#32;&#38;lt&#59;typeAlias&#32;alias&#61;&#38;quot&#59;BinaryMessageFormatter&#38;quot&#59;&#32;type&#61;&#38;quot&#59;System.Messaging.BinaryMessageFormatter,&#32;System.Messaging&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;typeAlias&#32;alias&#61;&#38;quot&#59;XmlMessageFormatter&#38;quot&#59;&#32;type&#61;&#38;quot&#59;System.Messaging.XmlMessageFormatter,&#32;System.Messaging&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#32;&#32;&#38;lt&#59;type&#32;type&#61;&#38;quot&#59;IMessageQueueController&#91;&#91;AnEntity&#93;&#93;&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;MessageQueueController&#91;&#91;AnEntity&#93;&#93;&#38;quot&#59;&#38;gt&#59;&#32;&#32;&#38;lt&#59;lifetime&#32;type&#61;&#38;quot&#59;Singleton&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#32;&#38;lt&#59;typeConfig&#32;extensionType&#61;&#38;quot&#59;Microsoft.Practices.Unity.Configuration.TypeInjectionElement,&#32;Microsoft.Practices.Unity.Configuration&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;formatter&#38;quot&#59;&#32;parameterType&#61;&#38;quot&#59;IMessageFormatter&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;dependency&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;queueSettingKey&#38;quot&#59;&#32;parameterType&#61;&#38;quot&#59;System.String&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;value&#32;value&#61;&#38;quot&#59;queueName&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#32;&#38;lt&#59;&#47;typeConfig&#38;gt&#59;&#32;&#38;lt&#59;&#47;type&#38;gt&#59;&#32;&#32;&#38;lt&#59;type&#32;type&#61;&#38;quot&#59;IMessageQueueController&#91;&#91;AnotherEntity&#93;&#93;&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;MessageQueueController&#91;&#91;AnotherEntity&#93;&#93;&#38;quot&#59;&#38;gt&#59;&#32;&#32;&#38;lt&#59;lifetime&#32;type&#61;&#38;quot&#59;Singleton&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#32;&#38;lt&#59;typeConfig&#32;extensionType&#61;&#38;quot&#59;Microsoft.Practices.Unity.Configuration.TypeInjectionElement,&#32;Microsoft.Practices.Unity.Configuration&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;formatter&#38;quot&#59;&#32;parameterType&#61;&#38;quot&#59;IMessageFormatter&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;dependency&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;queueSettingKey&#38;quot&#59;&#32;parameterType&#61;&#38;quot&#59;System.String&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;value&#32;value&#61;&#38;quot&#59;queueName&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#32;&#38;lt&#59;&#47;typeConfig&#38;gt&#59;&#32;&#38;lt&#59;&#47;type&#38;gt&#59;&#32;&#32;Couple&#32;of&#32;questions&#32;being&#32;&#32;Have&#32;I&#32;set&#32;up&#32;the&#32;Generic&#32;portion&#32;correctly&#63;&#32;&#32;How&#32;do&#32;I&#32;reference&#32;the&#32;BinaryMessageFormatter&#32;in&#32;the&#32;AnEntity&#32;Generic&#32;type&#32;and&#32;the&#32;XmlMessageFormatter&#32;in&#32;the&#32;AnotherEntity&#32;Generic&#32;type&#63;&#32;&#32;&#32;Thanks&#32;if&#32;anyone&#32;has&#32;the&#32;time&#32;to&#32;answer...&#32;&#58;&#41;&#32;&#32;&#38;nbsp&#59;&#32;&#32;">
+        Sorry to ask but the downloadable documentation is still not working (Page cannot be displayed error) and the MSDN documentation doesn't cover this....<br>
+<br>
+I have&nbsp;two classes that inherits from a generic interface which I have in my config like so:
+<p><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff"><span style="font-size:13px; color:#0000ff">&lt;<span style="font-size:13px; color:#a31515">typeAlias</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">alias</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">IMessageQueueController</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">type</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">AnAssembly.IMessageQueueController,
+<span style="font-size:13px; color:#0000ff">AnAssembly</span></span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff"> /&gt;<br>
+&lt;<span style="font-size:13px; color:#a31515">typeAlias</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">alias</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">IMessageFormatter</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">type</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">System.Messaging.IMessageFormatter, System.Messaging</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+ /&gt;<br>
+<br>
+&lt;<span style="font-size:13px; color:#a31515">typeAlias</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">alias</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">BinaryMessageFormatter</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">type</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">System.Messaging.BinaryMessageFormatter, System.Messaging</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+ /&gt;<br>
+&lt;<span style="font-size:13px; color:#a31515">typeAlias</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">alias</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">XmlMessageFormatter</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">type</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">System.Messaging.XmlMessageFormatter, System.Messaging</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+ /&gt; <br>
+<br>
+</span></span></span></span></span></span><span style="font-size:13px; color:#0000ff">&lt;</span><span style="font-size:13px; color:#a31515">type</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">type</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">IMessageQueueController[[<strong>AnEntity</strong>]]</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">mapTo</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">MessageQueueController[[<strong>AnEntity</strong>]]</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">&gt;<br>
+<span style="font-size:13px; color:#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span><span style="font-size:13px; color:#a31515">lifetime</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">type</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">Singleton</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">/&gt;<br>
+</span></span><span style="font-size:13px; color:#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span><span style="font-size:13px; color:#a31515">typeConfig</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">extensionType</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">Microsoft.Practices.Unity.Configuration.TypeInjectionElement,
+ Microsoft.Practices.Unity.Configuration</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-size:13px; color:#0000ff">&lt;</span><span style="font-size:13px; color:#a31515">constructor</span><span style="font-size:13px; color:#0000ff">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span><span style="font-size:13px; color:#a31515">param</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">name</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">formatter</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">parameterType</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">IMessageFormatter</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span><span style="font-size:13px; color:#a31515">dependency</span><span style="font-size:13px; color:#0000ff"> /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/</span><span style="font-size:13px; color:#a31515">param</span><span style="font-size:13px; color:#0000ff">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span><span style="font-size:13px; color:#a31515">param</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">name</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">queueSettingKey</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">parameterType</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">System.String</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span><span style="font-size:13px; color:#a31515">value</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">value</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">queueName</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/</span><span style="font-size:13px; color:#a31515">param</span><span style="font-size:13px; color:#0000ff">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/</span><span style="font-size:13px; color:#a31515">constructor</span><span style="font-size:13px; color:#0000ff">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/</span><span style="font-size:13px; color:#a31515">typeConfig</span><span style="font-size:13px; color:#0000ff">&gt;<br>
+&lt;/</span><span style="font-size:13px; color:#a31515">type</span><span style="font-size:13px; color:#0000ff">&gt;
+</span></p>
+<p>&lt;<span style="font-size:13px; color:#a31515">type</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">type</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">IMessageQueueController[[<strong>AnotherEntity</strong>]]</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">mapTo</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">MessageQueueController[[<strong>AnotherEntity</strong>]]</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">&gt;<br>
+<span style="font-size:13px; color:#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span><span style="font-size:13px; color:#a31515">lifetime</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">type</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">Singleton</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">/&gt;<br>
+</span></span><span style="font-size:13px; color:#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span><span style="font-size:13px; color:#a31515">typeConfig</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">extensionType</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">Microsoft.Practices.Unity.Configuration.TypeInjectionElement,
+ Microsoft.Practices.Unity.Configuration</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-size:13px; color:#0000ff">&lt;</span><span style="font-size:13px; color:#a31515">constructor</span><span style="font-size:13px; color:#0000ff">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span><span style="font-size:13px; color:#a31515">param</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">name</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">formatter</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">parameterType</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">IMessageFormatter</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span><span style="font-size:13px; color:#a31515">dependency</span><span style="font-size:13px; color:#0000ff"> /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/</span><span style="font-size:13px; color:#a31515">param</span><span style="font-size:13px; color:#0000ff">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span><span style="font-size:13px; color:#a31515">param</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">name</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">queueSettingKey</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">parameterType</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">System.String</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span><span style="font-size:13px; color:#a31515">value</span><span style="font-size:13px; color:#0000ff">
+</span><span style="font-size:13px; color:#ff0000">value</span><span style="font-size:13px; color:#0000ff">=</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">queueName</span><span style="font-size:13px">&quot;</span><span style="font-size:13px; color:#0000ff">/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/</span><span style="font-size:13px; color:#a31515">param</span><span style="font-size:13px; color:#0000ff">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/</span><span style="font-size:13px; color:#a31515">constructor</span><span style="font-size:13px; color:#0000ff">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/</span><span style="font-size:13px; color:#a31515">typeConfig</span><span style="font-size:13px; color:#0000ff">&gt;<br>
+&lt;/</span><span style="font-size:13px; color:#a31515">type</span><span style="font-size:13px; color:#0000ff">&gt;<br>
+</span></p>
+<p>Couple of questions being</p>
+<ul>
+<li>Have I set up the Generic portion correctly? </li><li>How do I reference the BinaryMessageFormatter in the AnEntity Generic type and the XmlMessageFormatter in the AnotherEntity Generic type?
+</li></ul>
+<p>Thanks if anyone has the time to answer... :)</p>
+</span>
+<p>&nbsp;</p>
+<p></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_97248" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="97312">
+    <td id="PostDetailsCell_97312" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post97312"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/6/2008 4:48:54 PM" LocalTimeTicks="1212796134">Jun 6, 2008 at 4:48 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_97312" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="To&#32;fix&#32;the&#32;documentation,&#32;&#32;&#32;&#32;1.&#32;Right-click&#32;the&#32;CHM&#32;file,&#32;and&#32;then&#32;click&#32;Properties.&#32;&#32;&#32;2.&#32;Click&#32;Unblock.&#32;&#32;&#32;3.&#32;Double-click&#32;the&#32;.chm&#32;file&#32;to&#32;open&#32;the&#32;file.&#32;&#32;&#32;&#32;&#32;&#40;This&#32;is&#32;from&#32;http&#58;&#47;&#47;support.microsoft.com&#47;kb&#47;902225.&#41;&#32;&#32;I&#39;ll&#32;look&#32;at&#32;the&#32;config&#32;in&#32;a&#32;bit.&#32;&#32;">
+        To fix the documentation,<br>
+<table>
+<tbody>
+<tr>
+<td>1.</td>
+<td>Right-click the CHM file, and then click <strong>Properties</strong>.</td>
+</tr>
+<tr>
+<td>2.</td>
+<td>Click <strong>Unblock</strong>.</td>
+</tr>
+<tr>
+<td>3.</td>
+<td>Double-click the .chm file to open the file.</td>
+</tr>
+</tbody>
+</table>
+<br>
+(This is from <a href="http://support.microsoft.com/kb/902225" rel="nofollow">http://support.microsoft.com/kb/902225</a>.)<br>
+<br>
+I'll look at the config in a bit.<br>
+<br>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_97312" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="97523">
+    <td id="PostDetailsCell_97523" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post97523"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/onesandtwos">onesandtwos</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="6/8/2008 6:26:54 PM" LocalTimeTicks="1212974814">Jun 8, 2008 at 6:26 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_97523" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Thanks&#32;ctavares,&#32;Now&#32;i&#32;feel&#32;like&#32;a&#32;dumb&#32;one&#32;&#58;&#41;&#32;&#32;">
+        
+<p>Thanks ctavares,</p>
+<p>Now i feel like a dumb one :)<br>
+</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_97523" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f29179">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="042df6ca-f9ed-403a-b2e4-5787d4a16984">
+    <script class="options" defer="defer" id="042df6ca-f9ed-403a-b2e4-5787d4a16984" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_c73c254d-b3f5-4798-b589-f768bd39c8f1">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_96618509-5f5e-4b71-9446-0fe28838f5b8">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_c73c254d-b3f5-4798-b589-f768bd39c8f1" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_96618509-5f5e-4b71-9446-0fe28838f5b8" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/29179';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

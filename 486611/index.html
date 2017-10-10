@@ -1,0 +1,893 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - Injecting container into View Models to resolve Enterprise Library&#39;s logger&#63; Seems like the wrong approach</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/486611?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/486611?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="t4b42sKoUEdpa9c3SaNj_Bo63XcC93Xt8YUqP3e8zKpMrjdJRghu-2OaTTpAITZgOQcg3tD46vNZ38ssxR8oyYZK9KuBts_7LwQds5e7AId0fdAaHpgUeFM5AEyLQyPCSv2fSA2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2df243cf7-637b-4442-a53e-14b2740cf746" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:25:43 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f486611" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="9b27e9dd-6e08-4d42-a582-15f4555ac1f2">
+                
+                    <script class="options" defer="defer" id="9b27e9dd-6e08-4d42-a582-15f4555ac1f2" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="517c0a6d-693d-46e0-92cd-03dfe2c6dc85">
+                
+                    <script class="options" defer="defer" id="517c0a6d-693d-46e0-92cd-03dfe2c6dc85" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                Injecting container into View Models to resolve Enterprise Library&#39;s logger&#63; Seems like the wrong approach
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:486611]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="5e8adc92-17e1-4421-89fb-2361f503e630">
+    <script class="options" defer="defer" id="5e8adc92-17e1-4421-89fb-2361f503e630" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/486611","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="1154338">
+    <td id="PostDetailsCell_1154338" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1154338"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/SapphireGirl">SapphireGirl</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/11/2014 3:52:31 PM" LocalTimeTicks="1389484351">Jan 11, 2014 at 3:52 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1154338" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="Hi,&#13;&#10;&#32;&#32;I&#32;have&#32;a&#32;WPF&#32;app&#32;that&#32;I&#32;am&#32;building&#32;that&#32;uses&#32;prism&#32;with&#32;a&#32;unity&#32;container.&#32;&#32;For&#32;my&#32;logging&#32;I&#32;am&#32;using&#32;Enterprise&#32;Libraries&#32;Logging&#32;module.&#32;&#32;&#13;&#10;&#13;&#10;Now,&#32;I&#32;currently&#32;have&#13;&#10;&#42;&#32;A&#32;WPF&#32;project&#32;that&#32;registers&#32;the&#32;logger&#32;in&#32;my&#32;bootstrapper&#13;&#10;&#42;&#32;Several&#32;class&#32;library&#32;projects&#32;that&#32;contain&#32;individual&#32;modules&#32;with&#32;their&#32;views&#32;and&#32;viewmodels.&#13;&#10;&#42;&#32;A&#32;class&#32;library&#32;for&#32;my&#32;Logger&#32;that&#32;uses&#32;EL&#32;logging&#32;and&#32;contains&#32;several&#32;types&#32;of&#32;logging&#32;&#40;ie&#32;Trace,&#32;Info&#32;etc&#41;&#13;&#10;&#13;&#10;Now&#32;in&#32;my&#32;Prism&#32;module&#32;projects&#32;I&#32;am&#32;finding&#32;that&#32;I&#32;have&#32;to&#32;inject&#32;the&#32;container&#32;to&#32;resolve&#32;the&#32;logger.&#32;&#32;What&#32;bothers&#32;me&#32;is&#32;I&#32;am&#32;not&#32;confident&#32;that&#32;this&#32;is&#32;the&#32;right&#32;approach&#32;for&#32;doing&#32;Enterprise&#32;Logging.&#32;&#32;How&#32;to&#32;I&#32;resolve&#32;my&#32;logger&#32;from&#32;my&#32;container&#32;without&#32;constantly&#32;injecting&#32;my&#32;container&#32;in&#32;every&#32;view&#32;model.&#32;&#32;I&#32;can&#32;provide&#32;code&#32;if&#32;need&#32;be.&#13;&#10;Thank&#32;you&#13;&#10;Justine">
+        <div class="markDownOutput ">Hi, <br>
+I have a WPF app that I am building that uses prism with a unity container. For my logging I am using Enterprise Libraries Logging module.<br>
+<br>
+Now, I currently have<br>
+<ul>
+<li>A WPF project that registers the logger in my bootstrapper </li><li>Several class library projects that contain individual modules with their views and viewmodels.
+</li><li>A class library for my Logger that uses EL logging and contains several types of logging (ie Trace, Info etc)<br>
+</li></ul>
+Now in my Prism module projects I am finding that I have to inject the container to resolve the logger. What bothers me is I am not confident that this is the right approach for doing Enterprise Logging. How to I resolve my logger from my container without
+ constantly injecting my container in every view model. I can provide code if need be.
+<br>
+Thank you <br>
+Justine<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1154338" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1159819">
+    <td id="PostDetailsCell_1159819" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1159819"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/13/2014 4:19:17 AM" LocalTimeTicks="1389615557">Jan 13, 2014 at 4:19 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1159819" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="You&#32;can&#32;register&#32;the&#32;Logger&#32;in&#32;the&#32;container&#32;and&#32;then&#32;allow&#32;Prism&#32;to&#32;inject&#32;the&#32;logger&#32;using&#32;constructor&#32;injection&#32;into&#32;the&#32;appropriate&#32;objects.&#13;&#10;&#13;&#10;Working&#32;with&#32;Prism,&#32;I&#32;would&#32;create&#32;an&#32;&#96;ILoggerFacade&#96;&#32;and&#32;then&#32;return&#32;that&#32;singleton&#32;logger&#32;via&#32;the&#32;&#96;CreateLogger&#40;&#41;&#96;&#32;method&#58;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#32;c&#35;&#13;&#10;protected&#32;virtual&#32;ILoggerFacade&#32;CreateLogger&#40;&#41;&#13;&#10;&#123;&#13;&#10;&#32;&#32;&#32;&#32;return&#32;MyLogger.Instance&#59;&#13;&#10;&#125;&#13;&#10;&#96;&#96;&#96;&#13;&#10;The&#32;in&#32;the&#32;Run&#32;method&#32;of&#32;the&#32;bootstrapper&#32;register&#32;the&#32;logger&#58;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#32;c&#35;&#13;&#10;container.RegisterInstance&#60;ILoggerFacade&#62;&#40;CreateLogger&#40;&#41;&#41;&#32;&#47;&#47;&#32;or&#32;use&#32;protected&#32;Logger&#32;property&#59;&#13;&#10;&#96;&#96;&#96;&#13;&#10;&#13;&#10;Then&#32;any&#32;objects&#32;resolved&#32;by&#32;the&#32;container&#32;should&#32;be&#32;injected&#32;with&#32;the&#32;ILoggerFacade&#32;instance.&#13;&#10;&#13;&#10;This&#32;is&#32;basically&#32;what&#32;the&#32;&#96;UnityBootstrapper&#96;&#32;does.&#13;&#10;&#13;&#10;&#126;&#126;&#13;&#10;Randy&#32;Levy&#13;&#10;&#91;entlib.support&#64;live.com&#93;&#40;mailto&#58;entlib.support&#64;live.com&#41;&#13;&#10;Enterprise&#32;Library&#32;support&#32;engineer&#13;&#10;&#91;Support&#32;How-to&#93;&#40;http&#58;&#47;&#47;entlib.codeplex.com&#47;wikipage&#63;title&#61;Support&#37;20How-to&#41;&#32;">
+        <div class="markDownOutput ">You can register the Logger in the container and then allow Prism to inject the logger using constructor injection into the appropriate objects.
+<br>
+<br>
+Working with Prism, I would create an <code>ILoggerFacade</code> and then return that singleton logger via the
+<code>CreateLogger()</code> method:<br>
+<div style="color:Black; background-color:White">
+<pre>
+<span style="color:Blue">protected</span> <span style="color:Blue">virtual</span> ILoggerFacade CreateLogger()
+{
+    <span style="color:Blue">return</span> MyLogger.Instance;
+}
+</pre>
+</div>
+The in the Run method of the bootstrapper register the logger:<br>
+<div style="color:Black; background-color:White">
+<pre>
+container.RegisterInstance&lt;ILoggerFacade&gt;(CreateLogger()) <span style="color:Green">// or use protected Logger property;</span>
+</pre>
+</div>
+Then any objects resolved by the container should be injected with the ILoggerFacade instance.
+<br>
+<br>
+This is basically what the <code>UnityBootstrapper</code> does. <br>
+<br>
+~~ <br>
+Randy Levy <br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">&#x65;n&#x74;&#108;&#105;&#x62;&#46;&#115;&#x75;&#112;&#112;&#x6f;&#x72;&#x74;&#x40;&#x6c;&#x69;&#118;&#x65;&#x2e;c&#x6f;&#x6d;</a>
+<br>
+Enterprise Library support engineer <br>
+<a href="http://entlib.codeplex.com/wikipage?title=Support%20How-to"  rel="nofollow">Support How-to</a>
+<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1159819" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1161190">
+    <td id="PostDetailsCell_1161190" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1161190"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/SapphireGirl">SapphireGirl</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/13/2014 1:17:03 PM" LocalTimeTicks="1389647823">Jan 13, 2014 at 1:17 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1161190" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="Thanks&#32;Randy&#32;for&#32;your&#32;reply.&#32;&#32;I&#32;think&#32;the&#32;is&#32;what&#32;I&#32;am&#32;doing&#32;although&#32;my&#32;Logger&#32;is&#32;called&#32;SGLogger&#32;with&#32;its&#32;accompanying&#32;interface&#32;ISGLogger&#32;so&#32;maybe&#32;to&#32;be&#32;clearer&#32;I&#32;should&#32;rename&#32;it.&#13;&#10;&#13;&#10;My&#32;concern&#32;is&#32;when&#32;working&#32;in&#32;Prism,&#32;when&#32;is&#32;it&#32;appropriate&#32;to&#32;inject&#32;in&#32;the&#32;container&#63;&#32;&#32;Ok&#32;here&#32;is&#32;an&#32;overview&#32;of&#32;what&#32;I&#32;am&#32;doing&#32;specifically.&#13;&#10;&#13;&#10;My&#32;solution&#32;has&#32;several&#32;projects.&#13;&#10;1.&#32;&#32;WPF&#32;project&#58;&#32;This&#32;is&#32;where&#32;my&#32;bootstrapper&#32;is&#32;of&#32;course.&#13;&#10;2.&#32;&#32;ContentModule&#58;&#32;This&#32;is&#32;a&#32;C&#35;&#32;Library&#32;project&#32;that&#32;I&#32;inject&#32;the&#32;container&#32;into&#32;the&#32;constructor&#32;to&#32;resolve&#32;the&#32;&#32;Logger.&#32;&#32;So&#32;this&#32;is&#32;what&#32;the&#32;constructor&#32;looks&#32;like&#58;&#13;&#10;&#13;&#10;&#32;&#32;public&#32;ContentModuleMain&#40;IUnityContainer&#32;container,&#32;IRegionManager&#32;regionManager&#41;&#32;&#58;&#32;base&#40;container,&#32;regionManager&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;this._container&#32;&#61;&#32;container&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;this._regionManager&#32;&#61;&#32;regionManager&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;this._logger&#32;&#61;&#32;_container.Resolve&#60;ISGLogger&#62;&#40;&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#13;&#10;Then&#32;I&#32;have&#32;a&#32;RegisterTypes&#32;method&#32;that&#32;registers&#32;my&#32;MainContentViewModel&#32;and&#32;my&#32;MainContentView&#32;types.&#13;&#10;I&#32;also&#32;Register&#32;my&#32;Views&#32;with&#32;my&#32;Region&#32;and&#32;Resolve&#32;my&#32;VM&#39;s.&#13;&#10;Ok,&#32;so&#32;at&#32;the&#32;Module&#32;level,&#32;I&#32;have&#32;a&#32;container&#32;dependency.&#32;&#32;But&#32;here&#32;is&#32;the&#32;question.&#32;&#13;&#10;&#13;&#10;Here&#32;is&#32;the&#32;constructor&#32;for&#32;the&#32;ViewModel&#58;&#13;&#10;public&#32;MainContentViewModel&#40;IMainContentView&#32;contentView,IUnityContainer&#32;container&#41;&#58;&#32;base&#40;contentView&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;View&#32;&#61;&#32;contentView&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_container&#32;&#61;&#32;container&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_logger&#32;&#61;&#32;_container.Resolve&#60;ISGLogger&#62;&#40;&#41;&#59;&#13;&#10;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#13;&#10;So&#32;again,&#32;I&#32;am&#32;passing&#32;into&#32;the&#32;VM&#32;the&#32;container&#32;in&#32;order&#32;to&#32;resolve&#32;my&#32;logger.&#32;&#32;I&#32;am&#32;not&#32;confident&#32;that&#32;this&#32;is&#32;the&#32;right&#32;approach&#32;just&#32;to&#32;get&#32;to&#32;the&#32;Logger.&#32;&#32;Is&#32;there&#32;another&#32;way&#32;without&#32;having&#32;a&#32;container&#32;dependency&#63;&#13;&#10;Note&#58;&#32;the&#32;Logger&#32;has&#32;its&#32;own&#32;C&#35;&#32;library&#32;and&#32;all&#32;of&#32;the&#32;interfaces&#32;are&#32;placed&#32;in&#32;a&#32;Util&#32;C&#35;&#32;project&#32;for&#32;decoupling&#32;reasons.&#13;&#10;&#13;&#10;Justine&#13;&#10;&#13;&#10;&#13;&#10;">
+        <div class="markDownOutput ">Thanks Randy for your reply. I think the is what I am doing although my Logger is called SGLogger with its accompanying interface ISGLogger so maybe to be clearer I should rename it.
+<br>
+<br>
+My concern is when working in Prism, when is it appropriate to inject in the container? Ok here is an overview of what I am doing specifically.
+<br>
+<br>
+My solution has several projects.<br>
+<ol>
+<li>WPF project: This is where my bootstrapper is of course. </li><li>ContentModule: This is a C# Library project that I inject the container into the constructor to resolve the Logger. So this is what the constructor looks like:<br>
+</li></ol>
+public ContentModuleMain(IUnityContainer container, IRegionManager regionManager) : base(container, regionManager)<br>
+<pre><code>    {
+        this._container = container;
+        this._regionManager = regionManager;
+        this._logger = _container.Resolve&lt;ISGLogger&gt;();
+    }
+</code></pre>
+Then I have a RegisterTypes method that registers my MainContentViewModel and my MainContentView types.
+<br>
+I also Register my Views with my Region and Resolve my VM's. <br>
+Ok, so at the Module level, I have a container dependency. But here is the question.
+<br>
+<br>
+Here is the constructor for the ViewModel: <br>
+public MainContentViewModel(IMainContentView contentView,IUnityContainer container): base(contentView)<br>
+<pre><code>    {
+        View = contentView;
+        _container = container;
+        _logger = _container.Resolve&lt;ISGLogger&gt;();
+
+
+    }
+</code></pre>
+So again, I am passing into the VM the container in order to resolve my logger. I am not confident that this is the right approach just to get to the Logger. Is there another way without having a container dependency?
+<br>
+Note: the Logger has its own C# library and all of the interfaces are placed in a Util C# project for decoupling reasons.
+<br>
+<br>
+Justine<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1161190" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1167801">
+    <td id="PostDetailsCell_1167801" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1167801"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/15/2014 6:01:40 AM" LocalTimeTicks="1389794500">Jan 15, 2014 at 6:01 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1167801" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="Is&#32;there&#32;a&#32;reason&#32;why&#32;you&#32;can&#39;t&#32;register&#32;ISGLogger&#32;in&#32;the&#32;container&#32;and&#32;then&#32;inject&#32;ISGLogger&#32;directly&#32;instead&#32;of&#32;injecting&#32;the&#32;container&#63;&#13;&#10;&#13;&#10;&#96;&#96;&#96;&#32;c&#35;&#13;&#10;&#32;&#32;&#32;&#32;public&#32;ContentModuleMain&#40;IRegionManager&#32;regionManager,&#32;ISGLogger&#32;logger&#41;&#32;&#58;&#32;base&#40;regionManager&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;this._regionManager&#32;&#61;&#32;regionManager&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;this._logger&#32;&#61;&#32;logger&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#96;&#96;&#96;&#13;&#10;&#13;&#10;&#126;&#126;&#13;&#10;Randy&#32;Levy&#13;&#10;&#91;entlib.support&#64;live.com&#93;&#40;mailto&#58;entlib.support&#64;live.com&#41;&#13;&#10;Enterprise&#32;Library&#32;support&#32;engineer&#13;&#10;&#91;Support&#32;How-to&#93;&#40;http&#58;&#47;&#47;entlib.codeplex.com&#47;wikipage&#63;title&#61;Support&#37;20How-to&#41;&#32;">
+        <div class="markDownOutput ">Is there a reason why you can't register ISGLogger in the container and then inject ISGLogger directly instead of injecting the container?<br>
+<div style="color:Black; background-color:White">
+<pre>
+    <span style="color:Blue">public</span> ContentModuleMain(IRegionManager regionManager, ISGLogger logger) : <span style="color:Blue">base</span>(regionManager)
+    {
+        <span style="color:Blue">this</span>._regionManager = regionManager;
+        <span style="color:Blue">this</span>._logger = logger;
+    }
+</pre>
+</div>
+~~ <br>
+Randy Levy <br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">&#x65;n&#x74;&#108;&#105;&#x62;&#46;&#115;&#x75;&#112;&#112;&#x6f;&#x72;&#x74;&#x40;&#x6c;&#x69;&#118;&#x65;&#x2e;c&#x6f;&#x6d;</a>
+<br>
+Enterprise Library support engineer <br>
+<a href="http://entlib.codeplex.com/wikipage?title=Support%20How-to"  rel="nofollow">Support How-to</a>
+<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1167801" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1169300">
+    <td id="PostDetailsCell_1169300" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1169300"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/SapphireGirl">SapphireGirl</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/15/2014 3:10:55 PM" LocalTimeTicks="1389827455">Jan 15, 2014 at 3:10 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1169300" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="That&#32;seems&#32;perfect,&#32;I&#32;implemented&#32;this&#32;but&#32;I&#32;created&#32;a&#32;ContentViewModelFactory.&#32;&#32;So&#32;when&#32;I&#32;create&#32;my&#32;view&#32;model&#32;in&#32;the&#32;Create&#32;method&#32;of&#32;my&#32;factory&#32;I&#32;have&#13;&#10;&#32;public&#32;IContentViewModel&#32;Create&#40;ISGLogger&#32;_logger&#41;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#123;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;&#40;IContentViewModel&#41;&#32;new&#32;ContentViewModel&#40;&#32;_logger&#41;&#59;&#13;&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#125;&#13;&#10;&#13;&#10;So&#32;now&#32;my&#32;question&#32;is,&#32;does&#32;creating&#32;a&#32;view&#32;model&#32;in&#32;this&#32;fashion&#32;negate&#32;using&#32;a&#32;container.&#32;&#32;I&#32;thought&#32;I&#32;needed&#32;to&#32;resolve&#13;&#10;my&#32;IContentViewModel&#32;instead&#32;of&#32;using&#32;new.&#32;&#32;But&#32;if&#32;I&#32;Resolve&#60;IContentViewModel&#62;&#32;&#40;I&#32;registered&#32;this&#32;in&#32;the&#32;bootstrapper&#32;of&#32;my&#32;WPF&#32;project&#41;&#32;then&#32;I&#32;would&#32;need&#32;to&#32;inject&#32;the&#32;container&#32;again.&#13;&#10;&#13;&#10;Would&#32;the&#32;above&#32;Factory&#32;be&#32;a&#32;correct&#32;way&#32;to&#32;create&#32;a&#32;View&#32;model&#32;or&#32;do&#32;I&#32;need&#32;to&#32;use&#32;the&#32;container&#32;to&#32;resolve&#63;&#13;&#10;&#13;&#10;Thank&#32;you&#32;for&#32;your&#32;time.&#32;&#32;I&#32;hope&#32;this&#32;make&#32;sense&#63;&#32;&#32;This&#32;is&#32;my&#32;first&#32;project&#32;with&#32;Prism&#32;and&#32;I&#32;am&#32;just&#32;getting&#32;the&#32;feel&#32;for&#32;using&#13;&#10;Prism,&#32;containers,&#32;and&#32;various&#32;design&#32;patterns.">
+        <div class="markDownOutput ">That seems perfect, I implemented this but I created a ContentViewModelFactory. So when I create my view model in the Create method of my factory I have
+<br>
+public IContentViewModel Create(ISGLogger _logger)<br>
+<pre><code>    {
+        return (IContentViewModel) new ContentViewModel( _logger);
+    }
+</code></pre>
+So now my question is, does creating a view model in this fashion negate using a container. I thought I needed to resolve
+<br>
+my IContentViewModel instead of using new. But if I Resolve&lt;IContentViewModel&gt; (I registered this in the bootstrapper of my WPF project) then I would need to inject the container again.
+<br>
+<br>
+Would the above Factory be a correct way to create a View model or do I need to use the container to resolve?
+<br>
+<br>
+Thank you for your time. I hope this make sense? This is my first project with Prism and I am just getting the feel for using
+<br>
+Prism, containers, and various design patterns.<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1169300" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="1172562">
+    <td id="PostDetailsCell_1172562" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post1172562"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/randylevy">randylevy</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/17/2014 4:58:55 AM" LocalTimeTicks="1389963535">Jan 17, 2014 at 4:58 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_1172562" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post markDownOutput" 
+        data-markdown="I&#32;don&#39;t&#32;think&#32;you&#32;should&#32;have&#32;to&#32;&#34;new&#32;up&#34;&#32;any&#32;objects&#59;&#32;the&#32;container&#32;should&#32;manage&#32;object&#32;creation&#32;and&#32;injecting&#32;any&#32;dependencies.&#32;&#32;Have&#32;you&#32;looked&#32;at&#32;the&#32;Prism&#32;documentation&#63;&#32;&#32;The&#32;&#91;Developer&#39;s&#32;Guide&#32;to&#32;Microsoft&#32;Prism&#93;&#40;http&#58;&#47;&#47;msdn.microsoft.com&#47;en-us&#47;library&#47;gg406140.aspx&#41;&#32;has&#32;a&#32;lot&#32;of&#32;resources&#32;that&#32;could&#32;help&#32;&#40;e.g.&#32;reference&#32;implementation&#41;.&#13;&#10;&#13;&#10;&#126;&#126;&#13;&#10;Randy&#32;Levy&#13;&#10;&#91;entlib.support&#64;live.com&#93;&#40;mailto&#58;entlib.support&#64;live.com&#41;&#13;&#10;Enterprise&#32;Library&#32;support&#32;engineer&#13;&#10;&#91;Support&#32;How-to&#93;&#40;http&#58;&#47;&#47;entlib.codeplex.com&#47;wikipage&#63;title&#61;Support&#37;20How-to&#41;&#32;">
+        <div class="markDownOutput ">I don't think you should have to &quot;new up&quot; any objects; the container should manage object creation and injecting any dependencies. Have you looked at the Prism documentation? The
+<a href="http://msdn.microsoft.com/en-us/library/gg406140.aspx"  rel="nofollow">Developer's Guide to Microsoft Prism</a> has a lot of resources that could help (e.g. reference implementation).
+<br>
+<br>
+~~ <br>
+Randy Levy <br>
+<a href="mailto:entlib.support@live.com" rel="nofollow">&#x65;n&#x74;&#108;&#105;&#x62;&#46;&#115;&#x75;&#112;&#112;&#x6f;&#x72;&#x74;&#x40;&#x6c;&#x69;&#118;&#x65;&#x2e;c&#x6f;&#x6d;</a>
+<br>
+Enterprise Library support engineer <br>
+<a href="http://entlib.codeplex.com/wikipage?title=Support%20How-to"  rel="nofollow">Support How-to</a>
+<br>
+</div>
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_1172562" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f486611">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="ed97744e-4ea4-421a-af3e-66bc4036f9a5">
+    <script class="options" defer="defer" id="ed97744e-4ea4-421a-af3e-66bc4036f9a5" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_7a01e07f-d38f-44fc-8c75-227203f6b0b3">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_052cd908-3d5c-4689-9235-2c2e5ea982d5">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_7a01e07f-d38f-44fc-8c75-227203f6b0b3" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_052cd908-3d5c-4689-9235-2c2e5ea982d5" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/486611';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

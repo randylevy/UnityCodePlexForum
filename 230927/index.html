@@ -1,0 +1,1030 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - How to register Dictionary using Unity 2.0</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/230927?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/230927?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="7zq6cY8eknHGVS_HY6deKgG-eb0RgTMPcXbdhrkcy22xpul3saNpwySjbPch_7r7nF9AF8BfpKDz5ISqTNFncdyHLlhUQJlYAV3_tf8bA3wc4gT63xYuobSPV9jVkKnUS4AykA2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2143cdd52-e37c-41bd-bdea-51316482e7ad" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:26:58 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f230927" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="4726df0c-4c06-41bd-a515-5cc4d24f5372">
+                
+                    <script class="options" defer="defer" id="4726df0c-4c06-41bd-a515-5cc4d24f5372" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="3d7149c7-651b-4284-8e39-274df13727c0">
+                
+                    <script class="options" defer="defer" id="3d7149c7-651b-4284-8e39-274df13727c0" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                How to register Dictionary using Unity 2.0
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:230927]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="39330d9a-68b9-4059-8de4-222884ac50f9">
+    <script class="options" defer="defer" id="39330d9a-68b9-4059-8de4-222884ac50f9" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/230927","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="507290">
+    <td id="PostDetailsCell_507290" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post507290"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/andy2010">andy2010</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/14/2010 3:48:17 PM" LocalTimeTicks="1287096497">Oct 14, 2010 at 3:48 PM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="10/14/2010 3:48:54 PM" LocalTimeTicks="1287096534">Oct 14, 2010 at 3:48 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_507290" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Can&#32;somebody&#32;guide&#32;me&#32;to&#32;register&#32;property&#32;of&#32;type&#32;Dictionary&#32;using&#32;Unity&#32;2.&#32;&#40;using&#32;config&#32;file&#41;.&#32;&#38;nbsp&#59;">
+        
+<p>Can somebody guide me to register property of type Dictionary using Unity 2. (using config file).</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_507290" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="508625">
+    <td id="PostDetailsCell_508625" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post508625"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="10/18/2010 5:05:24 AM" LocalTimeTicks="1287403524">Oct 18, 2010 at 5:05 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_508625" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="There&#39;s&#32;nothing&#32;explicit&#32;built&#32;in&#32;to&#32;do&#32;this.&#32;You&#32;would&#32;need&#32;to&#32;write&#32;a&#32;type&#32;converter&#32;that&#32;can&#32;convert&#32;a&#32;string&#32;into&#32;a&#32;dictionary,&#32;and&#32;use&#32;that.&#32;Why&#32;do&#32;you&#32;need&#32;to&#32;do&#32;this&#63;&#32;Usually&#32;when&#32;somebody&#32;asks&#32;for&#32;this&#32;feature&#32;there&#39;s&#32;an&#32;opportunity&#32;for&#32;building&#32;a&#32;better&#32;object&#32;model&#32;instead.&#32;&#38;nbsp&#59;">
+        
+<p>There's nothing explicit built in to do this. You would need to write a type converter that can convert a string into a dictionary, and use that.</p>
+<p>Why do you need to do this? Usually when somebody asks for this feature there's an opportunity for building a better object model instead.</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_508625" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="546593">
+    <td id="PostDetailsCell_546593" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post546593"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AdaskoTheBeAsT">AdaskoTheBeAsT</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="1/10/2011 11:27:00 AM" LocalTimeTicks="1294687620">Jan 10, 2011 at 11:27 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_546593" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;Hi,&#32;I&#32;also&#32;struggled&#32;with&#32;that&#32;problem.&#32;So&#32;far&#32;I&#32;managed&#32;to&#32;change&#32;a&#32;little&#32;sources&#32;to&#32;fit&#32;my&#32;needs&#32;by&#32;using&#32;CData&#32;section&#32;&#40;probably&#32;as&#32;a&#32;separate&#32;extension&#32;it&#32;would&#32;be&#32;much&#32;better&#32;but&#32;I&#32;didn&#39;t&#32;dig&#32;too&#32;deep&#41;.&#32;In&#32;Unity.Configuration&#32;additional&#32;class&#32;CDataElement&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#32;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Element&#32;that&#32;describes&#32;a&#32;constant&#32;value&#32;stored&#32;as&#32;CData&#32;&#47;&#47;&#47;&#32;that&#32;will&#32;be&#32;injected&#32;into&#32;the&#32;container.&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;public&#32;class&#32;CDataElement&#58;ParameterValueElement&#32;&#123;&#32;private&#32;const&#32;string&#32;ValuePropertyName&#32;&#61;&#32;&#38;quot&#59;value&#38;quot&#59;&#59;&#32;private&#32;const&#32;string&#32;TypeConverterTypeNamePropertyName&#32;&#61;&#32;&#38;quot&#59;typeConverter&#38;quot&#59;&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Construct&#32;a&#32;new&#32;&#38;lt&#59;see&#32;cref&#61;&#38;quot&#59;CDataElement&#38;quot&#59;&#47;&#38;gt&#59;&#32;object.&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;public&#32;CDataElement&#40;&#41;&#123;&#125;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Construct&#32;a&#32;new&#32;&#38;lt&#59;see&#32;cref&#61;&#38;quot&#59;ValueElement&#38;quot&#59;&#47;&#38;gt&#59;&#32;object,&#32;&#47;&#47;&#47;&#32;initializing&#32;properties&#32;from&#32;the&#32;contents&#32;of&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;paramref&#32;name&#61;&#38;quot&#59;propertyValues&#38;quot&#59;&#47;&#38;gt&#59;.&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;propertyValues&#38;quot&#59;&#38;gt&#59;Name&#47;value&#32;pairs&#32;which&#32;&#47;&#47;&#47;&#32;contain&#32;the&#32;values&#32;to&#32;initialize&#32;properties&#32;to.&#38;lt&#59;&#47;param&#38;gt&#59;&#32;public&#32;CDataElement&#40;IDictionary&#38;lt&#59;string,&#32;string&#38;gt&#59;&#32;propertyValues&#41;&#32;&#123;&#32;GuardPropertyValueIsPresent&#40;propertyValues,&#32;&#38;quot&#59;value&#38;quot&#59;&#41;&#59;&#32;Value&#32;&#61;&#32;propertyValues&#91;&#38;quot&#59;value&#38;quot&#59;&#93;&#59;&#32;if&#32;&#40;propertyValues.ContainsKey&#40;&#38;quot&#59;typeConverter&#38;quot&#59;&#41;&#41;&#32;&#123;&#32;TypeConverterTypeName&#32;&#61;&#32;propertyValues&#91;&#38;quot&#59;typeConverter&#38;quot&#59;&#93;&#59;&#32;&#125;&#32;&#125;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Value&#32;for&#32;this&#32;element&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#91;ConfigurationProperty&#40;ValuePropertyName&#41;&#93;&#32;public&#32;string&#32;Value&#32;&#123;&#32;get&#32;&#123;&#32;return&#32;&#40;string&#41;base&#91;ValuePropertyName&#93;&#59;&#32;&#125;&#32;set&#32;&#123;&#32;base&#91;ValuePropertyName&#93;&#32;&#61;&#32;value&#59;&#32;&#125;&#32;&#125;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#91;ConfigurationProperty&#40;TypeConverterTypeNamePropertyName,&#32;IsRequired&#32;&#61;&#32;false&#41;&#93;&#32;public&#32;string&#32;TypeConverterTypeName&#32;&#123;&#32;get&#32;&#123;&#32;return&#32;&#40;string&#41;base&#91;TypeConverterTypeNamePropertyName&#93;&#59;&#32;&#125;&#32;set&#32;&#123;&#32;base&#91;TypeConverterTypeNamePropertyName&#93;&#32;&#61;&#32;value&#59;&#32;&#125;&#32;&#125;&#32;&#47;&#47;&#47;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Write&#32;the&#32;contents&#32;of&#32;this&#32;element&#32;to&#32;the&#32;given&#32;&#38;lt&#59;see&#32;cref&#61;&#38;quot&#59;XmlWriter&#38;quot&#59;&#47;&#38;gt&#59;.&#32;This&#32;&#47;&#47;&#47;&#32;method&#32;always&#32;outputs&#32;an&#32;explicit&#32;&#38;amp&#59;lt&#59;dependency&#38;amp&#59;gt&#59;&#32;tag,&#32;instead&#32;of&#32;providing&#32;&#47;&#47;&#47;&#32;attributes&#32;to&#32;the&#32;parent&#32;method.&#32;&#47;&#47;&#47;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;writer&#38;quot&#59;&#38;gt&#59;Writer&#32;to&#32;send&#32;XML&#32;content&#32;to.&#38;lt&#59;&#47;param&#38;gt&#59;&#32;public&#32;override&#32;void&#32;SerializeContent&#40;XmlWriter&#32;writer&#41;&#32;&#123;&#32;writer.WriteAttributeIfNotEmpty&#40;TypeConverterTypeNamePropertyName,&#32;TypeConverterTypeName&#41;&#59;&#32;writer.WriteCData&#40;Value&#41;&#59;&#32;&#125;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Deserialize&#32;element&#32;from&#32;cdata&#32;tag&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;reader&#38;quot&#59;&#38;gt&#59;XmlReader&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;serializeCollectionKey&#38;quot&#59;&#38;gt&#59;Flag&#32;which&#32;indicates&#32;collection&#32;key&#32;serialization&#38;lt&#59;&#47;param&#38;gt&#59;&#32;protected&#32;override&#32;void&#32;DeserializeElement&#40;XmlReader&#32;reader,&#32;bool&#32;serializeCollectionKey&#41;&#32;&#123;&#32;foreach&#32;&#40;ConfigurationProperty&#32;configurationProperty&#32;in&#32;Properties&#41;&#32;&#123;&#32;string&#32;name&#32;&#61;&#32;configurationProperty.Name&#59;&#32;if&#32;&#40;String.Compare&#40;name,&#32;ValuePropertyName,&#32;true&#41;&#32;&#33;&#61;&#32;0&#41;&#32;&#123;&#32;string&#32;attributeValue&#32;&#61;&#32;reader.GetAttribute&#40;name&#41;&#59;&#32;base&#91;name&#93;&#32;&#61;&#32;attributeValue&#59;&#32;&#125;&#32;&#125;&#32;string&#32;contentString&#32;&#61;&#32;reader.ReadString&#40;&#41;&#59;&#32;base&#91;ValuePropertyName&#93;&#32;&#61;&#32;contentString&#59;&#32;&#125;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Generate&#32;an&#32;&#38;lt&#59;see&#32;cref&#61;&#38;quot&#59;InjectionParameterValue&#38;quot&#59;&#47;&#38;gt&#59;&#32;object&#32;&#47;&#47;&#47;&#32;that&#32;will&#32;be&#32;used&#32;to&#32;configure&#32;the&#32;container&#32;for&#32;a&#32;type&#32;registration.&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;container&#38;quot&#59;&#38;gt&#59;Container&#32;that&#32;is&#32;being&#32;configured.&#32;Supplied&#32;in&#32;order&#32;&#47;&#47;&#47;&#32;to&#32;let&#32;custom&#32;implementations&#32;retrieve&#32;services&#59;&#32;do&#32;not&#32;configure&#32;the&#32;container&#32;&#47;&#47;&#47;&#32;directly&#32;in&#32;this&#32;method.&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;parameterType&#38;quot&#59;&#38;gt&#59;Type&#32;of&#32;the&#32;parameter&#32;to&#32;get&#32;the&#32;value&#32;for.&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;returns&#38;gt&#59;The&#32;required&#32;&#38;lt&#59;see&#32;cref&#61;&#38;quot&#59;InjectionParameterValue&#38;quot&#59;&#47;&#38;gt&#59;&#32;object.&#38;lt&#59;&#47;returns&#38;gt&#59;&#32;public&#32;override&#32;InjectionParameterValue&#32;GetInjectionParameterValue&#40;IUnityContainer&#32;container,&#32;Type&#32;parameterType&#41;&#32;&#123;&#32;CheckNonGeneric&#40;parameterType&#41;&#59;&#32;var&#32;converter&#32;&#61;&#32;GetTypeConverter&#40;parameterType&#41;&#59;&#32;return&#32;new&#32;InjectionParameter&#40;parameterType,&#32;converter.ConvertFromInvariantString&#40;Value&#41;&#41;&#59;&#32;&#125;&#32;private&#32;void&#32;CheckNonGeneric&#40;Type&#32;parameterType&#41;&#32;&#123;&#32;if&#32;&#40;parameterType.IsGenericParameter&#41;&#32;&#123;&#32;throw&#32;new&#32;InvalidOperationException&#40;&#32;string.Format&#40;&#32;CultureInfo.CurrentCulture,&#32;Resources.ValueNotAllowedForGenericParameterType,&#32;parameterType.Name,&#32;this.Value&#41;&#41;&#59;&#32;&#125;&#32;var&#32;reflector&#32;&#61;&#32;new&#32;ReflectionHelper&#40;parameterType&#41;&#59;&#32;if&#32;&#40;reflector.IsOpenGeneric&#41;&#32;&#123;&#32;throw&#32;new&#32;InvalidOperationException&#40;&#32;string.Format&#40;&#32;CultureInfo.CurrentCulture,&#32;Resources.ValueNotAllowedForOpenGenericType,&#32;parameterType.Name,&#32;this.Value&#41;&#41;&#59;&#32;&#125;&#32;if&#32;&#40;reflector.IsGenericArray&#41;&#32;&#123;&#32;throw&#32;new&#32;InvalidOperationException&#40;&#32;string.Format&#40;&#32;CultureInfo.CurrentCulture,&#32;Resources.ValueNotAllowedForGenericArrayType,&#32;parameterType.Name,&#32;this.Value&#41;&#41;&#59;&#32;&#125;&#32;&#125;&#32;private&#32;TypeConverter&#32;GetTypeConverter&#40;Type&#32;parameterType&#41;&#32;&#123;&#32;if&#32;&#40;&#33;string.IsNullOrEmpty&#40;TypeConverterTypeName&#41;&#41;&#32;&#123;&#32;Type&#32;converterType&#32;&#61;&#32;TypeResolver.ResolveType&#40;TypeConverterTypeName&#41;&#59;&#32;return&#32;&#40;TypeConverter&#41;Activator.CreateInstance&#40;converterType&#41;&#59;&#32;&#125;&#32;return&#32;TypeDescriptor.GetConverter&#40;parameterType&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;Changes&#32;in&#32;two&#32;places&#32;in&#32;ValueElementHelper&#32;&#38;nbsp&#59;&#32;&#32;private&#32;static&#32;readonly&#32;Dictionary&#38;lt&#59;Type,&#32;string&#38;gt&#59;&#32;knownValueElementTags&#32;&#61;&#32;new&#32;Dictionary&#38;lt&#59;Type,&#32;string&#38;gt&#59;&#32;&#123;&#32;&#123;typeof&#32;&#40;DependencyElement&#41;,&#32;&#38;quot&#59;dependency&#38;quot&#59;&#125;,&#32;&#123;typeof&#32;&#40;ValueElement&#41;,&#32;&#38;quot&#59;value&#38;quot&#59;&#125;,&#32;&#123;typeof&#32;&#40;ArrayElement&#41;,&#32;&#38;quot&#59;array&#38;quot&#59;&#125;,&#32;&#123;typeof&#32;&#40;OptionalElement&#41;,&#32;&#38;quot&#59;optional&#38;quot&#59;&#125;,&#32;&#123;typeof&#32;&#40;CDataElement&#41;,&#32;&#38;quot&#59;cdata&#38;quot&#59;&#125;&#32;&#125;&#59;&#32;&#32;&#32;public&#32;ValueElementHelper&#40;IValueProvidingElement&#32;parentElement&#41;&#32;&#123;&#32;this.parentElement&#32;&#61;&#32;parentElement&#59;&#32;unknownElementHandlerMap&#32;&#61;&#32;new&#32;UnknownElementHandlerMap&#32;&#123;&#32;&#123;&#32;&#38;quot&#59;value&#38;quot&#59;,&#32;xr&#32;&#61;&#38;gt&#59;&#32;SetValue&#38;lt&#59;ValueElement&#38;gt&#59;&#40;xr&#41;&#32;&#125;,&#32;&#123;&#32;&#38;quot&#59;dependency&#38;quot&#59;,&#32;xr&#32;&#61;&#38;gt&#59;&#32;SetValue&#38;lt&#59;DependencyElement&#38;gt&#59;&#40;xr&#41;&#32;&#125;,&#32;&#123;&#32;&#38;quot&#59;array&#38;quot&#59;,&#32;xr&#32;&#61;&#38;gt&#59;&#32;SetValue&#38;lt&#59;ArrayElement&#38;gt&#59;&#40;xr&#41;&#32;&#125;,&#32;&#123;&#32;&#38;quot&#59;optional&#38;quot&#59;,&#32;xr&#32;&#61;&#38;gt&#59;&#32;SetValue&#38;lt&#59;OptionalElement&#38;gt&#59;&#40;xr&#41;&#32;&#125;,&#32;&#123;&#32;&#38;quot&#59;cdata&#38;quot&#59;,&#32;xr&#32;&#61;&#38;gt&#59;&#32;SetValue&#38;lt&#59;CDataElement&#38;gt&#59;&#40;xr&#41;&#32;&#125;,&#32;&#125;&#59;&#32;&#125;&#32;&#32;&#32;&#32;And&#32;voila&#32;&#59;&#41;&#32;Some&#32;sample&#32;converter&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Converts&#32;string&#32;with&#32;values&#32;separated&#32;by&#32;pipe&#32;to&#32;Dictionary&#38;amp&#59;lt&#59;string,string&#38;amp&#59;gt&#59;&#32;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;public&#32;class&#32;PipeStringToDictionaryStringStringTypeConverter&#32;&#58;&#32;TypeConverter&#32;&#123;&#32;protected&#32;string&#32;separator&#61;&#38;quot&#59;&#124;&#38;quot&#59;&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Constructor&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;separator&#38;quot&#59;&#38;gt&#59;&#38;lt&#59;&#47;param&#38;gt&#59;&#32;protected&#32;PipeStringToDictionaryStringStringTypeConverter&#40;&#41;&#32;&#123;&#32;&#125;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Gets&#32;a&#32;value&#32;indicating&#32;whether&#32;this&#32;converter&#32;&#32;&#47;&#47;&#47;&#32;can&#32;convert&#32;an&#32;object&#32;in&#32;the&#32;given&#32;source&#32;type&#32;&#32;&#47;&#47;&#47;&#32;to&#32;a&#32;string&#32;array&#32;object&#32;using&#32;the&#32;specified&#32;context.&#32;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;context&#38;quot&#59;&#38;gt&#59;An&#32;ITypeDescriptorContext&#32;that&#32;provides&#32;a&#32;format&#32;context.&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;sourceType&#38;quot&#59;&#38;gt&#59;A&#32;Type&#32;that&#32;represents&#32;the&#32;type&#32;you&#32;wish&#32;to&#32;convert&#32;from.&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;returns&#38;gt&#59;true&#32;if&#32;this&#32;object&#32;can&#32;perform&#32;the&#32;conversion&#59;&#32;otherwise,&#32;false.&#32;&#38;lt&#59;&#47;returns&#38;gt&#59;&#32;public&#32;override&#32;bool&#32;CanConvertFrom&#40;ITypeDescriptorContext&#32;context,&#32;Type&#32;sourceType&#41;&#32;&#123;&#32;return&#32;sourceType.GetType&#40;&#41;&#32;&#61;&#61;&#32;typeof&#40;string&#41;&#59;&#32;&#125;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Gets&#32;a&#32;value&#32;indicating&#32;whether&#32;this&#32;converter&#32;&#32;&#47;&#47;&#47;&#32;can&#32;convert&#32;an&#32;object&#32;to&#32;the&#32;given&#32;destination&#32;type&#32;&#32;&#47;&#47;&#47;&#32;from&#32;a&#32;string&#32;array&#32;object&#32;using&#32;the&#32;specified&#32;context.&#32;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;context&#38;quot&#59;&#38;gt&#59;An&#32;ITypeDescriptorContext&#32;that&#32;provides&#32;a&#32;format&#32;context.&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;destinationType&#38;quot&#59;&#38;gt&#59;A&#32;Type&#32;that&#32;represents&#32;the&#32;type&#32;you&#32;wish&#32;convert&#32;to.&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;returns&#38;gt&#59;true&#32;if&#32;this&#32;object&#32;can&#32;perform&#32;the&#32;conversion&#59;&#32;otherwise,&#32;false.&#32;&#38;lt&#59;&#47;returns&#38;gt&#59;&#32;public&#32;override&#32;bool&#32;CanConvertTo&#40;ITypeDescriptorContext&#32;context,&#32;Type&#32;destinationType&#41;&#32;&#123;&#32;return&#32;destinationType&#32;&#61;&#61;&#32;typeof&#40;Dictionary&#38;lt&#59;string,&#32;string&#38;gt&#59;&#41;&#59;&#32;&#125;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Converts&#32;the&#32;given&#32;value&#32;object&#32;to&#32;a&#32;string&#32;array&#32;object.&#32;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;context&#38;quot&#59;&#38;gt&#59;An&#32;ITypeDescriptorContext&#32;that&#32;provides&#32;a&#32;format&#32;context.&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;culture&#38;quot&#59;&#38;gt&#59;A&#32;CultureInfo&#32;that&#32;specifies&#32;the&#32;culture&#32;to&#32;which&#32;to&#32;convert.&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;value&#38;quot&#59;&#38;gt&#59;The&#32;Object&#32;to&#32;convert.&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;returns&#38;gt&#59;An&#32;Object&#32;that&#32;represents&#32;the&#32;converted&#32;value.&#38;lt&#59;&#47;returns&#38;gt&#59;&#32;public&#32;override&#32;object&#32;ConvertFrom&#40;&#32;ITypeDescriptorContext&#32;context,&#32;CultureInfo&#32;culture,&#32;object&#32;value&#41;&#32;&#123;&#32;string&#91;&#93;&#32;separators&#32;&#61;&#32;new&#32;string&#91;&#93;&#32;&#123;&#32;separator&#32;&#125;&#59;&#32;Dictionary&#38;lt&#59;string,&#32;string&#38;gt&#59;&#32;retval&#32;&#61;&#32;new&#32;Dictionary&#38;lt&#59;string,&#32;string&#38;gt&#59;&#40;&#41;&#59;&#32;using&#32;&#40;StringReader&#32;sr&#32;&#61;&#32;new&#32;StringReader&#40;&#40;string&#41;value&#41;&#41;&#32;&#123;&#32;string&#32;line&#59;&#32;string&#91;&#93;&#32;parts&#59;&#32;while&#32;&#40;&#40;line&#32;&#61;&#32;sr.ReadLine&#40;&#41;&#41;&#32;&#33;&#61;&#32;null&#41;&#32;&#123;&#32;parts&#32;&#61;&#32;line.Split&#40;separators,&#32;StringSplitOptions.None&#41;&#59;&#32;if&#32;&#40;parts.Length&#32;&#38;lt&#59;&#32;1&#41;&#32;&#123;&#32;continue&#59;&#32;&#125;&#32;if&#32;&#40;String.IsNullOrEmpty&#40;parts&#91;0&#93;&#41;&#41;&#32;&#123;&#32;continue&#59;&#32;&#125;&#32;for&#32;&#40;int&#32;i&#32;&#61;&#32;0&#59;&#32;i&#32;&#38;lt&#59;&#32;parts.Length&#59;&#32;i&#38;&#35;43&#59;&#38;&#35;43&#59;&#41;&#32;&#123;&#32;parts&#91;i&#93;&#32;&#61;&#32;HttpUtility.HtmlDecode&#40;parts&#91;i&#93;&#41;&#59;&#32;&#125;&#32;if&#32;&#40;parts.Length&#32;&#38;gt&#59;&#32;1&#41;&#32;&#123;&#32;retval&#91;parts&#91;0&#93;&#93;&#32;&#61;&#32;String.Join&#40;separator,&#32;parts.Skip&#40;1&#41;.ToArray&#40;&#41;&#41;&#59;&#32;&#125;&#32;else&#32;&#123;&#32;retval&#91;parts&#91;0&#93;&#93;&#32;&#61;&#32;String.Empty&#59;&#32;&#125;&#32;&#125;&#32;&#125;&#32;return&#32;retval&#59;&#32;&#125;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;Converts&#32;the&#32;given&#32;value&#32;object&#32;from&#32;a&#32;string&#32;array&#32;object.&#32;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;&#47;summary&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;context&#38;quot&#59;&#38;gt&#59;An&#32;ITypeDescriptorContext&#32;that&#32;provides&#32;a&#32;format&#32;context.&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;culture&#38;quot&#59;&#38;gt&#59;A&#32;CultureInfo&#32;that&#32;specifies&#32;the&#32;culture&#32;to&#32;which&#32;to&#32;convert.&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;value&#38;quot&#59;&#38;gt&#59;The&#32;Object&#32;to&#32;convert.&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;destinationType&#38;quot&#59;&#38;gt&#59;Destination&#32;type&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#47;&#47;&#47;&#32;&#38;lt&#59;returns&#38;gt&#59;An&#32;Object&#32;that&#32;represents&#32;the&#32;converted&#32;value.&#38;lt&#59;&#47;returns&#38;gt&#59;&#32;public&#32;override&#32;object&#32;ConvertTo&#40;&#32;ITypeDescriptorContext&#32;context,&#32;CultureInfo&#32;culture,&#32;object&#32;value,&#32;Type&#32;destinationType&#41;&#32;&#123;&#32;Dictionary&#38;lt&#59;string,&#32;string&#38;gt&#59;&#32;dval&#32;&#61;&#32;&#40;Dictionary&#38;lt&#59;string,&#32;string&#38;gt&#59;&#41;value&#59;&#32;StringBuilder&#32;sb&#32;&#61;&#32;new&#32;StringBuilder&#40;&#41;&#59;&#32;char&#32;c&#32;&#61;&#32;separator&#91;0&#93;&#59;&#32;string&#32;rep&#32;&#61;&#32;String.Concat&#40;&#38;quot&#59;&#38;amp&#59;&#35;x&#38;quot&#59;,&#32;Convert.ToInt32&#40;c&#41;.ToString&#40;&#38;quot&#59;X&#38;quot&#59;&#41;,&#32;&#38;quot&#59;&#59;&#38;quot&#59;&#41;&#59;&#32;foreach&#32;&#40;KeyValuePair&#38;lt&#59;string,&#32;string&#38;gt&#59;&#32;kvp&#32;in&#32;dval&#41;&#32;&#123;&#32;sb.Append&#40;HttpUtility.HtmlEncode&#40;kvp.Key&#41;.Replace&#40;separator,&#32;rep&#41;&#41;&#32;.Append&#40;separator&#41;&#32;.AppendLine&#40;HttpUtility.HtmlEncode&#40;kvp.Value&#41;.Replace&#40;separator,&#32;rep&#41;&#41;&#59;&#32;&#125;&#32;return&#32;sb.ToString&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Some&#32;sample&#32;xml&#32;configuration&#32;for&#32;this&#32;&#32;&#38;lt&#59;alias&#32;alias&#61;&#38;quot&#59;DictionaryStringString&#38;quot&#59;&#32;type&#61;&#38;quot&#59;System.Collections.Generic.Dictionary&#96;2&#91;&#91;System.String,&#32;mscorlib,&#32;Version&#61;2.0.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;b77a5c561934e089&#93;,&#91;System.String,&#32;mscorlib,&#32;Version&#61;2.0.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;b77a5c561934e089&#93;&#93;,&#32;mscorlib,&#32;Version&#61;2.0.0.0,&#32;Culture&#61;neutral,&#32;PublicKeyToken&#61;b77a5c561934e089&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;alias&#32;alias&#61;&#38;quot&#59;PipeStringToDictionaryStringStringTypeConverter&#38;quot&#59;&#32;type&#61;&#38;quot&#59;&#38;lt&#59;namespace&#38;gt&#59;.PipeStringToDictionaryStringStringTypeConverter,&#38;lt&#59;dll&#38;gt&#59;&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;register&#32;type&#61;&#38;quot&#59;IValueProcessor&#38;quot&#59;&#32;name&#61;&#38;quot&#59;AbbreviationProcessor&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;KeywordValueProcessor&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;lifetime&#32;type&#61;&#38;quot&#59;singleton&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#38;quot&#59;replacements&#38;quot&#59;&#32;type&#61;&#38;quot&#59;DictionaryStringString&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;cdata&#32;typeConverter&#61;&#38;quot&#59;PipeStringToDictionaryStringStringTypeConverter&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;&#33;&#91;CDATA&#91;&#32;ACCEPTANCE&#124;ACPT.&#32;ACCESSORIES&#124;ACCES.&#32;ACCOMMODATION&#124;ACCOM.&#32;ACCOMMODATIONS&#124;ACCOMS.&#32;&#93;&#93;&#38;gt&#59;&#32;&#38;lt&#59;&#47;cdata&#38;gt&#59;&#32;&#38;lt&#59;&#47;param&#38;gt&#59;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#32;&#38;lt&#59;&#47;register&#38;gt&#59;&#32;&#32;&#38;nbsp&#59;I&#32;know&#32;that&#32;this&#32;is&#32;ugly&#32;brute&#32;force&#32;but&#32;it&#32;works&#32;for&#32;me&#32;-&#32;it&#32;can&#32;be&#32;treated&#32;as&#32;starting&#32;point&#32;to&#32;some&#32;better&#32;code.&#32;Best&#32;regards&#32;Adam&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;">
+        
+<p>Hi,</p>
+<p>I also struggled with that problem.</p>
+<p>So far I managed to change a little sources to fit my needs by using CData section (probably as a separate extension it would be much better but I didn't dig too deep).</p>
+<p>In Unity.Configuration additional class CDataElement</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div style="color:black; background-color:white">
+<pre><span style="color:gray">     ///</span> <span style="color:gray">&lt;summary&gt;</span>
+    <span style="color:gray">///</span><span style="color:green"> Element that describes a constant value stored as CData</span>
+    <span style="color:gray">///</span><span style="color:green"> that will be injected into the container.</span>
+    <span style="color:gray">///</span> <span style="color:gray">&lt;/summary&gt;</span>
+    <span style="color:blue">public</span> <span style="color:blue">class</span> CDataElement:ParameterValueElement
+    {
+        <span style="color:blue">private</span> <span style="color:blue">const</span> <span style="color:blue">string</span> ValuePropertyName = <span style="color:#a31515">&quot;value&quot;</span>;
+        <span style="color:blue">private</span> <span style="color:blue">const</span> <span style="color:blue">string</span> TypeConverterTypeNamePropertyName = <span style="color:#a31515">&quot;typeConverter&quot;</span>;
+
+        <span style="color:gray">///</span> <span style="color:gray">&lt;summary&gt;</span>
+        <span style="color:gray">///</span><span style="color:green"> Construct a new &lt;see cref=&quot;CDataElement&quot;/&gt; object.</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;/summary&gt;</span>
+        <span style="color:blue">public</span> CDataElement(){}
+
+        <span style="color:gray">///</span> <span style="color:gray">&lt;summary&gt;</span>
+        <span style="color:gray">///</span><span style="color:green"> Construct a new &lt;see cref=&quot;ValueElement&quot;/&gt; object,</span>
+        <span style="color:gray">///</span><span style="color:green"> initializing properties from the contents of</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;paramref name=&quot;propertyValues&quot;/&gt;</span><span style="color:green">.</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;/summary&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;param name=&quot;propertyValues&quot;&gt;</span><span style="color:green">Name/value pairs which</span>
+        <span style="color:gray">///</span><span style="color:green"> contain the values to initialize properties to.&lt;/param&gt;</span>
+        <span style="color:blue">public</span> CDataElement(IDictionary&lt;<span style="color:blue">string</span>, <span style="color:blue">string</span>&gt; propertyValues)
+        {
+            GuardPropertyValueIsPresent(propertyValues, <span style="color:#a31515">&quot;value&quot;</span>);
+            Value = propertyValues[<span style="color:#a31515">&quot;value&quot;</span>];
+            <span style="color:blue">if</span> (propertyValues.ContainsKey(<span style="color:#a31515">&quot;typeConverter&quot;</span>))
+            {
+                TypeConverterTypeName = propertyValues[<span style="color:#a31515">&quot;typeConverter&quot;</span>];
+            }
+        }
+
+        <span style="color:gray">///</span> <span style="color:gray">&lt;summary&gt;</span>
+        <span style="color:gray">///</span><span style="color:green"> Value for this element</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;/summary&gt;</span>
+        [ConfigurationProperty(ValuePropertyName)]
+        <span style="color:blue">public</span> <span style="color:blue">string</span> Value
+        {
+            <span style="color:blue">get</span> { <span style="color:blue">return</span> (<span style="color:blue">string</span>)<span style="color:blue">base</span>[ValuePropertyName]; }
+            <span style="color:blue">set</span> { <span style="color:blue">base</span>[ValuePropertyName] = value; }
+        }
+
+        <span style="color:gray">///</span> <span style="color:gray">&lt;summary&gt;</span>
+        <span style="color:gray">///</span><span style="color:green"> </span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;/summary&gt;</span>
+        [ConfigurationProperty(TypeConverterTypeNamePropertyName, IsRequired = <span style="color:blue">false</span>)]
+        <span style="color:blue">public</span> <span style="color:blue">string</span> TypeConverterTypeName
+        {
+            <span style="color:blue">get</span> { <span style="color:blue">return</span> (<span style="color:blue">string</span>)<span style="color:blue">base</span>[TypeConverterTypeNamePropertyName]; }
+            <span style="color:blue">set</span> { <span style="color:blue">base</span>[TypeConverterTypeNamePropertyName] = value; }
+        }
+
+        <span style="color:gray">///</span><span style="color:gray">&lt;summary&gt;</span>
+        <span style="color:gray">///</span><span style="color:green"> Write the contents of this element to the given &lt;see cref=&quot;XmlWriter&quot;/&gt;. This</span>
+        <span style="color:gray">///</span><span style="color:green"> method always outputs an explicit &amp;lt;dependency&amp;gt; tag, instead of providing</span>
+        <span style="color:gray">///</span><span style="color:green"> attributes to the parent method.</span>
+        <span style="color:gray">///</span><span style="color:gray">&lt;/summary&gt;</span>
+        <span style="color:gray">///</span><span style="color:gray">&lt;param name=&quot;writer&quot;&gt;</span><span style="color:green">Writer to send XML content to.&lt;/param&gt;</span>
+        <span style="color:blue">public</span> <span style="color:blue">override</span> <span style="color:blue">void</span> SerializeContent(XmlWriter writer)
+        {
+            writer.WriteAttributeIfNotEmpty(TypeConverterTypeNamePropertyName, TypeConverterTypeName);
+            writer.WriteCData(Value);
+        }
+
+        <span style="color:gray">///</span> <span style="color:gray">&lt;summary&gt;</span>
+        <span style="color:gray">///</span><span style="color:green"> Deserialize element from cdata tag</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;/summary&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;param name=&quot;reader&quot;&gt;</span><span style="color:green">XmlReader&lt;/param&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;param name=&quot;serializeCollectionKey&quot;&gt;</span><span style="color:green">Flag which indicates collection key serialization&lt;/param&gt;</span>
+        <span style="color:blue">protected</span> <span style="color:blue">override</span> <span style="color:blue">void</span> DeserializeElement(XmlReader reader, <span style="color:blue">bool</span> serializeCollectionKey)
+        {
+            <span style="color:blue">foreach</span> (ConfigurationProperty configurationProperty <span style="color:blue">in</span> Properties)
+            {
+                <span style="color:blue">string</span> name = configurationProperty.Name;
+                <span style="color:blue">if</span> (String.Compare(name, ValuePropertyName, <span style="color:blue">true</span>) != 0)
+                {
+                    <span style="color:blue">string</span> attributeValue = reader.GetAttribute(name);
+                    <span style="color:blue">base</span>[name] = attributeValue;
+                }
+            }
+            <span style="color:blue">string</span> contentString = reader.ReadString();
+            <span style="color:blue">base</span>[ValuePropertyName] = contentString;
+        }
+
+        <span style="color:gray">///</span> <span style="color:gray">&lt;summary&gt;</span>
+        <span style="color:gray">///</span><span style="color:green"> Generate an &lt;see cref=&quot;InjectionParameterValue&quot;/&gt; object</span>
+        <span style="color:gray">///</span><span style="color:green"> that will be used to configure the container for a type registration.</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;/summary&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;param name=&quot;container&quot;&gt;</span><span style="color:green">Container that is being configured. Supplied in order</span>
+        <span style="color:gray">///</span><span style="color:green"> to let custom implementations retrieve services; do not configure the container</span>
+        <span style="color:gray">///</span><span style="color:green"> directly in this method.&lt;/param&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;param name=&quot;parameterType&quot;&gt;</span><span style="color:green">Type of the parameter to get the value for.&lt;/param&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;returns&gt;</span><span style="color:green">The required &lt;see cref=&quot;InjectionParameterValue&quot;/&gt; object.&lt;/returns&gt;</span>
+        <span style="color:blue">public</span> <span style="color:blue">override</span> InjectionParameterValue GetInjectionParameterValue(IUnityContainer container, Type parameterType)
+        {
+            CheckNonGeneric(parameterType);
+
+            <span style="color:blue">var</span> converter = GetTypeConverter(parameterType);
+            <span style="color:blue">return</span> <span style="color:blue">new</span> InjectionParameter(parameterType, converter.ConvertFromInvariantString(Value));
+        }
+
+        <span style="color:blue">private</span> <span style="color:blue">void</span> CheckNonGeneric(Type parameterType)
+        {
+            <span style="color:blue">if</span> (parameterType.IsGenericParameter)
+            {
+                <span style="color:blue">throw</span> <span style="color:blue">new</span> InvalidOperationException(
+                    <span style="color:blue">string</span>.Format(
+                        CultureInfo.CurrentCulture,
+                        Resources.ValueNotAllowedForGenericParameterType,
+                        parameterType.Name,
+                        <span style="color:blue">this</span>.Value));
+            }
+
+            <span style="color:blue">var</span> reflector = <span style="color:blue">new</span> ReflectionHelper(parameterType);
+
+            <span style="color:blue">if</span> (reflector.IsOpenGeneric)
+            {
+                <span style="color:blue">throw</span> <span style="color:blue">new</span> InvalidOperationException(
+                    <span style="color:blue">string</span>.Format(
+                        CultureInfo.CurrentCulture,
+                        Resources.ValueNotAllowedForOpenGenericType,
+                        parameterType.Name,
+                        <span style="color:blue">this</span>.Value));
+            }
+
+            <span style="color:blue">if</span> (reflector.IsGenericArray)
+            {
+                <span style="color:blue">throw</span> <span style="color:blue">new</span> InvalidOperationException(
+                    <span style="color:blue">string</span>.Format(
+                        CultureInfo.CurrentCulture,
+                        Resources.ValueNotAllowedForGenericArrayType,
+                        parameterType.Name,
+                        <span style="color:blue">this</span>.Value));
+            }
+        }
+
+        <span style="color:blue">private</span> TypeConverter GetTypeConverter(Type parameterType)
+        {
+            <span style="color:blue">if</span> (!<span style="color:blue">string</span>.IsNullOrEmpty(TypeConverterTypeName))
+            {
+                Type converterType = TypeResolver.ResolveType(TypeConverterTypeName);
+                <span style="color:blue">return</span> (TypeConverter)Activator.CreateInstance(converterType);
+            }
+            <span style="color:blue">return</span> TypeDescriptor.GetConverter(parameterType);
+        }
+    }
+</pre>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Changes in two places in ValueElementHelper</p>
+<p>&nbsp;</p>
+<div style="color:black; background-color:white">
+<pre style="color:black"><span style="color:blue">private</span> <span style="color:blue">static</span> <span style="color:blue">readonly</span> Dictionary&lt;Type, <span style="color:blue">string</span>&gt; knownValueElementTags =
+            <span style="color:blue">new</span> Dictionary&lt;Type, <span style="color:blue">string</span>&gt;
+            {
+                {<span style="color:blue">typeof</span> (DependencyElement), <span style="color:#a31515">&quot;dependency&quot;</span>},
+                {<span style="color:blue">typeof</span> (ValueElement), <span style="color:#a31515">&quot;value&quot;</span>},
+                {<span style="color:blue">typeof</span> (ArrayElement), <span style="color:#a31515">&quot;array&quot;</span>},
+                {<span style="color:blue">typeof</span> (OptionalElement), <span style="color:#a31515">&quot;optional&quot;</span>},
+                {<span style="color:blue">typeof</span> (CDataElement), <span style="color:#a31515">&quot;cdata&quot;</span>}
+            };
+</pre>
+<pre style="color:black"><br></pre>
+<pre style="color:black"><div style="color:black; background-color:white"><pre><span style="color:blue">public</span> ValueElementHelper(IValueProvidingElement parentElement)
+        {
+            <span style="color:blue">this</span>.parentElement = parentElement;
+
+            unknownElementHandlerMap = <span style="color:blue">new</span> UnknownElementHandlerMap
+            {
+                { <span style="color:#a31515">&quot;value&quot;</span>,      xr =&gt; SetValue&lt;ValueElement&gt;(xr) },
+                { <span style="color:#a31515">&quot;dependency&quot;</span>, xr =&gt; SetValue&lt;DependencyElement&gt;(xr) },
+                { <span style="color:#a31515">&quot;array&quot;</span>,      xr =&gt; SetValue&lt;ArrayElement&gt;(xr) },
+                { <span style="color:#a31515">&quot;optional&quot;</span>,   xr =&gt; SetValue&lt;OptionalElement&gt;(xr) },
+                { <span style="color:#a31515">&quot;cdata&quot;</span>,      xr =&gt; SetValue&lt;CDataElement&gt;(xr) },
+            };
+        }
+</pre>
+</div>
+<br></pre>
+<pre style="color:black">And voila ;)</pre>
+<pre style="color:black">Some sample converter</pre>
+<pre style="color:black"><div style="color:black; background-color:white"><pre><span style="color:gray">///</span> <span style="color:gray">&lt;summary&gt;</span>
+    <span style="color:gray">///</span><span style="color:green"> Converts string with values separated by pipe to Dictionary&amp;lt;string,string&amp;gt; </span>
+    <span style="color:gray">///</span> <span style="color:gray">&lt;/summary&gt;</span>
+    <span style="color:blue">public</span> <span style="color:blue">class</span> PipeStringToDictionaryStringStringTypeConverter : TypeConverter
+    {
+        <span style="color:blue">protected</span> <span style="color:blue">string</span> separator=&quot;|&quot;;
+        <span style="color:gray">///</span> <span style="color:gray">&lt;summary&gt;</span>
+        <span style="color:gray">///</span><span style="color:green"> Constructor</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;/summary&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;param name=&quot;separator&quot;&gt;</span><span style="color:gray">&lt;/param&gt;</span>
+        <span style="color:blue">protected</span> PipeStringToDictionaryStringStringTypeConverter()
+        {
+        }
+        <span style="color:gray">///</span> <span style="color:gray">&lt;summary&gt;</span>
+        <span style="color:gray">///</span><span style="color:green"> Gets a value indicating whether this converter </span>
+        <span style="color:gray">///</span><span style="color:green"> can convert an object in the given source type </span>
+        <span style="color:gray">///</span><span style="color:green"> to a string array object using the specified context. </span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;/summary&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;param name=&quot;context&quot;&gt;</span><span style="color:green">An ITypeDescriptorContext that provides a format context.&lt;/param&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;param name=&quot;sourceType&quot;&gt;</span><span style="color:green">A Type that represents the type you wish to convert from.&lt;/param&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;returns&gt;</span><span style="color:green">true if this object can perform the conversion; otherwise, false. &lt;/returns&gt;</span>
+        <span style="color:blue">public</span> <span style="color:blue">override</span> <span style="color:blue">bool</span> CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            <span style="color:blue">return</span> sourceType.GetType() == <span style="color:blue">typeof</span>(<span style="color:blue">string</span>);
+        }
+        <span style="color:gray">///</span> <span style="color:gray">&lt;summary&gt;</span>
+        <span style="color:gray">///</span><span style="color:green"> Gets a value indicating whether this converter </span>
+        <span style="color:gray">///</span><span style="color:green"> can convert an object to the given destination type </span>
+        <span style="color:gray">///</span><span style="color:green"> from a string array object using the specified context. </span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;/summary&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;param name=&quot;context&quot;&gt;</span><span style="color:green">An ITypeDescriptorContext that provides a format context.&lt;/param&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;param name=&quot;destinationType&quot;&gt;</span><span style="color:green">A Type that represents the type you wish convert to.&lt;/param&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;returns&gt;</span><span style="color:green">true if this object can perform the conversion; otherwise, false. &lt;/returns&gt;</span>
+        <span style="color:blue">public</span> <span style="color:blue">override</span> <span style="color:blue">bool</span> CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        {
+            <span style="color:blue">return</span> destinationType == <span style="color:blue">typeof</span>(Dictionary&lt;<span style="color:blue">string</span>, <span style="color:blue">string</span>&gt;);
+        }
+        <span style="color:gray">///</span> <span style="color:gray">&lt;summary&gt;</span>
+        <span style="color:gray">///</span><span style="color:green"> Converts the given value object to a string array object. </span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;/summary&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;param name=&quot;context&quot;&gt;</span><span style="color:green">An ITypeDescriptorContext that provides a format context.&lt;/param&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;param name=&quot;culture&quot;&gt;</span><span style="color:green">A CultureInfo that specifies the culture to which to convert.&lt;/param&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;param name=&quot;value&quot;&gt;</span><span style="color:green">The Object to convert.&lt;/param&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;returns&gt;</span><span style="color:green">An Object that represents the converted value.&lt;/returns&gt;</span>
+        <span style="color:blue">public</span> <span style="color:blue">override</span> <span style="color:blue">object</span> ConvertFrom(
+            ITypeDescriptorContext context,
+            CultureInfo culture,
+            <span style="color:blue">object</span> value)
+        {
+            <span style="color:blue">string</span>[] separators = <span style="color:blue">new</span> <span style="color:blue">string</span>[] { separator };
+            Dictionary&lt;<span style="color:blue">string</span>, <span style="color:blue">string</span>&gt; retval = <span style="color:blue">new</span> Dictionary&lt;<span style="color:blue">string</span>, <span style="color:blue">string</span>&gt;();
+            <span style="color:blue">using</span> (StringReader sr = <span style="color:blue">new</span> StringReader((<span style="color:blue">string</span>)value))
+            {
+                <span style="color:blue">string</span> line;
+                <span style="color:blue">string</span>[] parts;
+
+                <span style="color:blue">while</span> ((line = sr.ReadLine()) != <span style="color:blue">null</span>)
+                {
+                    parts = line.Split(separators, StringSplitOptions.None);
+                    <span style="color:blue">if</span> (parts.Length &lt; 1)
+                    {
+                        <span style="color:blue">continue</span>;
+                    }
+                    <span style="color:blue">if</span> (String.IsNullOrEmpty(parts[0]))
+                    {
+                        <span style="color:blue">continue</span>;
+                    }
+                    <span style="color:blue">for</span> (<span style="color:blue">int</span> i = 0; i &lt; parts.Length; i&#43;&#43;)
+                    {
+                        parts[i] = HttpUtility.HtmlDecode(parts[i]);
+                    }
+                    <span style="color:blue">if</span> (parts.Length &gt; 1)
+                    {
+                        retval[parts[0]] = String.Join(separator, parts.Skip(1).ToArray());
+                    }
+                    <span style="color:blue">else</span>
+                    {
+                        retval[parts[0]] = String.Empty;
+                    }
+                }
+            }
+            <span style="color:blue">return</span> retval;
+        }
+        <span style="color:gray">///</span> <span style="color:gray">&lt;summary&gt;</span>
+        <span style="color:gray">///</span><span style="color:green"> Converts the given value object from a string array object. </span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;/summary&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;param name=&quot;context&quot;&gt;</span><span style="color:green">An ITypeDescriptorContext that provides a format context.&lt;/param&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;param name=&quot;culture&quot;&gt;</span><span style="color:green">A CultureInfo that specifies the culture to which to convert.&lt;/param&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;param name=&quot;value&quot;&gt;</span><span style="color:green">The Object to convert.&lt;/param&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;param name=&quot;destinationType&quot;&gt;</span><span style="color:green">Destination type&lt;/param&gt;</span>
+        <span style="color:gray">///</span> <span style="color:gray">&lt;returns&gt;</span><span style="color:green">An Object that represents the converted value.&lt;/returns&gt;</span>
+        <span style="color:blue">public</span> <span style="color:blue">override</span> <span style="color:blue">object</span> ConvertTo(
+            ITypeDescriptorContext context,
+            CultureInfo culture,
+            <span style="color:blue">object</span> value,
+            Type destinationType)
+        {
+            Dictionary&lt;<span style="color:blue">string</span>, <span style="color:blue">string</span>&gt; dval = (Dictionary&lt;<span style="color:blue">string</span>, <span style="color:blue">string</span>&gt;)value;
+            StringBuilder sb = <span style="color:blue">new</span> StringBuilder();
+            <span style="color:blue">char</span> c = separator[0];
+            <span style="color:blue">string</span> rep = String.Concat(<span style="color:#a31515">&quot;&amp;#x&quot;</span>, Convert.ToInt32(c).ToString(<span style="color:#a31515">&quot;X&quot;</span>), <span style="color:#a31515">&quot;;&quot;</span>);
+            <span style="color:blue">foreach</span> (KeyValuePair&lt;<span style="color:blue">string</span>, <span style="color:blue">string</span>&gt; kvp <span style="color:blue">in</span> dval)
+            {
+                sb.Append(HttpUtility.HtmlEncode(kvp.Key).Replace(separator, rep))
+                    .Append(separator)
+                    .AppendLine(HttpUtility.HtmlEncode(kvp.Value).Replace(separator, rep));
+            }
+            <span style="color:blue">return</span> sb.ToString();
+        }
+    }
+</pre>
+</div>
+<br></pre>
+<pre style="color:black"><div style="color:black; background-color:white"><pre><br></pre>
+</div>
+</pre>
+<pre style="color:black">Some sample xml configuration for this </pre>
+<pre><div style="color:black; background-color:white"><pre style="color:black"><span style="color:blue">&lt;</span><span style="color:#a31515">alias</span> <span style="color:red">alias</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">DictionaryStringString</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">System.Collections.Generic.Dictionary`2[[System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+
+<span style="color:blue">&lt;</span><span style="color:#a31515">alias</span> <span style="color:red">alias</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">PipeStringToDictionaryStringStringTypeConverter</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">&lt;namespace&gt;.PipeStringToDictionaryStringStringTypeConverter,&lt;dll&gt;</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+
+<span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">IValueProcessor</span><span style="color:black">&quot;</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">AbbreviationProcessor</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">KeywordValueProcessor</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">lifetime</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">singleton</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+          <span style="color:blue">&lt;</span><span style="color:#a31515">param</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">replacements</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">DictionaryStringString</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+            <span style="color:blue">&lt;</span><span style="color:#a31515">cdata</span> <span style="color:red">typeConverter</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">PipeStringToDictionaryStringStringTypeConverter</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+              <span style="color:blue">&lt;![CDATA[</span><span style="color:gray">
+ACCEPTANCE|ACPT.
+ACCESSORIES|ACCES.
+ACCOMMODATION|ACCOM.
+ACCOMMODATIONS|ACCOMS.
+</span><span style="color:blue">]]&gt;</span>
+            <span style="color:blue">&lt;/</span><span style="color:#a31515">cdata</span><span style="color:blue">&gt;</span>
+          <span style="color:blue">&lt;/</span><span style="color:#a31515">param</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;/</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;/</span><span style="color:#a31515">register</span><span style="color:blue">&gt;</span></pre>
+<pre><br></pre>
+<pre><span style="color:blue">&nbsp;</span>I know that this is ugly brute force but it works for me - it can be treated as starting point to some better code.</pre>
+<pre>Best regards</pre>
+<pre>Adam
+
+</pre>
+</div>
+<br></pre>
+<pre style="color:black"><br></pre>
+<pre style="color:black"><br></pre>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_546593" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f230927">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="1ab5e7d5-d7d1-42dd-a6be-21780a7a1219">
+    <script class="options" defer="defer" id="1ab5e7d5-d7d1-42dd-a6be-21780a7a1219" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_a63501ed-e5c6-4650-94ce-f04def20046d">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_e4ce707b-81e2-4cb0-abfd-7784da112615">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_a63501ed-e5c6-4650-94ce-f04def20046d" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_e4ce707b-81e2-4cb0-abfd-7784da112615" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/230927';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>

@@ -1,0 +1,1017 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="" prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+    
+    
+    
+    
+
+    
+    <head>
+        <meta id="CompatabilityMode" http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../assets/StyleSheet.css" id="MasterCss" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="../assets/favicon.ico" />
+        <title>patterns &#38; practices - Unity - How to use interception through app.config</title>
+        
+       
+                    <script src="../assets/mscc-0.3.6.min.js"></script>
+        
+                    <link rel="stylesheet" type="text/css" href="../assets/mscc-0.3.6.min.css" />
+        
+            <script type="text/javascript">
+                var msccHadCookieBannerAtPageStart = true;
+            </script>
+        
+
+        <!--
+        Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code,
+        not by Microsoft.  See ASP.NET Ajax CDN Terms of Use â€“ http://www.asp.net/ajaxlibrary/CDN.ashx.
+        -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            if (typeof jQuery.ui === 'undefined') {
+                document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        
+    <style type="text/css">.SideBar, .SideBarPadding{display:none;}.MainContent{width:auto;}.SiteContentTable{width:100%;}</style>
+    <style id="ProjectStyles" type="text/css">
+        .SiteHeader, .SiteHeaderLeft {
+            height:45px !important;
+            overflow:hidden;
+        }
+        .SiteContent 
+        {
+            padding: 0 0 1em 0;
+            margin-top:0;
+            min-height:225px;
+            border-right: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+        }
+        .IE table.MinWidthContent
+        {
+	        table-layout: auto !important;	
+        }
+    </style>
+    
+    
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+
+    
+    
+    <meta id="WTProjectName" name="WT.pi" content="unity"/>
+    
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href='http://unity.codeplex.com/rsd' />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href='/wlwmanifest.xml' />
+    
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity" url="http://unity.codeplex.com/project/feeds/rss"/>
+    
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Discussions" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Issues" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity"/>
+        
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Downloads" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Reviews" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity"/>
+        
+    
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Source&#32;code" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity"/>
+        <link rel="alternate" type="application/rss+xml" title="patterns&#32;&#38;&#32;practices&#32;-&#32;Unity&#32;-&#32;Wiki" url="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity"/>
+    
+        
+    
+        <meta content="summary" name="twitter:card" /><meta content="@CodePlex" name="twitter:site" /><meta content="http://unity.codeplex.com/discussions/253530?ProjectName=unity" name="twitter:url" /><meta content="patterns &amp;#38; practices - Unity" name="twitter:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" name="twitter:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" name="twitter:image" /><meta content="CodePlex" property="og:site_name" /><meta content="http://unity.codeplex.com/discussions/253530?ProjectName=unity" property="og:url" /><meta content="object" property="og:type" /><meta content="patterns &amp;#38; practices - Unity" property="og:title" /><meta content="The Unity Application Block &amp;#40;Unity&amp;#41; is officially under new ownership.&amp;#13;&amp;#10;https&amp;#58;&amp;#47;&amp;#47;github.com&amp;#47;unitycontainer&amp;#47;unity" property="og:description" /><meta content="http://www.codeplex.com/Images/codeplex.png" property="og:image" />
+        
+
+    </head>
+    
+    <body>
+         
+            
+        <script src="../assets/ScriptLoader.js" type="text/javascript"></script>
+        <form id="aspnetForm" autocomplete="off" method="POST" enctype="multipart/form-data">
+            <input name="__RequestVerificationToken" type="hidden" value="hE5Ds_qaqIUq7VT5eS_hKv4vwQNv7o8J28_4lwzw7Al-ageB7xfuTVYQPkZ2qIh0LdJ671F0vvgcC6N9AjEUX72QbeoZZS_qC6Xn7n6leFpD6QVNYORiti_4Dwl-MNR0tmiZrA2" /><input name="__RequestVerificationToken2" type="hidden" value="__RequestVerificationToken2aed7b925-10de-4ab9-b5ac-7e81932e24a8" />
+            
+            <div id="UpdateProgressPanel" class="loading_animation" style="display:none;">
+                <div class="row">
+                    <h2 class="anim_h2">
+                        <span id="UpdateProgressText">Updating...</span>
+                        <span id="animatedLoadingIconContainer">
+                            <img id="animatedLoadingIcon" src="../assets/loading_animation.gif" class="anim_img"/>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div style="display:none;">
+                
+                <img id="BlankImage" style="width:0;height:0;" src="../assets/blank.png" onload="self.logoImageLoaded=true;"/>
+
+                <script language="javascript" type="text/javascript">
+                    var date = new Date();
+                    var timezoneOffset = date.getTimezoneOffset() / 60 * -1;
+                    var timezoneOffsetCookie = getCookie("TimezoneOffset");
+                    var firstTimeSetTimezoneCookie = false;
+
+                    if (timezoneOffsetCookie == null || timezoneOffsetCookie != timezoneOffset) {
+                        firstTimeSetTimezoneCookie = true;
+                        document.cookie = "TimezoneOffset=" + timezoneOffset + '; domain=.codeplex.com;expires=Wed, 10 Oct 2018 05:26:45 UTC';
+                    }
+                </script>
+            </div>
+            
+            
+            <div id="banner">
+                <div id="message"><strong>This is an archived copy of the original CodePlex Unity Discussion Forum</strong><br />Unity is now on <a href="https://github.com/unitycontainer/">GitHub</a>
+                    
+                </div>
+            </div>
+            
+
+            <div id="header">
+                <div id="header_wrap" class="row">
+                    <p id="logo"><a href="http://www.codeplex.com">Code<span class="semi">Plex</span></a><span id="tagline">Project Hosting for Open Source Software</span></p>
+                    
+
+<ul id="nav">
+
+    <li><a href="/site/register/new" id="registerLink" class="ZoomFix">Register</a></li>
+    <li ><a class="SignInLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f253530" id="signInLink">Sign In</a></li>
+  
+    <li class="last"><a class="rss_site_icon" href="http://www.codeplex.com/site/feeds/rss" type="application/rss+xml" rel="Alternate" title="CodePlex Site Activity"></a></li>
+</ul>
+                    <input id="searchsite" name="searchsite" maxlength="500" type="text" value="" /><span id="search_mag"><a id="submitSearch" name="submitSearch" class="magnify" title="Search" href="#"></a></span>
+                    <script>
+	$(document).ready(function() {
+    var searchButton = $('#submitSearch'),
+        searchBar = $('#searchsite');
+
+    // Register our own handler for the search event while we wait for the SearchBox script to load.
+    searchButton.bind('click.backupSearchBox', doProjectSearch);
+    searchBar.bind('keypress.backupSearchBox', function(e) { if ($keyCode(e) === 13) { doProjectSearch(); return false; } });
+
+    function cleanupSearchEvents() {
+        // If the SearchBox was loaded, unregister our handlers.
+        if (epx_loaded) {
+            searchButton.unbind('.backupSearchBox');
+            searchBar.unbind('.backupSearchBox');
+        }
+    }
+
+    $loadScript('http://i4.services.social.microsoft.com/search/Widgets/SearchBox.jss?appid=1000&scopeid=1&boxId=searchsite&btnId=submitSearch&watermark=Search%20all%20projects&overrideWatermark=true&searchLocation=%2fsite%2fsearch&allowEmptySearch=true&focusOnInit=False&minimumTermLength=3', cleanupSearchEvents);
+})
+function doProjectSearch() {
+    
+    var url = '/site/search';
+
+    //If search term is not same as watermark
+    if($('#searchsite').val() != 'Search all projects')    
+    {        
+        url = url + '?query=' + encodeURIComponent($('#searchsite').val());
+    }
+
+    
+    var callback = '';
+    if (callback.length > 0 && eval('typeof ' + callback) != 'undefined')
+        url += eval(callback + '()');
+
+    window.location.href = url;
+    return false;
+}
+</script>
+                </div>
+            </div>
+            
+            <div id="wrap">
+                
+    <div id="sub_heading" class="row">
+        
+        <div id="ProjectHeader">
+            <div id="project_title_row" class="row">
+                <div id="project_logo">
+                    
+<a id="AffiliateLink" href="http://msdn.microsoft.com/practices">
+    <img id="AffiliateImage" src="../assets/pnp_logo.png" title="patterns&#32;&#38;&#32;practices" />
+</a>
+
+    
+    <h1 class="text_only"><a href="http://unity.codeplex.com/" id="ProjectTitle1"><div>patterns &#38; practices - Unity</div></a></h1>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="ProjectDetailsDiv">
+            
+        </div>
+		<div class="clear"></div>
+        
+
+<ul id="page_box_links">
+	<li id="homeTabCell" style="width: 63px;"><a id="homeTab" href="http://unity.codeplex.com/" class="box_home">home</a><div></div></li>
+    
+	<li id="sourceTabCell" style="width:113px;"><a id="sourceTab" href="http://unity.codeplex.com/SourceControl/latest" class="box_source">source code</a><div></div></li>
+    
+	<li id="releasesTabCell" style="width:105px;"><a id="releasesTab" href="http://unity.codeplex.com/releases" class="box_downloads">downloads</a><div></div></li>
+    
+    <li id="documentationTabCell" style="width:143px;"><a id="documentationTab" href="http://unity.codeplex.com/documentation" class="box_documentation">documentation</a><div></div></li>
+    
+	<li id="discussionTabCell" style="width:112px;"><a id="discussionTab" href="../index.html" class="discussions_active">discussions</a><div></div></li>
+    
+	<li id="workItemsTabCell" style="width:70px;"><a id="workItemsTab" href="http://unity.codeplex.com/workitem/list/basic" class="box_issue">issues</a><div></div></li>
+    
+	<li id="peopleTabCell" style="width:70px;"><a id="peopleTab" href="http://unity.codeplex.com/team/view" class="box_people">people</a><div></div></li>
+	<li id="licenseTabCell" style="width:70px;"><a id="licenseTab" href="http://unity.codeplex.com/license" class="box_license">license</a><div></div></li>
+    
+    <span class="stretch"></span>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#page_box_links').applyLastClassToList();
+    });
+</script>
+		    <div class="clear"></div>
+            
+     <td>
+       
+
+<div>
+    
+    <div id="actionBar" class="action_bar">
+        <ul id="actionBar_ul" class="actionBar_sublinks subtab_right" style="vertical-align: middle;">
+
+            
+
+                <li id="li_actionbar_creatediscussion" data-action-id="actionbar_creatediscussion" data-action-type="Navigate" class="actionBar_sublinks" data-options-id="e91ac601-66d6-4783-a39d-83a79c0ea028">
+                
+                    <script class="options" defer="defer" id="e91ac601-66d6-4783-a39d-83a79c0ea028" type="application/json">{"navigate-url":"http://unity.codeplex.com/discussions/create"}</script> 
+                    
+                    <div class="actionBar_custom_content"></div>
+
+                    <a href="#" id="actionbar_creatediscussion" title="Start a New Thread" class="action_bar_item_link">
+                        <img id="img_actionbar_creatediscussion" class="action_bar_item_image" src="../assets/actionbar_newitem.png" style="vertical-align: middle" />
+                        New Thread
+                    </a>
+
+                </li>
+
+            
+
+                <li id="li_actionbar_subscribe" data-action-id="actionbar_subscribe" data-action-type="PopUp" class="actionBar_sublinks" data-options-id="84fc2f84-4614-46e1-bb68-fa4b76b74387">
+                
+                    <script class="options" defer="defer" id="84fc2f84-4614-46e1-bb68-fa4b76b74387" type="application/json">{}</script> 
+                    
+                    <div class="actionBar_custom_content">
+
+<div id="rssHoverDiv" class="HoverPanel LeftHoverWidth" style="display: none">
+        <ul id="3_FeedsPanel" class="RssFeedsPanel">
+            <li>
+                <a id="ProjectRssLink" href="http://unity.codeplex.com/project/feeds/rss" class="ArrowSmall NoUnderline">All Project Updates</a>
+            </li>
+            
+            <li>
+                <a id="DiscussionRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fforum%2funity" class="ArrowSmall NoUnderline">Discussions</a>
+            </li>
+            
+            <li>
+                <a id="IssueTrackerRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fworkitem%2funity" class="ArrowSmall NoUnderline">Issue Tracker</a>
+            </li>
+            
+            <li>
+                <a id="ReleasesRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2funity" class="ArrowSmall NoUnderline">Downloads</a>
+            </li>
+            <li>
+                <a id="ReviewsRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2freview%2funity" class="ArrowSmall NoUnderline">Reviews</a>
+            </li>
+            
+            <li>
+                <a id="SourceControlRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fsourcecontrol%2funity" class="ArrowSmall NoUnderline">Source Code</a>
+            </li>
+            <li>
+                <a id="WikiRssLink" href="http://unity.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2fwiki%2funity" class="ArrowSmall NoUnderline">Wiki &amp; Documentation</a>
+            </li>
+        </ul>
+</div></div>
+
+                    <a href="#" id="actionbar_subscribe" title="Subscribe to project updates in RSS feeds." class="action_bar_item_link">
+                        <img id="img_actionbar_subscribe" class="action_bar_item_image" src="../assets/actionbar_subscribe.png" style="vertical-align: middle" />
+                        Subscribe
+                    </a>
+
+                </li>
+
+            
+        </ul>
+    </div>
+</div>
+     </td>
+
+        
+
+    </div>
+    
+    
+<div class="Threads">
+    <div class="ViewThread">
+        
+        
+        
+            <h1 class="page_title WordWrapBreakWord">
+                How to use interception through app.config
+            </h1>
+
+            <!-- Private Discussion header -->
+            
+
+            <!-- Posts List Header: Topics and Wiki Link -->
+            <table class="PostsListHeader">
+                <tr>
+                    <td>
+                     
+                    </td>
+                    <td>
+                        <div class="WikiLink">
+                            <span title="Paste this into a wiki page to link to this discussion">
+                                Wiki Link: [discussion:253530]
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- The list of posts -->
+            
+
+<div id="discussionsPostList" data-options-id="2ee4e8e4-7d8a-4c1a-ab6c-fc96be858b06">
+    <script class="options" defer="defer" id="2ee4e8e4-7d8a-4c1a-ab6c-fc96be858b06" type="application/json">{"threadUrl":"http://unity.codeplex.com/discussions/253530","showEditor":false,"checkImageUrl":"../assets/check_answer.png"}</script>
+
+    <div class="Posts" style="margin-top: 10px;">
+    
+
+<table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 0px; table-layout:fixed">
+    
+
+<tr id="PostPanel" class="Post" d:forid="595785">
+    <td id="PostDetailsCell_595785" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post595785"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/znfsky">znfsky</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/12/2011 9:43:47 AM" LocalTimeTicks="1302626627">Apr 12, 2011 at 9:43 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_595785" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#32;When&#32;I&#32;use&#32;interception&#32;feature&#32;in&#32;Unity,&#38;nbsp&#59;I&#32;come&#32;up&#32;against&#32;some&#32;problem.&#32;I&#32;wanna&#32;add&#32;a&#32;attribute&#38;nbsp&#59;on&#32;method&#32;to&#32;track&#32;invoking,&#32;like&#32;below&#58;&#32;&#32;public&#32;interface&#32;ICalc&#32;&#123;&#32;&#91;Trace&#93;&#32;int&#32;Add&#40;int&#32;oprandA,&#32;int&#32;oprandB&#41;&#59;&#32;&#91;Trace&#93;&#32;int&#32;Divide&#40;int&#32;dividend,&#32;int&#32;divisor&#41;&#59;&#32;&#125;&#32;public&#32;class&#32;TraceAttribute&#58;HandlerAttribute&#32;&#123;&#32;public&#32;override&#32;ICallHandler&#32;CreateHandler&#40;IUnityContainer&#32;container&#41;&#32;&#123;&#32;return&#32;new&#32;TraceHandler&#40;&#41;&#59;&#32;&#125;&#32;&#125;&#32;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.AddNewExtension&#38;lt&#59;Interception&#38;gt&#59;&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;ICalc,&#32;Calc&#38;gt&#59;&#40;&#41;.Configure&#38;lt&#59;Interception&#38;gt&#59;&#40;&#41;.SetInterceptorFor&#38;lt&#59;ICalc&#38;gt&#59;&#40;new&#32;InterfaceInterceptor&#40;&#41;&#41;&#59;&#32;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;&#38;nbsp&#59;&#32;Now,&#32;I&#32;wanna&#32;use&#32;the&#32;attribute&#32;by&#32;app.config,&#32;not&#32;hard&#32;code&#32;in&#32;program&#58;&#32;&#38;nbsp&#59;&#32;&#38;lt&#59;&#63;xml&#32;version&#61;&#38;quot&#59;1.0&#38;quot&#59;&#32;encoding&#61;&#38;quot&#59;utf-8&#38;quot&#59;&#32;&#63;&#38;gt&#59;&#32;&#38;lt&#59;configuration&#38;gt&#59;&#32;&#38;lt&#59;configSections&#38;gt&#59;&#32;&#38;lt&#59;section&#32;name&#61;&#38;quot&#59;unity&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Microsoft.Practices.Unity.Configuration.UnityConfigurationSection,&#32;Microsoft.Practices.Unity.Configuration&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;configSections&#38;gt&#59;&#32;&#38;lt&#59;unity&#32;xmlns&#61;&#38;quot&#59;http&#58;&#47;&#47;schemas.microsoft.com&#47;practices&#47;2010&#47;unity&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;aliases&#38;gt&#59;&#32;&#38;lt&#59;&#33;--&#32;Lifetime&#32;manager&#32;types&#32;--&#38;gt&#59;&#32;&#38;lt&#59;add&#32;alias&#61;&#38;quot&#59;singleton&#38;quot&#59;&#32;type&#61;&#38;quot&#59;Microsoft.Practices.Unity.ContainerControlledLifetimeManager,&#32;Microsoft.Practices.Unity&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#33;--&#32;Custom&#32;object&#32;types&#32;--&#38;gt&#59;&#32;&#38;lt&#59;add&#32;alias&#61;&#38;quot&#59;ICalc&#38;quot&#59;&#32;type&#61;&#38;quot&#59;CallHandlerInterception.ICalc,&#32;CallHandlerInterception&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;add&#32;alias&#61;&#38;quot&#59;Calc&#38;quot&#59;&#32;type&#61;&#38;quot&#59;CallHandlerInterception.Calc,&#32;CallHandlerInterception&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;aliases&#38;gt&#59;&#32;&#38;lt&#59;sectionExtension&#32;type&#61;&#38;quot&#59;Microsoft.Practices.Unity.InterceptionExtension.Configuration.InterceptionConfigurationExtension,&#32;Microsoft.Practices.Unity.Interception.Configuration&#38;quot&#59;&#47;&#38;gt&#59;&#32;&#38;lt&#59;containers&#38;gt&#59;&#32;&#38;lt&#59;container&#32;name&#61;&#38;quot&#59;ContainerOne&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;extension&#32;type&#61;&#38;quot&#59;Interception&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;register&#32;type&#61;&#38;quot&#59;ICalc&#38;quot&#59;&#32;mapTo&#61;&#38;quot&#59;Calc&#38;quot&#59;&#38;gt&#59;&#32;&#38;lt&#59;interceptor&#32;type&#61;&#38;quot&#59;InterfaceInterceptor&#38;quot&#59;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;register&#38;gt&#59;&#32;&#38;lt&#59;&#47;container&#38;gt&#59;&#32;&#38;lt&#59;&#47;containers&#38;gt&#59;&#32;&#38;lt&#59;&#47;unity&#38;gt&#59;&#32;&#38;lt&#59;&#47;configuration&#38;gt&#59;&#32;&#38;nbsp&#59;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;&#32;But...It&#39;s&#32;noneffective.&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#38;nbsp&#59;&#32;">
+        
+<div style="color:black; background-color:white"><strong>When I use interception feature in Unity,&nbsp;I come up against some problem.</strong></div>
+<p><strong>I wanna add a attribute&nbsp;on method to track invoking, like below:</strong></p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">public</span> <span style="color:blue">interface</span> ICalc
+{
+    [Trace]
+    <span style="color:blue">int</span> Add(<span style="color:blue">int</span> oprandA, <span style="color:blue">int</span> oprandB);
+
+    [Trace]
+    <span style="color:blue">int</span> Divide(<span style="color:blue">int</span> dividend, <span style="color:blue">int</span> divisor);
+}
+
+
+<span style="color:blue">public</span> <span style="color:blue">class</span> TraceAttribute:HandlerAttribute
+{
+     <span style="color:blue">public</span> <span style="color:blue">override</span> ICallHandler CreateHandler(IUnityContainer container)
+     {
+         <span style="color:blue">return</span> <span style="color:blue">new</span> TraceHandler();
+     }
+}
+</pre>
+<pre><div style="color:black; background-color:white"><pre>IUnityContainer container = <span style="color:blue">new</span> UnityContainer();
+container.AddNewExtension&lt;Interception&gt;();
+container.RegisterType&lt;ICalc, Calc&gt;().Configure&lt;Interception&gt;().SetInterceptorFor&lt;ICalc&gt;(<span style="color:blue">new</span> InterfaceInterceptor());
+</pre>
+<pre>&nbsp;</pre>
+<pre>&nbsp;</pre>
+<pre>&nbsp;</pre>
+<pre>&nbsp;</pre>
+<pre><strong>Now, I wanna use the attribute by app.config, not hard code in program:</strong></pre>
+<pre>&nbsp;</pre>
+<pre><div style="color:black; background-color:white"><pre><span style="color:blue">&lt;?</span><span style="color:#a31515">xml</span> <span style="color:red">version</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">1.0</span><span style="color:black">&quot;</span> <span style="color:red">encoding</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">utf-8</span><span style="color:black">&quot;</span> <span style="color:blue">?&gt;</span>
+<span style="color:blue">&lt;</span><span style="color:#a31515">configuration</span><span style="color:blue">&gt;</span>
+  <span style="color:blue">&lt;</span><span style="color:#a31515">configSections</span><span style="color:blue">&gt;</span>
+    <span style="color:blue">&lt;</span><span style="color:#a31515">section</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">unity</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Microsoft.Practices.Unity.Configuration.UnityConfigurationSection, Microsoft.Practices.Unity.Configuration</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+  <span style="color:blue">&lt;/</span><span style="color:#a31515">configSections</span><span style="color:blue">&gt;</span>
+
+  <span style="color:blue">&lt;</span><span style="color:#a31515">unity</span> <span style="color:red">xmlns</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">http://schemas.microsoft.com/practices/2010/unity</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+    <span style="color:blue">&lt;</span><span style="color:#a31515">aliases</span><span style="color:blue">&gt;</span>
+      <span style="color:green">&lt;!-- Lifetime manager types --&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">add</span> <span style="color:red">alias</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">singleton</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Microsoft.Practices.Unity.ContainerControlledLifetimeManager, Microsoft.Practices.Unity</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+      <span style="color:green">&lt;!-- Custom object types --&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">add</span> <span style="color:red">alias</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ICalc</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">CallHandlerInterception.ICalc, CallHandlerInterception</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">add</span> <span style="color:red">alias</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Calc</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">CallHandlerInterception.Calc, CallHandlerInterception</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+    <span style="color:blue">&lt;/</span><span style="color:#a31515">aliases</span><span style="color:blue">&gt;</span>
+    <span style="color:blue">&lt;</span><span style="color:#a31515">sectionExtension</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Microsoft.Practices.Unity.InterceptionExtension.Configuration.InterceptionConfigurationExtension, Microsoft.Practices.Unity.Interception.Configuration</span><span style="color:black">&quot;</span><span style="color:blue">/&gt;</span>
+    <span style="color:blue">&lt;</span><span style="color:#a31515">containers</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">container</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ContainerOne</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">extension</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Interception</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ICalc</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Calc</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+          <span style="color:blue">&lt;</span><span style="color:#a31515">interceptor</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">InterfaceInterceptor</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+        <span style="color:blue">&lt;/</span><span style="color:#a31515">register</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;/</span><span style="color:#a31515">container</span><span style="color:blue">&gt;</span>
+    <span style="color:blue">&lt;/</span><span style="color:#a31515">containers</span><span style="color:blue">&gt;</span>
+  <span style="color:blue">&lt;/</span><span style="color:#a31515">unity</span><span style="color:blue">&gt;</span>
+<span style="color:blue">&lt;/</span><span style="color:#a31515">configuration</span><span style="color:blue">&gt;</span>
+<pre>&nbsp;</pre>
+<pre>IUnityContainer container = <span style="color:blue">new</span> UnityContainer();</pre>
+<pre>
+<strong>But...It's <span>noneffective.</span></strong></pre>
+</pre>
+</div>
+</pre>
+</div>
+</pre>
+</div>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_595785" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="595816">
+    <td id="PostDetailsCell_595816" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post595816"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/znfsky">znfsky</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/12/2011 10:18:33 AM" LocalTimeTicks="1302628713">Apr 12, 2011 at 10:18 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_595816" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="&#38;nbsp&#59;&#32;In&#32;a&#32;word,&#32;How&#32;can&#32;I&#32;transfer&#32;these&#32;code&#32;to&#32;app.config&#63;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;&#32;container.AddNewExtension&#38;lt&#59;Interception&#38;gt&#59;&#40;&#41;&#59;&#32;container.RegisterType&#38;lt&#59;ICalc,&#32;Calc&#38;gt&#59;&#40;&#41;.Configure&#38;lt&#59;Interception&#38;gt&#59;&#40;&#41;.SetInterceptorFor&#38;lt&#59;ICalc&#38;gt&#59;&#40;new&#32;InterfaceInterceptor&#40;&#41;&#41;&#59;&#32;So&#32;I&#32;can&#32;use&#32;HandlerAttribute&#32;just&#32;through&#32;these&#32;code&#58;&#32;IUnityContainer&#32;container&#32;&#61;&#32;new&#32;UnityContainer&#40;&#41;&#59;">
+        
+<p>&nbsp; In a word, How can I transfer these code to app.config?</p>
+<pre>IUnityContainer container = <span style="color:blue">new</span> UnityContainer();
+<span style="color:#ff0000">container.AddNewExtension&lt;Interception&gt;();
+container.RegisterType&lt;ICalc, Calc&gt;().Configure&lt;Interception&gt;().SetInterceptorFor&lt;ICalc&gt;(new InterfaceInterceptor());</span></pre>
+<pre>So I can use HandlerAttribute just through these code:</pre>
+<pre>IUnityContainer container = <span style="color:blue">new</span> UnityContainer();</pre>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_595816" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="596270">
+    <td id="PostDetailsCell_596270" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post596270"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/13/2011 12:23:22 AM" LocalTimeTicks="1302679402">Apr 13, 2011 at 12:23 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_596270" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="You&#32;would&#38;nbsp&#59;need&#32;to&#32;configure&#32;call&#32;handler&#40;s&#41;&#32;and&#32;matching&#32;rule&#40;s&#41;.&#32;&#38;nbsp&#59;You&#32;can&#32;refer&#32;to&#32;this&#32;topic&#32;from&#32;the&#32;documentation.&#32;A&#32;sample&#32;config&#32;for&#32;your&#32;case&#32;would&#32;be&#58;&#32;&#32;&#38;lt&#59;interception&#38;gt&#59;&#32;&#38;lt&#59;policy&#32;name&#61;&#34;TracePolicy&#34;&#38;gt&#59;&#32;&#38;lt&#59;matchingRule&#32;name&#61;&#34;TraceMatch&#34;&#32;type&#61;&#34;NamespaceMatchingRule&#34;&#38;gt&#59;&#32;&#38;lt&#59;constructor&#38;gt&#59;&#32;&#38;lt&#59;param&#32;name&#61;&#34;namespaceName&#34;&#32;value&#61;&#34;MyApp&#34;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;constructor&#38;gt&#59;&#32;&#38;lt&#59;&#47;matchingRule&#38;gt&#59;&#32;&#38;lt&#59;callHandler&#32;name&#61;&#34;TraceHandler&#34;&#32;type&#61;&#34;MyApp.TraceHandler,&#32;MyApp&#34;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#47;policy&#38;gt&#59;&#32;&#38;lt&#59;&#47;interception&#38;gt&#59;&#32;&#32;&#32;assuming&#32;you&#32;declared&#32;the&#32;corresponding&#32;&#38;lt&#59;assembly&#38;gt&#59;&#32;and&#32;&#38;lt&#59;namespace&#38;gt&#59;&#32;elements&#32;for&#32;the&#32;Microsoft.Unity.InterceptionExtension.NamespaceMatchingRule&#32;and&#32;your&#32;class&#32;methods&#32;to&#32;intercept&#32;and&#32;your&#32;TraceHandler&#32;class&#32;reside&#32;in&#32;the&#32;MyApp&#32;namespace.&#32;Hope&#32;this&#32;helps.&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>You would&nbsp;need to configure call handler(s) and matching rule(s). &nbsp;You can refer to this
+<a href="http://msdn.microsoft.com/en-us/library/ff660932(v=pandp.20).aspx#_Configuring_Policy_Injection" rel="nofollow">
+topic</a> from the documentation.</p>
+<p>A sample config for your case would be:</p>
+<div style="color:black; background-color:white">
+<pre><span style="color:blue">&lt;</span><span style="color:#a31515">interception</span><span style="color:blue">&gt;</span>
+      <span style="color:blue">&lt;</span><span style="color:#a31515">policy</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">TracePolicy</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">matchingRule</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">TraceMatch</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">NamespaceMatchingRule</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+          <span style="color:blue">&lt;</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+            <span style="color:blue">&lt;</span><span style="color:#a31515">param</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">namespaceName</span><span style="color:black">&quot;</span> <span style="color:red">value</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">MyApp</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+          <span style="color:blue">&lt;/</span><span style="color:#a31515">constructor</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;/</span><span style="color:#a31515">matchingRule</span><span style="color:blue">&gt;</span>
+        <span style="color:blue">&lt;</span><span style="color:#a31515">callHandler</span> <span style="color:red">name</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">TraceHandler</span><span style="color:black">&quot;</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">MyApp.TraceHandler, MyApp</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+      <span style="color:blue">&lt;/</span><span style="color:#a31515">policy</span><span style="color:blue">&gt;</span>
+<span style="color:blue">&lt;/</span><span style="color:#a31515">interception</span><span style="color:blue">&gt;</span>
+</pre>
+</div>
+<p>assuming you declared the corresponding &lt;assembly&gt; and &lt;namespace&gt; elements for the Microsoft.Unity.InterceptionExtension.NamespaceMatchingRule and your class methods to intercept and your TraceHandler class reside in the
+<em>MyApp </em>namespace.</p>
+<p>Hope this helps.</p>
+<p>&nbsp;</p>
+<p><strong><em>Sarah Urmeneta</em></strong><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_596270" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="596286">
+    <td id="PostDetailsCell_596286" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post596286"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/znfsky">znfsky</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/13/2011 1:33:19 AM" LocalTimeTicks="1302683599">Apr 13, 2011 at 1:33 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_596286" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Thank&#32;you&#32;very&#32;much&#32;&#33;&#32;&#38;nbsp&#59;Configuring&#32;it&#32;through&#38;nbsp&#59;MATCHING&#32;RULE&#40;S&#41;&#38;nbsp&#59;&#32;is&#32;attractive,&#32;but&#32;I&#32;will&#32;lose&#32;advantage&#32;of&#38;nbsp&#59;marking&#38;nbsp&#59;Attribute&#32;on&#32;method.&#32;So,&#32;is&#32;there&#38;nbsp&#59;any&#32;way&#32;to&#32;use&#32;HandlerAttribute&#38;nbsp&#59;without&#32;MATCHING&#32;RULE&#40;S&#41;&#63;">
+        
+<p>Thank you very much !</p>
+<p>&nbsp;Configuring it through&nbsp;MATCHING RULE(S)&nbsp; is attractive, but I will lose advantage of&nbsp;marking&nbsp;Attribute on method.</p>
+<p>So, is there&nbsp;any way to use HandlerAttribute&nbsp;without MATCHING RULE(S)?</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_596286" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="596291">
+    <td id="PostDetailsCell_596291" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post596291"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/13/2011 1:46:07 AM" LocalTimeTicks="1302684367">Apr 13, 2011 at 1:46 AM</span></div>
+            
+            <div style="white-space: normal" class="SubText" id="UpdatedDiv">Edited <span class="smartDate" title="4/13/2011 1:49:18 AM" LocalTimeTicks="1302684558">Apr 13, 2011 at 1:49 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_596291" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Unfortunately,&#32;that&#32;isn&#39;t&#32;how&#32;it&#32;works.&#38;nbsp&#59;&#32;There&#39;s&#32;no&#32;way&#32;to&#32;configure&#32;handlers&#32;in&#32;the&#32;config&#32;and&#32;get&#32;them&#32;to&#32;run&#32;without&#32;specifying&#32;any&#32;matching&#32;rule.&#38;nbsp&#59;&#32;You&#32;may&#32;need&#38;nbsp&#59;&#32;to&#32;resort&#32;to&#32;implementing&#32;a&#32;custom&#32;behavior&#32;rather&#32;than&#32;a&#32;custom&#32;call&#32;handler.&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>Unfortunately, that isn't how it works.&nbsp; There's no way to configure handlers in the config and get them to run without specifying any matching rule.&nbsp; You may need&nbsp; to resort to implementing a custom behavior rather than a custom call handler.</p>
+<p>&nbsp;</p>
+<p><strong><em>Sarah Urmeneta</em></strong><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_596291" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="596305">
+    <td id="PostDetailsCell_596305" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post596305"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/znfsky">znfsky</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/13/2011 2:43:31 AM" LocalTimeTicks="1302687811">Apr 13, 2011 at 2:43 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_596305" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="AvanadeSupport&#32;wrote&#58;&#32;Unfortunately,&#32;that&#32;isn&#39;t&#32;how&#32;it&#32;works.&#38;nbsp&#59;&#32;There&#39;s&#32;no&#32;way&#32;to&#32;configure&#32;handlers&#32;in&#32;the&#32;config&#32;and&#32;get&#32;them&#32;to&#32;run&#32;without&#32;specifying&#32;any&#32;matching&#32;rule.&#38;nbsp&#59;&#32;You&#32;may&#32;need&#38;nbsp&#59;&#32;to&#32;resort&#32;to&#32;implementing&#32;a&#32;custom&#32;behavior&#32;rather&#32;than&#32;a&#32;custom&#32;call&#32;handler.&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com&#32;&#32;Thank&#32;you&#32;&#33;">
+        
+<blockquote style="padding-bottom:0px; font-style:italic; margin:0.25em 1em 0px; padding-left:0.25em; padding-right:0.25em; padding-top:0px; border:#ccc 0.1em solid">
+<strong>AvanadeSupport wrote:</strong><br>
+<p>Unfortunately, that isn't how it works.&nbsp; There's no way to configure handlers in the config and get them to run without specifying any matching rule.&nbsp; You may need&nbsp; to resort to implementing a custom behavior rather than a custom call handler.</p>
+<p>&nbsp;</p>
+<p><strong><em>Sarah Urmeneta</em></strong><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+</blockquote>
+<p><br>
+Thank you !</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_596305" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="596969">
+    <td id="PostDetailsCell_596969" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post596969"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/ctavares">ctavares</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/14/2011 4:02:13 AM" LocalTimeTicks="1302778933">Apr 14, 2011 at 4:02 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_596969" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="I&#39;m&#32;sorry,&#32;Sarah,&#32;but&#32;you&#39;re&#32;incorrect.&#32;It&#32;is&#32;completely&#32;possible&#32;to&#32;get&#32;interception&#32;hooked&#32;up&#32;through&#32;configuration&#32;and&#32;use&#32;call&#32;handler&#32;attributes&#32;without&#32;a&#32;matching&#32;rule.&#32;The&#32;issue&#32;the&#32;O.P.&#32;is&#32;having&#32;is&#32;that&#32;he&#32;set&#32;up&#32;an&#32;interceptor,&#32;but&#32;he&#32;didn&#39;t&#32;set&#32;any&#32;behaviors.&#32;Using&#32;the&#32;old&#32;configuration&#32;API,&#32;he&#32;avoided&#32;this&#32;because&#32;it&#32;automatically&#32;adds&#32;the&#32;policy&#32;injection&#32;behavior.&#32;The&#32;configuration&#32;does&#32;not&#32;do&#32;this,&#32;so&#32;it&#32;needs&#32;to&#32;be&#32;done&#32;explicitly.&#32;Luckily,&#32;this&#32;is&#32;pretty&#32;simple&#58;&#32;&#32;&#32;&#32;&#38;lt&#59;register&#32;type&#61;&#34;ICalc&#34;&#32;mapTo&#61;&#34;Calc&#34;&#38;gt&#59;&#32;&#38;lt&#59;interceptor&#32;type&#61;&#34;InterfaceInterceptor&#34;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;policyInjection&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#33;--&#32;New&#32;piece&#32;is&#32;here&#32;--&#38;gt&#59;&#32;&#38;lt&#59;&#47;register&#38;gt&#59;&#32;&#32;&#32;&#32;Do&#32;that&#32;and&#32;the&#32;call&#32;handler&#32;attributes&#32;should&#32;start&#32;to&#32;work.&#32;&#38;nbsp&#59;">
+        
+<p>I'm sorry, Sarah, but you're incorrect. It is completely possible to get interception hooked up through configuration and use call handler attributes without a matching rule.</p>
+<p>The issue the O.P. is having is that he set up an interceptor, but he didn't set any behaviors. Using the old configuration API, he avoided this because it automatically adds the policy injection behavior. The configuration does not do this, so it needs
+ to be done explicitly. Luckily, this is pretty simple:</p>
+<p></p>
+<div style="color:black; background-color:white">
+<pre>        <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ICalc</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Calc</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+          <span style="color:blue">&lt;</span><span style="color:#a31515">interceptor</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">InterfaceInterceptor</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+          <span style="color:blue">&lt;</span><span style="color:#a31515">policyInjection</span> <span style="color:blue">/&gt;</span> <span style="color:green">&lt;!-- New piece is here --&gt;</span>
+        <span style="color:blue">&lt;/</span><span style="color:#a31515">register</span><span style="color:blue">&gt;</span>
+</pre>
+</div>
+<p></p>
+<p>Do that and the call handler attributes should start to work.</p>
+<p>&nbsp;</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_596969" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="596978">
+    <td id="PostDetailsCell_596978" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post596978"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/AvanadeSupport">AvanadeSupport</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/14/2011 4:48:58 AM" LocalTimeTicks="1302781738">Apr 14, 2011 at 4:48 AM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_596978" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="Yes&#32;Chris&#32;but&#32;my&#32;understanding&#32;was&#32;that&#32;znfsky&#32;wanted&#32;to&#32;remove&#32;the&#32;attribute&#32;decoration&#32;in&#32;the&#32;methods&#32;and&#32;make&#32;it&#32;work&#32;through&#32;configuration.&#38;nbsp&#59;&#32;Sorry&#32;for&#32;the&#32;confusion&#32;znfsky&#32;if&#32;Chris&#32;Tavares&#39;&#32;solution&#32;would&#32;do&#32;the&#32;trick&#32;for&#32;you.&#32;&#38;nbsp&#59;&#32;Sarah&#32;UrmenetaGlobal&#32;Technologies&#32;and&#32;SolutionsAvanade,&#32;Inc.entlib.support&#64;avanade.com">
+        
+<p>Yes Chris but my understanding was that znfsky wanted to remove the attribute decoration in the methods and make it work through configuration.&nbsp; Sorry for the confusion znfsky if Chris Tavares' solution would do the trick for you.</p>
+<p>&nbsp;</p>
+<p><strong><em>Sarah Urmeneta</em></strong><br>
+Global Technologies and Solutions<br>
+Avanade, Inc.<br>
+<a href="mailto:entlib.support@avanade.com" rel="nofollow">entlib.support@avanade.com</a></p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_596978" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+        <tr><td colspan="3"><div class="PostSeparator"></div></td></tr>
+        
+
+<tr id="PostPanel" class="Post" d:forid="597158">
+    <td id="PostDetailsCell_597158" style="vertical-align: top; border: solid #BBB 1px; border-bottom: none; border-left: none; border-top: none; width: 114px" class="Post">
+        <div class="Details">
+            <a name="post597158"></a>
+            <div class="UserName" style="white-space: pre-wrap; word-wrap: break-word;"><a class="UserProfileLink" href="http://www.codeplex.com/site/users/view/znfsky">znfsky</a></div>
+            <div class="UserRole"></div>
+            <div style="white-space: normal" class="SubText"><span class="smartDate" title="4/14/2011 12:12:52 PM" LocalTimeTicks="1302808372">Apr 14, 2011 at 12:12 PM</span></div>
+            
+        </div>
+    </td>
+    <td id="PostContent_597158" style="width: 100%; vertical-align: top;" 
+        class=" discussionPost discussionListContent WordWrapBreakWord Post " 
+        data-markdown="ctavares&#32;wrote&#58;&#32;I&#39;m&#32;sorry,&#32;Sarah,&#32;but&#32;you&#39;re&#32;incorrect.&#32;It&#32;is&#32;completely&#32;possible&#32;to&#32;get&#32;interception&#32;hooked&#32;up&#32;through&#32;configuration&#32;and&#32;use&#32;call&#32;handler&#32;attributes&#32;without&#32;a&#32;matching&#32;rule.&#32;The&#32;issue&#32;the&#32;O.P.&#32;is&#32;having&#32;is&#32;that&#32;he&#32;set&#32;up&#32;an&#32;interceptor,&#32;but&#32;he&#32;didn&#39;t&#32;set&#32;any&#32;behaviors.&#32;Using&#32;the&#32;old&#32;configuration&#32;API,&#32;he&#32;avoided&#32;this&#32;because&#32;it&#32;automatically&#32;adds&#32;the&#32;policy&#32;injection&#32;behavior.&#32;The&#32;configuration&#32;does&#32;not&#32;do&#32;this,&#32;so&#32;it&#32;needs&#32;to&#32;be&#32;done&#32;explicitly.&#32;Luckily,&#32;this&#32;is&#32;pretty&#32;simple&#58;&#32;&#38;nbsp&#59;&#32;&#32;&#32;&#38;lt&#59;register&#32;type&#61;&#34;ICalc&#34;&#32;mapTo&#61;&#34;Calc&#34;&#38;gt&#59;&#32;&#38;lt&#59;interceptor&#32;type&#61;&#34;InterfaceInterceptor&#34;&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;policyInjection&#32;&#47;&#38;gt&#59;&#32;&#38;lt&#59;&#33;--&#32;New&#32;piece&#32;is&#32;here&#32;--&#38;gt&#59;&#32;&#38;lt&#59;&#47;register&#38;gt&#59;&#32;&#32;&#32;&#38;nbsp&#59;&#32;Do&#32;that&#32;and&#32;the&#32;call&#32;handler&#32;attributes&#32;should&#32;start&#32;to&#32;work.&#32;&#38;nbsp&#59;&#32;&#32;That&#39;s&#32;what&#32;I&#39;m&#32;looking&#32;for&#32;&#33;Thank&#32;you&#32;very&#32;much&#33;&#32;All&#32;because&#32;of&#32;old&#32;API&#32;hide&#32;details.&#32;And&#32;Sarah,&#32;I&#32;must&#32;thanks&#32;for&#32;your&#32;answer,too.">
+        
+<blockquote style="padding-bottom:0px; font-style:italic; margin:0.25em 1em 0px; padding-left:0.25em; padding-right:0.25em; padding-top:0px; border:#ccc 0.1em solid">
+<strong>ctavares wrote:</strong><br>
+<p>I'm sorry, Sarah, but you're incorrect. It is completely possible to get interception hooked up through configuration and use call handler attributes without a matching rule.</p>
+<p>The issue the O.P. is having is that he set up an interceptor, but he didn't set any behaviors. Using the old configuration API, he avoided this because it automatically adds the policy injection behavior. The configuration does not do this, so it needs
+ to be done explicitly. Luckily, this is pretty simple:</p>
+<p>&nbsp;</p>
+<div style="background-color:white; color:black">
+<pre>        <span style="color:blue">&lt;</span><span style="color:#a31515">register</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">ICalc</span><span style="color:black">&quot;</span> <span style="color:red">mapTo</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">Calc</span><span style="color:black">&quot;</span><span style="color:blue">&gt;</span>
+          <span style="color:blue">&lt;</span><span style="color:#a31515">interceptor</span> <span style="color:red">type</span><span style="color:blue">=</span><span style="color:black">&quot;</span><span style="color:blue">InterfaceInterceptor</span><span style="color:black">&quot;</span> <span style="color:blue">/&gt;</span>
+          <span style="color:blue">&lt;</span><span style="color:#a31515">policyInjection</span> <span style="color:blue">/&gt;</span> <span style="color:green">&lt;!-- New piece is here --&gt;</span>
+        <span style="color:blue">&lt;/</span><span style="color:#a31515">register</span><span style="color:blue">&gt;</span>
+</pre>
+</div>
+<p>&nbsp;</p>
+<p>Do that and the call handler attributes should start to work.</p>
+<p>&nbsp;</p>
+</blockquote>
+<p><br>
+That's what I'm looking for !Thank you very much! All because of old API hide details.</p>
+<p>And Sarah, I must thanks for your answer,too.</p>
+
+        
+    </td>
+    <td style="vertical-align: top; width: 134px;" class="Post ">
+        
+        <div id="Options_597158" class="Options" >
+            
+        </div>
+        
+    </td>
+</tr>
+
+</table>
+    </div>
+
+    
+        <div class="StandardMarginTop">
+            <a id="SignInToAddCommentLink" href="https://www.codeplex.com/site/login?RedirectUrl=http%3a%2f%2funity.codeplex.com%2fdiscussions%2f253530">
+                Sign in to post message or set email notifications
+            </a>
+        </div>
+    
+
+
+    <div id="PostEditorContainer">
+        <a name="editor"></a>
+        <div id="Editor" style="display: none;">
+            
+
+<div class="MarkdownEditor" data-options-id="9caeb36d-1e90-4d00-a1df-b78629a2643d">
+    <script class="options" defer="defer" id="9caeb36d-1e90-4d00-a1df-b78629a2643d" type="application/json">{"maxLength":10000,"styleSheetLocation":""}</script>
+
+    <div class="MarkdownEditorControls">
+        <a href="#" tabindex="-1" class="control md_help" title="Markdown Syntax Guide"></a>
+        <div class="control md_divider"></div>
+        <a href="#" tabindex="-1" class="control md_header" title="Insert Header (CTRL + H)"></a>
+        <a href="#" tabindex="-1" class="control md_code" title="Insert Code (CTRL + K)"></a>
+        <a href="#" tabindex="-1" class="control md_quote" title="Insert Quote (CTRL + Q)"></a>
+        <a href="#" tabindex="-1" class="control md_img" title="Insert Img (CTRL + G)"></a>
+        <a href="#" tabindex="-1" class="control md_link" title="Insert Link (CTRL + L)"></a>
+        <a href="#" tabindex="-1" class="control md_ulist" title="Unordered List (CTRL + U)"></a>
+        <a href="#" tabindex="-1" class="control md_olist" title="Ordered List (CTRL + O)"></a>
+        <a href="#" tabindex="-1" class="control md_italics" title="Italic Text (CTRL + I)"></a>
+        <a href="#" tabindex="-1" class="control md_bold" title="Bold Text (CTRL + B)"></a>
+    </div>
+
+    
+
+<div class="tab_control">
+    <!-- Generate the basic HTML for the tabs. -->
+    
+        <div id="Compose"
+              class="tab selected"
+              data-custom-header-id=""
+              data-tab-contents-id="compose_contents_c2072bf8-e2e9-4657-a88a-a02fcfa19dac">
+            Compose
+        </div>
+    
+        <div id="Preview"
+              class="tab "
+              data-custom-header-id=""
+              data-tab-contents-id="preview_contents_3007544e-e158-4c20-8111-9f707a082af0">
+            Preview
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+
+    <div id="compose_contents_c2072bf8-e2e9-4657-a88a-a02fcfa19dac" class="compose_tab_content">
+        <textarea class=" MarkdownEditorDimensions" cols="20" id="MarkdownEditor" name="content" rows="2">
+</textarea>
+        <div class="ClearBoth"></div>
+
+        <div class="markdownGuide" style="display: none">
+            <table>
+                <tr>
+                    <td class="markdownGuideColumn">
+                        <h1>Text Formatting</h1>
+                        <div># Header 1</div>
+                        <div>## Header 2</div>
+                        <br />
+                        <div>*italics* (or _italics_)</div>
+                        <div>**bold** (or __bold__)</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Lists</h1>
+                        <div>* Unordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp * SubItem</div>
+                        <br />
+                        <div>1. Ordered List</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 1. SubItem</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Quotes</h1>
+                        <div>> Lorem ipsum</div>
+                        <div>dolor sitamet </div>
+                        <div>non. Lectus at</div>
+                        <div>nam nunc...</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>Code</h1>
+                        <div>`Inline Code`</div>
+                        <br />
+                        <div>``` C#</div>
+                        <div>if (foo==bar)</div>
+                        <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbar++</div>
+                        <div>```</div>
+                    </td>
+                    <td class="markdownGuideColumn">
+                        <h1>References</h1>
+                        <div>[Link Text](URL)</div>
+                        <br />
+                        <div>![Image](URL)</div>
+                        <br />
+                        <a class="Reference" target="_blank" href="http://codeplex.codeplex.com/wikipage?title=Markdown&referringTitle=Documentation">Markdown Reference</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="preview_contents_3007544e-e158-4c20-8111-9f707a082af0" class="preview_tab_content markDownOutput">
+        
+            <div></div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+
+            
+            <div class="row" id="recaptcha_row">
+                
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recaptcha_reload').attr('src', '../assets/recaptcha_refresh.png');
+        $('#recaptcha_switch_audio').attr('src', '../assets/recaptcha_audio.png');
+        $('#recaptcha_switch_img').attr('src', '../assets/recaptcha_text.png');
+        $('#recaptcha_whatsthis').attr('src', '../assets/recaptcha_help.png');
+        $('#recaptcha_area tr:first').attr('height', '35');
+    });
+</script>
+
+                <div class="clear"></div>
+                <span id="ReCaptchaError"></span>
+            </div>
+            <div style="padding-top: 6px;">
+                <input type="button" id="SaveButton" value="Save" class="ok" />
+                <input type="button" id="CancelButton" value="Cancel" class="cancel" />
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DeletePostPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Post <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this post? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="ClosePostCancel" value="Cancel" class="cancel" />
+            <input type="button" id="ClosePostOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+        
+            <!-- Email notification / Subscription details -->
+            
+    </div>
+</div>
+    
+<div id="DeleteThreadPanel" class="modal" style="display:none">
+    <div class="row">
+        <h2>Delete Thread <a href="javascript:return false;" class="close">X</a></h2>
+    </div>
+    <div class="modal_info">
+        <p>Are you sure you want to delete this thread? You will not be able to recover it later.</p>
+        <p class="modal_buttons">
+            <input type="button" id="CloseThreadCancel" value="Cancel" class="cancel" />
+            <input type="button" id="CloseThreadOk" value="Delete" class="ok" />
+        </p>
+        <div class="ClearBoth"></div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        $('#recaptcha_response_field')
+            .bind('keypress', function (event) { return $submitKeyPressElement(this, event); });
+
+
+        if ($('#DeleteThreadLink')) {
+            $('#DeleteThreadLink').click(function () {
+                OpenDialog('#DeleteThreadPanel', true, '41em');
+            });
+        }
+        
+        $('#DeleteThreadPanel #CloseThreadOk').click(function () {
+            var url = 'http://unity.codeplex.com/discussions/253530';
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (x) {
+                    location.href = x.RedirectUrl;
+                }
+            });
+        });
+    });
+
+    workItemMention = new codeplex.ui.WorkItemMention();
+    workItemMention.addLinks(".discussionPost");
+</script>
+
+
+        
+        
+                
+                <div class="clear"></div>
+                
+                <div id="footer">
+                    <div class="row">
+                        <hr />
+                        <ul>
+                            <li>Â© 2006-2017 Microsoft</li>
+                            <li><a href="http://www.codeplex.com/site/help">Get Help</a></li>
+                            <li><a href="/site/legal/privacy">Privacy Statement</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/terms">Terms of Use</a></li>
+                            <li><a href="http://www.codeplex.com/site/legal/conduct">Code of Conduct</a></li>
+                            <li><a href="http://developermedia.com/" target="_blank">Advertise With Us</a></li>
+                            <li>Version 2017.10.3.21062</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+</html>
